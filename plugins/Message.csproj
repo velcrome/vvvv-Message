@@ -58,11 +58,11 @@
     <Compile Include="Message\MessageNodes.cs" />
     <Compile Include="Message\MessageResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_SpreadOperations\FrameDelay.cs" />
+    <Compile Include="_SpreadOperations\GetSlice.cs" />
     <Compile Include="_SpreadOperations\SAndHold.cs" />
     <Compile Include="_SpreadOperations\Select.cs" />
     <Compile Include="_SpreadOperations\Serialize.cs" />
-    <Compile Include="_SpreadOperations\FrameDelay.cs" />
-    <Compile Include="_SpreadOperations\GetSlice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

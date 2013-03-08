@@ -73,7 +73,7 @@ namespace VVVV.Nodes {
 				}
 				FOutput[i] = message;
 				
-				//			FLogger.Log(LogType.Debug, "== Message "+i+" == \n" + message.ToString());
+				// FLogger.Log(LogType.Debug, "== Message "+i+" == \n" + message.ToString());
 				//	foreach (string name in message.GetDynamicMemberNames()) FLogger.Log(LogType.Debug, message[name].GetType()+" "+ name);
 			}
 			FOutput.Flush();
@@ -234,14 +234,16 @@ namespace VVVV.Nodes {
 			ISpread<Stream> FOutput;
 			
 			public void Evaluate(int SpreadMax) {
-				SpreadMax = FInput.SliceCount;
+				if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
+				else SpreadMax = FInput.SliceCount;
+				
 				if (!FInput.IsChanged) return;
 				FOutput.SliceCount = SpreadMax;
 				
 				for (int i=0;i<SpreadMax;i++) {
 					FOutput[i] = FInput[i].ToOSC();
-					FOutput.Flush();
 				}
+				FOutput.Flush();
 			}
 		}
 		
@@ -257,12 +259,16 @@ namespace VVVV.Nodes {
 			ISpread<Message> FOutput;
 			
 			public void Evaluate(int SpreadMax) {
-				SpreadMax = FInput.SliceCount;
+				
 				if (!FInput.IsChanged) return;
+				
+				if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
+				else SpreadMax = FInput.SliceCount;
+				
 				FOutput.SliceCount = SpreadMax;
 				
 				for (int i=0;i<SpreadMax;i++) {
-					dynamic message = Message.FromOSC(FInput[i]);
+					Message message = Message.FromOSC(FInput[i]);
 					FOutput[i] = message;
 				}
 				FOutput.Flush();
@@ -295,7 +301,8 @@ namespace VVVV.Nodes {
 			protected ILogger FLogger;
 			
 			public void Evaluate(int SpreadMax) {
-				SpreadMax = FInput.SliceCount;
+				if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
+				else SpreadMax = FInput.SliceCount;
 				
 				if (!FInput.IsChanged) return;
 				
@@ -347,7 +354,7 @@ namespace VVVV.Nodes {
 			
 			[Output("NotFound", AutoFlush = false)]
 			ISpread<Message> FNotFound;
-
+			
 			[Import()]
 			protected ILogger FLogger;
 			
@@ -359,7 +366,7 @@ namespace VVVV.Nodes {
 				FOutput.SliceCount = 0;
 				bool[] found = new bool[SpreadMax];
 				for (int i=0;i<SpreadMax;i++) found[i] = false;
-
+				
 				for (int i=0;i<FFilter.SliceCount;i++) {
 					string[] filter = FFilter[i].Split('.');
 					
@@ -380,7 +387,7 @@ namespace VVVV.Nodes {
 				
 				for (int i=0;i<SpreadMax;i++) {
 					if (found[i]) FOutput.Add(FInput[i]);
-						else FNotFound.Add(FInput[i]);
+					else FNotFound.Add(FInput[i]);
 				}
 				FOutput.Flush();
 				FNotFound.Flush();
@@ -432,16 +439,16 @@ namespace VVVV.Nodes {
 		
 		[PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
 		public class MessageSAndHNode : SAndH<Message>
-		{}		
-
+		{}
+		
 		[PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Tags = "Dynamic, velcrome")]
 		public class MessageGetSliceNode : GetSlice<Message>
 		{}
-
-
+		
+		
 		[PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
 		public class MessageSelectNode : Select<Message>
-		{}	
+		{}
 		
 	}
 	

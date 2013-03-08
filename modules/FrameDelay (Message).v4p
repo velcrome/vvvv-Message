@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta29.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\message\FrameDelay (Message).v4p" systemname="FrameDelay (GameElement)" filename="C:\dev\vvvv\Game\FrameDelay (GameElement).v4p">
-   <BOUNDS type="Window" left="6075" top="1695" width="12015" height="9360">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\modules\FrameDelay (Message).v4p" systemname="FrameDelay (GameElement)" filename="C:\dev\vvvv\Game\FrameDelay (GameElement).v4p">
+   <BOUNDS type="Window" left="6075" top="1695" width="7890" height="5940">
    </BOUNDS>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="6" systemname="IOBox (Node)">
    <BOUNDS type="Node" left="1320" top="3984" width="0" height="0">
@@ -67,11 +67,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="4416" top="468" width="0" height="0">
+   <BOUNDS type="Node" left="4491" top="468" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="4416" top="468" width="480" height="480">
+   <BOUNDS type="Box" left="4491" top="468" width="480" height="480">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -85,7 +85,7 @@
    </PIN>
    </NODE>
    <NODE id="1" systemname="Frame (Message)" filename="JoinMessage\JoinMessage.csproj" nodename="Frame (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Input" visible="1" pintype="Input">
+   <PIN pinname="Input" visible="1" pintype="Input" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Initialize" pintype="Input" visible="1">
    </PIN>

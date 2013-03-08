@@ -17,6 +17,18 @@ Credits
 Thanks Elias. Thanks also to the other core VVVV developers and users.
 
 
+Generics
+=======
+The Nodes
+
+* Framedelay
+* Serialize (ISerializable)
+* S+H (ICloneable)
+* Select
+* GetSlice
+
+have been implemented in a Generic Way. Might be a good idea to add them to the vvvv sdk.
+
 License
 =======
 

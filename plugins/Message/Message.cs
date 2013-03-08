@@ -41,7 +41,7 @@ namespace VVVV.Utils.Message{
 		[DataMember]
 		public DateTime TimeStamp {
 			get;
-			private set;
+			set;
 		}
 		
 		[DataMember]
@@ -103,14 +103,14 @@ namespace VVVV.Utils.Message{
 			foreach (string name in dictionary.Keys) {
 				try {
 					Type type = dictionary[name][0].GetType();
-					sb.Append(identities[type]);
-					sb.Append(" " + name+",");
+					sb.Append(", " + identities[type]);
+					sb.Append(" " + name);
 				} catch (Exception err) {
 					// type not defined
 					err.ToString(); // no warning
 				}
 			}
-			return sb.ToString();
+			return sb.ToString().Substring(2);
 		}
 		
 		public IEnumerable<string> GetDynamicMemberNames() {
@@ -174,7 +174,7 @@ namespace VVVV.Utils.Message{
 		}
 		
 		public Stream ToOSC() {
-			OSCBundle bundle = new OSCBundle();
+			OSCBundle bundle = new OSCBundle(this.TimeStamp.ToFileTime());
 			foreach (string name in dictionary.Keys)  {
 				string[] address = Address.Split('.');
 				string oscAddress = "";
@@ -198,6 +198,9 @@ namespace VVVV.Utils.Message{
 			OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length);
 			
 			Message message = new Message();
+
+//			yet unsupported: 
+//			message.TimeStamp = DateTime.FromFileTime(bundle.getTimeStamp());
 			foreach (OSCMessage m in bundle.Values) {
 				BinList bl = new BinList();
 				
