@@ -1,0 +1,149 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta29.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\Game\FrameDelay (GameElement) help.v4p" systemname="FrameDelay (GameElement) help" filename="C:\dev\vvvv\Game\FrameDelay (GameElement) help.v4p">
+   <NODE systemname="FrameDelay (GameElement) help" filename="FrameDelay (GameElement) help.v4p" componentmode="InAWindow" id="0" nodename="FrameDelay (GameElement) help">
+   <BOUNDS type="Node" left="3660" top="3390" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3660" top="3390" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="1815" top="2805" width="9000" height="6000">
+   </BOUNDS>
+   <PIN pinname="In" visible="1">
+   </PIN>
+   <PIN pinname="Out" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <BOUNDS type="Window" left="1635" top="1215" width="7125" height="11085">
+   </BOUNDS>
+   <NODE systemname="Timing (Debug)" nodename="Timing (Debug)" componentmode="Hidden" id="9">
+   <BOUNDS type="Node" left="6696" top="2328" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Node" left="6696" top="3336" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6696" top="3336" width="795" height="240">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="frames per second" dstnodeid="10" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Memory (Debug)" nodename="Memory (Debug)" componentmode="Hidden" id="14">
+   <BOUNDS type="Node" left="6696" top="3840" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE id="6" systemname="FrameDelay (GameElement)" filename="FrameDelay (GameElement).v4p" nodename="FrameDelay (GameElement).v4p" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <BOUNDS type="Node" left="2994" top="3918" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="264" top="543" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="6075" top="1695" width="12015" height="9360">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Evaluate" pintype="Input" visible="-1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Window Handle" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="Patch" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="Output" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Initialize" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="16" systemname="IOBox (Node)">
+   <BOUNDS type="Node" left="1848" top="5064" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1848" top="5064" width="792" height="240">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Node" left="3696" top="2328" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3696" top="2328" width="480" height="480">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Initialize">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Initialize">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="20" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Node" left="1848" top="1476" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1848" top="1476" width="480" height="480">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="Cons (GameElement)" filename="GameElement\GameElement.csproj" nodename="Cons (GameElement)" componentmode="Hidden" id="15">
+   <BOUNDS type="Node" left="1848" top="3912" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="1848" top="3912">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="6" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="15" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="16" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Birth (GameElement)" filename="GameElement\GameElement.csproj" nodename="Birth (GameElement)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="1848" top="2844" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Insert">
+   </PIN>
+   <BOUNDS type="Box" left="1848" top="2844">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="19" dstpinname="Insert">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="Output" dstnodeid="15" dstpinname="Input 1">
+   </LINK>
+   <NODE systemname="GetAttribute (GameElement)" filename="GameElement\GameElement.csproj" nodename="GetAttribute (GameElement)" componentmode="Hidden" id="24">
+   <BOUNDS type="Node" left="3348" top="5316" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   </PATCH>
