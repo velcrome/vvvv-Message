@@ -120,8 +120,6 @@ namespace VVVV.Utils.Message{
 		
 		public BinList this[string name]
 		{
-			//			get { return dictionary[name.ToLower()]; }
-			//			set { dictionary[name.ToLower()] = (BinList) value; }
 			get { return dictionary[name]; }
 			set { dictionary[name] = (BinList) value; }
 		}

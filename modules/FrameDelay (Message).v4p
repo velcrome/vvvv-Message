@@ -84,7 +84,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Clone">
    </PIN>
    </NODE>
-   <NODE id="1" systemname="Frame (Message)" filename="JoinMessage\JoinMessage.csproj" nodename="Frame (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <NODE id="1" systemname="Frame (Message)" filename="..\plugins\Message.csproj" nodename="Frame (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Input" visible="1" pintype="Input" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Initialize" pintype="Input" visible="1">
@@ -126,7 +126,7 @@
    <LINKPOINT x="2868" y="1950">
    </LINKPOINT>
    </LINK>
-   <NODE id="12" systemname="Delayer (Message)" filename="JoinMessage\JoinMessage.csproj" nodename="Delayer (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <NODE id="12" systemname="Delayer (Message)" filename="..\plugins\Message.csproj" nodename="Delayer (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <BOUNDS type="Node" left="3720" top="2160" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" pintype="Input" values="||">

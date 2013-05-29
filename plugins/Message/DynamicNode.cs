@@ -34,10 +34,15 @@ namespace VVVV.Utils.Message{
 			First,
 			Last
 		}
+
+
 		#endregion Enum
 		
 		#region fields & pins
-		[Config ("Configuration", DefaultString="string Foo")]
+        [Config("Message Type", DefaultString = "None", IsSingle=true)]
+        public IDiffSpread<string> FType;
+       
+        [Config ("Configuration", DefaultString="string Foo")]
 		public IDiffSpread<string> FConfig;
 		
 		[Input ("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = true)]
@@ -54,10 +59,27 @@ namespace VVVV.Utils.Message{
 
 		protected int FCount = 2;
 		#endregion fields & pins
-		
-		
-		#region pin management
-		public DynamicNode () {
+
+        #region type
+
+        protected bool TypeUpdate()
+        {
+            if (!TypeDictionary.IsChanged && !FType.IsChanged) return false;
+            
+            TypeDictionary dict = TypeDictionary.Instance;
+            if (!dict.ContainsKey(FType[0])) return false;
+
+            if (FType[0].ToLower() == "none") return false;
+
+            FConfig[0] = dict[FType[0]];
+
+            return true;
+        }
+        #endregion type
+
+
+        #region pin management
+        public DynamicNode () {
 		}
 		
 		
@@ -138,7 +160,8 @@ namespace VVVV.Utils.Message{
 		#region tools
 		
 		protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread GetISpreadData(IIOContainer pin, int index) {
-			return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ((VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject))[index];
+            return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ((VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject))[index];
+
 		}
 		
 		protected VVVV.PluginInterfaces.V2.ISpread<T> GetGenericISpreadData<T>(IIOContainer pin, int index) {
@@ -162,8 +185,33 @@ namespace VVVV.Utils.Message{
 		protected abstract IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name);
 		
 		public abstract void Evaluate(int SpreadMax);
+
+
 		
 		#endregion abstract methods
 	}
 
+    public class TypeDictionary : Dictionary<string, string>{
+        private static TypeDictionary instance;
+
+        public static bool IsChanged
+        {
+            get;
+            set;
+        }
+        
+        public static TypeDictionary Instance {
+            get
+            {
+                if (instance == null) instance = new TypeDictionary();
+                return instance;
+            }
+        }
+
+        
+
+
+    }
+
+   
 }
