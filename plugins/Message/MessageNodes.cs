@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+//using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
 using VVVV.PluginInterfaces.V1;
@@ -48,9 +50,9 @@ namespace VVVV.Nodes {
 		
 		public override void Evaluate(int SpreadMax)
 		{
-            TypeUpdate();
-            
-            SpreadMax = 0;
+			TypeUpdate();
+			
+			SpreadMax = 0;
 			if (!FSet[0]) {
 				//				FLogger.Log(LogType.Debug, "skip join");
 				FOutput.SliceCount = 0;
@@ -86,23 +88,31 @@ namespace VVVV.Nodes {
 	[PluginInfo(Name = "Message", Category = "Split", Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
 	#endregion PluginInfo
 	public class SplitMessageNode : DynamicNode {
+		
+		public enum HoldEnum
+		{
+			Off,
+			Message,
+			Pin
+		}
+		
 		[Input("Input")]
 		IDiffSpread<Message> FInput;
 		
 		[Input("Match Rule", DefaultEnumEntry="All", IsSingle = true)]
 		IDiffSpread<SelectEnum> FSelect;
 		
-		[Input("Hold", IsSingle = true, DefaultValue = 1)]
-		ISpread<bool> FHold;
-
+		[Input("Hold if Nil", IsSingle = true, DefaultEnumEntry = "Message")]
+		ISpread<HoldEnum> FHold;
+		
 		[Output("Address", AutoFlush = false)]
 		ISpread<string> FAddress;
 		
 		[Output("Timestamp", AutoFlush = false)]
 		ISpread<string> FTimeStamp;
 		
-		[Output("Configuration", AutoFlush = false)]
-		ISpread<string> FConfigOut;
+		//		[Output("Configuration", AutoFlush = false)]
+		//		ISpread<string> FConfigOut;
 		
 		protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
 			var attr = new OutputAttribute(name);
@@ -116,23 +126,34 @@ namespace VVVV.Nodes {
 		
 		public override void Evaluate(int SpreadMax)
 		{
-            TypeUpdate();
-            
-            SpreadMax = (FSelect[0] != SelectEnum.First) ? FInput.SliceCount : 1;
+			TypeUpdate();
+			
+			SpreadMax = (FSelect[0] != SelectEnum.First) ? FInput.SliceCount : 1;
 			
 			if (!FInput.IsChanged) {
 				//				FLogger.Log(LogType.Debug, "skip split");
 				return;
 			}
 			
-			bool empty = FInput.SliceCount==0 || FInput[0] == null;
-			foreach(string pinName in FPins.Keys) {
-				if (empty) {
-					ToISpread(FPins[pinName]).SliceCount = 0;
-					FTimeStamp.SliceCount = 0;
-					FAddress.SliceCount = 0;
-					
-				} else {
+			bool empty = (FInput.SliceCount==0) || (FInput[0] == null);
+			
+			if (empty && (FHold[0] == HoldEnum.Off )) {
+				foreach (string name in FPins.Keys) {
+					var pin = ToISpread(FPins[name]);
+					pin.SliceCount = 0;
+					pin.Flush();
+				}
+				FAddress.SliceCount = 0;
+				FTimeStamp.SliceCount =0;
+				
+				FAddress.Flush();
+				FTimeStamp.Flush();
+				
+				return;
+			}
+			
+			if (!empty) {
+				foreach(string pinName in FPins.Keys) {
 					if (FSelect[0] == SelectEnum.All) {
 						ToISpread(FPins[pinName]).SliceCount = SpreadMax;
 						FTimeStamp.SliceCount = SpreadMax;
@@ -144,41 +165,38 @@ namespace VVVV.Nodes {
 						FAddress.SliceCount = 1;
 					}
 				}
-			}
-
-			if (empty && FHold[0]) return;
-			
-			if (!empty) {
+				
 				for (int i= (FSelect[0] == SelectEnum.Last)?SpreadMax-1:0;i<SpreadMax;i++) {
 					Message message = FInput[i];
+					
 					FAddress[i] = message.Address;
 					FTimeStamp[i] = message.TimeStamp.ToString();
+					FAddress.Flush();
+					FTimeStamp.Flush();
 					
 					foreach (string name in FPins.Keys) {
 						VVVV.PluginInterfaces.V2.NonGeneric.ISpread bin = GetISpreadData(FPins[name], i);
-						try {
-							//	FLogger.Log(LogType.Debug, message.ToString());
-							
-							BinList attrib = message[name];
-							
-							int count = attrib.Count;
-							bin.SliceCount = count;
-							for (int j = 0;j<count;j++)
-							bin[j] = attrib[j];
-							
-						} catch (Exception err) {
-							err.ToString(); // no warning
-							bin.SliceCount = 0;
+						
+						SpreadList attrib = message[name];
+						int count = 0;
+						
+						if (attrib == null) {
 							if (FVerbose[0]) FLogger.Log(LogType.Debug, "\"" + FTypes[name]+" " + name + "\" is not defined in Message.");
+						} else count = attrib.Count;
+						
+						if ((count > 0) || (FHold[0] != HoldEnum.Pin))
+						{
+							bin.SliceCount = count;
+							for (int j = 0;j<count;j++) {
+								bin[j] = attrib[j];
+							}
+							ToISpread(FPins[name]).Flush();
+						} else {
+							// keep old values in pin. do not flush
 						}
+						
 					}
 				}
-			}
-			
-			FAddress.Flush();
-			FTimeStamp.Flush();
-			foreach (string name in FPins.Keys) {
-				ToISpread(FPins[name]).Flush();
 			}
 		}
 		
@@ -230,42 +248,42 @@ namespace VVVV.Nodes {
 				FOutput.Flush();
 			}
 		}
-
-        #region PluginInfo
-        [PluginInfo(Name = "MessageType", AutoEvaluate = true,  Category = "Message", Help = "Define a high level Template for Messages", Tags = "Dynamic, Bin, velcrome")]
-        #endregion PluginInfo
-        public class MessageTypeMessageNode : IPluginEvaluate
-        {
-            [Input("Type Name", DefaultString = "Event")]
-            public ISpread<string> FName;
-
-            [Input("Configuration", DefaultString = "string Foo")]
-            public ISpread<string> FConfig;
-
-            [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
-            public IDiffSpread<bool> FUpdate;
-
-            public void Evaluate(int SpreadMax)
-            {
-                if (!FUpdate[0])
-                {
-                    if (FUpdate.IsChanged) TypeDictionary.IsChanged = false; // has updated last frame, but not anymore
-                    return;
-                }
-                SpreadMax = FName.SliceCount;
-
-                TypeDictionary.IsChanged = true;
-                for (int i = 0; i < SpreadMax; i++)
-                {
-                    var dict = TypeDictionary.Instance;
-                    
-                    if (dict.ContainsKey(FName[i])) 
-                        dict[FName[i]] = FConfig[i];
-                        else dict.Add(FName[i], FConfig[i]);
-                }
-            }
-        } 		
-
+		
+		#region PluginInfo
+		[PluginInfo(Name = "MessageType", AutoEvaluate = true,  Category = "Message", Help = "Define a high level Template for Messages", Tags = "Dynamic, Bin, velcrome")]
+		#endregion PluginInfo
+		public class MessageTypeMessageNode : IPluginEvaluate
+		{
+			[Input("Type Name", DefaultString = "Event")]
+			public ISpread<string> FName;
+			
+			[Input("Configuration", DefaultString = "string Foo")]
+			public ISpread<string> FConfig;
+			
+			[Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
+			public IDiffSpread<bool> FUpdate;
+			
+			public void Evaluate(int SpreadMax)
+			{
+				if (!FUpdate[0])
+				{
+					if (FUpdate.IsChanged) TypeDictionary.IsChanged = false; // has updated last frame, but not anymore
+					return;
+				}
+				SpreadMax = FName.SliceCount;
+				
+				TypeDictionary.IsChanged = true;
+				for (int i = 0; i < SpreadMax; i++)
+				{
+					var dict = TypeDictionary.Instance;
+					
+					if (dict.ContainsKey(FName[i]))
+					dict[FName[i]] = FConfig[i];
+					else dict.Add(FName[i], FConfig[i]);
+				}
+			}
+		}
+		
 		#region PluginInfo
 		[PluginInfo(Name = "AsOSC", Category = "Message", Help = "Outputs OSC Bundle Strings", Tags = "Dynamic, OSC, velcrome")]
 		#endregion PluginInfo
@@ -292,11 +310,14 @@ namespace VVVV.Nodes {
 		
 		
 		#region PluginInfo
-		[PluginInfo(Name = "AsMessage", Category = "Message", Help = "Converts OSC Bundles into Messages ", Tags = "Dynamic, OSC, velcrome")]
+		[PluginInfo(Name = "AsMessage", Category = "Message, OSC", Help = "Converts OSC Bundles into Messages ", Tags = "Dynamic, OSC, velcrome")]
 		#endregion PluginInfo
 		public class MessageOscAsMessageNode : IPluginEvaluate {
 			[Input("OSC")]
 			IDiffSpread<Stream> FInput;
+			
+			[Input("Prefix Address", DefaultString="", IsSingle = true)]
+			IDiffSpread<string> FAddress;
 			
 			[Output("Output", AutoFlush = false)]
 			ISpread<Message> FOutput;
@@ -311,7 +332,7 @@ namespace VVVV.Nodes {
 				FOutput.SliceCount = SpreadMax;
 				
 				for (int i=0;i<SpreadMax;i++) {
-					Message message = Message.FromOSC(FInput[i]);
+					Message message = Message.FromOSC(FInput[i], FAddress[0]);
 					FOutput[i] = message;
 				}
 				FOutput.Flush();
@@ -436,10 +457,103 @@ namespace VVVV.Nodes {
 				FNotFound.Flush();
 			}
 		}
+		
+		#region PluginInfo
+		[PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
+		#endregion PluginInfo
+		public class MessageAsJsonStringNode : IPluginEvaluate {
+			[Input("Input")]
+			IDiffSpread<Message> FInput;
+			
+			[Output("String", AutoFlush = false)]
+			ISpread<string> FOutput;
+			
+			[Output("Stream", AutoFlush = false)]
+			ISpread<Stream> FStreamOutput;
 
-
-
-
+			private MessageResolver FResolver;
+			
+			[Import()]
+			protected ILogger FLogger;
+			
+			public MessageAsJsonStringNode () {
+				FResolver = new MessageResolver();
+			}
+			
+			
+			public void Evaluate(int SpreadMax) {
+				if (!FInput.IsChanged) return;
+				
+				FOutput.SliceCount = SpreadMax;
+				DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
+				
+				for (int i=0;i<SpreadMax;i++) {
+					MemoryStream stream1 = new MemoryStream();
+					ser.WriteObject(stream1, FInput[i]);
+					
+					stream1.Position = 0;
+					StreamReader sr = new StreamReader(stream1);
+					FStreamOutput[i] = stream1;
+					FOutput[i] = sr.ReadToEnd();
+				}
+				FOutput.Flush();
+				FStreamOutput.Flush();
+			}
+		}
+		
+		#region PluginInfo
+		[PluginInfo(Name = "AsMessage", Category = "Message, Json", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
+		#endregion PluginInfo
+		public class JsonStringAsMessageNode : DynamicNode {
+			[Input("Input")]
+			IDiffSpread<string> FInput;
+			
+			[Output("Message", AutoFlush = false)]
+			ISpread<Message> FOutput;
+			
+			private MessageResolver FResolver;
+			
+			[Import()]
+			protected ILogger FLogger;
+			
+			public JsonStringAsMessageNode () {
+				FResolver = new MessageResolver();
+			}
+			
+			protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
+				return null;
+			
+			}
+			
+			protected override void HandleConfigChange(IDiffSpread<string> configSpread) {
+				FLogger.Log(LogType.Debug, "nothing");
+				
+			}
+			
+			public override void Evaluate(int SpreadMax) {
+				TypeUpdate();
+				
+				if (!FInput.IsChanged) return;
+				
+				FOutput.SliceCount = SpreadMax;
+				DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
+				
+				for (int i=0;i<SpreadMax;i++) {
+					MemoryStream stream1 = new MemoryStream();
+					ser.WriteObject(stream1, FInput[i]);
+					
+					stream1.Position = 0;
+					StreamReader sr = new StreamReader(stream1);
+					Message m = (Message)ser.ReadObject(stream1);
+					
+					FLogger.Log(LogType.Debug, m.ToString());
+					
+					FOutput[i] = m;
+				}
+				FOutput.Flush();
+			}
+		}
+		
 		[PluginInfo(Name = "Cons", Category = "Message", Help = "Concatenates all Messages", Tags = "velcrome")]
 		public class MessageConsNode : Cons<Message>
 		{}

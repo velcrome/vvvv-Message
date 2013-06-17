@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <ReferencePath>..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\core\;..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x64\lib\core\;..\..\..\..\apps\code\vvvv_45beta29.2_x64\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x64\bin\managed\</ReferencePath>
+    <ReferencePath>..\..\..\..\apps\code\vvvv_45beta30_x86\lib\core\;..\..\..\..\apps\code\vvvv_45beta30_x86\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\core\;..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\nodes\plugins\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -37,6 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Dependencies\JSONNET\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.Codeplex" />
@@ -52,11 +55,11 @@
     <Reference Include="VVVV.Utils3rdParty" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Message\BinList.cs" />
     <Compile Include="Message\DynamicNode.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\MessageNodes.cs" />
     <Compile Include="Message\MessageResolver.cs" />
+    <Compile Include="Message\SpreadList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_SpreadOperations\FrameDelay.cs" />
     <Compile Include="_SpreadOperations\GetSlice.cs" />

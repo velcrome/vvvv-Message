@@ -35,7 +35,6 @@ namespace VVVV.Utils.Message{
 			Last
 		}
 
-
 		#endregion Enum
 		
 		#region fields & pins
@@ -87,7 +86,7 @@ namespace VVVV.Utils.Message{
 			FConfig.Changed += HandleConfigChange;
 		}
 		
-		protected void HandleConfigChange(IDiffSpread<string> configSpread) {
+		protected virtual void HandleConfigChange(IDiffSpread<string> configSpread) {
 			FCount = 0;
 			List<string> invalidPins = FPins.Keys.ToList();
 			
@@ -134,7 +133,8 @@ namespace VVVV.Utils.Message{
 							case "vector4d" : FPins[name] = CreatePin<Vector3D>(name);break;
 							case "string" : FPins[name] = CreatePin<string>(name);break;
 							case "color" : FPins[name] = CreatePin<RGBAColor>(name);break;
-							case "transform" : FPins[name] = CreatePin<Matrix4x4>(name);
+							case "transform" : FPins[name] = CreatePin<Matrix4x4>(name);break;
+							case "message" : FPins[name] = CreatePin<Message>(name);
 							break;
 							default:  FLogger.Log(LogType.Debug, "Type "+type + " not supported!");break;
 						}

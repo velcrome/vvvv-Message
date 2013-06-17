@@ -30,13 +30,13 @@ using VVVV.Utils.VMath;
 namespace VVVV.Utils.Message{
 	
 	
-	[KnownType(typeof(BinList))]
+	[KnownType(typeof(SpreadList))]
 	[Serializable]
 	public class Message : ISerializable, ICloneable {
 		
 		// The inner dictionary.
 		[DataMember]
-		Dictionary<string, BinList> dictionary = new Dictionary<string, BinList>();
+		Dictionary<string, SpreadList> dictionary = new Dictionary<string, SpreadList>();
 		
 		[DataMember]
 		public DateTime TimeStamp {
@@ -53,30 +53,33 @@ namespace VVVV.Utils.Message{
 		public Message() {
 			TimeStamp = DateTime.Now;
 		}
-		
-		protected Message(SerializationInfo info, StreamingContext context)
-		{
-			// TODO: validate inputs before deserializing. See http://msdn.microsoft.com/en-us/library/ty01x675(VS.80).aspx
-			foreach (SerializationEntry entry in info)
-			{
-				this.Add(entry.Name, entry.Value);
-			}
-		}
-		
-		// does not matter if you add a
+
+        protected Message(SerializationInfo info, StreamingContext context)
+        {
+            // TODO: validate inputs before deserializing. See http://msdn.microsoft.com/en-us/library/ty01x675(VS.80).aspx
+            foreach (SerializationEntry entry in info)
+            {
+                this.Add(entry.Name, entry.Value);
+            }
+
+
+
+        }
+
+	    // does not matter if you add a
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
-			if (val is BinList) dictionary.Add(name, (BinList)val);
+			if (val is SpreadList) dictionary.Add(name, (SpreadList)val);
 			else {
-				dictionary.Add(name, new BinList());
-				((BinList) dictionary[name]).Add(val);
+				dictionary.Add(name, new SpreadList());
+				((SpreadList) dictionary[name]).Add(val);
 			}
 		}
 		
 		public void AssignFrom(string name, IEnumerable en) {
 			//			name = name.ToLower();
 			if (!dictionary.ContainsKey(name)) {
-				dictionary.Add(name, new BinList());
+				dictionary.Add(name, new SpreadList());
 			} else dictionary[name].Clear();
 			
 			foreach (object o in en) {
@@ -87,7 +90,7 @@ namespace VVVV.Utils.Message{
 		public void AddFrom(string name, IEnumerable en) {
 			//			name = name.ToLower();
 			if (!dictionary.ContainsKey(name)) {
-				dictionary.Add(name, new BinList());
+				dictionary.Add(name, new SpreadList());
 			}
 			
 			foreach (object o in en) {
@@ -114,14 +117,16 @@ namespace VVVV.Utils.Message{
 		}
 		
 		public IEnumerable<string> GetDynamicMemberNames() {
-			
 			return dictionary.Keys;
 		}
 		
-		public BinList this[string name]
+		public SpreadList this[string name]
 		{
-			get { return dictionary[name]; }
-			set { dictionary[name] = (BinList) value; }
+			get { 
+				if (dictionary.ContainsKey(name)) return dictionary[name];
+					else return null;				
+			} 
+			set { dictionary[name] = (SpreadList) value; }
 		}
 		
 		public object Clone() {
@@ -130,7 +135,7 @@ namespace VVVV.Utils.Message{
 			m.TimeStamp = TimeStamp;
 			
 			foreach (string name in dictionary.Keys) {
-				BinList list = dictionary[name];
+				SpreadList list = dictionary[name];
 				m.Add(name, list.Clone());
 				
 				// really deep cloning
@@ -157,7 +162,7 @@ namespace VVVV.Utils.Message{
 		
 		
 		public override string ToString() {
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			
 			sb.Append("Message "+Address+" ("+TimeStamp+")\n");
 			foreach (string name in dictionary.Keys) {
@@ -176,19 +181,20 @@ namespace VVVV.Utils.Message{
 			foreach (string name in dictionary.Keys)  {
 				string[] address = Address.Split('.');
 				string oscAddress = "";
-				foreach (string part in address) {
+			
+                foreach (string part in address) {
 					if (part.Trim() != "") oscAddress += "/" + part;
 				}
 				
 				OSCMessage m = new OSCMessage(oscAddress+"/"+name);
-				BinList bl = dictionary[name];
+				SpreadList bl = dictionary[name];
 				for (int i=0;i<bl.Count;i++) m.Append(bl[i]);
 				bundle.Append(m);
 			}
 			return new MemoryStream(bundle.BinaryData); // packs implicitly
 		}
 		
-		public static Message FromOSC(Stream stream) {
+		public static Message FromOSC(Stream stream, string messageName = "OSC") {
 			MemoryStream ms = new MemoryStream();
 			stream.CopyTo(ms);
 			byte[] bytes = ms.ToArray();
@@ -199,21 +205,25 @@ namespace VVVV.Utils.Message{
 
 //			yet unsupported: 
 //			message.TimeStamp = DateTime.FromFileTime(bundle.getTimeStamp());
+			
 			foreach (OSCMessage m in bundle.Values) {
-				BinList bl = new BinList();
-				
-				bl.AssignFrom(m.Values); // does not clone implicitly
+				SpreadList sl = new SpreadList();
+				sl.AssignFrom(m.Values); // does not clone implicitly
 				
 				string[] address = m.Address.Split('/');
-				string name = address[address.Length-1];
+				string attribName = address[address.Length-1];
 				address[address.Length-1] = "";
 				
 				string messageAddress = "";
 				foreach (string part in address) {
 					if (part.Trim() != "") messageAddress += "."+part;
 				}
-				message.Address = messageAddress.Substring(1);
-				message[name] = bl;
+				
+				if (messageName.Trim() == "") message.Address = messageAddress.Substring(1);
+					else message.Address = messageName + messageAddress;
+
+				message[attribName] = sl;
+
 			}
 			return message;
 		}

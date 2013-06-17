@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Collections.Generic;
 using System.Xml;
+using System.Collections.ObjectModel;
 
 using VVVV.Nodes;
 using VVVV.Utils.VColor;
@@ -21,6 +22,9 @@ namespace VVVV.Utils.Message {
 		public Dictionary<Type, string> Identity = new Dictionary<Type, string>();
 		
 		public MessageResolver() {
+			
+			// add types to DynamicNode.cs in Line 144 as well. 
+			
 			Identity.Add(typeof(bool), "bool".ToLower());
 			Identity.Add(typeof(int), "int".ToLower());
 			Identity.Add(typeof(double), "double".ToLower());
@@ -50,6 +54,13 @@ namespace VVVV.Utils.Message {
 				// Defer to the known type resolver
 				return knownTypeResolver.TryResolveType(dataContractType, declaredType, null, out typeName, out typeNamespace);
 			}
+		}
+		
+		public IEnumerable<Type> KnownTypes { get {
+				return Identity.Keys;
+			
+			}
+			
 		}
 		
 		public override Type ResolveName(string typeName, string typeNamespace, Type type, DataContractResolver knownTypeResolver)
