@@ -6,3 +6,6 @@ Thumbs.db
 bin/
 obj/
 *.csproj.user
+/Duration_004_Windows
+/ofDuration
+/plugins/_ReSharper.Message
