@@ -614,7 +614,7 @@ FOutput[i] = m;
 		public class MessageDelayerNode : Delayer<Message>
 		{}
 		
-/*		[PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
+		[PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
 		public class MessageSerializeNode: Serialize<Message>
 		{
 			
@@ -631,7 +631,7 @@ FOutput[i] = m;
 			}
 		}
 		
-*/		[PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
+		[PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
 		public class MessageSAndHNode : SAndH<Message>
 		{}
 		

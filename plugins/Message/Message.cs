@@ -30,7 +30,6 @@ using VVVV.Utils.VMath;
 namespace VVVV.Utils.Message{
 	
 	
-//	[KnownType(typeof(SpreadList))]
 	[DataContract]
 	public class Message : ICloneable {
 		
@@ -54,26 +53,12 @@ namespace VVVV.Utils.Message{
 			TimeStamp = DateTime.Now;
 		}
 
-        protected Message(SerializationInfo info, StreamingContext context)
-        {
-            // TODO: validate inputs before deserializing. See http://msdn.microsoft.com/en-us/library/ty01x675(VS.80).aspx
-            foreach (SerializationEntry entry in info)
-            {
-                this.Add(entry.Name, entry.Value);
-            }
-
-
-
-        }
-
-	    // does not matter if you add a
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
 			if (val is SpreadList) MessageData.Add(name, (SpreadList)val);
 			else {
 				MessageData.Add(name, new SpreadList());
 				((SpreadList) MessageData[name]).Add(val);
-//				((SpreadList) MessageData[name]).SpreadType = typeof(val);
 			}
 		}
 		
@@ -116,11 +101,6 @@ namespace VVVV.Utils.Message{
 			}
 			return sb.ToString().Substring(2);
 		}
-		
-		public IEnumerable<string> GetDynamicMemberNames() {
-			return MessageData.Keys;
-		}
-		
 		public SpreadList this[string name]
 		{
 			get { 
@@ -152,15 +132,6 @@ namespace VVVV.Utils.Message{
 			
 			return m;
 		}
-		
-		public void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			foreach (var kvp in MessageData)
-			{
-				info.AddValue(kvp.Key, kvp.Value);
-			}
-		}
-		
 		
 		public override string ToString() {
 			var sb = new StringBuilder();
@@ -228,10 +199,5 @@ namespace VVVV.Utils.Message{
 			}
 			return message;
 		}
-		
-		
-		
 	}
-	
-	
 }
