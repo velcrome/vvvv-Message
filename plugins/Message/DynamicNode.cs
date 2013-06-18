@@ -120,6 +120,8 @@ namespace VVVV.Utils.Message{
 					
 					if (create) {
 						
+						// cooler with http://msdn.microsoft.com/en-us/library/b8ytshk6(v=vs.100).aspx ?!
+						
 		//				if (type == Message.Identities[typeof(double)] ) {}
 						Dictionary<Type, string> ident = new MessageResolver().Identity;
 						

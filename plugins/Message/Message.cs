@@ -30,13 +30,13 @@ using VVVV.Utils.VMath;
 namespace VVVV.Utils.Message{
 	
 	
-	[KnownType(typeof(SpreadList))]
-	[Serializable]
-	public class Message : ISerializable, ICloneable {
+//	[KnownType(typeof(SpreadList))]
+	[DataContract]
+	public class Message : ICloneable {
 		
-		// The inner dictionary.
+		// The inner MessageData.
 		[DataMember]
-		Dictionary<string, SpreadList> dictionary = new Dictionary<string, SpreadList>();
+		Dictionary<string, SpreadList> MessageData = new Dictionary<string, SpreadList>();
 		
 		[DataMember]
 		public DateTime TimeStamp {
@@ -69,32 +69,33 @@ namespace VVVV.Utils.Message{
 	    // does not matter if you add a
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
-			if (val is SpreadList) dictionary.Add(name, (SpreadList)val);
+			if (val is SpreadList) MessageData.Add(name, (SpreadList)val);
 			else {
-				dictionary.Add(name, new SpreadList());
-				((SpreadList) dictionary[name]).Add(val);
+				MessageData.Add(name, new SpreadList());
+				((SpreadList) MessageData[name]).Add(val);
+//				((SpreadList) MessageData[name]).SpreadType = typeof(val);
 			}
 		}
 		
 		public void AssignFrom(string name, IEnumerable en) {
 			//			name = name.ToLower();
-			if (!dictionary.ContainsKey(name)) {
-				dictionary.Add(name, new SpreadList());
-			} else dictionary[name].Clear();
+			if (!MessageData.ContainsKey(name)) {
+				MessageData.Add(name, new SpreadList());
+			} else MessageData[name].Clear();
 			
 			foreach (object o in en) {
-				dictionary[name].Add(o);
+				MessageData[name].Add(o);
 			}
 		}
 		
 		public void AddFrom(string name, IEnumerable en) {
 			//			name = name.ToLower();
-			if (!dictionary.ContainsKey(name)) {
-				dictionary.Add(name, new SpreadList());
+			if (!MessageData.ContainsKey(name)) {
+				MessageData.Add(name, new SpreadList());
 			}
 			
 			foreach (object o in en) {
-				dictionary[name].Add(o);
+				MessageData[name].Add(o);
 			}
 		}
 		
@@ -103,9 +104,9 @@ namespace VVVV.Utils.Message{
 			
 			if (identities == null) identities = new MessageResolver().Identity;
 			
-			foreach (string name in dictionary.Keys) {
+			foreach (string name in MessageData.Keys) {
 				try {
-					Type type = dictionary[name][0].GetType();
+					Type type = MessageData[name][0].GetType();
 					sb.Append(", " + identities[type]);
 					sb.Append(" " + name);
 				} catch (Exception err) {
@@ -117,16 +118,16 @@ namespace VVVV.Utils.Message{
 		}
 		
 		public IEnumerable<string> GetDynamicMemberNames() {
-			return dictionary.Keys;
+			return MessageData.Keys;
 		}
 		
 		public SpreadList this[string name]
 		{
 			get { 
-				if (dictionary.ContainsKey(name)) return dictionary[name];
+				if (MessageData.ContainsKey(name)) return MessageData[name];
 					else return null;				
 			} 
-			set { dictionary[name] = (SpreadList) value; }
+			set { MessageData[name] = (SpreadList) value; }
 		}
 		
 		public object Clone() {
@@ -134,8 +135,8 @@ namespace VVVV.Utils.Message{
 			m.Address = Address;
 			m.TimeStamp = TimeStamp;
 			
-			foreach (string name in dictionary.Keys) {
-				SpreadList list = dictionary[name];
+			foreach (string name in MessageData.Keys) {
+				SpreadList list = MessageData[name];
 				m.Add(name, list.Clone());
 				
 				// really deep cloning
@@ -154,7 +155,7 @@ namespace VVVV.Utils.Message{
 		
 		public void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
-			foreach (var kvp in dictionary)
+			foreach (var kvp in MessageData)
 			{
 				info.AddValue(kvp.Key, kvp.Value);
 			}
@@ -165,10 +166,10 @@ namespace VVVV.Utils.Message{
 			var sb = new StringBuilder();
 			
 			sb.Append("Message "+Address+" ("+TimeStamp+")\n");
-			foreach (string name in dictionary.Keys) {
+			foreach (string name in MessageData.Keys) {
 				
 				sb.Append(" "+name + " \t: ");
-				foreach(object o in dictionary[name]) {
+				foreach(object o in MessageData[name]) {
 					sb.Append(o.ToString()+" ");
 				}
 				sb.AppendLine();
@@ -178,7 +179,7 @@ namespace VVVV.Utils.Message{
 		
 		public Stream ToOSC() {
 			OSCBundle bundle = new OSCBundle(this.TimeStamp.ToFileTime());
-			foreach (string name in dictionary.Keys)  {
+			foreach (string name in MessageData.Keys)  {
 				string[] address = Address.Split('.');
 				string oscAddress = "";
 			
@@ -187,7 +188,7 @@ namespace VVVV.Utils.Message{
 				}
 				
 				OSCMessage m = new OSCMessage(oscAddress+"/"+name);
-				SpreadList bl = dictionary[name];
+				SpreadList bl = MessageData[name];
 				for (int i=0;i<bl.Count;i++) m.Append(bl[i]);
 				bundle.Append(m);
 			}

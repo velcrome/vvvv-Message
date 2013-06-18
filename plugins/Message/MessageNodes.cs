@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Text;
 
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-//using Newtonsoft.Json;
+//using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
 using VVVV.PluginInterfaces.V1;
@@ -470,7 +471,7 @@ namespace VVVV.Nodes {
 			
 			[Output("Stream", AutoFlush = false)]
 			ISpread<Stream> FStreamOutput;
-
+			
 			private MessageResolver FResolver;
 			
 			[Import()]
@@ -484,19 +485,33 @@ namespace VVVV.Nodes {
 			public void Evaluate(int SpreadMax) {
 				if (!FInput.IsChanged) return;
 				
-				FOutput.SliceCount = SpreadMax;
-				DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
+				FOutput.SliceCount = FStreamOutput.SliceCount = SpreadMax;
+				JsonSerializer ser = new JsonSerializer();
+				
+				JsonSerializerSettings settings = new JsonSerializerSettings();
+				settings.Formatting = Formatting.None;
+				settings.TypeNameHandling = TypeNameHandling.None;
+//				settings.PreserveReferencesHandling = PreserveReferencesHandling;
 				
 				for (int i=0;i<SpreadMax;i++) {
-					MemoryStream stream1 = new MemoryStream();
-					ser.WriteObject(stream1, FInput[i]);
+					string s = JsonConvert.SerializeObject(FInput[i], settings);
 					
-					stream1.Position = 0;
-					StreamReader sr = new StreamReader(stream1);
-					FStreamOutput[i] = stream1;
-					FOutput[i] = sr.ReadToEnd();
+					FOutput[i] = s != null? s : "";
 				}
-				FOutput.Flush();
+				
+				/*
+DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
+
+for (int i=0;i<SpreadMax;i++) {
+MemoryStream stream1 = new MemoryStream();
+ser.WriteObject(stream1, FInput[i]);
+
+stream1.Position = 0;
+StreamReader sr = new StreamReader(stream1);
+FStreamOutput[i] = stream1;
+FOutput[i] = sr.ReadToEnd();
+}
+*/				FOutput.Flush();
 				FStreamOutput.Flush();
 			}
 		}
@@ -522,7 +537,7 @@ namespace VVVV.Nodes {
 			
 			protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
 				return null;
-			
+				
 			}
 			
 			protected override void HandleConfigChange(IDiffSpread<string> configSpread) {
@@ -536,21 +551,39 @@ namespace VVVV.Nodes {
 				if (!FInput.IsChanged) return;
 				
 				FOutput.SliceCount = SpreadMax;
-				DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
 				
 				for (int i=0;i<SpreadMax;i++) {
-					MemoryStream stream1 = new MemoryStream();
-					ser.WriteObject(stream1, FInput[i]);
 					
-					stream1.Position = 0;
-					StreamReader sr = new StreamReader(stream1);
-					Message m = (Message)ser.ReadObject(stream1);
+					FOutput[i] = JsonConvert.DeserializeObject<Message>(FInput[i]);
 					
-					FLogger.Log(LogType.Debug, m.ToString());
+				//	JObject jObj = JObject.Parse(FInput[i]);
+				
 					
-					FOutput[i] = m;
+					
+					
 				}
-				FOutput.Flush();
+				
+				
+				
+
+				
+				
+				/*
+DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
+
+for (int i=0;i<SpreadMax;i++) {
+MemoryStream stream1 = new MemoryStream();
+ser.WriteObject(stream1, FInput[i]);
+
+stream1.Position = 0;
+StreamReader sr = new StreamReader(stream1);
+Message m = (Message)ser.ReadObject(stream1);
+
+FLogger.Log(LogType.Debug, m.ToString());
+
+FOutput[i] = m;
+}
+*/				FOutput.Flush();
 			}
 		}
 		
@@ -581,7 +614,7 @@ namespace VVVV.Nodes {
 		public class MessageDelayerNode : Delayer<Message>
 		{}
 		
-		[PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
+/*		[PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
 		public class MessageSerializeNode: Serialize<Message>
 		{
 			
@@ -598,7 +631,7 @@ namespace VVVV.Nodes {
 			}
 		}
 		
-		[PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
+*/		[PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
 		public class MessageSAndHNode : SAndH<Message>
 		{}
 		
