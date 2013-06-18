@@ -65,7 +65,6 @@ namespace VVVV.Utils.Collections
 		{
 			SpreadList list = value as SpreadList;
 		    writer.WriteStartObject();
-    		
 			writer.WritePropertyName("Type");
 		    
             Dictionary<Type, string> ident = new MessageResolver().Identity;
@@ -86,7 +85,6 @@ namespace VVVV.Utils.Collections
 			SpreadList sl = new SpreadList();
 			JObject jsonObject = JObject.Load(reader);
 			string typeName = "string";
-
             
             var jT = jsonObject.GetValue("Type");
 		    typeName = (string) jT.ToObject(typeof(string), serializer);
