@@ -67,8 +67,11 @@ namespace VVVV.Utils.Collections
 		    writer.WriteStartObject();
 			writer.WritePropertyName("Type");
 		    
+			
+			Type type = (list == null) || (list.Count == 0)? typeof(string) : list.SpreadType;
+			
             Dictionary<Type, string> ident = new MessageResolver().Identity;
-            writer.WriteValue(ident[list.SpreadType]);
+            writer.WriteValue(ident[type]);
 			
     		writer.WritePropertyName("Spread");
 			writer.WriteStartArray();

@@ -469,8 +469,8 @@ namespace VVVV.Nodes {
 			[Output("String", AutoFlush = false)]
 			ISpread<string> FOutput;
 			
-			[Output("Stream", AutoFlush = false)]
-			ISpread<Stream> FStreamOutput;
+//			[Output("Stream", AutoFlush = false)]
+//			ISpread<Stream> FStreamOutput;
 			
 			private MessageResolver FResolver;
 			
@@ -485,34 +485,20 @@ namespace VVVV.Nodes {
 			public void Evaluate(int SpreadMax) {
 				if (!FInput.IsChanged) return;
 				
-				FOutput.SliceCount = FStreamOutput.SliceCount = SpreadMax;
+				FOutput.SliceCount = SpreadMax;
 				JsonSerializer ser = new JsonSerializer();
 				
 				JsonSerializerSettings settings = new JsonSerializerSettings();
 				settings.Formatting = Formatting.None;
 				settings.TypeNameHandling = TypeNameHandling.None;
-//				settings.PreserveReferencesHandling = PreserveReferencesHandling;
 				
 				for (int i=0;i<SpreadMax;i++) {
 					string s = JsonConvert.SerializeObject(FInput[i], settings);
 					
 					FOutput[i] = s != null? s : "";
 				}
-				
-				/*
-DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
-
-for (int i=0;i<SpreadMax;i++) {
-MemoryStream stream1 = new MemoryStream();
-ser.WriteObject(stream1, FInput[i]);
-
-stream1.Position = 0;
-StreamReader sr = new StreamReader(stream1);
-FStreamOutput[i] = stream1;
-FOutput[i] = sr.ReadToEnd();
-}
-*/				FOutput.Flush();
-				FStreamOutput.Flush();
+				FOutput.Flush();
+//				FStreamOutput.Flush();
 			}
 		}
 		
@@ -555,35 +541,9 @@ FOutput[i] = sr.ReadToEnd();
 				for (int i=0;i<SpreadMax;i++) {
 					
 					FOutput[i] = JsonConvert.DeserializeObject<Message>(FInput[i]);
-					
-				//	JObject jObj = JObject.Parse(FInput[i]);
-				
-					
-					
-					
 				}
 				
-				
-				
-
-				
-				
-				/*
-DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message), FResolver.KnownTypes);
-
-for (int i=0;i<SpreadMax;i++) {
-MemoryStream stream1 = new MemoryStream();
-ser.WriteObject(stream1, FInput[i]);
-
-stream1.Position = 0;
-StreamReader sr = new StreamReader(stream1);
-Message m = (Message)ser.ReadObject(stream1);
-
-FLogger.Log(LogType.Debug, m.ToString());
-
-FOutput[i] = m;
-}
-*/				FOutput.Flush();
+				FOutput.Flush();
 			}
 		}
 		
