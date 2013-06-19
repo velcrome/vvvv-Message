@@ -159,7 +159,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="2097" top="3429" width="792" height="240">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.5">
+   <PIN pinname="Y Input Value" slicecount="1" values="-0.52">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -517,6 +517,10 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="214" systemname="IOBox (String)">
    <BOUNDS type="Node" left="5835" top="19110" width="0" height="0">
@@ -528,6 +532,10 @@
    <PIN pinname="File Mask" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="216" systemname="IOBox (String)">
@@ -717,7 +725,7 @@
    </PIN>
    <PIN pinname="Address">
    </PIN>
-   <PIN pinname="t Bin Size" visible="1" slicecount="1" values="0">
+   <PIN pinname="t Bin Size" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Floaty Bin Size" slicecount="1" values="1">
    </PIN>
@@ -800,22 +808,10 @@
    </LINK>
    <LINK srcnodeid="134" srcpinname="Configuration" dstnodeid="205" dstpinname="Input String">
    </LINK>
-   <NODE systemname="SetMessage (Message)" filename="..\plugins\Message.csproj" nodename="SetMessage (Message)" componentmode="Hidden" id="136">
-   <BOUNDS type="Node" left="870" top="15900" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Foo" slicecount="1" values="asdfasdfasf">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="136" srcpinname="Output" dstnodeid="210" dstpinname="Input Node">
-   </LINK>
    <NODE systemname="AsOSC (Message)" filename="..\plugins\Message.csproj" nodename="AsOSC (Message)" componentmode="Hidden" id="141">
    <BOUNDS type="Node" left="5835" top="17145" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
@@ -831,7 +827,7 @@
    <NODE systemname="Serialize (Message)" filename="..\plugins\Message.csproj" nodename="Serialize (Message)" componentmode="Hidden" id="143">
    <BOUNDS type="Node" left="870" top="17145" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -879,7 +875,7 @@
    <NODE systemname="Sift (Message)" filename="..\plugins\Message.csproj" nodename="Sift (Message)" componentmode="Hidden" id="185">
    <BOUNDS type="Node" left="7695" top="22830" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Filter">
    </PIN>
@@ -1198,10 +1194,6 @@
    </NODE>
    <LINK srcnodeid="406" srcpinname="Output String" dstnodeid="401" dstpinname="Configuration">
    </LINK>
-   <LINK srcnodeid="77" srcpinname="Output Node" dstnodeid="136" dstpinname="Input">
-   <LINKPOINT x="795" y="12090">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="210" srcpinname="Output Node" dstnodeid="363" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="400" srcpinname="Output" dstnodeid="373" dstpinname="Input">
@@ -1251,5 +1243,41 @@
    <LINK srcnodeid="423" srcpinname="t" dstnodeid="424" dstpinname="Input Node">
    </LINK>
    <LINK srcnodeid="373" srcpinname="Message" dstnodeid="423" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="72" srcpinname="Transform Out" dstnodeid="55" dstpinname="t">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="425" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="6600" top="3975" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6600" top="3975" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="425" srcpinname="Y Output Value" dstnodeid="55" dstpinname="t Bin Size">
+   </LINK>
+   <NODE systemname="SetMessage (Message)" filename="..\plugins\Message.csproj" nodename="SetMessage (Message)" componentmode="Hidden" id="426">
+   <BOUNDS type="Node" left="1155" top="12330" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Foo" slicecount="1" values="test">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="426" srcpinname="Output" dstnodeid="210" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="77" srcpinname="Output Node" dstnodeid="426" dstpinname="Input">
    </LINK>
    </PATCH>

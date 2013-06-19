@@ -39,14 +39,14 @@ namespace VVVV.Nodes {
 		[Output("Output", AutoFlush = false)]
 		Pin<Message> FOutput;
 		
-		protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
+		protected override IOAttribute DefinePin(string name, Type type) {
 			var attr = new InputAttribute(name);
 			attr.BinVisibility = PinVisibility.Hidden;
 			attr.BinSize = 1;
 			attr.Order = FCount;
 			attr.BinOrder = FCount+1;
 			attr.AutoValidate = false;  // need to sync all pins manually
-			return FIOFactory.CreateIOContainer<ISpread<ISpread<T>>>(attr);
+			return attr;
 		}
 		
 		public override void Evaluate(int SpreadMax)
@@ -74,7 +74,7 @@ namespace VVVV.Nodes {
 				
 				message.Address = FAddress[i];
 				foreach (string name in FPins.Keys) {
-					message.AssignFrom(name, GetISpreadData(FPins[name], i) );
+					message.AssignFrom(name, (IEnumerable) ToISpread(FPins[name])[i] );
 				}
 				FOutput[i] = message;
 				
@@ -115,14 +115,14 @@ namespace VVVV.Nodes {
 		//		[Output("Configuration", AutoFlush = false)]
 		//		ISpread<string> FConfigOut;
 		
-		protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
+		protected override IOAttribute DefinePin(string name, Type type) {
 			var attr = new OutputAttribute(name);
 			attr.BinVisibility = PinVisibility.Hidden;
 			attr.AutoFlush = false;
 			
 			attr.Order = FCount;
 			attr.BinOrder = FCount+1;
-			return FIOFactory.CreateIOContainer<ISpread<ISpread<T>>>(attr);
+		    return attr;
 		}
 		
 		public override void Evaluate(int SpreadMax)
@@ -176,7 +176,7 @@ namespace VVVV.Nodes {
 					FTimeStamp.Flush();
 					
 					foreach (string name in FPins.Keys) {
-						VVVV.PluginInterfaces.V2.NonGeneric.ISpread bin = GetISpreadData(FPins[name], i);
+                        var bin = (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ToISpread(FPins[name])[i];
 						
 						SpreadList attrib = message[name];
 						int count = 0;
@@ -210,25 +210,23 @@ namespace VVVV.Nodes {
 			
 			[Output("Output", AutoFlush=false)]
 			Pin<Message> FOutput;
-			
-			protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
-				var attr = new InputAttribute(name);
-				attr.BinVisibility = PinVisibility.Hidden;
-				attr.BinSize = 1;
-				attr.Order = FCount;
-				attr.BinOrder = FCount+1;
-				return FIOFactory.CreateIOContainer<IDiffSpread<ISpread<T>>>(attr);
-			}
-			
+
+            protected override IOAttribute DefinePin(string name, Type type)
+            {
+                var attr = new InputAttribute(name);
+                attr.BinVisibility = PinVisibility.Hidden;
+                attr.BinSize = 1;
+                attr.Order = FCount;
+                attr.BinOrder = FCount + 1;
+//                attr.AutoValidate = false;  // need to sync all pins manually
+                return attr;
+            }			
+
+		
 			public override void Evaluate(int SpreadMax) {
 				SpreadMax = FInput.SliceCount;
-				bool isChanged = false;
-				foreach (string name in FPins.Keys) {
-					var pin = ToIDiffSpread(FPins[name]);
-					if (pin.IsChanged) isChanged = true;
-				}
 				
-				if (!isChanged && !FInput.IsChanged) {
+				if (!FInput.IsChanged) {
 					//				FLogger.Log(LogType.Debug, "skip set");
 					return;
 				}
@@ -238,13 +236,15 @@ namespace VVVV.Nodes {
 					FOutput.SliceCount = 0;
 					return;
 				}
+
 				for (int i=0;i<SpreadMax;i++) {
 					Message message = FInput[i];
 					foreach (string name in FPins.Keys) {
-						var pin = GetISpreadData(FPins[name],i);
+						var pin = (IEnumerable) ToISpread(FPins[name])[i];
 						message.AssignFrom(name, pin);
 					}
 				}
+
 				FOutput.AssignFrom(FInput);
 				FOutput.Flush();
 			}
@@ -469,9 +469,6 @@ namespace VVVV.Nodes {
 			[Output("String", AutoFlush = false)]
 			ISpread<string> FOutput;
 			
-//			[Output("Stream", AutoFlush = false)]
-//			ISpread<Stream> FStreamOutput;
-			
 			private MessageResolver FResolver;
 			
 			[Import()]
@@ -521,7 +518,7 @@ namespace VVVV.Nodes {
 				FResolver = new MessageResolver();
 			}
 			
-			protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
+			protected override IOAttribute DefinePin(string name, Type type) {
 				return null;
 				
 			}

@@ -23,7 +23,7 @@ namespace VVVV.Utils.Message {
 		
 		public MessageResolver() {
 			
-			// add types to DynamicNode.cs in Line 144 as well. 
+			// This is the only place where you need to add new datatypes.
 			
 			Identity.Add(typeof(bool), "bool".ToLower());
 			Identity.Add(typeof(int), "int".ToLower());
@@ -39,8 +39,13 @@ namespace VVVV.Utils.Message {
 
 			Identity.Add(typeof(Message), "Message".ToLower());
 		}
-		
-		public override bool TryResolveType(Type dataContractType, Type declaredType, DataContractResolver knownTypeResolver, out XmlDictionaryString typeName, out XmlDictionaryString typeNamespace)
+
+        #region Standard Serialisation
+
+//      These methods are necessary for standard .Net serialisation 
+//      For JSon we use different means, have a look in SpreadList.cs for its custom Json.NET handler.
+
+        public override bool TryResolveType(Type dataContractType, Type declaredType, DataContractResolver knownTypeResolver, out XmlDictionaryString typeName, out XmlDictionaryString typeNamespace)
 		{
 			if (Identity.ContainsKey(dataContractType))
 			{
@@ -80,6 +85,7 @@ namespace VVVV.Utils.Message {
 				// Defer to the known type resolver
 				return knownTypeResolver.ResolveName(typeName, typeNamespace, type, null);
 			}
-		}
-	}
-	}
+        }
+        #endregion Standard Serialisation
+    }
+}

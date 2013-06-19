@@ -95,7 +95,7 @@ namespace VVVV.Utils.Message{
 				string[] pinData = pinConfig.Trim().Split(' ');
 				
 				try {
-					string type = pinData[0].ToLower();
+					string typeName = pinData[0].ToLower();
 					string name = pinData[1];
 					
 					bool create = false;
@@ -103,7 +103,7 @@ namespace VVVV.Utils.Message{
 						invalidPins.Remove(name);
 						
 						if (FTypes.ContainsKey(name)) {
-							if (FTypes[name] != type) {
+							if (FTypes[name] != typeName) {
 								FPins[name].Dispose();
 								FPins[name] = null;
 								create = true;
@@ -119,34 +119,27 @@ namespace VVVV.Utils.Message{
 					}
 					
 					if (create) {
-						
-						// cooler with http://msdn.microsoft.com/en-us/library/b8ytshk6(v=vs.100).aspx ?!
-						
-		//				if (type == Message.Identities[typeof(double)] ) {}
 						Dictionary<Type, string> ident = new MessageResolver().Identity;
-						
-						switch (type) {
-							case "double" : FPins[name] = CreatePin<double>(name);break;
-							case "float" : FPins[name] = CreatePin<float>(name);break;
-							case "int" : FPins[name] = CreatePin<int>(name);break;
-							case "bool" : FPins[name] = CreatePin<bool>(name);break;
-							case "vector2d" : FPins[name] = CreatePin<Vector2D>(name);break;
-							case "vector3d" : FPins[name] = CreatePin<Vector3D>(name);break;
-							case "vector4d" : FPins[name] = CreatePin<Vector3D>(name);break;
-							case "string" : FPins[name] = CreatePin<string>(name);break;
-							case "color" : FPins[name] = CreatePin<RGBAColor>(name);break;
-							case "transform" : FPins[name] = CreatePin<Matrix4x4>(name);break;
-							case "message" : FPins[name] = CreatePin<Message>(name);
-							break;
-							default:  FLogger.Log(LogType.Debug, "Type "+type + " not supported!");break;
-						}
-						FTypes.Add(name, type);
+
+					    Type type = typeof(string);
+                        foreach (Type key in ident.Keys)
+					    {
+					        if (ident[key] == typeName)
+					        {
+					            type = key;
+					        }
+					    }
+
+                        IOAttribute attr = DefinePin(name, type); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
+					    Type pinType = typeof (ISpread<>).MakeGenericType((typeof (ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
+					    FPins[name] = FIOFactory.CreateIOContainer(pinType, attr);
+
+						FTypes.Add(name, typeName);
 					}
-					FCount+=2;
+					FCount+=2; // total pincount. always add two to account for data pin and binsize pin
 				} catch (Exception ex) {
 					var e = ex;
 					FLogger.Log(LogType.Debug, ex.ToString());
-					
 					FLogger.Log(LogType.Debug, "Invalid Descriptor in Config Pin");
 				}
 			}
@@ -161,34 +154,23 @@ namespace VVVV.Utils.Message{
 		
 		#region tools
 		
-		protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread GetISpreadData(IIOContainer pin, int index) {
-            return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ((VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject))[index];
-
-		}
-		
-		protected VVVV.PluginInterfaces.V2.ISpread<T> GetGenericISpreadData<T>(IIOContainer pin, int index) {
-			return (VVVV.PluginInterfaces.V2.ISpread<T>) ((VVVV.PluginInterfaces.V2.ISpread<ISpread<T>>)(pin.RawIOObject))[index];
-		}
-		
 		protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread ToISpread(IIOContainer pin) {
-			return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ((VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject));
+			return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject);
 		}
 		
 		protected VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread ToIDiffSpread(IIOContainer pin) {
-			return (VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread) ((VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread)(pin.RawIOObject));
+			return (VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread)(pin.RawIOObject);
 		}
 		protected VVVV.PluginInterfaces.V2.ISpread<T> ToGenericISpread<T>(IIOContainer pin) {
-			return (VVVV.PluginInterfaces.V2.ISpread<T>) ((VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject));
+			return (VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject);
 		}
 		
 		#endregion tools
 		
 		#region abstract methods
-		protected abstract IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name);
+		protected abstract IOAttribute DefinePin(string name, Type type);
 		
 		public abstract void Evaluate(int SpreadMax);
-
-
 		
 		#endregion abstract methods
 	}
