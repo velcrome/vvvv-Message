@@ -89,7 +89,6 @@ namespace VVVV.Nodes {
 	[PluginInfo(Name = "Message", Category = "Split", Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
 	#endregion PluginInfo
 	public class SplitMessageNode : DynamicNode {
-		
 		public enum HoldEnum
 		{
 			Off,
@@ -200,6 +199,7 @@ namespace VVVV.Nodes {
 				}
 			}
 		}
+
 		
 		#region PluginInfo
 		[PluginInfo(Name = "SetMessage", Category = "Message", Help = "Adds or edits a Message Property", Tags = "Dynamic, Bin, velcrome")]
@@ -543,7 +543,53 @@ namespace VVVV.Nodes {
 				FOutput.Flush();
 			}
 		}
-		
+
+
+        [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages", Tags = "velcrome", AutoEvaluate = true)]
+        public class MessageFrameDelayNode : IPluginEvaluate
+        {
+			[Input("Input")]
+			IDiffSpread<Message> FInput;
+
+            [Input("Default")]
+            ISpread<Message> FDefault;
+            
+            [Input("Initialize", IsSingle = true, IsBang = true)]
+			IDiffSpread<bool> FInit;
+
+        	[Output("Message", AutoFlush = false, AllowFeedback = true)]
+			ISpread<Message> FOutput;
+
+            private List<Message> lastMessage;
+			
+			[Import()]
+			protected ILogger FLogger;
+
+            public MessageFrameDelayNode()
+            {
+                lastMessage = new List<Message>();
+			}
+			
+			
+			public void Evaluate(int SpreadMax) {
+				if (!FInput.IsChanged && ! !FInit.IsChanged) return;
+				
+				if (FInit[0])
+				{
+				    lastMessage.Clear();
+                    lastMessage.AddRange(FDefault);
+				}
+				
+			    FOutput.SliceCount = lastMessage == null ? 0 : lastMessage.Count;
+                
+                FOutput.AssignFrom(lastMessage);
+			    lastMessage.Clear();
+                lastMessage.AddRange(FInput);
+				FOutput.Flush();
+			}            
+        }
+
+
 		[PluginInfo(Name = "Cons", Category = "Message", Help = "Concatenates all Messages", Tags = "velcrome")]
 		public class MessageConsNode : Cons<Message>
 		{}
@@ -561,14 +607,6 @@ namespace VVVV.Nodes {
 		
 		[PluginInfo(Name = "RingBuffer", Category = "Message", Help = "Ringbuffers all Messages", Tags = "velcrome")]
 		public class MessageRingBufferNode : RingBufferNode<Message>
-		{}
-		
-		[PluginInfo(Name = "Frame", Category = "Message", Help = "Pushes the Message into the Delayer", Tags = "FrameDelay", AutoEvaluate=true, Ignore = true)]
-		public class MessageFrameNode: Frame<Message>
-		{}
-		
-		[PluginInfo(Name = "Delayer", Category = "Message", Help = "Relays any pushed Messages", Tags = "FrameDelay", Ignore = true)]
-		public class MessageDelayerNode : Delayer<Message>
 		{}
 		
 		[PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]

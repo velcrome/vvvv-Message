@@ -1,22 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta29.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\Game\FrameDelay (GameElement) help.v4p" systemname="FrameDelay (GameElement) help" filename="C:\dev\vvvv\Game\FrameDelay (GameElement) help.v4p">
-   <NODE systemname="FrameDelay (GameElement) help" filename="FrameDelay (GameElement) help.v4p" componentmode="InAWindow" id="0" nodename="FrameDelay (GameElement) help">
-   <BOUNDS type="Node" left="3660" top="3390" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="3660" top="3390" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="1815" top="2805" width="9000" height="6000">
-   </BOUNDS>
-   <PIN pinname="In" visible="1">
-   </PIN>
-   <PIN pinname="Out" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <BOUNDS type="Window" left="1635" top="1215" width="7125" height="11085">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta30.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\modules\FrameDelay (Message) help.v4p" systemname="FrameDelay (GameElement) help" filename="C:\dev\vvvv\Game\FrameDelay (GameElement) help.v4p">
+   <BOUNDS type="Window" left="1635" top="1215" width="13710" height="11085">
    </BOUNDS>
    <NODE systemname="Timing (Debug)" nodename="Timing (Debug)" componentmode="Hidden" id="9">
    <BOUNDS type="Node" left="6696" top="2328" width="100" height="100">
@@ -40,40 +24,34 @@
    <BOUNDS type="Node" left="6696" top="3840" width="100" height="100">
    </BOUNDS>
    </NODE>
-   <NODE id="6" systemname="FrameDelay (GameElement)" filename="FrameDelay (GameElement).v4p" nodename="FrameDelay (GameElement).v4p" componentmode="Hidden" hiddenwhenlocked="0" managers="">
-   <BOUNDS type="Node" left="2994" top="3918" width="100" height="100">
+   <NODE systemname="FrameDelay (Message)" filename="..\plugins\Message.csproj" nodename="FrameDelay (Message)" componentmode="Hidden" id="26">
+   <BOUNDS type="Node" left="4695" top="4755" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="264" top="543" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="6075" top="1695" width="12015" height="9360">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Evaluate" pintype="Input" visible="-1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Window Handle" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="Patch" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="Output" visible="1" slicecount="1" values="||">
-   </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Initialize" slicecount="1" values="0">
+   <PIN pinname="Message" visible="1">
+   </PIN>
+   <PIN pinname="Initialize" slicecount="1" values="1">
+   </PIN>
+   <BOUNDS type="Box" left="4695" top="4755">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Message (Join)" filename="..\plugins\Message.csproj" nodename="Message (Join)" componentmode="Hidden" id="27">
+   <BOUNDS type="Node" left="3150" top="3270" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Foo" slicecount="1" values="bar" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="3150" top="3270">
+   </BOUNDS>
+   <PIN pinname="Send" visible="1">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Node)" componentmode="InABox" id="16" systemname="IOBox (Node)">
-   <BOUNDS type="Node" left="1848" top="5064" width="0" height="0">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="28" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2325" top="1425" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Box" left="1848" top="5064" width="792" height="240">
-   </BOUNDS>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="3696" top="2328" width="0" height="0">
-   </BOUNDS>
-   <BOUNDS type="Box" left="3696" top="2328" width="480" height="480">
+   <BOUNDS type="Node" left="2325" top="1425" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -85,17 +63,69 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Initialize">
-   </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Initialize">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="20" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="1848" top="1476" width="0" height="0">
+   <NODE systemname="Message (Split)" filename="..\plugins\Message.csproj" nodename="Message (Split)" componentmode="Hidden" id="29">
+   <BOUNDS type="Node" left="3750" top="7620" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="1848" top="1476" width="480" height="480">
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Hold if Nil" slicecount="1" values="Off">
+   </PIN>
+   <BOUNDS type="Box" left="3750" top="7620">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="30" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="4305" top="8070" width="2445" height="1290">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4305" top="8070" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="29" srcpinname="Foo" dstnodeid="30" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Cons (Message)" filename="..\plugins\Message.csproj" nodename="Cons (Message)" componentmode="Hidden" id="31">
+   <BOUNDS type="Node" left="3255" top="5745" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="3255" top="5745">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="27" srcpinname="Output" dstnodeid="31" dstpinname="Input 1">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="32" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="2445" top="7095" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2445" top="7095" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Output" dstnodeid="32" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="FrameDelay (Animation)" nodename="FrameDelay (Animation)" componentmode="Hidden" id="33">
+   <BOUNDS type="Node" left="8310" top="5490" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="35" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5715" top="3885" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5715" top="3885" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -105,45 +135,177 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="Cons (GameElement)" filename="GameElement\GameElement.csproj" nodename="Cons (GameElement)" componentmode="Hidden" id="15">
-   <BOUNDS type="Node" left="1848" top="3912" width="100" height="100">
+   <LINK srcnodeid="35" srcpinname="Y Output Value" dstnodeid="26" dstpinname="Initialize">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="36" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="3960" top="1830" width="795" height="240">
    </BOUNDS>
-   <PIN pinname="Input 1" visible="1" slicecount="1" values="||">
+   <BOUNDS type="Node" left="3960" top="1830" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" values="bar">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="27" srcpinname="Output" dstnodeid="26" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="37" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="4950" top="5400" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4950" top="5400" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="26" srcpinname="Message" dstnodeid="37" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="26" srcpinname="Message" dstnodeid="31" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Output" dstnodeid="29" dstpinname="Input">
+   </LINK>
+   <NODE systemname="MainLoop (VVVV)" nodename="MainLoop (VVVV)" componentmode="Hidden" id="-6">
+   <BOUNDS type="Node" left="5250" top="795" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Maximum background fpsS" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="FrameCounter (Animation)" nodename="FrameCounter (Animation)" componentmode="Hidden" id="38">
+   <BOUNDS type="Node" left="8475" top="780" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Frame Count" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Mod (Value)" nodename="Mod (Value)" componentmode="Hidden" id="39">
+   <BOUNDS type="Node" left="8460" top="1200" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="38" srcpinname="Frame Count" dstnodeid="39" dstpinname="Input 1">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="40" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="8340" top="15" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8340" top="15" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="40" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Enable">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="41" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="8400" top="1650" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8400" top="1650" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="39" srcpinname="Output" dstnodeid="41" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="42" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5085" top="285" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5085" top="285" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="10">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="42" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum forground fps">
+   </LINK>
+   <LINK srcnodeid="42" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum background fpsS">
+   </LINK>
+   <NODE systemname="Switch (String Input)" nodename="Switch (String Input)" componentmode="Hidden" id="43">
+   <BOUNDS type="Node" left="4215" top="2775" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" slicecount="1" values="x">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="36" srcpinname="Output String" dstnodeid="43" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="43" srcpinname="Output" dstnodeid="27" dstpinname="Foo">
+   </LINK>
+   <LINK srcnodeid="39" srcpinname="Output" dstnodeid="43" dstpinname="Switch">
+   </LINK>
+   <NODE systemname="FrameDelay (Animation)" nodename="FrameDelay (Animation)" componentmode="Hidden" id="44">
+   <BOUNDS type="Node" left="2805" top="1980" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output 1" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Input 1">
+   </LINK>
+   <NODE systemname="OR (Boolean)" nodename="OR (Boolean)" componentmode="Hidden" id="45">
+   <BOUNDS type="Node" left="2115" top="2475" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
    </PIN>
    <PIN pinname="Input 2" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="1848" top="3912">
-   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="6" dstpinname="Input">
+   <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="45" dstpinname="Input 1" linkstyle="PolyLine">
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="15" dstpinname="Input 2">
+   <LINK srcnodeid="44" srcpinname="Output 1" dstnodeid="45" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="16" dstpinname="Input Node">
+   <LINK srcnodeid="45" srcpinname="Output" dstnodeid="27" dstpinname="Send">
    </LINK>
-   <NODE systemname="Birth (GameElement)" filename="GameElement\GameElement.csproj" nodename="Birth (GameElement)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="1848" top="2844" width="100" height="100">
+   <NODE systemname="Message (Join)" filename="..\plugins\Message.csproj" nodename="Message (Join)" componentmode="Hidden" id="46">
+   <BOUNDS type="Node" left="4800" top="3645" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Insert">
+   <PIN pinname="Foo" slicecount="1" visible="1" values="kk">
    </PIN>
-   <BOUNDS type="Box" left="1848" top="2844">
+   <BOUNDS type="Box" left="4800" top="3645">
    </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="19" dstpinname="Insert">
-   </LINK>
-   <LINK srcnodeid="19" srcpinname="Output" dstnodeid="15" dstpinname="Input 1">
-   </LINK>
-   <NODE systemname="GetAttribute (GameElement)" filename="GameElement\GameElement.csproj" nodename="GetAttribute (GameElement)" componentmode="Hidden" id="24">
-   <BOUNDS type="Node" left="3348" top="5316" width="100" height="100">
-   </BOUNDS>
+   <PIN pinname="Send" visible="1" slicecount="1" values="0">
+   </PIN>
    </NODE>
    </PATCH>
