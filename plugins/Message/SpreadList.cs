@@ -16,7 +16,7 @@ using VVVV.Utils.Message;
 namespace VVVV.Utils.Collections
 {
 	/// <summary>
-	/// Description of Class1.
+	/// Description of BundleOSCNode.
 	/// </summary>
 	[Serializable]
 	[JsonConverter(typeof(SpreadListSerializer))]

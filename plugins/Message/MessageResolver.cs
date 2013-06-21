@@ -10,6 +10,7 @@ using System.Xml;
 using System.Collections.ObjectModel;
 
 using VVVV.Nodes;
+using VVVV.Utils.Messaging;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
@@ -37,7 +38,7 @@ namespace VVVV.Utils.Message {
 			Identity.Add(typeof(Vector3D), "Vector3D".ToLower());
 			Identity.Add(typeof(Vector4D), "Vector4D".ToLower());
 
-			Identity.Add(typeof(Message), "Message".ToLower());
+			Identity.Add(typeof(Messaging.Message), "Message".ToLower());
 		}
 
         #region Standard Serialisation

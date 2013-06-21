@@ -1,33 +1,19 @@
 #region usings
 using System;
 using System.IO;
-using System.ComponentModel.Composition;
 using System.Collections;
 using System.Collections.Generic;
-
 using System.Runtime.Serialization;
-using System.Security.Permissions;
-
-using System.Dynamic;
-using System.Reflection;
-using System.Linq;
 using System.Text;
-using System.Xml;
-
-using VVVV.PluginInterfaces.V1;
-using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V2.NonGeneric;
-using VVVV.Nodes;
-using VVVV.Core.Logging;
+using VVVV.Utils.Message;
 using VVVV.Utils.OSC;
 using VVVV.Utils.Collections;
 
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
+
 
 #endregion usings
 
-namespace VVVV.Utils.Message{
+namespace VVVV.Utils.Messaging{
 	
 	
 	[DataContract]
@@ -176,8 +162,9 @@ namespace VVVV.Utils.Message{
 			Message message = new Message();
 
 //			yet unsupported: 
-//			message.TimeStamp = DateTime.FromFileTime(bundle.getTimeStamp());
+//			Message.TimeStamp = DateTime.FromFileTime(bundle.getTimeStamp());
 			
+
 			foreach (OSCMessage m in bundle.Values) {
 				SpreadList sl = new SpreadList();
 				sl.AssignFrom(m.Values); // does not clone implicitly

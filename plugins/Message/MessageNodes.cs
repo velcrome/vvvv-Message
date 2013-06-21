@@ -6,21 +6,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-using System.Runtime.Serialization;
-//using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
 
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V2.NonGeneric;
 
-using VVVV.Hosting;
-using VVVV.Nodes;
 using VVVV.Core.Logging;
 using VVVV.Utils.Message;
 using VVVV.Utils.Collections;
+using VVVV.Utils.Messaging;
 
 #endregion usings
 
@@ -37,7 +31,7 @@ namespace VVVV.Nodes {
 		ISpread<string> FAddress;
 		
 		[Output("Output", AutoFlush = false)]
-		Pin<Message> FOutput;
+		Pin<Utils.Messaging.Message> FOutput;
 		
 		protected override IOAttribute DefinePin(string name, Type type) {
 			var attr = new InputAttribute(name);
@@ -70,7 +64,7 @@ namespace VVVV.Nodes {
 			
 			FOutput.SliceCount = SpreadMax;
 			for (int i=0; i<SpreadMax;i++) {
-				Message message = new Message();
+                Utils.Messaging.Message message = new Utils.Messaging.Message();
 				
 				message.Address = FAddress[i];
 				foreach (string name in FPins.Keys) {
@@ -97,7 +91,7 @@ namespace VVVV.Nodes {
 		}
 		
 		[Input("Input")]
-		IDiffSpread<Message> FInput;
+        IDiffSpread<Utils.Messaging.Message> FInput;
 		
 		[Input("Match Rule", DefaultEnumEntry="All", IsSingle = true)]
 		IDiffSpread<SelectEnum> FSelect;
@@ -167,7 +161,7 @@ namespace VVVV.Nodes {
 				}
 				
 				for (int i= (FSelect[0] == SelectEnum.Last)?SpreadMax-1:0;i<SpreadMax;i++) {
-					Message message = FInput[i];
+                    Utils.Messaging.Message message = FInput[i];
 					
 					FAddress[i] = message.Address;
 					FTimeStamp[i] = message.TimeStamp.ToString();
@@ -206,10 +200,10 @@ namespace VVVV.Nodes {
 		#endregion PluginInfo
 		public class SetMessageNode : DynamicNode {
 			[Input("Input")]
-			IDiffSpread<Message> FInput;
+            IDiffSpread<Utils.Messaging.Message> FInput;
 			
 			[Output("Output", AutoFlush=false)]
-			Pin<Message> FOutput;
+            Pin<Utils.Messaging.Message> FOutput;
 
             protected override IOAttribute DefinePin(string name, Type type)
             {
@@ -238,7 +232,7 @@ namespace VVVV.Nodes {
 				}
 
 				for (int i=0;i<SpreadMax;i++) {
-					Message message = FInput[i];
+                    Utils.Messaging.Message message = FInput[i];
 					foreach (string name in FPins.Keys) {
 						var pin = (IEnumerable) ToISpread(FPins[name])[i];
 						message.AssignFrom(name, pin);
@@ -290,7 +284,7 @@ namespace VVVV.Nodes {
 		#endregion PluginInfo
 		public class MessageMessageAsOscNode : IPluginEvaluate {
 			[Input("Input")]
-			IDiffSpread<Message> FInput;
+            IDiffSpread<Utils.Messaging.Message> FInput;
 			
 			[Output("OSC", AutoFlush = false)]
 			ISpread<Stream> FOutput;
@@ -321,7 +315,7 @@ namespace VVVV.Nodes {
 			IDiffSpread<string> FAddress;
 			
 			[Output("Output", AutoFlush = false)]
-			ISpread<Message> FOutput;
+            ISpread<Utils.Messaging.Message> FOutput;
 			
 			public void Evaluate(int SpreadMax) {
 				
@@ -333,7 +327,7 @@ namespace VVVV.Nodes {
 				FOutput.SliceCount = SpreadMax;
 				
 				for (int i=0;i<SpreadMax;i++) {
-					Message message = Message.FromOSC(FInput[i], FAddress[0]);
+                    Utils.Messaging.Message message = Utils.Messaging.Message.FromOSC(FInput[i], FAddress[0]);
 					FOutput[i] = message;
 				}
 				FOutput.Flush();
@@ -345,7 +339,7 @@ namespace VVVV.Nodes {
 		#endregion PluginInfo
 		public class MessageInfoNode : IPluginEvaluate {
 			[Input("Input")]
-			IDiffSpread<Message> FInput;
+            IDiffSpread<Utils.Messaging.Message> FInput;
 			
 			[Input("Print Message", IsBang = true)]
 			IDiffSpread<bool> FPrint;
@@ -379,7 +373,7 @@ namespace VVVV.Nodes {
 				Dictionary<Type, string> identities = new MessageResolver().Identity;
 				
 				for (int i=0;i<SpreadMax;i++) {
-					Message m = FInput[i];
+                    Utils.Messaging.Message m = FInput[i];
 					FOutput[i]= m.ToString();
 					FAddress[i] = m.Address;
 					FTimeStamp[i] = m.TimeStamp.ToString();
@@ -409,16 +403,16 @@ namespace VVVV.Nodes {
 		#endregion PluginInfo
 		public class MessageSiftNode : IPluginEvaluate {
 			[Input("Input")]
-			IDiffSpread<Message> FInput;
+            IDiffSpread<Utils.Messaging.Message> FInput;
 			
 			[Input("Filter", DefaultString = "*")]
 			IDiffSpread<string> FFilter;
 			
 			[Output("Output", AutoFlush = false)]
-			ISpread<Message> FOutput;
+            ISpread<Utils.Messaging.Message> FOutput;
 			
 			[Output("NotFound", AutoFlush = false)]
-			ISpread<Message> FNotFound;
+            ISpread<Utils.Messaging.Message> FNotFound;
 			
 			[Import()]
 			protected ILogger FLogger;
@@ -464,7 +458,7 @@ namespace VVVV.Nodes {
 		#endregion PluginInfo
 		public class MessageAsJsonStringNode : IPluginEvaluate {
 			[Input("Input")]
-			IDiffSpread<Message> FInput;
+            IDiffSpread<Utils.Messaging.Message> FInput;
 			
 			[Output("String", AutoFlush = false)]
 			ISpread<string> FOutput;
@@ -507,7 +501,7 @@ namespace VVVV.Nodes {
 			IDiffSpread<string> FInput;
 			
 			[Output("Message", AutoFlush = false)]
-			ISpread<Message> FOutput;
+            ISpread<Utils.Messaging.Message> FOutput;
 			
 			private MessageResolver FResolver;
 			
@@ -536,8 +530,8 @@ namespace VVVV.Nodes {
 				FOutput.SliceCount = SpreadMax;
 				
 				for (int i=0;i<SpreadMax;i++) {
-					
-					FOutput[i] = JsonConvert.DeserializeObject<Message>(FInput[i]);
+
+                    FOutput[i] = JsonConvert.DeserializeObject<Utils.Messaging.Message>(FInput[i]);
 				}
 				
 				FOutput.Flush();
@@ -549,25 +543,25 @@ namespace VVVV.Nodes {
         public class MessageFrameDelayNode : IPluginEvaluate
         {
 			[Input("Input")]
-			IDiffSpread<Message> FInput;
+            IDiffSpread<Utils.Messaging.Message> FInput;
 
             [Input("Default")]
-            ISpread<Message> FDefault;
+            ISpread<Utils.Messaging.Message> FDefault;
             
             [Input("Initialize", IsSingle = true, IsBang = true)]
 			IDiffSpread<bool> FInit;
 
         	[Output("Message", AutoFlush = false, AllowFeedback = true)]
-			ISpread<Message> FOutput;
+            ISpread<Utils.Messaging.Message> FOutput;
 
-            private List<Message> lastMessage;
+            private List<Utils.Messaging.Message> lastMessage;
 			
 			[Import()]
 			protected ILogger FLogger;
 
             public MessageFrameDelayNode()
             {
-                lastMessage = new List<Message>();
+                lastMessage = new List<Utils.Messaging.Message>();
 			}
 			
 			
@@ -591,26 +585,26 @@ namespace VVVV.Nodes {
 
 
 		[PluginInfo(Name = "Cons", Category = "Message", Help = "Concatenates all Messages", Tags = "velcrome")]
-		public class MessageConsNode : Cons<Message>
+        public class MessageConsNode : Cons<Utils.Messaging.Message>
 		{}
 		
 		
 		[PluginInfo(Name = "Buffer", Category = "Message", Help = "Buffers all Messages", Tags = "velcrome")]
-		public class MessageBufferNode : BufferNode<Message>
+        public class MessageBufferNode : BufferNode<Utils.Messaging.Message>
 		{}
 		
 		
 		[PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
-		public class MessageQueueNode : QueueNode<Message>
+        public class MessageQueueNode : QueueNode<Utils.Messaging.Message>
 		{}
 		
 		
 		[PluginInfo(Name = "RingBuffer", Category = "Message", Help = "Ringbuffers all Messages", Tags = "velcrome")]
-		public class MessageRingBufferNode : RingBufferNode<Message>
+        public class MessageRingBufferNode : RingBufferNode<Utils.Messaging.Message>
 		{}
 		
 		[PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
-		public class MessageSerializeNode: Serialize<Message>
+        public class MessageSerializeNode : Serialize<Utils.Messaging.Message>
 		{
 			
 			public MessageSerializeNode() : base() {
@@ -619,7 +613,7 @@ namespace VVVV.Nodes {
 		}
 		
 		[PluginInfo(Name = "DeSerialize", Category = "Message", Help = "Creates Messages from binary", Tags = "Raw")]
-		public class MessageDeSerializeNode : DeSerialize<Message>
+        public class MessageDeSerializeNode : DeSerialize<Utils.Messaging.Message>
 		{
 			public MessageDeSerializeNode() : base() {
 				FResolver = new MessageResolver();
@@ -627,16 +621,16 @@ namespace VVVV.Nodes {
 		}
 		
 		[PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
-		public class MessageSAndHNode : SAndH<Message>
+        public class MessageSAndHNode : SAndH<Utils.Messaging.Message>
 		{}
 		
 		[PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Tags = "Dynamic, velcrome")]
-		public class MessageGetSliceNode : GetSlice<Message>
+        public class MessageGetSliceNode : GetSlice<Utils.Messaging.Message>
 		{}
 		
 		
 		[PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
-		public class MessageSelectNode : Select<Message>
+        public class MessageSelectNode : Select<Utils.Messaging.Message>
 		{}
 		
 	}
