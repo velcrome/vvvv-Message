@@ -200,10 +200,10 @@ namespace VVVV.Nodes {
 		#endregion PluginInfo
 		public class SetMessageNode : DynamicNode {
 			[Input("Input")]
-            IDiffSpread<Utils.Messaging.Message> FInput;
+            IDiffSpread<Message> FInput;
 			
 			[Output("Output", AutoFlush=false)]
-            Pin<Utils.Messaging.Message> FOutput;
+            Pin<Message> FOutput;
 
             protected override IOAttribute DefinePin(string name, Type type)
             {
