@@ -7,12 +7,10 @@ using System.Collections.Generic;
 using System.Text;
 
 using Newtonsoft.Json;
-
-using VVVV.PluginInterfaces.V1;
+using VVVV.Nodes.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 using VVVV.Core.Logging;
-using VVVV.Utils.Message;
 using VVVV.Utils.Collections;
 using VVVV.Utils.Messaging;
 
@@ -311,23 +309,26 @@ namespace VVVV.Nodes {
 			[Input("OSC")]
 			IDiffSpread<Stream> FInput;
 			
-			[Input("Prefix Address", DefaultString="", IsSingle = true)]
+			[Input("Additional Address", DefaultString="OSC", IsSingle = true)]
 			IDiffSpread<string> FAddress;
-			
-			[Output("Output", AutoFlush = false)]
-            ISpread<Utils.Messaging.Message> FOutput;
+
+            [Input("Contract Address Parts", DefaultValue= 1, IsSingle = true, MinValue = 1)]
+            IDiffSpread<int> FContract;
+            
+            [Output("Output", AutoFlush = false)]
+            ISpread<Message> FOutput;
 			
 			public void Evaluate(int SpreadMax) {
 				
-				if (!FInput.IsChanged) return;
+				if (!FInput.IsChanged && !FAddress.IsChanged && !FContract.IsChanged) return;
 				
 				if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
-				else SpreadMax = FInput.SliceCount;
+				    else SpreadMax = FInput.SliceCount;
 				
 				FOutput.SliceCount = SpreadMax;
 				
 				for (int i=0;i<SpreadMax;i++) {
-                    Utils.Messaging.Message message = Utils.Messaging.Message.FromOSC(FInput[i], FAddress[0]);
+                    Message message = Message.FromOSC(FInput[i], FAddress[0], FContract[0]);
 					FOutput[i] = message;
 				}
 				FOutput.Flush();
@@ -335,7 +336,7 @@ namespace VVVV.Nodes {
 		}
 		
 		#region PluginInfo
-		[PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "Dynamic, velcrome")]
+		[PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "Dynamic, TTY, velcrome")]
 		#endregion PluginInfo
 		public class MessageInfoNode : IPluginEvaluate {
 			[Input("Input")]
@@ -566,7 +567,7 @@ namespace VVVV.Nodes {
 			
 			
 			public void Evaluate(int SpreadMax) {
-				if (!FInput.IsChanged && ! !FInit.IsChanged) return;
+				if (!FInput.IsChanged && !FInit.IsChanged) return;
 				
 				if (FInit[0])
 				{
@@ -582,7 +583,6 @@ namespace VVVV.Nodes {
 				FOutput.Flush();
 			}            
         }
-
 
 		[PluginInfo(Name = "Cons", Category = "Message", Help = "Concatenates all Messages", Tags = "velcrome")]
         public class MessageConsNode : Cons<Utils.Messaging.Message>

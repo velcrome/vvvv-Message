@@ -1,28 +1,17 @@
 #region usings
 using System;
-using System.IO;
 using System.ComponentModel.Composition;
-using System.Collections;
 using System.Collections.Generic;
-
-using System.Dynamic;
-using System.Reflection;
 using System.Linq;
 
-using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V2.NonGeneric;
-
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-using VVVV.Hosting;
-using VVVV.Nodes;
 using VVVV.Core.Logging;
-using VVVV.Utils.OSC;
+
+using VVVV.Utils.Messaging;
 
 #endregion usings
 
-namespace VVVV.Utils.Message{
+namespace VVVV.Nodes.Messaging {
 
 	public abstract class DynamicNode : IPluginEvaluate, IPartImportsSatisfiedNotification
 	{
@@ -191,11 +180,9 @@ namespace VVVV.Utils.Message{
                 return instance;
             }
         }
-
-        
-
-
     }
+
+
 
    
 }

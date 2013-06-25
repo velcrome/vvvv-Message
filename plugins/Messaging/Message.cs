@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
-using VVVV.Utils.Message;
 using VVVV.Utils.OSC;
 using VVVV.Utils.Collections;
 
@@ -137,14 +136,18 @@ namespace VVVV.Utils.Messaging{
 		public Stream ToOSC() {
 			OSCBundle bundle = new OSCBundle(this.TimeStamp.ToFileTime());
 			foreach (string name in MessageData.Keys)  {
-				string[] address = Address.Split('.');
 				string oscAddress = "";
 			
-                foreach (string part in address) {
+                foreach (string part in Address.Split('.')) {
 					if (part.Trim() != "") oscAddress += "/" + part;
 				}
-				
-				OSCMessage m = new OSCMessage(oscAddress+"/"+name);
+
+                foreach (string part in name.Split('.'))
+                {
+                    if (part.Trim() != "") oscAddress += "/" + part;
+                } 
+
+                OSCMessage m = new OSCMessage(oscAddress);
 				SpreadList bl = MessageData[name];
 				for (int i=0;i<bl.Count;i++) m.Append(bl[i]);
 				bundle.Append(m);
@@ -152,9 +155,10 @@ namespace VVVV.Utils.Messaging{
 			return new MemoryStream(bundle.BinaryData); // packs implicitly
 		}
 		
-		public static Message FromOSC(Stream stream, string messageName = "OSC") {
+		public static Message FromOSC(Stream stream, string messagePrefix = "OSC", int contractAddress = 1) {
 			MemoryStream ms = new MemoryStream();
-			stream.CopyTo(ms);
+		    stream.Position = 0;
+            stream.CopyTo(ms);
 			byte[] bytes = ms.ToArray();
 			int start = 0;
 			OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length);
@@ -168,18 +172,30 @@ namespace VVVV.Utils.Messaging{
 			foreach (OSCMessage m in bundle.Values) {
 				SpreadList sl = new SpreadList();
 				sl.AssignFrom(m.Values); // does not clone implicitly
+
+			    string oldAddress = m.Address;
+                while (oldAddress.StartsWith("/")) oldAddress = oldAddress.Substring(1);
+                while (oldAddress.EndsWith("/")) oldAddress = oldAddress.Substring(0, oldAddress.Length-1);
+                
+                string[] address = oldAddress.Split('/');
+
+			    contractAddress = address.Length > contractAddress ? contractAddress : address.Length - ((messagePrefix.Trim() == "")? 1 : 0);
+			    string attribName = "";
+                for (int i = address.Length - contractAddress ; i < address.Length; i++)
+                {
+                    attribName += ".";
+                    attribName += address[i];
+                    address[i] = "";
+                }
+                attribName = attribName.Substring(1);
 				
-				string[] address = m.Address.Split('/');
-				string attribName = address[address.Length-1];
-				address[address.Length-1] = "";
-				
-				string messageAddress = "";
+
+                string messageAddress = "";
 				foreach (string part in address) {
 					if (part.Trim() != "") messageAddress += "."+part;
 				}
-				
-				if (messageName.Trim() == "") message.Address = messageAddress.Substring(1);
-					else message.Address = messageName + messageAddress;
+                if (messagePrefix.Trim() == "") message.Address = messageAddress.Substring(1);
+                    else message.Address = messagePrefix + messageAddress;
 
 				message[attribName] = sl;
 

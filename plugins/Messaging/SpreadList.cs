@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Collections;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-//using System.Linq;
 
 using VVVV.PluginInterfaces.V2.NonGeneric;
-using VVVV.Utils.Message;
+using VVVV.Utils.Messaging;
 
 namespace VVVV.Utils.Collections
 {

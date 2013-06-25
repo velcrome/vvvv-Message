@@ -16,7 +16,7 @@ using VVVV.Utils.VMath;
 
 #endregion usings
 
-namespace VVVV.Utils.Message {
+namespace VVVV.Utils.Messaging {
 	public class MessageResolver : DataContractResolver
 	{
 		
