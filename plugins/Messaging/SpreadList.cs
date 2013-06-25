@@ -6,7 +6,7 @@ using System.Collections;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
+using VVVV.Nodes.Messaging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils.Messaging;
 
@@ -19,7 +19,8 @@ namespace VVVV.Utils.Collections
 	[JsonConverter(typeof(SpreadListSerializer))]
 	public class SpreadList : ArrayList, ISerializable
 	{
-		public Type SpreadType {
+        
+        public Type SpreadType {
 			get {
 				if (this.Count == 0) return typeof(object);
 					else return this[0].GetType();
@@ -58,7 +59,15 @@ namespace VVVV.Utils.Collections
 	
 	public class SpreadListSerializer : JsonConverter
 	{
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        private TypeIdentity Identity;
+
+        public SpreadListSerializer()
+        {
+            Identity = new TypeIdentity();
+        }
+		
+        
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			SpreadList list = value as SpreadList;
 		    writer.WriteStartObject();
@@ -67,8 +76,7 @@ namespace VVVV.Utils.Collections
 			
 			Type type = (list == null) || (list.Count == 0)? typeof(string) : list.SpreadType;
 			
-            Dictionary<Type, string> ident = new MessageResolver().Identity;
-            writer.WriteValue(ident[type]);
+            writer.WriteValue(Identity[type]);
 			
     		writer.WritePropertyName("Spread");
 			writer.WriteStartArray();
@@ -89,12 +97,10 @@ namespace VVVV.Utils.Collections
             var jT = jsonObject.GetValue("Type");
 		    typeName = (string) jT.ToObject(typeof(string), serializer);
 
-            Dictionary<Type, string> ident = new MessageResolver().Identity;
-
 		    Type type = typeof (string);
-            foreach (Type key in ident.Keys)
+            foreach (Type key in Identity.Keys)
 		    {
-		        if (ident[key] == typeName)
+		        if (Identity[key] == typeName)
 		        {
 		            type = key;
 		        }

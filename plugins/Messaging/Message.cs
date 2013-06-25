@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using VVVV.Nodes.Messaging;
 using VVVV.Utils.OSC;
 using VVVV.Utils.Collections;
 
@@ -33,10 +34,15 @@ namespace VVVV.Utils.Messaging{
 			get;
 			set;
 		}
+
+	    private static TypeIdentity Identity;
 		
 		public Message() {
 			TimeStamp = DateTime.Now;
-		}
+		    if (Identity == null) Identity = new TypeIdentity();
+        }
+
+
 
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
@@ -69,15 +75,13 @@ namespace VVVV.Utils.Messaging{
 			}
 		}
 		
-		public string GetConfig(Dictionary<Type, string> identities = null) {
+		public string GetConfig() {
 			StringBuilder sb = new StringBuilder();
-			
-			if (identities == null) identities = new MessageResolver().Identity;
 			
 			foreach (string name in MessageData.Keys) {
 				try {
 					Type type = MessageData[name][0].GetType();
-					sb.Append(", " + identities[type]);
+					sb.Append(", " + Identity[type]);
 					sb.Append(" " + name);
 				} catch (Exception err) {
 					// type not defined

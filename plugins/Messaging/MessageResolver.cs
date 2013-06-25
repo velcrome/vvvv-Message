@@ -10,6 +10,7 @@ using System.Xml;
 using System.Collections.ObjectModel;
 
 using VVVV.Nodes;
+using VVVV.Nodes.Messaging;
 using VVVV.Utils.Messaging;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
@@ -19,27 +20,12 @@ using VVVV.Utils.VMath;
 namespace VVVV.Utils.Messaging {
 	public class MessageResolver : DataContractResolver
 	{
-		
-		public Dictionary<Type, string> Identity = new Dictionary<Type, string>();
-		
-		public MessageResolver() {
-			
-			// This is the only place where you need to add new datatypes.
-			
-			Identity.Add(typeof(bool), "bool".ToLower());
-			Identity.Add(typeof(int), "int".ToLower());
-			Identity.Add(typeof(double), "double".ToLower());
-			Identity.Add(typeof(float), "float".ToLower());
-			Identity.Add(typeof(string), "string".ToLower());
-			
-			Identity.Add(typeof(RGBAColor), "Color".ToLower());
-			Identity.Add(typeof(Matrix4x4), "Transform".ToLower());
-			Identity.Add(typeof(Vector2D), "Vector2D".ToLower());
-			Identity.Add(typeof(Vector3D), "Vector3D".ToLower());
-			Identity.Add(typeof(Vector4D), "Vector4D".ToLower());
+	    private TypeIdentity Identity; 
+        public MessageResolver()
+        {
+            Identity = new TypeIdentity();
 
-			Identity.Add(typeof(Messaging.Message), "Message".ToLower());
-		}
+        }
 
         #region Standard Serialisation
 

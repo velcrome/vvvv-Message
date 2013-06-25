@@ -46,9 +46,17 @@ namespace VVVV.Nodes.Messaging {
 		protected Dictionary<string, string> FTypes = new Dictionary<string, string>();
 
 		protected int FCount = 2;
+	    public TypeIdentity Identity;
+
 		#endregion fields & pins
 
         #region type
+        
+        public DynamicNode()
+        {
+            Identity = new TypeIdentity();
+        }
+
 
         protected bool TypeUpdate()
         {
@@ -67,8 +75,7 @@ namespace VVVV.Nodes.Messaging {
 
 
         #region pin management
-        public DynamicNode () {
-		}
+ 
 		
 		
 		public void OnImportsSatisfied() {
@@ -108,12 +115,10 @@ namespace VVVV.Nodes.Messaging {
 					}
 					
 					if (create) {
-						Dictionary<Type, string> ident = new MessageResolver().Identity;
-
 					    Type type = typeof(string);
-                        foreach (Type key in ident.Keys)
+                        foreach (Type key in Identity.Keys)
 					    {
-					        if (ident[key] == typeName)
+					        if (Identity[key] == typeName)
 					        {
 					            type = key;
 					        }

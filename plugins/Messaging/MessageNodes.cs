@@ -371,15 +371,12 @@ namespace VVVV.Nodes {
 				FAddress.SliceCount = SpreadMax;
 				FConfigOut.SliceCount = SpreadMax;
 				
-				Dictionary<Type, string> identities = new MessageResolver().Identity;
-				
 				for (int i=0;i<SpreadMax;i++) {
-                    Utils.Messaging.Message m = FInput[i];
+                    Message m = FInput[i];
 					FOutput[i]= m.ToString();
 					FAddress[i] = m.Address;
 					FTimeStamp[i] = m.TimeStamp.ToString();
-					StringBuilder config = new StringBuilder();
-					FConfigOut[i] = FInput[i].GetConfig(identities);
+                    FConfigOut[i] = FInput[i].GetConfig();
 					
 					if (FPrint[i]) {
 						StringBuilder sb = new StringBuilder();
