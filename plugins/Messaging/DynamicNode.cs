@@ -46,7 +46,6 @@ namespace VVVV.Nodes.Messaging {
 		protected Dictionary<string, string> FTypes = new Dictionary<string, string>();
 
 		protected int FCount = 2;
-	    public TypeIdentity Identity;
 
 		#endregion fields & pins
 
@@ -54,7 +53,6 @@ namespace VVVV.Nodes.Messaging {
         
         public DynamicNode()
         {
-            Identity = new TypeIdentity();
         }
 
 
@@ -116,9 +114,9 @@ namespace VVVV.Nodes.Messaging {
 					
 					if (create) {
 					    Type type = typeof(string);
-                        foreach (Type key in Identity.Keys)
+                        foreach (Type key in TypeIdentity.Instance.Keys)
 					    {
-					        if (Identity[key] == typeName)
+                            if (TypeIdentity.Instance[key] == typeName)
 					        {
 					            type = key;
 					        }

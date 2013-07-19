@@ -9,8 +9,17 @@ namespace VVVV.Nodes.Messaging
 {
     public class TypeIdentity : Dictionary<Type, string>
     {
-//        public Dictionary<Type, string> Identity = new Dictionary<Type, string>();
-	    public TypeIdentity()
+        private static TypeIdentity _instance;
+        public static TypeIdentity Instance
+        {
+            get { 
+                if (_instance == null) _instance = new TypeIdentity();
+                return _instance;
+            }
+            private set { throw new NotImplementedException(); }
+        }
+
+        public TypeIdentity()
 	    {
             // This is the only place where you need to add new datatypes.
 

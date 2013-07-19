@@ -5,7 +5,7 @@ using System.ComponentModel.Composition;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Xml.Linq;
 using Newtonsoft.Json;
 using VVVV.Nodes.Messaging;
 using VVVV.PluginInterfaces.V2;
@@ -450,7 +450,37 @@ namespace VVVV.Nodes {
 				FNotFound.Flush();
 			}
 		}
-		
+
+        #region PluginInfo
+        [PluginInfo(Name = "AsXElement", Category = "Message", Help = "Convert Messages", Tags = "Dynamic, velcrome, XML")]
+        #endregion PluginInfo
+        public class MessageAsXElementNode : IPluginEvaluate
+        {
+            [Input("Input")]
+            IDiffSpread<Message> FInput;
+
+            [Output("Element", AutoFlush = false)]
+            ISpread<XElement> FOutput;
+
+
+            [Import()]
+            protected ILogger FLogger;
+
+            public void Evaluate(int SpreadMax)
+            {
+                if (!FInput.IsChanged) return;
+
+                FOutput.SliceCount = SpreadMax;
+
+                for (int i = 0; i < SpreadMax; i++)
+                {
+                    FOutput[i] = FInput[i].ToXElement();
+                }
+                FOutput.Flush();
+            }
+        }		
+
+
 		#region PluginInfo
 		[PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
 		#endregion PluginInfo

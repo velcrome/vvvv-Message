@@ -59,11 +59,9 @@ namespace VVVV.Utils.Collections
 	
 	public class SpreadListSerializer : JsonConverter
 	{
-        private TypeIdentity Identity;
 
         public SpreadListSerializer()
         {
-            Identity = new TypeIdentity();
         }
 		
         
@@ -75,8 +73,8 @@ namespace VVVV.Utils.Collections
 		    
 			
 			Type type = (list == null) || (list.Count == 0)? typeof(string) : list.SpreadType;
-			
-            writer.WriteValue(Identity[type]);
+
+            writer.WriteValue(TypeIdentity.Instance[type]);
 			
     		writer.WritePropertyName("Spread");
 			writer.WriteStartArray();
@@ -98,9 +96,9 @@ namespace VVVV.Utils.Collections
 		    typeName = (string) jT.ToObject(typeof(string), serializer);
 
 		    Type type = typeof (string);
-            foreach (Type key in Identity.Keys)
+            foreach (Type key in TypeIdentity.Instance.Keys)
 		    {
-		        if (Identity[key] == typeName)
+                if (TypeIdentity.Instance[key] == typeName)
 		        {
 		            type = key;
 		        }

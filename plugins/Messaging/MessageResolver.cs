@@ -20,11 +20,8 @@ using VVVV.Utils.VMath;
 namespace VVVV.Utils.Messaging {
 	public class MessageResolver : DataContractResolver
 	{
-	    private TypeIdentity Identity; 
         public MessageResolver()
         {
-            Identity = new TypeIdentity();
-
         }
 
         #region Standard Serialisation
@@ -34,10 +31,10 @@ namespace VVVV.Utils.Messaging {
 
         public override bool TryResolveType(Type dataContractType, Type declaredType, DataContractResolver knownTypeResolver, out XmlDictionaryString typeName, out XmlDictionaryString typeNamespace)
 		{
-			if (Identity.ContainsKey(dataContractType))
+            if (TypeIdentity.Instance.ContainsKey(dataContractType))
 			{
 				XmlDictionary dictionary = new XmlDictionary();
-				typeName = dictionary.Add(Identity[dataContractType]);
+                typeName = dictionary.Add(TypeIdentity.Instance[dataContractType]);
 				typeNamespace = dictionary.Add(dataContractType.FullName);
 				return true; // indicating that this resolver knows how to handle
 			}
@@ -49,7 +46,7 @@ namespace VVVV.Utils.Messaging {
 		}
 		
 		public IEnumerable<Type> KnownTypes { get {
-				return Identity.Keys;
+            return TypeIdentity.Instance.Keys;
 			
 			}
 			
@@ -58,8 +55,10 @@ namespace VVVV.Utils.Messaging {
 		public override Type ResolveName(string typeName, string typeNamespace, Type type, DataContractResolver knownTypeResolver)
 		{
 			Type foundType = null;
-			foreach (Type t in Identity.Keys) {
-				if (typeName.ToLower() == Identity[t] && typeNamespace == t.FullName) {
+            foreach (Type t in TypeIdentity.Instance.Keys)
+            {
+                if (typeName.ToLower() == TypeIdentity.Instance[t] && typeNamespace == t.FullName)
+                {
 					foundType = t;
 				}
 			}

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Xml.Linq;
 using VVVV.Nodes.Messaging;
 using VVVV.Utils.OSC;
 using VVVV.Utils.Collections;
@@ -35,11 +36,9 @@ namespace VVVV.Utils.Messaging{
 			set;
 		}
 
-	    private static TypeIdentity Identity;
-		
+	
 		public Message() {
 			TimeStamp = DateTime.Now;
-		    if (Identity == null) Identity = new TypeIdentity();
         }
 
 
@@ -81,7 +80,7 @@ namespace VVVV.Utils.Messaging{
 			foreach (string name in MessageData.Keys) {
 				try {
 					Type type = MessageData[name][0].GetType();
-					sb.Append(", " + Identity[type]);
+					sb.Append(", " + TypeIdentity.Instance[type]);
 					sb.Append(" " + name);
 				} catch (Exception err) {
 					// type not defined
@@ -122,6 +121,34 @@ namespace VVVV.Utils.Messaging{
 			return m;
 		}
 		
+        public XElement ToXElement()
+        {
+            XElement xml = new XElement("Message");
+
+            xml.Add(new XAttribute("address", this.Address));
+
+            foreach (var key in MessageData.Keys)
+            {
+                SpreadList data = MessageData[key];
+
+                var spread = new XElement("Spread");
+                
+                spread.Add(new XAttribute("name", key));
+                spread.Add(new XAttribute("type", TypeIdentity.Instance[data.SpreadType].ToString()));
+
+                for (int i = 0; i < MessageData[key].Count;i++ )
+                {
+                    spread.Add(new XElement(TypeIdentity.Instance[data.SpreadType].ToString(), MessageData[key][i].ToString()));
+                }
+
+                
+                xml.Add(spread);
+            }
+
+            return xml;
+        } 
+
+
 		public override string ToString() {
 			var sb = new StringBuilder();
 			
