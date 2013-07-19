@@ -34,7 +34,7 @@ namespace VVVV.Nodes {
 		protected override IOAttribute DefinePin(string name, Type type) {
 			var attr = new InputAttribute(name);
 			attr.BinVisibility = PinVisibility.Hidden;
-			attr.BinSize = 1;
+			attr.BinSize = -1;
 			attr.Order = FCount;
 			attr.BinOrder = FCount+1;
 			attr.AutoValidate = false;  // need to sync all pins manually
@@ -207,7 +207,7 @@ namespace VVVV.Nodes {
             {
                 var attr = new InputAttribute(name);
                 attr.BinVisibility = PinVisibility.Hidden;
-                attr.BinSize = 1;
+                attr.BinSize = -1;
                 attr.Order = FCount;
                 attr.BinOrder = FCount + 1;
 //                attr.AutoValidate = false;  // need to sync all pins manually
