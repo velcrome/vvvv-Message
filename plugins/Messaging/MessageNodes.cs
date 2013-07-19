@@ -321,7 +321,9 @@ namespace VVVV.Nodes {
 			public void Evaluate(int SpreadMax) {
 				
 				if (!FInput.IsChanged && !FAddress.IsChanged && !FContract.IsChanged) return;
-				
+                if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
+
+
 				if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
 				    else SpreadMax = FInput.SliceCount;
 				

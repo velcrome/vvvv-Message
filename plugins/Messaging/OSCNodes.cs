@@ -47,56 +47,56 @@ namespace VVVV.Nodes.OSC
         public void Evaluate(int SpreadMax)
         {
 
-//            if (!FInput.IsChanged) return;
-            
+            //            if (!FInput.IsChanged) return;
+
             FOutput.SliceCount = 0;
             SpreadMax = FInput.SliceCount;
 
-            if (FInput.SliceCount > 0 && FInput[0] != null)
+            if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
+
+            for (int i = 0; i < SpreadMax; i++)
             {
-                for (int i = 0; i < SpreadMax; i++)
+                //                    try {
+                MemoryStream ms = new MemoryStream();
+                FInput[i].Position = 0;
+                FInput[i].CopyTo(ms);
+                byte[] bytes = ms.ToArray();
+                int start = 0;
+
+                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) ms.Length);
+
+
+                bool matches = false;
+                for (int j = 0; j < FPinInAddress.SliceCount; j++)
                 {
-//                    try {
-                        MemoryStream ms = new MemoryStream();
-                        FInput[i].Position = 0;
-                        FInput[i].CopyTo(ms);
-                        byte[] bytes = ms.ToArray();
-                        int start = 0;
+                    switch (FPinInFilter[0])
+                    {
+                        case Filter.Matches:
+                            matches |= packet.Address == FPinInAddress[j];
+                            break;
 
-                        OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) ms.Length);
+                        case Filter.Contains:
+                            matches |= packet.Address.Contains(FPinInAddress[j]);
+                            break;
 
+                        case Filter.Starts:
+                            matches |= packet.Address.StartsWith(FPinInAddress[j]);
+                            break;
 
-                        bool matches = false;
-                        for (int j = 0; j < FPinInAddress.SliceCount; j++)
-                        {
-                            switch (FPinInFilter[0])
-                            {
-                                case Filter.Matches:
-                                    matches |= packet.Address == FPinInAddress[j];
-                                    break;
+                        case Filter.Ends:
+                            matches |= packet.Address.EndsWith(FPinInAddress[j]);
+                            break;
 
-                                case Filter.Contains:
-                                    matches |= packet.Address.Contains(FPinInAddress[j]);
-                                    break;
-
-                                case Filter.Starts:
-                                    matches |= packet.Address.StartsWith(FPinInAddress[j]);
-                                    break;
-
-                                case Filter.Ends:
-                                    matches |= packet.Address.EndsWith(FPinInAddress[j]);
-                                    break;
-
-                                case Filter.All:
-                                    matches = true;
-                                    break;
-                            }
-                        }
-
-                        if (matches) FOutput.Add(ms);
-//                    } catch (Exception ex) {}
+                        case Filter.All:
+                            matches = true;
+                            break;
+                    }
                 }
+
+                if (matches) FOutput.Add(ms);
+                //                    } catch (Exception ex) {}
             }
+
             FOutput.Flush();
         }
 
@@ -133,20 +133,24 @@ namespace VVVV.Nodes.OSC
             }
             return r.Substring(1);
         }
-        
-        
+
+
         public void Evaluate(int SpreadMax)
         {
+
             if (!FInput.IsChanged && !FSelect.IsChanged && !FDistribute.IsChanged) return;
+
+            if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length <= 1)) return;
+
             SpreadMax = FInput.SliceCount;
 
             var isFound = new Dictionary<string, bool>();
             var messages = new List<OSCMessage>();
-            
+
             for (int i = 0; i < SpreadMax; i++)
             {
                 var ms = new MemoryStream();
-                
+
                 int index = FSelect[0] == SelectEnum.Last ? SpreadMax - i - 1 : i;
                 FInput[index].Position = 0; // rewind stream
                 FInput[index].CopyTo(ms);
@@ -161,7 +165,7 @@ namespace VVVV.Nodes.OSC
                     for (int j = 0; j < packets.Count; j++)
                     {
                         int innerIndex = FSelect[0] == SelectEnum.Last ? packets.Count - j - 1 : j;
-                        var innerMessage = (OSCMessage)packets[innerIndex];
+                        var innerMessage = (OSCMessage) packets[innerIndex];
 
                         if (FSelect[0] == SelectEnum.All)
                         {
@@ -172,16 +176,20 @@ namespace VVVV.Nodes.OSC
                             if (isFound.ContainsKey(innerMessage.Address))
                             {
                                 // do nothing.
-                            } else {
+                            }
+                            else
+                            {
                                 isFound.Add(innerMessage.Address, true);
                                 messages.Add(innerMessage);
                             }
                         }
                     }
-                } else {
+                }
+                else
+                {
                     if (FSelect[0] == SelectEnum.All)
                     {
-                        messages.Add((OSCMessage)packet);
+                        messages.Add((OSCMessage) packet);
                     }
                     else
                     {
@@ -192,7 +200,7 @@ namespace VVVV.Nodes.OSC
                         else
                         {
                             isFound.Add(packet.Address, true);
-                            messages.Add((OSCMessage)packet);
+                            messages.Add((OSCMessage) packet);
                         }
                     }
                 }
@@ -204,8 +212,8 @@ namespace VVVV.Nodes.OSC
             var bundles = new Dictionary<string, OSCBundle>();
             var singleBundle = new OSCBundle();
 
-           foreach (var message in messages)
-           {
+            foreach (var message in messages)
+            {
                 if (!FDistribute[0]) singleBundle.Append(message);
                 else
                 {
@@ -216,14 +224,16 @@ namespace VVVV.Nodes.OSC
                     }
                     bundles[a].Append(message);
                 }
-            } 
-    
+            }
+
             FOutput.SliceCount = 0;
-            
+
             if (!FDistribute[0])
             {
                 FOutput.Add(new MemoryStream((singleBundle.BinaryData)));
-            } else {
+            }
+            else
+            {
                 foreach (OSCBundle bundle in bundles.Values)
                 {
                     FOutput.Add(new MemoryStream((bundle.BinaryData)));
@@ -231,6 +241,7 @@ namespace VVVV.Nodes.OSC
             }
             FOutput.Flush();
         }
+
     }
 
     #region PluginInfo
@@ -250,6 +261,8 @@ namespace VVVV.Nodes.OSC
         public void Evaluate(int SpreadMax)
         {
             if (!FInput.IsChanged) return;
+
+            if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
 
             SpreadMax = FInput.SliceCount;
             FOutput.SliceCount = SpreadMax;
