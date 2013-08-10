@@ -4,15 +4,19 @@ using System.IO;
 using System.ComponentModel.Composition;
 using System.Collections;
 using System.Collections.Generic;
+
 using System.Text;
 using System.Xml.Linq;
+using System.Linq;
+
 using Newtonsoft.Json;
 using VVVV.Nodes.Messaging;
 using VVVV.PluginInterfaces.V2;
-
+using VVVV.Nodes;
 using VVVV.Core.Logging;
 using VVVV.Utils.Collections;
 using VVVV.Utils.Messaging;
+using VVVV.Utils.Streams;
 
 #endregion usings
 
@@ -493,13 +497,13 @@ namespace VVVV.Nodes {
 			[Output("String", AutoFlush = false)]
 			ISpread<string> FOutput;
 			
-			private MessageResolver FResolver;
+//			private MessageResolver FResolver;
 			
 			[Import()]
 			protected ILogger FLogger;
 			
 			public MessageAsJsonStringNode () {
-				FResolver = new MessageResolver();
+//				FResolver = new MessageResolver();
 			}
 			
 			
@@ -526,44 +530,34 @@ namespace VVVV.Nodes {
 		#region PluginInfo
 		[PluginInfo(Name = "AsMessage", Category = "Message, Json", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
 		#endregion PluginInfo
-		public class JsonStringAsMessageNode : DynamicNode {
+		public class JsonStringAsMessageNode : IPluginEvaluate  {
 			[Input("Input")]
 			IDiffSpread<string> FInput;
 			
 			[Output("Message", AutoFlush = false)]
             ISpread<Utils.Messaging.Message> FOutput;
-			
+
 			private MessageResolver FResolver;
 			
 			[Import()]
 			protected ILogger FLogger;
-			
+
 			public JsonStringAsMessageNode () {
-				FResolver = new MessageResolver();
+
 			}
-			
-			protected override IOAttribute DefinePin(string name, Type type) {
-				return null;
-				
-			}
-			
-			protected override void HandleConfigChange(IDiffSpread<string> configSpread) {
-				FLogger.Log(LogType.Debug, "nothing");
-				
-			}
-			
-			public override void Evaluate(int SpreadMax) {
-				TypeUpdate();
-				
-				if (!FInput.IsChanged) return;
-				
+
+			public void Evaluate(int SpreadMax) {
+
+		//		if (!FInput.IsChanged) return;
+
+				SpreadMax = FInput.SliceCount;
 				FOutput.SliceCount = SpreadMax;
-				
+
 				for (int i=0;i<SpreadMax;i++) {
 
                     FOutput[i] = JsonConvert.DeserializeObject<Utils.Messaging.Message>(FInput[i]);
 				}
-				
+
 				FOutput.Flush();
 			}
 		}
@@ -596,7 +590,7 @@ namespace VVVV.Nodes {
 			
 			
 			public void Evaluate(int SpreadMax) {
-				if (!FInput.IsChanged && !FInit.IsChanged) return;
+//				if (!FInput.IsChanged && !FInit.IsChanged) return;
 				
 				if (FInit[0])
 				{
@@ -608,10 +602,75 @@ namespace VVVV.Nodes {
                 
                 FOutput.AssignFrom(lastMessage);
 			    lastMessage.Clear();
+				
                 lastMessage.AddRange(FInput);
 				FOutput.Flush();
-			}            
+			}               
         }
+
+       [PluginInfo(Name = "Search", Category = "Message", Help = "Allows LINQ queries for Messages", Tags = "velcrome")]
+        public class MessageSearchNode : IPluginEvaluate
+        {
+			[Input("Input")]
+            IDiffSpread<Utils.Messaging.Message> FInput;
+            
+            [Input("Where", DefaultString = "Foo = \"bar\"")]
+			IDiffSpread<string> FWhere;
+
+        	[Input("SendQuery", IsSingle = true, IsBang = true)]
+			IDiffSpread<bool> FSendQuery;
+
+        	[Output("Message", AutoFlush = false)]
+            ISpread<ISpread<Message>> FOutput;
+
+        	[Output("Query", AutoFlush = false)]
+            ISpread<string> FQuery;
+			
+			[Import()]
+			protected ILogger FLogger;
+
+			public void Evaluate(int SpreadMax) {
+				if (!FInput.IsChanged && !FSendQuery.IsChanged && !FQuery.IsChanged && !FSendQuery[0]) return;
+				
+
+				if (FSendQuery[0])
+				{
+					SpreadMax = FWhere.SliceCount;
+					FQuery.SliceCount = SpreadMax;
+					FOutput.SliceCount = SpreadMax;
+					
+					
+					for (int i=0;i<SpreadMax;i++) {
+					
+						var query = FWhere[i].Split('=');
+					
+						string attrib = query[0].Trim();
+						string val = "";
+					
+						for (int j = 1;j<query.Count();j++) val += query[j];
+						val = val.Trim(' ').Trim('\"');
+					
+						FQuery[i] = "FROM Message IN Input WHERE "+attrib+" = \""+val+"\" SELECT Message";
+					
+						var result =
+							from m in FInput
+							where m[attrib][0].Equals(val)
+							select m;
+					
+						FOutput[i].AssignFrom(result);
+
+					}	
+					FQuery.Flush();
+	
+					FOutput.Flush();
+				}
+			}               
+        }		
+		
+        [PluginInfo(Name = "Store", Category = "Message", Help = "Stores Messages", Tags = "velcrome")]
+        public class MessageStoreNode : VVVV.Nodes.Store<Utils.Messaging.Message>
+        { }
+
 
 		[PluginInfo(Name = "Cons", Category = "Message", Help = "Concatenates all Messages", Tags = "velcrome")]
         public class MessageConsNode : Cons<Utils.Messaging.Message>
@@ -661,6 +720,15 @@ namespace VVVV.Nodes {
 		[PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
         public class MessageSelectNode : Select<Utils.Messaging.Message>
 		{}
+		
+		
+		[PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
+        public class MessageZipNode : ZipNode<IInStream<Utils.Messaging.Message>>
+		{}
+
+		[PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "Dynamic, velcrome")]
+        public class MessageUnZipNode : UnzipNode<IInStream<Utils.Messaging.Message>>
+		{}	
 		
 	}
 	

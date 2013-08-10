@@ -52,7 +52,7 @@ namespace VVVV.Nodes
 			FOutput.SliceCount = 0;
 			FFormer.SliceCount = 0;
 			
-			if ((FInput.SliceCount >= 0) && (FInput[0] != null)) {
+			if ((FInput.SliceCount > 0) && (FInput[0] != null)) {
 				
 				for (int i=0;i<SpreadMax;i++) {
 					T output = FInput[i];
