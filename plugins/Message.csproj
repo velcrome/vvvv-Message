@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <ReferencePath>..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\core\;..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x64\lib\core\;..\..\..\..\apps\code\vvvv_45beta29.2_x64\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x64\bin\managed\</ReferencePath>
+    <ReferencePath>..\..\..\..\apps\code\vvvv_45beta30.2_x86\lib\core\;..\..\..\..\apps\code\vvvv_45beta30.2_x86\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\core\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -37,13 +37,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Dependencies\JSON.NET\Net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX" />
+    <Reference Include="Store">
+      <HintPath>..\..\..\..\apps\code\vvvv_45beta30.2_x86\addonpack\lib\nodes\plugins\Store.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.Codeplex" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="VVVV.Core" />
     <Reference Include="VVVV.Hosting" />
     <Reference Include="VVVV.Nodes" />
@@ -52,13 +59,15 @@
     <Reference Include="VVVV.Utils3rdParty" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Message\BinList.cs" />
-    <Compile Include="Message\DynamicNode.cs" />
-    <Compile Include="Message\Message.cs" />
-    <Compile Include="Message\MessageNodes.cs" />
-    <Compile Include="Message\MessageResolver.cs" />
+    <Compile Include="Messaging\DynamicNode.cs" />
+    <Compile Include="Messaging\GetAttributeNodes.cs" />
+    <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Messaging\MessageNodes.cs" />
+    <Compile Include="Messaging\MessageResolver.cs" />
+    <Compile Include="Messaging\OSCNodes.cs" />
+    <Compile Include="Messaging\SpreadList.cs" />
+    <Compile Include="Messaging\TypeIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_SpreadOperations\FrameDelay.cs" />
     <Compile Include="_SpreadOperations\GetSlice.cs" />
     <Compile Include="_SpreadOperations\SAndHold.cs" />
     <Compile Include="_SpreadOperations\Select.cs" />

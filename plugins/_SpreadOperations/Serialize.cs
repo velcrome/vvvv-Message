@@ -24,7 +24,7 @@ using System.Xml;
 namespace VVVV.Nodes
 {
 	
-	public class Serialize<T> : IPluginEvaluate  where T:ISerializable
+	public class Serialize<T> : IPluginEvaluate
 	{
 		#region fields & pins
 		[Input("Input")]
@@ -68,7 +68,7 @@ namespace VVVV.Nodes
 		
 	}
 	
-	public class DeSerialize<T> : IPluginEvaluate where T:ISerializable
+	public class DeSerialize<T> : IPluginEvaluate
 	{
 		#region fields & pins
 		[Input("Input")]

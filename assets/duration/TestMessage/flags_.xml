@@ -1,0 +1,27 @@
+<keyframes>
+    <key>
+        <flag>Everything</flag>
+        <time>00:00:00:843</time>
+        <value>0.500000000</value>
+    </key>
+    <key>
+        <flag>you</flag>
+        <time>00:00:03:648</time>
+        <value>0.600000024</value>
+    </key>
+    <key>
+        <flag>know</flag>
+        <time>00:00:04:835</time>
+        <value>0.750000000</value>
+    </key>
+    <key>
+        <flag>is</flag>
+        <time>00:00:05:835</time>
+        <value>1.000000000</value>
+    </key>
+    <key>
+        <flag>wrong</flag>
+        <time>00:00:07:164</time>
+        <value>0.649999976</value>
+    </key>
+</keyframes>
