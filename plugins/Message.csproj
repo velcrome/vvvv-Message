@@ -64,5 +64,8 @@
     <Compile Include="_SpreadOperations\Select.cs" />
     <Compile Include="_SpreadOperations\Serialize.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\info.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

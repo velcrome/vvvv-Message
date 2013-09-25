@@ -99,6 +99,8 @@ namespace VVVV.Nodes {
 		[Output("Configuration", AutoFlush = false)]
 		ISpread<string> FConfigOut;
 		
+		private bool lastFrameActive = false;
+		
 		protected override IIOContainer<ISpread<ISpread<T>>> CreatePin<T>(string name) {
 			var attr = new OutputAttribute(name);
 			attr.BinVisibility = PinVisibility.Hidden;
@@ -113,7 +115,7 @@ namespace VVVV.Nodes {
 		{
 			SpreadMax = (FSelect[0] != SelectEnum.First)? FInput.SliceCount : 1;
 			
-			if (!FInput.IsChanged) {
+			if (!FInput.IsChanged || lastFrameActive) {
 				//				FLogger.Log(LogType.Debug, "skip split");
 				return;
 			}
@@ -138,7 +140,10 @@ namespace VVVV.Nodes {
 					}
 				}
 			}
-			if (empty) return;
+			if (empty) {
+				if (!lastFrameActive) return;
+					else lastFrameActive = false;
+			} else lastFrameActive = true;
 			
 			
 			for (int i= (FSelect[0] == SelectEnum.Last)?SpreadMax-1:0;i<SpreadMax;i++) {
@@ -172,6 +177,8 @@ namespace VVVV.Nodes {
 			foreach (string name in FPins.Keys) {
 				ToISpread(FPins[name]).Flush();
 			}
+			
+			
 		}
 		
 		#region PluginInfo

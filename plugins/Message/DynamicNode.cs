@@ -118,7 +118,7 @@ namespace VVVV.Utils.Message{
 						}
 						FTypes.Add(name, type);
 					}
-					FCount+=2;
+					FCount+=2;  // type and name are 2
 				} catch (Exception ex) {
 					var e = ex;
 					FLogger.Log(LogType.Debug, ex.ToString());

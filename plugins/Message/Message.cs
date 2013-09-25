@@ -63,9 +63,8 @@ namespace VVVV.Utils.Message{
 			}
 		}
 		
-		// does not matter if you add a
+		// if you add any object but a binlist, it will create the binlist for you and add your object to it
 		public void Add(string name, object val) {
-			//			name = name.ToLower();
 			if (val is BinList) dictionary.Add(name, (BinList)val);
 			else {
 				dictionary.Add(name, new BinList());
@@ -74,7 +73,6 @@ namespace VVVV.Utils.Message{
 		}
 		
 		public void AssignFrom(string name, IEnumerable en) {
-			//			name = name.ToLower();
 			if (!dictionary.ContainsKey(name)) {
 				dictionary.Add(name, new BinList());
 			} else dictionary[name].Clear();
