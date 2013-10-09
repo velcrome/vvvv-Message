@@ -1,24 +1,14 @@
 #region usings
 using System;
 using System.ComponentModel.Composition;
-using System.IO;
 
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-
-using VVVV.Utils.Collections;
 using VVVV.Core.Logging;
 using VVVV.Nodes;
 
-using System.Collections.Generic;
-using VVVV.PluginInterfaces.V2.Graph;
-
-
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
+
 #endregion usings
 
 namespace VVVV.Nodes
@@ -27,7 +17,8 @@ namespace VVVV.Nodes
 	public class Select<T> : IPluginEvaluate
 	{
 		#region fields & pins
-		[Input("Input")]
+#pragma warning disable 649, 169
+        [Input("Input")]
 		ISpread<T> FInput;
 		
 		[Input("Select", DefaultValue = 1, MinValue = 0)]
@@ -43,11 +34,11 @@ namespace VVVV.Nodes
 		ILogger FLogger;
 		
 		protected DataContractResolver FResolver = null;
-		
-		
-		#endregion fields & pins
-		
-		public void Evaluate(int SpreadMax)
+
+#pragma warning restore
+        #endregion fields & pins
+
+        public void Evaluate(int SpreadMax)
 		{
 			FOutput.SliceCount = 0;
 			FFormer.SliceCount = 0;

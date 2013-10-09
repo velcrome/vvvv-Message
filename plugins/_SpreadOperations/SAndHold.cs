@@ -5,10 +5,6 @@ using System.IO;
 
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-
-using VVVV.Utils.Collections;
 using VVVV.Core.Logging;
 using VVVV.Nodes;
 
@@ -27,8 +23,9 @@ namespace VVVV.Nodes
 	public class SAndH<T> : IPluginEvaluate
 	{
 		#region fields & pins
-		[Input("Input", AutoValidate = false)]
-		Pin<T> FInput;
+#pragma warning disable 649, 169
+        [Input("Input", AutoValidate = false)]
+        Pin<T> FInput;
 		
 		[Input("Set", IsBang = true, IsSingle = true)]
 		ISpread<bool> FSet;
@@ -43,11 +40,11 @@ namespace VVVV.Nodes
 		ILogger FLogger;
 		
 		protected DataContractResolver FResolver = null;
-		
-		
-		#endregion fields & pins
-		
-		public void Evaluate(int SpreadMax)
+
+#pragma warning restore
+        #endregion fields & pins
+
+        public void Evaluate(int SpreadMax)
 		{
 			if (FSet[0] == false) return;
 			

@@ -5,24 +5,26 @@ using System.Linq;
 using System.Text;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.Messaging;
+using VVVV.Pack.Messaging;
 
 namespace VVVV.Nodes.Messaging
 {
-    [PluginInfo(Name = "GetAttribute", Category = "Message", Help = "Builds a spread across multiple Messages", Tags = "velcrome, float")]
+    [PluginInfo(Name = "GetFloatAttribute", Category = "Message", Help = "Builds a spread across multiple Messages", Tags = "velcrome, float")]
     public class FloatMessageGetAttributeNode : MessageGetAttributeNode<float>
     { }
 
-    [PluginInfo(Name = "GetAttribute", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome, string")]
-    public class StringMessageGetAttributeNode : MessageGetAttributeNode<float>
+    [PluginInfo(Name = "GetStringAttribute", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome, string")]
+    public class StringMessageGetAttributeNode : MessageGetAttributeNode<string>
     { }
 
-    [PluginInfo(Name = "GetAttribute", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome, int")]
-    public class IntMessageGetAttributeNode : MessageGetAttributeNode<float>
+    [PluginInfo(Name = "GetIntAttribute", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome, int")]
+    public class IntMessageGetAttributeNode : MessageGetAttributeNode<int>
     { }
 
     public class MessageGetAttributeNode<T> : IPluginEvaluate
     {
+        #pragma warning disable 649, 169
+        
         [Input("Input")]
         IDiffSpread<Message> FInput;
 
@@ -40,6 +42,8 @@ namespace VVVV.Nodes.Messaging
 
         [Import()]
         protected ILogger FLogger;
+
+        #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {

@@ -6,15 +6,14 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Linq;
-using VVVV.Nodes.Messaging;
 using VVVV.Utils.OSC;
-using VVVV.Utils.Collections;
+using VVVV.Pack.Messaging.Collections;
 
 
 
 #endregion usings
 
-namespace VVVV.Utils.Messaging{
+namespace VVVV.Pack.Messaging{
 	
 	
 	[DataContract]

@@ -25,6 +25,8 @@ namespace VVVV.Nodes.OSC
     public class SiftNode : IPluginEvaluate
     {
         #region fields & pins
+        
+        #pragma warning disable 649, 169
         [Input("Input")]
         IDiffSpread<Stream> FInput;
 
@@ -38,6 +40,7 @@ namespace VVVV.Nodes.OSC
         ISpread<Stream> FOutput;
         [Import]
         ILogger FLogger;
+        #pragma warning restore
 
         #endregion fields & pins
 
@@ -106,7 +109,7 @@ namespace VVVV.Nodes.OSC
     #endregion PluginInfo
     public class BundleOSCNode : IPluginEvaluate
     {
-        
+#pragma warning disable 649, 169
         [Input("Input")]
         IDiffSpread<Stream> FInput;
 
@@ -122,6 +125,7 @@ namespace VVVV.Nodes.OSC
 
         [Import()]
         protected ILogger FLogger;
+#pragma warning restore
 
         protected string MainAddress(string address)
         {
@@ -249,6 +253,7 @@ namespace VVVV.Nodes.OSC
     #endregion PluginInfo
     public class UnBundleOSCNode : IPluginEvaluate
     {
+#pragma warning disable 649, 169
         [Input("Input")]
         IDiffSpread<Stream> FInput;
 
@@ -257,6 +262,7 @@ namespace VVVV.Nodes.OSC
 
         [Import()]
         protected ILogger FLogger;
+#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {

@@ -5,7 +5,7 @@ using System.Text;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Nodes.Messaging
+namespace VVVV.Pack.Messaging
 {
     public class TypeIdentity : Dictionary<Type, string>
     {
@@ -35,7 +35,7 @@ namespace VVVV.Nodes.Messaging
             Add(typeof(Vector3D), "Vector3D".ToLower());
             Add(typeof(Vector4D), "Vector4D".ToLower());
 
-            Add(typeof(Utils.Messaging.Message), "Message".ToLower());	        
+            Add(typeof(Message), "Message".ToLower());	        
 	    }
 
     }

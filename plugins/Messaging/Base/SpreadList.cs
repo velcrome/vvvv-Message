@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VVVV.Nodes.Messaging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
-using VVVV.Utils.Messaging;
+using VVVV.Pack.Messaging;
 
-namespace VVVV.Utils.Collections
+namespace VVVV.Pack.Messaging.Collections
 {
 	/// <summary>
 	/// Description of BundleOSCNode.
