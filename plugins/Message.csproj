@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <ReferencePath>..\..\..\..\apps\code\vvvv_45beta30.2_x86\lib\core\;..\..\..\..\apps\code\vvvv_45beta30.2_x86\lib\nodes\plugins\;..\..\..\..\apps\code\vvvv_45beta29.2_x86\lib\core\</ReferencePath>
+    <ReferencePath>..\..\..\..\apps\code\vvvv_45beta31_x64\lib\core\;..\..\..\..\apps\code\vvvv_45beta31_x64\lib\nodes\plugins\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -41,9 +41,6 @@
       <HintPath>Dependencies\JSON.NET\Net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SlimDX" />
-    <Reference Include="Store">
-      <HintPath>..\..\..\..\apps\code\vvvv_45beta30.2_x86\addonpack\lib\nodes\plugins\Store.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.Codeplex" />
     <Reference Include="System.Core" />
@@ -59,14 +56,23 @@
     <Reference Include="VVVV.Utils3rdParty" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Messaging\DynamicNode.cs" />
+    <Compile Include="Messaging\Base\SpreadList.cs" />
+    <Compile Include="Messaging\DynamicNodes.cs" />
     <Compile Include="Messaging\GetAttributeNodes.cs" />
-    <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Messaging\Base\Message.cs" />
     <Compile Include="Messaging\MessageNodes.cs" />
-    <Compile Include="Messaging\MessageResolver.cs" />
-    <Compile Include="Messaging\OSCNodes.cs" />
-    <Compile Include="Messaging\SpreadList.cs" />
-    <Compile Include="Messaging\TypeIdentity.cs" />
+    <Compile Include="Messaging\Serializing\Json.cs" />
+    <Compile Include="Messaging\Serializing\MessageResolver.cs" />
+    <Compile Include="Messaging\Serializing\OSC.cs" />
+    <Compile Include="Messaging\Serializing\OSCNodes.cs" />
+    <Compile Include="Messaging\Serializing\XElement.cs" />
+    <Compile Include="Messaging\SetMessage.cs" />
+    <Compile Include="Messaging\Store.cs" />
+    <Compile Include="Messaging\StripTraverseSetupNode.cs" />
+    <Compile Include="Messaging\Base\TypeIdentity.cs" />
+    <Compile Include="Messaging\Typing\GetVariableType.cs" />
+    <Compile Include="Messaging\Typing\MessageType.cs" />
+    <Compile Include="Messaging\Typing\TypeDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_SpreadOperations\GetSlice.cs" />
     <Compile Include="_SpreadOperations\SAndHold.cs" />

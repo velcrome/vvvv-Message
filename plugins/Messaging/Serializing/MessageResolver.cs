@@ -9,15 +9,10 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Collections.ObjectModel;
 
-using VVVV.Nodes;
-using VVVV.Nodes.Messaging;
-using VVVV.Utils.Messaging;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
 
 #endregion usings
 
-namespace VVVV.Utils.Messaging {
+namespace VVVV.Pack.Messaging {
 	public class MessageResolver : DataContractResolver
 	{
         public MessageResolver()
