@@ -3,6 +3,7 @@ using VVVV.Pack.Messaging;
 using VVVV.Pack.Messaging.Collections;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VColor;
+using VVVV.Utils.VMath;
 
 namespace VVVV.Nodes.Messaging
 {
@@ -11,6 +12,9 @@ namespace VVVV.Nodes.Messaging
 
     [PluginInfo(Name = "SetMessage (Value)", Category = "Message", Help = "Updates values of a message", Tags = "Dynamic, velcrome")]
     public class SetMessageNodeValue : SetMessageNode<double> { }
+	
+	[PluginInfo(Name = "SetMessage (Vector2D)", Category = "Message", Help = "Updates values of a message", Tags = "Dynamic, velcrome")]
+    public class SetMessageNodeVector2D : SetMessageNode<Vector2D> { }
 
     [PluginInfo(Name = "SetMessage (Color)", Category = "Message", Help = "Updates colors of a message", Tags = "Dynamic, velcrome")]
     public class SetMessageNodeColor : SetMessageNode<RGBAColor> { }
