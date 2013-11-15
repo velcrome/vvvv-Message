@@ -43,6 +43,7 @@ namespace VVVV.Nodes.Messaging
             if (FInput.SliceCount == 0 || FInput[0] == null)
             {
                 FOutput.SliceCount = 0;
+            	FOutput.Flush();
                 return;
             }
 
