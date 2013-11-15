@@ -120,6 +120,7 @@ namespace VVVV.Pack.Messaging
                 SpreadMax = FInput.SliceCount;
 
                 FOutput.SliceCount = 0;
+            	FNotFound.SliceCount = 0;
                 bool[] found = new bool[SpreadMax];
                 for (int i = 0; i < SpreadMax; i++) found[i] = false;
 

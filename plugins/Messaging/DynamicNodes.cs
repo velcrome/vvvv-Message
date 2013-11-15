@@ -29,7 +29,7 @@ namespace VVVV.Pack.Messaging {
 		#endregion Enum
 		
 		#region fields & pins
-        [Config("Message Type", DefaultString = "None", IsSingle=true)]
+        [Input("Message Type", DefaultString = "None", IsSingle=true)]
         public IDiffSpread<string> FType;
        
         [Config ("Configuration", DefaultString="string Foo")]
