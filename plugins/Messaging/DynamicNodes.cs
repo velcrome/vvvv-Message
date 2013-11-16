@@ -172,7 +172,7 @@ namespace VVVV.Pack.Messaging {
 
 
     #region PluginInfo
-    [PluginInfo(Name = "Message", Category = "Join", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
+    [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Join", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
     #endregion PluginInfo
     public class JoinMessageNode : DynamicNode
     {
@@ -239,7 +239,7 @@ namespace VVVV.Pack.Messaging {
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "Message", Category = "Split", Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
+    [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Split", Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
     #endregion PluginInfo
     public class SplitMessageNode : DynamicNode
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using VVVV.Utils.VColor;
@@ -28,6 +29,7 @@ namespace VVVV.Pack.Messaging
             Add(typeof(double), "double".ToLower());
             Add(typeof(float), "float".ToLower());
             Add(typeof(string), "string".ToLower());
+//            Add(typeof(char), "char".ToLower());
 
             Add(typeof(RGBAColor), "Color".ToLower());
             Add(typeof(Matrix4x4), "Transform".ToLower());
@@ -35,6 +37,9 @@ namespace VVVV.Pack.Messaging
             Add(typeof(Vector3D), "Vector3D".ToLower());
             Add(typeof(Vector4D), "Vector4D".ToLower());
 
+            Add(typeof(Stream), "Raw".ToLower());
+            Add(typeof(DateTime), "Time".ToLower());
+            
             Add(typeof(Message), "Message".ToLower());	        
 	    }
 
