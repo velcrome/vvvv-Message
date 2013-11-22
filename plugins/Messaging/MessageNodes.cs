@@ -181,30 +181,28 @@ namespace VVVV.Pack.Messaging
             protected ILogger FLogger;
             #pragma warning restore
 
-            public MessageFrameDelayNode()
+        public MessageFrameDelayNode()
+        {
+            lastFrame = new List<Element>();
+        }
+
+
+        public void Evaluate(int SpreadMax)
+        {
+            if (FInit[0])
             {
-                lastMessage = new List<Message>();
+                lastFrame.Clear();
+                lastFrame.AddRange(FDefault);
+            } else {
+	            lastFrame.Clear();
+            	
+            	if (FInput.SliceCount >0 && FInput[0] != null) lastFrame.AddRange(FInput);
             }
 
+            FOutput.SliceCount = lastFrame.Count;
 
-            public void Evaluate(int SpreadMax)
-            {
-                //				if (!FInput.IsChanged && !FInit.IsChanged) return;
-
-                if (FInit[0])
-                {
-                    lastMessage.Clear();
-                    lastMessage.AddRange(FDefault);
-                }
-
-                FOutput.SliceCount = lastMessage == null ? 0 : lastMessage.Count;
-
-                FOutput.AssignFrom(lastMessage);
-                lastMessage.Clear();
-
-                lastMessage.AddRange(FInput);
-                FOutput.Flush();
-            }
+            FOutput.AssignFrom(lastFrame);
+            FOutput.Flush(); 
         }
 
         [PluginInfo(Name = "Search", Category = "Message", Help = "Allows LINQ queries for Messages", Tags = "velcrome")]
