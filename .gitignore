@@ -8,4 +8,4 @@ obj/
 *.csproj.user
 /Duration_004_Windows
 /ofDuration
-/plugins/_ReSharper.Message
+_ReSharper.Message/
