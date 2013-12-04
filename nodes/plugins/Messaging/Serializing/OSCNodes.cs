@@ -36,6 +36,10 @@ namespace VVVV.Nodes.OSC
         [Input("Mode", IsSingle = true)]
         ISpread<Filter> FPinInFilter;
 
+
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FExtendedMode;
+        
         [Output("Output", AutoFlush = false)]
         ISpread<Stream> FOutput;
         [Import]
@@ -59,14 +63,13 @@ namespace VVVV.Nodes.OSC
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                //                    try {
                 MemoryStream ms = new MemoryStream();
                 FInput[i].Position = 0;
                 FInput[i].CopyTo(ms);
                 byte[] bytes = ms.ToArray();
                 int start = 0;
 
-                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) ms.Length);
+                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) ms.Length, FExtendedMode[0]);
 
 
                 bool matches = false;
@@ -104,6 +107,7 @@ namespace VVVV.Nodes.OSC
         }
 
     }    
+    
     #region PluginInfo
     [PluginInfo(Name = "Bundle", Category = "OSC", Help = "Bundle a bunch of OSC messages", Tags = "velcrome")]
     #endregion PluginInfo
@@ -118,8 +122,10 @@ namespace VVVV.Nodes.OSC
 
         [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true)]
         IDiffSpread<SelectEnum> FSelect;
-		
 
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FExtendedMode;
+    
         [Output("Output", AutoFlush = false)]
         ISpread<Stream> FOutput;
 
@@ -161,7 +167,7 @@ namespace VVVV.Nodes.OSC
                 byte[] bytes = ms.ToArray();
                 int start = 0;
 
-                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) FInput[index].Length);
+                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) FInput[index].Length, FExtendedMode[0]);
 
                 if (packet.IsBundle())
                 {
@@ -214,7 +220,7 @@ namespace VVVV.Nodes.OSC
 
             FOutput.SliceCount = 0;
             var bundles = new Dictionary<string, OSCBundle>();
-            var singleBundle = new OSCBundle();
+            var singleBundle = new OSCBundle(FExtendedMode[0]);
 
             foreach (var message in messages)
             {
@@ -253,20 +259,23 @@ namespace VVVV.Nodes.OSC
     #endregion PluginInfo
     public class UnBundleOSCNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
+        #pragma warning disable 649, 169
         [Input("Input")]
         IDiffSpread<Stream> FInput;
 
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FExtendedMode;
+            
         [Output("Output", AutoFlush = false)]
         ISpread<ISpread<Stream>> FOutput;
 
         [Import()]
         protected ILogger FLogger;
-#pragma warning restore
+        #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
-            if (!FInput.IsChanged) return;
+            if (!FInput.IsChanged && !FExtendedMode.IsChanged) return;
 
             if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
 
@@ -283,7 +292,7 @@ namespace VVVV.Nodes.OSC
                 byte[] bytes = ms.ToArray();
                 int start = 0;
 
-                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) FInput[i].Length);
+                OSCPacket packet = OSCPacket.Unpack(bytes, ref start, (int) FInput[i].Length, FExtendedMode[0]);
 
                 if (packet.IsBundle())
                 {

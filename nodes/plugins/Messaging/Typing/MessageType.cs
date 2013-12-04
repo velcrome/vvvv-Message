@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VVVV.Nodes.Messaging.Typing;
-using VVVV.Pack.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.Messaging.Type

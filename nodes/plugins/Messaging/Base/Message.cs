@@ -9,8 +9,6 @@ using System.Xml.Linq;
 using VVVV.Utils.OSC;
 using VVVV.Pack.Messaging.Collections;
 
-
-
 #endregion usings
 
 namespace VVVV.Pack.Messaging{
@@ -163,8 +161,8 @@ namespace VVVV.Pack.Messaging{
 			return sb.ToString();
 		}
 		
-		public Stream ToOSC() {
-			OSCBundle bundle = new OSCBundle(this.TimeStamp.ToFileTime());
+		public Stream ToOSC(bool extendedMode = false) {
+			OSCBundle bundle = new OSCBundle(this.TimeStamp, extendedMode);
 			foreach (string name in MessageData.Keys)  {
 				string oscAddress = "";
 			
@@ -177,7 +175,7 @@ namespace VVVV.Pack.Messaging{
                     if (part.Trim() != "") oscAddress += "/" + part;
                 } 
 
-                OSCMessage m = new OSCMessage(oscAddress);
+                OSCMessage m = new OSCMessage(oscAddress, extendedMode);
 				SpreadList bl = MessageData[name];
 				for (int i=0;i<bl.Count;i++) m.Append(bl[i]);
 				bundle.Append(m);
@@ -185,18 +183,17 @@ namespace VVVV.Pack.Messaging{
 			return new MemoryStream(bundle.BinaryData); // packs implicitly
 		}
 		
-		public static Message FromOSC(Stream stream, string messagePrefix = "OSC", int contractAddress = 1) {
+		public static Message FromOSC(Stream stream, bool extendedMode = false, string messagePrefix = "", int contractAddress = 1) {
 			MemoryStream ms = new MemoryStream();
 		    stream.Position = 0;
             stream.CopyTo(ms);
 			byte[] bytes = ms.ToArray();
 			int start = 0;
-			OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length);
+			OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length, extendedMode);
 			
 			Message message = new Message();
 
-//			yet unsupported: 
-//			Message.TimeStamp = DateTime.FromFileTime(bundle.getTimeStamp());
+			message.TimeStamp = bundle.getTimeStamp();
 			
 
 			foreach (OSCMessage m in bundle.Values) {

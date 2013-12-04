@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using VVVV.Pack.Messaging;
 using VVVV.PluginInterfaces.V2;
 
@@ -14,14 +10,17 @@ namespace VVVV.Nodes.Messaging.Serializing
     #endregion PluginInfo
     public class MessageMessageAsOscNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
+
+        #pragma warning disable 649, 169
         [Input("Input")]
         IDiffSpread<Message> FInput;
 
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true)]
+        IDiffSpread<bool> FExtendedMode;
+        
         [Output("OSC", AutoFlush = false)]
         ISpread<Stream> FOutput;
-
-#pragma warning restore
+        #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
@@ -33,7 +32,7 @@ namespace VVVV.Nodes.Messaging.Serializing
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                FOutput[i] = FInput[i].ToOSC();
+                FOutput[i] = FInput[i].ToOSC(FExtendedMode[0]);
             }
             FOutput.Flush();
         }
@@ -45,20 +44,22 @@ namespace VVVV.Nodes.Messaging.Serializing
     #endregion PluginInfo
     public class MessageOscAsMessageNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
+        #pragma warning disable 649, 169
         [Input("OSC")]
         IDiffSpread<Stream> FInput;
 
-        [Input("Additional Address", DefaultString = "OSC", IsSingle = true)]
+        [Input("Additional Address", DefaultString = "", IsSingle = true)]
         IDiffSpread<string> FAddress;
 
         [Input("Contract Address Parts", DefaultValue = 1, IsSingle = true, MinValue = 1)]
         IDiffSpread<int> FContract;
 
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FExtendedMode;
+
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
-
-#pragma warning restore
+        #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
@@ -74,7 +75,7 @@ namespace VVVV.Nodes.Messaging.Serializing
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                Message message = Message.FromOSC(FInput[i], FAddress[0], FContract[0]);
+                Message message = Message.FromOSC(FInput[i], FExtendedMode[0], FAddress[0], FContract[0]);
                 FOutput[i] = message;
             }
             FOutput.Flush();
