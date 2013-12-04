@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 using VVVV.Core.Logging;
 using VVVV.Pack.Messaging;
@@ -18,6 +14,9 @@ namespace VVVV.Nodes.Messaging.Serializing
             #pragma warning disable 649, 169
             [Input("Input")]
             IDiffSpread<Message> FInput;
+
+            [Input("Pretty", IsSingle = true, IsToggle = true, DefaultBoolean = true)]
+            IDiffSpread<bool> FPretty;
 
             [Output("String", AutoFlush = false)]
             ISpread<string> FOutput;
@@ -43,7 +42,10 @@ namespace VVVV.Nodes.Messaging.Serializing
                 JsonSerializer ser = new JsonSerializer();
 
                 JsonSerializerSettings settings = new JsonSerializerSettings();
-                settings.Formatting = Formatting.None;
+
+                if (FPretty[0]) settings.Formatting = Formatting.Indented;
+                    else settings.Formatting = Formatting.None;
+                
                 settings.TypeNameHandling = TypeNameHandling.None;
 
                 for (int i = 0; i < SpreadMax; i++)
