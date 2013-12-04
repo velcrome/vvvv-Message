@@ -8,6 +8,7 @@ namespace VVVV.Nodes.Messaging.Typing
     #endregion PluginInfo
     public class GetVariableTypeNode : IPluginEvaluate
     {
+        #pragma warning disable 649, 169
         [Input("Type", DefaultString = "Event", IsSingle = true)]
         public ISpread<string> FType;
 
@@ -16,6 +17,7 @@ namespace VVVV.Nodes.Messaging.Typing
 
         [Output("Variable Type")]
         ISpread<string> FOutput;
+        #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {

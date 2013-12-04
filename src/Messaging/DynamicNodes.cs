@@ -177,7 +177,7 @@ namespace VVVV.Pack.Messaging {
     public class JoinMessageNode : DynamicNode
     {
         #pragma warning disable 649, 169
-        [Input("Send", IsBang = true, IsSingle = true)]
+        [Input("Send", IsToggle = true, IsSingle = true, DefaultBoolean = true)]
         ISpread<bool> FSet;
 
         [Input("Address", DefaultString = "Event")]
