@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.3.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-sdk\vvvv45\packs\vvvv-Message\OSC (Message).v4p" systemname="OSC (Message)" filename="C:\dev\vvvv\vvvv-Message\modules\OSC (Message).v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\OSC (Message).v4p" systemname="OSC (Message)" filename="C:\dev\vvvv\vvvv-Message\modules\OSC (Message).v4p">
    <BOUNDS type="Window" left="3195" top="2670" width="19635" height="11820">
    </BOUNDS>
    <NODE systemname="AsOSC (Message)" filename="plugins\Message.csproj" nodename="AsOSC (Message)" componentmode="Hidden" id="0">
@@ -23,7 +23,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2760" top="90" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="|string Foo, Vector4D vvvv, Transform kk, Time timer|">
+   <PIN pinname="Input String" slicecount="1" values="|string Foo, Vector4D vvvv, Transform kk, Color color|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
@@ -295,7 +295,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4245" top="3450">
    </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, Vector4D vvvv, Transform kk, Time timer|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo, Vector4D vvvv, Transform kk, Color color|">
    </PIN>
    <PIN pinname="kk" visible="1" slicecount="1" values="||">
    </PIN>
@@ -321,13 +321,15 @@
    </PIN>
    <PIN pinname="vvvvXYZW" slicecount="4" values="-0.14,-0.14,-0.14,-0.14">
    </PIN>
-   <PIN pinname="timer" visible="1">
+   <PIN pinname="timer" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Foo" slicecount="1" values="asdf">
    </PIN>
    <PIN pinname="kk Bin Size" slicecount="1" values="2">
    </PIN>
    <PIN pinname="Foo Bin Size" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="color" slicecount="1" values="|0.45320,0.00000,0.06707,1.00000|">
    </PIN>
    </NODE>
    <LINK srcnodeid="6" srcpinname="Output String" dstnodeid="44" dstpinname="Message Type">
@@ -427,7 +429,7 @@
    </BOUNDS>
    <PIN pinname="Message Type" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, Vector4D vvvv, Transform kk, Time timer|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo, Vector4D vvvv, Transform kk, Color color|">
    </PIN>
    <PIN pinname="kill" visible="1">
    </PIN>
@@ -446,6 +448,8 @@
    <PIN pinname="vvvvXYZW" visible="1">
    </PIN>
    <PIN pinname="Verbose" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="color" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="38" srcpinname="Output String" dstnodeid="44" dstpinname="s">
@@ -482,18 +486,10 @@
    <PIN pinname="ExtendedMode" slicecount="1" visible="1" values="1">
    </PIN>
    </NODE>
-   <NODE systemname="Join (DateTime)" filename="plugins\DateTimeJoin\DateTimeJoin.csproj" nodename="Join (DateTime)" componentmode="Hidden" id="70">
-   <BOUNDS type="Node" left="9180" top="8250" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Input" slicecount="1" values="1.2">
-   </PIN>
-   </NODE>
    <NODE systemname="AsString (Object)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="AsString (Object)" componentmode="Hidden" id="71">
    <BOUNDS type="Node" left="9135" top="8895" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Object" visible="1">
+   <PIN pinname="Object" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="72" systemname="IOBox (String)">
@@ -509,8 +505,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="71" srcpinname="String" dstnodeid="72" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="70" srcpinname="Output" dstnodeid="44" dstpinname="test">
    </LINK>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="74">
    <BOUNDS type="Node" left="735" top="345" width="100" height="100">
@@ -647,7 +641,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Translate (Transform Vector)" nodename="Translate (Transform Vector)" componentmode="Hidden" id="86">
-   <BOUNDS type="Node" left="7590" top="2835" width="100" height="100">
+   <BOUNDS type="Node" left="6315" top="2790" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
@@ -667,22 +661,14 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6375" top="8670" width="0" height="0">
    </BOUNDS>
+   <PIN pinname="Color Input" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="62" srcpinname="C" dstnodeid="87" dstpinname="Color Input">
-   </LINK>
    <LINK srcnodeid="86" srcpinname="Transform Out" dstnodeid="44" dstpinname="tt">
    </LINK>
    <LINK srcnodeid="44" srcpinname="Output" dstnodeid="0" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="60" srcpinname="Output" dstnodeid="62" dstpinname="Input">
-   </LINK>
-   <NODE systemname="Join (DateTime)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\DateTimeJoin\DateTimeJoin.csproj" nodename="Join (DateTime)" componentmode="Hidden" id="89">
-   <BOUNDS type="Node" left="6450" top="2295" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="89" srcpinname="Output" dstnodeid="44" dstpinname="timer">
    </LINK>
    <LINK srcnodeid="62" srcpinname="timer" dstnodeid="71" dstpinname="Object">
    </LINK>
@@ -903,5 +889,7 @@
    <LINK srcnodeid="103" srcpinname="Output" dstnodeid="28" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="103" srcpinname="Output" dstnodeid="60" dstpinname="OSC">
+   </LINK>
+   <LINK srcnodeid="62" srcpinname="color" dstnodeid="87" dstpinname="Color Input">
    </LINK>
    </PATCH>

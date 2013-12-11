@@ -9,4 +9,8 @@ obj/
 /Duration_004_Windows
 /ofDuration
 _ReSharper.Message/
-/deploy
+
+/deploy/nodes/core
+/deploy/nodes/plugins
+/src/*.suo
+/src/*.user
