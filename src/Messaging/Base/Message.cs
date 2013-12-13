@@ -135,15 +135,12 @@ namespace VVVV.Pack.Messaging{
 			return sb.ToString();
 		}
 
-      
+//      use simple wildcard pattern: use * for any amount of characters (including 0) or ? for exactly one character.
         public bool AddressMatches(string pattern)
         {
-            pattern = pattern.Replace(@"\", @"\\");
-            pattern = pattern.Replace(".", @"\.");
-            pattern = pattern.Replace("?", ".");
-            pattern = pattern.Replace("*", ".*?");
-            pattern = pattern.Replace(" ", @"\s");
-            return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Address);
+
+            var regex = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
+            return new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Address);
         }
 		
 
