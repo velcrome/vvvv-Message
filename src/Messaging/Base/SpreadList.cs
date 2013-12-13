@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Collections;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using VVVV.Pack.Messaging.Serializing;
 
 namespace VVVV.Pack.Messaging.Collections
 {
@@ -50,72 +50,5 @@ namespace VVVV.Pack.Messaging.Collections
 			c.AssignFrom(this);
 			return c;
 		}
-	}
-	
-	
-	public class SpreadListSerializer : JsonConverter
-	{
-
-        public SpreadListSerializer()
-        {
-        }
-		
-        
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			SpreadList list = value as SpreadList;
-		    writer.WriteStartObject();
-			writer.WritePropertyName("Type");
-		    
-			
-			Type type = (list == null) || (list.Count == 0)? typeof(string) : list.SpreadType;
-
-            writer.WriteValue(TypeIdentity.Instance[type]);
-			
-    		writer.WritePropertyName("Spread");
-			writer.WriteStartArray();
-			foreach (object o in list) {
-				serializer.Serialize(writer, o);
-			}
-			writer.WriteEndArray();
-
-			writer.WriteEndObject();
-		}
-		
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-		{
-			SpreadList sl = new SpreadList();
-			JObject jsonObject = JObject.Load(reader);
-			string typeName = "string";
-            
-            var jT = jsonObject.GetValue("Type");
-		    typeName = (string) jT.ToObject(typeof(string), serializer);
-
-		    Type type = typeof (string);
-            foreach (Type key in TypeIdentity.Instance.Keys)
-		    {
-                if (TypeIdentity.Instance[key] == typeName)
-		        {
-		            type = key;
-		        }
-		    }
-
-            JArray jArray = (JArray) jsonObject.GetValue("Spread");
-
-		    foreach (var o in jArray)
-            {
-                var instance = o.ToObject(type, serializer);
-                sl.Add(instance);
-            }
-			return sl;
-			
-		}	
-		
-		public override bool CanConvert(Type objectType)
-		{
-			return typeof(SpreadList).IsAssignableFrom(objectType);
-		}
-
-
 	}
 }

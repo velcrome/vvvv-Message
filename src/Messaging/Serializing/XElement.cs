@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using VVVV.Core.Logging;
 using VVVV.Pack.Messaging;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Pack.Messaging.Serialising;
 
 namespace VVVV.Nodes.Messaging.Serializing
 {

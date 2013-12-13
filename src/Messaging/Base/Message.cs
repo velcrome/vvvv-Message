@@ -1,12 +1,10 @@
 #region usings
 using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Linq;
-using VVVV.Utils.OSC;
 using VVVV.Pack.Messaging.Collections;
 
 #endregion usings
@@ -20,7 +18,13 @@ namespace VVVV.Pack.Messaging{
 		// The inner MessageData.
 		[DataMember]
 		Dictionary<string, SpreadList> MessageData = new Dictionary<string, SpreadList>();
-		
+
+        public IEnumerable<string> Attributes
+        {
+            get { return MessageData.Keys; }
+            private set { } // cannot be set at all.
+        }
+
 		[DataMember]
 		public DateTime TimeStamp {
 			get;
@@ -37,8 +41,6 @@ namespace VVVV.Pack.Messaging{
 		public Message() {
 			TimeStamp = DateTime.Now;
         }
-
-
 
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
@@ -118,35 +120,7 @@ namespace VVVV.Pack.Messaging{
 			return m;
 		}
 		
-        public XElement ToXElement()
-        {
-            XElement xml = new XElement("Message");
-
-            xml.Add(new XAttribute("address", this.Address));
-
-            foreach (var key in MessageData.Keys)
-            {
-                SpreadList data = MessageData[key];
-
-                var spread = new XElement("Spread");
-                
-                spread.Add(new XAttribute("name", key));
-                spread.Add(new XAttribute("type", TypeIdentity.Instance[data.SpreadType].ToString()));
-
-                for (int i = 0; i < MessageData[key].Count;i++ )
-                {
-                    spread.Add(new XElement(TypeIdentity.Instance[data.SpreadType].ToString(), MessageData[key][i].ToString()));
-                }
-
-                
-                xml.Add(spread);
-            }
-
-            return xml;
-        } 
-
-
-		public override string ToString() {
+        public override string ToString() {
 			var sb = new StringBuilder();
 			
 			sb.Append("Message "+Address+" ("+TimeStamp+")\n");
@@ -161,73 +135,6 @@ namespace VVVV.Pack.Messaging{
 			return sb.ToString();
 		}
 		
-		public Stream ToOSC(bool extendedMode = false) {
-			OSCBundle bundle = new OSCBundle(this.TimeStamp, extendedMode);
-			foreach (string name in MessageData.Keys)  {
-				string oscAddress = "";
-			
-                foreach (string part in Address.Split('.')) {
-					if (part.Trim() != "") oscAddress += "/" + part;
-				}
 
-                foreach (string part in name.Split('.'))
-                {
-                    if (part.Trim() != "") oscAddress += "/" + part;
-                } 
-
-                OSCMessage m = new OSCMessage(oscAddress, extendedMode);
-				SpreadList bl = MessageData[name];
-				for (int i=0;i<bl.Count;i++) m.Append(bl[i]);
-				bundle.Append(m);
-			}
-			return new MemoryStream(bundle.BinaryData); // packs implicitly
-		}
-		
-		public static Message FromOSC(Stream stream, bool extendedMode = false, string messagePrefix = "", int contractAddress = 1) {
-			MemoryStream ms = new MemoryStream();
-		    stream.Position = 0;
-            stream.CopyTo(ms);
-			byte[] bytes = ms.ToArray();
-			int start = 0;
-			OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length, extendedMode);
-			
-			Message message = new Message();
-
-			message.TimeStamp = bundle.getTimeStamp();
-			
-
-			foreach (OSCMessage m in bundle.Values) {
-				SpreadList sl = new SpreadList();
-				sl.AssignFrom(m.Values); // does not clone implicitly
-
-			    string oldAddress = m.Address;
-                while (oldAddress.StartsWith("/")) oldAddress = oldAddress.Substring(1);
-                while (oldAddress.EndsWith("/")) oldAddress = oldAddress.Substring(0, oldAddress.Length-1);
-                
-                string[] address = oldAddress.Split('/');
-
-			    contractAddress = address.Length > contractAddress ? contractAddress : address.Length - ((messagePrefix.Trim() == "")? 1 : 0);
-			    string attribName = "";
-                for (int i = address.Length - contractAddress ; i < address.Length; i++)
-                {
-                    attribName += ".";
-                    attribName += address[i];
-                    address[i] = "";
-                }
-                attribName = attribName.Substring(1);
-				
-
-                string messageAddress = "";
-				foreach (string part in address) {
-					if (part.Trim() != "") messageAddress += "."+part;
-				}
-                if (messagePrefix.Trim() == "") message.Address = messageAddress.Substring(1);
-                    else message.Address = messagePrefix + messageAddress;
-
-				message[attribName] = sl;
-
-			}
-			return message;
-		}
 	}
 }

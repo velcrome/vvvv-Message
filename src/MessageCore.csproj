@@ -76,6 +76,9 @@
     <Compile Include="Messaging\Base\SpreadList.cs" />
     <Compile Include="Messaging\Base\TypeDictionary.cs" />
     <Compile Include="Messaging\Base\TypeIdentity.cs" />
+    <Compile Include="Messaging\Serializing\SpreadListSerializer.cs" />
+    <Compile Include="Messaging\Serializing\XElementExtensions.cs" />
+    <Compile Include="Messaging\Serializing\OSCExtensions.cs" />
     <Compile Include="Messaging\Serializing\MessageResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

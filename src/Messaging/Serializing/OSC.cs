@@ -1,6 +1,8 @@
 using System.IO;
 using VVVV.Pack.Messaging;
+using VVVV.Pack.Messaging.Serialising;
 using VVVV.PluginInterfaces.V2;
+
 
 namespace VVVV.Nodes.Messaging.Serializing
 {
@@ -75,7 +77,7 @@ namespace VVVV.Nodes.Messaging.Serializing
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                Message message = Message.FromOSC(FInput[i], FExtendedMode[0], FAddress[0], FContract[0]);
+                Message message = OSCExtensions.FromOSC(FInput[i], FExtendedMode[0], FAddress[0], FContract[0]);
                 FOutput[i] = message;
             }
             FOutput.Flush();

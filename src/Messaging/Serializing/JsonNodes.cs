@@ -21,18 +21,10 @@ namespace VVVV.Nodes.Messaging.Serializing
             [Output("String", AutoFlush = false)]
             ISpread<string> FOutput;
 
-            //			private MessageResolver FResolver;
-
             [Import()]
             protected ILogger FLogger;
 
             #pragma warning restore
-
-            public MessageAsJsonStringNode()
-            {
-                //				FResolver = new MessageResolver();
-            }
-
 
             public void Evaluate(int SpreadMax)
             {
@@ -52,10 +44,9 @@ namespace VVVV.Nodes.Messaging.Serializing
                 {
                     string s = JsonConvert.SerializeObject(FInput[i], settings);
 
-                    FOutput[i] = s != null ? s : "";
+                    FOutput[i] = s ?? "";
                 }
                 FOutput.Flush();
-                //				FStreamOutput.Flush();
             }
         }
 
@@ -71,21 +62,13 @@ namespace VVVV.Nodes.Messaging.Serializing
             [Output("Message", AutoFlush = false)]
             ISpread<Message> FOutput;
 
-            private MessageResolver FResolver;
-
             [Import()]
             protected ILogger FLogger;
             #pragma warning restore
 
-            public JsonStringAsMessageNode()
-            {
-
-            }
-
             public void Evaluate(int SpreadMax)
             {
-
-                //		if (!FInput.IsChanged) return;
+                if (!FInput.IsChanged) return;
 
                 SpreadMax = FInput.SliceCount;
                 FOutput.SliceCount = SpreadMax;

@@ -278,29 +278,31 @@ namespace VVVV.Pack.Messaging
             }
         }
 
+/*        this one is broken. use zip instead.
+ 
         [PluginInfo(Name = "Cons", Category = "Message", Help = "Concatenates all Messages", Tags = "velcrome")]
         public class MessageConsNode : Cons<Message>
-        {
-        }
+        {}
+*/
 
-
+/*        this one is lame. use store instead
         [PluginInfo(Name = "Buffer", Category = "Message", Help = "Buffers all Messages", Tags = "velcrome")]
         public class MessageBufferNode : BufferNode<Message>
         {
         }
-
+*/
 
         [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
         public class MessageQueueNode : QueueNode<Message>
         {
         }
 
-
+/*        no real use case for this one
         [PluginInfo(Name = "RingBuffer", Category = "Message", Help = "Ringbuffers all Messages", Tags = "velcrome")]
         public class MessageRingBufferNode : RingBufferNode<Message>
         {
         }
-
+*/
         [PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
         public class MessageSerializeNode : Serialize<Message>
         {
@@ -327,6 +329,7 @@ namespace VVVV.Pack.Messaging
         {
         }
 
+        // better than the GetSlice (Node), because it allows binning and Index Spreading
         [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Tags = "Dynamic, velcrome")]
         public class MessageGetSliceNode : GetSlice<Message>
         {
