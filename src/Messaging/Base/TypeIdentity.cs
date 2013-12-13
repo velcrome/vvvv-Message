@@ -42,5 +42,36 @@ namespace VVVV.Pack.Messaging
             Add(typeof(Message), "Message".ToLower());	        
 	    }
 
+        public static string FindAlias(Type t)
+        {
+            foreach (Type key in Instance.Keys)
+            {
+                if (key == t) return Instance[key];
+            }
+            return null;
+        }
+
+        public static string FindBaseAlias(Type t)
+        {
+            foreach (Type key in Instance.Keys)
+            {
+                if (key == t) return Instance[key];
+                if (t.IsSubclassOf(key)) return Instance[key];
+            }
+            return null;
+        }
+
+        public static Type FindType(string alias)
+        {
+            Type type = typeof(string);
+            foreach (Type key in Instance.Keys)
+            {
+                if (Instance[key] == alias)
+                {
+                    type = key;
+                }
+            }
+            return type;
+        }
     }
 }

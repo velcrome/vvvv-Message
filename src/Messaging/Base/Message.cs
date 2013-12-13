@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using VVVV.Pack.Messaging.Collections;
 
@@ -22,7 +23,6 @@ namespace VVVV.Pack.Messaging{
         public IEnumerable<string> Attributes
         {
             get { return MessageData.Keys; }
-            private set { } // cannot be set at all.
         }
 
 		[DataMember]
@@ -79,7 +79,7 @@ namespace VVVV.Pack.Messaging{
 			foreach (string name in MessageData.Keys) {
 				try {
 					Type type = MessageData[name][0].GetType();
-					sb.Append(", " + TypeIdentity.Instance[type]);
+					sb.Append(", " + TypeIdentity.FindBaseAlias(type));
 					sb.Append(" " + name);
 				} catch (Exception err) {
 					// type not defined
@@ -134,6 +134,17 @@ namespace VVVV.Pack.Messaging{
 			}
 			return sb.ToString();
 		}
+
+      
+        public bool AddressMatches(string pattern)
+        {
+            pattern = pattern.Replace(@"\", @"\\");
+            pattern = pattern.Replace(".", @"\.");
+            pattern = pattern.Replace("?", ".");
+            pattern = pattern.Replace("*", ".*?");
+            pattern = pattern.Replace(" ", @"\s");
+            return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Address);
+        }
 		
 
 	}

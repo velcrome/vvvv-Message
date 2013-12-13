@@ -23,17 +23,12 @@ namespace VVVV.Pack.Messaging.Collections
 			}
 		}
 		
-		public SpreadList() : base()
-		{
-		}
-		
 		//		[SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
 		public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			for (int i=0;i<this.Count;i++)
 			{
 				info.AddValue(i.ToString(CultureInfo.InvariantCulture), this[i]);
-				
 			}
 		}
 		

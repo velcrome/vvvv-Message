@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VVVV.Pack.Messaging.Collections;
@@ -16,20 +19,29 @@ namespace VVVV.Pack.Messaging.Serializing
 
 
                 Type type = (list == null) || (list.Count == 0) ? typeof(string) : list.SpreadType;
+                var alias = TypeIdentity.FindAlias(type);
 
-                writer.WriteValue(TypeIdentity.Instance[type]);
+                writer.WriteValue(TypeIdentity.FindBaseAlias(type));
 
                 writer.WritePropertyName("Spread");
                 writer.WriteStartArray();
                 foreach (object o in list)
                 {
-                    try
+                    if (alias != null)
                     {
                         serializer.Serialize(writer, o);
                     }
-                    finally
+                    else
                     {
-                        serializer.Serialize(writer, o.ToString());
+                        // Treat Stream differently. Everything else should be serializable as it is
+                        if (TypeIdentity.FindBaseAlias(o.GetType()) == TypeIdentity.FindAlias(typeof(Stream)))
+                        {
+                            var stream = (Stream)o;
+                            stream.Seek(0, SeekOrigin.Begin);
+                            StreamReader sr = new StreamReader(stream);
+                            serializer.Serialize(writer, sr.ReadToEnd());
+                            stream.Seek(0, SeekOrigin.Begin);
+                        } else serializer.Serialize(writer, o.ToString()); // fallback for unknown types (only for dev purposes)
                     }
                 }
                 writer.WriteEndArray();
@@ -41,26 +53,24 @@ namespace VVVV.Pack.Messaging.Serializing
             {
                 SpreadList sl = new SpreadList();
                 JObject jsonObject = JObject.Load(reader);
-                string typeName = "string";
 
                 var jT = jsonObject.GetValue("Type");
-                typeName = (string)jT.ToObject(typeof(string), serializer);
+                string typeName = (string)jT.ToObject(typeof(string), serializer);
 
-                Type type = typeof(string);
-                foreach (Type key in TypeIdentity.Instance.Keys)
-                {
-                    if (TypeIdentity.Instance[key] == typeName)
-                    {
-                        type = key;
-                    }
-                }
-
+                Type type = TypeIdentity.FindType(typeName);
                 JArray jArray = (JArray)jsonObject.GetValue("Spread");
 
                 foreach (var o in jArray)
                 {
-                    var instance = o.ToObject(type, serializer);
-                    sl.Add(instance);
+                    if (type != typeof(Stream))  // the only non-serializable class as of now is Stream (which can be both ComStream and MemoryStream)
+                    {
+                        var instance = o.ToObject(type, serializer);
+                        sl.Add(instance);
+                    } else {
+                        string str = (string)o.ToObject(typeof(string), serializer);
+                        var buffer = Encoding.ASCII.GetBytes(str);
+                        sl.Add(new MemoryStream(buffer));
+                    }
                 }
                 return sl;
 

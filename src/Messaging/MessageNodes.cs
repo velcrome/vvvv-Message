@@ -1,5 +1,6 @@
 #region usings
 using System;
+using System.Globalization;
 using System.IO;
 using System.ComponentModel.Composition;
 using System.Collections;
@@ -29,7 +30,7 @@ namespace VVVV.Pack.Messaging
 
     public class MessageInfoNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
+        #pragma warning disable 649, 169
 
         [Input("Input")] private IDiffSpread<Message> FInput;
 
@@ -45,7 +46,7 @@ namespace VVVV.Pack.Messaging
 
         [Import()] protected ILogger FLogger;
 
-#pragma warning restore
+        #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
@@ -64,7 +65,7 @@ namespace VVVV.Pack.Messaging
                 Message m = FInput[i];
                 FOutput[i] = m.ToString();
                 FAddress[i] = m.Address;
-                FTimeStamp[i] = m.TimeStamp.ToString();
+                FTimeStamp[i] = m.TimeStamp.ToString(CultureInfo.InvariantCulture);
                 FConfigOut[i] = FInput[i].GetConfig();
 
                 if (FPrint[i])
@@ -124,19 +125,7 @@ namespace VVVV.Pack.Messaging
 
                 for (int j = 0; j < SpreadMax; j++)
                 {
-                    if (!found[j])
-                    {
-                        string[] message = FInput[j].Address.Split('.');
-
-                        if (message.Length < filter.Length) continue;
-
-                        bool match = true;
-                        for (int k = 0; k < filter.Length; k++)
-                        {
-                            if ((filter[k].Trim() != message[k].Trim()) && (filter[k].Trim() != "*")) match = false;
-                        }
-                        found[j] = match;
-                    }
+                    if (!found[j]) found[j] = FInput[j].AddressMatches(FFilter[i]);
                 }
             }
 
