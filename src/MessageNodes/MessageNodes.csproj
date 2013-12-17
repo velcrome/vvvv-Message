@@ -70,6 +70,13 @@
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
       <Name>MessageCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SpreadOperations\SpreadOperations.csproj">
+      <Project>{6b67bbda-f27b-4905-8f5c-490c3b8ae7f1}</Project>
+      <Name>SpreadOperations</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
