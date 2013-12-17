@@ -39,9 +39,7 @@
     <OutputPath>..\..\deploy\nodes\plugins\Release\AnyCPU\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\JSON.NET\Net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex" />
@@ -61,9 +59,8 @@
     <Compile Include="SetMessage.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
-    <Compile Include="Serializing\OSC.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
-    <Compile Include="Serializing\XElement.cs" />
+    <Compile Include="Serializing\XElementNodes.cs" />
     <Compile Include="Typing\GetVariableType.cs" />
     <Compile Include="Typing\MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
