@@ -1,20 +1,14 @@
 #region usings
-using System;
 using System.Globalization;
-using System.IO;
 using System.ComponentModel.Composition;
-using System.Collections;
 using System.Collections.Generic;
 
 using System.Text;
-using System.Xml.Linq;
 using System.Linq;
 
-using Newtonsoft.Json;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Nodes;
 using VVVV.Core.Logging;
-using VVVV.Pack.Messaging.Collections;
 using VVVV.Utils.Streams;
 
 #endregion usings
@@ -281,11 +275,6 @@ namespace VVVV.Pack.Messaging
         }
 */
 
-        [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
-        public class MessageQueueNode : QueueNode<Message>
-        {
-        }
-
 /*        no real use case for this one
         [PluginInfo(Name = "RingBuffer", Category = "Message", Help = "Ringbuffers all Messages", Tags = "velcrome")]
         public class MessageRingBufferNode : RingBufferNode<Message>
@@ -324,22 +313,28 @@ namespace VVVV.Pack.Messaging
         {
         }
 
+        /*
+                [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
+                public class MessageQueueNode : QueueNode<Message>
+                {
+                }
 
-        [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
-        public class MessageSelectNode : Select<Message>
-        {
-        }
+                [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
+                public class MessageSelectNode : Select<Message>
+                {
+                }
 
 
-        [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
-        public class MessageZipNode : ZipNode<IInStream<Message>>
-        {
-        }
+                [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
+                public class MessageZipNode : ZipNode<IInStream<Message>>
+                {
+                }
 
-        [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "Dynamic, velcrome")]
-        public class MessageUnZipNode : UnzipNode<IInStream<Message>>
-        {
-        }
+                [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "Dynamic, velcrome")]
+                public class MessageUnZipNode : UnzipNode<IInStream<Message>>
+                {
+                }
+         */
 
     }
 

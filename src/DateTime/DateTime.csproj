@@ -4,12 +4,12 @@
   <PropertyGroup>
     <ProjectGuid>{BC1A08BB-5834-48F9-A661-61C8343BE1F4}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>VVVV.Nodes.Time</RootNamespace>
     <AssemblyName>VVVV.Nodes.Time</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\$(Platform)\$(Configuration)\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -36,22 +36,23 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <OutputPath>..\deploy\nodes\plugins\Debug\x86\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\Debug\x86\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <OutputPath>..\deploy\nodes\plugins\Debug\x64\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\Debug\x64\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>..\deploy\nodes\plugins\Release\x64\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\Release\x64\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\deploy\nodes\plugins\Release\x86\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\Release\x86\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <OutputPath>..\deploy\nodes\plugins\Debug\AnyCPU\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\Debug\AnyCPU\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>..\deploy\nodes\plugins\Release\AnyCPU\</OutputPath>
+    <OutputPath>..\..\deploy\nodes\plugins\Release\AnyCPU\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,13 +64,13 @@
     <Reference Include="System.Core" />
     <Reference Include="VVVV.Core, Version=31.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\VVVV.Core.31.5.0-develop-78\lib\net40\VVVV.Core.dll</HintPath>
+      <HintPath>..\packages\VVVV.Core.31.5.0-develop-80\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.PluginInterfaces" />
     <Reference Include="VVVV.Utils, Version=31.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\VVVV.Utils.31.5.0-develop-78\lib\net40\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.31.5.0-develop-80\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -82,5 +83,5 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.31.5.0-develop-78\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.31.5.0-develop-78\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.31.5.0-develop-80\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.31.5.0-develop-80\build\net40\VVVV.PluginInterfaces.targets')" />
 </Project>
