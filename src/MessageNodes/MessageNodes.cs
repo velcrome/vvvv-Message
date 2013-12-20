@@ -313,17 +313,16 @@ namespace VVVV.Pack.Messaging
         {
         }
 
-        /*
+        [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
+        public class MessageSelectNode : Select<Message>
+        {
+        }
+
+        /* vvvv.Packs cannot be nugetted from vvvv's stream yet. can be allowed once thats fixed
                 [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
                 public class MessageQueueNode : QueueNode<Message>
                 {
                 }
-
-                [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
-                public class MessageSelectNode : Select<Message>
-                {
-                }
-
 
                 [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
                 public class MessageZipNode : ZipNode<IInStream<Message>>
