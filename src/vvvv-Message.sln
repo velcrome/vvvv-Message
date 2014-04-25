@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageNodes", "MessageNodes\MessageNodes.csproj", "{6A0AFB1F-8219-4A08-85F7-B7F19B66AC16}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1} = {6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageCore", "MessageCore\MessageCore.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
 EndProject

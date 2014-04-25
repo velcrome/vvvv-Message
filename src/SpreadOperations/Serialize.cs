@@ -1,20 +1,15 @@
 #region usings
-using System;
+
 using System.ComponentModel.Composition;
 using System.IO;
 
-using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
-using VVVV.Nodes;
 
-using System.Collections.Generic;
-using VVVV.PluginInterfaces.V2.Graph;
 
 
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
+
 #endregion usings
 
 namespace VVVV.Nodes

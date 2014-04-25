@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using VVVV.Pack.Messaging;
@@ -8,7 +9,7 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 
 using VVVV.Core.Logging;
-using System.ComponentModel.Composition;
+
 
 namespace VVVV.Nodes.Messaging
 {

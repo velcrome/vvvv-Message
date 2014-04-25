@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using System.Linq;
-
+using VVVV.Nodes.Generic;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Nodes;
 using VVVV.Core.Logging;
@@ -318,22 +318,20 @@ namespace VVVV.Pack.Messaging
         {
         }
 
-        /* vvvv.Packs cannot be nugetted from vvvv's stream yet. can be allowed once thats fixed
-                [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
-                public class MessageQueueNode : QueueNode<Message>
-                {
-                }
+        [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
+        public class MessageQueueNode : QueueNode<Message>
+        {
+        }
 
-                [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
-                public class MessageZipNode : ZipNode<IInStream<Message>>
-                {
-                }
+        [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
+        public class MessageZipNode : Zip<IInStream<Message>>
+        {
+        }
 
-                [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "Dynamic, velcrome")]
-                public class MessageUnZipNode : UnzipNode<IInStream<Message>>
-                {
-                }
-         */
+        [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "Dynamic, velcrome")]
+        public class MessageUnZipNode : Unzip<IInStream<Message>>
+        {
+        }
 
     }
 

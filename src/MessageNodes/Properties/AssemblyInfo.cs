@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("intolight")]
-[assembly: AssemblyProduct("MessageNodes Suit")]
+[assembly: AssemblyProduct("MessageNodes Suite")]
 [assembly: AssemblyCopyright("Copyright 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
