@@ -29,8 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
@@ -43,11 +42,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="VVVV.Core">
-      <HintPath>..\packages\VVVV.Core.31.10.0-develop-232\lib\net40\VVVV.Core.dll</HintPath>
+      <HintPath>..\packages\VVVV.Core.32.0.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils">
-      <HintPath>..\packages\VVVV.Utils.31.10.0-develop-232\lib\net40\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.32.0.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -87,13 +86,13 @@
     </ItemGroup>
     <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\$(SolutionName)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
-  <Import Project="..\packages\VVVV.PluginInterfaces.31.10.0-develop-232\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.31.10.0-develop-232\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.31.10.0-develop-232\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.31.10.0-develop-232\build\net40\VVVV.Nodes.Generic.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.31.10.0-develop-232\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.31.10.0-develop-232\build\net40\VVVV.PluginInterfaces.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.31.10.0-develop-232\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.31.10.0-develop-232\build\net40\VVVV.Nodes.Generic.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets'))" />
   </Target>
+  <Import Project="..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" />
 </Project>
