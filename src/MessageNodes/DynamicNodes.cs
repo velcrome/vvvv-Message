@@ -52,12 +52,6 @@ namespace VVVV.Pack.Messaging {
 		#endregion fields & pins
 
         #region type
-        
-        public DynamicNode()
-        {
-        }
-
-
         protected bool TypeUpdate()
         {
             if (!TypeDictionary.IsChanged && !FType.IsChanged) return false;
@@ -75,9 +69,6 @@ namespace VVVV.Pack.Messaging {
 
 
         #region pin management
- 
-		
-		
 		public void OnImportsSatisfied() {
 			FConfig.Changed += HandleConfigChange;
 		}
@@ -205,7 +196,6 @@ namespace VVVV.Pack.Messaging {
             SpreadMax = 0;
             if (!FSet[0])
             {
-                //				FLogger.Log(LogType.Debug, "skip join");
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
                 return;
@@ -266,9 +256,6 @@ namespace VVVV.Pack.Messaging {
         [Output("Timestamp", AutoFlush = false)]
         ISpread<string> FTimeStamp;
 
-        //		[Output("Configuration", AutoFlush = false)]
-        //		ISpread<string> FConfigOut;
-
         #pragma warning restore
 
         protected override IOAttribute DefinePin(string name, Type type)
@@ -290,7 +277,6 @@ namespace VVVV.Pack.Messaging {
 
             if (!FInput.IsChanged)
             {
-                //				FLogger.Log(LogType.Debug, "skip split");
                 return;
             }
 
@@ -400,6 +386,8 @@ namespace VVVV.Pack.Messaging {
 
             public override void Evaluate(int SpreadMax)
             {
+                TypeUpdate();
+
                 SpreadMax = FInput.SliceCount;
 
                 if (!FInput.IsChanged)

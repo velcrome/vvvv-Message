@@ -1,0 +1,255 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.0.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\Info (Message) help.v4p">
+   <BOUNDS type="Window" left="8520" top="1230" width="9000" height="10365">
+   </BOUNDS>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
+   </BOUNDS>
+   <BOUNDS type="Box" left="225" top="225" width="5100" height="450">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Info (Message)|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" visible="1" values="14">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="285" top="720" width="5100" height="600">
+   </BOUNDS>
+   <BOUNDS type="Box" left="285" top="720" width="2565" height="375">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Help to Debug Messages|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="1" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="4455" top="1230" width="6600" height="1050">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4455" top="1230" width="6600" height="1050">
+   </BOUNDS>
+   <PIN pinname="Size" slicecount="1" visible="1" values="12">
+   </PIN>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|This helpatch is still missing. See http://vvvv.org/documentation/conventions.helppatch for how to make a good one!|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   </NODE>
+   <NODE nodename="Info (Message)" componentmode="Hidden" id="0" systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <BOUNDS type="Node" left="450" top="3645" width="3675" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="450" top="3645" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="4" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="690" top="1320" width="1680" height="705">
+   </BOUNDS>
+   <BOUNDS type="Node" left="690" top="1320" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input String" visible="1" slicecount="1" values="|{&cr;&lf;  &quot;MessageData&quot;: {&cr;&lf;    &quot;color&quot;: {&cr;&lf;      &quot;Type&quot;: &quot;color&quot;,&cr;&lf;      &quot;Spread&quot;: [&cr;&lf;        {&cr;&lf;          &quot;R&quot;: 0.74835,&cr;&lf;          &quot;G&quot;: 0.33606,&cr;&lf;          &quot;B&quot;: 0.0,&cr;&lf;          &quot;A&quot;: 1.0&cr;&lf;        }&cr;&lf;      ]&cr;&lf;    },&cr;&lf;    &quot;matrix&quot;: {&cr;&lf;      &quot;Type&quot;: &quot;transform&quot;,&cr;&lf;      &quot;Spread&quot;: [&cr;&lf;        {&cr;&lf;          &quot;Values&quot;: [&cr;&lf;            1.2300000190734863,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            1.2300000190734863,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            1.2300000190734863,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            1.0&cr;&lf;          ]&cr;&lf;        }&cr;&lf;      ]&cr;&lf;    }&cr;&lf;  },&cr;&lf;  &quot;TimeStamp&quot;: &quot;2014-05-12T16:12:17.1778333+02:00&quot;,&cr;&lf;  &quot;Address&quot;: &quot;MyMessage&quot;&cr;&lf;}|">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Message 2|">
+   </PIN>
+   </NODE>
+   <NODE systemname="AsMessage (Message, Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, Json)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="435" top="3045" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Message" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Message" dstnodeid="0" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="6">
+   <BOUNDS type="Node" left="435" top="6360" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="435" top="6360" width="4125" height="2910">
+   </BOUNDS>
+   <BOUNDS type="Window" left="14355" top="7770" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="7" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="435" top="4590" width="1080" height="345">
+   </BOUNDS>
+   <BOUNDS type="Node" left="435" top="4590" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Address">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Address" dstnodeid="7" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="1650" top="4605" width="1875" height="330">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1650" top="4605" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Timestamp">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Timestamp" dstnodeid="8" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="4725" top="4605" width="3510" height="2970">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4725" top="4605" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="10" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4065" top="2790" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4065" top="2790" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Press">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Print Message">
+   </LINK>
+   <NODE systemname="Switch (String Input)" nodename="Switch (String Input)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="435" top="2610" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="4" srcpinname="Output String" dstnodeid="12" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="Output" dstnodeid="5" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Blinker (Animation)" nodename="Blinker (Animation)" componentmode="Hidden" id="16">
+   <BOUNDS type="Node" left="45" top="1410" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="BlinkStyle" slicecount="1" values="BlinkSlow">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="2520" top="1320" width="1680" height="705">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2520" top="1320" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input String" visible="1" slicecount="1" values="|{&cr;&lf;  &quot;MessageData&quot;: {&cr;&lf;    &quot;color&quot;: {&cr;&lf;      &quot;Type&quot;: &quot;color&quot;,&cr;&lf;      &quot;Spread&quot;: [&cr;&lf;        {&cr;&lf;          &quot;R&quot;: 0.16869,&cr;&lf;          &quot;G&quot;: 0.0,&cr;&lf;          &quot;B&quot;: 0.83792,&cr;&lf;          &quot;A&quot;: 1.0&cr;&lf;        }&cr;&lf;      ]&cr;&lf;    },&cr;&lf;    &quot;matrix&quot;: {&cr;&lf;      &quot;Type&quot;: &quot;transform&quot;,&cr;&lf;      &quot;Spread&quot;: [&cr;&lf;        {&cr;&lf;          &quot;Values&quot;: [&cr;&lf;            0.43000000715255737,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.43000000715255737,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.43000000715255737,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            0.0,&cr;&lf;            1.0&cr;&lf;          ]&cr;&lf;        }&cr;&lf;      ]&cr;&lf;    }&cr;&lf;  },&cr;&lf;  &quot;TimeStamp&quot;: &quot;2014-05-12T17:02:22.4432449+02:00&quot;,&cr;&lf;  &quot;Address&quot;: &quot;MyOtherMessage&quot;&cr;&lf;}|">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Message 1|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="18" srcpinname="Output String" dstnodeid="12" dstpinname="Input 2">
+   </LINK>
+   <NODE systemname="WritePage (TTY)" nodename="WritePage (TTY)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="420" top="6000" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="DoWrite" slicecount="1" visible="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="19" srcpinname="Layer" dstnodeid="6" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="20">
+   <BOUNDS type="Node" left="810" top="5565" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="20" srcpinname="Output" dstnodeid="19" dstpinname="DoWrite">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="21" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="45" top="1830" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="45" top="1830" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="21" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Switch">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="22" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="4635" top="2700" width="2130" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4635" top="2700" width="2250" height="780">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|press here to check verbose mode in tty|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Input">
+   </LINK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
+   </PATCH>
