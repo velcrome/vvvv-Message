@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p">
-   <BOUNDS type="Window" left="25200" top="0" width="16575" height="14640">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.0.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta32_x86\packs\vvvv-Message\nodes\demo\TouchOSC.v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p">
+   <BOUNDS type="Window" left="2000" top="2000" width="16575" height="14640">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="570" top="5490" width="1830" height="270">
@@ -100,22 +100,6 @@
    <BOUNDS type="Box" left="15045" top="8280">
    </BOUNDS>
    </NODE>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="95">
-   <BOUNDS type="Node" left="15045" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="15045" top="10380">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="5" srcpinname="Output" dstnodeid="95" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="98" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="15045" top="12090" width="2445" height="2340">
    </BOUNDS>
@@ -202,22 +186,16 @@
    </NODE>
    <LINK srcnodeid="100" srcpinname="Output" dstnodeid="103" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="103" srcpinname="Output" dstnodeid="95" dstpinname="Attribute Name">
-   </LINK>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="104">
    <BOUNDS type="Node" left="15045" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="95" srcpinname="Value" dstnodeid="104" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="95" srcpinname="IsValid" dstnodeid="104" dstpinname="Set">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="111" systemname="IOBox (String)">
    <BOUNDS type="Box" left="15285" top="7695" width="405" height="315">
    </BOUNDS>
@@ -350,36 +328,16 @@
    </NODE>
    <LINK srcnodeid="117" srcpinname="Output" dstnodeid="118" dstpinname="OSC">
    </LINK>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="120">
-   <BOUNDS type="Node" left="570" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="570" top="10380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="119">
    <BOUNDS type="Node" left="570" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="120" srcpinname="Value" dstnodeid="119" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="120" srcpinname="IsValid" dstnodeid="119" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="118" srcpinname="Output" dstnodeid="120" dstpinname="Input">
-   </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="121" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="1875" top="9615" width="100" height="100">
    </BOUNDS>
@@ -414,8 +372,6 @@
    </NODE>
    <LINK srcnodeid="123" srcpinname="Output" dstnodeid="122" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="121" srcpinname="Output" dstnodeid="120" dstpinname="Attribute Name" hiddenwhenlocked="1">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="124" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="570" top="12090" width="2970" height="2325">
    </BOUNDS>
@@ -440,40 +396,16 @@
    </NODE>
    <LINK srcnodeid="119" srcpinname="Output" dstnodeid="124" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="126">
-   <BOUNDS type="Node" left="2820" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="2820" top="10380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="125">
    <BOUNDS type="Node" left="2820" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="126" srcpinname="Value" dstnodeid="125" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="126" srcpinname="IsValid" dstnodeid="125" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="118" srcpinname="Output" dstnodeid="126" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="630" y="9945">
-   </LINKPOINT>
-   <LINKPOINT x="2820" y="9945">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="129" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="4065" top="9615" width="100" height="100">
    </BOUNDS>
@@ -507,8 +439,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="127" srcpinname="Output" dstnodeid="128" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="129" srcpinname="Output" dstnodeid="126" dstpinname="Attribute Name" hiddenwhenlocked="1">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="130" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="570" top="14490" width="2445" height="735">
@@ -604,36 +534,16 @@
    </NODE>
    <LINK srcnodeid="140" srcpinname="Output" dstnodeid="136" dstpinname="OSC">
    </LINK>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="135">
-   <BOUNDS type="Node" left="5580" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="5580" top="10380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="134">
    <BOUNDS type="Node" left="5580" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="135" srcpinname="Value" dstnodeid="134" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="135" srcpinname="IsValid" dstnodeid="134" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="136" srcpinname="Output" dstnodeid="135" dstpinname="Input">
-   </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="133" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="6885" top="9615" width="100" height="100">
    </BOUNDS>
@@ -668,42 +578,22 @@
    </NODE>
    <LINK srcnodeid="131" srcpinname="Output" dstnodeid="132" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="133" srcpinname="Output" dstnodeid="135" dstpinname="Attribute Name" hiddenwhenlocked="1">
-   </LINK>
    <LINK srcnodeid="112" srcpinname="Output" dstnodeid="138" dstpinname="Input" linkstyle="VHV">
    <LINKPOINT x="630" y="7810">
    </LINKPOINT>
    <LINKPOINT x="5580" y="7460">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="145">
-   <BOUNDS type="Node" left="7950" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="7950" top="10380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="144">
    <BOUNDS type="Node" left="7950" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="145" srcpinname="Value" dstnodeid="144" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="145" srcpinname="IsValid" dstnodeid="144" dstpinname="Set">
-   </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="143" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="9195" top="9615" width="100" height="100">
    </BOUNDS>
@@ -737,14 +627,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="141" srcpinname="Output" dstnodeid="142" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="143" srcpinname="Output" dstnodeid="145" dstpinname="Attribute Name" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="136" srcpinname="Output" dstnodeid="145" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="5640" y="9945">
-   </LINKPOINT>
-   <LINKPOINT x="7950" y="9945">
-   </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="146" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="5580" top="14490" width="2445" height="735">
@@ -864,34 +746,16 @@
    </NODE>
    <LINK srcnodeid="164" srcpinname="Output" dstnodeid="160" dstpinname="OSC">
    </LINK>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="154">
-   <BOUNDS type="Node" left="12720" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="12720" top="10380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="153">
    <BOUNDS type="Node" left="12720" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="154" srcpinname="Value" dstnodeid="153" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="154" srcpinname="IsValid" dstnodeid="153" dstpinname="Set">
-   </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="152" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="13965" top="9615" width="100" height="100">
    </BOUNDS>
@@ -925,8 +789,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="150" srcpinname="Output" dstnodeid="151" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="152" srcpinname="Output" dstnodeid="154" dstpinname="Attribute Name" hiddenwhenlocked="1">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="149" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="10350" top="14490" width="2445" height="735">
@@ -987,11 +849,11 @@
    </LINKPOINT>
    </LINK>
    <NODE id="158" systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Input" visible="1" pintype="Input">
+   <PIN pinname="Input" visible="1" pintype="Input" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1" pintype="Input">
+   <PIN pinname="Set" visible="1" pintype="Input" slicecount="1" values="0">
    </PIN>
-   <BOUNDS type="Node" left="10350" top="10875" width="1095" height="270">
+   <BOUNDS type="Node" left="10350" top="10470" width="1095" height="270">
    </BOUNDS>
    <PIN pinname="Output" visible="1" pintype="Output">
    </PIN>
@@ -1002,38 +864,6 @@
    <PIN pinname="ID" pintype="Output" visible="-1">
    </PIN>
    </NODE>
-   <NODE id="159" systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Input" visible="1" pintype="Input">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1" pintype="Input" slicecount="1" values="||">
-   </PIN>
-   <BOUNDS type="Node" left="10350" top="10380" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="10350" top="10380" width="2400" height="1800">
-   </BOUNDS>
-   <PIN pinname="Value" visible="1" pintype="Output">
-   </PIN>
-   <PIN pinname="IsValid" visible="1" pintype="Output">
-   </PIN>
-   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Default" pintype="Input" visible="1" slicecount="1" values="0.5">
-   </PIN>
-   <PIN pinname="Window Handle" pintype="Output">
-   </PIN>
-   <PIN pinname="Value Bin Size" pintype="Output" visible="1">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="160" srcpinname="Output" dstnodeid="159" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="159" srcpinname="IsValid" dstnodeid="158" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="159" srcpinname="Value" dstnodeid="158" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="165" systemname="IOBox (String)">
    <BOUNDS type="Box" left="11415" top="9615" width="795" height="240">
    </BOUNDS>
@@ -1048,8 +878,6 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="165" srcpinname="Output String" dstnodeid="159" dstpinname="Attribute Name">
-   </LINK>
    <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="166">
    <BOUNDS type="Node" left="10350" top="10875" width="100" height="100">
    </BOUNDS>
@@ -1078,34 +906,16 @@
    </LINK>
    <LINK srcnodeid="167" srcpinname="Output" dstnodeid="148" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="GetAttribute (Message)" filename="..\plugins\Message.csproj" nodename="GetAttribute (Message)" componentmode="Hidden" id="172">
-   <BOUNDS type="Node" left="17910" top="10380" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Attribute Name" visible="1">
-   </PIN>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="IsValid" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="17910" top="10380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="S+H (Animation)" nodename="S+H (Animation)" componentmode="Hidden" id="171">
    <BOUNDS type="Node" left="17910" top="10875" width="1095" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Set" visible="1">
+   <PIN pinname="Set" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="172" srcpinname="Value" dstnodeid="171" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="172" srcpinname="IsValid" dstnodeid="171" dstpinname="Set">
-   </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="170" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="19155" top="9990" width="100" height="100">
    </BOUNDS>
@@ -1139,10 +949,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="168" srcpinname="Output" dstnodeid="169" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="170" srcpinname="Output" dstnodeid="172" dstpinname="Attribute Name">
-   </LINK>
-   <LINK srcnodeid="5" srcpinname="Output" dstnodeid="172" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="173" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="15045" top="14490" width="2445" height="735">
@@ -1183,12 +989,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="176" srcpinname="Y Output Value" dstnodeid="112" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="160" srcpinname="Output" dstnodeid="154" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="10410" y="9945">
-   </LINKPOINT>
-   <LINKPOINT x="12720" y="9945">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="IP (Network)" nodename="IP (Network)" componentmode="Hidden" id="177">
    <BOUNDS type="Node" left="1155" top="1095" width="3390" height="270">
@@ -1270,4 +1070,208 @@
    </NODE>
    <LINK srcnodeid="181" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Local Port">
    </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="120">
+   <BOUNDS type="Node" left="570" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="570" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="120" srcpinname="Value" dstnodeid="119" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="120" srcpinname="IsValid" dstnodeid="119" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="118" srcpinname="Output" dstnodeid="120" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="121" srcpinname="Output" dstnodeid="120" dstpinname="Attribute Name" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="126">
+   <BOUNDS type="Node" left="2820" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="2820" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="126" srcpinname="Value" dstnodeid="125" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="126" srcpinname="IsValid" dstnodeid="125" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="118" srcpinname="Output" dstnodeid="126" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="630" y="9945">
+   </LINKPOINT>
+   <LINKPOINT x="2820" y="9945">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="129" srcpinname="Output" dstnodeid="126" dstpinname="Attribute Name" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="135">
+   <BOUNDS type="Node" left="5580" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="5580" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="135" srcpinname="Value" dstnodeid="134" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="135" srcpinname="IsValid" dstnodeid="134" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="136" srcpinname="Output" dstnodeid="135" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="133" srcpinname="Output" dstnodeid="135" dstpinname="Attribute Name" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="145">
+   <BOUNDS type="Node" left="7950" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="7950" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="145" srcpinname="Value" dstnodeid="144" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="145" srcpinname="IsValid" dstnodeid="144" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="143" srcpinname="Output" dstnodeid="145" dstpinname="Attribute Name" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="136" srcpinname="Output" dstnodeid="145" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="5640" y="9945">
+   </LINKPOINT>
+   <LINKPOINT x="7950" y="9945">
+   </LINKPOINT>
+   </LINK>
+   <NODE id="159" systemname="GetAttribute (Message Vector2D)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Vector2D)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <PIN pinname="Input" visible="1" pintype="Input">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1" pintype="Input">
+   </PIN>
+   <BOUNDS type="Node" left="10335" top="9945" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10335" top="9945" width="2400" height="1800">
+   </BOUNDS>
+   <PIN pinname="Value" visible="1" pintype="Output">
+   </PIN>
+   <PIN pinname="IsValid" visible="1" pintype="Output">
+   </PIN>
+   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Default" pintype="Input" visible="1">
+   </PIN>
+   <PIN pinname="Window Handle" pintype="Output">
+   </PIN>
+   <PIN pinname="Value Bin Size" pintype="Output" visible="1">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="ValueXY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="160" srcpinname="Output" dstnodeid="159" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="159" srcpinname="IsValid" dstnodeid="158" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="165" srcpinname="Output String" dstnodeid="159" dstpinname="Attribute Name">
+   </LINK>
+   <LINK srcnodeid="159" srcpinname="ValueXY" dstnodeid="158" dstpinname="Input">
+   </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="154">
+   <BOUNDS type="Node" left="12720" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="12720" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="154" srcpinname="Value" dstnodeid="153" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="154" srcpinname="IsValid" dstnodeid="153" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="152" srcpinname="Output" dstnodeid="154" dstpinname="Attribute Name" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="160" srcpinname="Output" dstnodeid="154" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="10410" y="9945">
+   </LINKPOINT>
+   <LINKPOINT x="12720" y="9945">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="95">
+   <BOUNDS type="Node" left="15045" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="15045" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Output" dstnodeid="95" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="103" srcpinname="Output" dstnodeid="95" dstpinname="Attribute Name">
+   </LINK>
+   <LINK srcnodeid="95" srcpinname="Value" dstnodeid="104" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="95" srcpinname="IsValid" dstnodeid="104" dstpinname="Set">
+   </LINK>
+   <NODE systemname="GetAttribute (Message Value)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetAttribute (Message Value)" componentmode="Hidden" id="172">
+   <BOUNDS type="Node" left="17910" top="10380" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Attribute Name" visible="1">
+   </PIN>
+   <PIN pinname="Value" visible="1">
+   </PIN>
+   <PIN pinname="IsValid" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="17910" top="10380">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="172" srcpinname="Value" dstnodeid="171" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="172" srcpinname="IsValid" dstnodeid="171" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="170" srcpinname="Output" dstnodeid="172" dstpinname="Attribute Name">
+   </LINK>
+   <LINK srcnodeid="5" srcpinname="Output" dstnodeid="172" dstpinname="Input">
+   </LINK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
    </PATCH>

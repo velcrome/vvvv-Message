@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
-using VVVV.Pack.Messaging.Collections;
 
-namespace VVVV.Pack.Messaging.Serialising
+
+namespace VVVV.Packs.Message.Serializing
 {
     public static class XElementExtensions
     {

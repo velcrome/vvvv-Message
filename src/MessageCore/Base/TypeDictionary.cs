@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace VVVV.Nodes.Messaging.Typing
+namespace VVVV.Packs.Message
 {
     public class TypeDictionary : Dictionary<string, string>
     {

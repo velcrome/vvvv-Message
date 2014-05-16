@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using VVVV.Nodes.Generic;
+using VVVV.Packs.Message;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Nodes;
 using VVVV.Core.Logging;
 using VVVV.Utils.Streams;
+
 
 #endregion usings
 
@@ -17,11 +18,8 @@ namespace VVVV.Pack.Messaging
 {
 
     #region PluginInfo
-
     [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "Dynamic, TTY, velcrome")]
-
     #endregion PluginInfo
-
     public class MessageInfoNode : IPluginEvaluate
     {
         #pragma warning disable 649, 169
@@ -59,7 +57,7 @@ namespace VVVV.Pack.Messaging
                 Message m = FInput[i];
                 FOutput[i] = m.ToString();
                 FAddress[i] = m.Address;
-                FTimeStamp[i] = m.TimeStamp.ToString(CultureInfo.InvariantCulture);
+                FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);
                 FConfigOut[i] = FInput[i].GetConfig();
 
                 if (FPrint[i])
@@ -82,11 +80,8 @@ namespace VVVV.Pack.Messaging
 
 
     #region PluginInfo
-
     [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome")]
-
     #endregion PluginInfo
-
     public class MessageSiftNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
@@ -135,12 +130,13 @@ namespace VVVV.Pack.Messaging
 
 
 
-
+    #region PluginInfo
     [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages",
         Tags = "velcrome", AutoEvaluate = true)]
+    #endregion PluginInfo
     public class MessageFrameDelayNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
+        #pragma warning disable 649, 169
         [Input("Input")] private IDiffSpread<Message> FInput;
 
         [Input("Default")] private ISpread<Message> FDefault;
@@ -302,33 +298,38 @@ namespace VVVV.Pack.Messaging
             }
         }
 
-        [PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "Dynamic, velcrome")]
+        [PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "")]
         public class MessageSAndHNode : SAndH<Message>
         {
         }
 
         // better than the GetSlice (Node), because it allows binning and Index Spreading
-        [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Tags = "Dynamic, velcrome")]
+        [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Tags = "velcrome")]
         public class MessageGetSliceNode : GetSlice<Message>
         {
         }
 
-        [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "Dynamic, velcrome")]
+        [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "")]
         public class MessageSelectNode : Select<Message>
         {
         }
 
-        [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "velcrome")]
+        [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "")]
         public class MessageQueueNode : QueueNode<Message>
         {
         }
 
-        [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "Dynamic, velcrome")]
-        public class MessageZipNode : Zip<IInStream<Message>>
+        [PluginInfo(Name = "Zip", Category = "Message", Version="Bin", Help = "Zip Messages", Tags = "")]
+        public class MessageZipBinNode : Zip<IInStream<Message>>
         {
         }
 
-        [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "Dynamic, velcrome")]
+        [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "")]
+        public class MessageZipNode : Zip<Message>
+        {
+        }
+
+        [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "")]
         public class MessageUnZipNode : Unzip<IInStream<Message>>
         {
         }

@@ -7,7 +7,7 @@ using System.Xml;
 
 #endregion usings
 
-namespace VVVV.Pack.Messaging {
+namespace VVVV.Packs.Message {
 	public class MessageResolver : DataContractResolver
 	{
         public MessageResolver()

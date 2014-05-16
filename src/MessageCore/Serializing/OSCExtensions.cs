@@ -1,9 +1,12 @@
-﻿using System.IO;
-using VVVV.Pack.Messaging.Collections;
+﻿using System;
+using System.IO;
 using VVVV.Utils.OSC;
 
-namespace VVVV.Pack.Messaging.Serialising
+
+namespace VVVV.Packs.Message.Serializing
 {
+    using Time = VVVV.Packs.Time.Time;
+
     public static class OSCExtensions
     {
 
@@ -44,7 +47,6 @@ namespace VVVV.Pack.Messaging.Serialising
             Message message = new Message();
 
             message.TimeStamp = bundle.getTimeStamp();
-
 
             foreach (OSCMessage m in bundle.Values)
             {

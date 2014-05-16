@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using VVVV.Pack.Messaging.Collections;
+using VVVV.Packs.Time;
 
 #endregion usings
 
-namespace VVVV.Pack.Messaging{
+namespace VVVV.Packs.Message{
 	
 	
 	[DataContract]
@@ -25,7 +25,7 @@ namespace VVVV.Pack.Messaging{
         }
 
 		[DataMember]
-		public DateTime TimeStamp {
+		public VVVV.Packs.Time.Time TimeStamp {
 			get;
 			set;
 		}
@@ -37,9 +37,10 @@ namespace VVVV.Pack.Messaging{
 		}
 
 	
-		public Message() {
-			TimeStamp = DateTime.Now;
-        }
+		public Message()
+		{
+		    TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+		}
 
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
@@ -122,7 +123,7 @@ namespace VVVV.Pack.Messaging{
         public override string ToString() {
 			var sb = new StringBuilder();
 			
-			sb.Append("Message "+Address+" ("+TimeStamp+")\n");
+			sb.Append("Message "+Address+" ("+TimeStamp.LocalTime+" ["+TimeStamp.TimeZone.ToSerializedString()+"])\n");
 			foreach (string name in MessageData.Keys) {
 				
 				sb.Append(" "+name + " \t: ");

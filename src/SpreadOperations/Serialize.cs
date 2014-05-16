@@ -2,17 +2,13 @@
 
 using System.ComponentModel.Composition;
 using System.IO;
-
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
-
-
-
 using System.Runtime.Serialization;
 
 #endregion usings
 
-namespace VVVV.Nodes
+namespace VVVV.Nodes.Generic
 {
 	
 	public class Serialize<T> : IPluginEvaluate

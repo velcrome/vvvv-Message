@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using VVVV.Pack.Messaging;
+using VVVV.Packs.Message;
 
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
@@ -11,7 +10,7 @@ using VVVV.Utils.VMath;
 using VVVV.Core.Logging;
 
 
-namespace VVVV.Nodes.Messaging
+namespace VVVV.Packs.Message.Nodes
 {
     [PluginInfo(Name = "Store", Category = "Message", Help = "Stores Messages", Tags = "velcrome")]
     public class MessageStore : IPluginEvaluate

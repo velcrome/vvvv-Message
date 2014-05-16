@@ -1,11 +1,10 @@
 using System;
-using VVVV.Pack.Messaging;
-using VVVV.Pack.Messaging.Collections;
+using VVVV.Packs.Message;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Nodes.Messaging
+namespace VVVV.Packs.Message.Nodes
 {
     [PluginInfo(Name = "SetMessage (String)", Category = "Message", Help = "Updates strings of a message", Tags = "Dynamic, velcrome")]
     public class SetMessageNodeString : SetMessageNode<string> { }

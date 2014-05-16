@@ -11,9 +11,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputPath>..\..\build\$(Platform)\$(Configuration)\$(SolutionName)\nodes\plugins\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -25,11 +24,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
@@ -45,6 +43,8 @@
       <HintPath>..\packages\VVVV.Core.32.0.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="VVVV.Nodes.Generic, Version=32.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="VVVV.PluginInterfaces, Version=32.0.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="VVVV.Utils">
       <HintPath>..\packages\VVVV.Utils.32.0.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
@@ -64,22 +64,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MessageCore\MessageCore.csproj">
-      <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
-      <Name>MessageCore</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MessageCore\VVVV.Packs.Message.Core.csproj">
+      <Project>{C2F6EC8A-AA56-4121-B60F-72012D192835}</Project>
+      <Name>VVVV.Packs.Message.Core</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SpreadOperations\SpreadOperations.csproj">
-      <Project>{6b67bbda-f27b-4905-8f5c-490c3b8ae7f1}</Project>
+      <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
       <Name>SpreadOperations</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
-  <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" />
   <Target Name="AfterBuild">
     <ItemGroup>
       <MyFiles Include="..\..\patches\**\*.*" />
@@ -92,7 +93,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Packs.Time.0.5.3\build\net40\VVVV.Packs.Time.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Packs.Time.0.5.3\build\net40\VVVV.Packs.Time.targets'))" />
   </Target>
-  <Import Project="..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\VVVV.Packs.Time.0.5.3\build\net40\VVVV.Packs.Time.targets" Condition="Exists('..\packages\VVVV.Packs.Time.0.5.3\build\net40\VVVV.Packs.Time.targets')" />
 </Project>

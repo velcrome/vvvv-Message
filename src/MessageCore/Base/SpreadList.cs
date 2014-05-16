@@ -6,7 +6,7 @@ using System.Collections;
 using Newtonsoft.Json;
 using VVVV.Pack.Messaging.Serializing;
 
-namespace VVVV.Pack.Messaging.Collections
+namespace VVVV.Packs.Message
 {
 	/// <summary>
 	/// Description of BundleOSCNode.

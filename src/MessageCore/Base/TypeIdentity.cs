@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
+using VVVV.Packs.Time;
 
 
-namespace VVVV.Pack.Messaging
+namespace VVVV.Packs.Message
 {
     public class TypeIdentity : Dictionary<Type, string>
     {
@@ -37,7 +38,7 @@ namespace VVVV.Pack.Messaging
             Add(typeof(Vector4D), "Vector4D".ToLower());
 
             Add(typeof(Stream), "Raw".ToLower());
-            Add(typeof(DateTime), "Time".ToLower());
+            Add(typeof(Time.Time), "Time".ToLower());
             
             Add(typeof(Message), "Message".ToLower());	        
 	    }

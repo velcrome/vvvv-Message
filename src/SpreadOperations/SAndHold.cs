@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 #endregion usings
 
-namespace VVVV.Nodes
+namespace VVVV.Nodes.Generic
 {
 	
 	public class SAndH<T> : IPluginEvaluate

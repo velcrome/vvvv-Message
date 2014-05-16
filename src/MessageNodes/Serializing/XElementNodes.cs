@@ -1,11 +1,11 @@
 using System.ComponentModel.Composition;
 using System.Xml.Linq;
 using VVVV.Core.Logging;
-using VVVV.Pack.Messaging;
+using VVVV.Packs.Message;
+using VVVV.Packs.Message.Serializing;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Pack.Messaging.Serialising;
 
-namespace VVVV.Nodes.Messaging.Serializing
+namespace VVVV.Packs.Message.Nodes.Serializing
 {
 
     #region PluginInfo

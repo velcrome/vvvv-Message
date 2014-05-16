@@ -1,6 +1,6 @@
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.Messaging.Typing
+namespace VVVV.Packs.Message.Nodes
 {
 
     #region PluginInfo

@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta30.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\modules\Demo (Message).v4p" systemname="Message (Dynamic) help" filename="C:\dev\vvvv\message\Message (Dynamic) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.0.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta32_x86\packs\vvvv-Message\nodes\demo\Demo (Message).v4p" systemname="Message (Dynamic) help" filename="C:\dev\vvvv\message\Message (Dynamic) help.v4p">
    <BOUNDS type="Window" left="5805" top="-30" width="19395" height="15180">
    </BOUNDS>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="54">
@@ -69,7 +69,7 @@
    <LINK srcnodeid="70" srcpinname="X" dstnodeid="71" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="UniformScale (Transform)" nodename="UniformScale (Transform)" componentmode="Hidden" id="72">
-   <BOUNDS type="Node" left="5472" top="3753" width="100" height="100">
+   <BOUNDS type="Node" left="5142" top="3918" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
@@ -852,16 +852,6 @@
    <BOUNDS type="Box" left="3255" top="22860">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Buffer (Message)" filename="..\plugins\Message.csproj" nodename="Buffer (Message)" componentmode="Hidden" id="163">
-   <BOUNDS type="Node" left="915" top="21870" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="915" top="21870">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Sift (Message)" filename="..\plugins\Message.csproj" nodename="Sift (Message)" componentmode="Hidden" id="185">
    <BOUNDS type="Node" left="7695" top="22830" width="100" height="100">
    </BOUNDS>
@@ -922,12 +912,6 @@
    </NODE>
    <LINK srcnodeid="215" srcpinname="Output" dstnodeid="214" dstpinname="Input String">
    </LINK>
-   <NODE systemname="RingBuffer (Message)" filename="..\plugins\Message.csproj" nodename="RingBuffer (Message)" componentmode="Hidden" id="217">
-   <BOUNDS type="Node" left="915" top="22380" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="915" top="22380">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Queue (Message)" filename="..\plugins\Message.csproj" nodename="Queue (Message)" componentmode="Hidden" id="218">
    <BOUNDS type="Node" left="915" top="22935" width="100" height="100">
    </BOUNDS>
@@ -1410,4 +1394,6 @@
    </NODE>
    <LINK srcnodeid="446" srcpinname="Query" dstnodeid="448" dstpinname="Input String">
    </LINK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
    </PATCH>

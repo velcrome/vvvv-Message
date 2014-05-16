@@ -1,10 +1,9 @@
 using System.IO;
-using VVVV.Pack.Messaging;
-using VVVV.Pack.Messaging.Serialising;
+using VVVV.Packs.Message.Serializing;
 using VVVV.PluginInterfaces.V2;
 
 
-namespace VVVV.Nodes.Messaging.Serializing
+namespace VVVV.Packs.Message.Nodes.Serializing
 {
 
     #region PluginInfo

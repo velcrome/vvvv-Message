@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using VVVV.Pack.Messaging.Collections;
+using VVVV.Packs.Message;
 
 namespace VVVV.Pack.Messaging.Serializing
 {

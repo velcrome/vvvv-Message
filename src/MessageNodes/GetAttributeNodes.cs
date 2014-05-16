@@ -1,24 +1,52 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Text;
 using VVVV.Core.Logging;
+using VVVV.Packs.Message;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Pack.Messaging;
+using VVVV.Utils.VColor;
+using VVVV.Utils.VMath;
 
 namespace VVVV.Nodes.Messaging
 {
-    [PluginInfo(Name = "GetFloatAttribute", Category = "Message", Help = "Builds a spread across multiple Messages", Tags = "velcrome, float")]
-    public class FloatMessageGetAttributeNode : MessageGetAttributeNode<float>
+    [PluginInfo(Name = "GetAttribute", Version = "Value", Category = "Message", Help = "Builds a spread across multiple Messages", Tags = "velcrome")]
+    public class ValueMessageGetAttributeNode : MessageGetAttributeNode<double>
     { }
 
-    [PluginInfo(Name = "GetStringAttribute", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome, string")]
+    [PluginInfo(Name = "GetAttribute", Version = "String", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
     public class StringMessageGetAttributeNode : MessageGetAttributeNode<string>
     { }
 
-    [PluginInfo(Name = "GetIntAttribute", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome, int")]
-    public class IntMessageGetAttributeNode : MessageGetAttributeNode<int>
+    [PluginInfo(Name = "GetAttribute", Version="Color", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class ColorMessageGetAttributeNode : MessageGetAttributeNode<RGBAColor>
+    { }
+
+    [PluginInfo(Name = "GetAttribute", Version = "Raw", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class RawMessageGetAttributeNode : MessageGetAttributeNode<Stream>
+    { }
+
+    [PluginInfo(Name = "GetAttribute", Version = "Vector2D", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class Vector2DMessageGetAttributeNode : MessageGetAttributeNode<Vector2D>
+    { }
+
+    [PluginInfo(Name = "GetAttribute", Version = "Vector3D", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class Vector3DMessageGetAttributeNode : MessageGetAttributeNode<Vector3D>
+    { }
+
+    [PluginInfo(Name = "GetAttribute", Version = "Vector4D", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class Vector4DMessageGetAttributeNode : MessageGetAttributeNode<Vector4D>
+    { }
+
+    [PluginInfo(Name = "GetAttribute", Version = "Transform", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class TransformMessageGetAttributeNode : MessageGetAttributeNode<Matrix4x4>
+    { }
+
+//    [PluginInfo(Name = "GetAttribute", Version = "Message", Category = "Message", Help = "Spreads multiple Messages", Tags = "velcrome")]
+    public class MessageMessageGetAttributeNode : MessageGetAttributeNode<Message>
     { }
 
     public class MessageGetAttributeNode<T> : IPluginEvaluate
