@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache.cs" />
     <Compile Include="DynamicNodes.cs" />
     <Compile Include="GetAttributeNodes.cs" />
     <Compile Include="MessageNodes.cs" />

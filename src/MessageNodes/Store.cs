@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Message;
-
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 
@@ -13,7 +10,7 @@ using VVVV.Core.Logging;
 namespace VVVV.Packs.Message.Nodes
 {
     [PluginInfo(Name = "Store", Category = "Message", Help = "Stores Messages", Tags = "velcrome")]
-    public class MessageStore : IPluginEvaluate
+    public class MessageStoreNode : IPluginEvaluate
     {
 
         #pragma warning disable 649, 169

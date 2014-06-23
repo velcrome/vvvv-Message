@@ -25,14 +25,14 @@ namespace VVVV.Packs.Message.Nodes
         [Input("Input")]
         IDiffSpread<Message> FInput;
 
-        [Input("Key", DefaultString = "Foo")]
+        [Input("Key", DefaultString = "Foo", IsSingle = true)]
         public ISpread<string> FKey;
 
         [Input("Value")]
         public ISpread<ISpread<T>> FValue;
 
         [Input("Update", IsBang = true)]
-        ISpread<bool> Update;
+        ISpread<bool> FUpdate;
 
         [Output("Output", AutoFlush = false)]
         Pin<Message> FOutput;
@@ -57,32 +57,30 @@ namespace VVVV.Packs.Message.Nodes
             {
                 Message message = FInput[i];
 
-                if (Update[i])
+                if (FUpdate[i])
                 {
-                    for (int keyCount = 0; keyCount < FKey.SliceCount; keyCount++)
+                    SpreadList attr = message[FKey[0]];  
+                        
+                    if (attr != null)
                     {
-
-                        SpreadList attr = message[FKey[keyCount]];
-                        if (attr != null)
+                        if (attr.SpreadType != typeof(T)) // does not mean it mismatches. can still be both "Value" for example
                         {
-                            var typeOld = attr[0].GetType();
-                            var typeNew = FValue[keyCount][0].GetType();
-                            if (!(typeOld == typeNew))
+                            attr.Clear();
+                            for (int j = 0; j < FValue[i].SliceCount; j++)
                             {
-                                attr.Clear();
-                                for (int j = 0; j < FValue[i].SliceCount; j++)
-                                {
-                                    attr.Add(Convert.ChangeType(FValue[keyCount][j], typeOld));
-                                }
-                            }
-                            else
-                            {
-                                attr.Clear();
-                                attr.AssignFrom(FValue[i]);
-                            }
 
+                                attr.Add( Convert.ChangeType(FValue[i][j], attr.SpreadType));
+                            }
+                        }
+                        else
+                        {
+                            attr.Clear();
+                            attr.AssignFrom(FValue[i]);
                         }
 
+                    } else
+                    {
+                        message.AddFrom(FKey[0], FValue[i]);
                     }
                 }
                 FOutput[i] = message;

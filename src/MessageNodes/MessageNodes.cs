@@ -224,7 +224,7 @@ namespace VVVV.Pack.Messaging
 
                         var result =
                             from m in FInput
-                            where m[attrib][0].Equals(val)
+                            where m[attrib].Count > 0 && m[attrib][0].Equals(val)
                             select m;
 
                         FOutput[i].AssignFrom(result);
