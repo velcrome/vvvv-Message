@@ -1,0 +1,1 @@
+Put all help patches in plugins.
