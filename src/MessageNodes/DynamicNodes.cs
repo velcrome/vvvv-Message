@@ -4,11 +4,13 @@ using System.Collections;
 using System.ComponentModel.Composition;
 using System.Collections.Generic;
 using System.Linq;
+using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 #endregion usings
 
 namespace VVVV.Packs.Message {
+    using Message = VVVV.Packs.Message.Core.Message;
 
 	public abstract class DynamicNode : IPluginEvaluate, IPartImportsSatisfiedNotification
 	{

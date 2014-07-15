@@ -1,11 +1,12 @@
 ﻿using System.Xml.Linq;
+using VVVV.Packs.Message.Core;
 
 
 namespace VVVV.Packs.Message.Serializing
 {
     public static class XElementExtensions
     {
-        public static XElement ToXElement(this Message message)
+        public static XElement ToXElement(this Core.Message message)
         {
             XElement xml = new XElement("Message");
 

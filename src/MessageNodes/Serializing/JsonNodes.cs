@@ -6,6 +6,8 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes.Serializing
 {
+    using Message = VVVV.Packs.Message.Core.Message;
+
         #region PluginInfo
         [PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
         #endregion PluginInfo

@@ -9,7 +9,7 @@ using VVVV.Packs.Time;
 
 #endregion usings
 
-namespace VVVV.Packs.Message{
+namespace VVVV.Packs.Message.Core{
 	
 	
 	[DataContract]

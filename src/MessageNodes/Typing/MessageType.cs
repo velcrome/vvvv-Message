@@ -1,3 +1,4 @@
+using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes

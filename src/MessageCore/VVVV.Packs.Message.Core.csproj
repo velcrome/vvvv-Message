@@ -10,7 +10,7 @@
     <ProjectGuid>{C2F6EC8A-AA56-4121-B60F-72012D192835}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VVVV.Packs.Message</RootNamespace>
+    <RootNamespace>VVVV.Packs.Message.Core</RootNamespace>
     <AssemblyName>VVVV.Packs.Message.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

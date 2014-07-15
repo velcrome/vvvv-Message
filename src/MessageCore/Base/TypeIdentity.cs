@@ -6,7 +6,7 @@ using VVVV.Utils.VMath;
 using VVVV.Packs.Time;
 
 
-namespace VVVV.Packs.Message
+namespace VVVV.Packs.Message.Core
 {
     public class TypeIdentity : Dictionary<Type, string>
     {

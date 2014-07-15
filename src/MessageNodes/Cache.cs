@@ -8,6 +8,8 @@ using VVVV.Core.Logging;
 
 namespace VVVV.Packs.Message.Nodes
 {
+    using Message = VVVV.Packs.Message.Core.Message;
+    
     [PluginInfo(Name = "Cache", Category = "Message", Help = "Stores Messages", Tags = "velcrome")]
     public class CacheMessageNode : IPluginEvaluate
     {

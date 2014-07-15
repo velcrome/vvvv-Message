@@ -14,8 +14,9 @@ using VVVV.Utils.Streams;
 
 #endregion usings
 
-namespace VVVV.Pack.Messaging
+namespace VVVV.Pack.Message.Nodes
 {
+    using Message = VVVV.Packs.Message.Core.Message;
 
     #region PluginInfo
     [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "Dynamic, TTY, velcrome")]

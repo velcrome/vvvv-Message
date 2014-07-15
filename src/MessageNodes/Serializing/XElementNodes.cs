@@ -7,6 +7,7 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes.Serializing
 {
+    using Message = VVVV.Packs.Message.Core.Message;
 
     #region PluginInfo
     [PluginInfo(Name = "AsXElement", Category = "Message", Help = "Convert Messages", Tags = "Dynamic, velcrome, XML")]

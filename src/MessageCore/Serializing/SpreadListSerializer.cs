@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VVVV.Packs.Message;
+using VVVV.Packs.Message.Core;
 
 namespace VVVV.Pack.Messaging.Serializing
 {

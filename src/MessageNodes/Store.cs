@@ -9,6 +9,8 @@ using VVVV.Core.Logging;
 
 namespace VVVV.Packs.Message.Nodes
 {
+    using Message = VVVV.Packs.Message.Core.Message;
+
     [PluginInfo(Name = "Store", Category = "Message", Help = "Stores Messages", Tags = "velcrome")]
     public class MessageStoreNode : IPluginEvaluate
     {
