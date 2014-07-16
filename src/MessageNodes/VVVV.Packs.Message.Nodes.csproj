@@ -49,10 +49,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Broadcast\Antenna.cs" />
+    <Compile Include="Broadcast\Radio.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="DynamicNodes.cs" />
     <Compile Include="GetAttributeNodes.cs" />
     <Compile Include="MessageNodes.cs" />
+    <Compile Include="Persist\Cache.cs" />
     <Compile Include="SetMessage.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
@@ -76,6 +79,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <Target Name="AfterBuild">
     <ItemGroup>

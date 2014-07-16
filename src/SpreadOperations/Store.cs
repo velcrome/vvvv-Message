@@ -8,17 +8,7 @@ using VVVV.Utils.VMath;
 
 namespace VVVV.Pack.Game.Nodes
 {
-    [PluginInfo(
-        Name = "Store",
-        Category = "Game",
-        Help = "Stores Agents, is the root of all Behavior Trees",
-        AutoEvaluate = true,
-        Tags = "velcrome")]
-    public class ElementStoreNode : StoreNode<string>
-    {
 
-
-    }
 
     public abstract class StoreNode<T> :  IPluginEvaluate, IPartImportsSatisfiedNotification
     {
@@ -35,7 +25,7 @@ namespace VVVV.Pack.Game.Nodes
         [Input("Clear", IsSingle = true, IsBang = true)]
         ISpread<bool> FClear;
 
-        [Input("Add Agent")]
+        [Input("Add Element")]
         Pin<T> FAdd;
 
 
@@ -43,7 +33,7 @@ namespace VVVV.Pack.Game.Nodes
         private Pin<T> FOutput;
 
 
-        private List<T> FAgents = new List<T>();
+        protected List<T> FElements = new List<T>();
 
         [Import()]
         protected ILogger FLogger;
@@ -66,13 +56,13 @@ namespace VVVV.Pack.Game.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FClear[0]) FAgents.Clear();
+            if (FClear[0]) FElements.Clear();
 
             if (FDeleteNow[0])
             {
                 var del = FDeleteIndex.ToList();
 
-                int size = FAgents.Count();
+                int size = FElements.Count();
 
                 for (int i = 0; i < del.Count; i++)
                 {
@@ -82,22 +72,23 @@ namespace VVVV.Pack.Game.Nodes
 
                 for (int i = 0; i < del.Count; i++)
                 {
-                    if (FAgents.Count > i)
-                        FAgents.RemoveAt(del[i] - i);
+                    if (FElements.Count > i)
+                        FElements.RemoveAt(del[i] - i);
                 }
             }
 
 
             if (!FAdd.IsAnyInvalid())
             {
-                FAgents.AddRange(FAdd);
-                FAgents.Sort();
+                FElements.AddRange(FAdd);
+                Sort();
             }
 
-            FOutput.AssignFrom(FAgents);
+            FOutput.AssignFrom(FElements);
             FOutput.Flush();
 
         }
 
+        protected abstract void Sort();
     }
 }
