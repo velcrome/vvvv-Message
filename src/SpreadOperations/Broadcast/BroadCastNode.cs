@@ -18,7 +18,7 @@ namespace VVVV.Nodes.Generic.Broadcast
 
 
         [Import]
-        ILogger FLogger;
+        protected ILogger FLogger;
 
         private static IEnumerable<T> _send = Enumerable.Empty<T>();
         private static IEnumerable<T> _receive = Enumerable.Empty<T>();

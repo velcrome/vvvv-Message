@@ -19,10 +19,7 @@ namespace VVVV.Nodes.Generic
 
         [Input("Send", IsBang = true, DefaultBoolean = true, IsSingle = true)]
         protected ISpread<bool> FSend;
-
-
-        [Import]
-        ILogger FLogger;
+        
 #pragma warning restore
         #endregion fields & pins
 

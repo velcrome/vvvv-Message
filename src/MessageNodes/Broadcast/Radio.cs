@@ -20,9 +20,12 @@ namespace VVVV.Nodes.Messaging.Broadcast
 
     public class MessageRadioNode : RadioNode<Message>
     {
-        [Input("Filter", DefaultString = "*")]
-        private IDiffSpread<string> FFilter;
 
+        #pragma warning disable 649, 169
+        [Input("Filter", DefaultString = "*")]
+        protected IDiffSpread<string> FFilter;
+        #pragma warning restore
+        
         public override void Evaluate(int SpreadMax)
         {
             FOutput.SliceCount = 0;

@@ -2,7 +2,7 @@
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\OSC (Message).v4p" systemname="OSC (Message)" filename="C:\dev\vvvv\vvvv-Message\modules\OSC (Message).v4p">
    <BOUNDS type="Window" left="3195" top="2670" width="19635" height="11820">
    </BOUNDS>
-   <NODE systemname="AsOSC (Message)" filename="plugins\Message.csproj" nodename="AsOSC (Message)" componentmode="Hidden" id="0">
+   <NODE systemname="AsOSC (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOSC (Message)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="4245" top="4920" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -14,7 +14,7 @@
    <PIN pinname="ExtendedMode" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="MessageType (Message)" filename="plugins\Message.csproj" nodename="MessageType (Message)" componentmode="Hidden" id="2">
+   <NODE systemname="MessageType (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="MessageType (Message)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="2385" top="2070" width="100" height="100">
    </BOUNDS>
    </NODE>
@@ -264,7 +264,7 @@
    </NODE>
    <LINK srcnodeid="43" srcpinname="Output String" dstnodeid="2" dstpinname="Type Name">
    </LINK>
-   <NODE systemname="Message (Join)" filename="plugins\Message.csproj" nodename="Message (Join)" componentmode="Hidden" id="44">
+   <NODE systemname="Message (Join)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Join)" componentmode="Hidden" id="44">
    <BOUNDS type="Node" left="4245" top="3450" width="1650" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="4245" top="3450">
@@ -366,7 +366,7 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="AsMessage (Message, OSC)" filename="plugins\Message.csproj" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="60">
+   <NODE systemname="AsMessage (Message, OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="60">
    <BOUNDS type="Node" left="4245" top="6540" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4245" top="6540">
@@ -396,7 +396,7 @@
    <PIN pinname="Show Characters [#0..#32,#127]" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <NODE systemname="Message (Split)" filename="plugins\Message.csproj" nodename="Message (Split)" componentmode="Hidden" id="62">
+   <NODE systemname="Message (Split)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Split)" componentmode="Hidden" id="62">
    <BOUNDS type="Node" left="4200" top="8175" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4200" top="8175">
@@ -448,7 +448,7 @@
    </NODE>
    <LINK srcnodeid="62" srcpinname="Address" dstnodeid="67" dstpinname="Input String">
    </LINK>
-   <NODE systemname="UnBundle (OSC)" filename="plugins\Message.csproj" nodename="UnBundle (OSC)" componentmode="Hidden" id="69">
+   <NODE systemname="UnBundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="UnBundle (OSC)" componentmode="Hidden" id="69">
    <BOUNDS type="Node" left="5880" top="5970" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -606,7 +606,7 @@
    </NODE>
    <LINK srcnodeid="83" srcpinname="Y Output Value" dstnodeid="44" dstpinname="vvXY">
    </LINK>
-   <NODE systemname="Decompose (Transform Vector)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\bin\x64\Debug\VVVV.Nodes.dll" nodename="Decompose (Transform Vector)" componentmode="Hidden" id="84">
+   <NODE systemname="Decompose (Transform Vector)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Decompose (Transform Vector)" componentmode="Hidden" id="84">
    <BOUNDS type="Node" left="4950" top="9585" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
@@ -822,7 +822,7 @@
    </NODE>
    <LINK srcnodeid="62" srcpinname="vvvvXYZW" dstnodeid="100" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\Message.csproj" nodename="Info (Message)" componentmode="Hidden" id="101">
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="101">
    <BOUNDS type="Node" left="4935" top="12090" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -846,7 +846,7 @@
    </LINK>
    <LINK srcnodeid="99" srcpinname="Y Output Value" dstnodeid="0" dstpinname="ExtendedMode">
    </LINK>
-   <NODE systemname="Bundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\Message.csproj" nodename="Bundle (OSC)" componentmode="Hidden" id="103">
+   <NODE systemname="Bundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Message.OSC.dll" nodename="Bundle (OSC)" componentmode="Hidden" id="103">
    <BOUNDS type="Node" left="12780" top="7590" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -862,7 +862,7 @@
    </LINK>
    <LINK srcnodeid="62" srcpinname="color" dstnodeid="87" dstpinname="Color Input">
    </LINK>
-   <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\Debug\x64\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="104">
+   <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="104">
    <BOUNDS type="Node" left="10455" top="3915" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -902,7 +902,7 @@
    </NODE>
    <LINK srcnodeid="104" srcpinname="String" dstnodeid="105" dstpinname="Input String">
    </LINK>
-   <NODE systemname="AsMessage (Message, Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\Debug\x64\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, Json)" componentmode="Hidden" id="116">
+   <NODE systemname="AsMessage (Message, Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, Json)" componentmode="Hidden" id="116">
    <BOUNDS type="Node" left="10455" top="4845" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">

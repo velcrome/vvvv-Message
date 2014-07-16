@@ -252,7 +252,7 @@
    </NODE>
    <LINK srcnodeid="22" srcpinname="W" dstnodeid="17" dstpinname="Y Input Value" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="Message (Split)" filename="..\plugins\Message.csproj" nodename="Message (Split)" componentmode="Hidden" id="16">
+   <NODE systemname="Message (Split)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Split)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="5955" top="12150" width="4725" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="5955" top="12150">
@@ -468,7 +468,7 @@
    <PIN pinname="Size" slicecount="1" values="22">
    </PIN>
    </NODE>
-   <NODE systemname="MessageType (Message)" filename="..\plugins\Message.csproj" nodename="MessageType (Message)" componentmode="Hidden" id="43">
+   <NODE systemname="MessageType (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="MessageType (Message)" componentmode="Hidden" id="43">
    <BOUNDS type="Node" left="6735" top="19485" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Type Name">
@@ -614,7 +614,7 @@
    </NODE>
    <LINK srcnodeid="16" srcpinname="Curve" dstnodeid="52" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="Message (Join)" filename="..\plugins\Message.csproj" nodename="Message (Join)" componentmode="Hidden" id="53">
+   <NODE systemname="Message (Join)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Join)" componentmode="Hidden" id="53">
    <BOUNDS type="Node" left="9750" top="2880" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Address" slicecount="1" values="duration">
@@ -640,7 +640,7 @@
    <BOUNDS type="Box" left="9750" top="2880">
    </BOUNDS>
    </NODE>
-   <NODE systemname="AsOSC (Message)" filename="..\plugins\Message.csproj" nodename="AsOSC (Message)" componentmode="Hidden" id="56">
+   <NODE systemname="AsOSC (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOSC (Message)" componentmode="Hidden" id="56">
    <BOUNDS type="Node" left="8640" top="3885" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -686,7 +686,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Play">
    </PIN>
    </NODE>
-   <NODE systemname="Message (Join)" filename="..\plugins\Message.csproj" nodename="Message (Join)" componentmode="Hidden" id="79">
+   <NODE systemname="Message (Join)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Join)" componentmode="Hidden" id="79">
    <BOUNDS type="Node" left="8640" top="2880" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Address" slicecount="1" values="duration">
@@ -712,7 +712,7 @@
    <BOUNDS type="Box" left="8640" top="2880">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Message (Join)" filename="..\plugins\Message.csproj" nodename="Message (Join)" componentmode="Hidden" id="84">
+   <NODE systemname="Message (Join)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Join)" componentmode="Hidden" id="84">
    <BOUNDS type="Node" left="3195" top="19245" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Address" slicecount="1" values="||">
@@ -736,7 +736,7 @@
    <PIN pinname="Send" visible="1" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="AsOSC (Message)" filename="..\plugins\Message.csproj" nodename="AsOSC (Message)" componentmode="Hidden" id="83">
+   <NODE systemname="AsOSC (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOSC (Message)" componentmode="Hidden" id="83">
    <BOUNDS type="Node" left="3210" top="19695" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -816,7 +816,7 @@
    </LINK>
    <LINK srcnodeid="89" srcpinname="OnChange" dstnodeid="82" dstpinname="Do Send" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="AsMessage (Message, OSC)" filename="..\plugins\Message.csproj" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="90">
+   <NODE systemname="AsMessage (Message, OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="90">
    <BOUNDS type="Node" left="5955" top="10545" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC" visible="1">
@@ -892,7 +892,7 @@
    </NODE>
    <LINK srcnodeid="94" srcpinname="Y Output Value" dstnodeid="57" dstpinname="Remote Port" linkstyle="PolyLine">
    </LINK>
-   <NODE systemname="Cons (Message)" filename="..\plugins\Message.csproj" nodename="Cons (Message)" componentmode="Hidden" id="97">
+   <NODE systemname="Cons (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cons (Message)" componentmode="Hidden" id="97">
    <BOUNDS type="Node" left="8640" top="3420" width="1185" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">

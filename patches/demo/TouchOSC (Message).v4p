@@ -14,7 +14,7 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="AsMessage (Message, OSC)" filename="..\plugins\Message.csproj" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="5">
+   <NODE systemname="AsMessage (Message, OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="15045" top="9270" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC" visible="1" slicecount="1" values="||">
@@ -38,7 +38,7 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Bundle (OSC)" filename="..\plugins\Message.csproj" nodename="Bundle (OSC)" componentmode="Hidden" id="10">
+   <NODE systemname="Bundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Bundle (OSC)" componentmode="Hidden" id="10">
    <BOUNDS type="Node" left="15045" top="8700" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -86,7 +86,7 @@
    </NODE>
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="80" dstpinname="Input String">
    </LINK>
-   <NODE systemname="Sift (OSC)" filename="..\plugins\Message.csproj" nodename="Sift (OSC)" componentmode="Hidden" id="93">
+   <NODE systemname="Sift (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (OSC)" componentmode="Hidden" id="93">
    <BOUNDS type="Node" left="15045" top="8280" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -250,7 +250,7 @@
    <LINKPOINT x="1485" y="7215">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Bundle (OSC)" filename="..\plugins\Message.csproj" nodename="Bundle (OSC)" componentmode="Hidden" id="117">
+   <NODE systemname="Bundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Bundle (OSC)" componentmode="Hidden" id="117">
    <BOUNDS type="Node" left="570" top="8700" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -276,7 +276,7 @@
    </NODE>
    <LINK srcnodeid="116" srcpinname="Output Enum" dstnodeid="117" dstpinname="Match Rule">
    </LINK>
-   <NODE systemname="Sift (OSC)" filename="..\plugins\Message.csproj" nodename="Sift (OSC)" componentmode="Hidden" id="115">
+   <NODE systemname="Sift (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (OSC)" componentmode="Hidden" id="115">
    <BOUNDS type="Node" left="570" top="8280" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -310,7 +310,7 @@
    </LINK>
    <LINK srcnodeid="112" srcpinname="Output" dstnodeid="115" dstpinname="Input">
    </LINK>
-   <NODE systemname="AsMessage (Message, OSC)" filename="..\plugins\Message.csproj" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="118">
+   <NODE systemname="AsMessage (Message, OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="118">
    <BOUNDS type="Node" left="570" top="9270" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC" visible="1" slicecount="1" values="||">
@@ -458,7 +458,7 @@
    </NODE>
    <LINK srcnodeid="125" srcpinname="Output" dstnodeid="130" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="Bundle (OSC)" filename="..\plugins\Message.csproj" nodename="Bundle (OSC)" componentmode="Hidden" id="140">
+   <NODE systemname="Bundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Bundle (OSC)" componentmode="Hidden" id="140">
    <BOUNDS type="Node" left="5580" top="8700" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -484,7 +484,7 @@
    </NODE>
    <LINK srcnodeid="139" srcpinname="Output Enum" dstnodeid="140" dstpinname="Match Rule">
    </LINK>
-   <NODE systemname="Sift (OSC)" filename="..\plugins\Message.csproj" nodename="Sift (OSC)" componentmode="Hidden" id="138">
+   <NODE systemname="Sift (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (OSC)" componentmode="Hidden" id="138">
    <BOUNDS type="Node" left="5580" top="8280" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -516,7 +516,7 @@
    </LINK>
    <LINK srcnodeid="138" srcpinname="Output" dstnodeid="140" dstpinname="Input">
    </LINK>
-   <NODE systemname="AsMessage (Message, OSC)" filename="..\plugins\Message.csproj" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="136">
+   <NODE systemname="AsMessage (Message, OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="136">
    <BOUNDS type="Node" left="5580" top="9270" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC" visible="1">
@@ -670,7 +670,7 @@
    </NODE>
    <LINK srcnodeid="134" srcpinname="Output" dstnodeid="147" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="Bundle (OSC)" filename="..\plugins\Message.csproj" nodename="Bundle (OSC)" componentmode="Hidden" id="164">
+   <NODE systemname="Bundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Bundle (OSC)" componentmode="Hidden" id="164">
    <BOUNDS type="Node" left="10350" top="8700" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -696,7 +696,7 @@
    </NODE>
    <LINK srcnodeid="163" srcpinname="Output Enum" dstnodeid="164" dstpinname="Match Rule">
    </LINK>
-   <NODE systemname="Sift (OSC)" filename="..\plugins\Message.csproj" nodename="Sift (OSC)" componentmode="Hidden" id="162">
+   <NODE systemname="Sift (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (OSC)" componentmode="Hidden" id="162">
    <BOUNDS type="Node" left="10350" top="8280" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -728,7 +728,7 @@
    </LINK>
    <LINK srcnodeid="162" srcpinname="Output" dstnodeid="164" dstpinname="Input">
    </LINK>
-   <NODE systemname="AsMessage (Message, OSC)" filename="..\plugins\Message.csproj" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="160">
+   <NODE systemname="AsMessage (Message, OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, OSC)" componentmode="Hidden" id="160">
    <BOUNDS type="Node" left="10350" top="9270" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC" visible="1">
