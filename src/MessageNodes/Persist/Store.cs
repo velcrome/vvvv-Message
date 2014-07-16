@@ -11,7 +11,7 @@ namespace VVVV.Packs.Message.Nodes
        Name = "Store",
        Category = "Messages",
        Help = "Stores Messages",
-//       AutoEvaluate = true,
+       AutoEvaluate = true,
        Tags = "velcrome")]
     public class MessageStoreNode : StoreNode<Message>
     {

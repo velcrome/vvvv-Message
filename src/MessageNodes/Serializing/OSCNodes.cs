@@ -1,4 +1,5 @@
 using System.IO;
+using VVVV.Pack.Message;
 using VVVV.Packs.Message.Serializing;
 using VVVV.PluginInterfaces.V2;
 
@@ -65,7 +66,14 @@ namespace VVVV.Packs.Message.Nodes.Serializing
 
         public void Evaluate(int SpreadMax)
         {
-
+            if (FInput.IsAnyInvalid())
+            {
+                FOutput.SliceCount = 0;
+                FOutput.Flush();
+            }
+            
+            
+            
             if (!FInput.IsChanged && !FAddress.IsChanged && !FContract.IsChanged) return;
             if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
 

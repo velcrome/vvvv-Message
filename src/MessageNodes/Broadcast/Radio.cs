@@ -35,9 +35,12 @@ namespace VVVV.Nodes.Messaging.Broadcast
                 
                 select message;
 
+//            FOutput.AssignFrom(filtered);
             FOutput.AssignFrom(filtered.Distinct());
             FOutput.Flush();
 
+            FReceive.SliceCount = 1;
+            FReceive[0] = FOutput.SliceCount > 0;
         }
     }
 

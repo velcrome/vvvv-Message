@@ -1,6 +1,7 @@
 #region usings
 using System;
 using System.ComponentModel.Composition;
+using VVVV.Pack.Message;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using System.Runtime.Serialization;
@@ -37,12 +38,13 @@ namespace VVVV.Nodes.Generic
         public void Evaluate(int SpreadMax)
 		{
 			if (FSet[0] == false) return;
+            FInput.Sync();
 			
-			FInput.Sync();
-			SpreadMax = FInput.SliceCount;
+			SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+            
 			FOutput.SliceCount = SpreadMax;
 			
-			bool clone = FClone[0] && (FInput[0]!=null) && (FInput[0] is ICloneable);
+			bool clone = FClone[0] && (!FInput.IsAnyInvalid()) && (FInput[0] is ICloneable);
 			for (int i=0;i<FInput.SliceCount;i++) {
 								
 				T output;

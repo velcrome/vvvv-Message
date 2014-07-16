@@ -16,8 +16,11 @@ namespace VVVV.Nodes.Generic
     {
         #region fields & pins
 #pragma warning disable 649, 169
-        [Output("Output", AutoFlush= false)]
+        [Output("Output", AutoFlush = false)]
         protected Pin<T> FOutput;
+
+        [Output("OnReceive")]
+        protected ISpread<bool> FReceive;
 
 
 #pragma warning restore
@@ -28,6 +31,11 @@ namespace VVVV.Nodes.Generic
             FOutput.SliceCount = 0;
             FOutput.AssignFrom(Receive);
             FOutput.Flush();
+
+            FReceive.SliceCount = 1;
+//            FReceive[0] = Receive.Any();
+            FReceive[0] = FOutput.SliceCount > 0;
+
         }
 
     }
