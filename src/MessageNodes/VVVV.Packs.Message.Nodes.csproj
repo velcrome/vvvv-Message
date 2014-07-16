@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Broadcast\Antenna.cs" />
     <Compile Include="Broadcast\Radio.cs" />
+    <Compile Include="Persist\Dictionary.cs" />
     <Compile Include="DynamicNodes.cs" />
     <Compile Include="GetAttributeNodes.cs" />
     <Compile Include="MessageNodes.cs" />
