@@ -1,62 +1,60 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
+using VVVV.Core.Logging;
 using VVVV.Pack.Message;
 using VVVV.PluginInterfaces.V2;
 
-using VVVV.Core.Logging;
-
-
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Nodes.Generic.Memory
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-    
-    [PluginInfo(Name = "Dictionary", Category = "Message", Help = "Stores Messages", Tags = "velcrome")]
-    public class MessageDictionaryNode : IPluginEvaluate
+    public class DictionaryNode<K, T> : IPluginEvaluate
     {
 
 #pragma warning disable 649, 169
 
-        [Input("Message")]
-        IDiffSpread<Message> FMessage;
+        [Input("Input")]
+        IDiffSpread<T> FValue;
 
         [Input("ID")]
-        IDiffSpread<string> FID;
+        IDiffSpread<K> FID;
 
         [Input("Retrieve ID")]
-        IDiffSpread<string> FRetrieveID;
+        IDiffSpread<K> FRetrieveID;
 
         [Input("Clean", IsSingle = true, IsBang = true)]
-        ISpread<bool> FCleanNow;
+        ISpread<bool> FDoCleanNow;
 
-        [Input("Clear", IsSingle = true, IsBang = true)]
-        ISpread<bool> FClear;
+        [Input("Reset", IsSingle = true, IsBang = true)]
+        ISpread<bool> FDoClear;
+
+        [Input("Unique", IsSingle = true, IsToggle = true)]
+        ISpread<bool> FIsUnique;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<ISpread<Message>> FOutput;
+        private ISpread<ISpread<T>> FOutput;
 
-        [Output("AllMessages", AutoFlush = false)]
-        private ISpread<Message> FAll;
+        [Output("All Objects", AutoFlush = false)]
+        private Pin<T> FAll;
 
         [Output("CacheCount", AutoFlush = false)]
         private ISpread<int> FCount;
 
-        private Dictionary<string, Message> Dict = new Dictionary<string, Message>();
+        private Dictionary<K, T> Dict = new Dictionary<K, T>();
 
         [Import()]
         protected ILogger FLogger;
 
-        #pragma warning restore
+#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
-            if (FClear.SliceCount > 0 && FClear[0]) Dict.Clear();
+            if (FDoClear.SliceCount > 0 && FDoClear[0]) Dict.Clear();
 
-            if (FCleanNow.SliceCount > 0 && FCleanNow[0])
+            if (FDoCleanNow.SliceCount > 0 && FDoCleanNow[0])
             {
-                var newDict = new Dictionary<string, Message>();
-                
-                for (int i=0;i<FRetrieveID.SliceCount;i++)
+                var newDict = new Dictionary<K, T>();
+
+                for (int i = 0; i < FRetrieveID.SliceCount; i++)
                 {
                     if (Dict.ContainsKey(FRetrieveID[i]))
                         newDict[FRetrieveID[i]] = Dict[FRetrieveID[i]];
@@ -65,11 +63,15 @@ namespace VVVV.Packs.Message.Nodes
                 Dict = newDict;
             }
 
-            if (!FMessage.IsAnyInvalid())
+            if (!FValue.IsAnyInvalid())
             {
                 for (int i = 0; i < FID.SliceCount; i++)
                 {
-                    Dict[FID[i]] = FMessage[i];
+                    if (FIsUnique[0])
+                    {
+                        if (!Dict.ContainsValue(FValue[i])) Dict[FID[i]] = FValue[i];
+                    }
+                    else Dict[FID[i]] = FValue[i];
                 }
             }
 
@@ -83,7 +85,7 @@ namespace VVVV.Packs.Message.Nodes
             for (int i = 0; i < SpreadMax; i++)
             {
                 var key = FRetrieveID[i];
-                
+
                 if (Dict.ContainsKey(key))
                 {
                     FOutput[i].SliceCount = 1;
@@ -93,9 +95,12 @@ namespace VVVV.Packs.Message.Nodes
             }
             FOutput.Flush();
 
-            FAll.AssignFrom(Dict.Values);
-            FAll.Flush();
-
+            if (FAll.IsConnected)
+            {
+                FAll.SliceCount = 0;
+                FAll.AssignFrom(Dict.Values);
+                FAll.Flush();
+            }
 
 
         }

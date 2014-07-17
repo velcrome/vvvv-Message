@@ -51,13 +51,13 @@
   <ItemGroup>
     <Compile Include="Broadcast\Antenna.cs" />
     <Compile Include="Broadcast\Radio.cs" />
-    <Compile Include="Persist\Dictionary.cs" />
+    <Compile Include="Memory\Dictionary.cs" />
     <Compile Include="DynamicNodes.cs" />
     <Compile Include="GetAttributeNodes.cs" />
     <Compile Include="MessageNodes.cs" />
-    <Compile Include="Persist\Cache.cs" />
+    <Compile Include="Memory\Cache.cs" />
     <Compile Include="SetMessage.cs" />
-    <Compile Include="Persist\Store.cs" />
+    <Compile Include="Memory\Store.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
@@ -73,9 +73,9 @@
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
       <Name>VVVV.Packs.Message.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SpreadOperations\SpreadOperations.csproj">
+    <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
       <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
-      <Name>SpreadOperations</Name>
+      <Name>VVVV.Nodes.Generic.itl</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

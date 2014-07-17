@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Message.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Message.OSC", "OSC\VVVV.Packs.Message.OSC.csproj", "{9C003731-1D47-4E89-B598-B10ED16EA2BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadOperations", "SpreadOperations\SpreadOperations.csproj", "{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Generic.itl", "SpreadOperations\VVVV.Nodes.Generic.itl.csproj", "{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1A4034C0-5DED-4AF0-88B5-7B4E445187FF}"
 	ProjectSection(SolutionItems) = preProject

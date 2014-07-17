@@ -49,10 +49,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\Message.cs" />
-    <Compile Include="Base\SpreadList.cs" />
-    <Compile Include="Base\TypeDictionary.cs" />
-    <Compile Include="Base\TypeIdentity.cs" />
+    <Compile Include="Core\Message.cs" />
+    <Compile Include="Core\SpreadList.cs" />
+    <Compile Include="Core\TypeDictionary.cs" />
+    <Compile Include="Core\TypeIdentity.cs" />
     <Compile Include="Serializing\SpreadListSerializer.cs" />
     <Compile Include="Serializing\XElementExtensions.cs" />
     <Compile Include="Serializing\OSCExtensions.cs" />
