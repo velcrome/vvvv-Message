@@ -8,15 +8,15 @@ using VVVV.Packs.Message.Core;
 
 namespace VVVV.Pack.Game.Core
 {
-  	public class BinSerializer : JsonConverter
+  	public class JsonSerializer : JsonConverter
 	{
 
-        public BinSerializer()
+        public JsonSerializer()
         {
         }
 		
         
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
 		{
 			Bin bin = value as Bin;
 		    writer.WriteStartObject();
@@ -37,7 +37,7 @@ namespace VVVV.Pack.Game.Core
 			writer.WriteEndObject();
 		}
 		
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
 		{
 			JObject jsonObject = JObject.Load(reader);
             

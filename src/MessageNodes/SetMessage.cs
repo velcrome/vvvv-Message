@@ -1,4 +1,5 @@
 using System;
+using VVVV.Pack.Game.Core;
 using VVVV.Packs.Message;
 using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
@@ -62,17 +63,17 @@ namespace VVVV.Packs.Message.Nodes
 
                 if (FUpdate[i])
                 {
-                    SpreadList attr = message[FKey[0]];  
+                    Bin attr = message[FKey[0]];  
                         
                     if (attr != null)
                     {
-                        if (attr.SpreadType != typeof(T)) // does not mean it mismatches. can still be both "Value" for example
+                        if (attr.GetInnerType() != typeof(T)) // does not mean it mismatches. can still be both "Value" for example
                         {
                             attr.Clear();
                             for (int j = 0; j < FValue[i].SliceCount; j++)
                             {
 
-                                attr.Add( Convert.ChangeType(FValue[i][j], attr.SpreadType));
+                                attr.Add( Convert.ChangeType(FValue[i][j], attr.GetInnerType()));
                             }
                         }
                         else

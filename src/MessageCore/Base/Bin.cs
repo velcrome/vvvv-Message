@@ -11,7 +11,7 @@ using VVVV.Packs.Message.Core;
 namespace VVVV.Pack.Game.Core
 {
     [Serializable]
-    [JsonConverter(typeof(BinSerializer))]
+    [JsonConverter(typeof(JsonSerializer))]
     public class Bin<T> : Bin, IEnumerable<T>
     {
         public Bin()
@@ -73,7 +73,7 @@ namespace VVVV.Pack.Game.Core
     
     
 	[Serializable]
-    [JsonConverter(typeof(BinSerializer))]
+    [JsonConverter(typeof(JsonSerializer))]
 	public abstract class Bin : ArrayList, ISerializable
 	{
 

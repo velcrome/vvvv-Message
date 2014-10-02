@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace VVVV.Packs.VObjects
+namespace VVVV.Pack.Game.Core
 {
-    public static class Helper
+    public static class BinaryUtils
     {
         public static bool ReadBool(this Stream input)
         {

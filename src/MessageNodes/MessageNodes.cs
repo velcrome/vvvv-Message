@@ -279,26 +279,7 @@ namespace VVVV.Pack.Message.Nodes
         {
         }
 */
-        [PluginInfo(Name = "Serialize", Category = "Message", Help = "Makes binary from Messages", Tags = "Raw")]
-        public class MessageSerializeNode : Serialize<Message>
-        {
 
-            public MessageSerializeNode()
-                : base()
-            {
-                FResolver = new MessageResolver();
-            }
-        }
-
-        [PluginInfo(Name = "DeSerialize", Category = "Message", Help = "Creates Messages from binary", Tags = "Raw")]
-        public class MessageDeSerializeNode : DeSerialize<Message>
-        {
-            public MessageDeSerializeNode()
-                : base()
-            {
-                FResolver = new MessageResolver();
-            }
-        }
 
         [PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "")]
         public class MessageSAndHNode : SAndH<Message>

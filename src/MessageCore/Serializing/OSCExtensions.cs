@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using VVVV.Pack.Game.Core;
 using VVVV.Packs.Message.Core;
 using VVVV.Utils.OSC;
+using System.Linq;
 
 
 namespace VVVV.Packs.Message.Serializing
@@ -30,7 +32,7 @@ namespace VVVV.Packs.Message.Serializing
                 }
 
                 OSCMessage m = new OSCMessage(oscAddress, extendedMode);
-                SpreadList bl = message[name];
+                Bin bl = message[name];
                 for (int i = 0; i < bl.Count; i++) m.Append(bl[i]);
                 bundle.Append(m);
             }
@@ -52,8 +54,10 @@ namespace VVVV.Packs.Message.Serializing
 
             foreach (OSCMessage m in bundle.Values)
             {
-                SpreadList sl = new SpreadList();
-                sl.AssignFrom(m.Values); // does not clone implicitly
+//              Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
+                
+                Bin bin = Bin.New(m.Values[0].GetType()); 
+                bin.AssignFrom(m.Values); // does not clone implicitly
 
                 string oldAddress = m.Address;
                 while (oldAddress.StartsWith("/")) oldAddress = oldAddress.Substring(1);
@@ -80,7 +84,7 @@ namespace VVVV.Packs.Message.Serializing
                 if (messagePrefix.Trim() == "") message.Address = messageAddress.Substring(1);
                 else message.Address = messagePrefix + messageAddress;
 
-                message[attribName] = sl;
+                message[attribName] = bin;
 
             }
             return message;

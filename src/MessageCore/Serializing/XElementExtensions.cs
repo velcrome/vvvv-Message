@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using VVVV.Pack.Game.Core;
 using VVVV.Packs.Message.Core;
 
 
@@ -14,16 +15,16 @@ namespace VVVV.Packs.Message.Serializing
 
             foreach (var key in message.Attributes)
             {
-                SpreadList data = message[key];
+                Bin bin = message[key];
 
                 var spread = new XElement("Spread");
 
                 spread.Add(new XAttribute("name", key));
-                spread.Add(new XAttribute("type", TypeIdentity.Instance[data.SpreadType].ToString()));
+                spread.Add(new XAttribute("type", TypeIdentity.Instance[bin.GetInnerType()].ToString()));
 
                 for (int i = 0; i < message[key].Count; i++)
                 {
-                    spread.Add(new XElement(TypeIdentity.Instance[data.SpreadType].ToString(), message[key][i].ToString()));
+                    spread.Add(new XElement(TypeIdentity.Instance[bin.GetInnerType()].ToString(), message[key][i].ToString()));
                 }
 
 

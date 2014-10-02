@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
-using System.Text;
-using VVVV.Core.Logging;
-using VVVV.Packs.Message;
-using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Pack.Messaging;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
+
+using VVVV.Core.Logging;
+using VVVV.Packs.Message.Core;
+
 
 namespace VVVV.Nodes.Messaging
 {

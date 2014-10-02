@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
+using VVVV.Pack.Game.Core;
+using System.Linq;
 using VVVV.Packs.Time;
 
 #endregion usings
@@ -17,7 +19,7 @@ namespace VVVV.Packs.Message.Core{
 		
 		// The inner MessageData.
 		[DataMember]
-		Dictionary<string, SpreadList> MessageData = new Dictionary<string, SpreadList>();
+		Dictionary<string, Bin> MessageData = new Dictionary<string, Bin>();
 
         public IEnumerable<string> Attributes
         {
@@ -44,17 +46,19 @@ namespace VVVV.Packs.Message.Core{
 
 		public void Add(string name, object val) {
 			//			name = name.ToLower();
-			if (val is SpreadList) MessageData.Add(name, (SpreadList)val);
+			if (val is Bin) MessageData.Add(name, (Bin)val);
 			else {
-				MessageData.Add(name, new SpreadList());
-				((SpreadList) MessageData[name]).Add(val);
+                MessageData.Add(name, Bin.New(val.GetType()));
+				((Bin) MessageData[name]).Add(val);
 			}
 		}
 		
 		public void AssignFrom(string name, IEnumerable en) {
 			//			name = name.ToLower();
-			if (!MessageData.ContainsKey(name)) {
-				MessageData.Add(name, new SpreadList());
+			if (!MessageData.ContainsKey(name))
+			{
+			    var o = en.Cast<object>().First();
+				MessageData.Add(name, Bin.New(o.GetType()));
 			} else MessageData[name].Clear();
 			
 			foreach (object o in en) {
@@ -65,8 +69,9 @@ namespace VVVV.Packs.Message.Core{
 		public void AddFrom(string name, IEnumerable en) {
 			//			name = name.ToLower();
 			if (!MessageData.ContainsKey(name)) {
-				MessageData.Add(name, new SpreadList());
-			}
+                var o = en.Cast<object>().First();
+                MessageData.Add(name, Bin.New(o.GetType()));
+            }
 			
 			foreach (object o in en) {
 				MessageData[name].Add(o);
@@ -88,13 +93,13 @@ namespace VVVV.Packs.Message.Core{
 			}
 			return sb.ToString().Substring(2);
 		}
-		public SpreadList this[string name]
+		public Bin this[string name]
 		{
 			get { 
 				if (MessageData.ContainsKey(name)) return MessageData[name];
 					else return null;				
 			} 
-			set { MessageData[name] = (SpreadList) value; }
+			set { MessageData[name] = (Bin) value; }
 		}
 		
 		public object Clone() {
@@ -103,7 +108,7 @@ namespace VVVV.Packs.Message.Core{
 			m.TimeStamp = TimeStamp;
 			
 			foreach (string name in MessageData.Keys) {
-				SpreadList list = MessageData[name];
+				Bin list = MessageData[name];
 				m.Add(name, list.Clone());
 				
 				// really deep cloning

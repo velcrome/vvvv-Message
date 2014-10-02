@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
-using VVVV.Packs.VObjects;
+using VVVV.Pack.Game.Core;
+
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
@@ -9,7 +10,19 @@ namespace VVVV.Packs.Message.Core.Serializing
     public static class BinaryExtensions
     {
 
-        public static void Serialize(this SpreadList list)
+        public static Stream Serialize(this Message message)
+        {
+            throw new NotImplementedException();
+            return new MemoryStream();
+        }
+
+        public static Message DeSerializeMessage(Stream stream)
+        {
+            throw new NotImplementedException();
+            return new Message();
+        }
+
+        public static Stream Serialize(this Bin list)
         {
             Stream serialized = new MemoryStream();
 
@@ -106,11 +119,11 @@ namespace VVVV.Packs.Message.Core.Serializing
                     // not implemented
                 }
 
-            
             }
+            return serialized;
         }
 
-        public static SpreadList DeSerialize(Stream input)
+        public static Bin DeSerializeBin(Stream input)
         {
             input.Position = 0;
 
@@ -119,31 +132,31 @@ namespace VVVV.Packs.Message.Core.Serializing
 
             var type = Type.GetType(input.ReadUnicode((int)typeL));
 
-            var list = new SpreadList();
+            var bin = Bin.New(type);
 
 
             for (int i = 0; i < objcount; i++)
             {
                 uint l = input.ReadUint();
-                if (type == typeof(bool)) list.Add(input.ReadBool());
-                if (type == typeof(int)) list.Add(input.ReadInt());
-                if (type == typeof(float)) list.Add(input.ReadFloat());
-                if (type == typeof(double)) list.Add(input.ReadDouble());
-                if (type == typeof(string)) list.Add(input.ReadUnicode((int)l));
+                if (type == typeof(bool)) bin.Add(input.ReadBool());
+                if (type == typeof(int)) bin.Add(input.ReadInt());
+                if (type == typeof(float)) bin.Add(input.ReadFloat());
+                if (type == typeof(double)) bin.Add(input.ReadDouble());
+                if (type == typeof(string)) bin.Add(input.ReadUnicode((int)l));
 
                 if (type == typeof(RGBAColor))
                 {
                     double[] val = new double[4];
                     for (int j = 0; j < val.Length; j++) val[j] = input.ReadDouble();
                     RGBAColor res = new RGBAColor(val);
-                    list.Add(res);
+                    bin.Add(res);
                 }
                 if (type == typeof(Vector2D))
                 {
                     Vector2D res = new Vector2D();
                     res.x = input.ReadDouble();
                     res.y = input.ReadDouble();
-                    list.Add(res);
+                    bin.Add(res);
                 }
                 if (type == typeof(Vector3D))
                 {
@@ -151,7 +164,7 @@ namespace VVVV.Packs.Message.Core.Serializing
                     res.x = input.ReadDouble();
                     res.y = input.ReadDouble();
                     res.z = input.ReadDouble();
-                    list.Add(res);
+                    bin.Add(res);
                 }
                 if (type == typeof(Vector4D))
                 {
@@ -160,23 +173,23 @@ namespace VVVV.Packs.Message.Core.Serializing
                     res.y = input.ReadDouble();
                     res.z = input.ReadDouble();
                     res.w = input.ReadDouble();
-                    list.Add(res);
+                    bin.Add(res);
                 }
                 if (type == typeof(Matrix4x4))
                 {
                     Matrix4x4 res = new Matrix4x4();
                     for (int j = 0; j < 16; j++) res.Values[j] = input.ReadDouble();
-                    list.Add(res);
+                    bin.Add(res);
                 }
                 if (type == typeof(Stream))
                 {
                     Stream res = new MemoryStream();
                     input.CopyTo(res, (int)l);
                     res.Position = 0;
-                    list.Add(res);
+                    bin.Add(res);
                 }
             }
-            return list;
+            return bin;
         }
 
     }

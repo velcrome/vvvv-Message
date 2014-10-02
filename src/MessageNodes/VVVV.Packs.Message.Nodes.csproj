@@ -56,6 +56,7 @@
     <Compile Include="GetAttributeNodes.cs" />
     <Compile Include="MessageNodes.cs" />
     <Compile Include="Persist\Cache.cs" />
+    <Compile Include="Serializing\BinaryNodes.cs" />
     <Compile Include="SetMessage.cs" />
     <Compile Include="Persist\Store.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />

@@ -51,13 +51,11 @@
   <ItemGroup>
     <Compile Include="Base\Bin.cs" />
     <Compile Include="Base\Message.cs" />
-    <Compile Include="Base\SpreadList.cs" />
     <Compile Include="Base\TypeDictionary.cs" />
     <Compile Include="Base\TypeIdentity.cs" />
     <Compile Include="Serializing\BinaryExtensions.cs" />
-    <Compile Include="Serializing\BinSerializer.cs" />
-    <Compile Include="Serializing\SpreadListSerializer.cs" />
-    <Compile Include="Serializing\StreamUtils.cs" />
+    <Compile Include="Serializing\JsonSerializer.cs" />
+    <Compile Include="Serializing\BinaryUtils.cs" />
     <Compile Include="Serializing\XElementExtensions.cs" />
     <Compile Include="Serializing\OSCExtensions.cs" />
     <Compile Include="Serializing\MessageResolver.cs" />

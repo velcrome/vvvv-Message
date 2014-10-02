@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel.Composition;
 using System.Collections.Generic;
 using System.Linq;
+using VVVV.Pack.Game.Core;
 using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
@@ -327,7 +328,7 @@ namespace VVVV.Packs.Message {
                     {
                         var bin = (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)ToISpread(FPins[name])[i];
 
-                        SpreadList attrib = message[name];
+                        Bin attrib = message[name];
                         int count = 0;
 
                         if (attrib == null)
