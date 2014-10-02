@@ -12,109 +12,147 @@ namespace VVVV.Packs.Message.Core.Serializing
 
         public static Stream Serialize(this Message message)
         {
-            throw new NotImplementedException();
-            return new MemoryStream();
+            Stream serialized = new MemoryStream();
+
+            serialized.SetLength(0);
+            serialized.WriteUint(message.Address.UnicodeLength());
+            serialized.WriteUnicode(message.Address);
+
+            // Todo: serialize timestamp.
+
+            serialized.WriteUint((uint)message.MessageData.Count);
+            foreach (var key in message.Attributes)
+            {
+                serialized.WriteUint(key.UnicodeLength());
+                serialized.WriteUnicode(key);
+
+                var binData = message[key].Serialize();
+
+                serialized.WriteUint((uint)binData.Length);
+                binData.CopyTo(serialized);
+            }
+            return serialized;
         }
 
-        public static Message DeSerializeMessage(Stream stream)
+        public static Message DeSerializeMessage(Stream input)
         {
-            throw new NotImplementedException();
+            var message = new Message();
+            input.Position = 0;
+
+            uint addressLength = input.ReadUint();
+            message.Address = input.ReadUnicode((int)addressLength);
+
+           // Todo: deserialize timestamp
+
+
+            while (input.Position < input.Length)
+            {
+                uint keyLength = input.ReadUint();
+                string key = input.ReadUnicode((int)keyLength);
+
+                uint binDataLength = input.ReadUint();
+                Stream binData = new MemoryStream();
+                input.CopyTo(binData, (int)binDataLength);
+
+                message.Add(key, DeSerializeBin(binData));
+            }
+
             return new Message();
         }
 
-        public static Stream Serialize(this Bin list)
+        public static Stream Serialize(this Bin bin)
         {
             Stream serialized = new MemoryStream();
 
             serialized.SetLength(0);
-            serialized.WriteUint((uint)list.Count);
-            serialized.WriteUint(list.GetType().ToString().UnicodeLength());
-            serialized.WriteUnicode(list.GetType().ToString());
+            serialized.WriteUint((uint)bin.Count);
+            serialized.WriteUint(bin.GetType().ToString().UnicodeLength());
+            serialized.WriteUnicode(bin.GetType().ToString());
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < bin.Count; i++)
             {
                 uint l = 0;
-                if (list.GetType() == typeof(bool))
+                if (bin.GetInnerType() == typeof(bool))
                 {
                     l = 1;
                     serialized.WriteUint(l);
-                    serialized.WriteBool((bool)list[i]);
+                    serialized.WriteBool((bool)bin[i]);
                 }
-                if (list.GetType() == typeof(int))
+                if (bin.GetInnerType() == typeof(int))
                 {
                     l = 4;
                     serialized.WriteUint(l);
-                    serialized.WriteInt((int)list[i]);
+                    serialized.WriteInt((int)bin[i]);
                 }
-                if (list.GetType() == typeof(float))
+                if (bin.GetInnerType() == typeof(float))
                 {
                     l = 4;
                     serialized.WriteUint(l);
-                    serialized.WriteFloat((float)list[i]);
+                    serialized.WriteFloat((float)bin[i]);
                 }
-                if (list.GetType() == typeof(double))
+                if (bin.GetInnerType() == typeof(double))
                 {
                     l = 8;
                     serialized.WriteUint(l);
-                    serialized.WriteDouble((double)list[i]);
+                    serialized.WriteDouble((double)bin[i]);
                 }
-                if (list.GetType() == typeof(string))
+                if (bin.GetInnerType() == typeof(string))
                 {
-                    l = ((string)list[i]).UnicodeLength();
+                    l = ((string)bin[i]).UnicodeLength();
                     serialized.WriteUint(l);
-                    serialized.WriteUnicode((string)list[i]);
+                    serialized.WriteUnicode((string)bin[i]);
                 }
 
-                if (list.GetType() == typeof(RGBAColor))
+                if (bin.GetInnerType() == typeof(RGBAColor))
                 {
                     l = 32;
                     serialized.WriteUint(l);
-                    serialized.WriteDouble(((RGBAColor)list[i]).R);
-                    serialized.WriteDouble(((RGBAColor)list[i]).G);
-                    serialized.WriteDouble(((RGBAColor)list[i]).B);
-                    serialized.WriteDouble(((RGBAColor)list[i]).A);
+                    serialized.WriteDouble(((RGBAColor)bin[i]).R);
+                    serialized.WriteDouble(((RGBAColor)bin[i]).G);
+                    serialized.WriteDouble(((RGBAColor)bin[i]).B);
+                    serialized.WriteDouble(((RGBAColor)bin[i]).A);
                 }
-                if (list.GetType() == typeof(Vector2D))
+                if (bin.GetInnerType() == typeof(Vector2D))
                 {
                     l = 16;
                     serialized.WriteUint(l);
-                    serialized.WriteDouble(((Vector2D)list[i]).x);
-                    serialized.WriteDouble(((Vector2D)list[i]).y);
+                    serialized.WriteDouble(((Vector2D)bin[i]).x);
+                    serialized.WriteDouble(((Vector2D)bin[i]).y);
                 }
-                if (list.GetType() == typeof(Vector3D))
+                if (bin.GetInnerType() == typeof(Vector3D))
                 {
                     l = 24;
                     serialized.WriteUint(l);
-                    serialized.WriteDouble(((Vector3D)list[i]).x);
-                    serialized.WriteDouble(((Vector3D)list[i]).y);
-                    serialized.WriteDouble(((Vector3D)list[i]).z);
+                    serialized.WriteDouble(((Vector3D)bin[i]).x);
+                    serialized.WriteDouble(((Vector3D)bin[i]).y);
+                    serialized.WriteDouble(((Vector3D)bin[i]).z);
                 }
-                if (list.GetType() == typeof(Vector4D))
+                if (bin.GetInnerType() == typeof(Vector4D))
                 {
                     l = 32;
                     serialized.WriteUint(l);
-                    serialized.WriteDouble(((Vector4D)list[i]).x);
-                    serialized.WriteDouble(((Vector4D)list[i]).y);
-                    serialized.WriteDouble(((Vector4D)list[i]).z);
-                    serialized.WriteDouble(((Vector4D)list[i]).w);
+                    serialized.WriteDouble(((Vector4D)bin[i]).x);
+                    serialized.WriteDouble(((Vector4D)bin[i]).y);
+                    serialized.WriteDouble(((Vector4D)bin[i]).z);
+                    serialized.WriteDouble(((Vector4D)bin[i]).w);
                 }
-                if (list.GetType() == typeof(Matrix4x4))
+                if (bin.GetInnerType() == typeof(Matrix4x4))
                 {
                     l = 128;
                     serialized.WriteUint(l);
                     for (int j = 0; j < 16; j++)
                     {
-                        serialized.WriteDouble(((Matrix4x4)list[i]).Values[j]);
+                        serialized.WriteDouble(((Matrix4x4)bin[i]).Values[j]);
                     }
                 }
-                if (list.GetType() == typeof(Stream))
+                if (bin.GetInnerType() == typeof(Stream))
                 {
-                    l = (uint)((Stream)list[i]).Length;
+                    l = (uint)((Stream)bin[i]).Length;
                     serialized.WriteUint(l);
-                    ((Stream)list[i]).Position = 0;
-                    ((Stream)list[i]).CopyTo(serialized);
+                    ((Stream)bin[i]).Position = 0;
+                    ((Stream)bin[i]).CopyTo(serialized);
                 }
-                if (list.GetType() == typeof(Time.Time))
+                if (bin.GetInnerType() == typeof(Time.Time))
                 {
                     // not implemented
                 }
@@ -131,7 +169,6 @@ namespace VVVV.Packs.Message.Core.Serializing
             uint typeL = input.ReadUint();
 
             var type = Type.GetType(input.ReadUnicode((int)typeL));
-
             var bin = Bin.New(type);
 
 

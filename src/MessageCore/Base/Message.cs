@@ -19,7 +19,7 @@ namespace VVVV.Packs.Message.Core{
 		
 		// The inner MessageData.
 		[DataMember]
-		Dictionary<string, Bin> MessageData = new Dictionary<string, Bin>();
+		internal Dictionary<string, Bin> MessageData = new Dictionary<string, Bin>();
 
         public IEnumerable<string> Attributes
         {

@@ -34,7 +34,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
             for (int i = 0; i < SpreadMax; i++)
             {
                 var s = FInput[i].Serialize();
-                FOutput[i] = s ?? new MemoryStream();
+                FOutput[i] = s;
             }
             FOutput.Flush();
         }
