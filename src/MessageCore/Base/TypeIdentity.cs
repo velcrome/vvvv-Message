@@ -29,7 +29,6 @@ namespace VVVV.Packs.Message.Core
             Add(typeof(double), "double".ToLower());
             Add(typeof(float), "float".ToLower());
             Add(typeof(string), "string".ToLower());
-//            Add(typeof(char), "char".ToLower());
 
             Add(typeof(RGBAColor), "Color".ToLower());
             Add(typeof(Matrix4x4), "Transform".ToLower());
@@ -43,31 +42,31 @@ namespace VVVV.Packs.Message.Core
             Add(typeof(Message), "Message".ToLower());	        
 	    }
 
-        public static string FindAlias(Type t)
+        public string FindAlias(Type t)
         {
-            foreach (Type key in Instance.Keys)
+            foreach (Type key in Keys)
             {
-                if (key == t) return Instance[key];
+                if (key == t) return this[key];
             }
             return null;
         }
 
-        public static string FindBaseAlias(Type t)
+        public string FindBaseAlias(Type t)
         {
-            foreach (Type key in Instance.Keys)
+            foreach (Type key in Keys)
             {
-                if (key == t) return Instance[key];
-                if (t.IsSubclassOf(key)) return Instance[key];
+                if (key == t) return this[key];
+                if (t.IsSubclassOf(key)) return this[key];
             }
             return null;
         }
 
-        public static Type FindType(string alias)
+        public Type FindType(string alias)
         {
             Type type = typeof(string);
-            foreach (Type key in Instance.Keys)
+            foreach (Type key in this.Keys)
             {
-                if (Instance[key] == alias)
+                if (this[key] == alias)
                 {
                     type = key;
                 }

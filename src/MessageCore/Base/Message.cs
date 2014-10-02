@@ -79,7 +79,7 @@ namespace VVVV.Packs.Message.Core{
 			foreach (string name in MessageData.Keys) {
 				try {
 					Type type = MessageData[name][0].GetType();
-					sb.Append(", " + TypeIdentity.FindBaseAlias(type));
+					sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
 					sb.Append(" " + name);
 				} catch (Exception err) {
 					// type not defined
