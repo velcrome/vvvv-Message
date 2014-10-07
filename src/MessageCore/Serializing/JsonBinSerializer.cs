@@ -2,16 +2,17 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using VVVV.Packs.Message;
 using VVVV.Packs.Message.Core;
 
 #endregion usings
 
 namespace VVVV.Pack.Game.Core
 {
-  	public class JsonSerializer : JsonConverter
+  	public class JsonBinSerializer : JsonConverter
 	{
 
-        public JsonSerializer()
+        public JsonBinSerializer()
         {
         }
 		

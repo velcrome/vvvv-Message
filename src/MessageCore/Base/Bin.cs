@@ -5,13 +5,13 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using VVVV.Packs.Message.Core;
+using VVVV.Pack.Game.Core;
 
 
-namespace VVVV.Pack.Game.Core
+namespace VVVV.Packs.Message.Core
 {
     [Serializable]
-    [JsonConverter(typeof(JsonSerializer))]
+    [JsonConverter(typeof(JsonBinSerializer))]
     public class Bin<T> : Bin, IEnumerable<T>
     {
         public Bin()
@@ -73,7 +73,7 @@ namespace VVVV.Pack.Game.Core
     
     
 	[Serializable]
-    [JsonConverter(typeof(JsonSerializer))]
+    [JsonConverter(typeof(JsonBinSerializer))]
 	public abstract class Bin : ArrayList, ISerializable
 	{
 
@@ -131,6 +131,21 @@ namespace VVVV.Pack.Game.Core
             Bin c = Bin.New(this.GetInnerType());
             c.AssignFrom(this);
             return c;
+        }
+
+        public override string ToString()
+        {
+            var s = new StringWriter();
+            s.Write("Bin<");
+            s.Write(TypeIdentity.Instance.FindAlias(GetInnerType()));
+            s.Write("> [");
+            for (var i=0;i<Count;i++)
+            {
+                s.Write(this[i].ToString());
+                if (Count-1 != i) s.Write(", ");
+            }
+            s.Write("]");
+            return s.ToString();
         }
         #endregion
 

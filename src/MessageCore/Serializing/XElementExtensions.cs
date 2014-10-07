@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using VVVV.Pack.Game.Core;
 using VVVV.Packs.Message.Core;
-
+using System.Xml;
 
 namespace VVVV.Packs.Message.Serializing
 {
