@@ -19,7 +19,7 @@ namespace VVVV.Pack.Message.Nodes
     using Message = VVVV.Packs.Message.Core.Message;
 
     #region PluginInfo
-    [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "Dynamic, TTY, velcrome")]
+    [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "TTY", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageInfoNode : IPluginEvaluate
     {
@@ -81,7 +81,7 @@ namespace VVVV.Pack.Message.Nodes
 
 
     #region PluginInfo
-    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome")]
+    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageSiftNode : IPluginEvaluate
     {
