@@ -167,36 +167,39 @@ namespace VVVV.Packs.Message.Core
         {
             var index = this.Count;  //proper return as of ArrayList.Add()
             
-            // here is a place to start to add inheritance in TypeIdentities.
-            if (TypeIdentity.Instance.ContainsKey(val.GetType())) 
-            {
-                return base.Add(val);
-            } 
+//          Add a single instance
+            Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
 
-            if (val is IEnumerable ) // string should be treated differently, but that is implicit in the last 4 lines
+            if (type != null)
+            {
+                if (val is IConvertible)
+                {
+                    return base.Add(Convert.ChangeType(val, this.GetInnerType()));
+                }
+                else return base.Add(val);
+            }
+
+//          Add a enumeration
+            if (val is IEnumerable ) // string should be treated differently, but that is implicit in the lines before
             {
                 var enumerable = (IEnumerable)val;
-
-                Type type;
                 try
                 {
                     var num = enumerable.GetEnumerator();
-
                     num.MoveNext();
-                    type = num.Current.GetType();
+                    type = TypeIdentity.Instance.FindBaseType(num.Current.GetType());
                 }
                 catch (Exception e)
                 {
                     throw new Exception("Cannot add object " + enumerable.ToString() + " to Bin because cannot determine type. Maybe empty?", e);
-
                 }
-                if (this.GetInnerType() == type)
+
+                if (type != null && this.GetInnerType() == type)
                 {
                     foreach (var o in enumerable)
                     {
-                        if (o.GetType() != this.GetInnerType()) throw new Exception("Cannot add object " + enumerable.ToString() + " from "+enumerable+ " to Bin because Type of inside element does not match");
-
-                        
+                        if (!this.GetInnerType().IsAssignableFrom(o.GetType())) 
+                            throw new Exception("Cannot add object " + enumerable.ToString() + " from "+enumerable+ " to Bin because Type of inside element does not match");
                         base.Add(o);
                     }
                     return index;

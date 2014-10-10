@@ -1,5 +1,6 @@
 ﻿#region usings
 using System;
+using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VVVV.Packs.Message;
@@ -31,7 +32,11 @@ namespace VVVV.Pack.Game.Core
     		writer.WritePropertyName("Bin");
 			writer.WriteStartArray();
 			foreach (object o in bin) {
-				serializer.Serialize(writer, o);
+                if (o is Stream)
+                {
+                    var sr = new StreamReader((Stream)o);
+                    serializer.Serialize(writer, sr.ReadToEnd());
+                } else serializer.Serialize(writer, o);
 			}
 			writer.WriteEndArray();
 
@@ -43,17 +48,25 @@ namespace VVVV.Pack.Game.Core
 			JObject jsonObject = JObject.Load(reader);
             
             var jT = jsonObject.GetValue("Type");
-		    var typeName = (string) jT.ToObject(typeof(string), serializer);
+		    var typeAlias = (string) jT.ToObject(typeof(string), serializer);
 
-		    Type type = TypeIdentity.Instance.FindType(typeName);
+            Type type = TypeIdentity.Instance.FindType(typeAlias);
             JArray jArray = (JArray) jsonObject.GetValue("Bin");
 
    			Bin bin = Bin.New(type);
             
 		    foreach (var o in jArray)
-            {
-                var instance = o.ToObject(type, serializer);
-                bin.Add(instance);
+		    {
+		        object instance = null;
+                if (type == typeof(Stream))
+                {
+                    instance = o.ToObject(typeof(string), serializer);
+                    bin.Add(GenerateStreamFromString((string)instance));
+
+                } else {
+                    instance = o.ToObject(type, serializer);
+                    bin.Add(instance);
+                }
             }
 			return bin;
 			
@@ -63,6 +76,16 @@ namespace VVVV.Pack.Game.Core
 		{
 			return typeof(Bin).IsAssignableFrom(objectType);
 		}
+
+        public Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
 
     }
 }

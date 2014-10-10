@@ -30,8 +30,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
   <ItemGroup>
+    <Compile Include="Bin\BoolBinTest.cs" />
+    <Compile Include="Bin\ColorBinTest.cs" />
+    <Compile Include="Bin\DoubleBinTest.cs" />
+    <Compile Include="Bin\FloatBinTest.cs" />
+    <Compile Include="Bin\IntBinTest.cs" />
+    <Compile Include="Bin\RawBinTest.cs" />
     <Compile Include="Bin\StringBinTest.cs" />
     <Compile Include="Bin\TimeBinTest.cs" />
+    <Compile Include="Bin\TransformBinTest.cs" />
+    <Compile Include="Bin\Vector2dBinTest.cs" />
+    <Compile Include="Bin\Vector3dBinTest.cs" />
+    <Compile Include="Bin\Vector4dBinTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -51,10 +61,7 @@
       <HintPath>..\packages\VVVV.Core.33.1.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="VVVV.Packs.Time, Version=1.0.5359.16643, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\VVVV.Packs.Time.0.5.4\build\net40\x64\VVVV.Packs.Time.dll</HintPath>
-    </Reference>
+    <Reference Include="VVVV.Packs.Time, Version=1.0.5359.16643, Culture=neutral, processorArchitecture=AMD64" />
     <Reference Include="VVVV.Utils">
       <HintPath>..\packages\VVVV.Utils.33.1.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>True</Private>
@@ -90,9 +97,11 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.33.1.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.33.1.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets'))" />
   </Target>
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.33.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.33.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets" Condition="Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
        
