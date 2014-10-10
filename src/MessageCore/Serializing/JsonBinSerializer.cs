@@ -8,7 +8,7 @@ using VVVV.Packs.Message.Core;
 
 #endregion usings
 
-namespace VVVV.Pack.Game.Core
+namespace VVVV.Pack.Game.Core.Serializing
 {
   	public class JsonBinSerializer : JsonConverter
 	{

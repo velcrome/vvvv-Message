@@ -1,8 +1,7 @@
 using System.ComponentModel.Composition;
 using System.Xml.Linq;
 using VVVV.Core.Logging;
-using VVVV.Packs.Message;
-using VVVV.Packs.Message.Serializing;
+using VVVV.Packs.Message.Core.Serializing;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes.Serializing

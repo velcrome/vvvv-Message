@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
-using VVVV.Pack.Game.Core;
-
+using VVVV.Pack.Game.Core.Serializing;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
@@ -34,7 +33,7 @@ namespace VVVV.Packs.Message.Core.Serializing
             return serialized;
         }
 
-        public static Message DeSerializeMessage(Stream input)
+        public static Message DeSerializeMessage(this Stream input)
         {
             var message = new Message();
             input.Position = 0;
@@ -66,47 +65,37 @@ namespace VVVV.Packs.Message.Core.Serializing
 
             serialized.SetLength(0);
             serialized.WriteUint((uint)bin.Count);
-            serialized.WriteUint(bin.GetType().ToString().UnicodeLength());
-            serialized.WriteUnicode(bin.GetType().ToString());
+
+            var alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
+            serialized.WriteUint(alias.UnicodeLength());
+            serialized.WriteUnicode(alias);
 
             for (int i = 0; i < bin.Count; i++)
             {
-                uint l = 0;
                 if (bin.GetInnerType() == typeof(bool))
                 {
-                    l = 1;
-                    serialized.WriteUint(l);
                     serialized.WriteBool((bool)bin[i]);
                 }
                 if (bin.GetInnerType() == typeof(int))
                 {
-                    l = 4;
-                    serialized.WriteUint(l);
                     serialized.WriteInt((int)bin[i]);
                 }
                 if (bin.GetInnerType() == typeof(float))
                 {
-                    l = 4;
-                    serialized.WriteUint(l);
                     serialized.WriteFloat((float)bin[i]);
                 }
                 if (bin.GetInnerType() == typeof(double))
                 {
-                    l = 8;
-                    serialized.WriteUint(l);
                     serialized.WriteDouble((double)bin[i]);
                 }
                 if (bin.GetInnerType() == typeof(string))
                 {
-                    l = ((string)bin[i]).UnicodeLength();
-                    serialized.WriteUint(l);
+                    serialized.WriteUint(((string)bin[i]).UnicodeLength());
                     serialized.WriteUnicode((string)bin[i]);
                 }
 
                 if (bin.GetInnerType() == typeof(RGBAColor))
                 {
-                    l = 32;
-                    serialized.WriteUint(l);
                     serialized.WriteDouble(((RGBAColor)bin[i]).R);
                     serialized.WriteDouble(((RGBAColor)bin[i]).G);
                     serialized.WriteDouble(((RGBAColor)bin[i]).B);
@@ -114,23 +103,17 @@ namespace VVVV.Packs.Message.Core.Serializing
                 }
                 if (bin.GetInnerType() == typeof(Vector2D))
                 {
-                    l = 16;
-                    serialized.WriteUint(l);
                     serialized.WriteDouble(((Vector2D)bin[i]).x);
                     serialized.WriteDouble(((Vector2D)bin[i]).y);
                 }
                 if (bin.GetInnerType() == typeof(Vector3D))
                 {
-                    l = 24;
-                    serialized.WriteUint(l);
                     serialized.WriteDouble(((Vector3D)bin[i]).x);
                     serialized.WriteDouble(((Vector3D)bin[i]).y);
                     serialized.WriteDouble(((Vector3D)bin[i]).z);
                 }
                 if (bin.GetInnerType() == typeof(Vector4D))
                 {
-                    l = 32;
-                    serialized.WriteUint(l);
                     serialized.WriteDouble(((Vector4D)bin[i]).x);
                     serialized.WriteDouble(((Vector4D)bin[i]).y);
                     serialized.WriteDouble(((Vector4D)bin[i]).z);
@@ -138,8 +121,6 @@ namespace VVVV.Packs.Message.Core.Serializing
                 }
                 if (bin.GetInnerType() == typeof(Matrix4x4))
                 {
-                    l = 128;
-                    serialized.WriteUint(l);
                     for (int j = 0; j < 16; j++)
                     {
                         serialized.WriteDouble(((Matrix4x4)bin[i]).Values[j]);
@@ -147,39 +128,54 @@ namespace VVVV.Packs.Message.Core.Serializing
                 }
                 if (bin.GetInnerType() == typeof(Stream))
                 {
-                    l = (uint)((Stream)bin[i]).Length;
-                    serialized.WriteUint(l);
-                    ((Stream)bin[i]).Position = 0;
-                    ((Stream)bin[i]).CopyTo(serialized);
+                    var l = ((Stream)bin[i]).Length;
+                    serialized.WriteUint((uint)l);
+                    if (l > 0)
+                    {
+                        ((Stream) bin[i]).Position = 0;
+                        ((Stream) bin[i]).CopyTo(serialized, (int) l);
+                    }
                 }
                 if (bin.GetInnerType() == typeof(Time.Time))
                 {
-                    // not implemented
+                    var t = (Time.Time) bin[i];
+                    var time = t.UniversalTime.ToString("yyyy-MM-dd HH:mm:ss.ffff");
+                    var zone = t.TimeZone.Id;
+
+                    serialized.WriteUint(time.UnicodeLength());
+                    serialized.WriteUnicode(time);
+
+                    serialized.WriteUint(zone.UnicodeLength());
+                    serialized.WriteUnicode(zone);
                 }
 
             }
             return serialized;
         }
 
-        public static Bin DeSerializeBin(Stream input)
+        public static Bin DeSerializeBin(this Stream input)
         {
             input.Position = 0;
 
             uint objcount = input.ReadUint();
-            uint typeL = input.ReadUint();
 
-            var type = Type.GetType(input.ReadUnicode((int)typeL));
+            uint aliasLength = input.ReadUint();
+            var alias = input.ReadUnicode((int) aliasLength);
+            var type = TypeIdentity.Instance.FindType(alias);
             var bin = Bin.New(type);
 
 
             for (int i = 0; i < objcount; i++)
             {
-                uint l = input.ReadUint();
                 if (type == typeof(bool)) bin.Add(input.ReadBool());
                 if (type == typeof(int)) bin.Add(input.ReadInt());
                 if (type == typeof(float)) bin.Add(input.ReadFloat());
                 if (type == typeof(double)) bin.Add(input.ReadDouble());
-                if (type == typeof(string)) bin.Add(input.ReadUnicode((int)l));
+                if (type == typeof(string))
+                {
+                    uint l = input.ReadUint();                    
+                    bin.Add(input.ReadUnicode((int)l));
+                }
 
                 if (type == typeof(RGBAColor))
                 {
@@ -221,9 +217,25 @@ namespace VVVV.Packs.Message.Core.Serializing
                 if (type == typeof(Stream))
                 {
                     Stream res = new MemoryStream();
-                    input.CopyTo(res, (int)l);
-                    res.Position = 0;
+                    uint l = input.ReadUint();
+                    if (l > 0)
+                    {
+                        input.CopyTo(res, (int) l);
+                        res.Position = 0;
+                    }
                     bin.Add(res);
+                }
+                if (type == typeof(Time.Time))
+                {
+                    uint l = input.ReadUint();
+                    var t =input.ReadUnicode((int)l);
+                    var utcTime = Time.Time.StringAsTime("UTC", t, "yyyy-MM-dd HH:mm:ss.ffff");
+
+                    l = input.ReadUint();
+                    var z = input.ReadUnicode((int)l);
+
+                    var timestamp = Time.Time.ChangeTimezone(utcTime, z);
+                    bin.Add(timestamp);
                 }
             }
             return bin;

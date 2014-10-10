@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
-using VVVV.Pack.Game.Core;
-using VVVV.Packs.Message.Core;
+﻿using System.IO;
 using VVVV.Utils.OSC;
-using System.Linq;
 
-
-namespace VVVV.Packs.Message.Serializing
+namespace VVVV.Packs.Message.Core.Serializing
 {
     using Time = VVVV.Packs.Time.Time;
     using Message = VVVV.Packs.Message.Core.Message;

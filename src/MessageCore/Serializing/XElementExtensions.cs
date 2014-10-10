@@ -3,7 +3,7 @@ using VVVV.Pack.Game.Core;
 using VVVV.Packs.Message.Core;
 using System.Xml;
 
-namespace VVVV.Packs.Message.Serializing
+namespace VVVV.Packs.Message.Core.Serializing
 {
     public static class XElementExtensions
     {

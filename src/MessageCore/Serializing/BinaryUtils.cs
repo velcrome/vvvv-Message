@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace VVVV.Pack.Game.Core
+namespace VVVV.Pack.Game.Core.Serializing
 {
     public static class BinaryUtils
     {
@@ -23,19 +23,19 @@ namespace VVVV.Pack.Game.Core
         public static int ReadInt(this Stream input)
         {
             byte[] tmp = new byte[4];
-            input.Read(tmp, 0, 1);
+            input.Read(tmp, 0, 4);
             return BitConverter.ToInt32(tmp, 0);
         }
         public static float ReadFloat(this Stream input)
         {
             byte[] tmp = new byte[4];
-            input.Read(tmp, 0, 1);
+            input.Read(tmp, 0, 4);
             return BitConverter.ToSingle(tmp, 0);
         }
         public static double ReadDouble(this Stream input)
         {
             byte[] tmp = new byte[8];
-            input.Read(tmp, 0, 1);
+            input.Read(tmp, 0, 8);
             return BitConverter.ToDouble(tmp, 0);
         }
 

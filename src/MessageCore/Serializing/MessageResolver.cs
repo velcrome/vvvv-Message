@@ -7,7 +7,8 @@ using VVVV.Packs.Message.Core;
 
 #endregion usings
 
-namespace VVVV.Packs.Message {
+namespace VVVV.Packs.Message.Core.Serializing
+{
 	public class MessageResolver : DataContractResolver
 	{
         public MessageResolver()

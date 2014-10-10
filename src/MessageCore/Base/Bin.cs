@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using VVVV.Pack.Game.Core;
+using VVVV.Pack.Game.Core.Serializing;
 
 
 namespace VVVV.Packs.Message.Core

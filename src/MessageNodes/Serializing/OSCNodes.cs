@@ -1,6 +1,6 @@
 using System.IO;
 using VVVV.Pack.Message;
-using VVVV.Packs.Message.Serializing;
+using VVVV.Packs.Message.Core.Serializing;
 using VVVV.PluginInterfaces.V2;
 
 
