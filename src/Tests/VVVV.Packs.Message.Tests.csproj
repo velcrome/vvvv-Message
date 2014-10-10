@@ -42,6 +42,7 @@
     <Compile Include="Bin\Vector2dBinTest.cs" />
     <Compile Include="Bin\Vector3dBinTest.cs" />
     <Compile Include="Bin\Vector4dBinTest.cs" />
+    <Compile Include="Message\MessageTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

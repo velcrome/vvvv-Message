@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using VVVV.Pack.Game.Core.Serializing;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
@@ -13,21 +14,30 @@ namespace VVVV.Packs.Message.Core.Serializing
         {
             Stream serialized = new MemoryStream();
 
-            serialized.SetLength(0);
+//            serialized.SetLength(0);
             serialized.WriteUint(message.Address.UnicodeLength());
             serialized.WriteUnicode(message.Address);
 
-            // Todo: serialize timestamp.
+            var t = message.TimeStamp;
+            var time = t.UniversalTime.ToString("yyyy-MM-dd HH:mm:ss.ffff");
+            var zone = t.TimeZone.Id;
 
-            serialized.WriteUint((uint)message.MessageData.Count);
+            serialized.WriteUint(time.UnicodeLength());
+            serialized.WriteUnicode(time);
+
+            serialized.WriteUint(zone.UnicodeLength());
+            serialized.WriteUnicode(zone);
+
+            serialized.WriteUint((uint)message.Attributes.Count());
             foreach (var key in message.Attributes)
             {
                 serialized.WriteUint(key.UnicodeLength());
                 serialized.WriteUnicode(key);
 
                 var binData = message[key].Serialize();
+                binData.Position = 0;
 
-                serialized.WriteUint((uint)binData.Length);
+//                serialized.WriteUint((uint)binData.Length);
                 binData.CopyTo(serialized);
             }
             return serialized;
@@ -41,29 +51,34 @@ namespace VVVV.Packs.Message.Core.Serializing
             uint addressLength = input.ReadUint();
             message.Address = input.ReadUnicode((int)addressLength);
 
-           // Todo: deserialize timestamp
+            uint l = input.ReadUint();
+            var t = input.ReadUnicode((int)l);
+            var utcTime = Time.Time.StringAsTime("UTC", t, "yyyy-MM-dd HH:mm:ss.ffff");
 
+            l = input.ReadUint();
+            var z = input.ReadUnicode((int)l);
 
-            while (input.Position < input.Length)
+            message.TimeStamp = Time.Time.ChangeTimezone(utcTime, z);
+
+            uint attributeCount = input.ReadUint();
+
+            for (int i = 0; i < attributeCount;i++)
             {
                 uint keyLength = input.ReadUint();
                 string key = input.ReadUnicode((int)keyLength);
 
-                uint binDataLength = input.ReadUint();
-                Stream binData = new MemoryStream();
-                input.CopyTo(binData, (int)binDataLength);
-
-                message.Add(key, DeSerializeBin(binData));
+//                uint binLength = input.ReadUint();
+  
+                message.MessageData[key] = DeSerializeBin(input);
             }
 
-            return new Message();
+            return message;
         }
 
         public static Stream Serialize(this Bin bin)
         {
             Stream serialized = new MemoryStream();
 
-            serialized.SetLength(0);
             serialized.WriteUint((uint)bin.Count);
 
             var alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
@@ -90,8 +105,9 @@ namespace VVVV.Packs.Message.Core.Serializing
                 }
                 if (bin.GetInnerType() == typeof(string))
                 {
-                    serialized.WriteUint(((string)bin[i]).UnicodeLength());
-                    serialized.WriteUnicode((string)bin[i]);
+                    var l = ((string)bin[i]).UnicodeLength();
+                    serialized.WriteUint(l);
+                    if (l>0) serialized.WriteUnicode((string)bin[i]);
                 }
 
                 if (bin.GetInnerType() == typeof(RGBAColor))
@@ -150,14 +166,13 @@ namespace VVVV.Packs.Message.Core.Serializing
                 }
 
             }
+            serialized.Position = 0;
             return serialized;
         }
 
         public static Bin DeSerializeBin(this Stream input)
         {
-            input.Position = 0;
-
-            uint objcount = input.ReadUint();
+            uint objCount = input.ReadUint();
 
             uint aliasLength = input.ReadUint();
             var alias = input.ReadUnicode((int) aliasLength);
@@ -165,7 +180,7 @@ namespace VVVV.Packs.Message.Core.Serializing
             var bin = Bin.New(type);
 
 
-            for (int i = 0; i < objcount; i++)
+            for (int i = 0; i < objCount; i++)
             {
                 if (type == typeof(bool)) bin.Add(input.ReadBool());
                 if (type == typeof(int)) bin.Add(input.ReadInt());
@@ -173,8 +188,10 @@ namespace VVVV.Packs.Message.Core.Serializing
                 if (type == typeof(double)) bin.Add(input.ReadDouble());
                 if (type == typeof(string))
                 {
-                    uint l = input.ReadUint();                    
-                    bin.Add(input.ReadUnicode((int)l));
+                    uint l = input.ReadUint();
+                    if (l > 0) 
+                        bin.Add(input.ReadUnicode((int)l));
+                        else bin.Add("");
                 }
 
                 if (type == typeof(RGBAColor))
