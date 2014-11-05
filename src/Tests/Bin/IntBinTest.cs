@@ -35,7 +35,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"int\",\"Bin\":[1337,2147483647]}", json);
+            Assert.AreEqual("{\"int\":[1337,2147483647]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 

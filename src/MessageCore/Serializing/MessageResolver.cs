@@ -18,7 +18,7 @@ namespace VVVV.Packs.Message.Core.Serializing
         #region Standard Serialisation
 
 //      These methods are necessary for standard .Net serialisation 
-//      For JSon we use different means, have a look in SpreadList.cs for its custom Json.NET handler.
+        //      For JSon we use different means, have a look in JsonBinSerializer for its custom Json.NET handler.
 
         public override bool TryResolveType(Type dataContractType, Type declaredType, DataContractResolver knownTypeResolver, out XmlDictionaryString typeName, out XmlDictionaryString typeNamespace)
 		{

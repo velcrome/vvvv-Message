@@ -22,7 +22,7 @@ namespace VVVV.Packs.Message.Tests
             Assert.AreEqual("ff00ff00", bin.First.ToString());
             Assert.AreEqual("ffff0000", bin[1].ToString());
 
-            Assert.AreEqual("Bin<color> [ff00ff00, ffff0000]", bin.ToString());
+            Assert.AreEqual("Bin<Color> [ff00ff00, ffff0000]", bin.ToString());
         }
 
         [TestMethod]
@@ -37,12 +37,12 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"color\",\"Bin\":[{\"R\":0.0,\"G\":1.0,\"B\":0.0,\"A\":1.0},{\"R\":1.0,\"G\":0.0,\"B\":0.0,\"A\":1.0}]}", json);
+            Assert.AreEqual("{\"Color\":[{\"R\":0.0,\"G\":1.0,\"B\":0.0,\"A\":1.0},{\"R\":1.0,\"G\":0.0,\"B\":0.0,\"A\":1.0}]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
             Assert.AreEqual(typeof(Bin<RGBAColor>), newBin.GetType());
-            Assert.AreEqual("Bin<color> [ff00ff00, ffff0000]", newBin.ToString());
+            Assert.AreEqual("Bin<Color> [ff00ff00, ffff0000]", newBin.ToString());
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace VVVV.Packs.Message.Tests
             var newBin = stream.DeSerializeBin();
 
             Assert.AreEqual(typeof(Bin<RGBAColor>), newBin.GetType());
-            Assert.AreEqual("Bin<color> [ff00ff00, ffff0000]", newBin.ToString());
+            Assert.AreEqual("Bin<Color> [ff00ff00, ffff0000]", newBin.ToString());
         }
 
 

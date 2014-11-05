@@ -1,10 +1,12 @@
 ﻿#region usings
 using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VVVV.Packs.Message;
 using VVVV.Packs.Message.Core;
+//using System.Linq;
 
 #endregion usings
 
@@ -22,14 +24,10 @@ namespace VVVV.Pack.Game.Core.Serializing
 		{
 			Bin bin = value as Bin;
 		    writer.WriteStartObject();
-			writer.WritePropertyName("Type");
-		    
-			
+
 			Type type = (bin == null) || (bin.Count == 0)? typeof(string) : bin.GetInnerType();
 
-            writer.WriteValue(TypeIdentity.Instance[type]);
-			
-    		writer.WritePropertyName("Bin");
+            writer.WritePropertyName(TypeIdentity.Instance[type]);
 			writer.WriteStartArray();
 			foreach (object o in bin) {
                 if (o is Stream)
@@ -46,12 +44,13 @@ namespace VVVV.Pack.Game.Core.Serializing
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
 		{
 			JObject jsonObject = JObject.Load(reader);
-            
-            var jT = jsonObject.GetValue("Type");
-		    var typeAlias = (string) jT.ToObject(typeof(string), serializer);
+
+		    var jT = jsonObject.Children().First();
+		    var typeAlias = jT.Path;
 
             Type type = TypeIdentity.Instance.FindType(typeAlias);
-            JArray jArray = (JArray) jsonObject.GetValue("Bin");
+            
+            var jArray = jT.Values();
 
    			Bin bin = Bin.New(type);
             

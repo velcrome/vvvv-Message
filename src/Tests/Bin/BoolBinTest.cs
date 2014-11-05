@@ -35,7 +35,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"bool\",\"Bin\":[true,false]}", json);
+            Assert.AreEqual("{\"bool\":[true,false]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 

@@ -35,7 +35,7 @@ namespace VVVV.Packs.Message.Tests
             Assert.AreEqual("", new StreamReader((Stream) bin.First).ReadToEnd() ) ;
             Assert.AreEqual("lorem", new StreamReader((Stream)bin[1]).ReadToEnd());
 
-            Assert.AreEqual("Bin<raw> [System.IO.MemoryStream, System.IO.MemoryStream]", bin.ToString());
+            Assert.AreEqual("Bin<Raw> [System.IO.MemoryStream, System.IO.MemoryStream]", bin.ToString());
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"raw\",\"Bin\":[\"\",\"lorem\"]}", json);
+            Assert.AreEqual("{\"Raw\":[\"\",\"lorem\"]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
@@ -61,7 +61,7 @@ namespace VVVV.Packs.Message.Tests
             Assert.AreEqual("lorem", new StreamReader((Stream)newBin[1]).ReadToEnd());
 
             
-            Assert.AreEqual("Bin<raw> [System.IO.MemoryStream, System.IO.MemoryStream]", newBin.ToString());
+            Assert.AreEqual("Bin<Raw> [System.IO.MemoryStream, System.IO.MemoryStream]", newBin.ToString());
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace VVVV.Packs.Message.Tests
             Assert.AreEqual("lorem", new StreamReader((Stream)newBin[1]).ReadToEnd());
 
 
-            Assert.AreEqual("Bin<raw> [System.IO.MemoryStream, System.IO.MemoryStream]", newBin.ToString());
+            Assert.AreEqual("Bin<Raw> [System.IO.MemoryStream, System.IO.MemoryStream]", newBin.ToString());
         }
 
     }

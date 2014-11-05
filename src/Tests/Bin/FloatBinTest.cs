@@ -35,7 +35,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"float\",\"Bin\":[1337.0,3.14159274]}", json);
+            Assert.AreEqual("{\"float\":[1337.0,3.14159274]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 

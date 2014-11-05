@@ -35,7 +35,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"double\",\"Bin\":[1337.0,3.1415926535897931]}", json);
+            Assert.AreEqual("{\"double\":[1337.0,3.1415926535897931]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 

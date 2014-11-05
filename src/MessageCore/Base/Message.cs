@@ -17,73 +17,106 @@ namespace VVVV.Packs.Message.Core{
 	[DataContract]
 	public class Message : ICloneable {
 		
-		// The inner MessageData.
-		[DataMember]
-		internal Dictionary<string, Bin> MessageData = new Dictionary<string, Bin>();
-
+		// The inner Data.
         public IEnumerable<string> Attributes
         {
-            get { return MessageData.Keys; }
+            get { return Data.Keys; }
         }
 
-		[DataMember]
-		public VVVV.Packs.Time.Time TimeStamp {
-			get;
-			set;
-		}
-		
-		[DataMember]
+		[DataMember(Order = 0)]
 		public string Address{
 			get;
 			set;
 		}
 
+        [DataMember(Order = 1)]
+        public VVVV.Packs.Time.Time TimeStamp
+        {
+            get;
+            set;
+        }
+		
+
+        [DataMember(Order = 2)]
+        internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
+
 	
 		public Message()
 		{
-		    TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+		    Address = "vvvv";
+            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
 		}
 
-		public void Add(string name, object val) {
-			//			name = name.ToLower();
-			if (val is Bin) MessageData.Add(name, (Bin)val);
-			else {
-                MessageData.Add(name, Bin.New(val.GetType()));
-				((Bin) MessageData[name]).Add(val);
-			}
-		}
+        public Message(string configuration) : base()
+        {
+            SetConfig(configuration);
+        }
+
+        public void Init(string name, params object[] values)
+        {
+            AssignFrom(name, values);
+        }
 		
 		public void AssignFrom(string name, IEnumerable en) {
-			//			name = name.ToLower();
-			if (!MessageData.ContainsKey(name))
+			if (!Data.ContainsKey(name))
 			{
 			    var o = en.Cast<object>().First();
-				MessageData.Add(name, Bin.New(o.GetType()));
-			} else MessageData[name].Clear();
+                var type = TypeIdentity.Instance.FindBaseType(o.GetType());
+                Data.Add(name, Bin.New(type));
+			} else Data[name].Clear();
 			
 			foreach (object o in en) {
-				MessageData[name].Add(o);
+				Data[name].Add(o);
 			}
 		}
 		
 		public void AddFrom(string name, IEnumerable en) {
-			//			name = name.ToLower();
-			if (!MessageData.ContainsKey(name)) {
-                var o = en.Cast<object>().First();
-                MessageData.Add(name, Bin.New(o.GetType()));
+            if (!Data.ContainsKey(name))
+            {
+                AssignFrom(name, en);
             }
-			
-			foreach (object o in en) {
-				MessageData[name].Add(o);
-			}
+            else
+            {
+                foreach (object o in en)
+                {
+                    Data[name].Add(o);
+                }
+            }
 		}
+
+        public void ReplaceWith(Message message, bool AllowNew = false)
+        {
+            var keys = message.Attributes;
+            if (!AllowNew) keys = keys.Intersect(this.Attributes);
+
+            foreach (var name in keys)
+            {
+                if (!this.Data.ContainsKey(name))
+                {
+                    this.AssignFrom(name, message.Data[name]);
+                }
+                else
+                {
+                    var newType = message.Data[name].GetInnerType();
+                    var oldType = this.Data[name].GetInnerType();
+
+                    if (newType.IsCastableTo(oldType)) this.Data[name].AssignFrom(message.Data[name]); // autocast.
+
+                    else
+                    {
+                        throw new Exception("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
+                                            "> with Bin<" + TypeIdentity.Instance.FindAlias(newType) + "> implicitly.");
+                    }
+                }
+            }
+        }
 		
 		public string GetConfig() {
 			StringBuilder sb = new StringBuilder();
 			
-			foreach (string name in MessageData.Keys) {
+			foreach (string name in Data.Keys) {
 				try {
-					Type type = MessageData[name][0].GetType();
+					Type type = Data[name][0].GetType();
 					sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
 					sb.Append(" " + name);
 				} catch (Exception err) {
@@ -93,13 +126,33 @@ namespace VVVV.Packs.Message.Core{
 			}
 			return sb.ToString().Substring(2);
 		}
+
+        public void SetConfig(string configuration)
+        {
+
+            string[] config = configuration.Trim().Split(',');
+            foreach (string binConfig in config)
+            {
+                string[] binData = binConfig.Trim().Split(' ');
+
+                try
+                {
+                    string alias = binData[0].ToLower();
+                    string name = binData[1];
+                    Data[name] = Bin.New(TypeIdentity.Instance.FindType(alias));
+                }
+                catch (Exception)
+                { }
+            }
+        }
+
 		public Bin this[string name]
 		{
 			get { 
-				if (MessageData.ContainsKey(name)) return MessageData[name];
+				if (Data.ContainsKey(name)) return Data[name];
 					else return null;				
 			} 
-			set { MessageData[name] = (Bin) value; }
+			set { Data[name] = (Bin) value; }
 		}
 		
 		public object Clone() {
@@ -107,9 +160,9 @@ namespace VVVV.Packs.Message.Core{
 			m.Address = Address;
 			m.TimeStamp = TimeStamp;
 			
-			foreach (string name in MessageData.Keys) {
-				Bin list = MessageData[name];
-				m.Add(name, list.Clone());
+			foreach (string name in Data.Keys) {
+				Bin list = Data[name];
+				m.AssignFrom(name, list.Clone());
 				
 				// really deep cloning
 				try {
@@ -129,10 +182,10 @@ namespace VVVV.Packs.Message.Core{
 			var sb = new StringBuilder();
 			
 			sb.Append("Message "+Address+" ("+TimeStamp.LocalTime+" ["+TimeStamp.TimeZone.ToSerializedString()+"])\n");
-			foreach (string name in MessageData.Keys) {
+			foreach (string name in Data.Keys.OrderBy(x => x)) {
 				
 				sb.Append(" "+name + " \t: ");
-				foreach(object o in MessageData[name]) {
+				foreach(object o in Data[name]) {
 					sb.Append(o.ToString()+" ");
 				}
 				sb.AppendLine();

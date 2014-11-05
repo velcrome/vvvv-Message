@@ -24,22 +24,22 @@ namespace VVVV.Packs.Message.Core
 	    {
             // This is the only place where you need to add new datatypes.
 
-            Add(typeof(bool), "bool".ToLower());
-            Add(typeof(int), "int".ToLower());
-            Add(typeof(double), "double".ToLower());
-            Add(typeof(float), "float".ToLower());
-            Add(typeof(string), "string".ToLower());
+            Add(typeof(bool), "bool");
+            Add(typeof(int), "int");
+            Add(typeof(double), "double");
+            Add(typeof(float), "float");
+            Add(typeof(string), "string");
 
-            Add(typeof(RGBAColor), "Color".ToLower());
-            Add(typeof(Matrix4x4), "Transform".ToLower());
-            Add(typeof(Vector2D), "Vector2D".ToLower());
-            Add(typeof(Vector3D), "Vector3D".ToLower());
-            Add(typeof(Vector4D), "Vector4D".ToLower());
+            Add(typeof(RGBAColor), "Color");
+            Add(typeof(Matrix4x4), "Transform");
+            Add(typeof(Vector2D), "Vector2d");
+            Add(typeof(Vector3D), "Vector3d");
+            Add(typeof(Vector4D), "Vector4d");
 
-            Add(typeof(Stream), "Raw".ToLower());
-            Add(typeof(Time.Time), "Time".ToLower());
+            Add(typeof(Stream), "Raw");
+            Add(typeof(Time.Time), "Time");
             
-            Add(typeof(Message), "Message".ToLower());	        
+            Add(typeof(Message), "Message");	        
 	    }
 
         public string FindAlias(Type t)
@@ -77,7 +77,7 @@ namespace VVVV.Packs.Message.Core
             Type type = typeof(string);
             foreach (Type key in this.Keys)
             {
-                if (this[key] == alias)
+                if (this[key].ToLower() == alias.ToLower())
                 {
                     type = key;
                 }

@@ -22,7 +22,7 @@ namespace VVVV.Packs.Message.Tests
             Assert.AreEqual(new Vector3D(), bin.First);
             Assert.AreEqual(new Vector3D(1, 2, 3), bin[1]);
 
-            Assert.Inconclusive("Bin<vector3d> [VVVV.Utils.VMath.Vector3D, VVVV.Utils.VMath.Vector3D]", bin.ToString());
+            Assert.Inconclusive("Bin<Vector3d> [VVVV.Utils.VMath.Vector3D, VVVV.Utils.VMath.Vector3D]", bin.ToString());
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"vector3d\",\"Bin\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0}]}", json);
+            Assert.AreEqual("{\"Vector3d\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0}]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 

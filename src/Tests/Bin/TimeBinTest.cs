@@ -20,7 +20,7 @@ namespace VVVV.Packs.Message.Tests
 
             Assert.AreEqual(current, bin.First);
 
-            Assert.AreEqual("Bin<time> ["+ current.ToString() +"]", bin.ToString());
+            Assert.AreEqual("Bin<Time> ["+ current.ToString() +"]", bin.ToString());
         }
 
         [TestMethod]

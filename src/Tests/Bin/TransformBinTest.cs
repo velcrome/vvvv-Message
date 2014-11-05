@@ -22,7 +22,7 @@ namespace VVVV.Packs.Message.Tests
             Assert.AreEqual(new Matrix4x4(), bin.First);
             Assert.AreEqual(new Matrix4x4(1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5, 6, 1, 1, 1, 1), bin[1]);
 
-            Assert.AreEqual("Bin<transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", bin.ToString());
+            Assert.AreEqual("Bin<Transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", bin.ToString());
         }
 
         [TestMethod]
@@ -37,12 +37,12 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"transform\",\"Bin\":[{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{\"Values\":[1.0,1.0,1.0,1.0,2.0,2.0,2.0,2.0,3.0,4.0,5.0,6.0,1.0,1.0,1.0,1.0]}]}", json);
+            Assert.AreEqual("{\"Transform\":[{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{\"Values\":[1.0,1.0,1.0,1.0,2.0,2.0,2.0,2.0,3.0,4.0,5.0,6.0,1.0,1.0,1.0,1.0]}]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
             Assert.AreEqual(typeof(Bin<Matrix4x4>), newBin.GetType());
-            Assert.AreEqual("Bin<transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", newBin.ToString());
+            Assert.AreEqual("Bin<Transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", newBin.ToString());
         }
 
         public void TransformBinToStream()
@@ -55,7 +55,7 @@ namespace VVVV.Packs.Message.Tests
             var newBin = stream.DeSerializeBin();
 
             Assert.AreEqual(typeof(Bin<Matrix4x4>), newBin.GetType());
-            Assert.AreEqual("Bin<transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", newBin.ToString());
+            Assert.AreEqual("Bin<Transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", newBin.ToString());
         }
 
     }

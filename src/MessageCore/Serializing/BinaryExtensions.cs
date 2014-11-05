@@ -69,7 +69,7 @@ namespace VVVV.Packs.Message.Core.Serializing
 
 //                uint binLength = input.ReadUint();
   
-                message.MessageData[key] = DeSerializeBin(input);
+                message.Data[key] = DeSerializeBin(input);
             }
 
             return message;

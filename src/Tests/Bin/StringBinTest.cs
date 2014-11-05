@@ -37,7 +37,7 @@ namespace VVVV.Packs.Message.Tests
 
             string json = JsonConvert.SerializeObject(bin, settings);
 
-            Assert.AreEqual("{\"Type\":\"string\",\"Bin\":[\"lorem\",\"\",\"ipsum\"]}", json);
+            Assert.AreEqual("{\"string\":[\"lorem\",\"\",\"ipsum\"]}", json);
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof (Bin));
 
@@ -49,9 +49,9 @@ namespace VVVV.Packs.Message.Tests
         public void StringBinToStream()
         {
             var bin = Bin.New(typeof(string));
-//            bin.Add("lorem");
+//            bin.Init("lorem");
             bin.Add("");
-//            bin.Add("ipsum");
+//            bin.Init("ipsum");
 
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
