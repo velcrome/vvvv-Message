@@ -30,7 +30,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
             if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
             else SpreadMax = FInput.SliceCount;
 
-            if (!FInput.IsChanged) return;
+            if (!FInput.IsChanged && !FExtendedMode.IsChanged) return;
             FOutput.SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)

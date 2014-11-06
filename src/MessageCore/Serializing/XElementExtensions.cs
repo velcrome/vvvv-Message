@@ -1,13 +1,11 @@
 ﻿using System.Xml.Linq;
-using VVVV.Pack.Game.Core;
-using VVVV.Packs.Message.Core;
-using System.Xml;
+
 
 namespace VVVV.Packs.Message.Core.Serializing
 {
     public static class XElementExtensions
     {
-        public static XElement ToXElement(this Core.Message message)
+        public static XElement ToXElement(this Message message)
         {
             XElement xml = new XElement("Message");
 
@@ -16,18 +14,16 @@ namespace VVVV.Packs.Message.Core.Serializing
             foreach (var key in message.Attributes)
             {
                 Bin bin = message[key];
+                string alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
 
-                var spread = new XElement("Spread");
-
+                var spread = new XElement("Bin");
+                spread.Add(new XAttribute("type", alias));
                 spread.Add(new XAttribute("name", key));
-                spread.Add(new XAttribute("type", TypeIdentity.Instance[bin.GetInnerType()].ToString()));
 
                 for (int i = 0; i < message[key].Count; i++)
                 {
-                    spread.Add(new XElement(TypeIdentity.Instance[bin.GetInnerType()].ToString(), message[key][i].ToString()));
+                    spread.Add(new XElement(alias, message[key][i].ToString()));
                 }
-
-
                 xml.Add(spread);
             }
 

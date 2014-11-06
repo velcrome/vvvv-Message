@@ -25,9 +25,14 @@ namespace VVVV.Pack.Message.Nodes
     {
         #pragma warning disable 649, 169
 
-        [Input("Input")] private IDiffSpread<Message> FInput;
+        [Input("Input")] 
+        private IDiffSpread<Message> FInput;
 
-        [Input("Print Message", IsBang = true)] private IDiffSpread<bool> FPrint;
+        [Input("Output Bin Length", IsSingle = true, IsToggle = true)]
+        private IDiffSpread<bool> FLength;
+
+        [Input("Print Message", IsBang = true)]
+        private IDiffSpread<bool> FPrint;
 
         [Output("Address", AutoFlush = false)] private ISpread<string> FAddress;
 
@@ -59,7 +64,7 @@ namespace VVVV.Pack.Message.Nodes
                 FOutput[i] = m.ToString();
                 FAddress[i] = m.Address;
                 FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);
-                FConfigOut[i] = FInput[i].GetConfig();
+                FConfigOut[i] = FInput[i].GetConfig(FLength[0]);
 
                 if (FPrint[i])
                 {

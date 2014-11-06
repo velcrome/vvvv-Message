@@ -30,7 +30,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
 
             public void Evaluate(int SpreadMax)
             {
-                if (!FInput.IsChanged) return;
+                if (!FInput.IsChanged && !FPretty.IsChanged) return;
 
                 FOutput.SliceCount = SpreadMax;
                 JsonSerializer ser = new JsonSerializer();

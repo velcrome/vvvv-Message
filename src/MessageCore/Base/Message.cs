@@ -47,8 +47,10 @@ namespace VVVV.Packs.Message.Core{
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
 		}
 
-        public Message(string configuration) : base()
+        public Message(string configuration) 
         {
+            Address = "vvvv";
+            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
             SetConfig(configuration);
         }
 
@@ -154,10 +156,10 @@ namespace VVVV.Packs.Message.Core{
         public void SetConfig(string configuration)
         {
 
-            string[] config = configuration.Trim().Split(',');
+            string[] config = configuration.Trim().Split(',', ';');
             foreach (string binConfig in config)
             {
-                string pattern = @"^(\D*?)(\[\d+\])*\s+(\w+?)$";
+                string pattern = @"^(\D*?)(\[\d+\])*\s+(\w+?)$";  // "Type[N] name"
                 var binData = Regex.Match(binConfig.Trim(), pattern);
 
                 try
@@ -211,7 +213,7 @@ namespace VVVV.Packs.Message.Core{
         public override string ToString() {
 			var sb = new StringBuilder();
 			
-			sb.Append("Message "+Address+" ("+TimeStamp.LocalTime+" ["+TimeStamp.TimeZone.ToSerializedString()+"])\n");
+			sb.Append("Message "+Address+" ("+TimeStamp.LocalTime+" ["+TimeStamp.TimeZone.Id+"])\n");
 			foreach (string name in Data.Keys.OrderBy(x => x)) {
 				
 				sb.Append(" "+name + " \t: ");

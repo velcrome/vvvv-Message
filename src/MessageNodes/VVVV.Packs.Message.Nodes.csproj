@@ -85,7 +85,7 @@
     <ItemGroup>
       <MyFiles Include="..\..\patches\**\*.*" />
     </ItemGroup>
-    <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <!--Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" /-->
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
