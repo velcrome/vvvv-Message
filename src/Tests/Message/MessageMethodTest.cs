@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using VVVV.Packs.Message.Core;
-using VVVV.Packs.Message.Core.Serializing;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
 namespace VVVV.Packs.Message.Tests
@@ -63,11 +59,24 @@ namespace VVVV.Packs.Message.Tests
             var newMessage = fresh();
             newMessage.Init("num", 1, 2, 3 );
 
-            newMessage.ReplaceWith(message);
+            newMessage *= message; // intersect and replace
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n num \t: 1 2 3 \r\n", newMessage.ToString());
 
-            newMessage.ReplaceWith(message, true);
+            newMessage += message; // inject 
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", newMessage.ToString());
+
+
+        }
+
+        [TestMethod]
+        public void MessageSetConfig()
+        {
+            var message = fresh();
+            
+            message.SetConfig("string foo, int[4] num");
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: vvvv \r\n num \t: 0 0 0 0 \r\n", message.ToString());
+
+
 
 
         }

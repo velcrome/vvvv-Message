@@ -42,6 +42,36 @@ namespace VVVV.Packs.Message.Core
             Add(typeof(Message), "Message");	        
 	    }
 
+
+        public object Default(Type type)
+        {
+            return Default(FindAlias(type));
+        }
+        
+
+        public object Default(string alias)
+        {
+            switch (alias)
+            {
+                case "bool": return false; 
+                case "int": return 0; 
+                case "double": return 0.0d; 
+                case "float": return 0.0f; 
+                case "string": return "vvvv"; 
+                
+                case "Color": return new RGBAColor(); 
+                case "Transform": return new Matrix4x4(); 
+                case "Vector2d": return new Vector2D(); 
+                case "Vector3d": return new Vector3D(); 
+                case "Vector4d": return new Vector4D(); 
+
+                case "Stream": return new MemoryStream(); 
+                case "Time": return Time.Time.MinUTCTime(); 
+                case "Message":return new Message();
+            }
+            return null;
+        }
+
         public string FindAlias(Type t)
         {
             foreach (Type key in Keys)

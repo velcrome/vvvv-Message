@@ -56,6 +56,11 @@ namespace VVVV.Packs.Message.Core{
         {
             AssignFrom(name, values);
         }
+
+        public void Add(string name, params object[] values)
+        {
+            AddFrom(name, values);
+        }
 		
 		public void AssignFrom(string name, IEnumerable en) {
 			if (!Data.ContainsKey(name))
@@ -66,7 +71,7 @@ namespace VVVV.Packs.Message.Core{
 			} else Data[name].Clear();
 			
 			foreach (object o in en) {
-				Data[name].Add(o);
+				Data[name].Add(o); // implicit cast
 			}
 		}
 		
@@ -79,12 +84,30 @@ namespace VVVV.Packs.Message.Core{
             {
                 foreach (object o in en)
                 {
-                    Data[name].Add(o);
+                    Data[name].Add(o); // implicit cast
                 }
             }
 		}
 
-        public void ReplaceWith(Message message, bool AllowNew = false)
+        public void Remove(string name)
+        {
+            Data.Remove(name);
+        }
+
+
+        public static Message operator + (Message one, Message two)
+	    {
+	        one.ReplaceWith(two, true);
+            return one;
+	    }
+
+        public static Message operator * (Message one, Message two)
+        {
+            one.ReplaceWith(two, false);
+            return one;
+        }
+
+        protected void ReplaceWith(Message message, bool AllowNew = false)
         {
             var keys = message.Attributes;
             if (!AllowNew) keys = keys.Intersect(this.Attributes);
@@ -111,13 +134,14 @@ namespace VVVV.Packs.Message.Core{
             }
         }
 		
-		public string GetConfig() {
+		public string GetConfig(bool withCount = false) {
 			StringBuilder sb = new StringBuilder();
 			
 			foreach (string name in Data.Keys) {
 				try {
 					Type type = Data[name][0].GetType();
 					sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
+                    if (withCount) sb.Append("[" + Data[name].Count + "]");
 					sb.Append(" " + name);
 				} catch (Exception err) {
 					// type not defined
@@ -133,13 +157,19 @@ namespace VVVV.Packs.Message.Core{
             string[] config = configuration.Trim().Split(',');
             foreach (string binConfig in config)
             {
-                string[] binData = binConfig.Trim().Split(' ');
+                string pattern = @"^(\D*?)(\[\d+\])*\s+(\w+?)$";
+                var binData = Regex.Match(binConfig.Trim(), pattern);
 
                 try
                 {
-                    string alias = binData[0].ToLower();
-                    string name = binData[1];
+                    string alias = binData.Groups[1].ToString().ToLower();
+                    string name = binData.Groups[3].ToString();
                     Data[name] = Bin.New(TypeIdentity.Instance.FindType(alias));
+
+                    string c = binData.Groups[2].ToString().TrimStart('[').TrimEnd(']');
+                    int count = c.Length>0? int.Parse(c) : 1;
+
+                    Data[name].SetCount(count);
                 }
                 catch (Exception)
                 { }

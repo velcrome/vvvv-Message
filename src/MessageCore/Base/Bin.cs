@@ -125,6 +125,12 @@ namespace VVVV.Packs.Message.Core
             }
         }
 
+        public int SetCount(int newCount) 
+        {
+            var defaultValue = TypeIdentity.Instance.Default(TypeIdentity.Instance.FindAlias(GetInnerType()));
+            for (int i = Count; i < newCount ;i++) this.Add(defaultValue);
+            return Count;
+        }
 
         public new Bin Clone()
         {

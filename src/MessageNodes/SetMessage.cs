@@ -1,6 +1,4 @@
 using System;
-using VVVV.Pack.Game.Core;
-using VVVV.Packs.Message;
 using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VColor;
