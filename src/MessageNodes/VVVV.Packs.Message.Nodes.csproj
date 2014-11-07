@@ -35,7 +35,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="VVVV.Core">
@@ -50,19 +49,26 @@
   <ItemGroup>
     <Compile Include="Broadcast\Antenna.cs" />
     <Compile Include="Broadcast\Radio.cs" />
+    <Compile Include="Configurable\DynamicPinNode.cs" />
+    <Compile Include="Configurable\DynamicPinsNode.cs" />
+    <Compile Include="Configurable\JoinMessagePinsNode.cs" />
+    <Compile Include="Configurable\JoinStoragePinsNode.cs" />
+    <Compile Include="Configurable\TypeableNode.cs" />
+    <Compile Include="MessageFrameDelayNode.cs" />
+    <Compile Include="MessageInfoNode.cs" />
+    <Compile Include="MessageSiftNode.cs" />
     <Compile Include="Persist\Dictionary.cs" />
-    <Compile Include="DynamicNodes.cs" />
-    <Compile Include="GetAttributeNodes.cs" />
-    <Compile Include="MessageNodes.cs" />
+    <Compile Include="Configurable\SplitMessagePinsNode.cs" />
+    <Compile Include="Configurable\ReadMessage.cs" />
     <Compile Include="Persist\Cache.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
-    <Compile Include="SetMessage.cs" />
+    <Compile Include="Configurable\EditMessage.cs" />
     <Compile Include="Persist\Store.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
-    <Compile Include="Typing\GetVariableType.cs" />
-    <Compile Include="Typing\MessageType.cs" />
+    <Compile Include="Registry\GetVariableType.cs" />
+    <Compile Include="Registry\MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +97,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-   </Target>
+  </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets')" />
   <Import Project="..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets')" />

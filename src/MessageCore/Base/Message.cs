@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using VVVV.Pack.Game.Core;
 using System.Linq;
+using VVVV.Packs.Message.Core.Registry;
 using VVVV.Packs.Time;
 
 #endregion usings
@@ -145,9 +146,8 @@ namespace VVVV.Packs.Message.Core{
 					sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
                     if (withCount) sb.Append("[" + Data[name].Count + "]");
 					sb.Append(" " + name);
-				} catch (Exception err) {
+				} catch (Exception) {
 					// type not defined
-					err.ToString(); // no warning
 				}
 			}
 			return sb.ToString().Substring(2);
@@ -155,26 +155,12 @@ namespace VVVV.Packs.Message.Core{
 
         public void SetConfig(string configuration)
         {
+            var attributes = TypeRegistry.Instance.Definition(configuration);
 
-            string[] config = configuration.Trim().Split(',', ';');
-            foreach (string binConfig in config)
+            foreach (string name in attributes.Keys)
             {
-                string pattern = @"^(\D*?)(\[\d+\])*\s+(\w+?)$";  // "Type[N] name"
-                var binData = Regex.Match(binConfig.Trim(), pattern);
-
-                try
-                {
-                    string alias = binData.Groups[1].ToString().ToLower();
-                    string name = binData.Groups[3].ToString();
-                    Data[name] = Bin.New(TypeIdentity.Instance.FindType(alias));
-
-                    string c = binData.Groups[2].ToString().TrimStart('[').TrimEnd(']');
-                    int count = c.Length>0? int.Parse(c) : 1;
-
-                    Data[name].SetCount(count);
-                }
-                catch (Exception)
-                { }
+                    Data[name] = Bin.New(attributes[name].Item1); // Type
+                    Data[name].SetCount(attributes[name].Item2); // Count
             }
         }
 

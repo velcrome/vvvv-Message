@@ -1,140 +1,14 @@
-#region usings
-using System.Globalization;
-using System.ComponentModel.Composition;
 using System.Collections.Generic;
-
-using System.Text;
+using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Nodes.Generic;
-using VVVV.Packs.Message;
-using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
+using VVVV.Nodes.Generic;
+using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.Streams;
-
-
-#endregion usings
 
 namespace VVVV.Pack.Message.Nodes
 {
     using Message = VVVV.Packs.Message.Core.Message;
-
-    #region PluginInfo
-    [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "TTY", Author = "velcrome")]
-    #endregion PluginInfo
-    public class MessageInfoNode : IPluginEvaluate
-    {
-        #pragma warning disable 649, 169
-
-        [Input("Input")] 
-        private IDiffSpread<Message> FInput;
-
-        [Input("Output Bin Length", IsSingle = true, IsToggle = true)]
-        private IDiffSpread<bool> FLength;
-
-        [Input("Print Message", IsBang = true)]
-        private IDiffSpread<bool> FPrint;
-
-        [Output("Address", AutoFlush = false)] private ISpread<string> FAddress;
-
-        [Output("Timestamp", AutoFlush = false)] private ISpread<string> FTimeStamp;
-
-        [Output("Output", AutoFlush = false)] private ISpread<string> FOutput;
-
-        [Output("Configuration", AutoFlush = false)] private ISpread<string> FConfigOut;
-
-        [Import()] protected ILogger FLogger;
-
-        #pragma warning restore
-
-        public void Evaluate(int SpreadMax)
-        {
-            if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
-            else SpreadMax = FInput.SliceCount;
-
-            if (!FInput.IsChanged) return;
-
-            FOutput.SliceCount = SpreadMax;
-            FTimeStamp.SliceCount = SpreadMax;
-            FAddress.SliceCount = SpreadMax;
-            FConfigOut.SliceCount = SpreadMax;
-
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                Message m = FInput[i];
-                FOutput[i] = m.ToString();
-                FAddress[i] = m.Address;
-                FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);
-                FConfigOut[i] = FInput[i].GetConfig(FLength[0]);
-
-                if (FPrint[i])
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("== Message " + i + " ==");
-                    sb.AppendLine();
-
-                    sb.AppendLine(FInput[i].ToString());
-                    sb.Append("====\n");
-                    FLogger.Log(LogType.Debug, sb.ToString());
-                }
-            }
-            FAddress.Flush();
-            FTimeStamp.Flush();
-            FOutput.Flush();
-            FConfigOut.Flush();
-        }
-    }
-
-
-    #region PluginInfo
-    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "velcrome")]
-    #endregion PluginInfo
-    public class MessageSiftNode : IPluginEvaluate
-    {
-#pragma warning disable 649, 169
-        [Input("Input")] private IDiffSpread<Message> FInput;
-
-        [Input("Filter", DefaultString = "*")] private IDiffSpread<string> FFilter;
-
-        [Output("Output", AutoFlush = false)] private ISpread<Message> FOutput;
-
-        [Output("NotFound", AutoFlush = false)] private ISpread<Message> FNotFound;
-
-        [Import()] protected ILogger FLogger;
-
-#pragma warning restore
-
-        public void Evaluate(int SpreadMax)
-        {
-            if (!FInput.IsChanged) return;
-
-            SpreadMax = FInput.SliceCount;
-
-            FOutput.SliceCount = 0;
-            FNotFound.SliceCount = 0;
-            bool[] found = new bool[SpreadMax];
-            for (int i = 0; i < SpreadMax; i++) found[i] = false;
-
-            for (int i = 0; i < FFilter.SliceCount; i++)
-            {
-                string[] filter = FFilter[i].Split('.');
-
-                for (int j = 0; j < SpreadMax; j++)
-                {
-                    if (!found[j]) found[j] = FInput[j].AddressMatches(FFilter[i]);
-                }
-            }
-
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                if (found[i]) FOutput.Add(FInput[i]);
-                else FNotFound.Add(FInput[i]);
-            }
-            FOutput.Flush();
-            FNotFound.Flush();
-        }
-    }
-
-
 
     #region PluginInfo
     [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages",
@@ -142,23 +16,23 @@ namespace VVVV.Pack.Message.Nodes
     #endregion PluginInfo
     public class MessageFrameDelayNode : IPluginEvaluate
     {
-        #pragma warning disable 649, 169
-        [Input("Input")] private IDiffSpread<Message> FInput;
+#pragma warning disable 649, 169
+        [Input("Input")] private IDiffSpread<Packs.Message.Core.Message> FInput;
 
-        [Input("Default")] private ISpread<Message> FDefault;
+        [Input("Default")] private ISpread<Packs.Message.Core.Message> FDefault;
 
         [Input("Initialize", IsSingle = true, IsBang = true)] private IDiffSpread<bool> FInit;
 
-        [Output("Message", AutoFlush = false, AllowFeedback = true)] private ISpread<Message> FOutput;
+        [Output("Message", AutoFlush = false, AllowFeedback = true)] private ISpread<Packs.Message.Core.Message> FOutput;
 
-        private List<Message> lastFrame;
+        private List<Packs.Message.Core.Message> lastFrame;
 
         [Import()] protected ILogger FLogger;
 #pragma warning restore
 
         public MessageFrameDelayNode()
         {
-            lastFrame = new List<Message>();
+            lastFrame = new List<Packs.Message.Core.Message>();
         }
 
 
@@ -182,18 +56,17 @@ namespace VVVV.Pack.Message.Nodes
             FOutput.Flush();
         }
 
-        [PluginInfo(Name = "Search", Category = "Message", Help = "Allows LINQ queries for Messages", Tags = "velcrome")
-        ]
+        [PluginInfo(Name = "Search", Category = "Message", Help = "Allows LINQ queries for Messages", Tags = "velcrome")]
         public class MessageSearchNode : IPluginEvaluate
         {
 #pragma warning disable 649, 169
-            [Input("Input")] private IDiffSpread<Message> FInput;
+            [Input("Input")] private IDiffSpread<Packs.Message.Core.Message> FInput;
 
             [Input("Where", DefaultString = "Foo = \"bar\"")] private IDiffSpread<string> FWhere;
 
             [Input("SendQuery", IsSingle = true, IsBang = true)] private IDiffSpread<bool> FSendQuery;
 
-            [Output("Message", AutoFlush = false)] private ISpread<ISpread<Message>> FOutput;
+            [Output("Message", AutoFlush = false)] private ISpread<ISpread<Packs.Message.Core.Message>> FOutput;
 
             [Output("Former Slice", AutoFlush = false)] private ISpread<ISpread<int>> FFormerSlice;
 
@@ -287,41 +160,40 @@ namespace VVVV.Pack.Message.Nodes
 
 
         [PluginInfo(Name = "S+H", Category = "Message", Help = "Save a Message", Tags = "")]
-        public class MessageSAndHNode : SAndH<Message>
+        public class MessageSAndHNode : SAndH<Packs.Message.Core.Message>
         {
         }
 
         // better than the GetSlice (Node), because it allows binning and Index Spreading
         [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Tags = "velcrome")]
-        public class MessageGetSliceNode : GetSlice<Message>
+        public class MessageGetSliceNode : GetSlice<Packs.Message.Core.Message>
         {
         }
 
         [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Tags = "")]
-        public class MessageSelectNode : Select<Message>
+        public class MessageSelectNode : Select<Packs.Message.Core.Message>
         {
         }
 
         [PluginInfo(Name = "Queue", Category = "Message", Help = "Queues all Messages", Tags = "")]
-        public class MessageQueueNode : QueueNode<Message>
+        public class MessageQueueNode : QueueNode<Packs.Message.Core.Message>
         {
         }
 
         [PluginInfo(Name = "Zip", Category = "Message", Version="Bin", Help = "Zip Messages", Tags = "")]
-        public class MessageZipBinNode : Zip<IInStream<Message>>
+        public class MessageZipBinNode : Zip<IInStream<Packs.Message.Core.Message>>
         {
         }
 
         [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "")]
-        public class MessageZipNode : Zip<Message>
+        public class MessageZipNode : Zip<Packs.Message.Core.Message>
         {
         }
 
         [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "")]
-        public class MessageUnZipNode : Unzip<IInStream<Message>>
+        public class MessageUnZipNode : Unzip<IInStream<Packs.Message.Core.Message>>
         {
         }
 
     }
-
 }

@@ -1,4 +1,5 @@
 using VVVV.Packs.Message.Core;
+using VVVV.Packs.Message.Core.Registry;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
@@ -22,19 +23,13 @@ namespace VVVV.Packs.Message.Nodes
         {
             if (!FUpdate[0])
             {
-                if (FUpdate.IsChanged) TypeDictionary.IsChanged = false; // has updated last frame, but not anymore
                 return;
             }
             SpreadMax = FName.SliceCount;
 
-            TypeDictionary.IsChanged = true;
             for (int i = 0; i < SpreadMax; i++)
             {
-                var dict = TypeDictionary.Instance;
-
-                if (dict.ContainsKey(FName[i]))
-                    dict[FName[i]] = FConfig[i];
-                else dict.Add(FName[i], FConfig[i]);
+                TypeRegistry.Instance.Define(FName[i], FConfig[i]);
             }
         }
     }

@@ -1,4 +1,4 @@
-using VVVV.Packs.Message.Core;
+using VVVV.Packs.Message.Core.Registry;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
@@ -24,7 +24,7 @@ namespace VVVV.Packs.Message.Nodes
         {
             SpreadMax = FVariableName.SliceCount;
             FOutput.SliceCount = SpreadMax;
-            var dict = TypeDictionary.Instance;
+            var dict = TypeRegistry.Instance;
             for (int i = 0; i < SpreadMax; i++)
             {
                 if (dict.ContainsKey(FType[0]))

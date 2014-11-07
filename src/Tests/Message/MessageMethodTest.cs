@@ -29,7 +29,7 @@ namespace VVVV.Packs.Message.Tests
             message.Init("foo", "bar", "bar2");
             message.Init("num", 1, 2, 3);
 
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar bar2 \r\n num \t: 1 2 3 \r\n", message.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar bar2 \r\n num \t: 1 2 3 \r\n", message.ToString());
         }
 
         [TestMethod]
@@ -39,13 +39,13 @@ namespace VVVV.Packs.Message.Tests
 
             message.AddFrom("foo", new string[] {"bar"});
             message.AddFrom("num", new int[] { 1, 2, 3 });
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", message.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", message.ToString());
 
             message.AddFrom("num", new object[] { 4, 5.2f});
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar \r\n num \t: 1 2 3 4 5 \r\n", message.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 4 5 \r\n", message.ToString());
 
             message.AddFrom("num", new object[] { "6", true });
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar \r\n num \t: 1 2 3 4 5 6 1 \r\n", message.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 4 5 6 1 \r\n", message.ToString());
 
         }
 
@@ -60,10 +60,10 @@ namespace VVVV.Packs.Message.Tests
             newMessage.Init("num", 1, 2, 3 );
 
             newMessage *= message; // intersect and replace
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n num \t: 1 2 3 \r\n", newMessage.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n num \t: 1 2 3 \r\n", newMessage.ToString());
 
             newMessage += message; // inject 
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", newMessage.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", newMessage.ToString());
 
 
         }
@@ -74,7 +74,7 @@ namespace VVVV.Packs.Message.Tests
             var message = fresh();
             
             message.SetConfig("string foo, int[4] num");
-            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: vvvv \r\n num \t: 0 0 0 0 \r\n", message.ToString());
+            Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: vvvv \r\n num \t: 0 0 0 0 \r\n", message.ToString());
 
 
 

@@ -5,6 +5,8 @@ using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 using VVVV.Packs.Time;
 
+using System.Linq;
+
 
 namespace VVVV.Packs.Message.Core
 {
@@ -18,6 +20,11 @@ namespace VVVV.Packs.Message.Core
                 return _instance;
             }
             private set { throw new NotImplementedException(); }
+        }
+
+        public string[] Types
+        {
+            get { return this.Values.ToArray(); }
         }
 
         public TypeIdentity()
@@ -59,14 +66,14 @@ namespace VVVV.Packs.Message.Core
                 case "float": return 0.0f; 
                 case "string": return "vvvv"; 
                 
-                case "Color": return new RGBAColor(); 
-                case "Transform": return new Matrix4x4(); 
+                case "Color": return VColor.Blue; 
+                case "Transform": return VMath.IdentityMatrix; 
                 case "Vector2d": return new Vector2D(); 
                 case "Vector3d": return new Vector3D(); 
                 case "Vector4d": return new Vector4D(); 
 
-                case "Stream": return new MemoryStream(); 
-                case "Time": return Time.Time.MinUTCTime(); 
+                case "Stream": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
+                case "Time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
                 case "Message":return new Message();
             }
             return null;

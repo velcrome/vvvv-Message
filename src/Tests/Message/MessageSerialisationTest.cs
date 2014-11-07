@@ -24,7 +24,7 @@ namespace VVVV.Packs.Message.Tests
           message.Init("foo", "bar");
           message.TimeStamp = Time.MinUTCTime();
           		
-           Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC;0;UTC;UTC;UTC;;])\n foo \t: bar \r\n", message.ToString());
+           Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n", message.ToString());
         }
 
         [TestMethod]
