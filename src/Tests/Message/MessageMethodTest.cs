@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VVVV.Packs.Message.Core.Formular;
 
 
 namespace VVVV.Packs.Message.Tests
@@ -73,7 +74,7 @@ namespace VVVV.Packs.Message.Tests
         {
             var message = fresh();
             
-            message.SetConfig("string foo, int[4] num");
+            message.SetConfig(new MessageFormular("string foo, int[4] num"));
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: vvvv \r\n num \t: 0 0 0 0 \r\n", message.ToString());
 
 

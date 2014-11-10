@@ -1,11 +1,12 @@
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "GetVariableType", AutoEvaluate = true, Category = "Message", Help = "Outputs the type of a given variable", Tags = "Dynamic, Bin, velcrome")]
+    [PluginInfo(Name = "GetVariableType", AutoEvaluate = true, Category = "Message", Help = "Outputs the type of a given variable", Tags = "Dynamic, Bin", Author =  "velcrome")]
     #endregion PluginInfo
     public class GetVariableTypeNode : IPluginEvaluate
     {
@@ -24,25 +25,16 @@ namespace VVVV.Packs.Message.Nodes
         {
             SpreadMax = FVariableName.SliceCount;
             FOutput.SliceCount = SpreadMax;
-            var dict = TypeRegistry.Instance;
+            var registry = MessageFormularRegistry.Instance;
             for (int i = 0; i < SpreadMax; i++)
             {
-                if (dict.ContainsKey(FType[0]))
+                if (registry.ContainsKey(FType[0]))
                 {
-                    string[] config = dict[FType[0]].Trim().Split(',');
-                    if (dict[FType[0]].Contains(FVariableName[i]))
-                    {
-                        foreach (string pinConfig in config)
-                        {
-                            string[] pinData = pinConfig.Trim().Split(' ');
-                            string name = pinData[1];
-                            if (name == FVariableName[i])
-                            {
-                                FOutput[i] = pinData[0].ToLower();
-                                break;
-                            }
-                        }
 
+                    if (registry[FType[0]].Fields.Contains(FVariableName[i]))
+                    {
+                        var type = registry[FType[0]].GetType(FVariableName[i]);
+                        FOutput[i] = TypeIdentity.Instance.FindAlias(type);
                     }
                     else FOutput[i] = "";
                 }

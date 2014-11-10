@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
-using System.Linq;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 
 namespace VVVV.Packs.Message.Nodes

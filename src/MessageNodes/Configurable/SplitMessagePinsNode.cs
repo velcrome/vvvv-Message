@@ -168,8 +168,6 @@ namespace VVVV.Packs.Message.Nodes {
                 attr.Order = FCount;
                 attr.BinOrder = FCount + 1;
 
-                
-                //                attr.AutoValidate = false;  // need to sync all pins manually
                 return attr;
             }
 

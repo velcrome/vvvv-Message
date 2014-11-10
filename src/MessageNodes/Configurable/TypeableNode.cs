@@ -1,6 +1,6 @@
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
@@ -19,12 +19,12 @@ namespace VVVV.Packs.Message.Nodes
         public virtual void OnImportsSatisfied()
         {
             FConfig.Changed += HandleConfigChange;
-            TypeRegistry.Instance.TypeChanged += ConfigChanged;
+            MessageFormularRegistry.Instance.TypeChanged += ConfigChanged;
         }
 
-        protected virtual void ConfigChanged(TypeRegistry sender, TypeChangedEvent e)
+        protected virtual void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
-            if (e.TypeName == FType[0]) FConfig[0] = e.Config;
+            if (e.Formular.Name == FType[0]) FConfig[0] = e.Formular.ToString();
         }
 
         protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);

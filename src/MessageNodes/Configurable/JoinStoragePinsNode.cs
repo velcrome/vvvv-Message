@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
@@ -25,11 +25,11 @@ namespace VVVV.Packs.Message.Nodes
 
 #pragma warning restore
 
-        protected override void ConfigChanged(TypeRegistry sender, TypeChangedEvent e)
+        protected override void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
-            if (e.TypeName == FType[0])
+            if (e.FormularName == FType[0])
             {
-                FConfig[0] = e.Config;
+                FConfig[0] = e.Formular.ToString();
                 messages.Clear();
             }
         }
@@ -53,7 +53,7 @@ namespace VVVV.Packs.Message.Nodes
             for (int j=messages.Count;j<SpreadMax;j++)
             {
                 changed = true;
-                messages.Add(new Core.Message(FConfig[0]));
+                messages.Add(new Core.Message(new MessageFormular(FConfig[0] )));
             }
 
             foreach (string name in FPins.Keys)

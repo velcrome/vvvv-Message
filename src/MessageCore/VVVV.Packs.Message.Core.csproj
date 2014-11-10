@@ -60,8 +60,9 @@
     <Compile Include="Base\Bin.cs" />
     <Compile Include="Base\CastUtils.cs" />
     <Compile Include="Base\Message.cs" />
-    <Compile Include="Registry\TypeChangedEvent.cs" />
-    <Compile Include="Registry\TypeRegistry.cs" />
+    <Compile Include="Formular\MessageFormular.cs" />
+    <Compile Include="Formular\MessageFormularChangedEvent.cs" />
+    <Compile Include="Formular\MessageFormularRegistry.cs" />
     <Compile Include="Base\TypeIdentity.cs" />
     <Compile Include="Serializing\BinaryExtensions.cs" />
     <Compile Include="Serializing\JsonBinSerializer.cs" />

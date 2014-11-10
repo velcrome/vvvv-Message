@@ -1,5 +1,5 @@
 using VVVV.Packs.Message.Core;
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
@@ -29,7 +29,7 @@ namespace VVVV.Packs.Message.Nodes
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                TypeRegistry.Instance.Define(FName[i], FConfig[i]);
+                MessageFormularRegistry.Instance.Define(FName[i], FConfig[i]);
             }
         }
     }

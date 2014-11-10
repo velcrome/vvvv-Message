@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes

@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using VVVV.Pack.Game.Core;
 using System.Linq;
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.Packs.Time;
 
 #endregion usings
@@ -48,13 +48,14 @@ namespace VVVV.Packs.Message.Core{
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
 		}
 
-        public Message(string configuration) 
+        public Message(MessageFormular formular) 
         {
             Address = "vvvv";
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
-            SetConfig(configuration);
+            SetConfig(formular);
         }
 
+        
         public void Init(string name, params object[] values)
         {
             AssignFrom(name, values);
@@ -138,29 +139,17 @@ namespace VVVV.Packs.Message.Core{
         }
 		
 		public string GetConfig(bool withCount = false) {
-			StringBuilder sb = new StringBuilder();
-			
-			foreach (string name in Data.Keys) {
-				try {
-					Type type = Data[name][0].GetType();
-					sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
-                    if (withCount) sb.Append("[" + Data[name].Count + "]");
-					sb.Append(" " + name);
-				} catch (Exception) {
-					// type not defined
-				}
-			}
-			return sb.ToString().Substring(2);
+			return new MessageFormular(this).ToString(withCount);
 		}
 
-        public void SetConfig(string configuration)
+        public void SetConfig(MessageFormular formular)
         {
-            var attributes = TypeRegistry.Instance.Definition(configuration);
-
-            foreach (string name in attributes.Keys)
+            foreach (string field in formular.Fields)
             {
-                    Data[name] = Bin.New(attributes[name].Item1); // Type
-                    Data[name].SetCount(attributes[name].Item2); // Count
+                Data[field] = Bin.New(formular.GetType(field)); // Type
+                var count = formular.GetCount(field);
+                count = count <= -1 ? 1 : count;
+                Data[field].SetCount(count); // Count
             }
         }
 

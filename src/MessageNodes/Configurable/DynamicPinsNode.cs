@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Message.Core.Registry;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Message.Nodes
@@ -30,22 +30,22 @@ namespace VVVV.Packs.Message.Nodes
         {
             FCount = 0;
             List<string> invalidPins = FPins.Keys.ToList();
-            var pins = TypeRegistry.Instance.Definition(configSpread[0]);
+            var formular = new MessageFormular(configSpread[0]);
 
-            foreach (string name in pins.Keys)
+            foreach (string field in formular.Fields)
             {
                 bool create = false;
 
-                if (FPins.ContainsKey(name) && FPins[name] != null)
+                if (FPins.ContainsKey(field) && FPins[field] != null)
                 {
-                    invalidPins.Remove(name);
+                    invalidPins.Remove(field);
 
-                    if (FTypes.ContainsKey(name))
+                    if (FTypes.ContainsKey(field))
                     {
-                        if (FTypes[name] != pins[name].Item1)
+                        if (FTypes[field] != formular.GetType(field))
                         {
-                            FPins[name].Dispose();
-                            FPins[name] = null;
+                            FPins[field].Dispose();
+                            FPins[field] = null;
                             create = true;
                         }
 
@@ -58,18 +58,18 @@ namespace VVVV.Packs.Message.Nodes
                 }
                 else
                 {
-                    FPins.Add(name, null);
+                    FPins.Add(field, null);
                     create = true;
                 }
 
                 if (create)
                 {
-                    Type type = pins[name].Item1;
-                    IOAttribute attr = DefinePin(name, type, pins[name].Item2); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+                    Type type = formular.GetType(field);
+                    IOAttribute attr = DefinePin(field, type, formular.GetCount(field)); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
                     Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
-                    FPins[name] = FIOFactory.CreateIOContainer(pinType, attr);
+                    FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
 
-                    FTypes.Add(name, type);
+                    FTypes.Add(field, type);
                 }
                 FCount += 2; // total pincount. always add two to account for data pin and binsize pin
             }
