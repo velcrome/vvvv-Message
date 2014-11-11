@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 
@@ -9,6 +10,8 @@ namespace VVVV.Packs.Message.Core.Formular
 
     public class MessageFormularRegistry : Dictionary<string, MessageFormular>
     {
+        public string RegistryName = "VVVV.Packs.Message.Core.Formular";
+        
         private static MessageFormularRegistry _instance;
         public event MessageFormularChangedHandler TypeChanged;
 
@@ -18,8 +21,15 @@ namespace VVVV.Packs.Message.Core.Formular
             get { return _instance ?? (_instance = new MessageFormularRegistry()); }
         }
 
+        internal MessageFormularRegistry()
+        {
+            this[MessageFormular.NONE] = new MessageFormular("");
+        }
+
         public MessageFormular Define(string formularName, string configuration)
         {
+            if (formularName == MessageFormular.NONE) return null;
+            
             var form = new MessageFormular(configuration);
             this[formularName] = form;
 
@@ -28,6 +38,7 @@ namespace VVVV.Packs.Message.Core.Formular
 
             return form;
         }
+
   
     }
 }

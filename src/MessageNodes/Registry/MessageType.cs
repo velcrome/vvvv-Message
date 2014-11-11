@@ -1,3 +1,4 @@
+using System.Linq;
 using VVVV.Packs.Message.Core;
 using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
@@ -27,10 +28,13 @@ namespace VVVV.Packs.Message.Nodes
             }
             SpreadMax = FName.SliceCount;
 
+            var reg = MessageFormularRegistry.Instance;
             for (int i = 0; i < SpreadMax; i++)
             {
-                MessageFormularRegistry.Instance.Define(FName[i], FConfig[i]);
+                reg.Define(FName[i], FConfig[i]);
             }
+            if (SpreadMax > 0) EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
+
         }
     }
 

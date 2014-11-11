@@ -50,12 +50,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MessageCore\VVVV.Packs.Message.Core.csproj">
-      <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
-      <Name>VVVV.Packs.Message.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

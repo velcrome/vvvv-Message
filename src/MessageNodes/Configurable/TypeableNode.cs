@@ -7,8 +7,8 @@ namespace VVVV.Packs.Message.Nodes
 {
     public abstract class TypeableNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Message Type", DefaultString = "None", IsSingle = true)]
-        public IDiffSpread<string> FType;
+        [Input("Message Formular", DefaultEnumEntry = "None", IsSingle = true, EnumName = "VVVV.Packs.Message.Core.Formular")]
+        public IDiffSpread<EnumEntry> FType;
 
         [Config("Configuration", DefaultString = "string Foo")]
         public IDiffSpread<string> FConfig;

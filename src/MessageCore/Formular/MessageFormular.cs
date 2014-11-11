@@ -7,7 +7,7 @@ namespace VVVV.Packs.Message.Core.Formular
 {
     public class MessageFormular
     {
-
+        public static string NONE = "None";
         private Dictionary<string, Tuple<Type, int>> dict = new Dictionary<string, Tuple<Type, int>>();
 
         public string Name  {get; set;} 
@@ -29,7 +29,7 @@ namespace VVVV.Packs.Message.Core.Formular
 
         protected MessageFormular()
         {
-            Name = "None";
+            Name = "Formular";
         }
 
         public MessageFormular(Message template, bool withCount = false) : this()
