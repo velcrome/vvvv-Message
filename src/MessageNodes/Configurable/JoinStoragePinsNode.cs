@@ -22,6 +22,7 @@ namespace VVVV.Packs.Message.Nodes
         Pin<Core.Message> FOutput;
 
         protected List<Core.Message> messages = new List<Core.Message>();
+        protected bool Changed = true;
 
 #pragma warning restore
 
@@ -48,11 +49,12 @@ namespace VVVV.Packs.Message.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            bool changed = false;
+            if (FConfig.IsChanged) Changed = true;
+            
             SpreadMax = FSpreadCount[0];
             for (int j=messages.Count;j<SpreadMax;j++)
             {
-                changed = true;
+                Changed = true;
                 messages.Add(new Core.Message(new MessageFormular(FConfig[0] )));
             }
 
@@ -60,13 +62,13 @@ namespace VVVV.Packs.Message.Nodes
             {
                 var pin = ToISpread(FPins[name]);
                 pin.Sync();
-                if (pin.IsChanged) changed = true;
+                if (pin.IsChanged) Changed = true;
             }
 
 
             FOutput.SliceCount = SpreadMax;
             int i = 0;
-            if (changed) foreach (var message in messages)
+            if (Changed) foreach (var message in messages)
             {
                 message.Address = FAddress[i];
                 foreach (string name in FPins.Keys)
@@ -79,7 +81,10 @@ namespace VVVV.Packs.Message.Nodes
                 //	foreach (string name in message.GetDynamicMemberNames()) FLogger.Log(LogType.Debug, message[name].GetType()+" "+ name);
                 i++;
             }
-            if (changed) FOutput.Flush();
+            if (Changed) FOutput.Flush();
+
+            Changed = false;
+
         }
     }
 }

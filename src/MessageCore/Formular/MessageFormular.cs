@@ -7,7 +7,7 @@ namespace VVVV.Packs.Message.Core.Formular
 {
     public class MessageFormular
     {
-        public static string NONE = "None";
+        public static string DYNAMIC = "None";
         private Dictionary<string, Tuple<Type, int>> dict = new Dictionary<string, Tuple<Type, int>>();
 
         public string Name  {get; set;} 
@@ -49,7 +49,7 @@ namespace VVVV.Packs.Message.Core.Formular
 
             foreach (string binConfig in config)
             {
-                const string pattern = @"^(\D*?)(\[\d+\])*\s+(\w+?)$"; // "Type[N] name"
+                const string pattern = @"^(\w*?)(\[\d+\])*\s+(\w+?)$"; // "Type[N] name"
                 try
                 {
                     var binData = Regex.Match(binConfig.Trim(), pattern);
@@ -81,7 +81,9 @@ namespace VVVV.Packs.Message.Core.Formular
                 if (withCount && dict[name].Item2 > 0) sb.Append("[" + dict[name].Item2 + "]");
                 sb.Append(" " + name);
             }
-            return sb.ToString().Substring(2);
+            var str = sb.ToString();
+            
+            return str.Length>0? str.Substring(2) : "";
         }
     }
 }

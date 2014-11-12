@@ -12,7 +12,7 @@ namespace VVVV.Packs.Message.Core
 {
     [Serializable]
     [JsonConverter(typeof(JsonBinSerializer))]
-    public class Bin<T> : Bin, IEnumerable<T>
+    public class Bin<T> : Bin, IEnumerable<T> 
     {
         public Bin()
         {
@@ -139,6 +139,49 @@ namespace VVVV.Packs.Message.Core
             return c;
         }
 
+        public override bool Equals(Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Bin p = obj as Bin;
+            if ((Object)p == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return Equals(p);
+        }
+
+        public static bool operator ==(Bin a, Bin other)
+        {
+            return a.Equals(other as Object);
+        }
+
+        public static bool operator !=(Bin a, Bin other)
+        {
+            return !(a == other);
+        }
+
+        public bool Equals(Bin other)
+        {
+            if (other == null) return false;
+            if (other.Count != Count) return false;
+            if (other.GetInnerType() != GetInnerType()) return false;
+
+            for (int i=0;i<Count;i++)
+            {
+                if (other[i] != this[i]) return false;
+            }
+
+            return true;
+        }
+
         public override string ToString()
         {
             var s = new StringWriter();
@@ -252,8 +295,9 @@ namespace VVVV.Packs.Message.Core
         }
 
         #endregion
-        
 
-	}
+
+
+    }
 	
 }

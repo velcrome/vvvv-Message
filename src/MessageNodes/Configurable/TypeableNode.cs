@@ -19,12 +19,19 @@ namespace VVVV.Packs.Message.Nodes
         public virtual void OnImportsSatisfied()
         {
             FConfig.Changed += HandleConfigChange;
+            FType.Changed += HandleTypeChange;
             MessageFormularRegistry.Instance.TypeChanged += ConfigChanged;
+        }
+
+        private void HandleTypeChange(IDiffSpread<EnumEntry> spread)
+        {
+            var form = FType[0].Name;
+            if (form != MessageFormular.DYNAMIC) FConfig[0] = MessageFormularRegistry.Instance[form].ToString(true);
         }
 
         protected virtual void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
-            if (e.Formular.Name == FType[0]) FConfig[0] = e.Formular.ToString();
+            if (e.Formular.Name == FType[0].Name) FConfig[0] = e.Formular.ToString(true);
         }
 
         protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);

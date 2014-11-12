@@ -23,14 +23,15 @@ namespace VVVV.Packs.Message.Core.Formular
 
         internal MessageFormularRegistry()
         {
-            this[MessageFormular.NONE] = new MessageFormular("");
+            this[MessageFormular.DYNAMIC] = new MessageFormular("");
         }
 
         public MessageFormular Define(string formularName, string configuration)
         {
-            if (formularName == MessageFormular.NONE) return null;
+            if (formularName == MessageFormular.DYNAMIC) return null; 
             
             var form = new MessageFormular(configuration);
+            form.Name = formularName;
             this[formularName] = form;
 
             var e = new MessageFormularChangedEvent(form);

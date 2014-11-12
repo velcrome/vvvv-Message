@@ -9,7 +9,7 @@ namespace VVVV.Packs.Message.Nodes
     #region PluginInfo
     [PluginInfo(Name = "MessageType", AutoEvaluate = true, Category = "Message", Help = "Define a high level Template for Messages", Tags = "Dynamic, Bin, velcrome")]
     #endregion PluginInfo
-    public class MessageTypeMessageNode : IPluginEvaluate
+    public class FormularRegistryNode : IPluginEvaluate
     {
         [Input("Type Name", DefaultString = "Event")]
         public ISpread<string> FName;
@@ -20,12 +20,15 @@ namespace VVVV.Packs.Message.Nodes
         [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
         public IDiffSpread<bool> FUpdate;
 
+        private bool firstFrame = true;
+
         public void Evaluate(int SpreadMax)
         {
-            if (!FUpdate[0])
+            if (!FUpdate[0] && !firstFrame)
             {
                 return;
             }
+            firstFrame = false;
             SpreadMax = FName.SliceCount;
 
             var reg = MessageFormularRegistry.Instance;

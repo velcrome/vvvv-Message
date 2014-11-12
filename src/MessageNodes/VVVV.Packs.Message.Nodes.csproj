@@ -67,8 +67,8 @@
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
-    <Compile Include="Registry\GetVariableType.cs" />
-    <Compile Include="Registry\MessageType.cs" />
+    <Compile Include="Registry\GetVariableTypeNode.cs" />
+    <Compile Include="Registry\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
