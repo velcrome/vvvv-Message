@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p" scrollx="1545" scrolly="6135" systemname="MessageType (Message Advanced) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p">
-   <BOUNDS type="Window" left="13905" top="1410" width="9000" height="6000">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p" scrollx="0" scrolly="0" systemname="MessageType (Message Advanced) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p">
+   <BOUNDS type="Window" left="-120" top="-120" width="25440" height="15990">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="7470" top="645" width="480" height="480">
@@ -215,19 +215,21 @@
    <NODE systemname="Cache (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cache (Message)" componentmode="Hidden" id="22">
    <BOUNDS type="Node" left="6690" top="5040" width="2685" height="270">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="Event">
+   <PIN pinname="Message Formular" slicecount="1" values="Test">
    </PIN>
    <PIN pinname="Enum" slicecount="1" visible="1" values="c">
    </PIN>
    <PIN pinname="Cached Output" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int ID|">
+   <PIN pinname="Configuration" slicecount="1" values="|int k, string s|">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Use as ID" visible="1">
    </PIN>
    <PIN pinname="Reset" visible="1">
+   </PIN>
+   <PIN pinname="Retain Time" slicecount="1" values="100">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="23" systemname="IOBox (Node)">
@@ -269,7 +271,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9495" top="4095" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="ID">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="s">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -305,7 +307,7 @@
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|int ID|">
    </PIN>
-   <PIN pinname="ID" visible="1">
+   <PIN pinname="ID" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="ID Bin Size" slicecount="1" values="1">
    </PIN>
@@ -324,6 +326,4 @@
    <PIN pinname=".. To [" slicecount="1" values="8">
    </PIN>
    </NODE>
-   <LINK srcnodeid="30" srcpinname="Output" dstnodeid="29" dstpinname="ID">
-   </LINK>
    </PATCH>

@@ -28,14 +28,15 @@ namespace VVVV.Packs.Message.Nodes
             {
                 return;
             }
-            firstFrame = false;
             SpreadMax = FName.SliceCount;
 
             var reg = MessageFormularRegistry.Instance;
             for (int i = 0; i < SpreadMax; i++)
             {
-                reg.Define(FName[i], FConfig[i]);
+                reg.Define(FName[i], FConfig[i], firstFrame);
             }
+
+            firstFrame = false;
             if (SpreadMax > 0) EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
         }

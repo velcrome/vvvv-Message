@@ -26,7 +26,7 @@ namespace VVVV.Packs.Message.Core.Formular
             this[MessageFormular.DYNAMIC] = new MessageFormular("");
         }
 
-        public MessageFormular Define(string formularName, string configuration)
+        public MessageFormular Define(string formularName, string configuration, bool supressEvent = false)
         {
             if (formularName == MessageFormular.DYNAMIC) return null; 
             
@@ -34,8 +34,11 @@ namespace VVVV.Packs.Message.Core.Formular
             form.Name = formularName;
             this[formularName] = form;
 
-            var e = new MessageFormularChangedEvent(form);
-            TypeChanged(this, e);
+            if (!supressEvent)
+            {
+                var e = new MessageFormularChangedEvent(form);
+                TypeChanged(this, e);
+            }
 
             return form;
         }
