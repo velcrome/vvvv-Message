@@ -99,9 +99,15 @@ namespace VVVV.Packs.Message.Nodes
 
                 for (int i = 0; i < SpreadMax; i++)
                 {
+                    var fresh = FInput[i];
+
+                    // incompatible, if new input has no field with id.
+                    if (! fresh.Attributes.Contains(id)) continue;
+                    
                     var matched = (from message in data
-                                  where message[id] == FInput[i][id]
-                                  select message).ToList();
+                                   where message.Attributes.Contains(id) // incompatible if old saved message has no field with id
+                                   where message[id] == fresh[id] // slicewise check of Bins' equality
+                                   select message).ToList();
 
                     if (matched.Count == 0)
                     {
@@ -109,13 +115,15 @@ namespace VVVV.Packs.Message.Nodes
                     } else {
                         var found = matched.First();
                         var k = found += FInput[i];
-                        
+
+                        found.TimeStamp = FInput[i].TimeStamp;
+
                     }
                 }
 
             }
 
-            var validTime = Time.Time.CurrentTime() - new TimeSpan(0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0]*1000)%1000));
+            var validTime = Time.Time.CurrentTime() - new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0]*1000)%1000));
 
             var clear = from message in data
                         where message.TimeStamp < validTime

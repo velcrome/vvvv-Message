@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p" scrollx="1155" scrolly="3585" systemname="MessageType (Message Advanced) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p" scrollx="1545" scrolly="6135" systemname="MessageType (Message Advanced) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\MessageType (Message Advanced) help.v4p">
    <BOUNDS type="Window" left="13905" top="1410" width="9000" height="6000">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
@@ -171,7 +171,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
+   <PIN pinname="Rows" slicecount="1" values="5">
    </PIN>
    </NODE>
    <LINK srcnodeid="19" srcpinname="String" dstnodeid="20" dstpinname="Input String">
@@ -305,11 +305,25 @@
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|int ID|">
    </PIN>
+   <PIN pinname="ID" visible="1">
+   </PIN>
+   <PIN pinname="ID Bin Size" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="29" srcpinname="Output" dstnodeid="22" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="25" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Send">
    </LINK>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="29" dstpinname="Message Formular">
+   </LINK>
+   <NODE systemname="I (Spreads)" nodename="I (Spreads)" componentmode="Hidden" id="30">
+   <BOUNDS type="Node" left="8160" top="3750" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname=".. To [" slicecount="1" values="8">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="30" srcpinname="Output" dstnodeid="29" dstpinname="ID">
    </LINK>
    </PATCH>

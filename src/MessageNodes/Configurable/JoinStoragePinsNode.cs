@@ -26,15 +26,6 @@ namespace VVVV.Packs.Message.Nodes
 
 #pragma warning restore
 
-        protected override void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
-        {
-            if (e.FormularName == FType[0])
-            {
-                FConfig[0] = e.Formular.ToString();
-                messages.Clear();
-            }
-        }
-
 
         protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
         {

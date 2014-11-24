@@ -31,7 +31,7 @@ namespace VVVV.Packs.Message.Nodes
 
         protected virtual void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
-            if (e.Formular.Name == FType[0].Name) FConfig[0] = e.Formular.ToString(true);
+            if (!FType.IsAnyEmpty() && e.Formular.Name == FType[0].Name) FConfig[0] = e.Formular.ToString(true);
         }
 
         protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);

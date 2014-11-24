@@ -76,7 +76,6 @@ namespace VVVV.Packs.Message.Core
     [JsonConverter(typeof(JsonBinSerializer))]
 	public abstract class Bin : ArrayList, ISerializable
 	{
-
 //      constructor
         #region Essentials
         
@@ -141,23 +140,25 @@ namespace VVVV.Packs.Message.Core
 
         public override bool Equals(Object obj)
         {
-            // If parameter is null return false.
-            if (obj == null)
+//            if (obj == null) return false;
+
+            Bin other = obj as Bin;
+            if ((object) other == null)
             {
                 return false;
             }
 
-            // If parameter cannot be cast to Point return false.
-            Bin p = obj as Bin;
-            if ((Object)p == null)
+            if (other.Count != Count) return false;
+            if (other.GetInnerType() != GetInnerType()) return false;
+
+            for (int i = 0; i < Count; i++)
             {
-                return false;
+                if (!other[i].Equals(this[i])) return false;
             }
 
-            // Return true if the fields match:
-            return Equals(p);
+            return true;
         }
-
+        
         public static bool operator ==(Bin a, Bin other)
         {
             return a.Equals(other as Object);
@@ -165,21 +166,14 @@ namespace VVVV.Packs.Message.Core
 
         public static bool operator !=(Bin a, Bin other)
         {
-            return !(a == other);
+            return !(a.Equals(other));
         }
 
-        public bool Equals(Bin other)
+
+
+        public override int GetHashCode()
         {
-            if (other == null) return false;
-            if (other.Count != Count) return false;
-            if (other.GetInnerType() != GetInnerType()) return false;
-
-            for (int i=0;i<Count;i++)
-            {
-                if (other[i] != this[i]) return false;
-            }
-
-            return true;
+            return base.GetHashCode() * (Count + 1);
         }
 
         public override string ToString()
