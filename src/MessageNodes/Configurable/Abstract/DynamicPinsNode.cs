@@ -83,24 +83,6 @@ namespace VVVV.Packs.Message.Nodes
 
         #endregion pin management
 
-        #region tools
-
-        protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread ToISpread(IIOContainer pin)
-        {
-            return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject);
-        }
-
-        protected VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread ToIDiffSpread(IIOContainer pin)
-        {
-            return (VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread)(pin.RawIOObject);
-        }
-        protected VVVV.PluginInterfaces.V2.ISpread<T> ToGenericISpread<T>(IIOContainer pin)
-        {
-            return (VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject);
-        }
-
-        #endregion tools
-
         #region abstract methods
         protected abstract IOAttribute DefinePin(string name, Type type, int binSize = -1);
         #endregion abstract methods

@@ -52,12 +52,13 @@ namespace VVVV.Packs.Message.Nodes
 
                 bool update = false;
                 for (int j = 0; j < FUpdate.SliceCount; j++) update = update || FUpdate[j];
+                
                 if (update) ((ISpread)FValue.RawIOObject).Sync();
-                if (FUpdate[i]) message.AssignFrom(FKey[0], (IEnumerable)((ISpread)(FValue.RawIOObject))[i]);
+                if (FUpdate[i]) message.AssignFrom(FKey[0], ToISpread(FValue)[i]);
 
                 FOutput[i] = message;
             }
-            FOutput.Flush();
+            FOutput.Flush();  // sync
         }
 
     }

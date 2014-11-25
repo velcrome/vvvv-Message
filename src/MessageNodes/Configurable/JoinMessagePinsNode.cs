@@ -8,7 +8,7 @@ namespace VVVV.Packs.Message.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Join", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class JoinMessagePinsNode : DynamicPinsNode
+    public class MessageJoinNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
         [Input("Send", IsToggle = true, IsSingle = true, DefaultBoolean = true)]
@@ -28,7 +28,7 @@ namespace VVVV.Packs.Message.Nodes
             attr.BinSize = binSize;
             attr.Order = FCount;
             attr.BinOrder = FCount + 1;
-            attr.AutoValidate = false;  // need to sync all pins manually
+            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
 
             return attr;
         }
@@ -38,6 +38,11 @@ namespace VVVV.Packs.Message.Nodes
             SpreadMax = 0;
             if (!FSet[0])
             {
+                //if (FInput.IsChanged)
+                //{
+
+                //}
+                
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
                 return;

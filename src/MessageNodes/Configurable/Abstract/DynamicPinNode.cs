@@ -6,7 +6,7 @@ using VVVV.PluginInterfaces.V2.NonGeneric;
 
 namespace VVVV.Packs.Message.Nodes
 {
-    public abstract class DynamicPinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class DynamicPinNode : TypeableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         [Input("Input", Order = 0)] protected IDiffSpread<Core.Message> FInput;
 
@@ -22,7 +22,7 @@ namespace VVVV.Packs.Message.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        public void OnImportsSatisfied()
+        public void override OnImportsSatisfied()
         {
             var types = TypeIdentity.Instance.Types;
             EnumManager.UpdateEnum("TypeIdentityEnum", "string", types);

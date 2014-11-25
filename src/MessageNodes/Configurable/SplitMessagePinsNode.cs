@@ -21,7 +21,7 @@ namespace VVVV.Packs.Message.Nodes {
     #region PluginInfo
     [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Split", Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
     #endregion PluginInfo
-    public class SplitMessagePinsNode : DynamicPinsNode
+    public class MessageSplitNode : DynamicPinsNode
     {
         public enum HoldEnum
         {

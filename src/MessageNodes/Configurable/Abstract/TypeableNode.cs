@@ -36,5 +36,21 @@ namespace VVVV.Packs.Message.Nodes
 
         protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);
         public abstract void Evaluate(int SpreadMax);
+
+        #region cast tools
+        protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread ToISpread(IIOContainer pin)
+        {
+            return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject);
+        }
+
+        protected VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread ToIDiffSpread(IIOContainer pin)
+        {
+            return (VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread)(pin.RawIOObject);
+        }
+        protected VVVV.PluginInterfaces.V2.ISpread<T> ToGenericISpread<T>(IIOContainer pin)
+        {
+            return (VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject);
+        }
+        #endregion cast tools
     }
 }

@@ -49,20 +49,21 @@
   <ItemGroup>
     <Compile Include="Broadcast\Antenna.cs" />
     <Compile Include="Broadcast\Radio.cs" />
-    <Compile Include="Configurable\DynamicPinNode.cs" />
-    <Compile Include="Configurable\DynamicPinsNode.cs" />
+    <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
+    <Compile Include="Configurable\Abstract\DynamicPinsNode.cs" />
     <Compile Include="Configurable\JoinMessagePinsNode.cs" />
     <Compile Include="Configurable\JoinStoragePinsNode.cs" />
-    <Compile Include="Configurable\TypeableNode.cs" />
+    <Compile Include="Configurable\Abstract\TypeableNode.cs" />
     <Compile Include="MessageFrameDelayNode.cs" />
     <Compile Include="MessageInfoNode.cs" />
     <Compile Include="MessageSiftNode.cs" />
+    <Compile Include="Persist\AbstractStorageNode.cs" />
     <Compile Include="Persist\Dictionary.cs" />
     <Compile Include="Configurable\SplitMessagePinsNode.cs" />
-    <Compile Include="Configurable\ReadMessage.cs" />
+    <Compile Include="Configurable\MessageReadNode.cs" />
     <Compile Include="Persist\Cache.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
-    <Compile Include="Configurable\EditMessage.cs" />
+    <Compile Include="Configurable\MessageEditNode.cs" />
     <Compile Include="Persist\Store.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />

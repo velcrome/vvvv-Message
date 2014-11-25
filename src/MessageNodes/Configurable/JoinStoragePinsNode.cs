@@ -9,7 +9,7 @@ namespace VVVV.Packs.Message.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Storage", AutoEvaluate = true, Category = "Join", Help = "Joins a permanent Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class JoinStoragePinsNode : DynamicPinsNode
+    public class StorageJoinNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
         [Input("Spread Count", IsSingle = true, DefaultValue = 1)]
@@ -34,7 +34,7 @@ namespace VVVV.Packs.Message.Nodes
             attr.BinSize = binSize;
             attr.Order = FCount;
             attr.BinOrder = FCount + 1;
-            attr.AutoValidate = false;  // need to sync all pins manually
+            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
             return attr;
         }
 
