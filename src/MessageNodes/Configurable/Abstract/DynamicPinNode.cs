@@ -6,9 +6,10 @@ using VVVV.PluginInterfaces.V2.NonGeneric;
 
 namespace VVVV.Packs.Message.Nodes
 {
-    public abstract class DynamicPinNode : TypeableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class DynamicPinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Input", Order = 0)] protected IDiffSpread<Core.Message> FInput;
+        [Input("Input", Order = 0)] 
+        protected IDiffSpread<Core.Message> FInput;
 
         [Input("Key", DefaultString = "Foo", IsSingle = true, Order = 1)]
         public IDiffSpread<string> FKey;
@@ -22,7 +23,7 @@ namespace VVVV.Packs.Message.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        public void override OnImportsSatisfied()
+        public void OnImportsSatisfied()
         {
             var types = TypeIdentity.Instance.Types;
             EnumManager.UpdateEnum("TypeIdentityEnum", "string", types);

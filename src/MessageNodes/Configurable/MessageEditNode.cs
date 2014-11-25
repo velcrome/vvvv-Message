@@ -54,7 +54,7 @@ namespace VVVV.Packs.Message.Nodes
                 for (int j = 0; j < FUpdate.SliceCount; j++) update = update || FUpdate[j];
                 
                 if (update) ((ISpread)FValue.RawIOObject).Sync();
-                if (FUpdate[i]) message.AssignFrom(FKey[0], ToISpread(FValue)[i]);
+                if (FUpdate[i]) message.AssignFrom(FKey[0], (IEnumerable) ((ISpread) (FValue.RawIOObject))[i]);
 
                 FOutput[i] = message;
             }

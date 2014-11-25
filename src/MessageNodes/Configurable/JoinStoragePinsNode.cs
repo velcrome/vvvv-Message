@@ -18,11 +18,13 @@ namespace VVVV.Packs.Message.Nodes
         [Input("Address", DefaultString = "State")]
         ISpread<string> FAddress;
 
+        [Input("Update", IsBang = true)]
+        ISpread<bool> FReset;
+
         [Output("Output", AutoFlush = false)]
         Pin<Core.Message> FOutput;
 
         protected List<Core.Message> messages = new List<Core.Message>();
-        protected bool Changed = true;
 
 #pragma warning restore
 
@@ -40,42 +42,58 @@ namespace VVVV.Packs.Message.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (FConfig.IsChanged) Changed = true;
-            
+            bool allChanged = FConfig.IsChanged;
+
             SpreadMax = FSpreadCount[0];
-            for (int j=messages.Count;j<SpreadMax;j++)
+
+            if (SpreadMax <= 0)
             {
-                Changed = true;
-                messages.Add(new Core.Message(new MessageFormular(FConfig[0] )));
+                messages.Clear();
+                FOutput.SliceCount = 0;
+                FOutput.Flush();
+                return;
             }
 
-            foreach (string name in FPins.Keys)
+            var changed = FReset.ToSpread();
+            changed.ResizeAndDismiss(SpreadMax);
+
+            for (int j = messages.Count; j < SpreadMax; j++)
             {
-                var pin = ToISpread(FPins[name]);
-                pin.Sync();
-                if (pin.IsChanged) Changed = true;
+                changed[j] = true;
+                messages.Add(new Core.Message(new MessageFormular(FConfig[0])));
             }
 
-
+            bool anyChanged = false; // pull input pins only when change detected
+            
+            for (int j = 0; j < changed.SliceCount; j++) if (changed[j] || allChanged)
+            {
+                anyChanged = true;
+                SyncPins();
+                break;
+            }
             FOutput.SliceCount = SpreadMax;
+
             int i = 0;
-            if (Changed) foreach (var message in messages)
+            foreach (var message in messages)
             {
-                message.Address = FAddress[i];
-                foreach (string name in FPins.Keys)
+                if (changed[i] || allChanged )
                 {
-                    message.AssignFrom(name, (IEnumerable)ToISpread(FPins[name])[i]);
+                    message.Address = FAddress[i];
+                    message.TimeStamp = Time.Time.CurrentTime();
+                    foreach (string name in FPins.Keys)
+                        message.AssignFrom(name, (IEnumerable) ToISpread(FPins[name])[i]);
+
                 }
                 FOutput[i] = message;
-
-                // FLogger.Log(LogType.Debug, "== Message "+i+" == \n" + message.ToString());
-                //	foreach (string name in message.GetDynamicMemberNames()) FLogger.Log(LogType.Debug, message[name].GetType()+" "+ name);
                 i++;
             }
-            if (Changed) FOutput.Flush();
 
-            Changed = false;
+            if (anyChanged)
+            {
+                FOutput.Flush();
+            }
 
-        }
+
+    }
     }
 }

@@ -26,6 +26,18 @@ namespace VVVV.Packs.Message.Nodes
 
         #region pin management
 
+        protected bool SyncPins()
+        {
+            bool changed = false;
+            foreach (string name in FPins.Keys)
+            {
+                var pin = ToISpread(FPins[name]);
+                pin.Sync();
+                if (pin.IsChanged) changed = true;
+            }
+            return changed;
+        }
+
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
             FCount = 0;
