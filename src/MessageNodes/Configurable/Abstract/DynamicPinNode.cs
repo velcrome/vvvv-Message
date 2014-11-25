@@ -3,10 +3,12 @@ using System.ComponentModel.Composition;
 using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Packs.Message.Core.Formular;
+
 
 namespace VVVV.Packs.Message.Nodes
 {
-    public abstract class DynamicPinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class DynamicPinNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         [Input("Input", Order = 0)] 
         protected IDiffSpread<Core.Message> FInput;
@@ -23,15 +25,17 @@ namespace VVVV.Packs.Message.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        public void OnImportsSatisfied()
+        public override void OnImportsSatisfied()
         {
+            base.OnImportsSatisfied();
+
             var types = TypeIdentity.Instance.Types;
             EnumManager.UpdateEnum("TypeIdentityEnum", "string", types);
             
             FAlias.Changed += ConfigPin;
             FKey.Changed   += ConfigPin;
 
-            ConfigPin(null);
+
         }
 
         protected abstract IOAttribute DefinePin(string name, Type type, int binSize = -1);
@@ -39,19 +43,39 @@ namespace VVVV.Packs.Message.Nodes
         protected void ConfigPin(IDiffSpread spread)
         {
 
-            Type type = typeof (string);
-            if (FAlias != null && FAlias.SliceCount > 0) type = TypeIdentity.Instance.FindType(FAlias[0].Name);
+            string typeAlias = "invalid";
+            if (FAlias != null && FAlias.SliceCount > 0) typeAlias = FAlias[0].Name;
 
-            string name = "Foo";
+            string name = "";
             if (FKey != null && FKey.SliceCount > 0) name = FKey[0];
-
-            if (FValue!=null) FValue.Dispose();
             
-            IOAttribute attr = DefinePin(name, type); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
-            Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
-            FValue = FIOFactory.CreateIOContainer(pinType, attr);
+            var newConfig = typeAlias + " " + name;
+            
+            if (newConfig != FConfig[0] && typeAlias != "invalid") FConfig[0] = newConfig; // first frame or user mistake will not reconfigure
         }
 
-        public abstract void Evaluate(int SpreadMax);
+       protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        {
+            var formular = new MessageFormular(configSpread[0] ?? "");
+
+            if (FValue != null) FValue.Dispose();
+
+            foreach (var name in formular.Fields)
+            {
+                Type type = formular.GetType(name);
+            
+                IOAttribute attr = DefinePin(name, type); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
+                Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
+                FValue = FIOFactory.CreateIOContainer(pinType, attr);
+
+                break; // handle only first one for now.
+            }
+           
+           
+
+ 
+        }
+
+   
     }
 }

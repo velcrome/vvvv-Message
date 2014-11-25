@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -36,6 +37,12 @@ namespace VVVV.Packs.Message.Nodes
                 if (pin.IsChanged) changed = true;
             }
             return changed;
+        }
+
+        protected void CopyFromPins(Core.Message message, int index)
+        {
+            foreach (string name in FPins.Keys)
+                message.AssignFrom(name, (IEnumerable)ToISpread(FPins[name])[index]);
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)

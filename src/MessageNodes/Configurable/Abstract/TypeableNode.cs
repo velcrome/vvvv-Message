@@ -1,26 +1,27 @@
 using System.ComponentModel.Composition;
-using VVVV.Core.Logging;
+
 using VVVV.Packs.Message.Core.Formular;
 using VVVV.PluginInterfaces.V2;
+using System.Linq;
 
 namespace VVVV.Packs.Message.Nodes
 {
-    public abstract class TypeableNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class TypeableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         [Input("Message Formular", DefaultEnumEntry = "None", IsSingle = true, EnumName = "VVVV.Packs.Message.Core.Formular")]
         public IDiffSpread<EnumEntry> FType;
 
-        [Config("Configuration", DefaultString = "string Foo")]
-        public IDiffSpread<string> FConfig;
 
-        [Import()]
-        protected ILogger FLogger;
 
-        public virtual void OnImportsSatisfied()
+        public override void OnImportsSatisfied()
         {
-            FConfig.Changed += HandleConfigChange;
+            base.OnImportsSatisfied();
+
             FType.Changed += HandleTypeChange;
-            MessageFormularRegistry.Instance.TypeChanged += ConfigChanged;
+            var reg = MessageFormularRegistry.Instance;
+            reg.TypeChanged += ConfigChanged;
+
+            EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
         }
 
         private void HandleTypeChange(IDiffSpread<EnumEntry> spread)
@@ -34,10 +35,7 @@ namespace VVVV.Packs.Message.Nodes
             if (!FType.IsAnyEmpty() && e.Formular.Name == FType[0].Name) FConfig[0] = e.Formular.ToString(true);
         }
 
-        protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);
-        public abstract void Evaluate(int SpreadMax);
-
-        #region cast tools
+          #region cast tools
         protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread ToISpread(IIOContainer pin)
         {
             return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject);

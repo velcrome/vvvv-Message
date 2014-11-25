@@ -4,6 +4,7 @@ using System.IO;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 using VVVV.Packs.Time;
+using VVVV.Packs.Message.Core.Formular;
 
 using System.Linq;
 
@@ -46,7 +47,7 @@ namespace VVVV.Packs.Message.Core
             Add(typeof(Stream), "Raw");
             Add(typeof(Time.Time), "Time");
             
-            Add(typeof(Message), "Message");	        
+            Add(typeof(Message), "Message");
 	    }
 
 

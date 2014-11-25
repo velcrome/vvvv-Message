@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Broadcast\Antenna.cs" />
     <Compile Include="Broadcast\Radio.cs" />
+    <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinsNode.cs" />
     <Compile Include="Configurable\JoinMessagePinsNode.cs" />

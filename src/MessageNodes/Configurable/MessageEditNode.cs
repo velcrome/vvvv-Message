@@ -58,7 +58,7 @@ namespace VVVV.Packs.Message.Nodes
 
                 FOutput[i] = message;
             }
-            FOutput.Flush();  // sync
+            FOutput.Flush();  // sync manually
         }
 
     }

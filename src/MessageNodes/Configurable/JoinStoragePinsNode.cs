@@ -18,13 +18,13 @@ namespace VVVV.Packs.Message.Nodes
         [Input("Address", DefaultString = "State")]
         ISpread<string> FAddress;
 
-        [Input("Update", IsBang = true)]
-        ISpread<bool> FReset;
+        [Input("Set", IsBang = true)]
+        ISpread<bool> FSet;
 
         [Output("Output", AutoFlush = false)]
         Pin<Core.Message> FOutput;
 
-        protected List<Core.Message> messages = new List<Core.Message>();
+        protected List<Core.Message> MessageKeep = new List<Core.Message>();
 
 #pragma warning restore
 
@@ -42,53 +42,55 @@ namespace VVVV.Packs.Message.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            bool allChanged = FConfig.IsChanged;
+            bool totalReset = FConfig.IsChanged;
 
             SpreadMax = FSpreadCount[0];
+            FOutput.SliceCount = SpreadMax = SpreadMax < 0? 0 : SpreadMax;
 
-            if (SpreadMax <= 0)
-            {
-                messages.Clear();
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
-                return;
-            }
+            var oldCount = MessageKeep.Count;
 
-            var changed = FReset.ToSpread();
-            changed.ResizeAndDismiss(SpreadMax);
-
-            for (int j = messages.Count; j < SpreadMax; j++)
-            {
-                changed[j] = true;
-                messages.Add(new Core.Message(new MessageFormular(FConfig[0])));
-            }
-
-            bool anyChanged = false; // pull input pins only when change detected
+            bool anyChanged = false; // will only pull upstream data, if data is necessary
             
-            for (int j = 0; j < changed.SliceCount; j++) if (changed[j] || allChanged)
+ 
+            if (SpreadMax < oldCount) // remove superfluous entries
             {
                 anyChanged = true;
-                SyncPins();
-                break;
+                MessageKeep.RemoveRange(SpreadMax, oldCount - SpreadMax);
             }
-            FOutput.SliceCount = SpreadMax;
 
-            int i = 0;
-            foreach (var message in messages)
+            for (int i = MessageKeep.Count; i < SpreadMax; i++)
             {
-                if (changed[i] || allChanged )
-                {
-                    message.Address = FAddress[i];
-                    message.TimeStamp = Time.Time.CurrentTime();
-                    foreach (string name in FPins.Keys)
-                        message.AssignFrom(name, (IEnumerable) ToISpread(FPins[name])[i]);
-
-                }
-                FOutput[i] = message;
-                i++;
+                anyChanged = true; // new entry in Keep will require data
+                MessageKeep.Add(new Core.Message(new MessageFormular(FConfig[0])));
             }
 
-            if (anyChanged)
+            // see if any Message needs to be set
+            for (int i = 0; i < Math.Min(SpreadMax, FSet.SliceCount); i++) 
+                if (FSet[i] || anyChanged)
+                {
+                    anyChanged = true; break;
+                }
+
+            // only now get the data from upstream
+            if (anyChanged) SyncPins();
+            
+            // ...and start filling messages
+            int messageIndex = 0;
+            foreach (var message in MessageKeep)
+            {
+                bool change = messageIndex < oldCount ? FSet[messageIndex] : true; // fresh ones always update
+                if (change || totalReset )
+                {
+                    message.Address = FAddress[messageIndex];
+                    message.TimeStamp = Time.Time.CurrentTime();
+
+                    CopyFromPins(message, messageIndex);
+                }
+                FOutput[messageIndex] = message;
+                messageIndex++;
+            }
+
+            if (anyChanged)  // if nothing happened, no need to flush
             {
                 FOutput.Flush();
             }
