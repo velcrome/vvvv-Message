@@ -1,11 +1,7 @@
 using System;
 using System.Collections;
-using System.ComponentModel.Composition;
-using VVVV.Packs.Message.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
 
 namespace VVVV.Packs.Message.Nodes
 {

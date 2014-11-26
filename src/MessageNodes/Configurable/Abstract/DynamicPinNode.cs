@@ -62,7 +62,7 @@ namespace VVVV.Packs.Message.Nodes
 
             foreach (var name in formular.Fields)
             {
-                Type type = formular.GetType(name);
+                Type type = formular[name].Type;
             
                 IOAttribute attr = DefinePin(name, type); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
                 Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one

@@ -61,12 +61,15 @@ namespace VVVV.Packs.Message.Nodes.Serializing
             if (!FInput.IsChanged) return;
 
             SpreadMax = FInput.SliceCount;
-            FOutput.SliceCount = SpreadMax;
+            FOutput.SliceCount = 0;
 
             for (int i = 0; i < SpreadMax; i++)
             {
-
-                FOutput[i] = BinaryExtensions.DeSerializeMessage(FInput[i]);
+                if (FInput[i] != null && FInput[i].Length > 0)
+                {
+                    var stream = BinaryExtensions.DeSerializeMessage(FInput[i]);
+                    FOutput.Add(stream);
+                }
             }
 
             FOutput.Flush();

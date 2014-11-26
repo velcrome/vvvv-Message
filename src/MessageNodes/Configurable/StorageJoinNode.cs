@@ -12,14 +12,15 @@ namespace VVVV.Packs.Message.Nodes
     public class StorageJoinNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
-        [Input("Spread Count", IsSingle = true, DefaultValue = 1)]
-        ISpread<int> FSpreadCount;
+        [Input("Set", IsBang = true, Order = 0)]
+        ISpread<bool> FSet;
 
-        [Input("Address", DefaultString = "State")]
+        [Input("Address", DefaultString = "State", Order = 1)]
         ISpread<string> FAddress;
 
-        [Input("Set", IsBang = true)]
-        ISpread<bool> FSet;
+        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = int.MaxValue)]
+        ISpread<int> FSpreadCount;
+
 
         [Output("Output", AutoFlush = false)]
         Pin<Core.Message> FOutput;
@@ -34,8 +35,8 @@ namespace VVVV.Packs.Message.Nodes
             var attr = new InputAttribute(name);
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = binSize;
-            attr.Order = FCount;
-            attr.BinOrder = FCount + 1;
+            attr.Order = DynPinCount;
+            attr.BinOrder = DynPinCount + 1;
             attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
             return attr;
         }

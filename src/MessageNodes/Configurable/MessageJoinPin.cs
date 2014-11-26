@@ -11,10 +11,10 @@ namespace VVVV.Packs.Message.Nodes
     public class MessageJoinNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
-        [Input("Send", IsToggle = true, IsSingle = true, DefaultBoolean = true)]
+        [Input("Send", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FSet;
 
-        [Input("Address", DefaultString = "Event")]
+        [Input("Address", DefaultString = "Event", Order = 3)]
         ISpread<string> FAddress;
 
         [Output("Output", AutoFlush = false)]
@@ -26,8 +26,8 @@ namespace VVVV.Packs.Message.Nodes
             var attr = new InputAttribute(name);
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = binSize;
-            attr.Order = FCount;
-            attr.BinOrder = FCount + 1;
+            attr.Order = DynPinCount;
+            attr.BinOrder = DynPinCount + 1;
             attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
 
             return attr;
@@ -38,11 +38,7 @@ namespace VVVV.Packs.Message.Nodes
             SpreadMax = 0;
             if (!FSet[0])
             {
-                //if (FInput.IsChanged)
-                //{
-
-                //}
-                
+               
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
                 return;

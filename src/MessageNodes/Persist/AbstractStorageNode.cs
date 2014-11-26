@@ -15,14 +15,20 @@ namespace VVVV.Packs.Message.Nodes
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        [Input("Reset", IsSingle = true, Order = int.MaxValue)]
+        [Input("Reset", IsSingle = true, Order = int.MaxValue-1)]
         public ISpread<bool> FReset;
 
-        [Output("Cached Output", Order = 0)]
+        [Input("Replace Dump", Order = int.MaxValue)]
+        public ISpread<List<Core.Message>> FReplaceData;
+
+        [Output("Output", Order = 0)]
         public ISpread<Core.Message> FOutput;
 
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
+
+        [Output("Dump", Order = 2)]
+        public ISpread<List<Core.Message>> FDump;
 
         [Import()]
         protected IIOFactory FIOFactory;

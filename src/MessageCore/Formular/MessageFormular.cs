@@ -8,7 +8,7 @@ namespace VVVV.Packs.Message.Core.Formular
     public class MessageFormular
     {
         public static string DYNAMIC = "None";
-        private Dictionary<string, Tuple<Type, int>> dict = new Dictionary<string, Tuple<Type, int>>();
+        private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
         public string Name  {get; set;} 
         
@@ -16,15 +16,16 @@ namespace VVVV.Packs.Message.Core.Formular
         {
             get { return dict.Keys; }
         }
-        
 
-        public Type GetType(string fieldName)
+
+        public FormularFieldDescriptor this[string name]
         {
-            return dict[fieldName].Item1;
-        }
-        public int GetCount(string fieldName)
-        {
-            return dict[fieldName].Item2;
+            get
+            {
+                if (dict.ContainsKey(name)) return dict[name];
+                else return null;
+            }
+            set { dict[name] = (FormularFieldDescriptor)value; }
         }
 
         protected MessageFormular()
@@ -39,7 +40,7 @@ namespace VVVV.Packs.Message.Core.Formular
                 var type = template[field].GetInnerType();
                 var count = withCount ?  template[field].Count : -1;
 
-                dict.Add(field, new Tuple<Type, int>(type, count));
+                dict.Add(field, new FormularFieldDescriptor(type, field, count));
             }
         }
 
@@ -64,13 +65,11 @@ namespace VVVV.Packs.Message.Core.Formular
                     if (binData.Groups[2].Length > 0) {
                         var arrayConnotation = binData.Groups[2].ToString();
 
-                        //if (arrayConnotation == "[]") 
-                        //    count = -1;
-                        //else count = 
-                            
-                            int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
+                        if (arrayConnotation == "[]") 
+                            count = -1;
+                            else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
                     }
-                    if (name != "") dict[name] = new Tuple<Type, int>(type, count);
+                    if (name != "") dict[name] = new FormularFieldDescriptor(type, name, count);
                 }
                 catch (Exception)
                 {
@@ -85,9 +84,9 @@ namespace VVVV.Packs.Message.Core.Formular
 
             foreach (string name in dict.Keys)
             {
-                Type type = dict[name].Item1;
+                Type type = dict[name].Type;
                 sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
-                if (withCount && dict[name].Item2 > 0) sb.Append("[" + dict[name].Item2 + "]");
+                if (withCount && dict[name].DefaultSize > 0) sb.Append("[" + dict[name].DefaultSize + "]");
                 sb.Append(" " + name);
             }
             var str = sb.ToString();

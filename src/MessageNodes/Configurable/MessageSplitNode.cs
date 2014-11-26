@@ -19,8 +19,12 @@ namespace VVVV.Packs.Message.Nodes {
     #endregion Enum
 
     #region PluginInfo
-    [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Split", Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
+
+    [PluginInfo(Name = "Message", AutoEvaluate = true, Category = "Split",
+        Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
+
     #endregion PluginInfo
+
     public class MessageSplitNode : DynamicPinsNode
     {
         public enum HoldEnum
@@ -30,23 +34,19 @@ namespace VVVV.Packs.Message.Nodes {
             Pin
         }
 
-        #pragma warning disable 649, 169
-        [Input("Input")]
-        IDiffSpread<Message> FInput;
+#pragma warning disable 649, 169
+        [Input("Input", Order = 0)] private IDiffSpread<Message> FInput;
 
-        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true)]
-        IDiffSpread<SelectEnum> FSelect;
+        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)] private IDiffSpread<SelectEnum>
+            FSelect;
 
-        [Input("Hold if Nil", IsSingle = true, DefaultEnumEntry = "Message")]
-        ISpread<HoldEnum> FHold; 
+        [Input("Hold if Nil", IsSingle = true, DefaultEnumEntry = "Message", Order = 3)] private ISpread<HoldEnum> FHold;
 
-        [Output("Address", AutoFlush = false)]
-        ISpread<string> FAddress;
+        [Output("Address", AutoFlush = false)] private ISpread<string> FAddress;
 
-        [Output("Timestamp", AutoFlush = false)]
-        ISpread<string> FTimeStamp;
+        [Output("Timestamp", AutoFlush = false)] private ISpread<string> FTimeStamp;
 
-        #pragma warning restore
+#pragma warning restore
 
         protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
         {
@@ -54,8 +54,8 @@ namespace VVVV.Packs.Message.Nodes {
             attr.BinVisibility = PinVisibility.Hidden;
             attr.AutoFlush = false;
 
-            attr.Order = FCount;
-            attr.BinOrder = FCount + 1;
+            attr.Order = DynPinCount;
+            attr.BinOrder = DynPinCount + 1;
             return attr;
         }
 
@@ -116,14 +116,16 @@ namespace VVVV.Packs.Message.Nodes {
 
                     foreach (string name in FPins.Keys)
                     {
-                        var bin = (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)ToISpread(FPins[name])[i];
+                        var bin = (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ToISpread(FPins[name])[i];
 
                         Bin attrib = message[name];
                         int count = 0;
 
                         if (attrib == null)
                         {
-                            if (FVerbose[0]) FLogger.Log(LogType.Debug, "\"" + FTypes[name] + " " + name + "\" is not defined in Message.");
+                            if (FVerbose[0])
+                                FLogger.Log(LogType.Debug,
+                                            "\"" + FTypes[name] + " " + name + "\" is not defined in Message.");
                         }
                         else count = attrib.Count;
 
@@ -146,64 +148,5 @@ namespace VVVV.Packs.Message.Nodes {
             }
         }
 
-
-        #region PluginInfo
-        [PluginInfo(Name = "SetMessage", Category = "Message", Help = "Adds or edits a Message Property", Tags = "Dynamic, Bin, velcrome")]
-        #endregion PluginInfo
-        public class SetMessagePinsNode : DynamicPinsNode
-        {
-            #pragma warning disable 649, 169
-            [Input("Input")]
-            IDiffSpread<Message> FInput;
-
-            [Output("Output", AutoFlush = false)]
-            Pin<Message> FOutput;
-            #pragma warning restore
-
-            protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
-            {
-                var attr = new InputAttribute(name);
-                attr.BinVisibility = PinVisibility.Hidden;
-                attr.BinSize = binSize;
-                attr.Order = FCount;
-                attr.BinOrder = FCount + 1;
-
-                return attr;
-            }
-
-
-            public override void Evaluate(int SpreadMax)
-            {
-                SpreadMax = FInput.SliceCount;
-
-                if (!FInput.IsChanged)
-                {
-                    //				FLogger.Log(LogType.Debug, "skip set");
-                    return;
-                }
-
-
-                if (FInput.SliceCount == 0 || FInput[0] == null)
-                {
-                    FOutput.SliceCount = 0;
-                    return;
-                }
-
-                for (int i = 0; i < SpreadMax; i++)
-                {
-                    Message message = FInput[i];
-                    foreach (string name in FPins.Keys)
-                    {
-                        var pin = (IEnumerable)ToISpread(FPins[name])[i];
-                        message.AssignFrom(name, pin);
-                    }
-                }
-
-                FOutput.AssignFrom(FInput);
-                FOutput.Flush();
-            }
-        }
-
-	}
-   
+    }
 }

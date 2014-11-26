@@ -18,8 +18,8 @@ namespace VVVV.Pack.Message.Nodes
         [Input("Input")] 
         private IDiffSpread<Packs.Message.Core.Message> FInput;
 
-        [Input("Output Bin Length", IsSingle = true, IsToggle = true)]
-        private IDiffSpread<bool> FLength;
+        //[Input("Output Bin Length", IsSingle = true, IsToggle = true)]
+        //private IDiffSpread<bool> FLength;
 
         [Input("Print Message", IsBang = true)]
         private IDiffSpread<bool> FPrint;
@@ -54,7 +54,8 @@ namespace VVVV.Pack.Message.Nodes
                 FOutput[i] = m.ToString();
                 FAddress[i] = m.Address;
                 FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);
-                FConfigOut[i] = FInput[i].GetConfig(FLength[0]);
+//                FConfigOut[i] = FInput[i].GetConfig(FLength[0]);
+                FConfigOut[i] = FInput[i].GetConfig();
 
                 if (FPrint[i])
                 {

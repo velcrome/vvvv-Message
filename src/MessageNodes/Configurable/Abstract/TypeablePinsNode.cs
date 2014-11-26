@@ -12,7 +12,7 @@ namespace VVVV.Packs.Message.Nodes
     {
         #region fields & pins
 
-        [Input("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = false)]
+        [Input("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = false, Order = 2)]
         public ISpread<bool> FVerbose;
 
         [Import()]
@@ -21,7 +21,7 @@ namespace VVVV.Packs.Message.Nodes
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
         protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
 
-        protected int FCount = 2;
+        protected int DynPinCount = 5;
 
         #endregion fields & pins
 
@@ -47,7 +47,7 @@ namespace VVVV.Packs.Message.Nodes
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
-            FCount = 0;
+            DynPinCount = 5;
             List<string> invalidPins = FPins.Keys.ToList();
             var formular = new MessageFormular(configSpread[0]);
 
@@ -61,7 +61,7 @@ namespace VVVV.Packs.Message.Nodes
 
                     if (FTypes.ContainsKey(field))
                     {
-                        if (FTypes[field] != formular.GetType(field))
+                        if (FTypes[field] != formular[field].Type)
                         {
                             FPins[field].Dispose();
                             FPins[field] = null;
@@ -83,14 +83,14 @@ namespace VVVV.Packs.Message.Nodes
 
                 if (create)
                 {
-                    Type type = formular.GetType(field);
-                    IOAttribute attr = DefinePin(field, type, formular.GetCount(field)); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+                    Type type = formular[field].Type;
+                    IOAttribute attr = DefinePin(field, type, formular[field].DefaultSize); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
                     Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
                     FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
 
                     FTypes.Add(field, type);
                 }
-                FCount += 2; // total pincount. always add two to account for data pin and binsize pin
+                DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
             }
             foreach (string name in invalidPins)
             {

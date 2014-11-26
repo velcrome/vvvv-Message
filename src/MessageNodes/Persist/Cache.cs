@@ -32,14 +32,10 @@ namespace VVVV.Packs.Message.Nodes
         //called when data for any output pin is requested
         public override void Evaluate(int SpreadMax)
         {
-            
             if (FReset[0])
             {
                 data.Clear();
             }
-
-
-
             List<bool> changed = Match();
 
             if (FTime[0] > 0)

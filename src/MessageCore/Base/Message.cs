@@ -146,8 +146,8 @@ namespace VVVV.Packs.Message.Core{
         {
             foreach (string field in formular.Fields)
             {
-                Data[field] = Bin.New(formular.GetType(field)); // Type
-                var count = formular.GetCount(field);
+                Data[field] = Bin.New( formular[field].Type ); // Type
+                var count = formular[field].DefaultSize;
                 count = count <= -1 ? 1 : count;
                 Data[field].SetCount(count); // Count
             }

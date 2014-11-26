@@ -33,7 +33,7 @@ namespace VVVV.Packs.Message.Nodes
 
                     if (registry[FType[0]].Fields.Contains(FVariableName[i]))
                     {
-                        var type = registry[FType[0]].GetType(FVariableName[i]);
+                        var type = registry[FType[0]][FVariableName[i]].Type;
                         FOutput[i] = TypeIdentity.Instance.FindAlias(type);
                     }
                     else FOutput[i] = "";
