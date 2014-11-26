@@ -55,7 +55,6 @@
     <Compile Include="GetSlice.cs" />
     <Compile Include="Broadcast\Radio.cs" />
     <Compile Include="Memory\SAndHold.cs" />
-    <Compile Include="Serialize.cs" />
     <Compile Include="SpreadUtils.cs" />
     <Compile Include="Memory\Store.cs" />
   </ItemGroup>
@@ -67,7 +66,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-     <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.0.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\MessageType (Message) help.v4p">
-   <BOUNDS type="Window" left="16950" top="3660" width="9000" height="6000">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\plugins\MessageType (Message) help.v4p" scrollx="0" scrolly="1080">
+   <BOUNDS type="Window" left="13245" top="3945" width="9000" height="6000">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
@@ -111,6 +111,8 @@
    </PIN>
    <BOUNDS type="Box" left="375" top="4515">
    </BOUNDS>
+   <PIN pinname="Message Formular" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
    <BOUNDS type="Box" left="375" top="4905" width="795" height="240">
@@ -126,76 +128,14 @@
    </NODE>
    <LINK srcnodeid="9" srcpinname="Address" dstnodeid="8" dstpinname="Input String">
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="7" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="375" top="4185" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="375" top="4185" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="MyLayout">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="None">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Output String" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="7" srcpinname="Output String" dstnodeid="9" dstpinname="Message Type">
-   </LINK>
-   <NODE systemname="SetMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SetMessage (Message)" componentmode="Hidden" id="6">
-   <BOUNDS type="Node" left="2490" top="4515" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Message Type" visible="1">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color color, Transform matrix, string name|">
-   </PIN>
-   <BOUNDS type="Box" left="2490" top="4515">
-   </BOUNDS>
-   </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="5" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="2490" top="4905" width="795" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="2490" top="4905" width="0" height="0">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="5" dstpinname="Input Node">
-   </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="4" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2490" top="4185" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="2490" top="4185" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="MyLayout">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="None">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="4" srcpinname="Output String" dstnodeid="6" dstpinname="Message Type">
-   </LINK>
-   <PACK Name="addonpack" Version="31.9.0">
+   <PACK Name="addonpack" Version="33.3.0">
    </PACK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4650" top="4140" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="4650" top="4140" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="MyLayout">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="None">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Output String" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="Message (Join)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Join)" componentmode="Hidden" id="17">
    <BOUNDS type="Node" left="4650" top="4470" width="900" height="270">
    </BOUNDS>
@@ -205,9 +145,9 @@
    </PIN>
    <BOUNDS type="Box" left="4650" top="4470">
    </BOUNDS>
+   <PIN pinname="Message Formular" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="15" srcpinname="Output String" dstnodeid="17" dstpinname="Message Type">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="18" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="4635" top="4905" width="795" height="240">
    </BOUNDS>
@@ -215,5 +155,49 @@
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="17" srcpinname="Output" dstnodeid="18" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Set (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Set (Message)" componentmode="Hidden" id="6">
+   <BOUNDS type="Node" left="2490" top="4515" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Message Type" visible="1">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|Color color, Transform matrix, string name|">
+   </PIN>
+   <BOUNDS type="Box" left="2490" top="4515">
+   </BOUNDS>
+   <PIN pinname="Message Formular" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="5" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="19" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="765" top="4185" width="690" height="255">
+   </BOUNDS>
+   <BOUNDS type="Node" left="765" top="4185" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="None">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="19" srcpinname="Output Enum" dstnodeid="9" dstpinname="Message Formular">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="20" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="2640" top="4140" width="645" height="300">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2640" top="4140" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="None">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="20" srcpinname="Output Enum" dstnodeid="6" dstpinname="Message Formular">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="21" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="4815" top="4005" width="675" height="330">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4815" top="4005" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="None">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="17" dstpinname="Message Formular">
    </LINK>
    </PATCH>

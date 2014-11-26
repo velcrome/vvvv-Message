@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.0.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\AsOSC (Message) help.v4p" systemname="AsOSC (Message) help" filename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\AsOSC (Message) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\plugins\AsOSC (Message) help.v4p" systemname="AsOSC (Message) help" filename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\AsOSC (Message) help.v4p">
    <BOUNDS type="Window" left="8205" top="2595" width="9000" height="6000">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -7,7 +7,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="225" top="225" width="5100" height="450">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|AsJson (Message)|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|AsOSC (Message)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -128,7 +128,7 @@
    </NODE>
    <LINK srcnodeid="8" srcpinname="Output" dstnodeid="4" dstpinname="Input String">
    </LINK>
-   <PACK Name="addonpack" Version="31.9.0">
+   <PACK Name="addonpack" Version="33.3.0">
    </PACK>
    <NODE systemname="AsOSC (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOSC (Message)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="1575" top="2655" width="100" height="100">
