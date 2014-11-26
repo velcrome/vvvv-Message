@@ -21,8 +21,11 @@ namespace VVVV.Packs.Message.Nodes
     {
         #region fields & pins
 
-        [Input("Retain Time", IsSingle = true, DefaultValue = -1.0)]
+        [Input("Retain Time", IsSingle = true, DefaultValue = -1.0, Order = 3)]
         public ISpread<double> FTime;
+
+        [Output("Removed Messages", AutoFlush = false, Order = 2)]
+        public ISpread<Core.Message> FRemovedMessages;
 
         #endregion fields & pins
 
@@ -35,24 +38,37 @@ namespace VVVV.Packs.Message.Nodes
                 data.Clear();
             }
 
+
+
             List<bool> changed = Match();
-            
 
             if (FTime[0] > 0)
             {
                 var validTime = Time.Time.CurrentTime() -
                                 new TimeSpan(0, 0, 0, (int) Math.Floor(FTime[0]), (int) Math.Floor((FTime[0]*1000)%1000));
 
-                var clear = from message in data
+                var clear = (from message in data
                             where message.TimeStamp < validTime
-                            select message;
+                            select message).ToArray();
 
-                foreach (var m in clear.ToArray())
+                foreach (var m in clear)
                 {
                     var index = data.IndexOf(m);
                     data.RemoveAt(index);
                     changed.RemoveAt(index);
                 }
+
+                if (FRemovedMessages.SliceCount > 0 || clear.Length != 0)
+                {
+                    FRemovedMessages.SliceCount = 0;
+                    FRemovedMessages.AssignFrom(clear);
+                    FRemovedMessages.Flush();
+                }
+                else
+                {
+                    // still empty, no need to flush
+                }
+
             }
             FOutput.SliceCount = 0;
             FOutput.AssignFrom(data);

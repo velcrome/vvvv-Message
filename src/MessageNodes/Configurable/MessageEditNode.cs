@@ -16,6 +16,8 @@ namespace VVVV.Packs.Message.Nodes
     {
         #pragma warning disable 649, 169
 
+        [Input("Update Timestamp", IsToggle = true, Order = 2, Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = true)]
+        IDiffSpread<bool> FUpdateTimestamp;
 
         [Input("Update", IsBang = true, Order = 5)]
         IDiffSpread<bool> FUpdate;
@@ -51,11 +53,22 @@ namespace VVVV.Packs.Message.Nodes
                 Message message = FInput[i];
 
                 bool update = false;
-                for (int j = 0; j < FUpdate.SliceCount; j++) update = update || FUpdate[j];
-                
-                if (update) ((ISpread)FValue.RawIOObject).Sync();
-                if (FUpdate[i]) message.AssignFrom(FKey[0], (IEnumerable) ((ISpread) (FValue.RawIOObject))[i]);
+                for (int j = 0; j < FUpdate.SliceCount; j++)
+                    if (FUpdate[j])
+                    {
+                        update = true;
+                        break;
+                    }
 
+                if (update) ((ISpread)FValue.RawIOObject).Sync();
+
+                var updateTimestamp = FUpdateTimestamp[0];
+
+                if (FUpdate[i])
+                {
+                    message.AssignFrom(FKey[0], (IEnumerable)((ISpread)(FValue.RawIOObject))[i]);
+                    if (updateTimestamp) message.TimeStamp = Time.Time.CurrentTime(); 
+                }
                 FOutput[i] = message;
             }
             FOutput.Flush();  // sync manually

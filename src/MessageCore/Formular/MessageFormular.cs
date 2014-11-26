@@ -49,7 +49,7 @@ namespace VVVV.Packs.Message.Core.Formular
 
             foreach (string binConfig in config)
             {
-                const string pattern = @"^(\w*?)(\[\d+\])*\s+(\w+?)$"; // "Type[N] name"
+                const string pattern = @"^(\w*?)(\[\d*\])*\s+(\w+?)$"; // "Type[N] name"
                 try
                 {
                     var binData = Regex.Match(binConfig.Trim(), pattern);
@@ -57,10 +57,19 @@ namespace VVVV.Packs.Message.Core.Formular
                     Type type = TypeIdentity.Instance.FindType(binData.Groups[1].ToString()); // if alias not found, it will gracefully return string.
                     string name = binData.Groups[3].ToString();
 
-                    int count = binData.Groups[2].Length > 0
-                                    ? int.Parse(binData.Groups[2].ToString().TrimStart('[').TrimEnd(']'))
-                                    : -1;
+                   
 
+
+                    int count = 1;
+                    if (binData.Groups[2].Length > 0) {
+                        var arrayConnotation = binData.Groups[2].ToString();
+
+                        //if (arrayConnotation == "[]") 
+                        //    count = -1;
+                        //else count = 
+                            
+                            int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
+                    }
                     if (name != "") dict[name] = new Tuple<Type, int>(type, count);
                 }
                 catch (Exception)

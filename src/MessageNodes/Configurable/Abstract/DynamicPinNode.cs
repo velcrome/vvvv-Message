@@ -13,11 +13,11 @@ namespace VVVV.Packs.Message.Nodes
         [Input("Input", Order = 0)] 
         protected IDiffSpread<Core.Message> FInput;
 
-        [Input("Key", DefaultString = "Foo", IsSingle = true, Order = 1)]
-        public IDiffSpread<string> FKey;
-
-        [Input("Type", EnumName = "TypeIdentityEnum", IsSingle = true, Order = 2)]
+        [Input("Type", EnumName = "TypeIdentityEnum", IsSingle = true, Order = 1)]
         public IDiffSpread<EnumEntry> FAlias;
+        
+        [Input("Key", DefaultString = "Foo", IsSingle = true, Order = 2)]
+        public IDiffSpread<string> FKey;
 
         [Output("Output", AutoFlush = false)] protected Pin<Core.Message> FOutput;
         public IIOContainer FValue;

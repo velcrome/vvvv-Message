@@ -9,19 +9,19 @@ namespace VVVV.Packs.Message.Nodes
 {
     public abstract class AbstractStorageNode : TypeableNode
     {
-        [Input("Input")]
+        [Input("Input", Order = 0)]
         public ISpread<Core.Message> FInput;
-
-        [Input("Reset", IsSingle = true)]
-        public ISpread<bool> FReset;
 
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        [Output("Cached Output")]
+        [Input("Reset", IsSingle = true, Order = int.MaxValue)]
+        public ISpread<bool> FReset;
+
+        [Output("Cached Output", Order = 0)]
         public ISpread<Core.Message> FOutput;
 
-        [Output("Changed Slice")]
+        [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
 
         [Import()]
@@ -32,7 +32,7 @@ namespace VVVV.Packs.Message.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            CreateEnumPin("Use as ID", new string[] { "vvvv" });
+            CreateEnumPin("Use as ID", new string[] { "Foo" });
         }
 
         public void CreateEnumPin(string pinName, string[] entries)
@@ -42,7 +42,7 @@ namespace VVVV.Packs.Message.Nodes
             EnumManager.UpdateEnum(EnumName, entries[0], entries);
 
             var attr = new InputAttribute(pinName);
-            attr.Order = 3;
+            attr.Order = 2;
             attr.AutoValidate = true;
 
             attr.EnumName = EnumName;
@@ -77,7 +77,7 @@ namespace VVVV.Packs.Message.Nodes
                 var fresh = FInput[i];
 
                 // incompatible, if new input has no field with id.
-                if (!fresh.Attributes.Contains(id)) continue;
+                if (fresh == null || !fresh.Attributes.Contains(id)) continue;
 
                 var matched = (from message in data
                                where message.Attributes.Contains(id)
@@ -103,5 +103,10 @@ namespace VVVV.Packs.Message.Nodes
             return changed;
         }
 
+
+        public override void Evaluate(int SpreadMax)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
