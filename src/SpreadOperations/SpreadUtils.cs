@@ -1,6 +1,6 @@
 ﻿using VVVV.PluginInterfaces.V2.NonGeneric;
 
-namespace VVVV.Pack.Message
+namespace VVVV.Utils
 {
     public static class SpreadUtils
     {

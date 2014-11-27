@@ -2,12 +2,11 @@ using System.ComponentModel.Composition;
 using System.Globalization;
 using System.Text;
 using VVVV.Core.Logging;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Pack.Message.Nodes
+namespace VVVV.Pack.Messaging.Nodes
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-
     #region PluginInfo
     [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "TTY", Author = "velcrome")]
     #endregion PluginInfo
@@ -16,7 +15,7 @@ namespace VVVV.Pack.Message.Nodes
 #pragma warning disable 649, 169
 
         [Input("Input")] 
-        private IDiffSpread<Packs.Message.Core.Message> FInput;
+        private IDiffSpread<Message> FInput;
 
         //[Input("Output Bin Length", IsSingle = true, IsToggle = true)]
         //private IDiffSpread<bool> FLength;
@@ -50,7 +49,7 @@ namespace VVVV.Pack.Message.Nodes
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                Packs.Message.Core.Message m = FInput[i];
+                Message m = FInput[i];
                 FOutput[i] = m.ToString();
                 FAddress[i] = m.Address;
                 FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);

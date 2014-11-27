@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
     [PluginInfo(Name = "Storage", AutoEvaluate = true, Category = "Join", Help = "Joins a permanent Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
@@ -23,9 +23,9 @@ namespace VVVV.Packs.Message.Nodes
 
 
         [Output("Output", AutoFlush = false)]
-        Pin<Core.Message> FOutput;
+        Pin<Message> FOutput;
 
-        protected List<Core.Message> MessageKeep = new List<Core.Message>();
+        protected List<Message> MessageKeep = new List<Message>();
 
 #pragma warning restore
 
@@ -62,7 +62,7 @@ namespace VVVV.Packs.Message.Nodes
             for (int i = MessageKeep.Count; i < SpreadMax; i++)
             {
                 anyChanged = true; // new entry in Keep will require data
-                MessageKeep.Add(new Core.Message(new MessageFormular(FConfig[0])));
+                MessageKeep.Add(new Message(new MessageFormular(FConfig[0])));
             }
 
             // see if any Message needs to be set

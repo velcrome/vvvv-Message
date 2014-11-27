@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace VVVV.Packs.Message.Core
+namespace VVVV.Packs.Messaging.Core
 {
     public static class CastUtils
     {

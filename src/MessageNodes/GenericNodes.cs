@@ -1,11 +1,10 @@
 ﻿using VVVV.Nodes.Generic;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.Streams;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-
     [PluginInfo(Name = "S+H", Category = "Message", Help = "Sample and hold a Message", Author = "velcrome")]
     public class MessageSAndHNode : SAndH<Message>
     {

@@ -59,6 +59,7 @@
     <Compile Include="GenericNodes.cs" />
     <Compile Include="MessageFrameDelayNode.cs" />
     <Compile Include="MessageInfoNode.cs" />
+    <Compile Include="MessageRemoveBinNode.cs" />
     <Compile Include="MessageSearchNode.cs" />
     <Compile Include="MessageSiftNode.cs" />
     <Compile Include="Persist\AbstractStorageNode.cs" />
@@ -75,18 +76,19 @@
     <Compile Include="Registry\GetVariableTypeNode.cs" />
     <Compile Include="Registry\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MessageSortNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MessageCore\VVVV.Packs.Message.Core.csproj">
+    <ProjectReference Include="..\MessageCore\VVVV.Packs.Messaging.Core.csproj">
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
-      <Name>VVVV.Packs.Message.Core</Name>
+      <Name>VVVV.Packs.Messaging.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
       <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
-      <Name>SpreadOperations</Name>
+      <Name>VVVV.Nodes.Generic.itl</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

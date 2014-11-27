@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using VVVV.Packs.Message;
-using VVVV.Packs.Message.Core;
+
+
 //using System.Linq;
 
 #endregion usings
 
-namespace VVVV.Pack.Game.Core.Serializing
+namespace VVVV.Packs.Messaging.Core.Serializing
 {
   	public class JsonBinSerializer : JsonConverter
 	{

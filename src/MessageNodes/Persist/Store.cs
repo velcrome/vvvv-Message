@@ -1,11 +1,9 @@
-using VVVV.Pack.Game.Nodes;
+using VVVV.Nodes.Generic;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-
-
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
-    using Message = VVVV.Packs.Message.Core.Message;
 
     [PluginInfo(
        Name = "Store",

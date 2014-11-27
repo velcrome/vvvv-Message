@@ -1,60 +1,41 @@
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils;
 
-namespace VVVV.Pack.Messaging.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "velcrome")]
+    [PluginInfo(Name = "RemoveBin", Category = "Message", Help = "Filter Messages", Tags = "velcrome")]
     #endregion PluginInfo
-    public class MessageSiftNode : IPluginEvaluate
+    public class MessageRemoveBinNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
-        [Input("Input")] 
+        [Input("Input")]
         private IDiffSpread<Message> FInput;
 
-        [Input("Filter", DefaultString = "*")] 
+        [Input("Filter", DefaultString = "*")]
         private IDiffSpread<string> FFilter;
 
-        [Output("Output", AutoFlush = false)] 
+        [Output("Output", AutoFlush = false)]
         private ISpread<Message> FOutput;
 
-        [Output("NotFound", AutoFlush = false)] 
+        [Output("NotFound", AutoFlush = false)]
         private ISpread<Message> FNotFound;
 
-        [Import()] protected ILogger FLogger;
+        [Import()]
+        protected ILogger FLogger;
 
 #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInput.IsAnyInvalid()) 
-                SpreadMax = 0;
-                else SpreadMax = FInput.SliceCount;
-            
-            if (SpreadMax == 0)
-            {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
-                if (FNotFound.SliceCount != 0)
-                {
-                    FNotFound.SliceCount = 0;
-                    FNotFound.Flush();
-                }
-                return;
-            }
+            if (!FInput.IsChanged) return;
 
-            if (!FInput.IsChanged && !FFilter.IsChanged) return;
-
+            SpreadMax = FInput.SliceCount;
 
             FOutput.SliceCount = 0;
             FNotFound.SliceCount = 0;
-
             bool[] found = new bool[SpreadMax];
             for (int i = 0; i < SpreadMax; i++) found[i] = false;
 

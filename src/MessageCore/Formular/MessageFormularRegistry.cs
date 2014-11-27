@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 
-namespace VVVV.Packs.Message.Core.Formular
+namespace VVVV.Packs.Messaging.Core.Formular
 {
     public delegate void MessageFormularChangedHandler(MessageFormularRegistry sender, MessageFormularChangedEvent e);
 

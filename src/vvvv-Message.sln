@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Message.Nodes", "MessageNodes\VVVV.Packs.Message.Nodes.csproj", "{6A0AFB1F-8219-4A08-85F7-B7F19B66AC16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Nodes", "MessageNodes\VVVV.Packs.Messaging.Nodes.csproj", "{6A0AFB1F-8219-4A08-85F7-B7F19B66AC16}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1} = {6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Message.Core", "MessageCore\VVVV.Packs.Message.Core.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Core", "MessageCore\VVVV.Packs.Messaging.Core.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Message.OSC", "OSC\VVVV.Packs.Message.OSC.csproj", "{9C003731-1D47-4E89-B598-B10ED16EA2BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.OSC", "OSC\VVVV.Packs.Messaging.OSC.csproj", "{9C003731-1D47-4E89-B598-B10ED16EA2BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Generic.itl", "SpreadOperations\VVVV.Nodes.Generic.itl.csproj", "{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}"
 EndProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1A4034
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Message.Tests", "Tests\VVVV.Packs.Message.Tests.csproj", "{13A9D7B7-BD30-4624-8000-BD5F5B303949}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Tests", "Tests\VVVV.Packs.Messaging.Tests.csproj", "{13A9D7B7-BD30-4624-8000-BD5F5B303949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

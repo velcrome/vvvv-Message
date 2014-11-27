@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Pack.Message;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Nodes.Generic.Memory
 {

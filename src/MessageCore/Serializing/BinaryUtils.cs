@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace VVVV.Pack.Game.Core.Serializing
+namespace VVVV.Packs.Messaging.Core.Serializing
 {
     public static class BinaryUtils
     {

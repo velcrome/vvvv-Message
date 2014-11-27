@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class ConfigurableNode :  IPluginEvaluate, IPartImportsSatisfiedNotification
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VVVV.Packs.Message.Core.Formular
+namespace VVVV.Packs.Messaging.Core.Formular
 {
     public class MessageFormularChangedEvent : EventArgs
     {

@@ -1,16 +1,12 @@
-﻿
-#region usings
+﻿#region usings
 using System;
 using System.Collections.Generic;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VMath;
 using System.Linq;
-using VVVV.Packs.Message.Core;
-
-using VVVV.Core.Logging;
+using VVVV.Packs.Messaging.Core;
 #endregion usings
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Cache",
         Category = "Message",
@@ -25,7 +21,7 @@ namespace VVVV.Packs.Message.Nodes
         public ISpread<double> FTime;
 
         [Output("Removed Messages", AutoFlush = false, Order = 2)]
-        public ISpread<Core.Message> FRemovedMessages;
+        public ISpread<Message> FRemovedMessages;
 
         #endregion fields & pins
 

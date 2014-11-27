@@ -3,11 +3,11 @@ using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using System.Xml;
-using VVVV.Packs.Message.Core;
+
 
 #endregion usings
 
-namespace VVVV.Packs.Message.Core.Serializing
+namespace VVVV.Packs.Messaging.Core.Serializing
 {
 	public class MessageResolver : DataContractResolver
 	{

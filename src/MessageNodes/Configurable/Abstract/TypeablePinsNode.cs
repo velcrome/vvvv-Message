@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class DynamicPinsNode : TypeableNode
     {
@@ -39,7 +40,7 @@ namespace VVVV.Packs.Message.Nodes
             return changed;
         }
 
-        protected void CopyFromPins(Core.Message message, int index)
+        protected void CopyFromPins(Message message, int index)
         {
             foreach (string name in FPins.Keys)
                 message.AssignFrom(name, (IEnumerable)ToISpread(FPins[name])[index]);

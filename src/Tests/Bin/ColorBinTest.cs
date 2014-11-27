@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using VVVV.Packs.Message.Core;
-using VVVV.Packs.Message.Core.Serializing;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Serializing;
 using VVVV.Utils.VColor;
 
 
-namespace VVVV.Packs.Message.Tests
+namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
     public class ColorBinTest

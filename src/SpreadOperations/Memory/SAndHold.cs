@@ -1,10 +1,10 @@
 #region usings
 using System;
 using System.ComponentModel.Composition;
-using VVVV.Pack.Message;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using System.Runtime.Serialization;
+using VVVV.Utils;
 
 #endregion usings
 

@@ -2,11 +2,11 @@
 using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Core.Logging;
-using VVVV.Pack.Message;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Pack.Game.Nodes
+namespace VVVV.Nodes.Generic
 {
 
 

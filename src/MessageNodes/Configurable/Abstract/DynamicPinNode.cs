@@ -1,17 +1,17 @@
 using System;
 using System.ComponentModel.Composition;
-using VVVV.Packs.Message.Core;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
-using VVVV.Packs.Message.Core.Formular;
 
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class DynamicPinNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         [Input("Input", Order = 0)] 
-        protected IDiffSpread<Core.Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Type", EnumName = "TypeIdentityEnum", IsSingle = true, Order = 1)]
         public IDiffSpread<EnumEntry> FAlias;
@@ -19,7 +19,7 @@ namespace VVVV.Packs.Message.Nodes
         [Input("Key", DefaultString = "Foo", IsSingle = true, Order = 2)]
         public IDiffSpread<string> FKey;
 
-        [Output("Output", AutoFlush = false)] protected Pin<Core.Message> FOutput;
+        [Output("Output", AutoFlush = false)] protected Pin<Message> FOutput;
         public IIOContainer FValue;
 
         [Import()]

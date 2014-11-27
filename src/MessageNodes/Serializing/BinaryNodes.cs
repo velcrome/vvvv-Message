@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.Composition;
 using System.IO;
 using VVVV.Core.Logging;
-
-using VVVV.Packs.Message.Core.Serializing;
+using VVVV.Packs.Messaging.Core.Serializing;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes.Serializing
+namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
-    using Message = VVVV.Packs.Message.Core.Message;
+    using Message = VVVV.Packs.Messaging.Core.Message;
 
     #region PluginInfo
     [PluginInfo(Name = "AsRaw", Category = "Message", Help = "Filter Messages", Tags = "Binary, Stream", Author = "velcrome")]

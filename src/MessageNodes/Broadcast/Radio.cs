@@ -1,11 +1,9 @@
-﻿
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Linq;
 using VVVV.Nodes.Generic;
-using VVVV.Packs.Message.Core;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.Messaging.Broadcast
+namespace VVVV.Packs.Messaging.Nodes.Broadcast
 {
     #region PluginInfo
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using VVVV.Packs.Message.Core;
-using VVVV.Packs.Message.Nodes;
+using VVVV.Packs.Messaging.Nodes;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.Messaging.Configurable
+namespace VVVV.Nodes.Messaging.Nodes
 {
  
     #region PluginInfo

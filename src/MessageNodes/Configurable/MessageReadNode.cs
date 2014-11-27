@@ -1,12 +1,10 @@
 using System;
-using VVVV.Packs.Message.Core;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-
     [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads one attribute of arbitrary Type", Tags = "Dynamic", Author = "velcrome")]
     public class MessageReadNode : DynamicPinNode
     {

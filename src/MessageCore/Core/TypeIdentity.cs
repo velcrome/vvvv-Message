@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
-using VVVV.Packs.Time;
-using VVVV.Packs.Message.Core.Formular;
+
 
 using System.Linq;
 
 
-namespace VVVV.Packs.Message.Core
+namespace VVVV.Packs.Messaging.Core
 {
     public class TypeIdentity : Dictionary<Type, string>
     {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
     [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Join", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
@@ -18,7 +18,7 @@ namespace VVVV.Packs.Message.Nodes
         ISpread<string> FAddress;
 
         [Output("Output", AutoFlush = false)]
-        Pin<Core.Message> FOutput;
+        Pin<Message> FOutput;
 #pragma warning restore
 
         protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)

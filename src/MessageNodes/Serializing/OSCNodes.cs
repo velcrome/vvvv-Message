@@ -1,13 +1,13 @@
 using System.IO;
-using VVVV.Pack.Message;
-using VVVV.Packs.Message.Core.Serializing;
+using VVVV.Nodes;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Serializing;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 
-namespace VVVV.Packs.Message.Nodes.Serializing
+namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-
     #region PluginInfo
     [PluginInfo(Name = "AsOSC", Category = "Message", Help = "Outputs OSC Bundle Strings", Tags = "Dynamic, OSC, velcrome")]
     #endregion PluginInfo

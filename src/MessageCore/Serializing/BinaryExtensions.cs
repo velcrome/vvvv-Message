@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using VVVV.Pack.Game.Core.Serializing;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Packs.Message.Core.Serializing
+namespace VVVV.Packs.Messaging.Core.Serializing
 {
     public static class BinaryExtensions
     {

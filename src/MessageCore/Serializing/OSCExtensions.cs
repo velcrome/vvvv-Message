@@ -1,10 +1,9 @@
 ﻿using System.IO;
 using VVVV.Utils.OSC;
 
-namespace VVVV.Packs.Message.Core.Serializing
+namespace VVVV.Packs.Messaging.Core.Serializing
 {
     using Time = VVVV.Packs.Time.Time;
-    using Message = VVVV.Packs.Message.Core.Message;
 
     public static class OSCExtensions
     {

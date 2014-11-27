@@ -1,10 +1,9 @@
 using System.ComponentModel.Composition;
-
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 using System.Linq;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class TypeableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {

@@ -1,13 +1,13 @@
 using System.ComponentModel.Composition;
 using System.Xml.Linq;
 using VVVV.Core.Logging;
-using VVVV.Packs.Message.Core.Serializing;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Serializing;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes.Serializing
+namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-
+ 
     #region PluginInfo
     [PluginInfo(Name = "AsXElement", Category = "Message", Help = "Convert Messages", Tags = "XML", Author = "velcrome")]
     #endregion PluginInfo

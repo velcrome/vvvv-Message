@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using VVVV.Pack.Game.Core;
 using System.Linq;
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.Packs.Time;
 
 #endregion usings
 
-namespace VVVV.Packs.Message.Core{
+namespace VVVV.Packs.Messaging.Core {
 	
 	
 	[DataContract]

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Broadcast\Antenna.cs" />
     <Compile Include="Broadcast\BroadCastNode.cs" />
+    <Compile Include="DynamicQueryable.cs" />
     <Compile Include="Memory\Cache.cs" />
     <Compile Include="Memory\Dictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

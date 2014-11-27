@@ -1,12 +1,11 @@
 using System.ComponentModel.Composition;
 using Newtonsoft.Json;
 using VVVV.Core.Logging;
-using VVVV.Packs.Message;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes.Serializing
+namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
-    using Message = VVVV.Packs.Message.Core.Message;
 
         #region PluginInfo
         [PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]

@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractStorageNode : TypeableNode
     {
         [Input("Input", Order = 0)]
-        public ISpread<Core.Message> FInput;
+        public ISpread<Message> FInput;
 
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
@@ -19,21 +20,21 @@ namespace VVVV.Packs.Message.Nodes
         public ISpread<bool> FReset;
 
         [Input("Replace Dump", Order = int.MaxValue)]
-        public ISpread<List<Core.Message>> FReplaceData;
+        public ISpread<List<Message>> FReplaceData;
 
         [Output("Output", Order = 0)]
-        public ISpread<Core.Message> FOutput;
+        public ISpread<Message> FOutput;
 
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
 
         [Output("Dump", Order = 2)]
-        public ISpread<List<Core.Message>> FDump;
+        public ISpread<List<Message>> FDump;
 
         [Import()]
         protected IIOFactory FIOFactory;
 
-        protected List<Core.Message> data = new List<Core.Message>();
+        protected List<Message> data = new List<Message>();
 
         public override void OnImportsSatisfied()
         {

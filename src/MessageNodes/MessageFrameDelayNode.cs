@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
+using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Packs.Message.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
-    using Message = VVVV.Packs.Message.Core.Message;
-
     #region PluginInfo
     [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages",
         Tags = "velcrome", AutoEvaluate = true)]
@@ -14,15 +13,15 @@ namespace VVVV.Packs.Message.Nodes
     public class MessageFrameDelayNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
-        [Input("Input")] private IDiffSpread<Packs.Message.Core.Message> FInput;
+        [Input("Input")] private IDiffSpread<Message> FInput;
 
-        [Input("Default")] private ISpread<Packs.Message.Core.Message> FDefault;
+        [Input("Default")] private ISpread<Message> FDefault;
 
         [Input("Initialize", IsSingle = true, IsBang = true)] private IDiffSpread<bool> FInit;
 
-        [Output("Message", AutoFlush = false, AllowFeedback = true)] private ISpread<Packs.Message.Core.Message> FOutput;
+        [Output("Message", AutoFlush = false, AllowFeedback = true)] private ISpread<Message> FOutput;
 
-        private List<Packs.Message.Core.Message> lastFrame;
+        private List<Message> lastFrame;
 
         [Import()] protected ILogger FLogger;
 #pragma warning restore

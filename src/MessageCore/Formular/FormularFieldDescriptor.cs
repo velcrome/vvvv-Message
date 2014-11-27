@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VVVV.Packs.Message.Core.Formular
+namespace VVVV.Packs.Messaging.Core.Formular
 {
     public class FormularFieldDescriptor
     {

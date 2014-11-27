@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VVVV.Packs.Message.Core.Formular;
+using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 
 
-namespace VVVV.Packs.Message.Tests
+namespace VVVV.Packs.Messaging.Tests
 {
 
-    using Message = VVVV.Packs.Message.Core.Message;
     using Time = VVVV.Packs.Time.Time;
 
     [TestClass]
