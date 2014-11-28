@@ -1,14 +1,12 @@
 #region usings
-using System;
-using System.Collections;
 using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 #endregion usings
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    using VVVV.Packs.Message.Core.Formular;
     #region Enum
     public enum SelectEnum
     {
