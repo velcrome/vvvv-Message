@@ -8,6 +8,7 @@ using VVVV.Core.Logging;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
+    using VVVV.Packs.Message.Core.Formular;
     #region Enum
     public enum SelectEnum
     {
@@ -47,9 +48,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
 #pragma warning restore
 
-        protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
+        protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
         {
-            var attr = new OutputAttribute(name);
+            var attr = new OutputAttribute(configuration.Name);
             attr.BinVisibility = PinVisibility.Hidden;
             attr.AutoFlush = false;
 
