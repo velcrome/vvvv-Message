@@ -9,7 +9,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
     using Message = VVVV.Packs.Message.Core.Message;
 
         #region PluginInfo
-        [PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
+        [PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "string", Author = "velcrome")]
         #endregion PluginInfo
         public class MessageAsJsonStringNode : IPluginEvaluate
         {
@@ -53,7 +53,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
         }
 
         #region PluginInfo
-        [PluginInfo(Name = "AsMessage", Category = "Message, Json", Help = "Filter Messages", Tags = "Dynamic, velcrome, JSON")]
+        [PluginInfo(Name = "AsMessage", Category = "string", Help = "Filter Messages", Tags = "JSON", Author= "velcrome")]
         #endregion PluginInfo
         public class JsonStringAsMessageNode : IPluginEvaluate
         {

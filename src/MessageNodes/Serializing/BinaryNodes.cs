@@ -10,7 +10,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
     using Message = VVVV.Packs.Message.Core.Message;
 
     #region PluginInfo
-    [PluginInfo(Name = "AsRaw", Category = "Message", Help = "Filter Messages", Tags = "Binary, Stream", Author = "velcrome")]
+    [PluginInfo(Name = "AsRaw", Category = "Message", Help = "Serialize Messages to binary", Tags = "Proprietary, Stream", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageSerializeNode : IPluginEvaluate
     {

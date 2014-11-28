@@ -6,6 +6,8 @@ using System.IO;
 
 namespace VVVV.Pack.Game.Core.Serializing
 {
+
+    // credits: microdee
     public static class BinaryUtils
     {
         public static bool ReadBool(this Stream input)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using VVVV.Packs.Message.Core;
+using VVVV.Packs.Message.Core.Formular;
 using VVVV.Packs.Message.Nodes;
 using VVVV.PluginInterfaces.V2;
 
@@ -18,11 +19,11 @@ namespace VVVV.Nodes.Messaging.Configurable
         [Output("Output", AutoFlush = false)] private Pin<Message> FOutput;
 #pragma warning restore
 
-        protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
+        protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
         {
-            var attr = new InputAttribute(name);
+            var attr = new InputAttribute(configuration.Name); 
             attr.BinVisibility = PinVisibility.Hidden;
-            attr.BinSize = binSize;
+            attr.BinSize = configuration.DefaultSize;
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
 

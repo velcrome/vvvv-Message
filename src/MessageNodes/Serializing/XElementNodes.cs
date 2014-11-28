@@ -32,7 +32,7 @@ namespace VVVV.Packs.Message.Nodes.Serializing
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                FOutput[i] = FInput[i].ToXElement();
+                FOutput[i] = FInput[i].ToXElement();  // extension method from Message
             }
             FOutput.Flush();
         }

@@ -83,8 +83,9 @@ namespace VVVV.Packs.Message.Nodes
 
                 if (create)
                 {
+                    IOAttribute attr = DefinePin(formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+
                     Type type = formular[field].Type;
-                    IOAttribute attr = DefinePin(field, type, formular[field].DefaultSize); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
                     Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
                     FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
 
@@ -103,7 +104,7 @@ namespace VVVV.Packs.Message.Nodes
         #endregion pin management
 
         #region abstract methods
-        protected abstract IOAttribute DefinePin(string name, Type type, int binSize = -1);
+        protected abstract IOAttribute DefinePin(FormularFieldDescriptor config);
         #endregion abstract methods
     }
 
