@@ -15,21 +15,22 @@ namespace VVVV.Pack.Messaging.Nodes
 #pragma warning disable 649, 169
 
         [Input("Input")] 
-        private IDiffSpread<Message> FInput;
-
-        //[Input("Output Bin Length", IsSingle = true, IsToggle = true)]
-        //private IDiffSpread<bool> FLength;
+        IDiffSpread<Message> FInput;
 
         [Input("Print Message", IsBang = true)]
-        private IDiffSpread<bool> FPrint;
+        IDiffSpread<bool> FPrint;
 
-        [Output("Address", AutoFlush = false)] private ISpread<string> FAddress;
+        [Output("Address", AutoFlush = false)] 
+        ISpread<string> FAddress;
 
-        [Output("Timestamp", AutoFlush = false)] private ISpread<string> FTimeStamp;
+        [Output("Timestamp", AutoFlush = false)] 
+        ISpread<string> FTimeStamp;
 
-        [Output("Output", AutoFlush = false)] private ISpread<string> FOutput;
+        [Output("Output", AutoFlush = false)] 
+        ISpread<string> FOutput;
 
-        [Output("Configuration", AutoFlush = false)] private ISpread<string> FConfigOut;
+        [Output("Configuration", AutoFlush = false)] 
+        ISpread<string> FConfigOut;
 
         [Import()] protected ILogger FLogger;
 
@@ -54,7 +55,7 @@ namespace VVVV.Pack.Messaging.Nodes
                 FAddress[i] = m.Address;
                 FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);
 //                FConfigOut[i] = FInput[i].GetConfig(FLength[0]);
-                FConfigOut[i] = FInput[i].GetConfig();
+                FConfigOut[i] = FInput[i].GetFormular().ToString(true);
 
                 if (FPrint[i])
                 {

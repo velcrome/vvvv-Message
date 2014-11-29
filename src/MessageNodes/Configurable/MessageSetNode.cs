@@ -24,13 +24,15 @@ namespace VVVV.Nodes.Messaging.Nodes
         [Input("Update", IsBang = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
 
-        [Output("Output", AutoFlush = false)] private Pin<Message> FOutput;
+        [Output("Output", AutoFlush = false)] 
+        Pin<Message> FOutput;
+
 #pragma warning restore
 
         protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
         {
             var attr = new InputAttribute(name);
-            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
+            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
 
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = binSize;
@@ -47,7 +49,7 @@ namespace VVVV.Nodes.Messaging.Nodes
             SpreadMax = FInput.IsAnyInvalid() ? 0 :FInput.SliceCount;
 
             if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0)
+                if (FOutput.SliceCount == 0 || FOutput[0]== null)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();

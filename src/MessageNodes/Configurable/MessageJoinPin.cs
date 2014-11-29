@@ -55,7 +55,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FOutput.SliceCount = SpreadMax;
             for (int i = 0; i < SpreadMax; i++)
             {
-                Core.Message message = new Core.Message();
+                Message message = new Message();
 
                 message.Address = FAddress[i];
                 foreach (string name in FPins.Keys)
@@ -63,9 +63,6 @@ namespace VVVV.Packs.Messaging.Nodes
                     message.AssignFrom(name, (IEnumerable)ToISpread(FPins[name])[i]);
                 }
                 FOutput[i] = message;
-
-                // FLogger.Log(LogType.Debug, "== Message "+i+" == \n" + message.ToString());
-                //	foreach (string name in message.GetDynamicMemberNames()) FLogger.Log(LogType.Debug, message[name].GetType()+" "+ name);
             }
             FOutput.Flush();
         }

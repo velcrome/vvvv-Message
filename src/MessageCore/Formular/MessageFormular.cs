@@ -95,12 +95,18 @@ namespace VVVV.Packs.Messaging.Core.Formular
             {
                 Type type = dict[name].Type;
                 sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
-                if (withCount && dict[name].DefaultSize > 0) sb.Append("[" + dict[name].DefaultSize + "]");
+                if (withCount && dict[name].DefaultSize != 1)
+                {
+
+                    sb.Append("[");
+                    if (dict[name].DefaultSize > 0) sb.Append(dict[name].DefaultSize);
+                    sb.Append("]");
+                }
                 sb.Append(" " + name);
             }
             var str = sb.ToString();
             
-            return str.Length>0? str.Substring(2) : "";
+            return str.Length>0? str.Substring(2) : ""; // clean leading ", "
         }
     }
 }
