@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
+
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
@@ -41,7 +43,19 @@ namespace VVVV.Packs.Messaging.Nodes
             if (FInput.IsChanged && !FInput.IsAnyInvalid()) {
 
                 FOutput.SliceCount = 0;
-                FOutput.AssignFrom(FInput);
+
+                switch (FHold[0])
+                {
+                    case HoldEnum.All: FOutput.AssignFrom(FInput);
+                        break;
+                    case HoldEnum.First: FOutput.Add(FInput.First());
+                        break;
+                    case HoldEnum.Last: FOutput.Add(FInput.Last());
+                        break;
+
+
+                }
+
                 FOutput.Flush();
             }
          }

@@ -73,13 +73,15 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
 
-        public Message MatchOrInsert(Message message, string fieldName)
+        public Message MatchOrInsert(Message message, IEnumerable<string> idFields)
         {
+            var compatibleBins = idFields.Intersect(message.Attributes);
+            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
+
             var matched = (from keep in MessageKeep
-                           where keep.Attributes.Contains(fieldName)
-                           // incompatible if old saved message has no field with id
-                           where keep[fieldName] == message[fieldName]
-                           // slicewise check of Bins' equality
+                           where isCompatible
+                                from fieldName in compatibleBins
+                           where keep[fieldName] == message[fieldName]// slicewise check of Bins' equality
                            select keep).ToList();
 
             if (matched.Count == 0)

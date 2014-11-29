@@ -33,42 +33,20 @@ namespace VVVV.Packs.Messaging.Nodes
                 MessageKeep.Clear();
             }
 
+
+            // inject all incoming messages and keep a list of all
+
+            var idFields = from fieldName in FUseAsID
+                         select fieldName.Name;
+
             var changed = (
                     from message in FInput
                     where message != null
-                    let keep = MatchOrInsert(message, FUseAsID[0].Name)
-                    select keep
-                ).ToList();
+                    select MatchOrInsert(message, idFields)
+                ).Distinct().ToList();
 
 
-            if (FTime[0] > 0)
-            {
-                var validTime = Time.Time.CurrentTime() -
-                                new TimeSpan(0, 0, 0, (int) Math.Floor(FTime[0]), (int) Math.Floor((FTime[0]*1000)%1000));
-
-                var clear = (from message in MessageKeep
-                            where message.TimeStamp < validTime
-                            select message).ToArray();
-
-                foreach (var m in clear)
-                {
-                    var index = MessageKeep.IndexOf(m);
-                    MessageKeep.RemoveAt(index);
-                    changed.Remove(m);
-                }
-
-                if (FRemovedMessages.SliceCount > 0 || clear.Length != 0)
-                {
-                    FRemovedMessages.SliceCount = 0;
-                    FRemovedMessages.AssignFrom(clear);
-                    FRemovedMessages.Flush();
-                }
-                else
-                {
-                    // output still empty, no need to flush
-                }
-
-            }
+            if (FTime[0] > 0) RemoveOld(changed);
             
             SpreadMax = MessageKeep.Count;
             FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
@@ -84,6 +62,34 @@ namespace VVVV.Packs.Messaging.Nodes
   
 
 
+        }
+
+        private void RemoveOld(List<Message> changed)
+        {
+            var validTime = Time.Time.CurrentTime() -
+                            new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
+
+            var clear = (from message in MessageKeep
+                         where message.TimeStamp < validTime
+                         select message).ToArray();
+
+            foreach (var m in clear)
+            {
+                var index = MessageKeep.IndexOf(m);
+                MessageKeep.RemoveAt(index);
+                changed.Remove(m);
+            }
+
+            if (FRemovedMessages.SliceCount > 0 || clear.Length != 0)
+            {
+                FRemovedMessages.SliceCount = 0;
+                FRemovedMessages.AssignFrom(clear);
+                FRemovedMessages.Flush();
+            }
+            else
+            {
+                // output still empty, no need to flush
+            }
         }
 
     }

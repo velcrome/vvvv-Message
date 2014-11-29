@@ -161,12 +161,14 @@ namespace VVVV.Packs.Messaging.Core
         
         public static bool operator ==(Bin a, Bin other)
         {
-            return a.Equals(other as Object);
+            if (a as object == null) return false;
+                else return a.Equals(other as Object);
         }
 
         public static bool operator !=(Bin a, Bin other)
         {
-            return !(a.Equals(other));
+            if (a as object == null) return false;
+            else return !(a.Equals(other));
         }
 
 

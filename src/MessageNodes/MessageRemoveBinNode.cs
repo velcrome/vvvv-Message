@@ -7,7 +7,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "RemoveBin", Category = "Message", Help = "Filter Messages", Tags = "velcrome")]
+    [PluginInfo(Name = "RemoveBin", Category = "Message", Help = "Removes all fields with the indicated Name", Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageRemoveBinNode : IPluginEvaluate
     {
@@ -45,9 +45,9 @@ namespace VVVV.Packs.Messaging.Nodes
                     message.Remove(fieldName);
 
             }
-            SpreadMax = FInput.SliceCount;
 
             FOutput.SliceCount = 0;
+            FOutput.AssignFrom(FInput);
             FOutput.Flush();
         }
     }
