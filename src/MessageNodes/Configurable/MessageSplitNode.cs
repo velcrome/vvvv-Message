@@ -4,18 +4,13 @@ using System.Collections;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
+using VVVV.PluginInterfaces.V2.NonGeneric;
+
 #endregion usings
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    #region Enum
-    public enum SelectEnum
-    {
-        All,
-        First,
-        Last
-    }
-    #endregion Enum
+
 
     #region PluginInfo
 
@@ -26,24 +21,25 @@ namespace VVVV.Packs.Messaging.Nodes
 
     public class MessageSplitNode : DynamicPinsNode
     {
-        public enum HoldEnum
+        public enum PinHoldEnum
         {
             Off,
             Message,
             Pin
         }
 
+
 #pragma warning disable 649, 169
         [Input("Input", Order = 0)] private IDiffSpread<Message> FInput;
 
-        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)] private IDiffSpread<SelectEnum>
+        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)] private IDiffSpread<HoldEnum>
             FSelect;
 
-        [Input("Hold if Nil", IsSingle = true, DefaultEnumEntry = "Message", Order = 3)] private ISpread<HoldEnum> FHold;
+        [Input("Hold if Nil", IsSingle = true, DefaultEnumEntry = "Message", Order = 3)] private ISpread<PinHoldEnum> FHold;
 
         [Output("Address", AutoFlush = false)] private ISpread<string> FAddress;
 
-        [Output("Timestamp", AutoFlush = false)] private ISpread<string> FTimeStamp;
+        [Output("Timestamp", AutoFlush = false)] private ISpread<Time.Time> FTimeStamp;
 
 #pragma warning restore
 
@@ -60,7 +56,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = (FSelect[0] != SelectEnum.First) ? FInput.SliceCount : 1;
+            SpreadMax = (FSelect[0] != HoldEnum.First) ? FInput.SliceCount : 1;
 
             if (!FInput.IsChanged)
             {
@@ -69,7 +65,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             bool empty = (FInput.SliceCount == 0) || (FInput[0] == null);
 
-            if (empty && (FHold[0] == HoldEnum.Off))
+            if (empty && (FHold[0] == PinHoldEnum.Off))
             {
                 foreach (string name in FPins.Keys)
                 {
@@ -90,7 +86,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 foreach (string pinName in FPins.Keys)
                 {
-                    if (FSelect[0] == SelectEnum.All)
+                    if (FSelect[0] == HoldEnum.All)
                     {
                         ToISpread(FPins[pinName]).SliceCount = SpreadMax;
                         FTimeStamp.SliceCount = SpreadMax;
@@ -104,38 +100,40 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                 }
 
-                for (int i = (FSelect[0] == SelectEnum.Last) ? SpreadMax - 1 : 0; i < SpreadMax; i++)
+                for (int i = (FSelect[0] == HoldEnum.Last) ? SpreadMax - 1 : 0; i < SpreadMax; i++)
                 {
                     Message message = FInput[i];
 
                     FAddress[i] = message.Address;
-                    FTimeStamp[i] = message.TimeStamp.ToString();
                     FAddress.Flush();
+
+                    FTimeStamp[i] = message.TimeStamp;
                     FTimeStamp.Flush();
 
                     foreach (string name in FPins.Keys)
                     {
-                        var bin = (VVVV.PluginInterfaces.V2.NonGeneric.ISpread) ToISpread(FPins[name])[i];
-
-                        Bin attrib = message[name];
+                        var targetPin = ToISpread(FPins[name]);
+                        var targetBin = targetPin[i] as ISpread;
+                        
+                        Bin sourceBin = message[name];
                         int count = 0;
 
-                        if (attrib == null)
+                        if (sourceBin == null)
                         {
-                            if (FVerbose[0])
+                            if (FDevMode[0])
                                 FLogger.Log(LogType.Debug,
-                                            "\"" + FTypes[name] + " " + name + "\" is not defined in Message.");
+                                            "\"" + FTypes[name] + " " + name + "\" is not defined in Input Message.");
                         }
-                        else count = attrib.Count;
+                        else count = sourceBin.Count;
 
-                        if ((count > 0) || (FHold[0] != HoldEnum.Pin))
+                        if ((count > 0) || (FHold[0] != PinHoldEnum.Pin))
                         {
-                            bin.SliceCount = count;
+                            targetBin.SliceCount = count;
                             for (int j = 0; j < count; j++)
                             {
-                                bin[j] = attrib[j];
+                                targetBin[j] = sourceBin[j];
                             }
-                            ToISpread(FPins[name]).Flush();
+                            targetPin.Flush();
                         }
                         else
                         {

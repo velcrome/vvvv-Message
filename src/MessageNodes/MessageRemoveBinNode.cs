@@ -2,6 +2,7 @@
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -14,14 +15,11 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input")]
         private IDiffSpread<Message> FInput;
 
-        [Input("Filter", DefaultString = "*")]
-        private IDiffSpread<string> FFilter;
+        [Input("Filter", DefaultString = "Foo")]
+        private ISpread<string> FFilter;
 
         [Output("Output", AutoFlush = false)]
         private ISpread<Message> FOutput;
-
-        [Output("NotFound", AutoFlush = false)]
-        private ISpread<Message> FNotFound;
 
         [Import()]
         protected ILogger FLogger;
@@ -30,32 +28,27 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (!FInput.IsChanged) return;
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
+            if (SpreadMax <= 0)
+                if (FOutput.SliceCount == 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                    return;
+                }
+                else return;
+
+            foreach (var message in FInput)
+            {
+                foreach (var fieldName in FFilter)
+                    message.Remove(fieldName);
+
+            }
             SpreadMax = FInput.SliceCount;
 
             FOutput.SliceCount = 0;
-            FNotFound.SliceCount = 0;
-            bool[] found = new bool[SpreadMax];
-            for (int i = 0; i < SpreadMax; i++) found[i] = false;
-
-            for (int i = 0; i < FFilter.SliceCount; i++)
-            {
-                string[] filter = FFilter[i].Split('.');
-
-                for (int j = 0; j < SpreadMax; j++)
-                {
-                    if (!found[j]) found[j] = FInput[j].AddressMatches(FFilter[i]);
-                }
-            }
-
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                if (found[i]) FOutput.Add(FInput[i]);
-                else FNotFound.Add(FInput[i]);
-            }
             FOutput.Flush();
-            FNotFound.Flush();
         }
     }
 }

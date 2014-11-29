@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\Demo (Message).v4p" systemname="Message (Dynamic) help" filename="C:\dev\vvvv\message\Message (Dynamic) help.v4p" scrollx="0" scrolly="14550">
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\Demo (Message).v4p" systemname="Message (Dynamic) help" filename="C:\dev\vvvv\message\Message (Dynamic) help.v4p" scrollx="0" scrolly="9216">
    <BOUNDS type="Window" left="5805" top="-30" width="19395" height="15180">
    </BOUNDS>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="54">
@@ -173,9 +173,9 @@
    <LINK srcnodeid="118" srcpinname="Output String" dstnodeid="109" dstpinname="Address">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="122" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="11136" top="11622" width="0" height="0">
+   <BOUNDS type="Node" left="11220" top="11574" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="11136" top="11622" width="510" height="810">
+   <BOUNDS type="Box" left="11220" top="11574" width="510" height="810">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="4" visible="1" values="0,0,0,0">
    </PIN>
@@ -912,36 +912,6 @@
    <PIN pinname="Enabled" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Cache (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cache (Message)" componentmode="Hidden" id="477">
-   <BOUNDS type="Node" left="1260" top="11565" width="5310" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Message Formular" visible="1">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int[1] id, double[1] Value, Color[4] rgb|">
-   </PIN>
-   <PIN pinname="Use as ID" slicecount="1" visible="1" values="ID">
-   </PIN>
-   <BOUNDS type="Box" left="1260" top="11565">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Retain Time" visible="1">
-   </PIN>
-   <PIN pinname="Dump" visible="1">
-   </PIN>
-   <PIN pinname="Replace Dump" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Changed Slice" visible="1">
-   </PIN>
-   <PIN pinname="Reset" visible="1">
-   </PIN>
-   <PIN pinname="Removed Messages" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="474" srcpinname="Output Node" dstnodeid="477" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="479" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="2310" top="10905" width="960" height="255">
    </BOUNDS>
@@ -950,8 +920,6 @@
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
    </PIN>
    </NODE>
-   <LINK srcnodeid="479" srcpinname="Output Enum" dstnodeid="477" dstpinname="Message Formular">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="480" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="3375" top="10905" width="540" height="285">
    </BOUNDS>
@@ -960,8 +928,6 @@
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="id">
    </PIN>
    </NODE>
-   <LINK srcnodeid="480" srcpinname="Output Enum" dstnodeid="477" dstpinname="Use as ID">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="482" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4410" top="10905" width="795" height="240">
    </BOUNDS>
@@ -978,8 +944,6 @@
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <LINK srcnodeid="482" srcpinname="Y Output Value" dstnodeid="477" dstpinname="Retain Time">
-   </LINK>
    <NODE id="201" nodename="IOBox (String)" componentmode="InABox" systemname="IOBox (String)">
    <BOUNDS type="Node" left="7545" top="8460" width="5085" height="270">
    </BOUNDS>
@@ -1078,8 +1042,6 @@
    </NODE>
    <LINK srcnodeid="494" srcpinname="Output" dstnodeid="55" dstpinname="Value">
    </LINK>
-   <LINK srcnodeid="477" srcpinname="Output" dstnodeid="452" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="495" systemname="IOBox (String)">
    <BOUNDS type="Node" left="4425" top="13230" width="0" height="0">
    </BOUNDS>
@@ -1147,7 +1109,7 @@
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|Color rgb|">
    </PIN>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1180,8 +1142,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="477" srcpinname="Changed Slice" dstnodeid="508" dstpinname="Y Input Value">
-   </LINK>
    <NODE systemname="Search (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Search (Message)" componentmode="Hidden" id="509">
    <BOUNDS type="Node" left="13815" top="19755" width="100" height="100">
    </BOUNDS>
@@ -1318,8 +1278,6 @@
    <PIN pinname="Output Node" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="477" srcpinname="Output" dstnodeid="520" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="520" srcpinname="Output Node" dstnodeid="506" dstpinname="Input">
    </LINK>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="521">
@@ -1354,16 +1312,12 @@
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <LINK srcnodeid="522" srcpinname="Y Output Value" dstnodeid="477" dstpinname="Reset">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="523" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="4740" top="11955" width="795" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="4740" top="11955" width="0" height="0">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="477" srcpinname="Removed Messages" dstnodeid="523" dstpinname="Input Node">
-   </LINK>
    <NODE id="526" systemname="Message (Split)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Message (Split)" componentmode="Hidden">
    <BOUNDS type="Node" left="1302" top="18183" width="5550" height="270">
    </BOUNDS>
@@ -1476,6 +1430,54 @@
    </NODE>
    <LINK srcnodeid="532" srcpinname="Output String" dstnodeid="509" dstpinname="Where">
    </LINK>
-   <LINK srcnodeid="531" srcpinname="Output" dstnodeid="509" dstpinname="Input">
+   <NODE systemname="Cache (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cache (Message.Keep)" componentmode="Hidden" id="477">
+   <BOUNDS type="Node" left="1260" top="11565" width="5310" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" visible="1">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|int[1] id, double[1] Value, Color[4] rgb|">
+   </PIN>
+   <PIN pinname="Use as ID" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="1260" top="11565">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Retain Time" visible="1">
+   </PIN>
+   <PIN pinname="Dump" visible="1">
+   </PIN>
+   <PIN pinname="Replace Dump" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Changed Slice" visible="1">
+   </PIN>
+   <PIN pinname="Reset" visible="1">
+   </PIN>
+   <PIN pinname="Removed Messages" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="474" srcpinname="Output Node" dstnodeid="477" dstpinname="Input">
    </LINK>
+   <LINK srcnodeid="479" srcpinname="Output Enum" dstnodeid="477" dstpinname="Message Formular">
+   </LINK>
+   <LINK srcnodeid="480" srcpinname="Output Enum" dstnodeid="477" dstpinname="Use as ID">
+   </LINK>
+   <LINK srcnodeid="482" srcpinname="Y Output Value" dstnodeid="477" dstpinname="Retain Time">
+   </LINK>
+   <LINK srcnodeid="477" srcpinname="Output" dstnodeid="452" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="477" srcpinname="Changed Slice" dstnodeid="508" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="477" srcpinname="Output" dstnodeid="520" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="522" srcpinname="Y Output Value" dstnodeid="477" dstpinname="Reset">
+   </LINK>
+   <LINK srcnodeid="477" srcpinname="Removed Messages" dstnodeid="523" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Stack (Value)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.Stacks.dll" nodename="Stack (Value)" componentmode="Hidden" id="535">
+   <BOUNDS type="Node" left="1608" top="16092" width="100" height="100">
+   </BOUNDS>
+   </NODE>
    </PATCH>

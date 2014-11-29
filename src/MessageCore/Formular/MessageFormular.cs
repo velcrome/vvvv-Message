@@ -13,7 +13,8 @@ namespace VVVV.Packs.Messaging.Core.Formular
         
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
-        public string Name  {get; set;} 
+        public string Name { get; set; }
+        public string Definition { get; set; } 
         
         public ICollection<string> Fields
         {
@@ -45,10 +46,12 @@ namespace VVVV.Packs.Messaging.Core.Formular
 
                 dict.Add(field, new FormularFieldDescriptor(type, field, count));
             }
+            Definition = ToString();
         }
 
         public MessageFormular (string configuration) : this()
         {
+            Definition = configuration;
             string[] config = configuration.Trim().Split(',');
 
             foreach (string binConfig in config)

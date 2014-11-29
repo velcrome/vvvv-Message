@@ -8,7 +8,7 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class AbstractStorageNode : TypeableNode
+    public abstract class AbstractMessageKeepNode : TypeableNode
     {
         [Input("Input", Order = 0)]
         public ISpread<Message> FInput;
@@ -34,7 +34,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        protected List<Message> data = new List<Message>();
+        // clear insight
+        public readonly List<Message> MessageKeep = new List<Message>();
 
         public override void OnImportsSatisfied()
         {
@@ -72,48 +73,42 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
 
-        public List<bool> Match()
+        public Message MatchOrInsert(Message message, string fieldName)
         {
-            var spreadMax = FInput.SliceCount;
-            var changed = new List<bool>(); //init with false
-            for (int i = 0; i < data.Count; i++) changed.Add(false);
+            var matched = (from keep in MessageKeep
+                           where keep.Attributes.Contains(fieldName)
+                           // incompatible if old saved message has no field with id
+                           where keep[fieldName] == message[fieldName]
+                           // slicewise check of Bins' equality
+                           select keep).ToList();
 
-            var id = FUseAsID[0].Name;
-            for (int i = 0; i < spreadMax; i++)
+            if (matched.Count == 0)
             {
-                var fresh = FInput[i];
-
-                // incompatible, if new input has no field with id.
-                if (fresh == null || !fresh.Attributes.Contains(id)) continue;
-
-                var matched = (from message in data
-                               where message.Attributes.Contains(id)
-                               // incompatible if old saved message has no field with id
-                               where message[id] == fresh[id]
-                               // slicewise check of Bins' equality
-                               select message).ToList();
-
-                if (matched.Count == 0)
-                {
-                    data.Add(FInput[i]); // record message
-                    changed.Add(true);   // mark message as changed
-                }
-                else
-                {
-                    var found = matched.First(); // found a matching record
-                    changed[data.IndexOf(found)] = true; //mark message as changed
-
-                    var k = found += FInput[i]; // copy all attributes from message to matching record
-                    found.TimeStamp = FInput[i].TimeStamp; // update time
-                }
+                MessageKeep.Add(message); // record message
+                return message;   
             }
-            return changed;
+            else
+            {
+                var found = matched.First(); // found a matching record
+
+                var k = found += message; // copy all attributes from message to matching record
+                found.TimeStamp = message.TimeStamp; // update time
+
+                return found; 
+            }
         }
+        
 
-
-        public override void Evaluate(int SpreadMax)
+        protected virtual void SortKeep()
         {
-            throw new NotImplementedException();
+            MessageKeep.Sort(delegate(Message x, Message y)
+            {
+                return (x.TimeStamp > y.TimeStamp) ? 1 : 0;
+            });
+
+            return;
         }
+
+  
     }
 }

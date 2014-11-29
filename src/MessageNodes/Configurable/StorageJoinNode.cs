@@ -7,9 +7,9 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Storage", AutoEvaluate = true, Category = "Join", Help = "Joins a permanent Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
+    [PluginInfo(Name = "InitCache", AutoEvaluate = true, Category = "Message.Keep", Help = "Joins a permanent Message from custom dynamic pins", Tags = "Formular, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class StorageJoinNode : DynamicPinsNode
+    public class InitKeepJoinNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
         [Input("Set", IsBang = true, Order = 0)]
@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Output", AutoFlush = false)]
         Pin<Message> FOutput;
 
-        protected List<Message> MessageKeep = new List<Message>();
+        protected List<Message> MessageKeep = new List<Message>(); // same as in AbstractStorageNode. 
 
 #pragma warning restore
 
