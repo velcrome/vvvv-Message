@@ -9,7 +9,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
     #region PluginInfo
-    [PluginInfo(Name = "AsOSC", Category = "Message", Help = "Outputs OSC Bundle Strings", Tags = "Dynamic, OSC, velcrome")]
+    [PluginInfo(Name = "AsOSC", Category = "Message", Help = "Outputs OSC Bundle Strings", Tags = "Raw", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageMessageAsOscNode : IPluginEvaluate
     {
@@ -43,7 +43,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
 
     #region PluginInfo
-    [PluginInfo(Name = "AsMessage", Category = "Message, OSC", Help = "Converts OSC Bundles into Messages ", Tags = "Dynamic, OSC, velcrome")]
+    [PluginInfo(Name = "AsMessage", Category = "Raw", Help = "Converts OSC Bundles into Messages ", Tags = "OSC", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageOscAsMessageNode : IPluginEvaluate
     {
@@ -68,18 +68,17 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         {
             if (FInput.IsAnyInvalid())
             {
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
+                SpreadMax = 0;
+                if (FOutput.SliceCount != 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
+                return;
             }
-            
-            
+            else SpreadMax = FInput.SliceCount;
             
             if (!FInput.IsChanged && !FAddress.IsChanged && !FContract.IsChanged) return;
-            if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
-
-
-            if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
-            else SpreadMax = FInput.SliceCount;
 
             FOutput.SliceCount = SpreadMax;
 

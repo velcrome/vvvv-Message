@@ -6,6 +6,8 @@ using System.IO;
 
 namespace VVVV.Packs.Messaging.Core.Serializing
 {
+
+    // credits: microdee
     public static class BinaryUtils
     {
         public static bool ReadBool(this Stream input)

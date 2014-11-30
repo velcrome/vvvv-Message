@@ -6,6 +6,7 @@ using System.Text;
 
 namespace VVVV.Packs.Messaging.Core
 {
+    // credits: microdee
     public static class CastUtils
     {
         public static bool IsCastableTo(this Type from, Type to, bool implicitly = false)
