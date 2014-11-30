@@ -16,10 +16,10 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        [Input("Reset", IsSingle = true, Order = int.MaxValue-1)]
+        [Input("Reset", IsSingle = true, Order = int.MaxValue-1, IsBang = true)]
         public ISpread<bool> FReset;
 
-        [Input("Replace Dump", Order = int.MaxValue)]
+        [Input("Replace Dump", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
         public ISpread<List<Message>> FReplaceData;
 
         [Output("Output", Order = 0)]
@@ -28,7 +28,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
 
-        [Output("Dump", Order = 2)]
+        [Output("Dump", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
         public ISpread<List<Message>> FDump;
 
         [Import()]

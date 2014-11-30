@@ -61,6 +61,7 @@
     <Compile Include="Configurable\KeepCreateNode.cs" />
     <Compile Include="Configurable\Abstract\TypeableNode.cs" />
     <Compile Include="GenericNodes.cs" />
+    <Compile Include="Keep\MessageKeepByAddress.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />
     <Compile Include="Utils\MessageHoldNode.cs" />

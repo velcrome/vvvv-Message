@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Utils;
+using VVVV.Packs.Messaging.Core.Formular;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -9,9 +12,9 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageReadNode : DynamicPinNode
     {
 
-        protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
+        protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
-            var attr = new OutputAttribute(name);
+            var attr = new OutputAttribute("Field");
             attr.BinVisibility = PinVisibility.Hidden;
             attr.Order = 1;
             attr.BinOrder = 2;
@@ -23,44 +26,54 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FInput.SliceCount;
-            var output = ((ISpread) (FValue.RawIOObject));
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
-            if (FInput.SliceCount == 0 || FInput[0] == null)
-            {
-                FOutput.SliceCount = output.SliceCount = 0;
-                FOutput.Flush();
-                output.Flush();
-                return;
-            }
+            if (SpreadMax <= 0)
+                if (FOutput.SliceCount == 0 || FOutput[0] == null)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                    return;
+                }
+                else return;
 
             FOutput.SliceCount = SpreadMax;
-            output.SliceCount = SpreadMax;
 
+            var Value = (ISpread)(FValue.RawIOObject);
+            Value.SliceCount = SpreadMax;
+            
             for (int i = 0; i < SpreadMax; i++)
             {
                 Message message = FInput[i];
-                var spread = (ISpread) output[i];
-                var bin = message[FKey[0]];
-
-                try
+                var spread = Value[i] as ISpread;
+                spread.SliceCount = FKey.SliceCount;
+ 
+                var index = 0;
+                foreach (var key in FKey)
                 {
-                    spread.SliceCount = bin.Count;
-
                     var type = TypeIdentity.Instance.FindType(FAlias[0].Name);
 
-                    for (int j = 0; j < bin.Count; j++)
+                    object input;
+                    if (!message.Attributes.Contains(key)) 
+                        input = TypeIdentity.Instance.Default(type);
+                    else
                     {
-                        spread[j] = Convert.ChangeType(bin[j], type);
+                        input = message[key].First; // automatically returns a default if not existing
                     }
-                } catch (Exception)
-                {
-                    spread.SliceCount = 0;
+
+                    if (input.GetType().IsCastableTo(type)) 
+                        Convert.ChangeType(input, type);
+                    else throw new Exception("Can not autocast.");
+
+                    spread[index] = input;
+                    index++;
                 }
+
                 FOutput[i] = message;
+            
             }
+            Value.Flush();
             FOutput.Flush();
-            output.Flush();
         }
 
     }
