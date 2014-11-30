@@ -6,16 +6,17 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
 {
     #region PluginInfo
 
-    [PluginInfo(Name = "Antenne",
+    [PluginInfo(Name = "Send",
         Category = "Message",
+        Version = "VVVV",
         AutoEvaluate = true,
-        Help = "Broadcasts Messages next frame to all Radios",
+        Help = "Broadcasts Messages next frame to all Listeners",
         Author = "velcrome",
-        Tags = "Broadcast, Send, Radio")]
+        Tags = "Broadcast, Send, Listen")]
 
     #endregion PluginInfo
 
-    public class MessageAntennaNode : AntennaNode<Message>
+    public class MessageSendNode : SendNode<Message>
     {
 
     }

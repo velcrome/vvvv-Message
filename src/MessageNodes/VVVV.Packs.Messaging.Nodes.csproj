@@ -51,8 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broadcast\Antenna.cs" />
-    <Compile Include="Broadcast\Radio.cs" />
+    <Compile Include="Broadcast\MessageSendNode.cs" />
+    <Compile Include="Broadcast\MessageListenNode.cs" />
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
-  <Target Name="AfterBuild">
+  <!--Target Name="AfterBuild">
     <ItemGroup>
       <MyFiles Include="..\..\patches\**\*.*" />
     </ItemGroup>
@@ -108,7 +108,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-  </Target>
+  </Target-->
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets')" />
   <Import Project="..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets')" />
