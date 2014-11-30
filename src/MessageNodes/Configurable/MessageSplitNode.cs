@@ -15,8 +15,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
     #region PluginInfo
 
-    [PluginInfo(Name = "Message", AutoEvaluate = true, Category = "Split",
-        Help = "Splits a Message into custom dynamic pins", Tags = "Dynamic, Bin, velcrome")]
+    [PluginInfo(Name = "Split", AutoEvaluate = true, Category = "Message", Version = "Formular",
+        Help = "Splits a Message into custom dynamic pins", Tags = "Formular, Bin", Author = "velcrome")]
 
     #endregion PluginInfo
 

@@ -1,4 +1,6 @@
 ﻿using VVVV.PluginInterfaces.V2.NonGeneric;
+using System.Linq;
+using System.Collections;
 
 namespace VVVV.Utils
 {
@@ -17,5 +19,12 @@ namespace VVVV.Utils
 
             return false;
         }
+        
+        public static IEnumerable ToEnumerable(this ISpread spread)  
+        {
+            for (int i = 0; i < spread.SliceCount; i++) 
+                yield return spread[i];
+        }
+
     }
 }

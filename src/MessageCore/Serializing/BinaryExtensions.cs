@@ -12,6 +12,8 @@ namespace VVVV.Packs.Messaging.Core.Serializing
         {
             Stream serialized = new MemoryStream();
 
+            if (message == null) return serialized;
+
 //            serialized.SetLength(0);
             serialized.WriteUint(message.Address.UnicodeLength());
             serialized.WriteUnicode(message.Address);

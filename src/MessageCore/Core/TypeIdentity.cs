@@ -52,7 +52,7 @@ namespace VVVV.Packs.Messaging.Core
 
         public object Default(Type type)
         {
-            return Default(FindAlias(type));
+            return Default(FindBaseAlias(type));
         }
         
 
@@ -72,7 +72,7 @@ namespace VVVV.Packs.Messaging.Core
                 case "Vector3d": return new Vector3D(); 
                 case "Vector4d": return new Vector4D(); 
 
-                case "Stream": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
+                case "Raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
                 case "Time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
                 case "Message":return new Message();
             }

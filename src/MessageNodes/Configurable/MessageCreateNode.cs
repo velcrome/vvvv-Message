@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Message", AutoEvaluate=true, Category = "Join", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
+    [PluginInfo(Name = "Create", AutoEvaluate=true, Category = "Message", Version="Formular", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageJoinNode : DynamicPinsNode
     {
@@ -28,7 +29,9 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.BinSize = binSize;
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
-            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
+
+//         Manual Sync seems a good idea, but had some glitches, because binsize for Color and string will only be updated, if actual input had changed.  
+//           attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
 
             return attr;
         }
@@ -47,7 +50,7 @@ namespace VVVV.Packs.Messaging.Nodes
             foreach (string name in FPins.Keys)
             {
                 var pin = ToISpread(FPins[name]);
-                pin.Sync();
+//                pin.Sync();
                 SpreadMax = Math.Max(pin.SliceCount, SpreadMax);
             }
 
@@ -60,7 +63,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 message.Address = FAddress[i];
                 foreach (string name in FPins.Keys)
                 {
-                    message.AssignFrom(name, (IEnumerable)ToISpread(FPins[name])[i]);
+                    var spread = ToISpread(FPins[name])[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
+                    message.AssignFrom(name, spread.ToEnumerable());
                 }
                 FOutput[i] = message;
             }

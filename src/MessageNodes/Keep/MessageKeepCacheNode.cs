@@ -10,6 +10,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Cache",
         Category = "Message.Keep",
+        Version = "Typeable", 
         AutoEvaluate = true,
         Help = "Stores Messages and removes them, if no change was detected for a certain time",
         Author = "velcrome")]

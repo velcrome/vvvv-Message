@@ -6,13 +6,14 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.Packs.Time;
 
+
 namespace VVVV.Nodes.Messaging.Nodes
 {
  
     #region PluginInfo
-    [PluginInfo(Name = "Edit", Category = "Message", Help = "Adds or edits multiple Message Fields", Tags = "Typeable")]
+    [PluginInfo(Name = "Edit", Category = "Message", Help = "Adds or edits multiple Message Fields", Version = "Formular", Tags = "Formular, Bin")]
     #endregion PluginInfo
-    public class MessageSetNode : DynamicPinsNode
+    public class MessageEditNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
         [Input("Input", Order = 0)] 
@@ -32,14 +33,16 @@ namespace VVVV.Nodes.Messaging.Nodes
         protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
         {
             var attr = new InputAttribute(name);
-            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
 
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = binSize;
             
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount+1;
-            
+
+ //         Manual Sync seems a good idea, but had some glitches, because binsize for Color and string will only be updated, if actual input had changed.  
+            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
+
             return attr;
         }
 
@@ -68,11 +71,12 @@ namespace VVVV.Nodes.Messaging.Nodes
                     break;
                 }
 
-            // sync pins only if necessary. might cause confusion in the gui, when a link's input and output don't match 
-            if (update) foreach (var pinName in FPins.Keys)
-                {
-                    ToISpread(FPins[pinName]).Sync();
-                }
+            // sync pins only if necessary. might cause confusion in the gui, when a link's input and output don't visually match 
+            // 
+            //if (update) foreach (var pinName in FPins.Keys)
+            //    {
+            //        ToISpread(FPins[pinName]).Sync();
+            //    }
 
             FOutput.SliceCount = SpreadMax;
             for (int i = 0; i < SpreadMax; i++)
@@ -85,7 +89,8 @@ namespace VVVV.Nodes.Messaging.Nodes
                     foreach (var pinName in FPins.Keys)
                     {
                         var pin = ToISpread(FPins[pinName]);
-                        message.AssignFrom(pinName, pin[i] as IEnumerable);
+                        var spread = pin[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
+                        message.AssignFrom(pinName, VVVV.Utils.SpreadUtils.ToEnumerable(spread));
                     }
                     if (updateTimestamp) message.TimeStamp = Time.CurrentTime();
                 }

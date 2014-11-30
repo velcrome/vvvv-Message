@@ -6,16 +6,13 @@ namespace VVVV.Packs.Messaging.Nodes
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "GetVariableType", AutoEvaluate = true, Category = "Message", Help = "Outputs the type of a given variable", Tags = "Dynamic, Bin", Author =  "velcrome")]
+    [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Formular", Help = "Outputs the type of a given Field in a Formular", Tags = "Message", Author =  "velcrome")]
     #endregion PluginInfo
-    public class GetVariableTypeNode : IPluginEvaluate
+    public class FormularReflectionNode : TypeableNode, IPluginEvaluate
     {
         #pragma warning disable 649, 169
-        [Input("Type", DefaultString = "Event", IsSingle = true)]
-        public ISpread<string> FType;
-
-        [Input("Variable Name", DefaultString = "VariableName")]
-        public ISpread<string> FVariableName;
+        [Input("Variable Name", DefaultString = "Field Name")]
+        public ISpread<string> FFieldName;
 
         [Output("Variable Type")]
         ISpread<string> FOutput;
@@ -23,17 +20,18 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            SpreadMax = FVariableName.SliceCount;
+            SpreadMax = FFieldName.CombineWith(FType);
             FOutput.SliceCount = SpreadMax;
             var registry = MessageFormularRegistry.Instance;
             for (int i = 0; i < SpreadMax; i++)
             {
-                if (registry.ContainsKey(FType[0]))
+                var formular = FType[i].Name;
+                if (registry.ContainsKey(formular))
                 {
-
-                    if (registry[FType[0]].Fields.Contains(FVariableName[i]))
+                    var fieldName = FFieldName[i];
+                    if (registry[formular].Fields.Contains(fieldName))
                     {
-                        var type = registry[FType[0]][FVariableName[i]].Type;
+                        var type = registry[formular][fieldName].Type;
                         FOutput[i] = TypeIdentity.Instance.FindAlias(type);
                     }
                     else FOutput[i] = "";

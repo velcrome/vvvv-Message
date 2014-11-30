@@ -56,9 +56,9 @@
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
-    <Compile Include="Configurable\MessageSetNode.cs" />
-    <Compile Include="Configurable\MessageJoinPin.cs" />
-    <Compile Include="Configurable\StorageJoinNode.cs" />
+    <Compile Include="Configurable\MessageEditNode.cs" />
+    <Compile Include="Configurable\MessageCreateNode.cs" />
+    <Compile Include="Configurable\KeepCreateNode.cs" />
     <Compile Include="Configurable\Abstract\TypeableNode.cs" />
     <Compile Include="GenericNodes.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />

@@ -7,9 +7,9 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "InitCache", AutoEvaluate = true, Category = "Message.Keep", Help = "Joins a permanent Message from custom dynamic pins", Tags = "Formular, Bin", Author = "velcrome")]
+    [PluginInfo(Name = "Create", AutoEvaluate = true, Category = "Message.Keep", Help = "Joins a permanent Message from custom dynamic pins", Version = "Formular", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class InitKeepJoinNode : DynamicPinsNode
+    public class MessageKeepCreateNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
         [Input("Set", IsBang = true, Order = 0)]

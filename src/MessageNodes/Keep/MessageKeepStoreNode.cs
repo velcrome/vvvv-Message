@@ -11,7 +11,7 @@ namespace VVVV.Packs.Messaging.Nodes
        Help = "Stores Messages",
        AutoEvaluate = true,
        Tags = "velcrome")]
-    public class MessageStoreNode : StoreNode<Message>
+    public class MessageKeepStoreNode : StoreNode<Message>
     {
         protected override void Sort()
         {
