@@ -40,7 +40,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Address", AutoFlush = false)]
         ISpread<string> FAddress;
 
-        [Output("Timestamp", AutoFlush = false)]
+        [Output("Timestamp", AutoFlush = false)] 
         ISpread<Time.Time> FTimeStamp;
 
 #pragma warning restore

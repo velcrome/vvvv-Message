@@ -4,6 +4,7 @@ using System.Text;
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging.Core;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Packs.Time;
 
 namespace VVVV.Pack.Messaging.Nodes
 {
@@ -24,7 +25,7 @@ namespace VVVV.Pack.Messaging.Nodes
         ISpread<string> FAddress;
 
         [Output("Timestamp", AutoFlush = false)] 
-        ISpread<string> FTimeStamp;
+        ISpread<Time> FTimeStamp;
 
         [Output("Output", AutoFlush = false)] 
         ISpread<string> FOutput;
@@ -53,8 +54,8 @@ namespace VVVV.Pack.Messaging.Nodes
                 Message m = FInput[i];
                 FOutput[i] = m.ToString();
                 FAddress[i] = m.Address;
-                FTimeStamp[i] = m.TimeStamp.UniversalTime.ToString(CultureInfo.InvariantCulture);
-//                FConfigOut[i] = FInput[i].GetConfig(FLength[0]);
+                FTimeStamp[i] = m.TimeStamp;;
+
                 FConfigOut[i] = FInput[i].GetFormular().ToString(true);
 
                 if (FPrint[i])

@@ -11,14 +11,19 @@ namespace VVVV.Packs.Messaging.Nodes
     public class FormularReflectionNode : TypeableNode, IPluginEvaluate
     {
         #pragma warning disable 649, 169
-        [Input("Variable Name", DefaultString = "Field Name")]
+        [Input("Field Name", DefaultString = "Foo")]
         public ISpread<string> FFieldName;
 
         [Output("Variable Type")]
         ISpread<string> FOutput;
         #pragma warning restore
 
-        public void Evaluate(int SpreadMax)
+        protected override void HandleConfigChange(IDiffSpread<string> config) {
+
+        }
+
+
+        public override void Evaluate(int SpreadMax)
         {
             SpreadMax = FFieldName.CombineWith(FType);
             FOutput.SliceCount = SpreadMax;

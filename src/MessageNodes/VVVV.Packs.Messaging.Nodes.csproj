@@ -73,11 +73,11 @@
     <Compile Include="Configurable\MessageReadNode.cs" />
     <Compile Include="Keep\MessageKeepCacheNode.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
-    <Compile Include="Keep\Store.cs" />
+    <Compile Include="Keep\MessageKeepStoreNode.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
-    <Compile Include="Formular\GetVariableTypeNode.cs" />
+    <Compile Include="Formular\FormularReflectionNode.cs" />
     <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\MessageSortNode.cs" />

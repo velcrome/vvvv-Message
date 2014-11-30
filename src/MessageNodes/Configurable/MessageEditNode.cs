@@ -36,12 +36,12 @@ namespace VVVV.Nodes.Messaging.Nodes
 
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = binSize;
-            
+
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount+1;
 
  //         Manual Sync seems a good idea, but had some glitches, because binsize for Color and string will only be updated, if actual input had changed.  
-            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
+ //           attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
 
             return attr;
         }
