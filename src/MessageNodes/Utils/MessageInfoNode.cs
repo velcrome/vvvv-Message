@@ -1,8 +1,7 @@
 using System.ComponentModel.Composition;
-using System.Globalization;
 using System.Text;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Packs.Time;
 
