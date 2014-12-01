@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
 using VVVV.Packs.Messaging.Nodes;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.Packs.Time;
@@ -12,7 +11,13 @@ namespace VVVV.Nodes.Messaging.Nodes
 {
  
     #region PluginInfo
-    [PluginInfo(Name = "Edit", Category = "Message", Help = "Adds or edits multiple Message Fields", Version = "Formular", Tags = "Formular, Bin")]
+    [PluginInfo(Name = "Edit", 
+        Category = "Message", 
+        Help = "Adds or edits multiple Message Fields", 
+        AutoEvaluate = true, 
+        Version = "Formular", 
+        Tags = "Formular, Bin",
+        Author = "velcrome")]
     #endregion PluginInfo
     public class MessageEditNode : DynamicPinsNode
     {
@@ -53,7 +58,7 @@ namespace VVVV.Nodes.Messaging.Nodes
             SpreadMax = FInput.IsAnyInvalid() ? 0 :FInput.SliceCount;
 
             if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0 || FOutput[0]== null)
+                if (FOutput.SliceCount > 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();

@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 

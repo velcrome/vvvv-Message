@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using VVVV.Packs.Messaging;
+
 
 
 namespace VVVV.Packs.Messaging.Tests

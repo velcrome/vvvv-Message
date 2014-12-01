@@ -5,10 +5,10 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using VVVV.Packs.Messaging.Core.Serializing;
+using VVVV.Packs.Messaging.Serializing;
 
 
-namespace VVVV.Packs.Messaging.Core
+namespace VVVV.Packs.Messaging
 {
     [Serializable]
     [JsonConverter(typeof(JsonBinSerializer))]

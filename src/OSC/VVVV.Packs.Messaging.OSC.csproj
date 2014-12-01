@@ -7,8 +7,8 @@
     <ProjectGuid>{9C003731-1D47-4E89-B598-B10ED16EA2BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VVVV.Packs.Message.Serializing</RootNamespace>
-    <AssemblyName>VVVV.Packs.Message.OSC</AssemblyName>
+    <RootNamespace>VVVV.Packs.Messaging.Nodes.OSC</RootNamespace>
+    <AssemblyName>VVVV.Packs.Messaging.Nodes.OSC</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>

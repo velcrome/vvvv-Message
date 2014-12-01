@@ -3,7 +3,7 @@ using System.Linq;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Packs.Messaging.Core.Serializing
+namespace VVVV.Packs.Messaging.Serializing
 {
     public static class BinaryExtensions
     {

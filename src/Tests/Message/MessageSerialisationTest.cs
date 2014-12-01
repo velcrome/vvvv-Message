@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Serializing;
+
+using VVVV.Packs.Messaging.Serializing;
 
 
 namespace VVVV.Packs.Messaging.Tests
@@ -52,7 +52,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void MessageToStream()
         {
-            var message = new Core.Message();
+            var message = new Message();
             message.Address = "foo";
 
             message.Init("MrBoolean", true);

@@ -2,25 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class AbstractMessageKeepNode : TypeableNode
+    public abstract class TypableMessageKeepNode : AbstractMessageKeepNode
     {
-        [Input("Input", Order = 0)]
-        public ISpread<Message> FInput;
-
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
-
-        [Input("Reset", IsSingle = true, Order = int.MaxValue-1, IsBang = true)]
-        public ISpread<bool> FReset;
-
-        [Input("Replace Dump", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
-        public ISpread<List<Message>> FReplaceData;
 
         [Output("Output", Order = 0)]
         public ISpread<Message> FOutput;
@@ -28,14 +18,10 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
 
-        [Output("Dump", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
-        public ISpread<List<Message>> FDump;
-
         [Import()]
         protected IIOFactory FIOFactory;
 
         // clear insight
-        public readonly List<Message> MessageKeep = new List<Message>();
 
         public override void OnImportsSatisfied()
         {
@@ -78,7 +64,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var compatibleBins = idFields.Intersect(message.Attributes);
             bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
 
-            var matched = (from keep in MessageKeep
+            var matched = (from keep in MessageMessageKeep
                            where isCompatible
                                 from fieldName in compatibleBins
                            where keep[fieldName] == message[fieldName]// slicewise check of Bins' equality
@@ -86,7 +72,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (matched.Count == 0)
             {
-                MessageKeep.Add(message); // record message
+                MessageMessageKeep.Add(message); // record message
                 return message;   
             }
             else
@@ -101,15 +87,7 @@ namespace VVVV.Packs.Messaging.Nodes
         }
         
 
-        protected virtual void SortKeep()
-        {
-            MessageKeep.Sort(delegate(Message x, Message y)
-            {
-                return (x.TimeStamp > y.TimeStamp) ? 1 : 0;
-            });
 
-            return;
-        }
 
   
     }

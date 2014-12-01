@@ -21,10 +21,10 @@ namespace VVVV.Nodes.Generic
 		[Input("Index", DefaultValue = 0)]
 		ISpread<int> FIndex;
 
-		[Output("Output", AutoFlush = false, BinVisibility = PinVisibility.OnlyInspector)]
+		[Output("Output", AutoFlush = false, BinVisibility = PinVisibility.Hidden)]
 		ISpread<ISpread<T>> FOutput;
-		
-		[Import]
+
+        [Import]
 		ILogger FLogger;
 		
 		protected DataContractResolver FResolver = null;
@@ -33,7 +33,7 @@ namespace VVVV.Nodes.Generic
 
         public void Evaluate(int SpreadMax)
 		{
-            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FIndex.SliceCount;
 
             if (SpreadMax <= 0)
                 if (FOutput.SliceCount == 0)
@@ -48,9 +48,9 @@ namespace VVVV.Nodes.Generic
             FOutput.SliceCount = SpreadMax;
 			
 			for (int i=0;i<SpreadMax;i++) {
-				FOutput[i] = FInput[FIndex[i]];
+				FOutput[i].AssignFrom(FInput[FIndex[i]]);
 			}
-			
+
 			FOutput.Flush();
 		}
 		

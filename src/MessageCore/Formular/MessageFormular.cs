@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace VVVV.Packs.Messaging.Core.Formular
+namespace VVVV.Packs.Messaging
 {
     public class MessageFormular
     {

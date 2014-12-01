@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using VVVV.PluginInterfaces.V2;
 using System.Linq;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 #endregion usings
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Nodes
         AutoEvaluate = true,
         Help = "Stores Messages and removes them, if no change was detected for a certain time",
         Author = "velcrome")]
-    public class MessageCacheNode : AbstractMessageKeepNode
+    public class TypableMessageCacheNode : TypableMessageKeepNode
     {
         #region fields & pins
 
@@ -31,12 +31,10 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (FReset[0])
             {
-                MessageKeep.Clear();
+                MessageMessageKeep.Clear();
             }
 
-
             // inject all incoming messages and keep a list of all
-
             var idFields = from fieldName in FUseAsID
                          select fieldName.Name;
 
@@ -49,13 +47,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FTime[0] > 0) RemoveOld(changed);
             
-            SpreadMax = MessageKeep.Count;
+            SpreadMax = MessageMessageKeep.Count;
             FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
          
   
             for (int i = 0; i < SpreadMax;i++ )
             {
-                var message = MessageKeep[i];
+                var message = MessageMessageKeep[i];
                 FOutput[i] = message;
                 FChanged[i] = changed.Contains(message);
 
@@ -70,14 +68,14 @@ namespace VVVV.Packs.Messaging.Nodes
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
 
-            var clear = (from message in MessageKeep
+            var clear = (from message in MessageMessageKeep
                          where message.TimeStamp < validTime
                          select message).ToArray();
 
             foreach (var m in clear)
             {
-                var index = MessageKeep.IndexOf(m);
-                MessageKeep.RemoveAt(index);
+                var index = MessageMessageKeep.IndexOf(m);
+                MessageMessageKeep.RemoveAt(index);
                 changed.Remove(m);
             }
 

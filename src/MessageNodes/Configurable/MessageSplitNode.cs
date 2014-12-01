@@ -1,6 +1,5 @@
 #region usings
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
@@ -33,9 +32,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input", Order = 0)]
         IDiffSpread<Message> FInput;
 
-        [Input("Hold if Nil", IsSingle = true, DefaultEnumEntry = "Message", Order = 3)]
-        ISpread<PinHoldEnum> FHold;
-
         [Output("Address", AutoFlush = false)]
         ISpread<string> FAddress;
 
@@ -59,7 +55,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
-            if (SpreadMax <= 0 && (FHold[0] == PinHoldEnum.Off))
+            if (SpreadMax <= 0)
             {
                 foreach (string name in FPins.Keys)
                 {
@@ -106,7 +102,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                     else count = sourceBin.Count;
 
-                    if ((count > 0) || (FHold[0] != PinHoldEnum.Pin))
+                    if (count > 0)
                     {
                         targetBin.SliceCount = count;
                         for (int j = 0; j < count; j++)

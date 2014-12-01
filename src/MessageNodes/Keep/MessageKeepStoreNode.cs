@@ -1,5 +1,5 @@
 using VVVV.Nodes.Generic;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -7,7 +7,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
     [PluginInfo(
        Name = "Store",
-       Category = "Messages",
+       Category = "Message.Keep",
        Help = "Stores Messages",
        AutoEvaluate = true,
        Tags = "velcrome")]

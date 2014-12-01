@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -18,14 +16,16 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Address", DefaultString = "State", Order = 1)]
         ISpread<string> FAddress;
 
-        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = int.MaxValue)]
-        ISpread<int> FSpreadCount;
+        [Input("Reset", IsBang = true, Order = int.MaxValue - 2)]
+        ISpread<bool> FReset;
 
+        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = int.MaxValue - 1)]
+        ISpread<int> FSpreadCount;
 
         [Output("Output", AutoFlush = false)]
         Pin<Message> FOutput;
 
-        protected List<Message> MessageKeep = new List<Message>(); // same as in AbstractStorageNode. 
+        protected MessageKeep MessageKeep = new MessageKeep(); // same as in AbstractStorageNode. 
 
 #pragma warning restore
 
@@ -37,49 +37,50 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.BinSize = configuration.DefaultSize;
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
-            attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
+            //attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
             return attr;
         }
 
         public override void Evaluate(int SpreadMax)
         {
-            bool totalReset = FConfig.IsChanged;
+            bool totalReset = FConfig.IsChanged  || FReset[0];
+            var oldCount =MessageKeep.Count;
+
+            if (totalReset) MessageKeep.Clear();
 
             SpreadMax = FSpreadCount[0];
-            FOutput.SliceCount = SpreadMax = SpreadMax < 0? 0 : SpreadMax;
+            SpreadMax = SpreadMax < 0 ? 0 : SpreadMax; // safeguard against negative binsizes
+            FOutput.SliceCount = SpreadMax;
 
-            var oldCount = MessageKeep.Count;
-
-            bool anyChanged = false; // will only pull upstream data, if data is necessary
-            
- 
+            bool anyChanged = false; 
             if (SpreadMax < oldCount) // remove superfluous entries
             {
                 anyChanged = true;
                 MessageKeep.RemoveRange(SpreadMax, oldCount - SpreadMax);
             }
 
+            var formular = new MessageFormular(FConfig[0]);
             for (int i = MessageKeep.Count; i < SpreadMax; i++)
             {
                 anyChanged = true; // new entry in Keep will require data
-                MessageKeep.Add(new Message(new MessageFormular(FConfig[0])));
+                MessageKeep.Add(new Message(formular));
             }
 
             // see if any Message needs to be set
-            for (int i = 0; i < Math.Min(SpreadMax, FSet.SliceCount); i++) 
+            for (int i = 0; i < Math.Min(SpreadMax, FSet.SliceCount); i++)
                 if (FSet[i] || anyChanged)
                 {
                     anyChanged = true; break;
                 }
 
-            // only now get the data from upstream
-            if (anyChanged) SyncPins();
+            //// only now get the data from upstream
+            //if (anyChanged) SyncPins();
             
             // ...and start filling messages
             int messageIndex = 0;
             foreach (var message in MessageKeep)
             {
-                bool change = messageIndex < oldCount ? FSet[messageIndex] : true; // fresh ones always update
+                bool change = messageIndex >= oldCount || FSet[messageIndex]; // fresh ones always update
                 if (change || totalReset )
                 {
                     message.Address = FAddress[messageIndex];

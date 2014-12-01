@@ -6,12 +6,11 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
-using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.Packs.Time;
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging.Core {
+namespace VVVV.Packs.Messaging {
 	
 	
 	[DataContract]
@@ -64,12 +63,18 @@ namespace VVVV.Packs.Messaging.Core {
         }
 		
 		public void AssignFrom(string name, IEnumerable en) {
-			if (!Data.ContainsKey(name))
-			{
-			    var o = en.Cast<object>().First();
-                var type = TypeIdentity.Instance.FindBaseType(o.GetType());
+            var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
+            
+            var type = (obj !=null) ? TypeIdentity.Instance.FindBaseType(obj.GetType()) : null;
+            
+            if (!Data.ContainsKey(name) || ((type != null) && (type != Data[name].GetInnerType())))
+            {
+                Data.Remove(name);
                 Data.Add(name, Bin.New(type));
-			} else Data[name].Clear();
+			} else
+			{
+			    Data[name].Clear();
+			}
 			
 			foreach (object o in en) {
 				Data[name].Add(o); // implicit cast

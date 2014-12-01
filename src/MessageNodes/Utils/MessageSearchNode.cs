@@ -5,7 +5,7 @@ using System.Linq.Dynamic;
 using System.Linq.Expressions;
 
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 

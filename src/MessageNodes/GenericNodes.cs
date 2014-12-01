@@ -1,5 +1,5 @@
 ﻿using VVVV.Nodes.Generic;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.Streams;
 
