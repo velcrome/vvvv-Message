@@ -1,7 +1,7 @@
 using System.IO;
 using VVVV.Nodes;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Serializing;
+using VVVV.Packs.Messaging;
+using VVVV.Packs.Messaging.Serializing;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 

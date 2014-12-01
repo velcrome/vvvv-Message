@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.Composition;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using System.Linq;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Utils;
 
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -22,60 +23,50 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Output", AutoFlush = false)] 
         protected Pin<Message> FOutput;
         
-        public IIOContainer FValue;
+        protected IIOContainer FValue;
+        protected Type TargetDynamicType;
 
         [Import()]
         protected IIOFactory FIOFactory;
 
         public override void OnImportsSatisfied()
         {
-            base.OnImportsSatisfied();
+            base.OnImportsSatisfied(); // add listener to FConfig
 
             var types = TypeIdentity.Instance.Types;
             EnumManager.UpdateEnum("TypeIdentityEnum", "string", types);
             
             FAlias.Changed += ConfigPin;
-            FKey.Changed   += ConfigPin;
 
- // todo: restore form config field
+            HandleConfigChange(FConfig);
         }
 
         protected abstract IOAttribute DefinePin(FormularFieldDescriptor field);
 
         protected void ConfigPin(IDiffSpread spread)
         {
+            string typeAlias = "string";
+            if (!FAlias.IsAnyInvalid()) typeAlias = FAlias[0].Name;
 
-            string typeAlias = "invalid";
-            if (FAlias != null && FAlias.SliceCount > 0) typeAlias = FAlias[0].Name;
-
-            string name = "";
-            if (FKey != null && FKey.SliceCount > 0) name = FKey[0];
-            
-            var newConfig = typeAlias + " " + name;
-            
-            if (newConfig != FConfig[0] && typeAlias != "invalid") FConfig[0] = newConfig; // first frame or user mistake will not reconfigure
+            var newConfig = typeAlias + " Value";
+            if (newConfig != FConfig[0]) FConfig[0] = newConfig; // first frame or user mistake will not reconfigure
         }
 
        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
-            var formular = new MessageFormular(configSpread[0] ?? "");
+            var formular = new MessageFormular(configSpread[0] ?? "string Value");
+            if (formular.Fields.Count < 1) return;
+
 
             if (FValue != null) FValue.Dispose();
 
-            foreach (var name in formular.Fields)
-            {
-                Type type = formular[name].Type;
+            var name = formular.Fields.First();
+            TargetDynamicType = formular[name].Type;
             
-                IOAttribute attr = DefinePin(formular[name]); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
-                Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
-                FValue = FIOFactory.CreateIOContainer(pinType, attr);
-
-                break; // handle only first one for now.
-            }
-           
-           
-
- 
+            IOAttribute attr = DefinePin(formular[name]); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
+            Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(TargetDynamicType)); // the Pin is always a binsized one
+  
+           FValue = FIOFactory.CreateIOContainer(pinType, attr);
         }
 
    

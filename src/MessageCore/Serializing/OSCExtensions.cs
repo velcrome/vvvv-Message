@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using VVVV.Utils.OSC;
 
-namespace VVVV.Packs.Messaging.Core.Serializing
+namespace VVVV.Packs.Messaging.Serializing
 {
     using Time = VVVV.Packs.Time.Time;
 

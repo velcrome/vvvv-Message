@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using VVVV.Nodes.Generic;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes.Broadcast
@@ -18,7 +18,7 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
 
     #endregion PluginInfo
 
-    public class MessageListenNode : RadioNode<Message>
+    public class MessageListenNode : ListenNode<Message>
     {
 
         #pragma warning disable 649, 169

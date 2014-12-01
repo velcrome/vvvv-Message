@@ -1,7 +1,7 @@
 using System.ComponentModel.Composition;
 using Newtonsoft.Json;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes.Serializing

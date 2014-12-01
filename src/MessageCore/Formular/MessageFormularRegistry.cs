@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 
-namespace VVVV.Packs.Messaging.Core.Formular
+namespace VVVV.Packs.Messaging
 {
     public delegate void MessageFormularChangedHandler(MessageFormularRegistry sender, MessageFormularChangedEvent e);
 

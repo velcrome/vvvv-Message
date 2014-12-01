@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Formular;
+using VVVV.Packs.Messaging;
+
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -45,7 +45,8 @@ namespace VVVV.Packs.Messaging.Nodes
         protected void CopyFromPins(Message message, int index)
         {
             foreach (string name in FPins.Keys)
-                message.AssignFrom(name, (IEnumerable)ToISpread(FPins[name])[index]);
+
+                message.AssignFrom(name, ToISpread(FPins[name])[index] as IEnumerable);
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)

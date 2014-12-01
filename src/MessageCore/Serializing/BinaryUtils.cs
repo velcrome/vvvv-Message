@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace VVVV.Packs.Messaging.Core.Serializing
+namespace VVVV.Packs.Messaging.Serializing
 {
 
     // credits: microdee

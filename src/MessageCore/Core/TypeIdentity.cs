@@ -8,7 +8,7 @@ using VVVV.Utils.VMath;
 using System.Linq;
 
 
-namespace VVVV.Packs.Messaging.Core
+namespace VVVV.Packs.Messaging
 {
     public class TypeIdentity : Dictionary<Type, string>
     {

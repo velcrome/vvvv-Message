@@ -3,8 +3,8 @@
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" />
   <PropertyGroup>
     <!-- edit Template here -->
-    <RootNamespace>VVVV.Packs.Message</RootNamespace>
-    <AssemblyName>VVVV.Packs.Message.Tests</AssemblyName>
+    <RootNamespace>VVVV.Packs.Messaging</RootNamespace>
+    <AssemblyName>VVVV.Packs.Messaging.Tests</AssemblyName>
     <ProjectGuid>{13A9D7B7-BD30-4624-8000-BD5F5B303949}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>

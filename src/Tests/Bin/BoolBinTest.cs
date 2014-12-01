@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using VVVV.Packs.Messaging.Core;
-using VVVV.Packs.Messaging.Core.Serializing;
+
+using VVVV.Packs.Messaging.Serializing;
 
 namespace VVVV.Packs.Messaging.Tests
 {

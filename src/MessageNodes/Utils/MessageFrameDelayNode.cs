@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -13,13 +13,17 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageFrameDelayNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
-        [Input("Input")] private IDiffSpread<Message> FInput;
+        [Input("Input")] 
+        IDiffSpread<Message> FInput;
 
-        [Input("Default")] private ISpread<Message> FDefault;
+        [Input("Default")] 
+        ISpread<Message> FDefault;
 
-        [Input("Initialize", IsSingle = true, IsBang = true)] private IDiffSpread<bool> FInit;
+        [Input("Initialize", IsSingle = true, IsBang = true)] 
+        IDiffSpread<bool> FInit;
 
-        [Output("Message", AutoFlush = false, AllowFeedback = true)] private ISpread<Message> FOutput;
+        [Output("Message", AutoFlush = false, AllowFeedback = true)] 
+        ISpread<Message> FOutput;
 
         private List<Message> lastFrame;
 

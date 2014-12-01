@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
-using VVVV.Packs.Messaging.Core.Formular;
+
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -51,7 +51,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 var index = 0;
                 foreach (var key in FKey)
                 {
-                    var type = TypeIdentity.Instance.FindType(FAlias[0].Name);
+                    var type = TargetDynamicType;
 
                     object input;
                     if (!message.Attributes.Contains(key)) 
@@ -61,9 +61,9 @@ namespace VVVV.Packs.Messaging.Nodes
                         input = message[key].First; // automatically returns a default if not existing
                     }
 
-                    if (input.GetType().IsCastableTo(type)) 
-                        Convert.ChangeType(input, type);
-                    else throw new Exception("Can not autocast.");
+                    if (input.GetType().IsCastableTo(type))
+                        input = Convert.ChangeType(input, type);
+                    else input = TypeIdentity.Instance.Default(type);
 
                     spread[index] = input;
                     index++;

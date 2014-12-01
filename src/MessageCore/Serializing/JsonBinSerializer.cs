@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging.Core.Serializing
+namespace VVVV.Packs.Messaging.Serializing
 {
   	public class JsonBinSerializer : JsonConverter
 	{
