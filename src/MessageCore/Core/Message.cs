@@ -47,11 +47,9 @@ namespace VVVV.Packs.Messaging.Core {
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
 		}
 
-        public Message(MessageFormular formular) 
+        public Message(MessageFormular formular) : base()
         {
-            Address = "vvvv";
-            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
-            SetConfig(formular);
+            SetFormular(formular);
         }
 
         
@@ -136,12 +134,13 @@ namespace VVVV.Packs.Messaging.Core {
                 }
             }
         }
-		
-		public string GetConfig(bool withCount = false) {
-			return new MessageFormular(this).ToString(withCount);
+
+        public MessageFormular GetFormular()
+        {
+			return new MessageFormular(this, true);
 		}
 
-        public void SetConfig(MessageFormular formular)
+        public void SetFormular(MessageFormular formular)
         {
             foreach (string field in formular.Fields)
             {

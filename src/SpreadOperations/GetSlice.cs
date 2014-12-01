@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using System.Runtime.Serialization;
+using VVVV.Utils;
 
 #endregion usings
 
@@ -32,8 +33,19 @@ namespace VVVV.Nodes.Generic
 
         public void Evaluate(int SpreadMax)
 		{
-			SpreadMax = FIndex.SliceCount;
-			FOutput.SliceCount = SpreadMax;
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+
+            if (SpreadMax <= 0)
+                if (FOutput.SliceCount == 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                    return;
+                }
+                else return;			
+            
+            
+            FOutput.SliceCount = SpreadMax;
 			
 			for (int i=0;i<SpreadMax;i++) {
 				FOutput[i] = FInput[FIndex[i]];

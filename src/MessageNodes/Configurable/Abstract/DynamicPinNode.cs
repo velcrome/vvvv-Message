@@ -16,10 +16,12 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Type", EnumName = "TypeIdentityEnum", IsSingle = true, Order = 1)]
         public IDiffSpread<EnumEntry> FAlias;
         
-        [Input("Key", DefaultString = "Foo", IsSingle = true, Order = 2)]
+        [Input("Key", DefaultString = "Foo", Order = 2)]
         public IDiffSpread<string> FKey;
 
-        [Output("Output", AutoFlush = false)] protected Pin<Message> FOutput;
+        [Output("Output", AutoFlush = false)] 
+        protected Pin<Message> FOutput;
+        
         public IIOContainer FValue;
 
         [Import()]
@@ -35,10 +37,10 @@ namespace VVVV.Packs.Messaging.Nodes
             FAlias.Changed += ConfigPin;
             FKey.Changed   += ConfigPin;
 
-
+ // todo: restore form config field
         }
 
-        protected abstract IOAttribute DefinePin(string name, Type type, int binSize = -1);
+        protected abstract IOAttribute DefinePin(FormularFieldDescriptor field);
 
         protected void ConfigPin(IDiffSpread spread)
         {
@@ -64,7 +66,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 Type type = formular[name].Type;
             
-                IOAttribute attr = DefinePin(name, type); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
+                IOAttribute attr = DefinePin(formular[name]); // each implementation of DynamicNode must create its own InputAttribute or OutputAttribute (
                 Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
                 FValue = FIOFactory.CreateIOContainer(pinType, attr);
 

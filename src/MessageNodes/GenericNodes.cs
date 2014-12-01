@@ -16,28 +16,29 @@ namespace VVVV.Packs.Messaging.Nodes
     {
     }
 
-    [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Author = "velcrome")]
+    [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Author = "vvvv-sdk")]
     public class MessageSelectNode : Select<Message>
     {
     }
 
-    [PluginInfo(Name = "Cons", Category = "Message", Version = "Bin", Help = "Concatenate Messages", Author = "velcrome")]
+    [PluginInfo(Name = "Cons", Category = "Message", Version = "", Help = "Concatenate Messages", Author = "vvvv-sdk")]
     public class MessageConsNode : Cons<Message>
     {
     }
 
-    [PluginInfo(Name = "Zip", Category = "Message", Version = "Bin", Help = "Zip Messages", Author = "velcrome")]
+    [PluginInfo(Name = "Zip", Category = "Message", Version = "Bin", Help = "Zip Messages", Author = "vvvv-sdk")]
     public class MessageZipBinNode : Zip<IInStream<Message>>
     {
     }
 
-    [PluginInfo(Name = "Zip", Category = "Message", Help = "Zip Messages", Tags = "", Author = "velcrome")]
-    public class MessageZipNode : Zip<Message>
-    {
-    }
-
-    [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "", Author = "velcrome")]
+    [PluginInfo(Name = "UnZip", Category = "Message", Help = "UnZip Messages", Tags = "", Author = "vvvv-sdk")]
     public class MessageUnZipNode : Unzip<IInStream<Message>>
     {
     }
+
+    [PluginInfo(Name = "Stack", Category = "Message", Help = "Stack Messages", Tags = "", Author = "vvvv-sdk")]
+    public class MessageStackNode : StackNode<Message>
+    {
+    }
+
 }

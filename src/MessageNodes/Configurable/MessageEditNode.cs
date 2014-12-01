@@ -1,32 +1,48 @@
-using System;
+﻿using System;
 using System.Collections;
+using VVVV.Packs.Messaging.Nodes;
 using VVVV.Packs.Messaging.Core;
+using VVVV.Packs.Messaging.Core.Formular;
 using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Utils;
+using VVVV.Packs.Time;
 
-namespace VVVV.Packs.Messaging.Nodes
+
+namespace VVVV.Nodes.Messaging.Nodes
 {
-
-    [PluginInfo(Name = "Edit", AutoEvaluate = true, Category = "Message", Help = "Updates one attribute of arbitrary Type", Tags = "Dynamic", Author = "velcrome")]
-    public class MessageEditNode : DynamicPinNode
+ 
+    #region PluginInfo
+    [PluginInfo(Name = "Edit", Category = "Message", Help = "Adds or edits multiple Message Fields", Version = "Formular", Tags = "Formular, Bin")]
+    #endregion PluginInfo
+    public class MessageEditNode : DynamicPinsNode
     {
-        #pragma warning disable 649, 169
+#pragma warning disable 649, 169
+        [Input("Input", Order = 0)] 
+        IDiffSpread<Message> FInput;
 
-        [Input("Update Timestamp", IsToggle = true, Order = 2, Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = true)]
+        [Input("Update Timestamp", IsToggle = true, Order = int.MaxValue - 1, Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdateTimestamp;
 
-        [Input("Update", IsBang = true, Order = 5)]
+        [Input("Update", IsBang = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
-        #pragma warning restore
 
-        protected override IOAttribute DefinePin(string name, Type type, int binSize = -1)
+        [Output("Output", AutoFlush = false)] 
+        Pin<Message> FOutput;
+
+#pragma warning restore
+
+        protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
-            var attr = new InputAttribute(name);
+            var attr = new InputAttribute(field.Name);
+
             attr.BinVisibility = PinVisibility.Hidden;
-            attr.BinSize = binSize;
-            attr.Order = 3;
-            attr.BinOrder = 4;
-            attr.AutoValidate = false;  // need to sync all pins manually
+            attr.BinSize = field.DefaultSize;
+
+            attr.Order = DynPinCount;
+            attr.BinOrder = DynPinCount+1;
+
+ //         Manual Sync seems a good idea, but had some glitches, because binsize for Color and string will only be updated, if actual input had changed.  
+ //           attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
 
             return attr;
         }
@@ -34,42 +50,56 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FInput.SliceCount;
+            SpreadMax = FInput.IsAnyInvalid() ? 0 :FInput.SliceCount;
 
-            if (FInput.SliceCount == 0 || FInput[0] == null)
-            {
-                FOutput.SliceCount = 0;
-            	FOutput.Flush();
-                return;
-            }
+            if (SpreadMax <= 0)
+                if (FOutput.SliceCount == 0 || FOutput[0]== null)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                    return;
+                }
+                else return;
+
+
+            var updateTimestamp = FUpdateTimestamp[0];
+            bool update = false;
+
+            for (int j = 0; j < FUpdate.SliceCount && j < SpreadMax; j++)
+                if (FUpdate[j])
+                {
+                    update = true;
+                    break;
+                }
+
+            // sync pins only if necessary. might cause confusion in the gui, when a link's input and output don't visually match 
+            // 
+            //if (update) foreach (var pinName in FPins.Keys)
+            //    {
+            //        ToISpread(FPins[pinName]).Sync();
+            //    }
 
             FOutput.SliceCount = SpreadMax;
             for (int i = 0; i < SpreadMax; i++)
             {
                 Message message = FInput[i];
 
-                bool update = false;
-                for (int j = 0; j < FUpdate.SliceCount; j++)
-                    if (FUpdate[j])
-                    {
-                        update = true;
-                        break;
-                    }
-
-                if (update) ((ISpread)FValue.RawIOObject).Sync();
-
-                var updateTimestamp = FUpdateTimestamp[0];
 
                 if (FUpdate[i])
                 {
-                    message.AssignFrom(FKey[0], (IEnumerable)((ISpread)(FValue.RawIOObject))[i]);
-                    if (updateTimestamp) message.TimeStamp = Time.Time.CurrentTime(); 
+                    foreach (var pinName in FPins.Keys)
+                    {
+                        var pin = ToISpread(FPins[pinName]);
+                        var spread = pin[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
+                        message.AssignFrom(pinName, VVVV.Utils.SpreadUtils.ToEnumerable(spread));
+                    }
+                    if (updateTimestamp) message.TimeStamp = Time.CurrentTime();
                 }
                 FOutput[i] = message;
             }
+
             FOutput.Flush();  // sync manually
+
         }
-
     }
-
 }

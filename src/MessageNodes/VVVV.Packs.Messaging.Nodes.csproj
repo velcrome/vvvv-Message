@@ -35,6 +35,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.3\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="VVVV.Core">
@@ -47,36 +51,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broadcast\Antenna.cs" />
-    <Compile Include="Broadcast\Radio.cs" />
+    <Compile Include="Broadcast\MessageSendNode.cs" />
+    <Compile Include="Broadcast\MessageListenNode.cs" />
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
-    <Compile Include="Configurable\MessageSetNode.cs" />
-    <Compile Include="Configurable\MessageJoinPin.cs" />
-    <Compile Include="Configurable\StorageJoinNode.cs" />
+    <Compile Include="Configurable\MessageEditNode.cs" />
+    <Compile Include="Configurable\MessageCreateNode.cs" />
+    <Compile Include="Configurable\KeepCreateNode.cs" />
     <Compile Include="Configurable\Abstract\TypeableNode.cs" />
     <Compile Include="GenericNodes.cs" />
-    <Compile Include="MessageFrameDelayNode.cs" />
+    <Compile Include="Keep\MessageKeepByAddress.cs" />
+    <Compile Include="Utils\MessageChangeNode.cs" />
+    <Compile Include="Utils\MessageFrameDelayNode.cs" />
+    <Compile Include="Utils\MessageHoldNode.cs" />
     <Compile Include="MessageInfoNode.cs" />
     <Compile Include="MessageRemoveBinNode.cs" />
-    <Compile Include="MessageSearchNode.cs" />
-    <Compile Include="MessageSiftNode.cs" />
-    <Compile Include="Persist\AbstractStorageNode.cs" />
-    <Compile Include="Persist\Dictionary.cs" />
+    <Compile Include="Utils\MessageSearchNode.cs" />
+    <Compile Include="Utils\MessageSiftNode.cs" />
+    <Compile Include="Keep\AbstractMessageKeepNode.cs" />
     <Compile Include="Configurable\MessageSplitNode.cs" />
     <Compile Include="Configurable\MessageReadNode.cs" />
-    <Compile Include="Persist\Cache.cs" />
+    <Compile Include="Keep\MessageKeepCacheNode.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
-    <Compile Include="Configurable\MessageEditNode.cs" />
-    <Compile Include="Persist\Store.cs" />
+    <Compile Include="Keep\MessageKeepStoreNode.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
-    <Compile Include="Registry\GetVariableTypeNode.cs" />
-    <Compile Include="Registry\FormularRegistryNode.cs" />
+    <Compile Include="Formular\FormularReflectionNode.cs" />
+    <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageSortNode.cs" />
+    <Compile Include="Utils\MessageSortNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -94,17 +99,17 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
-  <Target Name="AfterBuild">
+  <!--Target Name="AfterBuild">
     <ItemGroup>
       <MyFiles Include="..\..\patches\**\*.*" />
     </ItemGroup>
-    <!--Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" /-->
+    <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-  </Target>
+  </Target-->
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.33.3.0\build\net40\VVVV.PluginInterfaces.targets')" />
   <Import Project="..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.33.3.0\build\net40\VVVV.Nodes.Generic.targets')" />

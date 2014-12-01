@@ -94,6 +94,7 @@ namespace VVVV.Packs.Messaging.Core
 				else return this[0].GetType();
 		}
 
+        // returns a default in any case
         public virtual object First
         {
             get
@@ -101,12 +102,8 @@ namespace VVVV.Packs.Messaging.Core
                 if (this.Count == 0)
                 {
                     var type = this.GetInnerType();
-                    object o;
-                    if (type == typeof (string)) o = "vvvv";
-                    else if (type == typeof (Stream)) o = new MemoryStream();
-                    else o = Activator.CreateInstance(type);
-
-                    base.Add(o);
+                    object o = TypeIdentity.Instance.Default(type);  // if no default defined -> return null
+                    base.Add(o ?? Activator.CreateInstance(type) );
                 }
                 return this[0];
             }
@@ -119,15 +116,19 @@ namespace VVVV.Packs.Messaging.Core
                 }
                 if (this.GetInnerType() != value.GetType())
                 {
-                    throw new Exception(value.GetType().ToString() +" cannot be the first among " +this.GetInnerType());
+                    throw new Exception("Bin " + value.ToString() + " of type "+ value.GetType().ToString() +" cannot be the first among " +this.GetInnerType());
                 }
             }
         }
 
+        // only increases Count atm.
         public int SetCount(int newCount) 
         {
-            var defaultValue = TypeIdentity.Instance.Default(TypeIdentity.Instance.FindAlias(GetInnerType()));
-            for (int i = Count; i < newCount ;i++) this.Add(defaultValue);
+            for (int i = Count; i < newCount; i++)
+            {
+                var defaultValue = TypeIdentity.Instance.Default(this.GetInnerType());
+                this.Add(defaultValue);
+            }
             return Count;
         }
 
@@ -161,12 +162,14 @@ namespace VVVV.Packs.Messaging.Core
         
         public static bool operator ==(Bin a, Bin other)
         {
-            return a.Equals(other as Object);
+            if (a as object == null) return false;
+                else return a.Equals(other as Object);
         }
 
         public static bool operator !=(Bin a, Bin other)
         {
-            return !(a.Equals(other));
+            if (a as object == null) return false;
+            else return !(a.Equals(other));
         }
 
 

@@ -7,16 +7,18 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
 {
     #region PluginInfo
 
-    [PluginInfo(Name = "Radio",
+    [PluginInfo(Name = "Listen",
         Category = "Message",
+        Version = "Sift",
+        Bugs = "only works with one instance of vvvv",
         AutoEvaluate = true,
         Help = "Receives Messages from last frame",
         Author = "velcrome",
-        Tags = "Broadcast, Send, Antenne")]
+        Tags = "Broadcast, Send")]
 
     #endregion PluginInfo
 
-    public class MessageRadioNode : RadioNode<Message>
+    public class MessageListenNode : RadioNode<Message>
     {
 
         #pragma warning disable 649, 169
@@ -26,9 +28,6 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
         
         public override void Evaluate(int SpreadMax)
         {
-            FOutput.SliceCount = 0;
-
-  
             var filtered = 
                 from message in Receive
                     from filter in FFilter
@@ -36,7 +35,7 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
                 
                 select message;
 
-//            FOutput.AssignFrom(filtered);
+            FOutput.SliceCount = 0;
             FOutput.AssignFrom(filtered.Distinct());
             FOutput.Flush();
 

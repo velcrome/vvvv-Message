@@ -51,7 +51,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
 //            var queryable = (FInput.AsEnumerable());
-            var queryable = FInput.AsQueryable();
+            var queryable = FInput;
 
             var query = from message in queryable
                         select message;
@@ -61,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 query = query.Where(where);
             }
-//            query.Select(message => message);
+            query.Select(message => message);
             
             var result = query.ToArray();
 

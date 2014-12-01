@@ -76,7 +76,7 @@ namespace VVVV.Packs.Messaging.Tests
 
             var formular = new MessageFormular("string foo, int[4] num");
 
-            message.SetConfig(formular);
+            message.SetFormular(formular);
 
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: vvvv \r\n num \t: 0 0 0 0 \r\n", message.ToString());
 
