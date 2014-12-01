@@ -35,22 +35,35 @@ namespace VVVV.Packs.Messaging.Core.Serializing
 
         public static Message FromOSC(Stream stream, bool extendedMode = false, string messagePrefix = "", int contractAddress = 1)
         {
+            Message message = new Message();
+
             MemoryStream ms = new MemoryStream();
             stream.Position = 0;
             stream.CopyTo(ms);
             byte[] bytes = ms.ToArray();
-            int start = 0;
-            OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length, extendedMode);
+//            int start = 0;
+//            OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length, extendedMode);
 
-            Message message = new Message();
+            var pack = OSCPacket.Unpack(bytes, extendedMode);
 
-            message.TimeStamp = bundle.getTimeStamp();
+            OSCBundle bundle;
+            if (pack.IsBundle())
+            {
+                bundle = (OSCBundle)pack;
+                message.TimeStamp = bundle.getTimeStamp();
+            } else {
+                bundle = new OSCBundle(extendedMode);
+                var m = (OSCMessage)pack;
+                bundle.Append(m);
+                message.TimeStamp = Time.CurrentTime();
+            }
+
 
             foreach (OSCMessage m in bundle.Values)
             {
-//              Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
-                
-                Bin bin = Bin.New(m.Values[0].GetType()); 
+                //                  Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
+
+                Bin bin = Bin.New(m.Values[0].GetType());
                 bin.AssignFrom(m.Values); // does not clone implicitly
 
                 string oldAddress = m.Address;
@@ -69,7 +82,6 @@ namespace VVVV.Packs.Messaging.Core.Serializing
                 }
                 attribName = attribName.Substring(1);
 
-
                 string messageAddress = "";
                 foreach (string part in address)
                 {
@@ -79,8 +91,8 @@ namespace VVVV.Packs.Messaging.Core.Serializing
                 else message.Address = messagePrefix + messageAddress;
 
                 message[attribName] = bin;
-
             }
+
             return message;
         }
     }
