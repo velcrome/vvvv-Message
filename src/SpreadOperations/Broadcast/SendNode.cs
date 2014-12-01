@@ -8,7 +8,7 @@ using VVVV.Utils;
 namespace VVVV.Nodes.Generic
 {
 
-    public class AntennaNode<T> : BroadCastNode<T>
+    public class SendNode<T> : BroadCastNode<T>
     {
         #region fields & pins
 #pragma warning disable 649, 169
