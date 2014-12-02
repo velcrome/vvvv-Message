@@ -68,7 +68,7 @@
     <Compile Include="Utils\MessageFrameDelayNode.cs" />
     <Compile Include="Utils\MessageHoldNode.cs" />
     <Compile Include="Utils\MessageInfoNode.cs" />
-    <Compile Include="Utils\MessageRemoveBinNode.cs" />
+    <Compile Include="Utils\MessageRemoveFieldNode.cs" />
     <Compile Include="Utils\MessageSearchNode.cs" />
     <Compile Include="Utils\MessageSiftNode.cs" />
     <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />

@@ -8,13 +8,13 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
     #region PluginInfo
 
     [PluginInfo(Name = "Listen",
-        Category = "Message",
+        Category = "Message.VVVV",
         Version = "Sift",
         Bugs = "only works with one instance of vvvv",
         AutoEvaluate = true,
         Help = "Receives Messages from last frame",
         Author = "velcrome",
-        Tags = "Broadcast, Send")]
+        Tags = "Send")]
 
     #endregion PluginInfo
 

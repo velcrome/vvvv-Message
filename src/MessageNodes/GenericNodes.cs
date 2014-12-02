@@ -5,7 +5,7 @@ using VVVV.Utils.Streams;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "S+H", Category = "Message", Help = "Sample and hold a Message", Author = "velcrome")]
+    [PluginInfo(Name = "S+H", Category = "Message.Keep", Help = "Sample and hold a Message", Author = "velcrome")]
     public class MessageSAndHNode : SAndH<Message>
     {
     }
@@ -36,7 +36,7 @@ namespace VVVV.Packs.Messaging.Nodes
     {
     }
 
-    [PluginInfo(Name = "Stack", Category = "Message", Help = "Stack Messages", Tags = "", Author = "vvvv-sdk")]
+    [PluginInfo(Name = "Stack", Category = "Message.Keep", Help = "Stack Messages", Tags = "", Author = "vvvv-sdk")]
     public class MessageStackNode : StackNode<Message>
     {
     }

@@ -21,7 +21,7 @@ namespace VVVV.Nodes.Generic
 		[Input("Set", IsBang = true, IsSingle = true)]
 		ISpread<bool> FSet;
 		
-		[Input("Clone", IsToggle = true, IsSingle = true, Visibility = PinVisibility.OnlyInspector, DefaultBoolean = true)]
+		[Input("Clone", IsToggle = true, IsSingle = true, Visibility = PinVisibility.OnlyInspector, DefaultBoolean = false)]
 		ISpread<bool> FClone;
 		
 		[Output("Output", AutoFlush = false)]

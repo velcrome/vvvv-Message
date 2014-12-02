@@ -7,12 +7,12 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
     #region PluginInfo
 
     [PluginInfo(Name = "Send",
-        Category = "Message",
-        Version = "VVVV",
+        Category = "Message.VVVV",
+  //      Version = "",
         AutoEvaluate = true,
         Help = "Broadcasts Messages next frame to all Listeners",
         Author = "velcrome",
-        Tags = "Broadcast, Send, Listen")]
+        Tags = "Listen")]
 
     #endregion PluginInfo
 

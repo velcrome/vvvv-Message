@@ -61,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         input = message[key].First; // automatically returns a default if not existing
                     }
 
-                    if (input.GetType().IsCastableTo(type))
+                    if (input.GetType().IsCastableTo(type, true))
                         input = Convert.ChangeType(input, type);
                     else input = TypeIdentity.Instance.Default(type);
 

@@ -8,10 +8,10 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Create", AutoEvaluate=true, Category = "Message", Version="Formular", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageJoinNode : DynamicPinsNode
+    public class MessageCreateNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
-        [Input("Send", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
+        [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FSet;
 
         [Input("Address", DefaultString = "Event", Order = 3)]

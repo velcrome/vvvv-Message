@@ -7,9 +7,9 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "RemoveBin", Category = "Message", Help = "Removes all fields with the indicated Name", Tags = "velcrome")]
+    [PluginInfo(Name = "RemoveField", Category = "Message", Help = "Removes all fields with the indicated Name of any Message ", Tags = "velcrome")]
     #endregion PluginInfo
-    public class MessageRemoveBinNode : IPluginEvaluate
+    public class MessageRemoveFieldNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
         [Input("Input")]

@@ -12,7 +12,7 @@ namespace VVVV.Nodes.Generic
 {
 
 
-    public class ListenNode<T> : BroadCastNode<T>
+    public class ListenNode<T> : AbstractBroadCastNode<T>
     {
         #region fields & pins
 #pragma warning disable 649, 169

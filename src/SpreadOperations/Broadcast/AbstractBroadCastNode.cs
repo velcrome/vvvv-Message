@@ -9,7 +9,7 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Nodes.Generic.Broadcast
 {
 
-    public abstract class BroadCastNode<T> : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class AbstractBroadCastNode<T> : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         #region fields and pins
         [Import()]
