@@ -24,13 +24,19 @@ namespace VVVV.Packs.Messaging.Nodes
         IDiffSpread<int> FIndex;
 
         [Output("Internal Count", Order = int.MaxValue)]
-        IDiffSpread<int> FCountOut;
+        ISpread<int> FCountOut;
 
 #pragma warning restore
 
         public override void Evaluate(int SpreadMax)
         {
             var update = false;
+            if (!FReset.IsAnyInvalid() && FReset[0])
+            {
+                Keep.Clear();
+                update = true;
+            }
+            
             if (FInput.IsChanged && !FInput.IsAnyInvalid())
             {
                 Keep.AssignFrom(FInput.Distinct()); // No need to hold duplicates
