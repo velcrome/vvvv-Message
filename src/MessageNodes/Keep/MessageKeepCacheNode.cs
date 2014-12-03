@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (FReset[0])
             {
-                MessageMessageKeep.Clear();
+                Keep.Clear();
             }
 
             // inject all incoming messages and keep a list of all
@@ -47,13 +47,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FTime[0] > 0) RemoveOld(changed);
             
-            SpreadMax = MessageMessageKeep.Count;
+            SpreadMax = Keep.Count;
             FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
          
   
             for (int i = 0; i < SpreadMax;i++ )
             {
-                var message = MessageMessageKeep[i];
+                var message = Keep[i];
                 FOutput[i] = message;
                 FChanged[i] = changed.Contains(message);
 
@@ -68,14 +68,14 @@ namespace VVVV.Packs.Messaging.Nodes
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
 
-            var clear = (from message in MessageMessageKeep
+            var clear = (from message in Keep
                          where message.TimeStamp < validTime
                          select message).ToArray();
 
             foreach (var m in clear)
             {
-                var index = MessageMessageKeep.IndexOf(m);
-                MessageMessageKeep.RemoveAt(index);
+                var index = Keep.IndexOf(m);
+                Keep.RemoveAt(index);
                 changed.Remove(m);
             }
 

@@ -1,27 +1,29 @@
-using System.Collections.Generic;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class AbstractMessageKeepNode : TypeableNode
+    public abstract class AbstractMessageKeepNode : AbstractFormularableNode
     {
         [Input("Input", Order = 0)]
-        public ISpread<Message> FInput;
+        public IDiffSpread<Message> FInput;
 
-        [Input("Reset", IsSingle = true, Order = int.MaxValue-1, IsBang = true)]
+        [Input("Reset", IsSingle = true, IsBang = true, Order = 1, Visibility = PinVisibility.Hidden)]
         public ISpread<bool> FReset;
 
-        //[Input("Replace Keep", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
-        //public ISpread<MessageKeep> FReplaceData;
+        // IDiffSpread Formular Order = 2
 
-        //[Output("Keep", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
-        //public ISpread<MessageKeep> FKeep;
+        [Input("Default", IsSingle = true, Order = 3, Visibility = PinVisibility.Hidden, AutoValidate = false)]
+        public ISpread<Message> FDefault;
 
-        public readonly MessageKeep MessageMessageKeep = new MessageKeep();
+        [Output("Output", Order = 0, AutoFlush = false)]
+        public ISpread<Message> FOutput;
 
+        public readonly MessageKeep Keep = new MessageKeep();
+
+        
         protected virtual void SortKeep()
         {
-            MessageMessageKeep.Sort(
+            Keep.Sort(
                 delegate(Message x, Message y) {
                     return (x.TimeStamp > y.TimeStamp) ? 1 : 0;
                 }

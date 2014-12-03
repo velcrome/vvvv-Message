@@ -12,6 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import()]
         protected ILogger FLogger;
 
+
         public virtual void OnImportsSatisfied()
         {
             FConfig.Changed += HandleConfigChange;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Packs.Messaging;
+using VVVV.Packs.Messaging.Nodes;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.Messaging.Keep
@@ -13,26 +14,13 @@ namespace VVVV.Nodes.Messaging.Keep
         AutoEvaluate = true,
         Help = "Stores Messages according to their address and keeps them updated",
         Author = "velcrome")]
-    public class MessageKeepByAddress : IPluginEvaluate 
+    public class MessageKeepSafe : AbstractMessageKeepNode
     {
-
-        [Input("Input", Order = 0)]
-        public ISpread<Message> FInput;
-
-        [Input("Reset", IsSingle = true, IsBang = true, Order = int.MaxValue - 1)]
-        public ISpread<bool> FReset;
-
-        //[Input("Replace Keep", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
-        //public ISpread<MessageKeep> FReplaceData;
-
-        [Output("Output", Order = 0)]
-        public ISpread<Message> FOutput;
+        // this one shall not show. remove by overwriting.
+        public new ISpread<Message> FDefault;
 
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
-
-        //[Output("Keep", Order = int.MaxValue, Visibility = PinVisibility.OnlyInspector)]
-        //public ISpread<MessageKeep> FKeep;
 
         [Import()]
         protected IIOFactory FIOFactory;
@@ -40,7 +28,11 @@ namespace VVVV.Nodes.Messaging.Keep
         public readonly List<Message> MessageKeep = new List<Message>();
 
         //called when data for any output pin is requested
-        public void Evaluate(int SpreadMax)
+        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        {
+        }
+
+        public override void Evaluate(int SpreadMax)
         {
             if (FReset[0])
             {

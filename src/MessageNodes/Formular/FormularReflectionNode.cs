@@ -7,7 +7,7 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Formular", Help = "Outputs the type of a given Field in a Formular", Tags = "Message", Author =  "velcrome")]
     #endregion PluginInfo
-    public class FormularReflectionNode : TypeableNode, IPluginEvaluate
+    public class FormularReflectionNode : AbstractFormularableNode, IPluginEvaluate
     {
         #pragma warning disable 649, 169
         [Input("Field Name", DefaultString = "Foo")]

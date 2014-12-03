@@ -12,9 +12,6 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        [Output("Output", Order = 0)]
-        public ISpread<Message> FOutput;
-
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
 
@@ -64,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var compatibleBins = idFields.Intersect(message.Attributes);
             bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
 
-            var matched = (from keep in MessageMessageKeep
+            var matched = (from keep in Keep
                            where isCompatible
                                 from fieldName in compatibleBins
                            where keep[fieldName] == message[fieldName]// slicewise check of Bins' equality
@@ -72,7 +69,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (matched.Count == 0)
             {
-                MessageMessageKeep.Add(message); // record message
+                Keep.Add(message); // record message
                 return message;   
             }
             else

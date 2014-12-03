@@ -6,13 +6,13 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Default", AutoEvaluate = true, Category = "Message", Version = "Formular", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
+    [PluginInfo(Name = "Default", Category = "Message", Version = "Formular", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageDefaultNode : TypeableNode
+    public class MessageDefaultNode : AbstractFormularableNode
     {
 #pragma warning disable 649, 169
-        [Input("Send", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
-        ISpread<bool> FSet;
+        [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
+        ISpread<bool> FNew;
 
         [Input("Address", DefaultString = "Event", Order = 3)]
         ISpread<string> FAddress;
@@ -32,7 +32,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void Evaluate(int SpreadMax)
         {
             SpreadMax = 0;
-            if (!FSet[0])
+            if (!FNew[0])
             {
                 FOutput.SliceCount = 0;
                 FOutput.Flush();

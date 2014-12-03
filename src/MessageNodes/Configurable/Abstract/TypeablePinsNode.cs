@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Messaging;
 
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class DynamicPinsNode : TypeableNode
+    public abstract class DynamicPinsNode : AbstractFormularableNode
     {
         #region fields & pins
 
@@ -35,7 +35,7 @@ namespace VVVV.Packs.Messaging.Nodes
             bool changed = false;
             foreach (string name in FPins.Keys)
             {
-                var pin = ToISpread(FPins[name]);
+                var pin = FPins[name].ToISpread();
                 pin.Sync();
                 if (pin.IsChanged) changed = true;
             }
@@ -46,7 +46,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             foreach (string name in FPins.Keys)
 
-                message.AssignFrom(name, ToISpread(FPins[name])[index] as IEnumerable);
+                message.AssignFrom(name, FPins[name].ToISpread()[index] as IEnumerable);
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)

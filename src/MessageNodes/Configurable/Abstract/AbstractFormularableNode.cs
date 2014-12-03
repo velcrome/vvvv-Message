@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class TypeableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Message Formular", DefaultEnumEntry = "None", IsSingle = true, EnumName = "VVVV.Packs.Message.Core.Formular", Order = 1)]
+        [Input("Message Formular", DefaultEnumEntry = "None", IsSingle = true, EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
         public IDiffSpread<EnumEntry> FType;
 
         public override void OnImportsSatisfied()
@@ -32,20 +32,6 @@ namespace VVVV.Packs.Messaging.Nodes
             if (!FType.IsAnyEmpty() && e.Formular.Name == FType[0].Name) FConfig[0] = e.Formular.ToString(true);
         }
 
-          #region cast tools
-        protected VVVV.PluginInterfaces.V2.NonGeneric.ISpread ToISpread(IIOContainer pin)
-        {
-            return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject);
-        }
-
-        protected VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread ToIDiffSpread(IIOContainer pin)
-        {
-            return (VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread)(pin.RawIOObject);
-        }
-        protected VVVV.PluginInterfaces.V2.ISpread<T> ToGenericISpread<T>(IIOContainer pin)
-        {
-            return (VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject);
-        }
-        #endregion cast tools
+  
     }
 }

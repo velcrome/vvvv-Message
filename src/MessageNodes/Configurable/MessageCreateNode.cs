@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
@@ -11,14 +12,22 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageCreateNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
-        [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
-        ISpread<bool> FSet;
+        [Input("New", IsToggle = true, DefaultBoolean = true, Order = 0)]
+        ISpread<bool> FNew;
+
+        [Input("Reset", IsSingle = true, Order = 1, Visibility = PinVisibility.Hidden)]
+        public ISpread<bool> FReset;
+
+        // IDiffSpread Formular Order = 2
 
         [Input("Address", DefaultString = "Event", Order = 3)]
         ISpread<string> FAddress;
 
         [Output("Output", AutoFlush = false)]
         Pin<Message> FOutput;
+
+        public readonly MessageKeep Keep = new MessageKeep();
+
 #pragma warning restore
 
         protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
@@ -37,32 +46,31 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = 0;
-            if (!FSet[0])
+            if (!FNew.Any(x => x)) // if any true
             {
-               
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
                 return;
             }
 
+            SpreadMax = FNew.CombineWith(FAddress);
+
             foreach (string name in FPins.Keys)
             {
-                var pin = ToISpread(FPins[name]);
+                var pin = FPins[name].ToISpread();
 //                pin.Sync();
                 SpreadMax = Math.Max(pin.SliceCount, SpreadMax);
             }
 
-
             FOutput.SliceCount = SpreadMax;
             for (int i = 0; i < SpreadMax; i++)
             {
-                Message message = new Message();
+                var message = new Message();
 
                 message.Address = FAddress[i];
                 foreach (string name in FPins.Keys)
                 {
-                    var spread = ToISpread(FPins[name])[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
+                    var spread = FPins[name].ToISpread()[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
                     message.AssignFrom(name, spread.ToEnumerable());
                 }
                 FOutput[i] = message;

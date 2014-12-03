@@ -166,6 +166,8 @@ namespace VVVV.Packs.Messaging {
 		}
 		
 		public object Clone() {
+            // might be faster when utilizing binary serialisation.
+
 			Message m = new Message();
 			m.Address = Address;
 			m.TimeStamp = TimeStamp;

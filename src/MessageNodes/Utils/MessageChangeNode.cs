@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -27,11 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public void Evaluate(int SpreadMax)
         {
             FChanged.SliceCount = 1;
-            if (FInput.IsChanged)
-            {
-                FChanged[0] = !FInput.IsAnyInvalid();
-
-            }
+            FChanged[0] = !FInput.IsAnyInvalid() && FInput.IsChanged;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using VVVV.PluginInterfaces.V2.NonGeneric;
+﻿using VVVV.PluginInterfaces.V2;
+using VVVV.PluginInterfaces.V2.NonGeneric;
 using System.Linq;
 using System.Collections;
 
@@ -26,5 +27,21 @@ namespace VVVV.Utils
                 yield return spread[i];
         }
 
+
+        #region cast tools
+        public static VVVV.PluginInterfaces.V2.NonGeneric.ISpread ToISpread(this IIOContainer pin)
+        {
+            return (VVVV.PluginInterfaces.V2.NonGeneric.ISpread)(pin.RawIOObject);
+        }
+
+        public static VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread ToIDiffSpread(this IIOContainer pin)
+        {
+            return (VVVV.PluginInterfaces.V2.NonGeneric.IDiffSpread)(pin.RawIOObject);
+        }
+        public static VVVV.PluginInterfaces.V2.ISpread<T> ToGenericISpread<T>(this IIOContainer pin)
+        {
+            return (VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject);
+        }
+        #endregion cast tools
     }
 }

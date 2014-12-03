@@ -92,11 +92,11 @@ namespace VVVV.Nodes.Messaging.Nodes
 
                 if (FUpdate[i])
                 {
-                    foreach (var pinName in FPins.Keys)
+                    foreach (var name in FPins.Keys)
                     {
-                        var pin = ToISpread(FPins[pinName]);
+                        var pin = FPins[name].ToISpread();
                         var spread = pin[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
-                        message.AssignFrom(pinName, VVVV.Utils.SpreadUtils.ToEnumerable(spread));
+                        message.AssignFrom(name, VVVV.Utils.SpreadUtils.ToEnumerable(spread));
                     }
                     if (updateTimestamp) message.TimeStamp = Time.CurrentTime();
                 }

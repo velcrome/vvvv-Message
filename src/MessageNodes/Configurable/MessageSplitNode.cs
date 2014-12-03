@@ -59,7 +59,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 foreach (string name in FPins.Keys)
                 {
-                    var pin = ToISpread(FPins[name]);
+                    var pin = FPins[name].ToISpread();
                     pin.SliceCount = 0;
                     pin.Flush();
                 }
@@ -75,9 +75,9 @@ namespace VVVV.Packs.Messaging.Nodes
             FTimeStamp.SliceCount = SpreadMax;
             FAddress.SliceCount = SpreadMax;
 
-            foreach (string pinName in FPins.Keys)
+            foreach (string name in FPins.Keys)
             {
-                ToISpread(FPins[pinName]).SliceCount = SpreadMax;
+                FPins[name].ToISpread().SliceCount = SpreadMax;
             }
 
             for (int i = 0; i < SpreadMax; i++)
@@ -88,7 +88,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 foreach (string name in FPins.Keys)
                 {
-                    var targetPin = ToISpread(FPins[name]);
+                    var targetPin = FPins[name].ToISpread();
                     var targetBin = targetPin[i] as ISpread;
 
                     Bin sourceBin = message[name];
@@ -123,9 +123,9 @@ namespace VVVV.Packs.Messaging.Nodes
             FTimeStamp.Flush();
             FAddress.Flush();
 
-            foreach (string pinName in FPins.Keys)
+            foreach (string name in FPins.Keys)
             {
-                ToISpread(FPins[pinName]).Flush();
+                FPins[name].ToISpread().Flush();
             }
 
         }
