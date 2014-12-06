@@ -18,6 +18,10 @@ namespace VVVV.Packs.Messaging.Nodes
     {
         #region fields & pins
 
+        // overwrite FDefault
+        private new ISpread<Message> FDefault;
+        private new IDiffSpread<EnumEntry> FType;
+            
         [Input("Retain Time", IsSingle = true, DefaultValue = -1.0, Order = 3)]
         public ISpread<double> FTime;
 
@@ -58,7 +62,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 FChanged[i] = changed.Contains(message);
 
             }
-  
+
+            if (changed.Any())
+            {
+                FOutput.Flush();
+                FChanged.Flush();
+            }
+
 
 
         }

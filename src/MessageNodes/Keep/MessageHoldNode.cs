@@ -17,7 +17,11 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
 #pragma warning disable 649, 169
-        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)] 
+
+        private new IDiffSpread<EnumEntry> FType;
+        private new ISpread<Message> FDefault;
+
+        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)]
         IDiffSpread<HoldEnum> FHold;
 
         [Input("Index", Order = int.MaxValue)]
