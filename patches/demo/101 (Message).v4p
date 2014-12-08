@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\demo\101 (Message).v4p" scrollx="0" scrolly="37455" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\demo\101 (Message).v4p" scrollx="132" scrolly="64188" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
    <BOUNDS type="Window" left="225" top="0" width="16440" height="12375">
    </BOUNDS>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="0">
@@ -417,7 +417,7 @@
    </BOUNDS>
    <PIN pinname="Size" slicecount="1" visible="1" values="12">
    </PIN>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|Creating a Formular of a Message|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Creating a Formular for many Messages.|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -1157,7 +1157,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Send" visible="1">
+   <PIN pinname="Send" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -1923,9 +1923,9 @@
    <NODE nodename="IOBox (String)" componentmode="InABox" id="141" systemname="IOBox (String)">
    <BOUNDS type="Node" left="12120" top="15420" width="7644" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="12120" top="15420" width="2736" height="1284">
+   <BOUNDS type="Box" left="12120" top="15420" width="2880" height="1416">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt; Changing Formular means reconnecting all IOBoxes. &cr;&lf;If set to None, it will never be overriden by any Formular. &cr;&lf;Use only Herr Inspektor to edit layout. Strg + R to undo.|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt; Changing Formular means reconnecting all IOBoxes. &cr;&lf;&cr;&lf;If set to None, it will never be overriden by any Formular. &cr;&lf;Use trusty Herr Inspektor to edit your dynamic layout. |">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -2995,7 +2995,7 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="-37931034.1034483,-4214559.34482755,11111111">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="-76819922.6034483,1340996.15517244,11111111">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -3373,9 +3373,9 @@
    <NODE nodename="IOBox (String)" componentmode="InABox" id="235" systemname="IOBox (String)">
    <BOUNDS type="Node" left="4860" top="49200" width="9120" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="4860" top="49200" width="6408" height="876">
+   <BOUNDS type="Box" left="4860" top="49200" width="6420" height="588">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|There is mighty Edit, which is Formular based as well. You will see you can update each Message individually.&cr;&lf;&cr;&lf;|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|A lot of my inital motivation was to overcome S and R nodes, because of their (almost exclusive) use as global variables. However, their use as a meta linking can be useful.&cr;&lf;|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -3770,20 +3770,6 @@
    </NODE>
    <LINK srcnodeid="267" srcpinname="Output String" dstnodeid="256" dstpinname="Foo">
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="268" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2292" top="58356" width="1128" height="240">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2292" top="58356" width="1704" height="288">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|select -&gt; clone|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE systemname="Clean (String)" nodename="IOBox (String)" componentmode="InABox" id="270">
    <BOUNDS type="Node" left="1848" top="58992" width="804" height="240">
    </BOUNDS>
@@ -3796,20 +3782,6 @@
    <PIN pinname="Show Grid">
    </PIN>
    <PIN pinname="String Type">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="271" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2220" top="58896" width="3456" height="240">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2220" top="58896" width="1728" height="840">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|clean -&gt; remove null, remove instance redundancy|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="272">
@@ -3879,9 +3851,9 @@
    <NODE nodename="IOBox (String)" componentmode="InABox" id="277" systemname="IOBox (String)">
    <BOUNDS type="Node" left="4968" top="60552" width="3456" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="4968" top="60552" width="2592" height="1296">
+   <BOUNDS type="Box" left="4968" top="60552" width="2628" height="1416">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|These three friends should need no further introduction. &cr;&lf;The Message pack devotes itself to decreasing the use of them, but if it seems convenient to have the same functionality done more high-level.|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|These three friends should need no further introduction. &cr;&lf;The Message pack devotes itself to decreasing redundant use of them. It seems appropriate to have the same functionality for high-level Message too..|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -3896,20 +3868,6 @@
    <BOUNDS type="Box" left="4992" top="62412" width="2580" height="372">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Use at your own discretion. |">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="279" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="1608" top="62064" width="1428" height="240">
-   </BOUNDS>
-   <BOUNDS type="Box" left="1608" top="62064" width="1848" height="300">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|framedelay -&gt; keep|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -3942,20 +3900,6 @@
    </NODE>
    <LINK srcnodeid="5" srcpinname="NotFound" dstnodeid="281" dstpinname="Input Node">
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="282" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2280" top="59940" width="504" height="240">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2280" top="59940" width="504" height="240">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="clone">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="285">
    <BOUNDS type="Node" left="12960" top="60852" width="100" height="100">
    </BOUNDS>
@@ -3972,6 +3916,8 @@
    <PIN pinname="X Input Value" slicecount="4" values="0,0,0,0">
    </PIN>
    <PIN pinname="Y Input Value" slicecount="4" values="0,0,0,0">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Select">
    </PIN>
    </NODE>
    <NODE systemname="Select (String)" filename="" nodename="Select (String)" componentmode="Hidden" id="283" hiddenwhenlocked="1">
@@ -4053,7 +3999,7 @@
    <NODE systemname="Hold (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Hold (Message.Keep)" componentmode="Hidden" id="183" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="4848" top="32136" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="MessageKeep" visible="1">
    </PIN>
@@ -4122,4 +4068,48 @@
    </NODE>
    <LINK srcnodeid="218" srcpinname="Y Output Value" dstnodeid="201" dstpinname="New">
    </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="293" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="7788" top="50352" width="13200" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7788" top="50352" width="3084" height="2424">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|So this is my compromise to the whole issue, which is conceptually closer to an Event vvvvramework. All Messages get collected into a common pipeline and can be listened to, according to their Address.&cr;&lf;&cr;&lf;If you want to &quot;listen&quot; according to some other criterion, feel free to build your custom Listen|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="245" srcpinname="Output" dstnodeid="19" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="294" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="7536" top="69324" width="756" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7536" top="69324" width="756" height="240">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|-&gt; prune|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="295" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="13560" top="63216" width="3120" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="13560" top="63216" width="1836" height="516">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Fun Fact: same wildcard rules apply to [Listen]|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
    </PATCH>
