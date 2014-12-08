@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -98,12 +96,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 FOutput[messageIndex] = message;
                 messageIndex++;
             }
-
-            if (anyChanged)  // if nothing happened, no need to flush
-            {
-                FOutput.Flush();
-            }
-
+            FOutput.Flush();
 
     }
     }
