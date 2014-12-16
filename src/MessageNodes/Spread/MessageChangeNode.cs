@@ -6,7 +6,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Change", Category = "Message", Help = "Allows Feedback Loops for Messages",
+    [PluginInfo(Name = "Change.Spread", Category = "Message", Help = "Allows Feedback Loops for Messages",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageChangeNode : IPluginEvaluate

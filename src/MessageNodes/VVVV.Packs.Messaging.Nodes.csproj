@@ -59,20 +59,20 @@
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
     <Compile Include="Configurable\MessageCreateNode.cs" />
-    <Compile Include="Configurable\KeepCreateNode.cs" />
+    <Compile Include="Keep\MessageKeepCreateNode.cs" />
     <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs" />
     <Compile Include="GenericNodes.cs" />
     <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
     <Compile Include="Keep\MessageKeepSafe.cs" />
-    <Compile Include="Utils\MessageChangeNode.cs" />
+    <Compile Include="Spread\MessageChangeNode.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
-    <Compile Include="Utils\MessageDistinctNode.cs" />
+    <Compile Include="Spread\MessageDistinctNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />
-    <Compile Include="Keep\MessageHoldNode.cs" />
+    <Compile Include="Keep\MessageKeepHoldNode.cs" />
     <Compile Include="Utils\MessageInfoNode.cs" />
-    <Compile Include="Utils\MessageRemoveFieldNode.cs" />
-    <Compile Include="Utils\MessageSearchNode.cs" />
-    <Compile Include="Utils\MessageSiftNode.cs" />
+    <Compile Include="Utils\MessagePruneNode.cs" />
+    <Compile Include="Spread\MessageSearchNode.cs" />
+    <Compile Include="Spread\MessageSiftNode.cs" />
     <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />
     <Compile Include="Configurable\MessageSplitNode.cs" />
     <Compile Include="Configurable\MessageReadNode.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="Formular\FormularReflectionNode.cs" />
     <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\MessageSortNode.cs" />
+    <Compile Include="Serializing\MessageSortNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

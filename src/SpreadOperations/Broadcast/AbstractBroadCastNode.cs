@@ -15,8 +15,6 @@ namespace VVVV.Nodes.Generic.Broadcast
         [Import()]
         protected IHDEHost FHDEHost;
 
-
-
         [Import]
         protected ILogger FLogger;
 
