@@ -7,7 +7,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Distinct", Category = "Message", Help = "Removes redundancy and null",
+    [PluginInfo(Name = "Distinct", Category = "Message.Spread", Help = "Removes redundancy and null",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageDistinctNode : IPluginEvaluate
