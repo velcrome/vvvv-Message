@@ -58,7 +58,7 @@ namespace VVVV.Packs.Messaging.Nodes
             foreach (string name in FPins.Keys)
             {
                 var pin = FPins[name].ToISpread();
-//                pin.Sync();
+                pin.Sync();
                 SpreadMax = Math.Max(pin.SliceCount, SpreadMax);
             }
 

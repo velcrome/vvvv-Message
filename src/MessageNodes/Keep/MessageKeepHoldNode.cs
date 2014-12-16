@@ -8,7 +8,7 @@ namespace VVVV.Packs.Messaging.Nodes
     [PluginInfo(Name = "Hold", Category = "Message.Keep", Help = "Holds the last bunch of Messages that traveled through. Pick some or all.",
         Tags = "velcrome")]
     #endregion PluginInfo
-    public class MessageHoldNode : AbstractMessageKeepNode
+    public class MessageKeepHoldNode : AbstractMessageKeepNode
     {
         public enum HoldEnum
         {
@@ -17,7 +17,11 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
 #pragma warning disable 649, 169
-        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)] 
+
+        public new IDiffSpread<EnumEntry> FType;
+        public new ISpread<Message> FDefault;
+
+        [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)]
         IDiffSpread<HoldEnum> FHold;
 
         [Input("Index", Order = int.MaxValue)]

@@ -7,7 +7,7 @@ using VVVV.Utils;
 namespace VVVV.Pack.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "velcrome")]
+    [PluginInfo(Name = "Sift", Category = "Message.Spread", Help = "Filter Messages", Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageSiftNode : IPluginEvaluate
     {
