@@ -13,6 +13,7 @@ namespace VVVV.Packs.Messaging.Nodes
     {
         #region fields & pins
 
+
         protected const string Tags = "Formular";
 
         [Input("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = false, Order = 2)]

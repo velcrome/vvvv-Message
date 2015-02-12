@@ -19,6 +19,13 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IIOFactory FIOFactory;
 
         // clear insight
+        protected override void Reset(IDiffSpread<bool> spread)
+        {
+            base.Reset(spread);
+            FChanged.SliceCount = 1;
+            FChanged[0] = true;
+        }
+
 
         public override void OnImportsSatisfied()
         {

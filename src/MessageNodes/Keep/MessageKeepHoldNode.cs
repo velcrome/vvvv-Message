@@ -19,7 +19,6 @@ namespace VVVV.Packs.Messaging.Nodes
 #pragma warning disable 649, 169
 
         public new IDiffSpread<EnumEntry> FType;
-        public new ISpread<Message> FDefault;
 
         [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)]
         IDiffSpread<HoldEnum> FHold;

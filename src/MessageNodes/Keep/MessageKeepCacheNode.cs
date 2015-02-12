@@ -18,10 +18,6 @@ namespace VVVV.Packs.Messaging.Nodes
     {
         #region fields & pins
 
-        // overwrite FDefault
-        [Input("Default", IsSingle = true, Order = 3, Visibility = PinVisibility.OnlyInspector, AutoValidate = false)]
-        private new ISpread<Message> FDefault;
-        
         [Input("Retain Time", IsSingle = true, DefaultValue = -1.0, Order = 3)]
         public ISpread<double> FTime;
 
