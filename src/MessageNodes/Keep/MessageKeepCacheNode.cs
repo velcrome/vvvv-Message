@@ -29,11 +29,6 @@ namespace VVVV.Packs.Messaging.Nodes
         //called when data for any output pin is requested
         public override void Evaluate(int SpreadMax)
         {
-            if (FReset[0])
-            {
-                Keep.Clear();
-            }
-
             // inject all incoming messages and keep a list of all
             var idFields = from fieldName in FUseAsID
                          select fieldName.Name;
@@ -44,8 +39,9 @@ namespace VVVV.Packs.Messaging.Nodes
                     select MatchOrInsert(message, idFields)
                 ).Distinct().ToList();
 
-
-            if (FTime[0] > 0) RemoveOld(changed);
+            bool removedSome = false;
+            if (FTime[0] > 0) 
+                removedSome = RemoveOld(changed);
             
             SpreadMax = Keep.Count;
             FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
@@ -59,17 +55,14 @@ namespace VVVV.Packs.Messaging.Nodes
 
             }
 
-            if (changed.Any())
+            if (changed.Any() || removedSome)
             {
                 FOutput.Flush();
                 FChanged.Flush();
             }
-
-
-
         }
 
-        private void RemoveOld(List<Message> changed)
+        private bool RemoveOld(List<Message> changed)
         {
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
@@ -90,10 +83,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 FRemovedMessages.SliceCount = 0;
                 FRemovedMessages.AssignFrom(clear);
                 FRemovedMessages.Flush();
+                return true;
             }
             else
             {
                 // output still empty, no need to flush
+                return false;
             }
         }
 

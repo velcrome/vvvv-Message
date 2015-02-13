@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
+using System.ComponentModel.Composition;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -18,8 +20,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
 #pragma warning disable 649, 169
 
-        public new IDiffSpread<EnumEntry> FType;
-
         [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)]
         IDiffSpread<HoldEnum> FHold;
 
@@ -34,6 +34,11 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void Evaluate(int SpreadMax)
         {
             var update = false;
+
+            //var pin = (FType as Pin<EnumEntry>).PluginIO;
+            //FType.Changed -= HandleTypeChange;
+            //pin.PluginHost.DeletePin(pin);
+
             if (!FReset.IsAnyInvalid() && FReset[0])
             {
                 Keep.Clear();
@@ -62,7 +67,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         FOutput.SliceCount = FIndex.SliceCount;
                         for (int i = 0; i < FIndex.SliceCount;i++ )
                         {
-                            FOutput[i] = Keep[FIndex[i]];
+                            FOutput[i] = Keep[FIndex[i]%Keep.Count];
                         }
                         break;
                 }
