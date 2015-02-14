@@ -3,6 +3,8 @@
 [Oo]bj/
 [Dd]eploy/
 
+[Bb]in/Dynamic/
+
 # mstest test results
 TestResults
 
