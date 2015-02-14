@@ -40,8 +40,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 else return;
 
-            var keepOnly = new HashSet<string>();
-            keepOnly.UnionWith(FFilter);
+            var keepOnly = new HashSet<string>(FFilter);
 
             foreach (var message in FInput)
             {

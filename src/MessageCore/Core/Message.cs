@@ -14,9 +14,10 @@ namespace VVVV.Packs.Messaging {
 	
 	
 	[DataContract]
-	public class Message : ICloneable {
-		
-		// The inner Data.
+	public class Message : ICloneable
+    {
+        #region Properties and Fields
+        // Access to the the inner Data.
         public IEnumerable<string> Fields
         {
             get { return Data.Keys; }
@@ -38,9 +39,10 @@ namespace VVVV.Packs.Messaging {
 
         [DataMember(Order = 2)]
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
+        #endregion
 
-	
-		public Message()
+        #region Constructor
+        public Message()
 		{
 		    Topic = "vvvv";
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
@@ -50,8 +52,27 @@ namespace VVVV.Packs.Messaging {
         {
             SetFormular(formular);
         }
+        #endregion
 
-        
+        #region Formular
+        public MessageFormular GetFormular()
+        {
+			return new MessageFormular(this, true);
+		}
+
+        public void SetFormular(MessageFormular formular)
+        {
+            foreach (string field in formular.Fields)
+            {
+                Data[field] = Bin.New( formular[field].Type ); // Type
+                var count = formular[field].DefaultSize;
+                count = count <= -1 ? 1 : count;
+                Data[field].SetCount(count); // Count
+            }
+        }
+        #endregion
+
+        #region Bin Handling
         public void Init(string name, params object[] values)
         {
             AssignFrom(name, values);
@@ -61,27 +82,31 @@ namespace VVVV.Packs.Messaging {
         {
             AddFrom(name, values);
         }
-		
-		public void AssignFrom(string name, IEnumerable en) {
+
+        public void AssignFrom(string name, IEnumerable en)
+        {
             var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
-            
-            var type = (obj !=null) ? TypeIdentity.Instance.FindBaseType(obj.GetType()) : null;
-            
+
+            var type = (obj != null) ? TypeIdentity.Instance.FindBaseType(obj.GetType()) : null;
+
             if (!Data.ContainsKey(name) || ((type != null) && (type != Data[name].GetInnerType())))
             {
                 Data.Remove(name);
                 Data.Add(name, Bin.New(type));
-			} else
-			{
-			    Data[name].Clear();
-			}
-			
-			foreach (object o in en) {
-				Data[name].Add(o); // implicit cast
-			}
-		}
-		
-		public void AddFrom(string name, IEnumerable en) {
+            }
+            else
+            {
+                Data[name].Clear();
+            }
+
+            foreach (object o in en)
+            {
+                Data[name].Add(o); // implicit cast
+            }
+        }
+
+        public void AddFrom(string name, IEnumerable en)
+        {
             if (!Data.ContainsKey(name))
             {
                 AssignFrom(name, en);
@@ -93,21 +118,45 @@ namespace VVVV.Packs.Messaging {
                     Data[name].Add(o); // implicit cast
                 }
             }
-		}
+        }
 
         public void Remove(string name)
         {
             Data.Remove(name);
         }
 
+        #endregion
 
-        public static Message operator + (Message one, Message two)
-	    {
-	        one.ReplaceWith(two, true);
+        #region Bin Access
+
+        public Bin this[string name]
+		{
+			get { 
+				if (Data.ContainsKey(name)) return Data[name];
+					else return null;				
+			} 
+			set { Data[name] = (Bin) value; }
+		}
+
+        #endregion
+
+        #region Matching
+
+        //      use simple wildcard pattern: use * for any amount of characters (including 0) or ? for exactly one character.
+        public bool AddressMatches(string pattern)
+        {
+
+            var regex = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
+            return new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Topic);
+        }
+
+        public static Message operator +(Message one, Message two)
+        {
+            one.ReplaceWith(two, true);
             return one;
-	    }
+        }
 
-        public static Message operator * (Message one, Message two)
+        public static Message operator *(Message one, Message two)
         {
             one.ReplaceWith(two, false);
             return one;
@@ -139,33 +188,10 @@ namespace VVVV.Packs.Messaging {
                 }
             }
         }
+        #endregion
 
-        public MessageFormular GetFormular()
-        {
-			return new MessageFormular(this, true);
-		}
-
-        public void SetFormular(MessageFormular formular)
-        {
-            foreach (string field in formular.Fields)
-            {
-                Data[field] = Bin.New( formular[field].Type ); // Type
-                var count = formular[field].DefaultSize;
-                count = count <= -1 ? 1 : count;
-                Data[field].SetCount(count); // Count
-            }
-        }
-
-		public Bin this[string name]
-		{
-			get { 
-				if (Data.ContainsKey(name)) return Data[name];
-					else return null;				
-			} 
-			set { Data[name] = (Bin) value; }
-		}
-		
-		public object Clone() {
+        #region Utils
+        public object Clone() {
             // might be faster when utilizing binary serialisation.
 
 			Message m = new Message();
@@ -204,15 +230,7 @@ namespace VVVV.Packs.Messaging {
 			}
 			return sb.ToString();
 		}
+        #endregion 
 
-//      use simple wildcard pattern: use * for any amount of characters (including 0) or ? for exactly one character.
-        public bool AddressMatches(string pattern)
-        {
-
-            var regex = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
-            return new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Topic);
-        }
-		
-
-	}
+    }
 }

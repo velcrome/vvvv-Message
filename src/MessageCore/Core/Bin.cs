@@ -10,75 +10,15 @@ using VVVV.Packs.Messaging.Serializing;
 
 namespace VVVV.Packs.Messaging
 {
-    [Serializable]
-    [JsonConverter(typeof(JsonBinSerializer))]
-    public class Bin<T> : Bin, IEnumerable<T> 
-    {
-        public Bin()
-        {
-        }
-        
-        
-        public Bin (params T[] values) 
-        {
-            foreach (var v in values)
-            {
-                Add(v);
-            }
-
-        }
-
-        public Bin(IEnumerable<T> values)
-        {
-            Add(values);
-        } 
-
-        public override Type GetInnerType()
-        {
-            return typeof(T);
-        }
-
-        public new T[] ToArray()
-        {
-            return (T[])this.ToArray(typeof(T));
-        }
-
-        public static implicit operator T(Bin<T> sl)
-        {
-            return (T)sl.First;
-        }
-
-        /*
-         * next two methods maybe unnecessary...
-         * but i like the funny casts they allow 
-         */
-        public static explicit operator Bin<T>(T[] s)  // explicit generic array to Bin conversion operator
-        {
-            return new Bin<T>(s);  
-        }
-        public static explicit operator Bin<T>(T s)  // explicit generic value to Bin-First conversion operator
-        {
-            return new Bin<T>(s);  
-        }
-
-        // necessary implementation for IEnumerable<T>
-        public new IEnumerator<T> GetEnumerator()
-        {
-            foreach (T item in this.ToArray())
-            {
-                yield return item;
-            }
-        }
-    }
-    
-    
+  
 	[Serializable]
     [JsonConverter(typeof(JsonBinSerializer))]
 	public abstract class Bin : ArrayList, ISerializable
 	{
-//      constructor
+
         #region Essentials
         
+//      constructor
         protected Bin(params object[] values): base()
         {
             foreach (var v in values)
@@ -121,37 +61,24 @@ namespace VVVV.Packs.Messaging
             }
         }
 
-        // only increases Count atm.
-        public int SetCount(int newCount) 
-        {
-            for (int i = Count; i < newCount; i++)
-            {
-                var defaultValue = TypeIdentity.Instance.Default(this.GetInnerType());
-                this.Add(defaultValue);
-            }
-            return Count;
-        }
+        #endregion
 
-        public new Bin Clone()
-        {
-            Bin c = Bin.New(this.GetInnerType());
-            c.AssignFrom(this);
-            return c;
-        }
+        #region Equality
 
-        public override bool Equals(Object obj)
+         public override bool Equals(Object obj)
         {
-//            if (obj == null) return false;
-
+//          check for an obvious Type match
             Bin other = obj as Bin;
             if ((object) other == null)
             {
                 return false;
             }
 
+//          check for the obvious structural matches
             if (other.Count != Count) return false;
             if (other.GetInnerType() != GetInnerType()) return false;
 
+//          deep check each element
             for (int i = 0; i < Count; i++)
             {
                 if (!other[i].Equals(this[i])) return false;
@@ -172,6 +99,19 @@ namespace VVVV.Packs.Messaging
             else return !(a.Equals(other));
         }
 
+#endregion
+
+        #region Utils
+        // only increases Count atm.
+        public int SetCount(int newCount)
+        {
+            for (int i = Count; i < newCount; i++)
+            {
+                var defaultValue = TypeIdentity.Instance.Default(this.GetInnerType());
+                this.Add(defaultValue);
+            }
+            return Count;
+        }
 
 
         public override int GetHashCode()
@@ -192,6 +132,13 @@ namespace VVVV.Packs.Messaging
             }
             s.Write("]");
             return s.ToString();
+        }
+
+        public new Bin Clone()
+        {
+            Bin c = Bin.New(this.GetInnerType());
+            c.AssignFrom(this);
+            return c;
         }
         #endregion
 
@@ -293,8 +240,80 @@ namespace VVVV.Packs.Messaging
 
         #endregion
 
+    }
+    [Serializable]
+    [JsonConverter(typeof(JsonBinSerializer))]
+    public class Bin<T> : Bin, IEnumerable<T>, IEquatable<T>
+    {
+        #region Generic Constructor
+        public Bin()
+        {
+        }
 
+
+        public Bin(params T[] values)
+        {
+            foreach (var v in values)
+            {
+                Add(v);
+            }
+
+        }
+
+        public Bin(IEnumerable<T> values)
+        {
+            Add(values);
+        }
+
+        #endregion
+
+        #region Generic Casting Utils
+        public override Type GetInnerType()
+        {
+            return typeof(T);
+        }
+
+        public new T[] ToArray()
+        {
+            return (T[])this.ToArray(typeof(T));
+        }
+
+        public static implicit operator T(Bin<T> sl)
+        {
+            return (T)sl.First;
+        }
+
+        /*
+         * next two methods maybe unnecessary...
+         * but i like the funny casts they allow when using them through a DynamicObject wrapper
+         */
+        public static explicit operator Bin<T>(T[] s)  // explicit generic array to Bin conversion operator
+        {
+            return new Bin<T>(s);
+        }
+        public static explicit operator Bin<T>(T s)  // explicit generic value to Bin-First conversion operator
+        {
+            return new Bin<T>(s);
+        }
+        
+        // necessary implementation for IEquitable<T>
+        public bool Equals(T other)
+        {
+            return base.Equals(other);
+        }
+
+
+        // necessary implementation for IEnumerable<T>
+        public new IEnumerator<T> GetEnumerator()
+        {
+            foreach (T item in this.ToArray())
+            {
+                yield return item;
+            }
+        }
+       #endregion
 
     }
-	
+    
+   
 }

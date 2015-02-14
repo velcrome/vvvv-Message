@@ -11,7 +11,8 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Search", Category = "Message.Spread", Help = "Allows LINQ queries for Messages", Tags = "LINQ", Author = "velcrome")]
+    // Todo: remove?
+    //    [PluginInfo(Name = "Search", Category = "Message.Spread", Help = "Allows LINQ queries for Messages", Tags = "LINQ", Author = "velcrome")]
     public class MessageSearchNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
