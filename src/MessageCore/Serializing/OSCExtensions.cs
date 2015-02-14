@@ -11,11 +11,11 @@ namespace VVVV.Packs.Messaging.Serializing
         public static Stream ToOSC(this Message message, bool extendedMode = false)
         {
             OSCBundle bundle = new OSCBundle(message.TimeStamp, extendedMode);
-            foreach (string name in message.Attributes)
+            foreach (string name in message.Fields)
             {
                 string oscAddress = "";
 
-                foreach (string part in message.Address.Split('.'))
+                foreach (string part in message.Topic.Split('.'))
                 {
                     if (part.Trim() != "") oscAddress += "/" + part;
                 }
@@ -87,8 +87,8 @@ namespace VVVV.Packs.Messaging.Serializing
                 {
                     if (part.Trim() != "") messageAddress += "." + part;
                 }
-                if (messagePrefix.Trim() == "") message.Address = messageAddress.Substring(1);
-                else message.Address = messagePrefix + messageAddress;
+                if (messagePrefix.Trim() == "") message.Topic = messageAddress.Substring(1);
+                else message.Topic = messagePrefix + messageAddress;
 
                 message[attribName] = bin;
             }

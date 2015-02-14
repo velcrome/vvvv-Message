@@ -14,8 +14,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FNew;
 
-        [Input("Address", DefaultString = "Event", Order = 3)]
-        ISpread<string> FAddress;
+        [Input("Topic", DefaultString = "Event", Order = 3)]
+        ISpread<string> FTopic;
 
         [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 4)]
         ISpread<int> FSpreadCount;
@@ -49,7 +49,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 Message message = new Message();
                 
 
-                message.Address = FAddress[i];
+                message.Topic = FTopic[i];
                 foreach (var field in formular.Fields)
                 {
                     message[field] = Bin.New(formular[field].Type);

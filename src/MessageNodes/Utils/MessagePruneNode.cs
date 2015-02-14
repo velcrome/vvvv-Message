@@ -45,7 +45,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             foreach (var message in FInput)
             {
-                foreach (var fieldName in message.Attributes)
+                foreach (var fieldName in message.Fields)
                     if (!keepOnly.Contains(fieldName))              
                         message.Remove(fieldName);
             }

@@ -65,7 +65,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public Message MatchOrInsert(Message message, IEnumerable<string> idFields)
         {
-            var compatibleBins = idFields.Intersect(message.Attributes);
+            var compatibleBins = idFields.Intersect(message.Fields);
             bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
 
             var matched = (from keep in Keep

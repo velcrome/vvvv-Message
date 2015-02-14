@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Tests
         {
             var message = new Message();
 
-            message.Address = "Test";
+            message.Topic = "Test";
             message.TimeStamp = Time.MinUTCTime();
 
             return message;

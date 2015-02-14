@@ -15,8 +15,8 @@ namespace VVVV.Packs.Messaging.Serializing
             if (message == null) return serialized;
 
 //            serialized.SetLength(0);
-            serialized.WriteUint(message.Address.UnicodeLength());
-            serialized.WriteUnicode(message.Address);
+            serialized.WriteUint(message.Topic.UnicodeLength());
+            serialized.WriteUnicode(message.Topic);
 
             var t = message.TimeStamp;
             var time = t.UniversalTime.ToString("yyyy-MM-dd HH:mm:ss.ffff");
@@ -28,8 +28,8 @@ namespace VVVV.Packs.Messaging.Serializing
             serialized.WriteUint(zone.UnicodeLength());
             serialized.WriteUnicode(zone);
 
-            serialized.WriteUint((uint)message.Attributes.Count());
-            foreach (var key in message.Attributes)
+            serialized.WriteUint((uint)message.Fields.Count());
+            foreach (var key in message.Fields)
             {
                 serialized.WriteUint(key.UnicodeLength());
                 serialized.WriteUnicode(key);
@@ -49,7 +49,7 @@ namespace VVVV.Packs.Messaging.Serializing
             input.Position = 0;
 
             uint addressLength = input.ReadUint();
-            message.Address = input.ReadUnicode((int)addressLength);
+            message.Topic = input.ReadUnicode((int)addressLength);
 
             uint l = input.ReadUint();
             var t = input.ReadUnicode((int)l);

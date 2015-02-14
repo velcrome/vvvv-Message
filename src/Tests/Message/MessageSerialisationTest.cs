@@ -19,7 +19,7 @@ namespace VVVV.Packs.Messaging.Tests
         {
           var message = new Message();
 
-          message.Address = "Test";
+          message.Topic = "Test";
           message.Init("foo", "bar");
           message.TimeStamp = Time.MinUTCTime();
           		
@@ -32,7 +32,7 @@ namespace VVVV.Packs.Messaging.Tests
 
             var message = new Message();
             message.Init("foo", "bar");
-            message.Address = "Test";
+            message.Topic = "Test";
             message.TimeStamp = Time.MinUTCTime();
 
             var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
@@ -42,7 +42,7 @@ namespace VVVV.Packs.Messaging.Tests
             var newMessage = (Message)JsonConvert.DeserializeObject(json, typeof(Message));
 
 
-            Assert.AreEqual("{\"Address\":\"Test\",\"TimeStamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},\"Data\":{\"foo\":{\"string\":[\"bar\"]}}}", json);
+            Assert.AreEqual("{\"Topic\":\"Test\",\"TimeStamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},\"Data\":{\"foo\":{\"string\":[\"bar\"]}}}", json);
 
             Assert.AreEqual(message.ToString(), newMessage.ToString());
 
@@ -53,7 +53,7 @@ namespace VVVV.Packs.Messaging.Tests
         public void MessageToStream()
         {
             var message = new Message();
-            message.Address = "foo";
+            message.Topic = "foo";
 
             message.Init("MrBoolean", true);
             message.Init("MrDouble", Math.PI);

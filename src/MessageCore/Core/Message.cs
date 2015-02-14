@@ -17,13 +17,13 @@ namespace VVVV.Packs.Messaging {
 	public class Message : ICloneable {
 		
 		// The inner Data.
-        public IEnumerable<string> Attributes
+        public IEnumerable<string> Fields
         {
             get { return Data.Keys; }
         }
 
 		[DataMember(Order = 0)]
-		public string Address{
+		public string Topic{
 			get;
 			set;
 		}
@@ -42,7 +42,7 @@ namespace VVVV.Packs.Messaging {
 	
 		public Message()
 		{
-		    Address = "vvvv";
+		    Topic = "vvvv";
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
 		}
 
@@ -115,8 +115,8 @@ namespace VVVV.Packs.Messaging {
 
         protected void ReplaceWith(Message message, bool AllowNew = false)
         {
-            var keys = message.Attributes;
-            if (!AllowNew) keys = keys.Intersect(this.Attributes);
+            var keys = message.Fields;
+            if (!AllowNew) keys = keys.Intersect(this.Fields);
 
             foreach (var name in keys)
             {
@@ -169,7 +169,7 @@ namespace VVVV.Packs.Messaging {
             // might be faster when utilizing binary serialisation.
 
 			Message m = new Message();
-			m.Address = Address;
+			m.Topic = Topic;
 			m.TimeStamp = TimeStamp;
 			
 			foreach (string name in Data.Keys) {
@@ -193,7 +193,7 @@ namespace VVVV.Packs.Messaging {
         public override string ToString() {
 			var sb = new StringBuilder();
 			
-			sb.Append("Message "+Address+" ("+TimeStamp.LocalTime+" ["+TimeStamp.TimeZone.Id+"])\n");
+			sb.Append("Message "+Topic+" ("+TimeStamp.LocalTime+" ["+TimeStamp.TimeZone.Id+"])\n");
 			foreach (string name in Data.Keys.OrderBy(x => x)) {
 				
 				sb.Append(" "+name + " \t: ");
@@ -210,7 +210,7 @@ namespace VVVV.Packs.Messaging {
         {
 
             var regex = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
-            return new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Address);
+            return new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace).IsMatch(Topic);
         }
 		
 

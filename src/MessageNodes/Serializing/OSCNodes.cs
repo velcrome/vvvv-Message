@@ -51,10 +51,10 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         [Input("OSC")]
         IDiffSpread<Stream> FInput;
 
-        [Input("Additional Address", DefaultString = "", IsSingle = true)]
-        IDiffSpread<string> FAddress;
+        [Input("Additional Topic", DefaultString = "", IsSingle = true)]
+        IDiffSpread<string> FTopicAdd;
 
-        [Input("Contract Address Parts", DefaultValue = 1, IsSingle = true, MinValue = 1)]
+        [Input("Contract Topic Parts", DefaultValue = 1, IsSingle = true, MinValue = 1)]
         IDiffSpread<int> FContract;
 
         [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
@@ -78,13 +78,13 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             }
             else SpreadMax = FInput.SliceCount;
             
-            if (!FInput.IsChanged && !FAddress.IsChanged && !FContract.IsChanged) return;
+            if (!FInput.IsChanged && !FTopicAdd.IsChanged && !FContract.IsChanged) return;
 
             FOutput.SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                Message message = OSCExtensions.FromOSC(FInput[i], FExtendedMode[0], FAddress[0], FContract[0]);
+                Message message = OSCExtensions.FromOSC(FInput[i], FExtendedMode[0], FTopicAdd[0], FContract[0]);
                 FOutput[i] = message;
             }
             FOutput.Flush();

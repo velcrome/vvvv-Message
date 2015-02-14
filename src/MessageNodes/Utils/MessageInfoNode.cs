@@ -20,8 +20,8 @@ namespace VVVV.Pack.Messaging.Nodes
         [Input("Print Message", IsBang = true)]
         IDiffSpread<bool> FPrint;
 
-        [Output("Address", AutoFlush = false)] 
-        ISpread<string> FAddress;
+        [Output("Topic", AutoFlush = false)] 
+        ISpread<string> FTopic;
 
         [Output("Timestamp", AutoFlush = false)] 
         ISpread<Time> FTimeStamp;
@@ -45,14 +45,14 @@ namespace VVVV.Pack.Messaging.Nodes
 
             FOutput.SliceCount = SpreadMax;
             FTimeStamp.SliceCount = SpreadMax;
-            FAddress.SliceCount = SpreadMax;
+            FTopic.SliceCount = SpreadMax;
             FConfigOut.SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)
             {
                 Message m = FInput[i];
                 FOutput[i] = m.ToString();
-                FAddress[i] = m.Address;
+                FTopic[i] = m.Topic;
                 FTimeStamp[i] = m.TimeStamp;;
 
                 FConfigOut[i] = FInput[i].GetFormular().ToString(true);
@@ -68,7 +68,7 @@ namespace VVVV.Pack.Messaging.Nodes
                     FLogger.Log(LogType.Debug, sb.ToString());
                 }
             }
-            FAddress.Flush();
+            FTopic.Flush();
             FTimeStamp.Flush();
             FOutput.Flush();
             FConfigOut.Flush();

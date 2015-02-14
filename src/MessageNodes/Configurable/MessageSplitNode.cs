@@ -32,8 +32,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input", Order = 0)]
         IDiffSpread<Message> FInput;
 
-        [Output("Address", AutoFlush = false)]
-        ISpread<string> FAddress;
+        [Output("Topic", AutoFlush = false)]
+        ISpread<string> FTopic;
 
         [Output("Timestamp", AutoFlush = false)] 
         ISpread<Time.Time> FTimeStamp;
@@ -63,17 +63,17 @@ namespace VVVV.Packs.Messaging.Nodes
                     pin.SliceCount = 0;
                     pin.Flush();
                 }
-                FAddress.SliceCount = 0;
+                FTopic.SliceCount = 0;
                 FTimeStamp.SliceCount = 0;
 
-                FAddress.Flush();
+                FTopic.Flush();
                 FTimeStamp.Flush();
 
                 return;
             }
 
             FTimeStamp.SliceCount = SpreadMax;
-            FAddress.SliceCount = SpreadMax;
+            FTopic.SliceCount = SpreadMax;
 
             foreach (string name in FPins.Keys)
             {
@@ -83,7 +83,7 @@ namespace VVVV.Packs.Messaging.Nodes
             for (int i = 0; i < SpreadMax; i++)
             {
                 Message message = FInput[i];
-                FAddress[i] = message.Address;
+                FTopic[i] = message.Topic;
                 FTimeStamp[i] = message.TimeStamp;
 
                 foreach (string name in FPins.Keys)
@@ -121,7 +121,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             FTimeStamp.Flush();
-            FAddress.Flush();
+            FTopic.Flush();
 
             foreach (string name in FPins.Keys)
             {

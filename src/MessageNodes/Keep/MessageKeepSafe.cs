@@ -58,7 +58,7 @@ namespace VVVV.Nodes.Messaging.Keep
         {
 
             var matched = (from keep in MessageKeep
-                           where keep.Address == message.Address
+                           where keep.Topic == message.Topic
                            select keep).ToList();
 
             if (matched.Count == 0)

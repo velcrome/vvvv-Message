@@ -13,8 +13,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input", Order = 0)]
         ISpread<Message> FInput;
 
-        [Input("Address", Order = 1, DefaultString="Dummy")]
-        ISpread<string> FAddress;
+        [Input("Topic", Order = 1, DefaultString="Dummy")]
+        ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
@@ -34,7 +34,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 FOutput.SliceCount = 1;
 
-                Default.Address = FAddress[0];
+                Default.Topic = FTopic[0];
                 FOutput[0] = Default;
             }
             else

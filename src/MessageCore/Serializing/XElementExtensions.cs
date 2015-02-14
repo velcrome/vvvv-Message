@@ -9,9 +9,9 @@ namespace VVVV.Packs.Messaging.Serializing
         {
             XElement xml = new XElement("Message");
 
-            xml.Add(new XAttribute("address", message.Address));
+            xml.Add(new XAttribute("Topic", message.Topic));
 
-            foreach (var key in message.Attributes)
+            foreach (var key in message.Fields)
             {
                 Bin bin = message[key];
                 string alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());

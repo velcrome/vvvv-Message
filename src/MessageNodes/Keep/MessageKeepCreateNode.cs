@@ -13,8 +13,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", IsBang = true, Order = 0)]
         ISpread<bool> FNew;
 
-        [Input("Address", DefaultString = "State", Order = 1)]
-        ISpread<string> FAddress;
+        [Input("Topic", DefaultString = "State", Order = 1)]
+        ISpread<string> FTopic;
 
         [Input("Reset", IsBang = true, Order = int.MaxValue - 2)]
         ISpread<bool> FReset;
@@ -74,7 +74,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     anyChanged = true; 
                 }
 
-            anyChanged = anyChanged || FAddress.IsChanged || FPins.Any(x => x.Value.ToISpread().IsChanged); 
+            anyChanged = anyChanged || FTopic.IsChanged || FPins.Any(x => x.Value.ToISpread().IsChanged); 
 
             if (!anyChanged) return;
 
@@ -88,7 +88,7 @@ namespace VVVV.Packs.Messaging.Nodes
 ///               bool change = messageIndex >= oldCount || FNew[messageIndex]; // fresh ones always update
 //                if (change || totalReset)
 //                {
-//                    message.Address = FAddress[messageIndex];
+//                    message.Topic = FTopic[messageIndex];
                     message.TimeStamp = Time.Time.CurrentTime();
 
                     CopyFromPins(message, messageIndex);

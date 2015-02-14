@@ -39,7 +39,7 @@ namespace VVVV.Packs.Messaging
 
         public MessageFormular(Message template, bool withCount = false) : this()
         {
-            foreach (string field in template.Attributes)
+            foreach (string field in template.Fields)
             {
                 var type = template[field].GetInnerType();
                 var count = withCount ?  template[field].Count : -1;

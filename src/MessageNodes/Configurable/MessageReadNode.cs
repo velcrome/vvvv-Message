@@ -54,7 +54,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     var type = TargetDynamicType;
 
                     object input;
-                    if (!message.Attributes.Contains(key)) 
+                    if (!message.Fields.Contains(key)) 
                         input = TypeIdentity.Instance.Default(type);
                     else
                     {

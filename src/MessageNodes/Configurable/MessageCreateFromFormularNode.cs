@@ -13,8 +13,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", Order = 0, IsToggle=true)]
         ISpread<bool> FNew;
 
-        [Input("Address", Order = 1, DefaultString = "Event")]
-        ISpread<string> FAddress;
+        [Input("Topic", Order = 1, DefaultString = "Event")]
+        ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
@@ -32,7 +32,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 var message = new Message(Formular);
                 message.TimeStamp = Time.Time.CurrentTime();
-                message.Address = FAddress[0];
+                message.Topic = FTopic[0];
                 
                 FOutput[0] = message;
                 FOutput.Flush();

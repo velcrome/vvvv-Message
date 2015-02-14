@@ -16,8 +16,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", IsToggle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FNew;
 
-        [Input("Address", DefaultString = "Event", Order = 3)]
-        ISpread<string> FAddress;
+        [Input("Topic", DefaultString = "Event", Order = 3)]
+        ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]
         Pin<Message> FOutput;
@@ -49,7 +49,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            SpreadMax = FNew.CombineWith(FAddress);
+            SpreadMax = FNew.CombineWith(FTopic);
 
             foreach (string name in FPins.Keys)
             {
@@ -63,7 +63,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 var message = new Message();
 
-                message.Address = FAddress[i];
+                message.Topic = FTopic[i];
                 foreach (string name in FPins.Keys)
                 {
                     var pin = FPins[name].ToISpread();

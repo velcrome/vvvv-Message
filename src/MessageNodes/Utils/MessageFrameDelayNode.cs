@@ -22,7 +22,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Initialize", IsSingle = true, IsBang = true)] 
         IDiffSpread<bool> FInit;
 
-        [Output("Message", AutoFlush = false, AllowFeedback = true)] 
+        [Output("Output", AutoFlush = false, AllowFeedback = true)] 
         ISpread<Message> FOutput;
 
         private List<Message> lastFrame;
