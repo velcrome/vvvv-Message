@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\SearchTemplate (Message) help.v4p" systemname="Search (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Search (Message) help.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="11520" top="3540" width="9000" height="6000">
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\plugins\SearchTemplate (Message) help.v4p" systemname="Search (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Search (Message) help.v4p" scrollx="120" scrolly="1524">
+   <BOUNDS type="Window" left="2304" top="2892" width="9000" height="6000">
    </BOUNDS>
    <PACK Name="addonpack" Version="33.3.0">
    </PACK>
@@ -96,28 +96,6 @@
    <PIN pinname="SliceCount Mode" slicecount="1" values="Maximum">
    </PIN>
    </NODE>
-   <NODE systemname="SearchTemplate (Message.Spread)" filename="SearchMessage.SpreadTemplate\SearchMessage.SpreadTemplate.csproj" nodename="SearchTemplate (Message.Spread)" componentmode="Hidden" id="13">
-   <BOUNDS type="Node" left="912" top="3396" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Message" visible="1">
-   </PIN>
-   <PIN pinname="Input" slicecount="1" values="||">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="13" srcpinname="Message" dstnodeid="1" dstpinname="Input Node">
-   </LINK>
-   <LINK srcnodeid="13" srcpinname="Former Slice" dstnodeid="11" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="13" srcpinname="Message" dstnodeid="3" dstpinname="Input">
-   </LINK>
-   <NODE systemname="Change (Message)" nodename="Change (Message)" componentmode="Hidden" id="14" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
-   <BOUNDS type="Node" left="4020" top="2184" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="OnChange" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="Create (Message.Keep Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message.Keep Formular)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="2616" top="1392" width="100" height="100">
    </BOUNDS>
@@ -136,10 +114,6 @@
    </LINK>
    <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="2" dstpinname="Foo">
    </LINK>
-   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="13" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="14" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="15" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4032" top="2724" width="480" height="480">
    </BOUNDS>
@@ -154,6 +128,30 @@
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
    </NODE>
+   <NODE systemname="Change (Message.Spread)" nodename="Change (Message.Spread)" componentmode="Hidden" id="14" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <BOUNDS type="Node" left="4020" top="2184" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="14" dstpinname="Input">
+   </LINK>
    <LINK srcnodeid="14" srcpinname="OnChange" dstnodeid="15" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="SearchTemplate (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" nodename="SearchTemplate (Message.Spread)" componentmode="Hidden" id="16">
+   <BOUNDS type="Node" left="1212" top="3060" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Message" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="16" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message" dstnodeid="1" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message" dstnodeid="3" dstpinname="Input">
    </LINK>
    </PATCH>

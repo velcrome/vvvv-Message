@@ -21,8 +21,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Message", AutoFlush = false)]
         private ISpread<Message> FOutput;
 
-        [Output("Former Slice", AutoFlush = false)]
-        private ISpread<int> FFormerSlice;
 
         [Import()]
         protected ILogger FLogger;
