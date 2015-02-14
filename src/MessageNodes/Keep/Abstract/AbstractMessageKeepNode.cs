@@ -8,19 +8,29 @@ namespace VVVV.Packs.Messaging.Nodes
         public IDiffSpread<Message> FInput;
 
         [Input("Reset", IsSingle = true, IsBang = true, Order = 1, Visibility = PinVisibility.Hidden)]
-        public ISpread<bool> FReset;
-
-        // IDiffSpread Formular Order = 2
-
-        [Input("Default", IsSingle = true, Order = 3, Visibility = PinVisibility.Hidden, AutoValidate = false)]
-        public ISpread<Message> FDefault;
+        public IDiffSpread<bool> FReset;
 
         [Output("Output", Order = 0, AutoFlush = false)]
         public ISpread<Message> FOutput;
 
         public readonly MessageKeep Keep = new MessageKeep();
 
-        
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            FReset.Changed += Reset;
+        }
+
+        protected virtual void Reset(IDiffSpread<bool> spread)
+        {
+            if (FReset[0])
+            {
+                Keep.Clear();
+                FOutput.SliceCount = 0;
+                FOutput.Flush();
+            }
+        }
+
         protected virtual void SortKeep()
         {
             Keep.Sort(

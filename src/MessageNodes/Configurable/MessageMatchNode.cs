@@ -1,30 +1,39 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class TypableMessageKeepNode : AbstractMessageKeepNode
+
+    #region PluginInfo
+    [PluginInfo(Name = "Update", AutoEvaluate = true, Category = "Message", Version = "Formular", Help = "Injects a Message into a matching other Message", Tags = "", Author = "velcrome")]
+    #endregion PluginInfo    
+    public class UpdateMessageNode : AbstractFormularableNode
     {
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        [Output("Changed Slice", Order = 1)]
+        [Input("Input Messages")]
+        public IDiffSpread<Message> FInput;
+
+        [Input("Input Keep", AutoValidate=false)]
+        public ISpread<Message> FKeep;
+
+        [Output("Output Keep", AutoFlush = false, Order = 0)]
+        public ISpread<Message> FOutput;
+
+        [Output("Changed Keep Slice", AutoFlush = false, Order = 1)]
         public ISpread<bool> FChanged;
+
+        [Output("Unknown Messages", AutoFlush=false)]
+        public ISpread<Message> FUnknown;
 
         [Import()]
         protected IIOFactory FIOFactory;
-
-        // clear insight
-        protected override void Reset(IDiffSpread<bool> spread)
-        {
-            base.Reset(spread);
-            FChanged.SliceCount = 1;
-            FChanged[0] = true;
-        }
 
 
         public override void OnImportsSatisfied()
@@ -68,16 +77,16 @@ namespace VVVV.Packs.Messaging.Nodes
             var compatibleBins = idFields.Intersect(message.Attributes);
             bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
 
-            var matched = (from keep in Keep
+            var matched = (from keep in FKeep
                            where isCompatible
-                                from fieldName in compatibleBins
+                           from fieldName in compatibleBins
                            where keep[fieldName] == message[fieldName]// slicewise check of Bins' equality
                            select keep).ToList();
 
             if (matched.Count == 0)
             {
-                Keep.Add(message); // record message
-                return message;   
+                // this fresh one does not match anything. discard rogue message
+                return null;
             }
             else
             {
@@ -86,13 +95,55 @@ namespace VVVV.Packs.Messaging.Nodes
                 var k = found += message; // copy all attributes from message to matching record
                 found.TimeStamp = message.TimeStamp; // update time
 
-                return found; 
+                return found;
             }
         }
-        
+
+        //called when data for any output pin is requested
+        public override void Evaluate(int SpreadMax)
+        {
+            if (!FInput.IsChanged) return;
+
+            if (FInput.IsAnyInvalid())
+            {
+                FUnknown.SliceCount = 0;
+                FUnknown.Flush();
+
+                FChanged.SliceCount = 0;
+                FChanged.SliceCount = FKeep.SliceCount;
+            }
+
+            // inject all incoming messages and keep a list of all
+            var idFields = from fieldName in FUseAsID
+                           select fieldName.Name;
+
+            var changed = (
+                    from message in FInput
+                    where message != null
+                    select MatchOrInsert(message, idFields)
+                ).Distinct().ToList();
+
+
+            SpreadMax = FKeep.SliceCount;
+            FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
+
+
+            for (int i = 0; i < SpreadMax; i++)
+            {
+                var message = FKeep[i];
+                FOutput[i] = message;
+                FChanged[i] = changed.Contains(message);
+
+            }
+
+            if (changed.Any())
+            {
+                FOutput.Flush();
+                FChanged.Flush();
+            }
+        }
 
 
 
-  
     }
 }

@@ -68,16 +68,16 @@ namespace VVVV.Nodes.Messaging.Nodes
 
 
             var updateTimestamp = FUpdateTimestamp[0];
-            bool update = false;
-
-            for (int j = 0; j < FUpdate.SliceCount && j < SpreadMax; j++)
-                if (FUpdate[j])
-                {
-                    update = true;
-                    break;
-                }
 
             // sync pins only if necessary. might cause confusion in the gui, when a link's input and output don't visually match 
+            
+            //bool update = false;
+            //for (int j = 0; j < FUpdate.SliceCount && j < SpreadMax; j++)
+            //    if (FUpdate[j])
+            //    {
+            //        update = true;
+            //        break;
+            //    }
             // 
             //if (update) foreach (var pinName in FPins.Keys)
             //    {

@@ -16,9 +16,6 @@ namespace VVVV.Nodes.Messaging.Keep
         Author = "velcrome")]
     public class MessageKeepSafe : AbstractMessageKeepNode
     {
-        // this one shall not show. remove by overwriting.
-        public new ISpread<Message> FDefault;
-
         [Output("Changed Slice", Order = 1)]
         public ISpread<bool> FChanged;
 

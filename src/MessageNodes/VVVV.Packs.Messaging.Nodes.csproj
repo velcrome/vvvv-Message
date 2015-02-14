@@ -56,6 +56,8 @@
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
+    <Compile Include="Configurable\MessageCreateFromFormularNode.cs" />
+    <Compile Include="Configurable\MessageMatchNode.cs" />
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
     <Compile Include="Configurable\MessageCreateNode.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
     <Compile Include="Keep\MessageKeepSafe.cs" />
     <Compile Include="Spread\MessageChangeNode.cs" />
+    <Compile Include="Configurable\MessageAvoidNilNode.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
     <Compile Include="Spread\MessageDistinctNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />

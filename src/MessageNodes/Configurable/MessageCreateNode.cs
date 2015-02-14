@@ -3,6 +3,7 @@ using System.Linq;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
+using VVVV.PluginInterfaces.V2.NonGeneric;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -14,11 +15,6 @@ namespace VVVV.Packs.Messaging.Nodes
 #pragma warning disable 649, 169
         [Input("New", IsToggle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FNew;
-
-        [Input("Reset", IsSingle = true, Order = 1, Visibility = PinVisibility.Hidden)]
-        public ISpread<bool> FReset;
-
-        // IDiffSpread Formular Order = 2
 
         [Input("Address", DefaultString = "Event", Order = 3)]
         ISpread<string> FAddress;
@@ -70,8 +66,10 @@ namespace VVVV.Packs.Messaging.Nodes
                 message.Address = FAddress[i];
                 foreach (string name in FPins.Keys)
                 {
-                    var spread = FPins[name].ToISpread()[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
-                    message.AssignFrom(name, spread.ToEnumerable());
+                    var pin = FPins[name].ToISpread();
+                        
+                    if (!pin.IsAnyInvalid()) 
+                    message.AssignFrom(name, pin[i] as ISpread);
                 }
                 FOutput[i] = message;
             }

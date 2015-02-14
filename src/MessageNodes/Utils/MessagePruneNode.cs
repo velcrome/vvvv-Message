@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
@@ -15,7 +16,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input")]
         private IDiffSpread<Message> FInput;
 
-        [Input("Filter", DefaultString = "Foo")]
+        [Input("Remaining Fields", DefaultString = "Foo")]
         private ISpread<string> FFilter;
 
         [Output("Output", AutoFlush = false)]
@@ -39,11 +40,14 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 else return;
 
+            var keepOnly = new HashSet<string>();
+            keepOnly.UnionWith(FFilter);
+
             foreach (var message in FInput)
             {
-                foreach (var fieldName in FFilter)
-                    message.Remove(fieldName);
-
+                foreach (var fieldName in message.Attributes)
+                    if (!keepOnly.Contains(fieldName))              
+                        message.Remove(fieldName);
             }
 
             FOutput.SliceCount = 0;
