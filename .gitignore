@@ -3,7 +3,6 @@
 [Oo]bj/
 [Dd]eploy/
 
-[Bb]in/Dynamic/
 
 # mstest test results
 TestResults
@@ -110,4 +109,4 @@ _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
 
-/patches/plugins/SearchMessage.SpreadTemplate/bin
+/patches/plugins/MessageSearchTemplateNode/bin
