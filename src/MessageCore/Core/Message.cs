@@ -11,7 +11,10 @@ using VVVV.Packs.Time;
 #endregion usings
 
 namespace VVVV.Packs.Messaging {
-	
+    public delegate void MessageChanged(Message original, Message change);
+
+  
+
 	
 	[DataContract]
 	public class Message : ICloneable
@@ -39,16 +42,26 @@ namespace VVVV.Packs.Messaging {
 
         [DataMember(Order = 2)]
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
+
+        public event MessageChanged Changed;
         #endregion
 
         #region Constructor
         public Message()
-		{
-		    Topic = "vvvv";
+        {
+            Topic = "vvvv";
             TimeStamp = Time.Time.CurrentTime(); // init with local timezone
-		}
+        }
 
-        public Message(MessageFormular formular) : base()
+        public Message(string topic)
+        {
+            Topic = topic;
+            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+        }
+
+       
+        public Message(MessageFormular formular)
+            : base()
         {
             SetFormular(formular);
         }
@@ -164,6 +177,9 @@ namespace VVVV.Packs.Messaging {
 
         protected void ReplaceWith(Message message, bool AllowNew = false)
         {
+            if (this.Equals(message)) return;
+
+
             var keys = message.Fields;
             if (!AllowNew) keys = keys.Intersect(this.Fields);
 
@@ -188,6 +204,38 @@ namespace VVVV.Packs.Messaging {
                 }
             }
         }
+        #endregion
+
+        #region Change Management
+
+        public bool ConfirmChanges()
+        {
+            var changedFields = new List<string>();
+            foreach (var field in Fields)
+            {
+                if (Data[field].ConfirmChanges())
+                {
+                    changedFields.Add(field);
+                }
+            }
+
+            if (changedFields.Count > 0)
+            {
+                var changedMessage = new Message(this.Topic);
+
+                foreach (var field in changedFields)
+                    changedMessage.Data[field] = Data[field].BackUp;
+
+                Changed(this, changedMessage);
+                TimeStamp = Time.Time.CurrentTime();
+                
+                return true;
+            }
+            else return false;
+        }
+
+
+
         #endregion
 
         #region Utils

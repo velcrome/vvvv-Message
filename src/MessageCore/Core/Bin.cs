@@ -10,11 +10,32 @@ using VVVV.Packs.Messaging.Serializing;
 
 namespace VVVV.Packs.Messaging
 {
-  
 	[Serializable]
     [JsonConverter(typeof(JsonBinSerializer))]
 	public abstract class Bin : ArrayList, ISerializable
 	{
+        internal Bin BackUp;
+
+
+        internal bool ConfirmChanges()
+        {
+            // todo: remove??
+
+            if (BackUp == null)
+            {
+                BackUp = this.Clone() as Bin;
+                return true; // new
+            }
+
+            if (BackUp == this) {
+                return false;
+            }
+
+           
+           BackUp = this.Clone() as Bin;
+
+            return true; // update
+        }
 
         #region Essentials
         
@@ -134,6 +155,7 @@ namespace VVVV.Packs.Messaging
             return s.ToString();
         }
 
+        // deepclone is the default
         public new Bin Clone()
         {
             Bin c = Bin.New(this.GetInnerType());
@@ -223,7 +245,7 @@ namespace VVVV.Packs.Messaging
 
         #endregion
 
-        #region alternative factory constructor for runtime typing of the bin
+        #region alternative factory constructor for runtime typing of the field
         public static Bin New(Type type)
         {
             Type spreadType = typeof(Bin<>).MakeGenericType(type);

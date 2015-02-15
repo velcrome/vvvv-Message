@@ -42,7 +42,13 @@ namespace VVVV.Nodes.Generic
                     FOutput.Flush();
                     return;
                 }
-                else return;			
+                else if (FIndex.IsChanged && FIndex.SliceCount == 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                    return;
+                }
+                else return;
             
             
             FOutput.SliceCount = SpreadMax;

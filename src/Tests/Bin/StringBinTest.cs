@@ -49,9 +49,9 @@ namespace VVVV.Packs.Messaging.Tests
         public void StringBinToStream()
         {
             var bin = Bin.New(typeof(string));
-//            bin.Init("lorem");
+//            field.Init("lorem");
             bin.Add("");
-//            bin.Init("ipsum");
+//            field.Init("ipsum");
 
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();

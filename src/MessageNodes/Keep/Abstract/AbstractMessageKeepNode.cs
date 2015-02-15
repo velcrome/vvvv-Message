@@ -31,14 +31,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
-        protected virtual void SortKeep()
-        {
-            Keep.Sort(
-                delegate(Message x, Message y) {
-                    return (x.TimeStamp > y.TimeStamp) ? 1 : 0;
-                }
-            );
-        }
+
 
     }
 }

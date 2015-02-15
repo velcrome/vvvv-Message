@@ -55,8 +55,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
             }
 
-            if (changed.Any() || removedSome)
+            if (changed.Any() || removedSome || Keep.IsChanged)
             {
+                Keep.Sync();
                 FOutput.Flush();
                 FChanged.Flush();
             }

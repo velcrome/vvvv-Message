@@ -5,6 +5,7 @@ using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.Packs.Time;
+using VVVV.PluginInterfaces.V2.NonGeneric;
 
 
 namespace VVVV.Nodes.Messaging.Nodes
@@ -95,8 +96,8 @@ namespace VVVV.Nodes.Messaging.Nodes
                     foreach (var name in FPins.Keys)
                     {
                         var pin = FPins[name].ToISpread();
-                        var spread = pin[i] as VVVV.PluginInterfaces.V2.NonGeneric.ISpread;
-                        message.AssignFrom(name, VVVV.Utils.SpreadUtils.ToEnumerable(spread));
+                        var spread = pin[i] as ISpread;
+                        message.AssignFrom(name, spread);
                     }
                     if (updateTimestamp) message.TimeStamp = Time.CurrentTime();
                 }
