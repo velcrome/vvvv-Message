@@ -27,72 +27,20 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Index", Order = int.MaxValue)]
         IDiffSpread<int> FIndex;
 
-        [Output("Change Data", Order = int.MaxValue - 2, AutoFlush = false, Visibility= PinVisibility.Hidden)]
-        Pin<Message> FChangeDataOut;
-
-        [Output("Changed Keep Slice", Order = int.MaxValue - 1, AutoFlush = false, Visibility=PinVisibility.Hidden)]
-        Pin<int> FChangeOut;
-
-        [Output("Internal Count", Order = int.MaxValue)]
-        ISpread<int> FCountOut;
-
- 
-
 #pragma warning restore
 
         public override void Evaluate(int SpreadMax)
         {
-            var update = false;
+            var update = CheckReset();
 
-            if (!FReset.IsAnyInvalid() && FReset[0])
-            {
-                Keep.Clear();
-                update = true;
-            }
-            
             if (FInput.IsChanged && !FInput.IsAnyInvalid())
             {
-                Keep.AssignFrom(FInput); 
-                FCountOut[0] = Keep.Count;
+                Keep.AssignFrom(FInput);
                 update = true;
             }
 
-            FChangeOut.SliceCount = 0;
-            FChangeDataOut.SliceCount = 0;
+            if (UpKeep()) update = true;
 
-            if (Keep.IsChanged)
-            {
-
-                if (FChangeDataOut.IsConnected || FChangeOut.IsConnected)
-                {
-
-                    if (FChangeOut.IsConnected)  // more expensive
-                    {
-                        IEnumerable<int> indexes;
-                        var changes = Keep.Sync(out indexes);
-
-                        foreach(var index in indexes)
-                            FChangeOut.Add(index);
-
-                        FChangeDataOut.AssignFrom(changes);
-                    }
-                    else
-                    {
-                        var changes = Keep.Sync();
-                        FChangeDataOut.AssignFrom(changes);
-                    }
-
-
-                }
-                else Keep.Sync();
-
-                FChangeOut.Flush();
-                FChangeDataOut.Flush();
-
-                
-                update = true;
-
-            }
             if (FHold.IsChanged ) update = true;
             if (FHold[0] == HoldEnum.Index && FIndex.IsChanged) update = true;
 

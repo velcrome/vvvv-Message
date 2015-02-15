@@ -16,54 +16,41 @@ namespace VVVV.Nodes.Messaging.Keep
         Author = "velcrome")]
     public class MessageKeepSafe : AbstractMessageKeepNode
     {
-        [Output("Changed Slice", Order = 1)]
-        public ISpread<bool> FChanged;
 
-        [Import()]
-        protected IIOFactory FIOFactory;
-
-        public readonly List<Message> MessageKeep = new List<Message>();
-
-        //called when data for any output pin is requested
+        // must override
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
         }
 
         public override void Evaluate(int SpreadMax)
         {
-            if (FReset[0])
+
+            var update = CheckReset();
+
+            foreach (var message in FInput)
             {
-                MessageKeep.Clear();
+                if (message != null && message.Topic != "")
+                {
+                    if (MatchOrInsert(message) != null) update = true; // unnecessary to carry update here?
+                }
             }
 
-            // inject all incoming messages and keep a list of all
-            var changed = (
-                    from message in FInput
-                    where message != null
-                    select MatchOrInsert(message)
-                ).Distinct().ToList();
+            if (UpKeep()) update = true;
 
-            SpreadMax = MessageKeep.Count;
-            FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
 
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                var message = MessageKeep[i];
-                FOutput[i] = message;
-                FChanged[i] = changed.Contains(message);
-            }
+            if (update) DumpKeep(Keep.Count);
         }
         
         public Message MatchOrInsert(Message message)
         {
-
-            var matched = (from keep in MessageKeep
+           
+            var matched = (from keep in Keep
                            where keep.Topic == message.Topic
                            select keep).ToList();
 
             if (matched.Count == 0)
             {
-                MessageKeep.Add(message); // record message
+                Keep.Add(message); // record message
                 return message;
             }
             else
