@@ -1,8 +1,10 @@
 ﻿#region usings
 using System;
 using System.Collections.Generic;
-using VVVV.PluginInterfaces.V2;
 using System.Linq;
+
+using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 using VVVV.Packs.Messaging;
 #endregion usings
 
@@ -29,60 +31,83 @@ namespace VVVV.Packs.Messaging.Nodes
         //called when data for any output pin is requested
         public override void Evaluate(int SpreadMax)
         {
+            var update = CheckReset();
+
             // inject all incoming messages and keep a list of all
             var idFields = from fieldName in FUseAsID
                          select fieldName.Name;
 
-            var changed = (
-                    from message in FInput
-                    where message != null
-                    select MatchOrInsert(message, idFields)
-                ).Distinct().ToList();
+            if (!FInput.IsAnyInvalid())
+                foreach (var message in FInput) 
+                    MatchOrInsert(message, idFields);
 
-            bool removedSome = false;
             if (FTime[0] > 0) 
-                removedSome = RemoveOld(changed);
+                if (RemoveOld()) update = true;
+
+            if (UpKeep(true)) update = true;
+
+            // changed pins are now valid.
             
-            SpreadMax = Keep.Count;
-            FChanged.SliceCount = FOutput.SliceCount = SpreadMax;
-         
-  
-            for (int i = 0; i < SpreadMax;i++ )
+            if (update)
             {
-                var message = Keep[i];
-                FOutput[i] = message;
-                FChanged[i] = changed.Contains(message);
+                SpreadMax = FChangeDataOut.SliceCount;
 
-            }
+                for (int i = 0; i < SpreadMax; i++)
+                {
+                    var change = FChangeDataOut[i];
+                    var orig = Keep[FChangeOut[i]];
 
-            if (changed.Any() || removedSome || Keep.IsChanged)
-            {
-                Keep.Sync();
-                FOutput.Flush();
-                FChanged.Flush();
+                    foreach (var field in idFields)
+                    {
+                        change.AssignFrom(field, orig[field].Clone());
+                    }
+                }
+
+                DumpKeep(Keep.Count);
             }
         }
 
-        private bool RemoveOld(List<Message> changed)
+        public Message MatchOrInsert(Message message, IEnumerable<string> idFields)
+        {
+            var compatibleBins = idFields.Intersect(message.Fields);
+            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
+
+            var matched = (from keep in Keep
+                           where isCompatible
+                           from fieldName in compatibleBins
+                           where keep[fieldName] == message[fieldName]// slicewise check of Bins' equality
+                           select keep).ToList();
+
+            if (matched.Count == 0)
+            {
+                Keep.Add(message); // record message
+                return message;
+            }
+            else
+            {
+                var found = matched.First(); // found a matching record
+                var k = found += message; // copy all attributes from message to matching record
+     
+                return found;
+            }
+        }
+
+        private bool RemoveOld()
         {
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
 
-            var clear = (from message in Keep
-                         where message.TimeStamp < validTime
-                         select message).ToArray();
+            var deadMessages = 
+                from message in Keep
+                    where message.TimeStamp < validTime
+                    let removed = Keep.Remove(message)
+                    select message;
 
-            foreach (var m in clear)
-            {
-                var index = Keep.IndexOf(m);
-                Keep.RemoveAt(index);
-                changed.Remove(m);
-            }
 
-            if (FRemovedMessages.SliceCount > 0 || clear.Length != 0)
+            if (FRemovedMessages.SliceCount > 0 || deadMessages.Count() != 0)
             {
                 FRemovedMessages.SliceCount = 0;
-                FRemovedMessages.AssignFrom(clear);
+                FRemovedMessages.AssignFrom(deadMessages);
                 FRemovedMessages.Flush();
                 return true;
             }

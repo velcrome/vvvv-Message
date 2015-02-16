@@ -31,13 +31,12 @@ namespace VVVV.Nodes.Messaging.Keep
             {
                 if (message != null && message.Topic != "")
                 {
-                    if (MatchOrInsert(message) != null) update = true; // unnecessary to carry update here?
+                    MatchOrInsert(message);
+//                    if (MatchOrInsert(message) != null) update = true; // unnecessary to carry update here?
                 }
             }
 
             if (UpKeep()) update = true;
-
-
             if (update) DumpKeep(Keep.Count);
         }
         

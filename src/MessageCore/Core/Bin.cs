@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
+
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
@@ -15,12 +16,8 @@ namespace VVVV.Packs.Messaging
 	public abstract class Bin : ArrayList, ISerializable
 	{
         internal Bin BackUp;
-
-
         internal bool ConfirmChanges()
         {
-            // todo: remove??
-
             if (BackUp == null)
             {
                 BackUp = this.Clone() as Bin;
@@ -31,10 +28,10 @@ namespace VVVV.Packs.Messaging
                 return false;
             }
 
-           
            BackUp = this.Clone() as Bin;
-
             return true; // update
+
+            // todo: what happens, if bin was removed??
         }
 
         #region Essentials
@@ -177,13 +174,15 @@ namespace VVVV.Packs.Messaging
 
         #region ISpread vs. ArrayList compromise
 
-//      Think of this as a combined Add and AddRange with internal type checks.
+//      Think of this as a combined Add and AddRange with internal type checks. it will NOT accept null!
         public override int Add(object val)
         {
             var index = this.Count;  //proper return as of ArrayList.Add()
-            
+
 //          Add a single instance
             Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
+
+            if (val == null) return index;
 
             if (type != null)
             {
@@ -198,14 +197,16 @@ namespace VVVV.Packs.Messaging
             if (val is IEnumerable ) // string should be treated differently, but that is implicit in the lines before
             {
                 var enumerable = (IEnumerable)val;
+
                 try
                 {
                     var num = enumerable.GetEnumerator();
-                    num.MoveNext();
+                    if (!num.MoveNext()) return index;
                     type = TypeIdentity.Instance.FindBaseType(num.Current.GetType());
                 }
                 catch (Exception e)
                 {
+                    
                     throw new Exception("Cannot add object " + enumerable.ToString() + " to Bin because cannot determine type. Maybe empty?", e);
                 }
 

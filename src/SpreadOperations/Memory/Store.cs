@@ -14,8 +14,6 @@ namespace VVVV.Nodes.Generic
     {
     #region pins and fields
 #pragma warning disable 649, 169
-
-
         [Input("Delete Slice")]
         ISpread<int> FDeleteIndex;
 
@@ -44,13 +42,10 @@ namespace VVVV.Nodes.Generic
         #region evaluation management
         public void OnImportsSatisfied()
         {
-
-
         }
 
         private void connect(object sender, PinConnectionEventArgs args)
         {
-
         }
         #endregion
 
@@ -61,7 +56,6 @@ namespace VVVV.Nodes.Generic
             if (FDeleteNow[0])
             {
                 var del = FDeleteIndex.ToList();
-
                 int size = FElements.Count();
 
                 for (int i = 0; i < del.Count; i++)

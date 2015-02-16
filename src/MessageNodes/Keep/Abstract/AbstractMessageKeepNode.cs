@@ -16,32 +16,32 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Output", Order = 0, AutoFlush = false)]
         public ISpread<Message> FOutput;
 
-        [Output("Change Data", Order = int.MaxValue - 2, AutoFlush = false, Visibility = PinVisibility.Hidden)]
-        Pin<Message> FChangeDataOut;
+        [Output("Changed Message", Order = int.MaxValue - 2, AutoFlush = false, Visibility = PinVisibility.Hidden)]
+        public Pin<int> FChangeOut;
 
-        [Output("Changed Keep Slice", Order = int.MaxValue - 1, AutoFlush = false, Visibility = PinVisibility.Hidden)]
-        Pin<int> FChangeOut;
+        [Output("Message Diff", Order = int.MaxValue - 1, AutoFlush = false)]
+        public Pin<Message> FChangeDataOut;
 
-        [Output("Internal Count", Order = int.MaxValue)]
-        ISpread<int> FCountOut;
+        [Output("Internal Count", Order = int.MaxValue, AutoFlush=false)]
+        public ISpread<int> FCountOut;
 #pragma warning restore
         public readonly MessageKeep Keep = new MessageKeep();
 
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            FReset.Changed += Reset;
+//            FReset.Changed += Reset;
         }
 
-        protected virtual void Reset(IDiffSpread<bool> spread)
-        {
-            if (FReset[0])
-            {
-                Keep.Clear();
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
-            }
-        }
+        //protected virtual void Reset(IDiffSpread<bool> spread)
+        //{
+        //    if (FReset[0])
+        //    {
+        //        Keep.Clear();
+        //        FOutput.SliceCount = 0;
+        //        FOutput.Flush();
+        //    }
+        //}
 
         protected virtual bool CheckReset()
         {
@@ -54,41 +54,36 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        protected virtual bool UpKeep()
+        protected virtual bool UpKeep(bool full = false)
         {
             FChangeOut.SliceCount = 0;
             FChangeDataOut.SliceCount = 0;
 
             if (Keep.IsChanged)
             {
-
                 if (FChangeDataOut.IsConnected || FChangeOut.IsConnected)
                 {
-
-                    if (FChangeOut.IsConnected)  // more expensive
+                    IEnumerable<Message> changes;
+                    if (!FChangeOut.IsConnected && !full)  
+                    {
+                        changes = Keep.Sync();
+                    }
+                    else // more expensive to get the indices as well
                     {
                         IEnumerable<int> indexes;
-                        var changes = Keep.Sync(out indexes);
+                        changes = Keep.Sync(out indexes);
 
-                        foreach (var index in indexes)
-                            FChangeOut.Add(index);
-
-                        FChangeDataOut.AssignFrom(changes);
+                        foreach (var index in indexes) FChangeOut.Add(index);
+                        FChangeOut.Flush();
                     }
-                    else
-                    {
-                        var changes = Keep.Sync();
-                        FChangeDataOut.AssignFrom(changes);
-                    }
-
-
+                    FChangeDataOut.AssignFrom(changes);
+                    FChangeDataOut.Flush();
                 }
-                else Keep.Sync();
+                else Keep.Sync(true);
 
-                FChangeOut.Flush();
-                FChangeDataOut.Flush();
                 
                 FCountOut[0] = Keep.Count;
+                FCountOut.Flush();
 
                 return true;
 
@@ -106,6 +101,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 FOutput[i] = message;
 
             }
+            
+            FOutput.Flush();
         }
     }
 }

@@ -12,8 +12,6 @@ namespace VVVV.Packs.Messaging.Nodes
     public abstract class DynamicPinsNode : AbstractFormularableNode
     {
         #region fields & pins
-
-
         protected const string Tags = "Formular";
 
         [Input("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = false, Order = 2)]
@@ -26,6 +24,8 @@ namespace VVVV.Packs.Messaging.Nodes
         protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
 
         protected int DynPinCount = 5;
+        protected MessageFormular Formular = new MessageFormular("");
+
 
         #endregion fields & pins
 
@@ -43,20 +43,20 @@ namespace VVVV.Packs.Messaging.Nodes
             return changed;
         }
 
-        protected void CopyFromPins(Message message, int index)
+        protected void CopyFromPins(Message message, int index, bool checkForChange = false)
         {
             foreach (string name in FPins.Keys)
-
-                message.AssignFrom(name, FPins[name].ToISpread()[index] as IEnumerable);
+                if (!checkForChange || FPins[name].ToISpread().IsChanged)
+                    message.AssignFrom(name, FPins[name].ToISpread()[index] as IEnumerable);
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
             DynPinCount = 5;
             List<string> invalidPins = FPins.Keys.ToList();
-            var formular = new MessageFormular(configSpread[0]);
+            Formular = new MessageFormular(configSpread[0]);
 
-            foreach (string field in formular.Fields)
+            foreach (string field in Formular.Fields)
             {
                 bool create = false;
 
@@ -66,7 +66,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (FTypes.ContainsKey(field))
                     {
-                        if (FTypes[field] != formular[field].Type)
+                        if (FTypes[field] != Formular[field].Type)
                         {
                             FPins[field].Dispose();
                             FPins[field] = null;
@@ -88,9 +88,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 if (create)
                 {
-                    IOAttribute attr = DefinePin(formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+                    IOAttribute attr = DefinePin(Formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
 
-                    Type type = formular[field].Type;
+                    Type type = Formular[field].Type;
                     Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
                     FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
 

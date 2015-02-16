@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageCreateFromFormularNode : AbstractFormularableNode
     {
-#pragma warning disable 649, 169
+        #pragma warning disable 649, 169
         [Input("New", Order = 0, IsToggle=true)]
         ISpread<bool> FNew;
 
@@ -20,12 +20,10 @@ namespace VVVV.Packs.Messaging.Nodes
         ISpread<Message> FOutput;
 
         protected MessageFormular Formular;
-
-#pragma warning restore
+        #pragma warning restore
+        
         public override void Evaluate(int SpreadMax)
         {
-            
-
             if (!FNew.IsAnyInvalid() && FNew[0])
             {
                 FOutput.SliceCount = 1;

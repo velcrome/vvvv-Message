@@ -56,9 +56,11 @@ namespace VVVV.Packs.Messaging
             return changes;
         }
 
-        public IList<Message> Sync()
+        public IList<Message> Sync(bool quick = false)
         {
-            var changes = new List<Message>(Changes.Values);
+            List<Message> changes = null;
+            if (!quick)
+                changes = new List<Message>(Changes.Values);
 
             IsChanged = false;
             return changes;
@@ -136,7 +138,7 @@ namespace VVVV.Packs.Messaging
 
         public void RemoveRange(int index, int count)
         {
-            for (int i = index; i < index + count; index++)
+            for (int i = index; i < index + count; i++)
             {
                 if (Messages.Count < i) Messages[i].Changed -= MessageChanged;
 
