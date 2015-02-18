@@ -30,7 +30,7 @@ namespace VVVV.Pack.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInput.IsAnyInvalid()) 
+            if (FInput.IsAnyInvalid() || FFilter.IsAnyInvalid()) 
                 SpreadMax = 0;
                 else SpreadMax = FInput.SliceCount;
             

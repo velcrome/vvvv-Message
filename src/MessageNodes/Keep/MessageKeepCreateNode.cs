@@ -11,9 +11,6 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageKeepCreateNode : DynamicPinsNode
     {
 #pragma warning disable 649, 169
-        [Input("New", IsBang = true, Order = 0)]
-        public IDiffSpread<bool> FNew;
-
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
@@ -114,7 +111,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            var oldCount = Keep.Count;
             SpreadMax = FSpreadCount[0];
             SpreadMax = SpreadMax < 0 ? 0 : SpreadMax; // safeguard against negative binsizes
 
@@ -122,10 +118,10 @@ namespace VVVV.Packs.Messaging.Nodes
             var update = CheckReset() || FTopic.IsChanged;
 
 //          remove superfluous entries
-            if (SpreadMax < oldCount) 
+            if (SpreadMax < Keep.Count) 
             {
                 update = true;
-                Keep.RemoveRange(SpreadMax, oldCount - SpreadMax);
+                Keep.RemoveRange(SpreadMax, Keep.Count - SpreadMax);
             }
 
 //          add new entries
@@ -135,32 +131,20 @@ namespace VVVV.Packs.Messaging.Nodes
                 Keep.Add(new Message(Formular));
             }
 
-//          see if any Message needs to refreshed
-            for (int i = 0; i < SpreadMax; i++)
-                if (FNew[i])
-                {
-                    update = true;
-                    Keep[i] = new Message();
-                }
-
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
 
-            if (!newData && !update) return;
-
-            //// only now get the data from upstream
-            //if (update) SyncPins();
-            
-            // ...and start filling messages
-            int messageIndex = 0;
-            foreach (var message in Keep)
+            if (newData || update)
             {
-               CopyFromPins(message, messageIndex, true);
-               messageIndex++;
+                // ...and start filling messages
+                int messageIndex = 0;
+                foreach (var message in Keep)
+                {
+                    CopyFromPins(message, messageIndex, !update);
+                    messageIndex++;
+                }
             }
 
-            if (UpKeep()) update = true;
-
-            if (update) DumpKeep(FSpreadCount[0]);
+            if (UpKeep()) DumpKeep(FSpreadCount[0]);
         }
 
 
