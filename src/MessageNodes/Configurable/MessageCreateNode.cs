@@ -37,15 +37,20 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.CheckIfChanged = false; // very lazy inputs. only do something when New is hit.
             attr.AutoValidate = false;
 
+            if (Formular.Name)
+
             return attr;
         }
 
         public override void Evaluate(int SpreadMax)
         {
-            if (!FNew.Any(x => x)) // if any true
+            if (!FNew.Any(x => x)) // if none true
             {
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
+                if (FOutput.SliceCount != 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
                 return;
             }
 

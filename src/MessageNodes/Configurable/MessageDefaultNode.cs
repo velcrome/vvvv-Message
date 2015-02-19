@@ -20,7 +20,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 4)]
         ISpread<int> FSpreadCount;
 
-
         [Output("Output", AutoFlush = false)]
         ISpread<ISpread<Message>> FOutput;
 #pragma warning restore
@@ -33,8 +32,11 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (FNew.IsAnyInvalid() || !FNew[0] || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
             {
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
+                if (FOutput.SliceCount != 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
                 return;
             }
 
