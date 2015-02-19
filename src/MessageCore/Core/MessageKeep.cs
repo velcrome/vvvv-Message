@@ -34,7 +34,11 @@ namespace VVVV.Packs.Messaging
 
             if (Changes.ContainsKey(original))
                 Changes[original] += change;
-            else Changes[original] = change;
+            else
+            {
+                change.Topic = original.Topic;
+                Changes[original] = change;
+            }
         }
 
         public IEnumerable<Message> Sync(out IEnumerable<int> indexes)

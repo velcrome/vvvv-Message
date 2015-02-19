@@ -4,9 +4,9 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    #region PluginInfo
-    [PluginInfo(Name = "Create", Category = "Message", Version = "Default", Help = "Create a blank Message, pureley based on a Formular.", Tags = "Default", Author = "velcrome")]
-    #endregion PluginInfo
+    //#region PluginInfo
+    //[PluginInfo(Name = "Create", Category = "Message", Version = "Default", Help = "Create a blank Message, pureley based on a Formular.", Tags = "Default", Author = "velcrome")]
+    //#endregion PluginInfo
     public class MessageCreateFromFormularNode : AbstractFormularableNode
     {
         #pragma warning disable 649, 169

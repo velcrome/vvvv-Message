@@ -51,6 +51,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
+      <Project>{6b67bbda-f27b-4905-8f5c-490c3b8ae7f1}</Project>
+      <Name>VVVV.Nodes.Generic.itl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

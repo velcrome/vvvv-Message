@@ -9,6 +9,8 @@ namespace VVVV.Packs.Messaging.Serializing
         {
             XElement xml = new XElement("Message");
 
+            if (message == null) return xml;
+
             xml.Add(new XAttribute("Topic", message.Topic));
 
             foreach (var key in message.Fields)

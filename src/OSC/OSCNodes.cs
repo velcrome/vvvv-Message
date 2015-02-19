@@ -5,6 +5,7 @@ using System.IO;
 
 using VVVV.PluginInterfaces.V2;
 
+using VVVV.Utils;
 using VVVV.Core.Logging;
 using VVVV.Utils.OSC;
 
@@ -54,7 +55,15 @@ namespace VVVV.Nodes.OSC
         public void Evaluate(int SpreadMax)
         {
 
-            //            if (!FInput.IsChanged) return;
+            if (FInput.IsAnyInvalid())
+            {
+                if (FOutput.SliceCount > 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
+                return;
+            }
 
             FOutput.SliceCount = 0;
             SpreadMax = FInput.SliceCount;
@@ -100,7 +109,6 @@ namespace VVVV.Nodes.OSC
                 }
 
                 if (matches) FOutput.Add(ms);
-                //                    } catch (Exception ex) {}
             }
 
             FOutput.Flush();
@@ -275,11 +283,24 @@ namespace VVVV.Nodes.OSC
 
         public void Evaluate(int SpreadMax)
         {
-            if (!FInput.IsChanged && !FExtendedMode.IsChanged) return;
+            if (FInput.IsAnyInvalid() || FExtendedMode.IsAnyInvalid()) SpreadMax = 0;
+            else SpreadMax = FInput.SliceCount;
 
-            if ((FInput.SliceCount == 0) || (FInput[0] == null) || (FInput[0].Length == 0)) return;
+            if (SpreadMax == 0)
+            {
+                if (FOutput.SliceCount != 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
+                return;
+            }
 
-            SpreadMax = FInput.SliceCount;
+            if (!FInput.IsChanged && !FExtendedMode.IsChanged)
+            {
+                return;
+            }
+
             FOutput.SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)

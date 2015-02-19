@@ -24,7 +24,7 @@ namespace VVVV.Pack.Messaging.Nodes
         ISpread<string> FTopic;
 
         [Output("Timestamp", AutoFlush = false)] 
-        ISpread<Time> FTimeStamp;
+        Pin<Time> FTimeStamp;
 
         [Output("Output", AutoFlush = false)] 
         ISpread<string> FOutput;
@@ -43,17 +43,21 @@ namespace VVVV.Pack.Messaging.Nodes
 
             if (!FInput.IsChanged) return;
 
+
             FOutput.SliceCount = SpreadMax;
-            FTimeStamp.SliceCount = SpreadMax;
             FTopic.SliceCount = SpreadMax;
             FConfigOut.SliceCount = SpreadMax;
+
+            var timeConnected = FTimeStamp.IsConnected; // treat time a little different, because it can be quite slow.
+            FTimeStamp.SliceCount = timeConnected? SpreadMax : 0;
+
 
             for (int i = 0; i < SpreadMax; i++)
             {
                 Message m = FInput[i];
                 FOutput[i] = m.ToString();
                 FTopic[i] = m.Topic;
-                FTimeStamp[i] = m.TimeStamp;;
+                if (timeConnected) FTimeStamp[i] = m.TimeStamp;;
 
                 FConfigOut[i] = FInput[i].GetFormular().ToString(true);
 
@@ -69,7 +73,7 @@ namespace VVVV.Pack.Messaging.Nodes
                 }
             }
             FTopic.Flush();
-            FTimeStamp.Flush();
+            if (timeConnected) FTimeStamp.Flush();
             FOutput.Flush();
             FConfigOut.Flush();
         }

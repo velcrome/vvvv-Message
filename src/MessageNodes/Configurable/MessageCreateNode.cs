@@ -4,6 +4,7 @@ using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using System.Collections.Generic;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -20,9 +21,7 @@ namespace VVVV.Packs.Messaging.Nodes
         ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]
-        Pin<Message> FOutput;
-
-        public readonly MessageKeep Keep = new MessageKeep();
+        ISpread<Message> FOutput;
 
 #pragma warning restore
 
@@ -31,11 +30,12 @@ namespace VVVV.Packs.Messaging.Nodes
             var attr = new InputAttribute(configuration.Name);
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = configuration.DefaultSize;
+
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
 
-//         Manual Sync seems a good idea, but had some glitches, because binsize for Color and string will only be updated, if actual input had changed.  
-//           attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
+            attr.CheckIfChanged = false; // very lazy inputs. only do something when New is hit.
+            attr.AutoValidate = false;
 
             return attr;
         }
@@ -50,7 +50,6 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             SpreadMax = FNew.CombineWith(FTopic);
-
             foreach (string name in FPins.Keys)
             {
                 var pin = FPins[name].ToISpread();

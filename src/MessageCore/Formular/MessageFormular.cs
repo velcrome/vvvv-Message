@@ -56,7 +56,9 @@ namespace VVVV.Packs.Messaging
 
             foreach (string binConfig in config)
             {
-                const string pattern = @"^(\w*?)(\[\d*\])*\s+(\w+?)$"; // "Type[N] name"
+                const string pattern = @"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$"; // "Type[N] name"
+                // Name can constitute of alphanumericals, dots, underscores and hyphens.
+
                 try
                 {
                     var binData = Regex.Match(binConfig.Trim(), pattern);

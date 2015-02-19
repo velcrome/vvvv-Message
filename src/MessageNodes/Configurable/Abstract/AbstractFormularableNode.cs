@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
-using System.Linq;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -10,7 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Config("Autolearn Type", IsSingle = true, DefaultBoolean = true, IsToggle = true)]
         public IDiffSpread<bool> FAutoLearnMode;
         
-        [Input("Message Formular", DefaultEnumEntry = "None", IsSingle = true, EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
+        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
         public IDiffSpread<EnumEntry> FType;
 
         public override void OnImportsSatisfied()
@@ -36,17 +38,34 @@ namespace VVVV.Packs.Messaging.Nodes
             SetFormular();
         }
 
-        protected void SetFormular() 
+        protected virtual IList<string> SetFormular() 
         {
-            if (!FAutoLearnMode[0] || FType.IsAnyEmpty()) return;
+            var forms = new List<string>();
+            
+            if (!FAutoLearnMode[0] || FType.IsAnyInvalid()) return forms;
 
-            var form = FType[0].Name;
-            if (form != MessageFormular.DYNAMIC) FConfig[0] = MessageFormularRegistry.Instance[form].ToString(true);
+            FConfig.SliceCount = FType.SliceCount;
+
+            for (int i = 0; i < FType.SliceCount;i++ )
+            {
+                var form = FType[i].Name;
+                if (form != MessageFormular.DYNAMIC) FConfig[i] = MessageFormularRegistry.Instance[form].ToString(true);
+                forms.Add(form);
+                
+            }
+            return forms; //returns names of the Formulars.
         }
 
         protected virtual void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
-            if (!FType.IsAnyEmpty() && e.Formular.Name == FType[0].Name) SetFormular();
+            if (FType.IsAnyInvalid()) return;
+
+            var used = false;
+            
+            foreach (var type in FType) 
+                if (type.Name == e.Formular.Name) used = true;
+
+            if (used) SetFormular();
         }
 
   

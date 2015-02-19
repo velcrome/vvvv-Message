@@ -47,7 +47,14 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             foreach (string name in FPins.Keys)
                 if (!checkForChange || FPins[name].ToISpread().IsChanged)
-                    message.AssignFrom(name, FPins[name].ToISpread()[index] as IEnumerable);
+                {
+                    var pinSpread = FPins[name].ToISpread();
+                    if (!pinSpread.IsAnyInvalid())
+                        message.AssignFrom(name, pinSpread[index] as IEnumerable);
+
+
+                }
+
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)

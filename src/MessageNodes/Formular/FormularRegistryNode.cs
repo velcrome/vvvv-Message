@@ -14,10 +14,10 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Formular Name", DefaultString = "Event")]
         public ISpread<string> FName;
 
-        [Input("Configuration", DefaultString = "string Foo")]
-        public ISpread<string> FConfig;
+        [Input("Configuration", DefaultString = "string Foo", BinSize=1)]
+        public ISpread<ISpread<string>> FConfig;
 
-        [Input("Clear", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.Hidden)]
+        [Input("Clear All", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.Hidden)]
         public IDiffSpread<bool> FClear;
 
         [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
@@ -39,7 +39,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 EnumManager.UpdateEnum(registry.RegistryName, MessageFormular.DYNAMIC, registry.Keys.ToArray());
             }
             
-            if ((FUpdate.IsAnyInvalid() || !FUpdate[0]) && !firstFrame)
+            if ((FUpdate.IsAnyInvalid() || !FUpdate[0] || !FConfig.IsAnyInvalid() ) && !firstFrame)
             {
                 return;
             }
@@ -49,7 +49,14 @@ namespace VVVV.Packs.Messaging.Nodes
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                reg.Define(FName[i], FConfig[i], firstFrame);
+                var config = "";
+                for (int j = 0; j < FConfig[i].SliceCount; j++)
+                {
+                    config += FConfig[i][j] + ", ";
+                }
+                if (config != "") config = config.Substring(0, config.Length - 2); // remove tailing comma
+
+                reg.Define(FName[i], config, firstFrame);
             }
 
             firstFrame = false;

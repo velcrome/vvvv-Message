@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Linq;
 using VVVV.Packs.Messaging.Nodes;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
-using VVVV.Packs.Time;
-using VVVV.PluginInterfaces.V2.NonGeneric;
 
 
 namespace VVVV.Nodes.Messaging.Nodes
@@ -14,8 +11,8 @@ namespace VVVV.Nodes.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Edit", 
         Category = "Message", 
-        Help = "Adds or edits multiple Message Fields", 
         AutoEvaluate = true, 
+        Help = "Adds or edits multiple Message Fields", 
         Version = "Formular", 
         Tags = "Formular, Bin",
         Author = "velcrome")]
@@ -26,10 +23,7 @@ namespace VVVV.Nodes.Messaging.Nodes
         [Input("Input", Order = 0)] 
         IDiffSpread<Message> FInput;
 
-        [Input("Update Timestamp", IsToggle = true, Order = int.MaxValue - 1, Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = true)]
-        IDiffSpread<bool> FUpdateTimestamp;
-
-        [Input("Update", IsBang = true, Order = int.MaxValue, DefaultBoolean = true)]
+        [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
 
         [Output("Output", AutoFlush = false)] 
@@ -47,8 +41,7 @@ namespace VVVV.Nodes.Messaging.Nodes
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount+1;
 
- //         Manual Sync seems a good idea, but had some glitches, because binsize for Color and string will only be updated, if actual input had changed.  
- //           attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Sync()
+            attr.CheckIfChanged = true;
 
             return attr;
         }
@@ -56,56 +49,38 @@ namespace VVVV.Nodes.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FInput.IsAnyInvalid() ? 0 :FInput.SliceCount;
+            SpreadMax = FInput.IsAnyInvalid() || FUpdate.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
-            if (SpreadMax <= 0)
-                if (FOutput.SliceCount > 0)
+            if (SpreadMax == 0)
+            {
+                if (FOutput.IsAnyInvalid())
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
-                    return;
                 }
-                else return;
-
-
-            var updateTimestamp = FUpdateTimestamp[0];
-
-            // sync pins only if necessary. might cause confusion in the gui, when a link's input and output don't visually match 
-            
-            //bool update = false;
-            //for (int j = 0; j < FUpdate.SliceCount && j < SpreadMax; j++)
-            //    if (FUpdate[j])
-            //    {
-            //        update = true;
-            //        break;
-            //    }
-            // 
-            //if (update) foreach (var pinName in FPins.Keys)
-            //    {
-            //        ToISpread(FPins[pinName]).Sync();
-            //    }
-
-            FOutput.SliceCount = SpreadMax;
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                Message message = FInput[i];
-
-
-                if (FUpdate[i])
-                {
-                    foreach (var name in FPins.Keys)
-                    {
-                        var pin = FPins[name].ToISpread();
-                        var spread = pin[i] as ISpread;
-                        message.AssignFrom(name, spread);
-                    }
-                    if (updateTimestamp) message.TimeStamp = Time.CurrentTime();
-                }
-                FOutput[i] = message;
+                
+                return;
             }
 
-            FOutput.Flush();  // sync manually
+            bool newData = FUpdate[0] && FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
+            bool forceUpdate = FUpdate.IsChanged && FUpdate.Any(update => update); // upflank of FUpdate[0] 
 
+            if (!FInput.IsChanged) {
+
+                if (newData || forceUpdate)
+                {
+                    // ...and start filling messages
+                    int messageIndex = 0;
+                    foreach (var message in FInput)
+                    {
+                        if (FUpdate[messageIndex])
+                            CopyFromPins(message, messageIndex, !forceUpdate);
+                        messageIndex++;
+                    }
+                }
+                FOutput.AssignFrom(FInput);
+                FOutput.Flush();
+            }
         }
     }
 }

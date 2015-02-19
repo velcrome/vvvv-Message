@@ -14,15 +14,15 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FNew;
 
-        [Input("Topic", DefaultString = "Event", Order = 3)]
-        ISpread<string> FTopic;
+        [Input("Topic", DefaultString = "Event", Order = 3, BinSize=1)]
+        ISpread<ISpread<string>> FTopic;
 
         [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 4)]
         ISpread<int> FSpreadCount;
 
 
         [Output("Output", AutoFlush = false)]
-        Pin<Message> FOutput;
+        ISpread<ISpread<Message>> FOutput;
 #pragma warning restore
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
@@ -31,36 +31,36 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = 0;
-            if (!FNew[0])
+            if (FNew.IsAnyInvalid() || !FNew[0] || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
             {
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
                 return;
             }
 
-            if (!FSpreadCount.IsAnyInvalid()) SpreadMax = FSpreadCount[0];
-
-            var formular = new MessageFormular(FConfig[0]);
-
+            SpreadMax = FTopic.CombineWith(FSpreadCount).CombineWith(FConfig);
             FOutput.SliceCount = SpreadMax;
+
             for (int i = 0; i < SpreadMax; i++)
             {
-                Message message = new Message();
-                
+                var formular = new MessageFormular(FConfig[i]);
+                var count = FSpreadCount[i];
+                FOutput[i].SliceCount = count;
 
-                message.Topic = FTopic[i];
-                foreach (var field in formular.Fields)
+                for (int j = 0; j < SpreadMax; j++)
                 {
-                    message[field] = Bin.New(formular[field].Type);
+                    Message message = new Message();
+                    message.Topic = FTopic[i][j];
+                    foreach (var field in formular.Fields)
+                    {
+                        message[field] = Bin.New(formular[field].Type);
 
-                    var binsize = formular[field].DefaultSize;
-                    if (binsize > 0) message[field].SetCount(binsize);
-            
+                        var binsize = formular[field].DefaultSize;
+                        if (binsize > 0) message[field].SetCount(binsize);
+                    }
+
+                    FOutput[i][j] = message;
                 }
-
-                
-                FOutput[i] = message;
             }
             FOutput.Flush();
         }
