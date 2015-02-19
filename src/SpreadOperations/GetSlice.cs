@@ -13,12 +13,14 @@ namespace VVVV.Nodes.Generic
 	
 	public class GetSlice<T> : IPluginEvaluate
 	{
+        const bool DeepCheck = true;
+
 		#region fields & pins
         #pragma warning disable 649, 169
-        [Input("Input", BinSize = 1)]
-		IDiffSpread<ISpread<T>> FInput;
+        [Input("Input", BinSize = 1, CheckIfChanged=true)]
+		ISpread<ISpread<T>> FInput;
 
-		[Input("Index", DefaultValue = 0)]
+		[Input("Index", DefaultValue = 0, CheckIfChanged=true)]
 		ISpread<int> FIndex;
 
 		[Output("Output", AutoFlush = false, BinVisibility = PinVisibility.Hidden)]
@@ -33,30 +35,25 @@ namespace VVVV.Nodes.Generic
 
         public void Evaluate(int SpreadMax)
 		{
-            SpreadMax = FInput.IsAnyInvalid() ? 0 : FIndex.SliceCount;
+            SpreadMax = FInput.IsAnyInvalid() || FIndex.IsAnyInvalid()? 0 : FIndex.CombineWith(FIndex);
 
-            if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0)
+            if (SpreadMax == 0)
+            {
+                if (FOutput.SliceCount != 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
-                    return;
                 }
-                else if (FIndex.IsChanged && FIndex.SliceCount == 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
-            
-            
+                return;
+            } else {
+                if (!FIndex.IsChanged && !FInput.IsChanged) return;
+            }
+
             FOutput.SliceCount = SpreadMax;
 			
 			for (int i=0;i<SpreadMax;i++) {
 				FOutput[i].AssignFrom(FInput[FIndex[i]]);
 			}
-
 			FOutput.Flush();
 		}
 		

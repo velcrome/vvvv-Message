@@ -4,6 +4,7 @@ using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Packs.Time;
+using VVVV.Utils;
 
 namespace VVVV.Pack.Messaging.Nodes
 {
@@ -38,11 +39,26 @@ namespace VVVV.Pack.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
-            else SpreadMax = FInput.SliceCount;
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+
+            if (SpreadMax == 0)
+            {
+                if (FOutput.SliceCount != 0)
+                {
+                    FTopic.SliceCount = 
+                    FTimeStamp.SliceCount = 
+                    FConfigOut.SliceCount = 
+                    FOutput.SliceCount = 0;
+                    
+                    FOutput.Flush();
+                    FTimeStamp.Flush();
+                    FTopic.Flush();
+                    FConfigOut.Flush();
+                }
+                return;
+            }
 
             if (!FInput.IsChanged) return;
-
 
             FOutput.SliceCount = SpreadMax;
             FTopic.SliceCount = SpreadMax;
@@ -50,7 +66,6 @@ namespace VVVV.Pack.Messaging.Nodes
 
             var timeConnected = FTimeStamp.IsConnected; // treat time a little different, because it can be quite slow.
             FTimeStamp.SliceCount = timeConnected? SpreadMax : 0;
-
 
             for (int i = 0; i < SpreadMax; i++)
             {

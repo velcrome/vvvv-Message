@@ -53,7 +53,7 @@ namespace VVVV.Nodes.Messaging.Nodes
 
             if (SpreadMax == 0)
             {
-                if (FOutput.IsAnyInvalid())
+                if (FOutput.SliceCount != 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
@@ -62,21 +62,16 @@ namespace VVVV.Nodes.Messaging.Nodes
                 return;
             }
 
-            bool newData = FUpdate[0] && FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
+            bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
             bool forceUpdate = FUpdate.IsChanged && FUpdate.Any(update => update); // upflank of FUpdate[0] 
 
-            if (!FInput.IsChanged) {
-
-                if (newData || forceUpdate)
+            if (FInput.IsChanged || forceUpdate || newData) {
+                int messageIndex = 0;
+                foreach (var message in FInput)
                 {
-                    // ...and start filling messages
-                    int messageIndex = 0;
-                    foreach (var message in FInput)
-                    {
-                        if (FUpdate[messageIndex])
-                            CopyFromPins(message, messageIndex, !forceUpdate);
+                    if (FUpdate[messageIndex])
+                     CopyFromPins(message, messageIndex, !forceUpdate);
                         messageIndex++;
-                    }
                 }
                 FOutput.AssignFrom(FInput);
                 FOutput.Flush();

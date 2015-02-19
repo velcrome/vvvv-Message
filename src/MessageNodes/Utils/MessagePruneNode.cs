@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
@@ -44,7 +45,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             foreach (var message in FInput)
             {
-                foreach (var fieldName in message.Fields)
+                foreach (var fieldName in message.Fields.ToArray())
                     if (!keepOnly.Contains(fieldName))              
                         message.Remove(fieldName);
             }

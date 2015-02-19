@@ -37,8 +37,6 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.CheckIfChanged = false; // very lazy inputs. only do something when New is hit.
             attr.AutoValidate = false;
 
-            if (Formular.Name)
-
             return attr;
         }
 
@@ -72,8 +70,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var pin = FPins[name].ToISpread();
                         
-                    if (!pin.IsAnyInvalid()) 
-                    message.AssignFrom(name, pin[i] as ISpread);
+                    if (!pin.IsAnyInvalid() && !(pin[i] as ISpread).IsAnyInvalid()) 
+                        message.AssignFrom(name, pin[i] as ISpread);
                 }
                 FOutput[i] = message;
             }

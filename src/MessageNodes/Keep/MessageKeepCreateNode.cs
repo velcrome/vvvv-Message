@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VVVV.PluginInterfaces.V2;
@@ -46,7 +47,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        protected virtual bool UpKeep(bool enforceFull = false)
+        protected virtual bool UpKeep(bool force = false)
         {
             FChangeOut.SliceCount = 0;
             FChangeDataOut.SliceCount = 0;
@@ -56,7 +57,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (FChangeDataOut.IsConnected || FChangeOut.IsConnected)
                 {
                     IEnumerable<Message> changes;
-                    if (!FChangeOut.IsConnected && !enforceFull)
+                    if (!FChangeOut.IsConnected && !force)
                     {
                         changes = Keep.Sync();
                     }
@@ -93,7 +94,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 FOutput[i] = message;
 
             }
-
             FOutput.Flush();
         }
 
@@ -105,14 +105,14 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
             attr.CheckIfChanged = true;
-            //attr.AutoValidate = false;  // need to sync all pins manually. Don't forget to Flush()
+
             return attr;
         }
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FSpreadCount[0];
-            SpreadMax = SpreadMax < 0 ? 0 : SpreadMax; // safeguard against negative binsizes
+            SpreadMax = FSpreadCount.IsAnyInvalid() || FTopic.IsAnyInvalid() ? 0 : FSpreadCount[0];
+            SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
             var update = CheckReset() || FTopic.IsChanged;
@@ -128,7 +128,8 @@ namespace VVVV.Packs.Messaging.Nodes
             for (int i = Keep.Count; i < SpreadMax; i++)
             {
                 update = true; // new entry in Keep will require data
-                Keep.Add(new Message(Formular));
+                var message = new Message(Formular);
+                Keep.Add(message);
             }
 
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
@@ -139,12 +140,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 int messageIndex = 0;
                 foreach (var message in Keep)
                 {
+                    message.Topic = FTopic[messageIndex];
                     CopyFromPins(message, messageIndex, !update);
                     messageIndex++;
                 }
             }
 
-            if (UpKeep()) DumpKeep(FSpreadCount[0]);
+            if (UpKeep() || update) DumpKeep(FSpreadCount[0]);
         }
 
 

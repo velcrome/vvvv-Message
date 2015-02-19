@@ -51,8 +51,6 @@ namespace VVVV.Packs.Messaging.Nodes
                     var pinSpread = FPins[name].ToISpread();
                     if (!pinSpread.IsAnyInvalid())
                         message.AssignFrom(name, pinSpread[index] as IEnumerable);
-
-
                 }
 
         }

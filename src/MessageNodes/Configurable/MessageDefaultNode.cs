@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
@@ -30,7 +31,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (FNew.IsAnyInvalid() || !FNew[0] || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
+            SpreadMax = (FNew.IsAnyInvalid() || !FNew.Any(x => x) || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid()) ? 0 : FTopic.CombineWith(FSpreadCount).CombineWith(FType);
+            
+            if (SpreadMax == 0)
             {
                 if (FOutput.SliceCount != 0)
                 {
@@ -40,7 +43,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            SpreadMax = FTopic.CombineWith(FSpreadCount).CombineWith(FConfig);
             FOutput.SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)
@@ -49,7 +51,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 var count = FSpreadCount[i];
                 FOutput[i].SliceCount = count;
 
-                for (int j = 0; j < SpreadMax; j++)
+                for (int j = 0; j < count; j++)
                 {
                     Message message = new Message();
                     message.Topic = FTopic[i][j];
