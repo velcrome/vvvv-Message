@@ -1,11 +1,14 @@
 Introduction
 ============
 
-This node pack defines a new **Message** data link and c# type for VVVV. Its primary purpose is to help you retain data and performance control if your project turns bigger than expected, without adding redundant and confusing links. **Message** can help to establish communication between threads or even other applications. 
+This node pack defines a new **Message** data link and c# type. Its primary purpose is to help you retain data and performance control if your vvvv project turns bigger than expected, without adding redundant and confusing links. **Message** can help to establish communication between threads or even other applications. 
 
 Structure & Access
 ------------------
-Think of **Message** as a collection of (binsizeable) Spreads of various Types (**bool, int, float, double, string, Transform, Color, Vector**s**, Time, Message**), all into one single object. You can create these Message objects with fully spreadable `Create (Message.Formular)` and access the individual Spreads with  `Split (Message)`, `Read (Message)` or simply `Info (Message)`. 
+Think of **Message** as a collection of (binsizeable) Spreads of various Types (**bool, int, float, double, string, Transform, Color, Vector**s**, Time, Message**), all into one single object. 
+
+You can create these Message objects with fully spreadable `Create (Message.Formular)` and access the individual Spreads with  `Split (Message)`, `Read (Message)` or simply `Info (Message)`. 
+
 It comes with some handy helper nodes to work with it (`Sift`, `Select`, `Getslice`, etc.). 
 Furthermore it ships with convenience plugins for OSC, a self-made binary encoding (from microdee) and brief, but fully typed json serialisation. Use any for sharedmemory, networking or hd recording.
 
@@ -16,6 +19,7 @@ Many plugin nodes' pin layout can be chosen either from a customizable Formular 
 Message Flow
 ------------
 Once created, a message zips across your patched application in a compact and manageable struct, even though its gestalt is highly dynamic. This helps to report any change from some view in your application to your data-mongering model.
+
 To outfit your model, Message can be held in `Safe (Message.Keep)`, `Hold (Message.Keep)`, `Cache (Message.Keep)`, all keeping track of any change to the well-kept Messages.
 
 Core
@@ -39,9 +43,9 @@ Thanks
 
 Nuget
 ----
-[Json.NET 5.0](http://james.newtonking.com/projects/json-net.aspx), utilizing the MIT License
-[VVVV.Packs.Time](https://github.com/letmp/vvvv-Time), utilizing the MIT License
-[VVVV-sdk](https://github.com/vvvv/vvvv-sdk), LGPL
+* [Json.NET 5.0](http://james.newtonking.com/projects/json-net.aspx), utilizing the MIT License
+* [VVVV.Packs.Time](https://github.com/letmp/vvvv-Time), utilizing the MIT License
+* [VVVV-sdk](https://github.com/vvvv/vvvv-sdk), LGPL
 
 License
 =======
@@ -51,8 +55,8 @@ Please note individual licensing terms in individual subdirectories.
 
 Exceptions are e.g. 
 
-The Message Core ![LGPL 3.0](http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
-OSC Nodes ![LGPL 3.0](http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+The Message Core ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
+OSC Nodes ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
 
 Comments
 --------
