@@ -49,19 +49,18 @@ Nuget
 
 License
 =======
-Please note individual licensing terms in individual subdirectories.
-
+This software is distributed with the [CC Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 ![CC 4.0BY NC SAt](http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
 
-Exceptions are e.g. 
+Please note individual licensing terms in individual subdirectories, such as
 
-The Message Core ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
-OSC Nodes ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
+* The Message Core ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
+* OSC Nodes ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
 
 Comments
 --------
 
-This software is distribution defaults to the [CC Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+This software distribution defaults to the [CC Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 
 This choice highlights, that this pack is for the community, really and open for all kinds of tinkering, learning and free remixing. 
 
