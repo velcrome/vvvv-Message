@@ -53,8 +53,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            if (!FInput.IsChanged) return;
+            
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
-
             if (SpreadMax <= 0)
             {
                 foreach (string name in FPins.Keys)
@@ -111,11 +112,6 @@ namespace VVVV.Packs.Messaging.Nodes
                         }
                         targetPin.Flush();
                     }
-                    else
-                    {
-                        // keep old values in pin. do not flush
-                    }
-
                 }
 
             }
