@@ -16,9 +16,14 @@ TestResults
 *.sln.docstates
 *~.xml
 
+# vvvv
+*~temp.v4p
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
+[Dd]ynamic/
+
 *_i.c
 *_p.c
 *.ilk
@@ -92,21 +97,6 @@ csx
 AppPackages/
 
 # Others
-[Oo]bj
-sql
-TestResults
-[Tt]est[Rr]esult*
 *.Cache
-ClientBin
-[Ss]tyle[Cc]op.*
-~$*
 *.dbmdl
-Generated_Code #added for RIA/Silverlight projects
-
-# Backup & report files from converting an old project file to a newer
-# Visual Studio version. Backup files are not needed, because we have git ;-)
-_UpgradeReport_Files/
-Backup*/
-UpgradeLog*.XML
-
-/patches/plugins/MessageSearchTemplateNode/bin
+*.db
