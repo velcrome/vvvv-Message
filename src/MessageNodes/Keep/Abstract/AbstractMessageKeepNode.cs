@@ -33,16 +33,6 @@ namespace VVVV.Packs.Messaging.Nodes
 //            FReset.Changed += Reset;
         }
 
-        //protected virtual void Reset(IDiffSpread<bool> spread)
-        //{
-        //    if (FReset[0])
-        //    {
-        //        Keep.Clear();
-        //        FOutput.SliceCount = 0;
-        //        FOutput.Flush();
-        //    }
-        //}
-
         protected virtual bool CheckReset()
         {
             if (!FReset.IsAnyInvalid() && FReset[0])

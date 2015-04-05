@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void DoubleBinToString()
         {
-            var bin = Bin.New(typeof(double));
+            var bin = BinFactory.New(typeof(double));
             bin.Add(1337E+0);
             bin.Add(Math.PI);
 
@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void DoubleBinToJson()
         {
-            var bin = Bin.New(typeof(double));
+            var bin = BinFactory.New(typeof(double));
             bin.Add((double)1337);
             bin.Add(Math.PI);
 
@@ -39,21 +39,21 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<double>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<double>));
             Assert.AreEqual("Bin<double> [1337, 3,14159265358979]", newBin.ToString());
         }
 
         [TestMethod]
         public void DoubleBinToStream()
         {
-            var bin = Bin.New(typeof(double));
+            var bin = BinFactory.New(typeof(double));
             bin.Add((double)1337);
             bin.Add(Math.PI);
 
             var stream = bin.Serialize();
             var newBin = (Bin)stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<double>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<double>));
             Assert.AreEqual("Bin<double> [1337, 3,14159265358979]", newBin.ToString());
         }
 

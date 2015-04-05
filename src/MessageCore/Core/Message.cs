@@ -77,10 +77,10 @@ namespace VVVV.Packs.Messaging {
         {
             foreach (string field in formular.Fields)
             {
-                Data[field] = Bin.New( formular[field].Type ); // Type
+                Data[field] = BinFactory.New( formular[field].Type ); // Type
                 var count = formular[field].DefaultSize;
                 count = count <= -1 ? 1 : count;
-                Data[field].SetCount(count); // Count
+                Data[field].Count = count; 
             }
         }
         #endregion
@@ -105,7 +105,7 @@ namespace VVVV.Packs.Messaging {
             if (!Data.ContainsKey(name) || ((type != null) && (type != Data[name].GetInnerType())))
             {
                 Data.Remove(name);
-                Data.Add(name, Bin.New(type));
+                Data.Add(name, BinFactory.New(type));
             }
             else
             {
@@ -225,7 +225,7 @@ namespace VVVV.Packs.Messaging {
                 var changedMessage = new Message(this.Topic);
 
                 foreach (var field in changedFields)
-                    changedMessage.Data[field] = Data[field].BackUp;
+                    changedMessage.Data[field] = Data[field];
 
                 Changed(this, changedMessage);
                 TimeStamp = Time.Time.CurrentTime();
@@ -249,7 +249,7 @@ namespace VVVV.Packs.Messaging {
 			
 			foreach (string name in Data.Keys) {
 				Bin list = Data[name];
-				m.AssignFrom(name, list.Clone());
+				m.AssignFrom(name, list.Clone() as IEnumerable);
 				
 				// really deep cloning
 				try {

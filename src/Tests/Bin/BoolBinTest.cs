@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BoolBinToString()
         {
-            var bin = Bin.New(typeof(bool));
+            var bin = BinFactory.New(typeof(bool));
             bin.Add(true);
             bin.Add(false);
 
@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BoolBinToJson()
         {
-            var bin = Bin.New(typeof(bool));
+            var bin = BinFactory.New(typeof(bool));
             bin.Add(true);
             bin.Add(false);
 
@@ -39,21 +39,21 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<bool>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<bool>));
             Assert.AreEqual("Bin<bool> [True, False]", newBin.ToString());
         }
 
         [TestMethod]
         public void BoolBinToStream()
         {
-            var bin = Bin.New(typeof(bool));
+            var bin = BinFactory.New(typeof(bool));
             bin.Add(true);
             bin.Add(false);
 
             var stream = bin.Serialize();
             var newBin = (Bin)stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<bool>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<bool>));
             Assert.AreEqual("Bin<bool> [True, False]", newBin.ToString());
         }
 

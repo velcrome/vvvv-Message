@@ -177,7 +177,7 @@ namespace VVVV.Packs.Messaging.Serializing
             uint aliasLength = input.ReadUint();
             var alias = input.ReadUnicode((int) aliasLength);
             var type = TypeIdentity.Instance.FindType(alias);
-            var bin = Bin.New(type);
+            var bin = BinFactory.New(type);
 
 
             for (int i = 0; i < objCount; i++)

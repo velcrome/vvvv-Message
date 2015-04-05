@@ -52,7 +52,7 @@ namespace VVVV.Packs.Messaging.Serializing
             
             var jArray = jT.Values();
 
-   			Bin bin = Bin.New(type);
+   			Bin bin = BinFactory.New(type);
             
 		    foreach (var o in jArray)
 		    {

@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V3BinToString()
         {
-            var bin = Bin.New(typeof(Vector3D));
+            var bin = BinFactory.New(typeof(Vector3D));
             bin.Add(new Vector3D());
             bin.Add(new Vector3D(1, 2, 3));
 
@@ -28,7 +28,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V3BinToJson()
         {
-            var bin = Bin.New(typeof(Vector3D));
+            var bin = BinFactory.New(typeof(Vector3D));
             bin.Add(new Vector3D());
             bin.Add(new Vector3D(1, 2, 3));
 
@@ -41,7 +41,7 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<Vector3D>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Vector3D>));
 
             Assert.AreEqual(new Vector3D(), newBin.First);
             Assert.AreEqual(new Vector3D(1, 2, 3), newBin[1]);
@@ -50,7 +50,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V3BinToStream()
         {
-            var bin = Bin.New(typeof(Vector3D));
+            var bin = BinFactory.New(typeof(Vector3D));
             bin.Add(new Vector3D());
             bin.Add(new Vector3D(1, 2, 3));
 
@@ -58,7 +58,7 @@ namespace VVVV.Packs.Messaging.Tests
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<Vector3D>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Vector3D>));
 
             Assert.AreEqual(new Vector3D(), newBin.First);
             Assert.AreEqual(new Vector3D(1, 2, 3), newBin[1]);

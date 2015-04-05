@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void TransformBinToString()
         {
-            var bin = Bin.New(typeof(Matrix4x4));
+            var bin = BinFactory.New(typeof(Matrix4x4)) as Bin<Matrix4x4>;
             bin.Add(new Matrix4x4());
             bin.Add(new Matrix4x4(1,1,1,1, 2,2,2,2, 3,4,5,6, 1,1,1,1)); 
 
@@ -28,7 +28,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void TransformBinToJson()
         {
-            var bin = Bin.New(typeof(Matrix4x4));
+            var bin = BinFactory.New(typeof(Matrix4x4));
             bin.Add(new Matrix4x4());
             bin.Add(new Matrix4x4(1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5, 6, 1, 1, 1, 1));
 
@@ -41,13 +41,13 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<Matrix4x4>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Matrix4x4>));
             Assert.AreEqual("Bin<Transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", newBin.ToString());
         }
 
         public void TransformBinToStream()
         {
-            var bin = Bin.New(typeof(Matrix4x4));
+            var bin = BinFactory.New(typeof(Matrix4x4));
             bin.Add(new Matrix4x4());
             bin.Add(new Matrix4x4(1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5, 6, 1, 1, 1, 1));
 

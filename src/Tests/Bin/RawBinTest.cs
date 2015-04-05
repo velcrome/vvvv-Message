@@ -22,7 +22,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void RawBinToString()
         {
-            var bin = Bin.New(typeof(Stream));
+            var bin = BinFactory.New(typeof(Stream));
 
             bin.Add(new MemoryStream());
             bin.Add(GenerateStreamFromString("lorem"));
@@ -39,7 +39,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void RawBinToJson()
         {
-            var bin = Bin.New(typeof(Stream));
+            var bin = BinFactory.New(typeof(Stream));
 
             bin.Add(new MemoryStream());
             bin.Add(GenerateStreamFromString("lorem"));
@@ -53,7 +53,7 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<Stream>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Stream>));
 
             Assert.AreEqual("", new StreamReader((Stream)newBin.First).ReadToEnd());
             Assert.AreEqual("lorem", new StreamReader((Stream)newBin[1]).ReadToEnd());
@@ -65,7 +65,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void RawBinToStream()
         {
-            var bin = Bin.New(typeof(Stream));
+            var bin = BinFactory.New(typeof(Stream));
 
             bin.Add(new MemoryStream());
             bin.Add(GenerateStreamFromString("lorem"));
@@ -73,7 +73,7 @@ namespace VVVV.Packs.Messaging.Tests
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<Stream>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Stream>));
 
             Assert.AreEqual("", new StreamReader((Stream)newBin.First).ReadToEnd());
             Assert.AreEqual("lorem", new StreamReader((Stream)newBin[1]).ReadToEnd());

@@ -63,7 +63,7 @@ namespace VVVV.Packs.Messaging.Serializing
             {
                 //                  Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
 
-                Bin bin = Bin.New(m.Values[0].GetType());
+                Bin bin = BinFactory.New(m.Values[0].GetType());
                 bin.AssignFrom(m.Values); // does not clone implicitly
 
                 string oldAddress = m.Address;

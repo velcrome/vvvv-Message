@@ -39,11 +39,9 @@ namespace VVVV.Packs.Messaging.Tests
 
 
             string json = JsonConvert.SerializeObject(message, settings);
-            var newMessage = (Message)JsonConvert.DeserializeObject(json, typeof(Message));
-
-
             Assert.AreEqual("{\"Topic\":\"Test\",\"TimeStamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},\"Data\":{\"foo\":{\"string\":[\"bar\"]}}}", json);
 
+            var newMessage = (Message)JsonConvert.DeserializeObject(json, typeof(Message));
             Assert.AreEqual(message.ToString(), newMessage.ToString());
 
 
@@ -60,7 +58,7 @@ namespace VVVV.Packs.Messaging.Tests
             message.Init("MsString", "lorem");
             message["MsString"].Add("ipsum");
 
-            message["Empty"] = Bin.New(typeof (bool));
+            message["Empty"] = BinFactory.New(typeof(bool));
 
             var stream = message.Serialize();
             var newMessage = stream.DeSerializeMessage();

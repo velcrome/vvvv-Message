@@ -57,10 +57,10 @@ namespace VVVV.Packs.Messaging.Nodes
                     message.Topic = FTopic[i][j];
                     foreach (var field in formular.Fields)
                     {
-                        message[field] = Bin.New(formular[field].Type);
+                        message[field] = BinFactory.New(formular[field].Type);
 
                         var binsize = formular[field].DefaultSize;
-                        if (binsize > 0) message[field].SetCount(binsize);
+                        if (binsize > 0) message[field].Count = binsize;
                     }
 
                     FOutput[i][j] = message;

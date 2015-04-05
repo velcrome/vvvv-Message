@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void IntBinToString()
         {
-            var bin = Bin.New(typeof(int));
+            var bin = BinFactory.New(typeof(int));
             bin.Add(1337);
             bin.Add(int.MaxValue);
 
@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void IntBinToJson()
         {
-            var bin = Bin.New(typeof(int));
+            var bin = BinFactory.New(typeof(int));
             bin.Add(1337);
             bin.Add(int.MaxValue);
 
@@ -39,21 +39,21 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<int>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<int>));
             Assert.AreEqual("Bin<int> [1337, 2147483647]", newBin.ToString());
         }
 
         [TestMethod]
         public void IntBinToStream()
         {
-            var bin = Bin.New(typeof (int));
+            var bin = BinFactory.New(typeof(int));
             bin.Add(1337);
             bin.Add(int.MaxValue);
 
             var stream = bin.Serialize();
             var newBin = (Bin) stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof (Bin<int>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<int>));
             Assert.AreEqual("Bin<int> [1337, 2147483647]", newBin.ToString());
         }
 

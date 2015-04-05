@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void StringBinToString()
         {
-            var bin = Bin.New(typeof(string));
+            var bin = BinFactory.New(typeof(string));
             bin.Add("lorem");
             bin.Add("");
             bin.Add("ipsum");
@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void StringBinToJson()
         {
-            var bin = Bin.New(typeof(string));
+            var bin = BinFactory.New(typeof(string));
             bin.Add("lorem");
             bin.Add("");
             bin.Add("ipsum");
@@ -41,14 +41,14 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof (Bin));
 
-            Assert.AreEqual(typeof(Bin<string>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<string>));
             Assert.AreEqual("Bin<string> [lorem, , ipsum]", newBin.ToString());
         }
 
         [TestMethod]
         public void StringBinToStream()
         {
-            var bin = Bin.New(typeof(string));
+            var bin = BinFactory.New(typeof(string));
 //            field.Init("lorem");
             bin.Add("");
 //            field.Init("ipsum");
@@ -56,7 +56,7 @@ namespace VVVV.Packs.Messaging.Tests
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<string>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<string>) );
             Assert.AreEqual("", newBin[0]);
             
             

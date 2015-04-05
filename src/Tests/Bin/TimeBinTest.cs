@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Tests
         public void TimeBinToString()
         {
             var current = Time.Time.CurrentTime();
-            var bin = new Bin<Time.Time>(current);
+            var bin = BinFactory.New(current);
 
             Assert.AreEqual(current, bin.First);
 
@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging.Tests
         public void TimeBinToJson()
         {
             var current = Time.Time.CurrentTime();
-            var bin = new Bin<Time.Time>(current);
+            var bin = BinFactory.New(current);
 
             var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
 
@@ -45,7 +45,7 @@ namespace VVVV.Packs.Messaging.Tests
         public void TimeBinToStream()
         {
             var current = Time.Time.CurrentTime();
-            var bin = new Bin<Time.Time>(current);
+            var bin = BinFactory.New(current);
 
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();

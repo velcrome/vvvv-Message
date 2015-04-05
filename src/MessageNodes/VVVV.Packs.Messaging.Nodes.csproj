@@ -8,12 +8,13 @@
     <OutputType>Library</OutputType>
     <RootNamespace>VVVV.Nodes.Messaging</RootNamespace>
     <AssemblyName>VVVV.Nodes.Messaging</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>..\..\build\$(Platform)\$(Configuration)\nodes\plugins\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>8004370d</NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -21,10 +22,18 @@
   <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

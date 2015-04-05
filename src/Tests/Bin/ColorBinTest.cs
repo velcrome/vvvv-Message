@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void ColorBinToString()
         {
-            var bin = Bin.New(typeof(RGBAColor));
+            var bin = BinFactory.New(typeof(RGBAColor));
             bin.Add(new RGBAColor(0, 1, 0, 1)); // green
             bin.Add(new RGBAColor(1, 0, 0, 1)); // red
 
@@ -27,7 +27,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void ColorBinToJson()
         {
-            var bin = Bin.New(typeof(RGBAColor));
+            var bin = BinFactory.New(typeof(RGBAColor));
             bin.Add(new RGBAColor(0, 1, 0, 1)); // green
             bin.Add(new RGBAColor(1, 0, 0, 1)); // red
 
@@ -40,21 +40,21 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<RGBAColor>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<RGBAColor>));
             Assert.AreEqual("Bin<Color> [ff00ff00, ffff0000]", newBin.ToString());
         }
 
         [TestMethod]
         public void ColorBinToStream()
         {
-            var bin = Bin.New(typeof(RGBAColor));
+            var bin = BinFactory.New(typeof(RGBAColor));
             bin.Add(new RGBAColor(0, 1, 0, 1)); // green
             bin.Add(new RGBAColor(1, 0, 0, 1)); // red
 
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<RGBAColor>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<RGBAColor>));
             Assert.AreEqual("Bin<Color> [ff00ff00, ffff0000]", newBin.ToString());
         }
 

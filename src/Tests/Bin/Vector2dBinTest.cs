@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V2BinToString()
         {
-            var bin = Bin.New(typeof(Vector2D));
+            var bin = BinFactory.New(typeof(Vector2D));
             bin.Add(new Vector2D()); 
             bin.Add(new Vector2D(1, 2));
 
@@ -28,7 +28,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V2BinToJson()
         {
-            var bin = Bin.New(typeof(Vector2D));
+            var bin = BinFactory.New(typeof(Vector2D));
             bin.Add(new Vector2D());
             bin.Add(new Vector2D(1, 2));
 
@@ -41,7 +41,7 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
 
-            Assert.AreEqual(typeof(Bin<Vector2D>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Vector2D>));
 
             Assert.AreEqual(new Vector2D(), newBin.First);
             Assert.AreEqual(new Vector2D(1, 2), newBin[1]);
@@ -50,14 +50,14 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V2BinStream()
         {
-            var bin = Bin.New(typeof(Vector2D));
+            var bin = BinFactory.New(typeof(Vector2D));
             bin.Add(new Vector2D());
             bin.Add(new Vector2D(1, 2));
 
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
 
-            Assert.AreEqual(typeof(Bin<Vector2D>), newBin.GetType());
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Vector2D>));
 
             Assert.AreEqual(new Vector2D(), newBin.First);
             Assert.AreEqual(new Vector2D(1, 2), newBin[1]);

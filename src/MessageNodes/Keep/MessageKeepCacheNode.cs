@@ -59,7 +59,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     foreach (var field in idFields)
                     {
-                        change.AssignFrom(field, orig[field].Clone());
+                        change.AssignFrom(field, orig[field]);
                     }
                 }
 
