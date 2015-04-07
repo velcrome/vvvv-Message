@@ -69,7 +69,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     FChangeDataOut.AssignFrom(changes);
                     FChangeDataOut.Flush();
                 }
-                else Keep.Sync(true);
+                else Keep.Sync();
 
                 
                 FCountOut[0] = Keep.Count;

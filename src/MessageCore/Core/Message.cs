@@ -11,10 +11,8 @@ using VVVV.Packs.Time;
 #endregion usings
 
 namespace VVVV.Packs.Messaging {
-    public delegate void MessageChanged(Message original, Message change);
-
-  
-
+    public delegate void MessageChangedWithDetails(Message original, Message change);
+    public delegate void MessageChanged(Message original);
 	
 	[DataContract]
 	public class Message : ICloneable
@@ -43,6 +41,7 @@ namespace VVVV.Packs.Messaging {
         [DataMember(Order = 2)]
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
 
+        public event MessageChangedWithDetails ChangedWithDetails;
         public event MessageChanged Changed;
         #endregion
 
@@ -209,27 +208,53 @@ namespace VVVV.Packs.Messaging {
 
         #region Change Management
 
-        public bool ConfirmChanges()
+        public bool IsChanged
+        {
+            get {
+                return Data.Values.Any(bin => bin.IsDirty);
+            }
+            
+            internal set {
+                if (!value)
+                    foreach (var bin in Data.Values)
+                        bin.IsDirty = false;
+            }
+        }
+
+
+        public bool Sync()
         {
             var changedFields = new List<string>();
             foreach (var field in Fields)
             {
-                if (Data[field].ConfirmChanges())
+                if (Data[field].IsDirty)
                 {
                     changedFields.Add(field);
+                    Data[field].IsDirty = false;
                 }
             }
 
+            TimeStamp = Time.Time.CurrentTime();
+            
             if (changedFields.Count > 0)
             {
-                var changedMessage = new Message(this.Topic);
+                if (ChangedWithDetails != null) // for all subscribers with detailled interest
+                {
+                    var changedMessage = new Message(this.Topic);
+                    changedMessage.TimeStamp = TimeStamp;
 
-                foreach (var field in changedFields)
-                    changedMessage.Data[field] = Data[field];
+                    foreach (var field in changedFields)
+                        changedMessage.Data[field] = Data[field];
 
-                Changed(this, changedMessage);
-                TimeStamp = Time.Time.CurrentTime();
+                    ChangedWithDetails(this, changedMessage); // inform all subscribers of this particular Message
+                }
+
+                if (Changed != null) // for all subscribers with only superficial interest.
+                {
+                    Changed(this);
+                }
                 
+//                IsChanged = false;
                 return true;
             }
             else return false;

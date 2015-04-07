@@ -17,56 +17,34 @@ namespace VVVV.Packs.Messaging
     internal class BinList<T> : Bin<T>
     {
         #region Fields
-        protected IList<T> _backUp = new List<T>();
         internal IList<T> Data = new List<T>();
 
-        public IList BackUp
+        //protected IList<T> _backUp = new List<T>();
+        //public IList BackUp
+        //{
+        //    get 
+        //    {
+        //        return (IList)_backUp;
+        //    }
+        //    internal set 
+        //    {
+        //        _backUp = value as IList<T>;
+        //    }
+        //}
+
+        public bool IsDirty
         {
-            get 
-            {
-                return (IList)_backUp;
-            }
-            internal set 
-            {
-                _backUp = value as IList<T>;
-            }
+            get;
+            set;
         }
+
         #endregion
 
         public BinList()
         {
+            IsDirty = true;
         }
-
-        public bool ConfirmChanges()
-        {
-
-            bool changed = false;
-            if (BackUp == null)
-            {
-                BackUp = new List<T>();
-                foreach (var item in Data) BackUp.Add(item);
-                return true; // new
-            }
-
-            if (_backUp.Count != Data.Count) changed = true;
-
-
-            for (int i = 0; i < Count && !changed; i++)
-            {
-                if (!Data[i].Equals(_backUp[i]))
-                    changed = true;
-            }
-
-            if (changed)
-            {
-                _backUp.Clear();
-                foreach (var item in Data) _backUp.Add(item);
-            }
-
-            return changed; // update
-
-            // todo: what happens, if bin was removed??
-        }
+ 
 
         #region Essentials
         public int Count
@@ -79,12 +57,14 @@ namespace VVVV.Packs.Messaging
                     var defaultValue = TypeIdentity.Instance.Default(this.GetInnerType());
                     this.Add(defaultValue);
                 }
+                IsDirty = true;
             }
         }
 
         public void Clear()
         {
             Data.Clear();
+            IsDirty = true;
         }
 
         public object this[int slice]
@@ -99,6 +79,7 @@ namespace VVVV.Packs.Messaging
                 if (value == null) value = TypeIdentity.Instance.Default(this.GetInnerType());
                 var tmp = (T)value;
                 Data[slice] = tmp;
+                IsDirty = true;
             }
         }
 
@@ -141,6 +122,7 @@ namespace VVVV.Packs.Messaging
                     throw new Exception("Bin " + value.ToString() + " of type "+ value.GetType().ToString() +" cannot be the first among " +this.GetInnerType());
                 }
                 Data[0] = (T)value;
+                IsDirty = true;
             }
         }
 
@@ -165,6 +147,8 @@ namespace VVVV.Packs.Messaging
                     Data.Add((T)Convert.ChangeType(val, this.GetInnerType()));
                 }
                 else Data.Add((T)val);
+
+                IsDirty = true;
                 return Count;
             }
 
@@ -193,6 +177,7 @@ namespace VVVV.Packs.Messaging
                             throw new Exception("Cannot add object " + enumerable.ToString() + " from "+enumerable+ " to Bin because Type of inside element does not match");
                         Data.Add((T)o);
                     }
+                    IsDirty = true;
                     return index;
                 }
             } 

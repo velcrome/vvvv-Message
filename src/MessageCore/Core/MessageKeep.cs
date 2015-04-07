@@ -5,34 +5,65 @@ using System.Linq;
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageKeep : IList<Message>
+    public class MessageKeep : IReadOnlyList<Message>
     {
+        private bool _quickMode = true;
+        public bool QuickMode
+        {
+            get
+            {
+                return _quickMode;
+            }
+            set
+            {
+                if (value == _quickMode) return;
+                _quickMode = value;
+
+                foreach (var message in Messages)
+                {
+                    if (_quickMode)
+                    {
+                        message.ChangedWithDetails -= MessageChangedWithDetails;
+                        message.Changed += MessageChanged;
+                    }
+                    else
+                    {
+                        message.Changed -= MessageChanged;
+                        message.ChangedWithDetails += MessageChangedWithDetails;
+                    }
+                }
+            }
+        }
+
         protected List<Message> Messages = new List<Message>();
         protected Dictionary<Message, Message> Changes = new Dictionary<Message, Message>();
 
         public bool IsChanged
         {
             get {
-                foreach (var message in this)
-                    message.ConfirmChanges(); 
-                
-                return Changes.Count > 0;   
+                return Messages.Any(m => m.IsChanged);
             }
             protected set {
-                if (!value) Changes.Clear();   
+                if (value == false)
+                {
+                    //foreach (var message in Messages)
+                    //{
+                    //    message.IsChanged = false;
+                    //}
+                    Changes.Clear();
+                }
             }
         }
 
-
-        protected void MessageChanged(Message original, Message change)
+        protected void MessageChangedWithDetails(Message original, Message change)
         {
             if (!Messages.Contains(original))
             {
-                original.Changed -= MessageChanged;
+                original.ChangedWithDetails -= MessageChangedWithDetails;
                 return; // spam
             }
 
-            if (Changes.ContainsKey(original))
+            if (Changes.ContainsKey(original) && Changes[original] != null)
                 Changes[original] += change;
             else
             {
@@ -41,17 +72,34 @@ namespace VVVV.Packs.Messaging
             }
         }
 
+        protected void MessageChanged(Message original)
+        {
+            if (!Messages.Contains(original))
+            {
+                original.Changed -= MessageChanged;
+                return; // spam
+            }
+
+            if (!Changes.ContainsKey(original))
+            {
+                Changes[original] = null;
+            }
+        }
+
         public IEnumerable<Message> Sync(out IEnumerable<int> indexes)
         {
             var temp = new List<int>();
             var changes = new List<Message>();
+
+            foreach (var message in Messages) message.Sync(); 
 
             foreach (var orig in Changes.Keys)
             {
                 if (Messages.Contains(orig))
                 {
                     temp.Add(Messages.IndexOf(orig));
-                    changes.Add(Changes[orig]);
+                    if (!QuickMode) changes.Add(Changes[orig]);
+//                        else changes.Add(orig);
                 }
             }
 
@@ -60,10 +108,13 @@ namespace VVVV.Packs.Messaging
             return changes;
         }
 
-        public IList<Message> Sync(bool quick = false)
+        public IEnumerable<Message> Sync()
         {
             List<Message> changes = null;
-            if (!quick)
+
+            foreach (var message in Messages) message.Sync(); // will inform all subscribers of the message about changes.
+
+            if (!QuickMode)
                 changes = new List<Message>(Changes.Values);
 
             IsChanged = false;
@@ -84,12 +135,10 @@ namespace VVVV.Packs.Messaging
         public void AssignFrom(IEnumerable<Message> input)
         {
 
-            Messages.Clear();
-            Messages.AddRange(input.Distinct()); // no need to keep duplicates
-
+            Clear();            
             foreach (var message in input)
             {
-                message.Changed += MessageChanged;
+                Add(message);
             }
         }
         
@@ -98,13 +147,27 @@ namespace VVVV.Packs.Messaging
             if (Messages.Contains(message)) return; // no duplicates
 
             Messages.Add(message);
-            message.Changed += MessageChanged;
+            if (QuickMode)
+            {
+                Changes.Add(message, null);
+                message.Changed += MessageChanged;
+            }
+            else
+            {
+                Changes.Add(message, message.Clone() as Message);
+                message.ChangedWithDetails += MessageChangedWithDetails;
+            }
 
         }
 
         public void Clear()
         {
-            foreach (var message in Messages) message.Changed -= MessageChanged;
+            foreach (var message in Messages)
+            {
+                message.ChangedWithDetails -= MessageChangedWithDetails;
+                message.Changed -= MessageChanged;
+            }
+            Changes.Clear();
             Messages.Clear();
 
         }
@@ -114,29 +177,18 @@ namespace VVVV.Packs.Messaging
             return Messages.Contains(message);
         }
 
-        public void CopyTo(Message[] array, int arrayIndex)
-        {
-            throw new NotImplementedException("MessageKeep.CopyTo");
-
- //           foreach (var message in array) message.Changed += MessageChanged;
- //           Messages.CopyTo(array, arrayIndex);
-
-        }
-
         public int Count
         {
             get { return Messages.Count; }
         }
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
 
         public bool Remove(Message message)
         {
+            message.ChangedWithDetails -= MessageChangedWithDetails;
             message.Changed -= MessageChanged;
 
+            Changes.Remove(message);
             return Messages.Remove(message);
         }
 
@@ -144,7 +196,12 @@ namespace VVVV.Packs.Messaging
         {
             for (int i = index; i < index + count; i++)
             {
-                if (Messages.Count < i) Messages[i].Changed -= MessageChanged;
+                if (Messages.Count < i)
+                {
+                    Messages[i].Changed -= MessageChanged;
+                    Messages[i].ChangedWithDetails -= MessageChangedWithDetails;
+                    Changes.Remove(Messages[i]);
+                }
 
             }            
             Messages.RemoveRange(index, count);
@@ -166,19 +223,7 @@ namespace VVVV.Packs.Messaging
             return Messages.IndexOf(message);
         }
 
-        public void Insert(int index, Message message)
-        {
-            message.Changed += MessageChanged;
-            Messages.Insert(index, message);
-        }
 
-        public void RemoveAt(int index)
-        {
-            var message = Messages[index];
-            message.Changed -= MessageChanged;
-
-            Messages.RemoveAt(index);
-        }
 
         public Message this[int index]
         {
@@ -189,10 +234,13 @@ namespace VVVV.Packs.Messaging
             set
             {
                 var message = Messages[index];
+                message.ChangedWithDetails -= MessageChangedWithDetails;
                 message.Changed -= MessageChanged;
 
                 Messages[index] = value;
-                value.Changed += MessageChanged;
+                if (QuickMode)
+                    message.Changed += MessageChanged;
+                    else value.ChangedWithDetails += MessageChangedWithDetails;
             }
         }
     }

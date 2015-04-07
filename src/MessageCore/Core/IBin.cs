@@ -10,33 +10,35 @@ namespace VVVV.Packs.Messaging
     [JsonConverter(typeof(JsonBinSerializer))]
     public interface Bin : ICloneable, ISerializable, IEnumerable, IEquatable<Bin> 
     {
-//        Bin(params object[] values);
-        bool ConfirmChanges();
-        IList BackUp
+        
+        //bool ConfirmChanges();
+        //IList BackUp
+        //{
+        //    get;
+        //}
+
+        bool IsDirty
         {
             get;
+            set;
         }
 
-
- 
-        object First { get; set; }
+        int Count { get; set; }
+        object this[int slice] { get; set; }
 
         Type GetInnerType();
+        object First { get; set; }
         object[] ToArray();
 
-        int Count { get; set; }
         
         int Add(object item);
         void AssignFrom(IEnumerable enumerable);
 
-        object this[int slice] {get;set;}
 
 //        public static bool operator ==(Bin a, Bin other);
 //        public static bool operator !=(Bin a, Bin other);
 
         void Clear();
-//        IEnumerator GetEnumerator();
-
     }
 
     public interface Bin<T> : Bin, IEnumerable<T>
