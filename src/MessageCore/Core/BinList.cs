@@ -17,26 +17,9 @@ namespace VVVV.Packs.Messaging
     internal class BinList<T> : Bin<T>
     {
         #region Fields
-        internal IList<T> Data = new List<T>();
+        internal IList<T> Data = new List<T>(1);
 
-        //protected IList<T> _backUp = new List<T>();
-        //public IList BackUp
-        //{
-        //    get 
-        //    {
-        //        return (IList)_backUp;
-        //    }
-        //    internal set 
-        //    {
-        //        _backUp = value as IList<T>;
-        //    }
-        //}
-
-        public bool IsDirty
-        {
-            get;
-            set;
-        }
+        public bool IsDirty { get; set; }
 
         #endregion
 
@@ -50,14 +33,26 @@ namespace VVVV.Packs.Messaging
         public int Count
         {
             get { return Data.Count; }
-            set // only increase atm
+            set 
             {
+                // somewhat dirty cast
+                var list = Data as List<T>;
+                if (list.Capacity < value) list.Capacity = value;
+
+                // trim
+                if (value < list.Count)
+                {
+                    list.RemoveRange(value, list.Count - value);
+                    IsDirty = true;
+                }
+
+                // or add
                 for (int i = Count; i < value; i++)
                 {
                     var defaultValue = TypeIdentity.Instance.Default(this.GetInnerType());
                     this.Add(defaultValue);
+                    IsDirty = true;
                 }
-                IsDirty = true;
             }
         }
 
@@ -135,18 +130,15 @@ namespace VVVV.Packs.Messaging
         {
             var index = this.Count;  //proper return as of ArrayList.Add()
 
-//          Add a single instance
+            // if type is in the Registry of allowed basetypes, add this single instance
             Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
-
-            if (val == null) return index;
-
             if (type != null)
             {
-                if (val is IConvertible)
+                if (val is T)
                 {
-                    Data.Add((T)Convert.ChangeType(val, this.GetInnerType()));
+                    Data.Add((T)val);
                 }
-                else Data.Add((T)val);
+                else Data.Add((T)Convert.ChangeType(val, this.GetInnerType())); // close, but no match. so convert.
 
                 IsDirty = true;
                 return Count;
@@ -155,18 +147,17 @@ namespace VVVV.Packs.Messaging
 //          Add a enumeration
             if (val is IEnumerable ) // string should be treated differently, but that is implicit in the lines before
             {
-                var enumerable = (IEnumerable)val;
+                var enumerable = (IEnumerable<T>)val;
 
                 try
                 {
-                    var num = enumerable.GetEnumerator();
-                    if (!num.MoveNext()) return index;
-                    type = TypeIdentity.Instance.FindBaseType(num.Current.GetType());
+                    var first = enumerable.First();
+                    if ((T)first == null) return index;
+                    type = TypeIdentity.Instance.FindBaseType(first.GetType());
                 }
                 catch (Exception e)
                 {
-                    
-                    throw new Exception("Cannot add object " + enumerable.ToString() + " to Bin because cannot determine type. Maybe empty?", e);
+                    throw new Exception("Cannot add objects in " + enumerable.ToString() + " to Bin because cannot determine type. Maybe null or empty?", e);
                 }
 
                 if (type != null && this.GetInnerType() == type)
@@ -182,13 +173,12 @@ namespace VVVV.Packs.Messaging
                 }
             } 
 
-            throw new Exception("Cannot add this value,"+ val.GetType() + " is neither a Enumeration of matching registered Type nor a matching Type.");
+            throw new Exception("Cannot add this value ("+val+"). "+ val.GetType() + " is neither a Enumeration of matching registered Type nor a matching Type.");
         }
 
         public void AssignFrom(IEnumerable enumerable) {
 			this.Clear();
     		this.Add(enumerable);
-            
 		}
 
         #endregion
@@ -199,12 +189,23 @@ namespace VVVV.Packs.Messaging
             return typeof(T);
         }
 
-        public object[] ToArray()
-        {
-            T[] tmp = new T[this.Count];
-            Data.CopyTo(tmp, 0);
-            return tmp as object[];
-        }
+//        public object[] ToArray()
+//        {
+//            var tmp = new T[this.Count];
+//            ((ICollection)Data).CopyTo(tmp, 0);
+
+////            Object[] tmp = new Object[this.Count];
+////            Array.Copy(Data.ToArray(), tmp, this.Count);
+
+//            return tmp;
+//        }
+
+
+        //public T[] ToArray()
+        //{
+            
+        //    return Data.ToArray();
+        //}
 
         public static implicit operator T(BinList<T> sl)
         {

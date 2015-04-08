@@ -210,14 +210,16 @@ namespace VVVV.Packs.Messaging {
 
         public bool IsChanged
         {
+            // check all bins, if at least one has changed since the last Sync.
             get {
                 return Data.Values.Any(bin => bin.IsDirty);
             }
             
+            // reset all bins, if IsChanged is forced to false.
             internal set {
                 if (!value)
                     foreach (var bin in Data.Values)
-                        bin.IsDirty = false;
+                        if (bin.IsDirty) bin.IsDirty = false;
             }
         }
 
@@ -233,18 +235,18 @@ namespace VVVV.Packs.Messaging {
                     Data[field].IsDirty = false;
                 }
             }
-
-            TimeStamp = Time.Time.CurrentTime();
             
             if (changedFields.Count > 0)
             {
+                TimeStamp = Time.Time.CurrentTime(); // timestamp always shows last Synced Change.
+
                 if (ChangedWithDetails != null) // for all subscribers with detailled interest
                 {
                     var changedMessage = new Message(this.Topic);
                     changedMessage.TimeStamp = TimeStamp;
 
                     foreach (var field in changedFields)
-                        changedMessage.Data[field] = Data[field];
+                        changedMessage.Data[field] = Data[field].Clone() as Bin;
 
                     ChangedWithDetails(this, changedMessage); // inform all subscribers of this particular Message
                 }
@@ -254,7 +256,6 @@ namespace VVVV.Packs.Messaging {
                     Changed(this);
                 }
                 
-//                IsChanged = false;
                 return true;
             }
             else return false;

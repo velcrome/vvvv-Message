@@ -17,53 +17,80 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void KeepTest()
         {
-            var message = new Message();
-            message["Num"] = BinFactory.New<int>(1, 2, 3);
-            message["Foo"] = BinFactory.New<string>("foo", "bar");
+            var messageA = new Message("A");
+            messageA["Num"] = BinFactory.New<int>(1, 2, 3);
+            messageA["Foo"] = BinFactory.New<string>("foo", "bar");
 
-            Assert.AreEqual(true, message.IsChanged);
+            Assert.AreEqual(true, messageA.IsChanged);
 
-            var message2 = new Message();
-            message2["Num"] = BinFactory.New<int>(4);
-            message2["Foo"] = BinFactory.New<string>("foo");
+            var messageB = new Message("B");
+            messageB["Num"] = BinFactory.New<int>(4);
+            messageB["Foo"] = BinFactory.New<string>("foo");
 
             var keep = new MessageKeep();
-            keep.Add(message);
-            keep.Add(message2);
+            keep.Add(messageA);
+            keep.Add(messageB);
             keep.Sync();
 
-            Assert.AreEqual(false, message.IsChanged);
-            Assert.AreEqual(false, message2.IsChanged);
+            Assert.AreEqual(false, messageA.IsChanged);
+            Assert.AreEqual(false, messageB.IsChanged);
 
-            message.Init("Vector", new Vector4D(1, 0, 0, 1)); 
+            messageA.Init("Vector", new Vector4D(1, 0, 0, 1)); 
 
-            Assert.AreEqual(true, message.IsChanged);
-            Assert.AreEqual(false, message2.IsChanged);
+            Assert.AreEqual(true, messageA.IsChanged);
+            Assert.AreEqual(false, messageB.IsChanged);
 
             keep.QuickMode = false;
-            var changes = keep.Sync();
 
+            var keep2 = new MessageKeep();
+            keep2.Add(messageA);
+            keep2.Add(messageB);
+            keep2.Sync();
+            keep2.QuickMode = false;
+
+            var changes = keep.Sync();
             Assert.AreEqual(false, keep.IsChanged);
 
-            message2["Num"].Add(5);
+            messageB["Num"].Add(5);
 
             Assert.AreEqual(true, keep.IsChanged);
 
-            Assert.AreEqual(false, message.IsChanged);
-            Assert.AreEqual(true, message2.IsChanged);
+            Assert.AreEqual(false, messageA.IsChanged);
+            Assert.AreEqual(true, messageB.IsChanged);
 
             IEnumerable<int> indexes = null;
             changes = keep.Sync(out indexes);
 
-            Assert.AreEqual(false, message.IsChanged);
-            Assert.AreEqual(false, message2.IsChanged);
+            Assert.AreEqual(false, messageA.IsChanged);
+            Assert.AreEqual(false, messageB.IsChanged);
 
             Assert.AreEqual(1, changes.Count());
-
             Assert.AreEqual(5, changes.First()["Num"][1]);
 
             Assert.AreEqual(1, indexes.First());
             Assert.AreEqual("Num" , changes.First().Fields.First());
+
+            Assert.AreEqual(false, messageA.IsChanged);
+            Assert.AreEqual(false, messageB.IsChanged);
+
+            messageB.Init("int", 0, 1, 2);
+
+            Assert.AreEqual(false, messageA.IsChanged);
+            Assert.AreEqual(true, messageB.IsChanged);
+
+            messageB.Add("int", 3, 4);
+
+            changes = keep2.Sync(out indexes);
+
+            Assert.AreEqual(1, changes.Count()); // only messageB
+            Assert.AreEqual("B", changes.First().Topic);
+            Assert.AreEqual(2, changes.First().Fields.Count());
+            Assert.AreEqual("Bin<int> [0, 1, 2, 3, 4]", changes.First()["int"].ToString());
+            Assert.AreEqual("Bin<int> [4, 5]", changes.First()["Num"].ToString());
+
+            Assert.AreEqual(1, indexes.First());
+            Assert.AreEqual("Num", changes.First().Fields.First());
+
         
         }
     }
