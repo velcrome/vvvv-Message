@@ -12,11 +12,6 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-
-        [Import()]
-        protected IIOFactory FIOFactory;
-
-
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();

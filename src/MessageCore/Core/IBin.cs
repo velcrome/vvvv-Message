@@ -9,7 +9,7 @@ using System.Linq;
 namespace VVVV.Packs.Messaging
 {
     [JsonConverter(typeof(JsonBinSerializer))]
-    public interface Bin : ICloneable, ISerializable, IEnumerable, IEquatable<Bin> 
+    public interface Bin : ICloneable, ISerializable, IEnumerable, IEquatable<Bin>, IEquatable<IEnumerable> 
     {
         int Count               { get; set; }
         object this[int slice]  { get; set; }

@@ -103,14 +103,19 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                     else count = sourceBin.Count;
 
-                    if (count > 0)
+                    var changedBinSize = false;
+
+                    if (targetBin.SliceCount != count) changedBinSize = true;
+
+                    targetBin.SliceCount = count;
+                    for (int j = 0; j < count; j++)
                     {
-                        targetBin.SliceCount = count;
-                        for (int j = 0; j < count; j++)
-                        {
-                            targetBin[j] = sourceBin[j];
-                        }
-                        targetPin.Flush();
+                        targetBin[j] = sourceBin[j];
+                    }
+
+                    if (targetPin.SliceCount > 0 || changedBinSize)
+                    {
+                       targetPin.Flush();
                     }
                 }
 

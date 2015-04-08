@@ -43,15 +43,28 @@ namespace VVVV.Packs.Messaging.Nodes
             return changed;
         }
 
-        protected void CopyFromPins(Message message, int index, bool checkForChange = false)
+        protected bool CopyFromPins(Message message, int index, bool checkForChange = false)
         {
+            var hasCopied = false;
+
             foreach (string name in FPins.Keys)
+            {
                 if (!checkForChange || FPins[name].ToISpread().IsChanged)
                 {
                     var pinSpread = FPins[name].ToISpread();
                     if (!pinSpread.IsAnyInvalid())
-                        message.AssignFrom(name, pinSpread[index] as IEnumerable);
+                    {
+                        // don't changedBinSize if data still the same
+                        var bin = pinSpread[index] as IEnumerable;
+                        if (!message.Fields.Contains(name) || !message[name].Equals(bin))
+                        {
+                            message.AssignFrom(name, bin);
+                            hasCopied = true;
+                        }  
+                    }
                 }
+            }
+            return hasCopied;
 
         }
 

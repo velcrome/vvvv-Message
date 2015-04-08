@@ -25,19 +25,18 @@ namespace VVVV.Nodes.Messaging.Keep
         public override void Evaluate(int SpreadMax)
         {
 
-            var update = CheckReset();
+            var forceUpdate = CheckReset();
 
             foreach (var message in FInput)
             {
                 if (message != null && message.Topic != "")
                 {
-                    MatchOrInsert(message);
-//                    if (MatchOrInsert(message) != null) update = true; // unnecessary to carry update here?
+                    var m = MatchOrInsert(message);
+                    if (m != null) forceUpdate = true;
                 }
             }
 
-            if (UpKeep()) update = true;
-            if (update) DumpKeep(Keep.Count);
+            UpKeep(forceUpdate);
         }
         
         public Message MatchOrInsert(Message message)
@@ -57,7 +56,7 @@ namespace VVVV.Nodes.Messaging.Keep
                 var found = matched.First(); // found a matching record
 
                 var k = found += message; // copy all attributes from message to matching record
-                found.TimeStamp = message.TimeStamp; // update time
+                found.TimeStamp = message.TimeStamp; // forceUpdate time
 
                 return found;
             }

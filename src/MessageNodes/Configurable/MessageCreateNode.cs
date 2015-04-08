@@ -60,20 +60,24 @@ namespace VVVV.Packs.Messaging.Nodes
                 SpreadMax = Math.Max(pin.SliceCount, SpreadMax);
             }
 
-            FOutput.SliceCount = SpreadMax;
+            FOutput.SliceCount = 0;
             for (int i = 0; i < SpreadMax; i++)
             {
-                var message = new Message();
 
-                message.Topic = FTopic[i];
-                foreach (string name in FPins.Keys)
+                if (FNew[i])
                 {
-                    var pin = FPins[name].ToISpread();
-                        
-                    if (!pin.IsAnyInvalid() && !(pin[i] as ISpread).IsAnyInvalid()) 
-                        message.AssignFrom(name, pin[i] as ISpread);
+                    var message = new Message();
+
+                    message.Topic = FTopic[i];
+                    foreach (string name in FPins.Keys)
+                    {
+                        var pin = FPins[name].ToISpread();
+
+                        if (!pin.IsAnyInvalid() && !(pin[i] as ISpread).IsAnyInvalid())
+                            message.AssignFrom(name, pin[i] as ISpread);
+                    }
+                    FOutput.Add(message);
                 }
-                FOutput[i] = message;
             }
             FOutput.Flush();
         }

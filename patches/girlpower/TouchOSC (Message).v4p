@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="0" scrolly="1305">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="0" scrolly="5232">
    <BOUNDS type="Window" left="4140" top="228" width="16572" height="13224">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="1">
@@ -1157,6 +1157,10 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Changed Message Index" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="465" srcpinname="Output" dstnodeid="194" dstpinname="Input" linkstyle="VHV">
    <LINKPOINT x="2310" y="11318">
@@ -1205,7 +1209,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="195" top="4650" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="192.168.2.29">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="192.168.1.101">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="192.168.1.1">
    </PIN>
@@ -1259,5 +1263,135 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="493" srcpinname="Output Enum" dstnodeid="490" dstpinname="Message Formular">
+   </LINK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="494">
+   <BOUNDS type="Node" left="4368" top="17148" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="495" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3804" top="10356" width="792" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3804" top="10356" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="465" srcpinname="Changed Message Index" dstnodeid="495" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="465" srcpinname="Message Diff" dstnodeid="494" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="496" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="4680" top="17592" width="4068" height="2868">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4680" top="17592" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="494" srcpinname="Output" dstnodeid="496" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="497">
+   <BOUNDS type="Node" left="10668" top="18132" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|float[2] xy|">
+   </PIN>
+   <PIN pinname="Autolearn Type" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="xy" visible="1">
+   </PIN>
+   <PIN pinname="xy Bin Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Update" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="TouchOSC.3">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="194" srcpinname="Output" dstnodeid="497" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="498" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="11256" top="16740" width="795" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11256" top="16740" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="-0.523241817951202,-0.169463932514191">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|0, 0|">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="498" srcpinname="Y Output Value" dstnodeid="497" dstpinname="xy">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="499" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="10332" top="18984" width="792" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10332" top="18984" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="497" srcpinname="Output" dstnodeid="499" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Change (Animation)" nodename="Change (Animation)" componentmode="Hidden" id="500">
+   <BOUNDS type="Node" left="11940" top="17424" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="OR (Boolean Spectral)" nodename="OR (Boolean Spectral)" componentmode="Hidden" id="501">
+   <BOUNDS type="Node" left="11520" top="17772" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="498" srcpinname="Y Output Value" dstnodeid="500" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="500" srcpinname="OnChange" dstnodeid="501" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="501" srcpinname="Output" dstnodeid="497" dstpinname="Update">
+   </LINK>
+   <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="502">
+   <BOUNDS type="Node" left="13776" top="17808" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Cartesian (2d Vector)" nodename="Cartesian (2d Vector)" componentmode="Hidden" id="503">
+   <BOUNDS type="Node" left="13536" top="18192" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Angle" visible="1">
+   </PIN>
+   <PIN pinname="Length" slicecount="1" values="0.55">
+   </PIN>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="502" srcpinname="Output" dstnodeid="503" dstpinname="Angle">
    </LINK>
    </PATCH>

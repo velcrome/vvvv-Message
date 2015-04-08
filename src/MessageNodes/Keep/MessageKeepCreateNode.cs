@@ -25,16 +25,16 @@ namespace VVVV.Packs.Messaging.Nodes
         public Pin<Message> FOutput;
 
         [Output("Changed Message", Order = int.MaxValue - 2, AutoFlush = false, Visibility = PinVisibility.Hidden)]
-        public Pin<int> FChangeOut;
+        public Pin<int> FChangeIndexOut;
 
         [Output("Message Diff", Order = int.MaxValue - 1, AutoFlush = false)]
-        public Pin<Message> FChangeDataOut;
+        public Pin<Message> FChangeOut;
 
         [Output("Internal Count", Order = int.MaxValue, AutoFlush = false)]
         public ISpread<int> FCountOut;
 #pragma warning restore
 
-        protected MessageKeep Keep = new MessageKeep(); // same as in AbstractStorageNode. 
+        protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractStorageNode. 
 
         protected virtual bool CheckReset()
         {
@@ -49,53 +49,50 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected virtual bool UpKeep(bool force = false)
         {
-            FChangeOut.SliceCount = 0;
-            FChangeDataOut.SliceCount = 0;
-
-            if (Keep.IsChanged)
+            if (!force && !Keep.IsChanged)
             {
-                if (FChangeDataOut.IsConnected || FChangeOut.IsConnected)
+                if (!Keep.QuickMode && FChangeIndexOut.SliceCount != 0)
                 {
-                    IEnumerable<Message> changes;
-                    if (!FChangeOut.IsConnected && !force)
-                    {
-                        changes = Keep.Sync();
-                    }
-                    else // more expensive to get the indices as well
-                    {
-                        IEnumerable<int> indexes;
-                        changes = Keep.Sync(out indexes);
+                    FChangeIndexOut.SliceCount = 0;
+                    FChangeIndexOut.Flush();
+                    FChangeOut.SliceCount = 0;
+                    FChangeOut.Flush();
 
-                        foreach (var index in indexes) FChangeOut.Add(index);
-                        FChangeOut.Flush();
-                    }
-                    FChangeDataOut.AssignFrom(changes);
-                    FChangeDataOut.Flush();
                 }
-                else Keep.Sync();
 
-
-                FCountOut[0] = Keep.Count;
-                FCountOut.Flush();
-
-                return true;
-
+                return false;
             }
-            return false;
-        }
 
-        protected void DumpKeep(int SpreadMax)
-        {
-            FOutput.SliceCount = SpreadMax;
-
-            for (int i = 0; i < SpreadMax; i++)
+            if (Keep.QuickMode)
             {
-                var message = Keep[i];
-                FOutput[i] = message;
-
+                Keep.Sync();
             }
+            else
+            {
+                IEnumerable<Message> changes;
+                IEnumerable<int> indexes;
+                changes = Keep.Sync(out indexes);
+
+                FChangeIndexOut.SliceCount = 0;
+                FChangeIndexOut.AssignFrom(indexes);
+                FChangeIndexOut.Flush();
+
+                FChangeOut.SliceCount = 0;
+                FChangeOut.AssignFrom(changes);
+                FChangeOut.Flush();
+            }
+
+            FOutput.SliceCount = 0;
+            FOutput.AssignFrom(Keep);
             FOutput.Flush();
+
+            FCountOut[0] = Keep.Count;
+            FCountOut.Flush();
+
+            return true;
         }
+
+
 
         protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
         {
@@ -115,7 +112,13 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
-            var update = CheckReset() || FTopic.IsChanged;
+            var update = CheckReset();
+
+            if (FTopic.IsChanged)
+            {
+                Keep.Clear();
+                update = true;
+            }
 
 //          remove superfluous entries
             if (SpreadMax < Keep.Count) 
@@ -129,6 +132,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 update = true; // new entry in Keep will require data
                 var message = new Message(Formular);
+                message.Topic = FTopic[i];
                 Keep.Add(message);
             }
 
@@ -140,13 +144,15 @@ namespace VVVV.Packs.Messaging.Nodes
                 int messageIndex = 0;
                 foreach (var message in Keep)
                 {
-                    message.Topic = FTopic[messageIndex];
-                    CopyFromPins(message, messageIndex, !update);
+                    if (CopyFromPins(message, messageIndex, true)) update = true;
                     messageIndex++;
                 }
+
+                UpKeep(update);
+
+
             }
 
-            if (UpKeep() || update) DumpKeep(FSpreadCount[0]);
         }
 
 

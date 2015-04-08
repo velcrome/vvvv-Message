@@ -147,12 +147,12 @@ namespace VVVV.Packs.Messaging
 //          Add a enumeration
             if (val is IEnumerable ) // string should be treated differently, but that is implicit in the lines before
             {
-                var enumerable = (IEnumerable<T>)val;
+                var enumerable = ((IEnumerable)val).Cast<T>();
 
                 try
                 {
                     var first = enumerable.First();
-                    if ((T)first == null) return index;
+  //                  if ((T)first == null) return index;
                     type = TypeIdentity.Instance.FindBaseType(first.GetType());
                 }
                 catch (Exception e)
@@ -247,6 +247,32 @@ namespace VVVV.Packs.Messaging
             return true;
         }
 
+        public bool Equals(IEnumerable other)
+        {
+            if (other == null) return false;
+
+            try
+            {
+                // full typematch?
+                var othersTyped = other.Cast<T>().ToList();
+                
+                // same size?
+                if (othersTyped.Count != Count) return false;
+
+                //  deep check each element
+                for (int i = 0; i < Count; i++)
+                {
+                    if (!othersTyped[i].Equals(this[i])) return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public override bool Equals(Object obj)
         {
             //          check for an obvious Type match
@@ -308,9 +334,7 @@ namespace VVVV.Packs.Messaging
         #region ICloneable Member
         public object Clone()
         {
-            Bin c = BinFactory.New(this.GetInnerType());
-            c.AssignFrom(this);
-            return c;
+            return BinFactory.New(this as IEnumerable<T>);
         }
         #endregion ICloneable Members
     }

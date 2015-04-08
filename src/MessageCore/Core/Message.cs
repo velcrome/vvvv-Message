@@ -246,7 +246,7 @@ namespace VVVV.Packs.Messaging {
                     changedMessage.TimeStamp = TimeStamp;
 
                     foreach (var field in changedFields)
-                        changedMessage.Data[field] = Data[field].Clone() as Bin;
+                        changedMessage.Data[field] = Data[field].Clone() as Bin;  // deep clone
 
                     ChangedWithDetails(this, changedMessage); // inform all subscribers of this particular Message
                 }

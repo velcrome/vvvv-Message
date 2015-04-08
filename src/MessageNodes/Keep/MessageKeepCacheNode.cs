@@ -39,31 +39,28 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (!FInput.IsAnyInvalid())
                 foreach (var message in FInput) 
-                    MatchOrInsert(message, idFields);
+                    MatchOrInsert(message, idFields); 
 
             if (FTime[0] > 0) 
                 if (RemoveOld()) update = true;
 
-            if (UpKeep(true)) update = true;
-
-            // changed pins are now valid.
-            
-            if (update)
+            if (UpKeep(update)) update = true;  
+           
+            // add all additional id fields to the changed message
+            if (update && !Keep.QuickMode)
             {
-                SpreadMax = FChangeDataOut.SliceCount;
+                SpreadMax = FChangeOut.SliceCount;
 
                 for (int i = 0; i < SpreadMax; i++)
                 {
-                    var change = FChangeDataOut[i];
-                    var orig = Keep[FChangeOut[i]];
+                    var change = FChangeOut[i];
+                    var orig = Keep[FChangeIndexOut[i]];
 
                     foreach (var field in idFields)
                     {
                         change.AssignFrom(field, orig[field]);
                     }
                 }
-
-                DumpKeep(Keep.Count);
             }
         }
 
@@ -75,7 +72,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var matched = (from keep in Keep
                            where isCompatible
                            from fieldName in compatibleBins
-                           where keep[fieldName] == message[fieldName]// slicewise check of Bins' equality
+                           where (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)// slicewise check of Bins' equality
                            select keep).ToList();
 
             if (matched.Count == 0)
@@ -97,14 +94,15 @@ namespace VVVV.Packs.Messaging.Nodes
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
 
-            var deadMessages = 
-                from message in Keep
-                    where message.TimeStamp < validTime
-                    let removed = Keep.Remove(message)
-                    select message;
+            var deadMessages =
+                (
+                from message in Keep.ToList()
+                where message.TimeStamp < validTime
+                let removed = Keep.Remove(message)
+                select message
+                );
 
-
-            if (FRemovedMessages.SliceCount > 0 || deadMessages.Count() != 0)
+            if (FRemovedMessages.SliceCount > 0 || deadMessages.Count() > 0)
             {
                 FRemovedMessages.SliceCount = 0;
                 FRemovedMessages.AssignFrom(deadMessages);

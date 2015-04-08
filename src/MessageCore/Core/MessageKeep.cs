@@ -7,6 +7,10 @@ namespace VVVV.Packs.Messaging
 {
     public class MessageKeep : IReadOnlyList<Message>
     {
+        protected List<Message> Messages = new List<Message>();
+        protected Dictionary<Message, Message> Changes = new Dictionary<Message, Message>();
+
+        #region Fields
         private bool _quickMode = true;
         public bool QuickMode
         {
@@ -21,6 +25,8 @@ namespace VVVV.Packs.Messaging
 
                 foreach (var message in Messages)
                 {
+                    Changes.Clear();
+
                     if (_quickMode)
                     {
                         message.ChangedWithDetails -= MessageChangedWithDetails;
@@ -35,8 +41,6 @@ namespace VVVV.Packs.Messaging
             }
         }
 
-        protected List<Message> Messages = new List<Message>();
-        protected Dictionary<Message, Message> Changes = new Dictionary<Message, Message>();
 
         public bool IsChanged
         {
@@ -46,15 +50,26 @@ namespace VVVV.Packs.Messaging
             protected set {
                 if (value == false)
                 {
-                    //foreach (var message in Messages)
-                    //{
-                    //    message.IsChanged = false;
-                    //}
+                    //foreach (var message in Messages) message.IsChanged = false;
                     Changes.Clear();
                 }
             }
         }
+    #endregion Fields
 
+        public MessageKeep()
+        {
+        }
+
+        public MessageKeep(bool quickMode)
+        {
+            QuickMode = quickMode;
+        }
+
+
+        #region Event Handlers 
+        
+        // come with selective Quickmode subscription to individual Messages
         protected void MessageChangedWithDetails(Message original, Message change)
         {
             if (!Messages.Contains(original))
@@ -85,7 +100,9 @@ namespace VVVV.Packs.Messaging
                 Changes[original] = null;
             }
         }
+        #endregion Event Handlers
 
+        #region Syncing
         public IEnumerable<Message> Sync(out IEnumerable<int> indexes)
         {
             var temp = new List<int>();
@@ -120,7 +137,7 @@ namespace VVVV.Packs.Messaging
             IsChanged = false;
             return changes;
         }
-
+        #endregion Syncing
 
         public void Sort()
         {
@@ -135,12 +152,15 @@ namespace VVVV.Packs.Messaging
         public void AssignFrom(IEnumerable<Message> input)
         {
 
-            Clear();            
+            Clear();
             foreach (var message in input)
             {
                 Add(message);
             }
         }
+
+        #region IList implementation
+
         
         public void Add(Message message)
         {
@@ -182,7 +202,6 @@ namespace VVVV.Packs.Messaging
             get { return Messages.Count; }
         }
 
-
         public bool Remove(Message message)
         {
             message.ChangedWithDetails -= MessageChangedWithDetails;
@@ -208,11 +227,11 @@ namespace VVVV.Packs.Messaging
 
         }
 
+
         public IEnumerator<Message> GetEnumerator()
         {
             return Messages.GetEnumerator();
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Messages.GetEnumerator();
@@ -222,9 +241,6 @@ namespace VVVV.Packs.Messaging
         {
             return Messages.IndexOf(message);
         }
-
-
-
         public Message this[int index]
         {
             get
@@ -243,5 +259,7 @@ namespace VVVV.Packs.Messaging
                     else value.ChangedWithDetails += MessageChangedWithDetails;
             }
         }
+
+        #endregion List
     }
 }

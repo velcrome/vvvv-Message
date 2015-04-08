@@ -67,7 +67,6 @@
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
-    <Compile Include="Configurable\MessageCreateFromFormularNode.cs" />
     <Compile Include="Configurable\MessageMatchNode.cs" />
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
