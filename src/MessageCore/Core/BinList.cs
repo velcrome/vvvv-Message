@@ -308,7 +308,6 @@ namespace VVVV.Packs.Messaging
             for (int i = 0; i < this.Count; i++)
             {
                 info.AddValue(i.ToString(CultureInfo.InvariantCulture), this[i]);
-
             }
         }
         #endregion

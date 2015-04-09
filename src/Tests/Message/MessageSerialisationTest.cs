@@ -35,11 +35,12 @@ namespace VVVV.Packs.Messaging.Tests
             message.Topic = "Test";
             message.TimeStamp = Time.MinUTCTime();
 
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
+            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.Auto };
 
 
-            string json = JsonConvert.SerializeObject(message, settings);
-            Assert.AreEqual("{\"Topic\":\"Test\",\"TimeStamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},\"Data\":{\"foo\":{\"string\":[\"bar\"]}}}", json);
+            string json = "{" + JsonConvert.SerializeObject(message, settings) +"}";
+            Assert.AreEqual("{\"Test\":{\"UTC\":\"0001-01-01T00:00:00Z\",\"Zone\":\"UTC\",\"foo<string>\":\"bar\"}}", json);
+//            Assert.AreEqual("\"Test\":{\"UTC\":\"0001-01-01T00:00:00Z\",\"Zone\":\"UTC\",\"foo<string>\":\"bar\"}", json);
 
             var newMessage = (Message)JsonConvert.DeserializeObject(json, typeof(Message));
             Assert.AreEqual(message.ToString(), newMessage.ToString());

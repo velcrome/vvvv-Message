@@ -86,6 +86,7 @@
     <Compile Include="Serializing\BinaryExtensions.cs" />
     <Compile Include="Serializing\JsonBinSerializer.cs" />
     <Compile Include="Serializing\BinaryUtils.cs" />
+    <Compile Include="Serializing\JsonMessageSerializer.cs" />
     <Compile Include="Serializing\XElementExtensions.cs" />
     <Compile Include="Serializing\OSCExtensions.cs" />
     <Compile Include="Serializing\MessageResolver.cs" />

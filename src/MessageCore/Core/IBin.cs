@@ -16,8 +16,6 @@ namespace VVVV.Packs.Messaging
         bool IsDirty            { get; set; }
         object First            { get; set; }
 
-//        object[] ToArray();
-
         Type GetInnerType();
         int Add(object item);
         void AssignFrom(IEnumerable enumerable);

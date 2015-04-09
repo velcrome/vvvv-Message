@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
 using VVVV.Packs.Time;
+using Newtonsoft.Json;
+using VVVV.Packs.Messaging.Serializing;
 
 #endregion usings
 
@@ -14,8 +16,9 @@ namespace VVVV.Packs.Messaging {
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
 	
-	[DataContract]
-	public class Message : ICloneable
+//	[DataContract]
+    [JsonConverter(typeof(JsonMessageSerializer))]
+	public class Message : ICloneable //, ISerializable
     {
         #region Properties and Fields
         // Access to the the inner Data.
@@ -24,13 +27,13 @@ namespace VVVV.Packs.Messaging {
             get { return Data.Keys; }
         }
 
-		[DataMember(Order = 0)]
+//		[DataMember(Order = 0)]
 		public string Topic{
 			get;
 			set;
 		}
 
-        [DataMember(Order = 1)]
+//        [DataMember(Order = 1)]
         public VVVV.Packs.Time.Time TimeStamp
         {
             get;
@@ -38,7 +41,7 @@ namespace VVVV.Packs.Messaging {
         }
 		
 
-        [DataMember(Order = 2)]
+//        [DataMember(Order = 2)]
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
 
         public event MessageChangedWithDetails ChangedWithDetails;

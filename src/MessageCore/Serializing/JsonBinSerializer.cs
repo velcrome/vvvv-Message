@@ -20,15 +20,17 @@ namespace VVVV.Packs.Messaging.Serializing
         }
 		
         
-        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			Bin bin = value as Bin;
-		    writer.WriteStartObject();
+//		    writer.WriteStartObject();
 
-			Type type = (bin == null) || (bin.Count == 0)? typeof(string) : bin.GetInnerType();
+//			Type type = (bin == null) || (bin.Count == 0)? typeof(string) : bin.GetInnerType();
 
-            writer.WritePropertyName(TypeIdentity.Instance[type]);
-			writer.WriteStartArray();
+//            writer.WritePropertyName(TypeIdentity.Instance[type]);
+			
+            if (bin.Count != 1) writer.WriteStartArray();
+
 			foreach (object o in bin) {
                 if (o is Stream)
                 {
@@ -36,9 +38,9 @@ namespace VVVV.Packs.Messaging.Serializing
                     serializer.Serialize(writer, sr.ReadToEnd());
                 } else serializer.Serialize(writer, o);
 			}
-			writer.WriteEndArray();
+            if (bin.Count != 1) writer.WriteEndArray();
 
-			writer.WriteEndObject();
+//			writer.WriteEndObject();
 		}
 		
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
