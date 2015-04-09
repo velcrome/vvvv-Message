@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections;
+using VVVV.Utils.VColor;
 
 
 //using System.Linq;
@@ -14,12 +16,6 @@ namespace VVVV.Packs.Messaging.Serializing
 {
   	public class JsonBinSerializer : JsonConverter
 	{
-
-        public JsonBinSerializer()
-        {
-        }
-		
-        
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			Bin bin = value as Bin;
@@ -43,34 +39,56 @@ namespace VVVV.Packs.Messaging.Serializing
 //			writer.WriteEndObject();
 		}
 		
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
-			JObject jsonObject = JObject.Load(reader);
 
-		    var jT = jsonObject.Children().First();
-		    var typeAlias = jT.Path;
-
-            Type type = TypeIdentity.Instance.FindType(typeAlias);
-            
-            var jArray = jT.Values();
-
-   			Bin bin = BinFactory.New(type);
-            
-		    foreach (var o in jArray)
-		    {
-		        object instance = null;
-                if (type == typeof(Stream))
-                {
-                    instance = o.ToObject(typeof(string), serializer);
-                    bin.Add(GenerateStreamFromString((string)instance));
-
-                } else {
-                    instance = o.ToObject(type, serializer);
-                    bin.Add(instance);
-                }
+            Type type;
+            try 
+            {
+                type = objectType.GetGenericArguments()[0];
+            } 
+            catch (Exception) 
+            {
+                type = typeof(string);
             }
+            Bin bin = BinFactory.New(type);
+
+            //IEnumerable jArray = null;
+            if (reader.TokenType == JsonToken.StartArray)
+            {
+//                var jArray = serializer.Deserialize(reader) as JArray;
+                var jArray = JArray.Load(reader);
+
+                foreach (var jO in jArray.Children())
+                {
+                    if (jO is JValue)
+                    {
+                        var o = (jO as JValue).Value;
+                        bin.Add(o);
+                    }
+
+                    if (jO is JObject)
+                    {
+                        var o = (jO as JObject).ToObject(type);
+                        bin.Add(o);
+                    }
+
+                    //                 if (type is Stream)
+     //                   bin.Add(GenerateStreamFromString(((string)(jO.Value))));
+
+                }
+
+            }
+            else
+            {
+                var o = serializer.Deserialize(reader, type);
+                if (o is Stream)
+                    bin.Add(GenerateStreamFromString((string)o));
+                else bin.Add(o);
+            }
+
+
 			return bin;
-			
 		}	
 		
 		public override bool CanConvert(Type objectType)

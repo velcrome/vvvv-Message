@@ -26,21 +26,28 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void DoubleBinToJson()
         {
-            var bin = BinFactory.New(typeof(double));
-            bin.Add((double)1337);
-            bin.Add(Math.PI);
-
             var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
+            
+            var bin = BinFactory.New(typeof(double));
+            bin.Add(1337);
 
             string json = JsonConvert.SerializeObject(bin, settings);
+            Assert.AreEqual("1337.0", json);
 
-            Assert.AreEqual("{\"double\":[1337.0,3.1415926535897931]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
+            var newBin = JsonConvert.DeserializeObject(json, typeof(Bin<double>)) as Bin;
 
             Assert.IsInstanceOfType(newBin, typeof(Bin<double>));
-            Assert.AreEqual("Bin<double> [1337, 3,14159265358979]", newBin.ToString());
+            Assert.AreEqual("Bin<double> [1337]", newBin.ToString());
+
+
+            bin.Add(42);
+            json = JsonConvert.SerializeObject(bin, settings);
+
+            Assert.AreEqual("[1337.0,42.0]", json);
+
+            newBin = JsonConvert.DeserializeObject(json, typeof(Bin<double>)) as Bin;
+            Assert.IsInstanceOfType(newBin, typeof(Bin<double>));
+            Assert.AreEqual("Bin<double> [1337, 42]", newBin.ToString());
         }
 
         [TestMethod]

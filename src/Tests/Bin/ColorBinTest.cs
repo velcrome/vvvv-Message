@@ -27,18 +27,26 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void ColorBinToJson()
         {
-            var bin = BinFactory.New(typeof(RGBAColor));
-            bin.Add(new RGBAColor(0, 1, 0, 1)); // green
-            bin.Add(new RGBAColor(1, 0, 0, 1)); // red
-
             var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
 
+            var bin = BinFactory.New(typeof(RGBAColor));
+            bin.Add(new RGBAColor(0, 1, 0, 1)); // green
 
             string json = JsonConvert.SerializeObject(bin, settings);
+            Assert.AreEqual("{\"R\":0.0,\"G\":1.0,\"B\":0.0,\"A\":1.0}", json);
 
-            Assert.AreEqual("{\"Color\":[{\"R\":0.0,\"G\":1.0,\"B\":0.0,\"A\":1.0},{\"R\":1.0,\"G\":0.0,\"B\":0.0,\"A\":1.0}]}", json);
+            var newBin = JsonConvert.DeserializeObject(json, typeof(Bin<RGBAColor>)) as Bin;
 
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
+            Assert.IsInstanceOfType(newBin, typeof(Bin<RGBAColor>));
+            Assert.AreEqual("Bin<Color> [ff00ff00]", newBin.ToString());
+
+
+            bin.Add(new RGBAColor(1, 0, 0, 1)); // red
+            json = JsonConvert.SerializeObject(bin, settings);
+
+            Assert.AreEqual("[{\"R\":0.0,\"G\":1.0,\"B\":0.0,\"A\":1.0},{\"R\":1.0,\"G\":0.0,\"B\":0.0,\"A\":1.0}]", json);
+
+            newBin = JsonConvert.DeserializeObject(json, typeof(Bin<RGBAColor>)) as Bin;
 
             Assert.IsInstanceOfType(newBin, typeof(Bin<RGBAColor>));
             Assert.AreEqual("Bin<Color> [ff00ff00, ffff0000]", newBin.ToString());

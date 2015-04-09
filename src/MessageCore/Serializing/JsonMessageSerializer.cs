@@ -20,16 +20,11 @@ namespace VVVV.Packs.Messaging.Serializing
         public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
 		{
             var message = value as Message;
-
-            writer.WritePropertyName(message.Topic);
-
             writer.WriteStartObject();
 
-            writer.WritePropertyName("UTC");
-            writer.WriteValue(message.TimeStamp.UniversalTime);
+            writer.WritePropertyName("Topic");
+            writer.WriteValue(message.Topic);
 
-            writer.WritePropertyName("Zone");
-            writer.WriteValue(message.TimeStamp.TimeZone.Id);
 
             foreach (var name in message.Fields)
             {
@@ -50,29 +45,30 @@ namespace VVVV.Packs.Messaging.Serializing
                         var sr = new StreamReader((Stream)o);
                         serializer.Serialize(writer, sr.ReadToEnd());
                     }
-                    else serializer.Serialize(writer, o);
+                    else serializer.Serialize(writer, o, bin.GetInnerType());
                 }
                 if (bin.Count != 1) writer.WriteEndArray();
             }
+
+
+ //           writer.WritePropertyName("Stamp");
+ //           JObject.FromObject(message.TimeStamp, serializer);
 
             writer.WriteEndObject();
         }
 		
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
 		{
-//            reader.SupportMultipleContent = true;
- //           var token = JObject.ReadFrom(reader);
-            
             JObject jMessage= JObject.Load(reader);
 
 
-            var message = new Message(jMessage.Path);
-            var jBins = jMessage.Values().First();
+            var message = new Message();
+            var jBins = jMessage.Values();
 
 
-            var utc = jBins.SelectToken("$.UTC");
-            var zone = jBins.SelectToken("$.Zone");
+            var topic = jMessage.SelectToken("Topic");
 
+            message.Topic = (topic as JValue).Value as string;
             
 
             var regexp = new Regex("[^\\.](.+)<(.*)>");

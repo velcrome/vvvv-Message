@@ -26,19 +26,26 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BoolBinToJson()
         {
-            var bin = BinFactory.New(typeof(bool));
-            bin.Add(true);
-            bin.Add(false);
-
             var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
 
+            var bin = BinFactory.New(typeof(bool));
+            bin.Add(true);
 
             string json = JsonConvert.SerializeObject(bin, settings);
+            Assert.AreEqual("true", json);
 
-            Assert.AreEqual("{\"bool\":[true,false]}", json);
+            var newBin = JsonConvert.DeserializeObject(json, typeof(Bin<bool>)) as Bin;
 
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
+            Assert.IsInstanceOfType(newBin, typeof(Bin<bool>));
+            Assert.AreEqual("Bin<bool> [True]", newBin.ToString());
 
+
+            bin.Add(false);
+            json = JsonConvert.SerializeObject(bin, settings);
+
+            Assert.AreEqual("[true,false]", json);
+
+            newBin = JsonConvert.DeserializeObject(json, typeof(Bin<bool>)) as Bin;
             Assert.IsInstanceOfType(newBin, typeof(Bin<bool>));
             Assert.AreEqual("Bin<bool> [True, False]", newBin.ToString());
         }
