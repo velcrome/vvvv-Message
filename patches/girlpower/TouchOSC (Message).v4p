@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="0" scrolly="5232">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="0" scrolly="3588">
    <BOUNDS type="Window" left="4140" top="228" width="16572" height="13224">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="1">
@@ -472,6 +472,8 @@
    <BOUNDS type="Box" left="2256" top="9408">
    </BOUNDS>
    <PIN pinname="Input 7" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output Bin Size" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="274" srcpinname="Output" dstnodeid="272" dstpinname="Input 1">
@@ -1087,7 +1089,7 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="Y Input Value" visible="1" slicecount="1" values="0">
    </PIN>
@@ -1103,22 +1105,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="427" srcpinname="OSC" dstnodeid="439" dstpinname="Input">
-   </LINK>
-   <NODE systemname="MonoFlop (Animation)" nodename="MonoFlop (Animation)" componentmode="Hidden" id="448">
-   <BOUNDS type="Node" left="120" top="11520" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Reset" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Time" slicecount="1" values="0.1">
-   </PIN>
-   <PIN pinname="Set" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="434" srcpinname="OnChange" dstnodeid="448" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="448" srcpinname="Output" dstnodeid="435" dstpinname="Y Input Value">
    </LINK>
    <LINK srcnodeid="439" srcpinname="Output" dstnodeid="428" dstpinname="Input">
    </LINK>
@@ -1161,6 +1147,8 @@
    </PIN>
    <PIN pinname="Changed Message Index" visible="1">
    </PIN>
+   <PIN pinname="Reset" visible="1" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="465" srcpinname="Output" dstnodeid="194" dstpinname="Input" linkstyle="VHV">
    <LINKPOINT x="2310" y="11318">
@@ -1169,12 +1157,6 @@
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="272" srcpinname="Output" dstnodeid="465" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="385" srcpinname="Bang" dstnodeid="465" dstpinname="Reset" linkstyle="VHV">
-   <LINKPOINT x="10440" y="9828">
-   </LINKPOINT>
-   <LINKPOINT x="3708" y="9828">
-   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="465" srcpinname="Output" dstnodeid="391" dstpinname="Input">
    </LINK>
@@ -1227,7 +1209,7 @@
    <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="490">
    <BOUNDS type="Node" left="4620" top="8880" width="4770" height="270">
    </BOUNDS>
-   <PIN pinname="New" slicecount="1" visible="1" values="1">
+   <PIN pinname="New" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
@@ -1242,12 +1224,6 @@
    <LINKPOINT x="4710" y="8700">
    </LINKPOINT>
    <LINKPOINT x="8145" y="8700">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="385" srcpinname="Bang" dstnodeid="490" dstpinname="New" linkstyle="Bezier">
-   <LINKPOINT x="10410" y="8505">
-   </LINKPOINT>
-   <LINKPOINT x="4680" y="8505">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="490" srcpinname="Output" dstnodeid="272" dstpinname="Input 3">
@@ -1329,7 +1305,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="11256" top="16740" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="-0.523241817951202,-0.169463932514191">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0.46,0.544053852558136">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1393,5 +1369,43 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="502" srcpinname="Output" dstnodeid="503" dstpinname="Angle">
+   </LINK>
+   <LINK srcnodeid="434" srcpinname="OnChange" dstnodeid="435" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="504" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5964" top="9468" width="792" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5964" top="9468" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="272" srcpinname="Output Bin Size" dstnodeid="504" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="FrameDelay (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="FrameDelay (Value)" componentmode="Hidden" id="505">
+   <BOUNDS type="Node" left="10428" top="8268" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output 1" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="385" srcpinname="Bang" dstnodeid="505" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="505" srcpinname="Output 1" dstnodeid="490" dstpinname="New" linkstyle="VHV">
+   <LINKPOINT x="10428" y="8706">
+   </LINKPOINT>
+   <LINKPOINT x="4680" y="8706">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="505" srcpinname="Output 1" dstnodeid="465" dstpinname="Reset" linkstyle="VHV">
+   <LINKPOINT x="10452" y="9816">
+   </LINKPOINT>
+   <LINKPOINT x="3708" y="9816">
+   </LINKPOINT>
    </LINK>
    </PATCH>

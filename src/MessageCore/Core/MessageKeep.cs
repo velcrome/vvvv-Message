@@ -79,7 +79,7 @@ namespace VVVV.Packs.Messaging
             }
 
             if (Changes.ContainsKey(original) && Changes[original] != null)
-                Changes[original] += change;
+                Changes[original].InjectWith(change, true, false);
             else
             {
                 change.Topic = original.Topic;

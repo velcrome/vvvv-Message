@@ -83,7 +83,7 @@ namespace VVVV.Packs.Messaging.Nodes
             else
             {
                 var found = matched.First(); // found a matching record
-                var k = found += message; // copy all attributes from message to matching record
+                found.InjectWith(message, true, true); // copy all attributes from message to matching record
      
                 return found;
             }

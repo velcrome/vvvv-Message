@@ -163,25 +163,13 @@ namespace VVVV.Packs.Messaging {
             return regex.IsMatch(Topic ?? "");
         }
 
-        public static Message operator +(Message one, Message two)
-        {
-            one.ReplaceWith(two, true);
-            return one;
-        }
-
-        public static Message operator *(Message one, Message two)
-        {
-            one.ReplaceWith(two, false);
-            return one;
-        }
-
-        protected void ReplaceWith(Message message, bool AllowNew = false)
+        public void InjectWith(Message message, bool allowNewFields, bool deepInspection = false)
         {
             if (this.Equals(message)) return;
 
 
             var keys = message.Fields;
-            if (!AllowNew) keys = keys.Intersect(this.Fields);
+            if (!allowNewFields) keys = keys.Intersect(this.Fields);
 
             foreach (var name in keys)
             {
@@ -194,8 +182,11 @@ namespace VVVV.Packs.Messaging {
                     var newType = message.Data[name].GetInnerType();
                     var oldType = this.Data[name].GetInnerType();
 
-                    if (newType.IsCastableTo(oldType)) this.Data[name].AssignFrom(message.Data[name]); // autocast.
-
+                    if (newType.IsCastableTo(oldType))
+                    {
+                        if (!deepInspection || !Data[name].Equals(message.Data[name]))  // inject only if it brings new data
+                            Data[name].AssignFrom(message.Data[name]); // autocast.
+                    }
                     else
                     {
                         throw new Exception("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +

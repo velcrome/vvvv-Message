@@ -92,7 +92,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 var found = matched.First(); // found a matching record
 
-                var k = found += message; // copy all attributes from message to matching record
+                found.InjectWith(message, true); // copy all attributes from message to matching record
                 found.TimeStamp = message.TimeStamp; // forceUpdate time
 
                 return found;

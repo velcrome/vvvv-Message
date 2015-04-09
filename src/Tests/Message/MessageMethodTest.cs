@@ -60,10 +60,10 @@ namespace VVVV.Packs.Messaging.Tests
             var newMessage = fresh();
             newMessage.Init("num", 1, 2, 3 );
 
-            newMessage *= message; // intersect and replace
+            newMessage.InjectWith(message, false); // intersect and replace
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n num \t: 1 2 3 \r\n", newMessage.ToString());
 
-            newMessage += message; // inject 
+            newMessage.InjectWith(message, true);
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", newMessage.ToString());
 
 
