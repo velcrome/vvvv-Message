@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Writer (Message).v4p" systemname="Writer (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Writer (Message).v4p">
-   <BOUNDS type="Window" left="15876" top="3972" width="14400" height="7464">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\modules\Writer (Message).v4p" systemname="Writer (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Writer (Message).v4p">
+   <BOUNDS type="Window" left="10524" top="192" width="14400" height="7464">
    </BOUNDS>
    <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="120">
    <BOUNDS type="Node" left="2370" top="2325" width="100" height="100">
@@ -25,7 +25,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2955" top="1935" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -37,7 +37,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="122" srcpinname="Y Output Value" dstnodeid="120" dstpinname="Pretty">
@@ -103,9 +103,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="129" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2370" top="5010" width="480" height="480">
+   <BOUNDS type="Box" left="2370" top="5460" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="2370" top="5010" width="0" height="0">
+   <BOUNDS type="Node" left="2370" top="5460" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -135,7 +135,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3210" top="2250" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="CarriageReturnLineFeed">
+   <PIN pinname="Input Enum" slicecount="1" values="CommaPlusSpace">
    </PIN>
    </NODE>
    <LINK srcnodeid="131" srcpinname="Output Enum" dstnodeid="130" dstpinname="Intersperse" linkstyle="VHV">
@@ -149,7 +149,7 @@
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
-   <PIN pinname="Intersperse" slicecount="1" values="CarriageReturnLineFeed">
+   <PIN pinname="Intersperse" slicecount="1" values="CommaPlusSpace">
    </PIN>
    <PIN pinname="Input 2" slicecount="1" values="||">
    </PIN>
@@ -173,9 +173,9 @@
    </PIN>
    </NODE>
    <NODE systemname="Writer (String)" filename="%VVVV%\lib\nodes\modules\String\Writer (String).v4p" nodename="Writer (String)" componentmode="Hidden" id="123">
-   <BOUNDS type="Node" left="2376" top="4212" width="7032" height="276">
+   <BOUNDS type="Node" left="2376" top="4662" width="7032" height="276">
    </BOUNDS>
-   <PIN pinname="Content" visible="1">
+   <PIN pinname="Content" visible="1" slicecount="1" values="|{&quot;Topic&quot;:&quot;Event&quot;,&quot;n&quot;:2,&quot;Stamp&quot;:{&quot;UTC&quot;:&quot;2015-04-10 16:21:28.2480&quot;,&quot;ZoneId&quot;:&quot;W. Europe Standard Time&quot;}}&cr;&lf;{&quot;Topic&quot;:&quot;Event&quot;,&quot;n&quot;:3,&quot;Stamp&quot;:{&quot;UTC&quot;:&quot;2015-04-10 16:21:28.2480&quot;,&quot;ZoneId&quot;:&quot;W. Europe Standard Time&quot;}}&cr;&lf;{&quot;Topic&quot;:&quot;Event&quot;,&quot;n&quot;:4,&quot;Stamp&quot;:{&quot;UTC&quot;:&quot;2015-04-10 16:21:28.2480&quot;,&quot;ZoneId&quot;:&quot;W. Europe Standard Time&quot;}}&cr;&lf;{&quot;Topic&quot;:&quot;Event&quot;,&quot;n&quot;:5,&quot;Stamp&quot;:{&quot;UTC&quot;:&quot;2015-04-10 16:21:28.2480&quot;,&quot;ZoneId&quot;:&quot;W. Europe Standard Time&quot;}}&cr;&lf;{&quot;Topic&quot;:&quot;Event&quot;,&quot;n&quot;:6,&quot;Stamp&quot;:{&quot;UTC&quot;:&quot;2015-04-10 16:21:28.2480&quot;,&quot;ZoneId&quot;:&quot;W. Europe Standard Time&quot;}}, |">
    </PIN>
    <PIN pinname="Message" visible="1">
    </PIN>
@@ -191,9 +191,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="124" srcpinname="Y Output Value" dstnodeid="123" dstpinname="Write" linkstyle="VHV">
-   <LINKPOINT x="6919" y="3776">
+   <LINKPOINT x="6919" y="3926">
    </LINKPOINT>
-   <LINKPOINT x="3827" y="3572">
+   <LINKPOINT x="3827" y="3872">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="125" srcpinname="Y Output Value" dstnodeid="123" dstpinname="Append">
@@ -201,8 +201,6 @@
    <LINK srcnodeid="126" srcpinname="Output String" dstnodeid="123" dstpinname="Filename">
    </LINK>
    <LINK srcnodeid="123" srcpinname="Success" dstnodeid="129" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="132" srcpinname="Output" dstnodeid="123" dstpinname="Content">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="136" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5880" top="3264" width="1500" height="312">
@@ -217,9 +215,9 @@
    <LINK srcnodeid="136" srcpinname="Output Enum" dstnodeid="123" dstpinname="Encoding">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="137" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9396" top="5136" width="480" height="480">
+   <BOUNDS type="Box" left="9396" top="5586" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="9396" top="5136" width="0" height="0">
+   <BOUNDS type="Node" left="9396" top="5586" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -234,6 +232,22 @@
    </NODE>
    <LINK srcnodeid="123" srcpinname="Error" dstnodeid="137" dstpinname="Y Input Value">
    </LINK>
-   <PACK Name="addonpack" Version="33.3.0">
+   <PACK Name="addonpack" Version="33.7.0">
    </PACK>
+   <NODE systemname="Quote (String)" nodename="Quote (String)" componentmode="Hidden" id="138">
+   <BOUNDS type="Node" left="2385" top="4080" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Quote Mode" slicecount="1" values="SquareBrackets">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|As Json Array|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="132" srcpinname="Output" dstnodeid="138" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="138" srcpinname="Output" dstnodeid="123" dstpinname="Content">
+   </LINK>
    </PATCH>

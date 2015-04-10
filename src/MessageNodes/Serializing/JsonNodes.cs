@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
+using Newtonsoft.Json.Linq;
 
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
@@ -72,12 +73,27 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 if (!FInput.IsChanged) return;
 
                 SpreadMax = FInput.SliceCount;
-                FOutput.SliceCount = SpreadMax;
+                FOutput.SliceCount = 0;
+
+                var settings = new JsonSerializerSettings();
+
 
                 for (int i = 0; i < SpreadMax; i++)
                 {
+                    var result = JsonConvert.DeserializeObject(FInput[i]);
 
-                    FOutput[i] = JsonConvert.DeserializeObject<Message>(FInput[i]);
+                    if (result is JArray)
+                    {
+                        foreach(var o in (result as JArray).Children()) {
+                            FOutput.Add(o.ToObject<Message>());
+                        }
+                    }
+                    if (result is JObject)
+                    {
+                        FOutput.Add((result as JObject).ToObject<Message>());
+                    }
+
+
                 }
 
                 FOutput.Flush();

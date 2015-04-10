@@ -70,10 +70,10 @@ namespace VVVV.Packs.Messaging.Serializing
             JObject jMessage = JObject.Load(reader);
 
             var topic = jMessage.SelectToken("Topic");
-            message.Topic = (topic as JValue).Value as string;
+            if (topic != null) message.Topic = (topic as JValue).Value as string;
 
             var time = jMessage.SelectToken("Stamp");
-            message.TimeStamp = (time as JObject).ToObject<Time>();
+            if (time != null) message.TimeStamp = (time as JObject).ToObject<Time>();
 
             foreach (JProperty bin in jMessage.Children())
             {
