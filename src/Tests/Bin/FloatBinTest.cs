@@ -7,8 +7,14 @@ using VVVV.Packs.Messaging.Serializing;
 namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
-    public class FloatBinTest
+    public class FloatBinTest : TBinTest<float>
     {
+        [TestMethod]
+        public void FloatBinToJson()
+        {
+            TBinToJson(-23.0f, float.MaxValue, "-23.0", "3.40282347E+38");
+        }
+
 
         [TestMethod]
         public void FloatBinToString()
@@ -22,27 +28,6 @@ namespace VVVV.Packs.Messaging.Tests
 
             Assert.AreEqual("Bin<float> [1337, 3,141593]", bin.ToString());
         }
-
-        [TestMethod]
-        public void FloatBinToJson()
-        {
-            var bin = BinFactory.New(typeof(float));
-            bin.Add(1337);
-            bin.Add(Math.PI);
-
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-            Assert.AreEqual("{\"float\":[1337.0,3.14159274]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<float>));
-            Assert.AreEqual("Bin<float> [1337, 3,141593]", newBin.ToString());
-        }
-
 
         [TestMethod]
         public void FloatBinToStream()

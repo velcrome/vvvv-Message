@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
@@ -6,7 +7,7 @@ using VVVV.Packs.Messaging.Serializing;
 namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
-    public class RawBinTest
+    public class RawBinTest : TBinTest<Stream>
     {
         public Stream GenerateStreamFromString(string s)
         {
@@ -39,27 +40,11 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void RawBinToJson()
         {
-            var bin = BinFactory.New(typeof(Stream));
+            var lorem = new MemoryStream(System.Text.Encoding.UTF8.GetBytes ("lorem"));
+            TBinToJson(new MemoryStream(), lorem, "\"\"", "\"lorem\"");
 
-            bin.Add(new MemoryStream());
-            bin.Add(GenerateStreamFromString("lorem"));
-
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-            Assert.AreEqual("{\"Raw\":[\"\",\"lorem\"]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<Stream>));
-
-            Assert.AreEqual("", new StreamReader((Stream)newBin.First).ReadToEnd());
-            Assert.AreEqual("lorem", new StreamReader((Stream)newBin[1]).ReadToEnd());
-
-            
-            Assert.AreEqual("Bin<Raw> [System.IO.MemoryStream, System.IO.MemoryStream]", newBin.ToString());
+            //Assert.AreEqual("", new StreamReader((Stream)newBin.First).ReadToEnd());
+            //Assert.AreEqual("lorem", new StreamReader((Stream)newBin[1]).ReadToEnd());
         }
 
         [TestMethod]

@@ -7,7 +7,7 @@ using VVVV.Packs.Messaging.Serializing;
 namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
-    public class IntBinTest
+    public class IntBinTest : TBinTest<int>
     {
 
         [TestMethod]
@@ -26,22 +26,9 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void IntBinToJson()
         {
-            var bin = BinFactory.New(typeof(int));
-            bin.Add(1337);
-            bin.Add(int.MaxValue);
-
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-            Assert.AreEqual("{\"int\":[1337,2147483647]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<int>));
-            Assert.AreEqual("Bin<int> [1337, 2147483647]", newBin.ToString());
+            TBinToJson(1337, int.MaxValue, "1337", "2147483647");
         }
+            
 
         [TestMethod]
         public void IntBinToStream()

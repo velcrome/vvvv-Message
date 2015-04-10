@@ -5,10 +5,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections;
-using VVVV.Utils.VColor;
-
-
-//using System.Linq;
 
 #endregion usings
 
@@ -19,24 +15,17 @@ namespace VVVV.Packs.Messaging.Serializing
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			Bin bin = value as Bin;
-//		    writer.WriteStartObject();
-
-//			Type type = (bin == null) || (bin.Count == 0)? typeof(string) : bin.GetInnerType();
-
-//            writer.WritePropertyName(TypeIdentity.Instance[type]);
 			
             if (bin.Count != 1) writer.WriteStartArray();
 
 			foreach (object o in bin) {
                 if (o is Stream)
                 {
-                    var sr = new StreamReader((Stream)o);
-                    serializer.Serialize(writer, sr.ReadToEnd());
+                    string data = GenerateStringFromStream(o as Stream);
+                    serializer.Serialize(writer, data, typeof(string));
                 } else serializer.Serialize(writer, o);
 			}
             if (bin.Count != 1) writer.WriteEndArray();
-
-//			writer.WriteEndObject();
 		}
 		
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -56,7 +45,6 @@ namespace VVVV.Packs.Messaging.Serializing
             //IEnumerable jArray = null;
             if (reader.TokenType == JsonToken.StartArray)
             {
-//                var jArray = serializer.Deserialize(reader) as JArray;
                 var jArray = JArray.Load(reader);
 
                 foreach (var jO in jArray.Children())
@@ -64,7 +52,11 @@ namespace VVVV.Packs.Messaging.Serializing
                     if (jO is JValue)
                     {
                         var o = (jO as JValue).Value;
-                        bin.Add(o);
+                        if (type == typeof(Stream))
+                        {
+                            var raw = GenerateStreamFromString(o as string);
+                            bin.Add(raw);
+                        } else bin.Add(Convert.ChangeType(o, type));
                     }
 
                     if (jO is JObject)
@@ -72,19 +64,21 @@ namespace VVVV.Packs.Messaging.Serializing
                         var o = (jO as JObject).ToObject(type);
                         bin.Add(o);
                     }
-
-                    //                 if (type is Stream)
-     //                   bin.Add(GenerateStreamFromString(((string)(jO.Value))));
-
                 }
 
             }
             else
             {
-                var o = serializer.Deserialize(reader, type);
-                if (o is Stream)
-                    bin.Add(GenerateStreamFromString((string)o));
-                else bin.Add(o);
+                if (typeof(Stream).IsAssignableFrom(type))
+                {
+                    var o = serializer.Deserialize(reader, typeof(string)) as string;
+                    bin.Add(GenerateStreamFromString(o));
+                }
+                else
+                {
+                    var o = serializer.Deserialize(reader, type);
+                    bin.Add(o);
+                }
             }
 
 
@@ -98,12 +92,19 @@ namespace VVVV.Packs.Messaging.Serializing
 
         public Stream GenerateStreamFromString(string s)
         {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(System.Text.Encoding.UTF8.GetBytes (s));
             writer.Flush();
-            stream.Position = 0;
-            return stream;
+            ms.Position = 0;
+            return ms;
+        }
+
+        public string GenerateStringFromStream(Stream input)
+        {
+            MemoryStream ms = new MemoryStream();
+            input.CopyTo(ms);
+            return System.Text.Encoding.Default.GetString(ms.ToArray());
         }
 
     }

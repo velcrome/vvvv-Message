@@ -35,6 +35,7 @@
     <Compile Include="Bin\ColorBinTest.cs" />
     <Compile Include="Bin\DoubleBinTest.cs" />
     <Compile Include="Bin\FloatBinTest.cs" />
+    <Compile Include="Bin\Generic\TBinTest.cs" />
     <Compile Include="Bin\IntBinTest.cs" />
     <Compile Include="Bin\RawBinTest.cs" />
     <Compile Include="Bin\StringBinTest.cs" />

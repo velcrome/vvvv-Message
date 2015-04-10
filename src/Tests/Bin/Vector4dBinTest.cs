@@ -9,7 +9,7 @@ using VVVV.Utils.VMath;
 namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
-    public class Vector4dBinTest
+    public class Vector4dBinTest : TBinTest<Vector4D>
     {
 
         [TestMethod]
@@ -28,24 +28,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void V4BinToJson()
         {
-            var bin = BinFactory.New(typeof(Vector4D));
-            bin.Add(new Vector4D());
-            bin.Add(new Vector4D(1, 2, 3, 4));
-
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-            Assert.AreEqual("{\"Vector4d\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0,\"w\":4.0}]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<Vector4D>));
-
-            Assert.AreEqual(new Vector4D(), newBin.First);
-            Assert.AreEqual(new Vector4D(1, 2, 3, 4), newBin[1]);
-        }
+            TBinToJson(new Vector4D(), new Vector4D(1, 2, 3, 4), "{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0}", "{\"x\":1.0,\"y\":2.0,\"z\":3.0,\"w\":4.0}");
+        }     
 
         [TestMethod]
         public void V4BinToStream()

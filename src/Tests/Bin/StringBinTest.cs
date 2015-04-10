@@ -6,7 +6,7 @@ using VVVV.Packs.Messaging.Serializing;
 namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
-    public class StringBinTest
+    public class StringBinTest : TBinTest<string>
     {
 
         [TestMethod]
@@ -26,24 +26,13 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void StringBinToJson()
         {
-            var bin = BinFactory.New(typeof(string));
-            bin.Add("lorem");
-            bin.Add("");
-            bin.Add("ipsum");
+            var lorem = @"lorem
+                            ipsum";
             
-            var settings = new JsonSerializerSettings
-                               {Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None};
 
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-            Assert.AreEqual("{\"string\":[\"lorem\",\"\",\"ipsum\"]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof (Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<string>));
-            Assert.AreEqual("Bin<string> [lorem, , ipsum]", newBin.ToString());
+            TBinToJson(lorem, "hello world", "\"lorem\\r\\n                            ipsum\"", "\"hello world\"");
         }
+
 
         [TestMethod]
         public void StringBinToStream()

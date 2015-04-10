@@ -9,7 +9,7 @@ using VVVV.Utils.VMath;
 namespace VVVV.Packs.Messaging.Tests
 {
     [TestClass]
-    public class TransformBinTest
+    public class TransformBinTest : TBinTest<Matrix4x4>
     {
 
         [TestMethod]
@@ -28,22 +28,11 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void TransformBinToJson()
         {
-            var bin = BinFactory.New(typeof(Matrix4x4));
-            bin.Add(new Matrix4x4());
-            bin.Add(new Matrix4x4(1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5, 6, 1, 1, 1, 1));
+            var plain = new Matrix4x4();
+            var numbered = new Matrix4x4(1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5, 6, 1, 1, 1, 1);
 
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-            Assert.AreEqual("{\"Transform\":[{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{\"Values\":[1.0,1.0,1.0,1.0,2.0,2.0,2.0,2.0,3.0,4.0,5.0,6.0,1.0,1.0,1.0,1.0]}]}", json);
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<Matrix4x4>));
-            Assert.AreEqual("Bin<Transform> [\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000\n0,0000 0,0000 0,0000 0,0000, \n1,0000 1,0000 1,0000 1,0000\n2,0000 2,0000 2,0000 2,0000\n3,0000 4,0000 5,0000 6,0000\n1,0000 1,0000 1,0000 1,0000]", newBin.ToString());
-        }
+            TBinToJson(plain, numbered, "{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]}", "{\"Values\":[1.0,1.0,1.0,1.0,2.0,2.0,2.0,2.0,3.0,4.0,5.0,6.0,1.0,1.0,1.0,1.0]}");
+       }
 
         public void TransformBinToStream()
         {

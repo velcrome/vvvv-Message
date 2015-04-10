@@ -7,9 +7,13 @@ using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
+    using Time = VVVV.Packs.Time.Time;
+
     public class JsonMessageSerializer : JsonConverter
     {
-        private Type[] NativeJsonTypes = new Type[] { typeof(string), typeof(bool), typeof(double), typeof(int) };
+        private Type[] NativeJsonTypes = new Type[] { typeof(string), typeof(bool), typeof(double), typeof(int), typeof(Message) };
+
+        private Regex NameRegex = new Regex(@"(.+?)<(\w*)>|(.+?)$");
 
 
         public JsonMessageSerializer()
@@ -31,7 +35,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 var bin = message[name];
                 string extraType = "";
 
-//                if (!NativeJsonTypes.Contains(bin.GetInnerType()))
+                if (!NativeJsonTypes.Contains(bin.GetInnerType()))
                     extraType = "<"+TypeIdentity.Instance.FindAlias(bin.GetInnerType())+">";
 
                 writer.WritePropertyName(name + extraType);
@@ -51,61 +55,75 @@ namespace VVVV.Packs.Messaging.Serializing
             }
 
 
- //           writer.WritePropertyName("Stamp");
- //           JObject.FromObject(message.TimeStamp, serializer);
+            writer.WritePropertyName("Stamp");
+            serializer.Serialize(writer, message.TimeStamp, typeof(Time));
+
+            JObject.FromObject(message.TimeStamp, serializer);
 
             writer.WriteEndObject();
         }
 		
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
-            JObject jMessage= JObject.Load(reader);
-
-
             var message = new Message();
-            var jBins = jMessage.Values();
 
+            JObject jMessage = JObject.Load(reader);
 
             var topic = jMessage.SelectToken("Topic");
-
             message.Topic = (topic as JValue).Value as string;
-            
 
-            var regexp = new Regex("[^\\.](.+)<(.*)>");
+            var time = jMessage.SelectToken("Stamp");
+            message.TimeStamp = (time as JObject).ToObject<Time>();
 
-            foreach (var bin in jBins)
+            foreach (JProperty bin in jMessage.Children())
             {
-                
-                
-                string name;
-                string ofType = null;
 
-//                if (bin.Path == UTC) 
+                string name = bin.Name;
 
+                if (name == "Topic" || name == "Stamp") continue;
 
-                var m = regexp.Match(bin.Path);
-
-                if (m.Success)
+                var m = NameRegex.Match(name);
+                if (m.Success && m.Groups[2].Success)
                 {
-//                    name = m.Groups[0];
-  //                  ofType = m.Groups[1];
+                    name = m.Groups[1].Value as string;
+                    var alias = m.Groups[2].Value as string;
+                    
+                    var binType = typeof(Bin<>).MakeGenericType(TypeIdentity.Instance.FindType(alias));
+                    var content = bin.Value.ToObject(binType) as Bin;
+                    message[name] = content;
                 }
-                else name = bin.Path;
+                else
+                {
+                    JTokenType jType = JTokenType.Null;
 
+                    if (bin.Value is JArray)
+                        jType = (bin.Value as JArray).First.Type;
+                    else
+                    {
+                        jType = bin.Value.Type;
+                    }
 
+                    Type itemType = null;
+                    switch (jType)
+                    {
+                        case JTokenType.Boolean: itemType = typeof(bool); break;
+                        case JTokenType.Float: itemType = typeof(float); break;
+                        case JTokenType.Integer: itemType = typeof(int); break;
+                        case JTokenType.String: itemType = typeof(string); break;
 
-                //object instance = null;
-                //if (type == typeof(Stream))
-                //{
-                //    instance = o.ToObject(typeof(string), serializer);
-                //    bin.Add(GenerateStreamFromString((string)instance));
+                        case JTokenType.Guid: itemType = typeof(string); break;
+                        case JTokenType.Uri: itemType = typeof(string); break;
 
-                //}
-                //else
-                //{
-                //    instance = o.ToObject(type, serializer);
-                //    bin.Add(instance);
-                //}
+                        case JTokenType.Object: itemType = typeof(Message); break; // any non-descriptant objects will be included as nested Messages
+                    }
+
+                    var binType = typeof(Bin<>).MakeGenericType(itemType);
+                    var content = bin.Value.ToObject(binType) as Bin;
+                    message[name] = content;
+                }
+
+            
+            
             }
 			return message;
 			

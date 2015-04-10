@@ -1,19 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
+using VVVV.Packs.Time;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-
+    using Time = VVVV.Packs.Time.Time;
     
     [TestClass]
-    public class TimeBinTest
+    public class TimeBinTest : TBinTest<Time>
     {
 
         [TestMethod]
         public void TimeBinToString()
         {
-            var current = Time.Time.CurrentTime();
+            var current = Time.CurrentTime();
             var bin = BinFactory.New(current);
 
             Assert.AreEqual(current, bin.First);
@@ -24,33 +25,22 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void TimeBinToJson()
         {
-            var current = Time.Time.CurrentTime();
-            var bin = BinFactory.New(current);
-
-            var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.None };
-
-
-            string json = JsonConvert.SerializeObject(bin, settings);
-
-
-            var newBin = (Bin)JsonConvert.DeserializeObject(json, typeof(Bin));
-
-            Assert.IsInstanceOfType(newBin, typeof(Bin<Time.Time>));
-            Assert.AreEqual(current.ToString(), newBin[0].ToString());
-
-            
-        }
+            var min = Time.MinUTCTime();
+            var current = Time.CurrentTime();
+            var currentAsString = "{\"UTC\":\"" + current.UniversalTime.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "\",\"ZoneId\":\"" + current.TimeZone.Id + "\"}"; 
+            TBinToJson(min, current, "{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}", currentAsString);
+        }            
 
         [TestMethod]
         public void TimeBinToStream()
         {
-            var current = Time.Time.CurrentTime();
+            var current = Time.CurrentTime();
             var bin = BinFactory.New(current);
 
             var stream = bin.Serialize();
             var newBin = stream.DeSerializeBin();
 
-            Assert.IsInstanceOfType(newBin, typeof(Bin<Time.Time>));
+            Assert.IsInstanceOfType(newBin, typeof(Bin<Time>));
             Assert.AreEqual(current.ToString(), newBin[0].ToString());
 
 
