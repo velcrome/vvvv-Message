@@ -84,14 +84,12 @@
     <Compile Include="Keep\MessageKeepHoldNode.cs" />
     <Compile Include="Utils\MessageInfoNode.cs" />
     <Compile Include="Utils\MessagePruneNode.cs" />
-    <Compile Include="Spread\MessageSearchNode.cs" />
     <Compile Include="Spread\MessageSiftNode.cs" />
     <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />
     <Compile Include="Configurable\MessageSplitNode.cs" />
     <Compile Include="Configurable\MessageReadNode.cs" />
     <Compile Include="Keep\MessageKeepSessionNode.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
-    <Compile Include="Keep\MessageKeepStoreNode.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />

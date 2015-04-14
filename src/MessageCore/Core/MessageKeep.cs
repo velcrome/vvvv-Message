@@ -144,7 +144,7 @@ namespace VVVV.Packs.Messaging
             Messages.Sort(
                 delegate(Message x, Message y)
                 {
-                    return (x.TimeStamp > y.TimeStamp) ? 1 : 0;
+                    return (x.TimeStamp.UniversalTime > y.TimeStamp.UniversalTime) ? 1 : 0;
                 }
             );
         }

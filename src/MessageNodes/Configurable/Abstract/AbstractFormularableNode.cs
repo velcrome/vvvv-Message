@@ -15,6 +15,10 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
         public IDiffSpread<EnumEntry> FType;
 
+        [Import]
+        IHDEHost FHDEHost;
+        protected bool FirstFrame = true;
+
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
@@ -26,16 +30,24 @@ namespace VVVV.Packs.Messaging.Nodes
             reg.TypeChanged += ConfigChanged;
 
             EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
+
+            FHDEHost.MainLoop.OnRender += SecondFrame;
+        }
+
+        private void SecondFrame(object sender, System.EventArgs e)
+        {
+            FirstFrame = false;
+            FHDEHost.MainLoop.OnRender -= SecondFrame;
         }
 
         protected virtual void HandleLearnModeChange(IDiffSpread<bool> spread)
         {
-            SetFormular();
+            if (!FirstFrame) SetFormular();
         }
 
         protected virtual void HandleTypeChange(IDiffSpread<EnumEntry> spread)
         {
-            SetFormular();
+            if (!FirstFrame) SetFormular();
         }
 
         protected virtual IList<string> SetFormular() 

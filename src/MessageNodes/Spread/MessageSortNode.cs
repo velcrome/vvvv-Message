@@ -8,7 +8,7 @@ using VVVV.Utils;
 namespace VVVV.Pack.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Sort", Category = "Message", Help = "Filter Messages", Tags = "Time", Author = "velcrome")]
+    [PluginInfo(Name = "Sort", Category = "Message", Help = "Sort Messages by time", Tags = "Time", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageSortNode : IPluginEvaluate
     {
@@ -42,9 +42,8 @@ namespace VVVV.Pack.Messaging.Nodes
 
             if (!FInput.IsChanged) return;
 
-
             FOutput.SliceCount = 0;
-            FOutput.AssignFrom( FInput.OrderBy(message => message.TimeStamp));
+            FOutput.AssignFrom( FInput.OrderBy(message => message.TimeStamp.UniversalTime));
 
             FOutput.Flush();
         }

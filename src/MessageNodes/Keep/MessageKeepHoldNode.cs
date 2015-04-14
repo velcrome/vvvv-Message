@@ -53,10 +53,15 @@ namespace VVVV.Packs.Messaging.Nodes
                         FOutput.AssignFrom(Keep);
                         break;
                     case HoldEnum.Index:
-                        FOutput.SliceCount = FIndex.SliceCount;
-                        for (int i = 0; i < FIndex.SliceCount;i++ )
+                        if (Keep.Count == 0) 
                         {
-                            FOutput[i] = Keep[FIndex[i]%Keep.Count];
+                            FOutput.SliceCount = 0;
+                        } 
+                        else 
+                        {
+                            FOutput.SliceCount = FIndex.SliceCount;
+                            for (int i = 0; i < FIndex.SliceCount;i++ )
+                                FOutput[i] = Keep[FIndex[i] % Keep.Count];
                         }
                         break;
                 }

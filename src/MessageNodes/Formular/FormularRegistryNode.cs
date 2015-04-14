@@ -39,10 +39,9 @@ namespace VVVV.Packs.Messaging.Nodes
                 EnumManager.UpdateEnum(registry.RegistryName, MessageFormular.DYNAMIC, registry.Keys.ToArray());
             }
             
-            if ((FUpdate.IsAnyInvalid() || !FUpdate[0] || !FConfig.IsAnyInvalid() ) && !firstFrame)
-            {
-                return;
-            }
+            if (FUpdate.IsAnyInvalid() || FConfig.IsAnyInvalid()) return;
+            if (!FUpdate[0] && !firstFrame) return; 
+
             SpreadMax = FName.SliceCount;
 
             var reg = MessageFormularRegistry.Instance; 
