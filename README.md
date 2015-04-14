@@ -20,7 +20,7 @@ Message Flow
 ------------
 Once created, a message zips across your patched application in a compact and manageable struct, even though its gestalt is highly dynamic. This helps to report any change from some view in your application to your data-mongering model.
 
-To outfit your model, Message can be held in `Safe (Message.Keep)`, `Hold (Message.Keep)`, `Cache (Message.Keep)`, all keeping track of any change to the well-kept Messages.
+To outfit your model, Message can be held in `Safe (Message.Keep)`, `Hold (Message.Keep)`, `Session (Message.Keep)`, all keeping track of any change to the well-kept Messages.
 
 Core
 ----
@@ -43,7 +43,7 @@ Thanks
 
 Nuget
 ----
-* [Json.NET 5.0](http://james.newtonking.com/projects/json-net.aspx), utilizing the MIT License
+* [Json.NET 6.0.8](http://james.newtonking.com/projects/json-net.aspx), utilizing the MIT License
 * [VVVV.Packs.Time](https://github.com/letmp/vvvv-Time), utilizing the MIT License
 * [VVVV-sdk](https://github.com/vvvv/vvvv-sdk), LGPL
 

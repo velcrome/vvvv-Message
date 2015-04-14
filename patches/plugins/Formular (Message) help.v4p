@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="13245" top="3945" width="9000" height="6000">
+   <BOUNDS type="Window" left="8205" top="1110" width="13050" height="9435">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
