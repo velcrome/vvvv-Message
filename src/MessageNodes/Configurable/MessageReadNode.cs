@@ -26,18 +26,22 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+            if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged) return;
 
-            if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0 || FOutput[0] == null)
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+            if (SpreadMax == 0)
+                if (FOutput.SliceCount > 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
+
+                    var ValueOutput = (ISpread)(FValue.RawIOObject);
+                    ValueOutput.SliceCount = SpreadMax;
+                    ValueOutput.Flush();
+
                     return;
                 }
-                else return;
 
-            if (!FInput.IsChanged) return;
 
             FOutput.SliceCount = SpreadMax;
 
