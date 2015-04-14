@@ -5,43 +5,70 @@ namespace VVVV.Packs.Messaging.Nodes
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Formular", Help = "Outputs the type of a given Field in a Formular", Tags = "Message", Author =  "velcrome")]
+    [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Message", Help = "Outputs the current configuration of a Formular", Tags = "Formular", Author =  "velcrome")]
     #endregion PluginInfo
     public class FormularReflectionNode : AbstractFormularableNode, IPluginEvaluate
     {
         #pragma warning disable 649, 169
-        [Input("Field Name", DefaultString = "Foo")]
-        public ISpread<string> FFieldName;
+        [Output("Field Type", AutoFlush=false)]
+        ISpread<string> FFieldType;
 
-        [Output("Variable Type")]
-        ISpread<string> FOutput;
+        [Output("Bin Definition", AutoFlush = false)]
+        public ISpread<string> FBinDef;
+
+        [Output("Field Default Size", AutoFlush = false)]
+        public ISpread<int> FDefaultSize;
+
+        [Output("Field", AutoFlush = false)]
+        public ISpread<ISpread<string>> FFieldName;
         #pragma warning restore
 
-        protected override void HandleConfigChange(IDiffSpread<string> config) {
+        private bool _changed = true;
 
+        protected override void HandleConfigChange(IDiffSpread<string> config) {
+            _changed = true;
         }
 
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FFieldName.CombineWith(FType);
-            FOutput.SliceCount = SpreadMax;
+
+            if (!_changed) return;
+            _changed = false;
+            
+            SpreadMax = FFieldName.SliceCount = FFormular.SliceCount;
+            FFieldType.SliceCount = FBinDef.SliceCount = FDefaultSize.SliceCount = 0;
+
             var registry = MessageFormularRegistry.Instance;
             for (int i = 0; i < SpreadMax; i++)
             {
-                var formular = FType[i].Name;
+                FFieldName[i].SliceCount = 0;
+                
+                var formular = FFormular[i].Name;
                 if (registry.ContainsKey(formular))
                 {
-                    var fieldName = FFieldName[i];
-                    if (registry[formular].Fields.Contains(fieldName))
+
+                    var f = registry[formular];
+                    foreach (var field in f.Fields)
                     {
-                        var type = registry[formular][fieldName].Type;
-                        FOutput[i] = TypeIdentity.Instance.FindAlias(type);
+                        FFieldType.Add(TypeIdentity.Instance.FindAlias(f[field].Type));
+
+                        var size = f[field].DefaultSize;
+                        FDefaultSize.Add(size);
+
+                        if (size < 1) FBinDef.Add("[]");
+                        if (size == 1) FBinDef.Add("");
+                        if (size > 1) FBinDef.Add("["+size.ToString()+"]");
+
+                        FFieldName[i].Add(f[field].Name);
                     }
-                    else FOutput[i] = "";
                 }
-                else FOutput.SliceCount = 0;
             }
+
+            FFieldType.Flush();
+            FDefaultSize.Flush();
+            FBinDef.Flush();
+            FFieldName.Flush();
         }
     }
 }

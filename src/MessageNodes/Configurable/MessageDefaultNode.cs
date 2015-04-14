@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = (FNew.IsAnyInvalid() || !FNew.Any(x => x) || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid()) ? 0 : FTopic.CombineWith(FSpreadCount).CombineWith(FType);
+            SpreadMax = (FNew.IsAnyInvalid() || !FNew.Any(x => x) || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid()) ? 0 : FTopic.CombineWith(FSpreadCount).CombineWith(FFormular);
             
             if (SpreadMax == 0)
             {

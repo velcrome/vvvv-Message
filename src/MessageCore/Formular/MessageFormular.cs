@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging
     {
         public static string DYNAMIC = "None";
 
-        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"ID", "Output", "Input", "Message", "Storage" } ); // These names are likely to be pin names
+        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"ID", "Output", "Input", "Message", "Keep" } ); // These names are likely to be pin names
         
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 

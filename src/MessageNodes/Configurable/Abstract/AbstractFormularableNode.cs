@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public IDiffSpread<bool> FAutoLearnMode;
         
         [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
-        public IDiffSpread<EnumEntry> FType;
+        public IDiffSpread<EnumEntry> FFormular;
 
         [Import]
         IHDEHost FHDEHost;
@@ -23,7 +23,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
 
-            FType.Changed += HandleTypeChange;
+            FFormular.Changed += HandleTypeChange;
             FAutoLearnMode.Changed += HandleLearnModeChange;
 
             var reg = MessageFormularRegistry.Instance;
@@ -54,13 +54,13 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var forms = new List<string>();
             
-            if (!FAutoLearnMode[0] || FType.IsAnyInvalid()) return forms;
+            if (!FAutoLearnMode[0] || FFormular.IsAnyInvalid()) return forms;
 
-            FConfig.SliceCount = FType.SliceCount;
+            FConfig.SliceCount = FFormular.SliceCount;
 
-            for (int i = 0; i < FType.SliceCount;i++ )
+            for (int i = 0; i < FFormular.SliceCount;i++ )
             {
-                var form = FType[i].Name;
+                var form = FFormular[i].Name;
                 if (form != MessageFormular.DYNAMIC) FConfig[i] = MessageFormularRegistry.Instance[form].ToString(true);
                 forms.Add(form);
                 
@@ -70,11 +70,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected virtual void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
-            if (FType.IsAnyInvalid()) return;
+            if (FFormular.IsAnyInvalid()) return;
 
             var used = false;
             
-            foreach (var type in FType) 
+            foreach (var type in FFormular) 
                 if (type.Name == e.Formular.Name) used = true;
 
             if (used) SetFormular();

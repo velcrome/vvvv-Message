@@ -33,7 +33,6 @@ namespace VVVV.Nodes.Generic
             FOutput.Flush();
 
             FReceive.SliceCount = 1;
-//            FReceive[0] = Receive.Any();
             FReceive[0] = FOutput.SliceCount > 0;
 
         }

@@ -32,7 +32,6 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
                 from message in Receive
                     from filter in FFilter
                     where message.AddressMatches(filter)
-                
                 select message;
 
             FOutput.SliceCount = 0;
