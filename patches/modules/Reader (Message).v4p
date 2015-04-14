@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" systemname="Reader (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv-sdk\vvvv45\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" systemname="Reader (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" scrollx="90" scrolly="1260">
    <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
    <BOUNDS type="Box" left="1500" top="1500" width="792" height="240">
    </BOUNDS>
@@ -59,12 +59,12 @@
    </BOUNDS>
    <BOUNDS type="Node" left="795" top="5801" width="750" height="240">
    </BOUNDS>
-   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
+   <PIN pinname="Input Node" visible="1">
    </PIN>
    </NODE>
-   <BOUNDS type="Window" left="10410" top="795" width="6210" height="7065">
+   <BOUNDS type="Window" left="12816" top="4752" width="6012" height="6156">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.7.0">
+   <PACK Name="addonpack" Version="33.8.0">
    </PACK>
    <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="10">
    <BOUNDS type="Node" left="780" top="4845" width="100" height="100">
@@ -125,7 +125,7 @@
    <LINK srcnodeid="6" srcpinname="Success" dstnodeid="12" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="AsString (Raw)" nodename="AsString (Raw)" componentmode="Hidden" id="13">
-   <BOUNDS type="Node" left="1530" top="3300" width="100" height="100">
+   <BOUNDS type="Node" left="1590" top="3630" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -148,8 +148,8 @@
    </NODE>
    <LINK srcnodeid="4" srcpinname="Message" dstnodeid="10" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="4" srcpinname="Message" dstnodeid="9" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="13" srcpinname="Output" dstnodeid="4" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Output" dstnodeid="9" dstpinname="Input Node">
    </LINK>
    </PATCH>
