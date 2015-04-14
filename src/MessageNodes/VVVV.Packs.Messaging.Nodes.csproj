@@ -89,7 +89,7 @@
     <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />
     <Compile Include="Configurable\MessageSplitNode.cs" />
     <Compile Include="Configurable\MessageReadNode.cs" />
-    <Compile Include="Keep\MessageKeepCacheNode.cs" />
+    <Compile Include="Keep\MessageKeepSessionNode.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
     <Compile Include="Keep\MessageKeepStoreNode.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />

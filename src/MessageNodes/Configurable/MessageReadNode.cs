@@ -37,6 +37,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 else return;
 
+            if (!FInput.IsChanged) return;
+
             FOutput.SliceCount = SpreadMax;
 
             var Value = (ISpread)(FValue.RawIOObject);

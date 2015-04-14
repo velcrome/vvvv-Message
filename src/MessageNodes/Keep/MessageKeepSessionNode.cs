@@ -10,13 +10,13 @@ using VVVV.Packs.Messaging;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Cache",
+    [PluginInfo(Name = "Session",
         Category = "Message.Keep",
         Version = "Typeable", 
         AutoEvaluate = true,
-        Help = "Stores Messages and removes them, if no change was detected for a certain time",
+        Help = "Stores Messages according to their id (which can be its Topic and/or specific fields) and removes them, if no change was detected for a certain time",
         Author = "velcrome")]
-    public class TypableMessageCacheNode : TypableMessageKeepNode
+    public class TypableMessageSessionNode : TypableMessageKeepNode
     {
         #region fields & pins
 
@@ -35,11 +35,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
             // inject all incoming messages and keep a list of all
             var idFields = from fieldName in FUseAsID
-                         select fieldName.Name;
+                            select fieldName.Name;
 
             if (!FInput.IsAnyInvalid())
-                foreach (var message in FInput) 
-                    MatchOrInsert(message, idFields); 
+                foreach (var message in FInput)
+                {
+                    var found = MatchOrInsert(message, idFields);
+                }
 
             if (FTime[0] > 0) 
                 if (RemoveOld()) update = true;
@@ -58,7 +60,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     foreach (var field in idFields)
                     {
-                        change.AssignFrom(field, orig[field]);
+                        if (field != TOPIC)
+                            change.AssignFrom(field, orig[field]);
                     }
                 }
             }
@@ -66,26 +69,31 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public Message MatchOrInsert(Message message, IEnumerable<string> idFields)
         {
-            var compatibleBins = idFields.Intersect(message.Fields);
-            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count();
+            var compatibleBins = idFields.Intersect(message.Fields).ToArray();
+            bool includeTopic = idFields.Contains(TOPIC) ;
+            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
 
-            var matched = (from keep in Keep
-                           where isCompatible
-                           from fieldName in compatibleBins
-                           where (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)// slicewise check of Bins' equality
-                           select keep).ToList();
+            var match = (
+                           from keep in Keep
+                           where isCompatible 
+                           where !includeTopic || keep.Topic.Equals(message.Topic)
+                           where compatibleBins.Length == 0 || (
+                                    from fieldName in compatibleBins
+                                    select (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)
+                                ).All(x => x)
+                           select keep
 
-            if (matched.Count == 0)
+                         ).DefaultIfEmpty(null).First();
+
+            if (match == null)
             {
                 Keep.Add(message); // record message
                 return message;
             }
             else
             {
-                var found = matched.First(); // found a matching record
-                found.InjectWith(message, true, true); // copy all attributes from message to matching record
-     
-                return found;
+                match.InjectWith(message, true, true); // copy all attributes from message to matching record
+                return match;
             }
         }
 

@@ -27,13 +27,19 @@ namespace VVVV.Packs.Messaging {
             get { return Data.Keys; }
         }
 
-//		[DataMember(Order = 0)]
-		public string Topic{
-			get;
-			set;
+        private string _topic;
+        private bool _isTopicChanged = false;
+        public string Topic{
+			get {
+                return _topic;
+            }
+            set
+            {
+                _isTopicChanged = true;
+                _topic = value;
+            }
 		}
 
-//        [DataMember(Order = 1)]
         public VVVV.Packs.Time.Time TimeStamp
         {
             get;
@@ -41,7 +47,6 @@ namespace VVVV.Packs.Messaging {
         }
 		
 
-//        [DataMember(Order = 2)]
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
 
         public event MessageChangedWithDetails ChangedWithDetails;
@@ -170,6 +175,7 @@ namespace VVVV.Packs.Messaging {
         {
             if (this.Equals(message)) return;
 
+            this.Topic = message.Topic;
 
             var keys = message.Fields;
             if (!allowNewFields) keys = keys.Intersect(this.Fields);
@@ -206,14 +212,17 @@ namespace VVVV.Packs.Messaging {
         {
             // check all bins, if at least one has changed since the last Sync.
             get {
-                return Data.Values.Any(bin => bin.IsDirty);
+                return _isTopicChanged || Data.Values.Any(bin => bin.IsDirty);
             }
             
             // reset all bins, if IsChanged is forced to false.
             internal set {
                 if (!value)
+                {
                     foreach (var bin in Data.Values)
                         if (bin.IsDirty) bin.IsDirty = false;
+                    _isTopicChanged = value;
+                }
             }
         }
 
@@ -230,7 +239,7 @@ namespace VVVV.Packs.Messaging {
                 }
             }
             
-            if (changedFields.Count > 0)
+            if (changedFields.Count > 0 || _isTopicChanged)
             {
                 TimeStamp = Time.Time.CurrentTime(); // timestamp always shows last Synced Change.
 
@@ -249,7 +258,8 @@ namespace VVVV.Packs.Messaging {
                 {
                     Changed(this);
                 }
-                
+
+                _isTopicChanged = false;
                 return true;
             }
             else return false;

@@ -138,7 +138,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
 
-            if (newData || update)
+            if (newData || update || Keep.IsChanged)
             {
                 // ...and start filling messages
                 int messageIndex = 0;

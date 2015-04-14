@@ -70,7 +70,7 @@ namespace VVVV.Nodes.Messaging.Nodes
                 foreach (var message in FInput)
                 {
                     if (FUpdate[messageIndex])
-                     CopyFromPins(message, messageIndex, !forceUpdate);
+                    CopyFromPins(message, messageIndex, true) ;
                         messageIndex++;
                 }
                 FOutput.AssignFrom(FInput);
