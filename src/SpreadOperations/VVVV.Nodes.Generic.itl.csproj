@@ -62,6 +62,7 @@
     <Compile Include="Memory\SAndHold.cs" />
     <Compile Include="SpreadUtils.cs" />
     <Compile Include="Memory\Store.cs" />
+    <Compile Include="VectorUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

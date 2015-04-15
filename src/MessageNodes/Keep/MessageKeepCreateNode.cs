@@ -144,7 +144,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 int messageIndex = 0;
                 foreach (var message in Keep)
                 {
-                    if (CopyFromPins(message, messageIndex, true)) update = true;
+                    if (CopyFromPins(message, messageIndex, !update)) update = true;
                     messageIndex++;
                 }
 
