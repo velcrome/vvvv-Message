@@ -15,6 +15,9 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageWriteNode : DynamicPinNode
     {
 
+        [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
+        IDiffSpread<bool> FUpdate;
+
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
             var attr = new InputAttribute("Field");
@@ -32,7 +35,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged && !FValue.ToISpread().IsChanged) return;
+            if (!FInput.IsChanged && 
+                !FConfig.IsChanged && 
+                !FKey.IsChanged && 
+                !FValue.ToISpread().IsChanged && 
+                !(FUpdate.IsChanged && FUpdate.Any(x => x))
+            ) return;
 
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             if (SpreadMax == 0)
@@ -65,24 +73,28 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (!message.Fields.Contains(key)) message[key] = BinFactory.New(TargetDynamicType);
 
-                    if (input.SliceCount > 0) {
+                    if (input.SliceCount > 0)
+                    {
                         if (message[key].GetInnerType().IsAssignableFrom(TargetDynamicType))
                         {
-                            if (!message[key].Equals(input as IEnumerable)) message.AssignFrom(key, input);
+                            // check if any relevant change occurred
+                            if (FUpdate[i] && !message[key].Equals(input as IEnumerable)) message.AssignFrom(key, input);
                         }
-                            
+
                         else
                         {
-                            IList casted = new ArrayList();
+                            if (!FUpdate[i]) continue;
 
+                            IList casted = new ArrayList();
                             foreach (var slice in input)
                                 casted.Add(Convert.ChangeType(slice, message[key].GetInnerType()));
 
+                            // check if any relevant change occurred
                             if (!message[key].Equals(casted as IEnumerable)) message.AssignFrom(key, casted);
-
                         }
 
                     }
+                    else message[key].Clear();
                     index++;
 
                 }

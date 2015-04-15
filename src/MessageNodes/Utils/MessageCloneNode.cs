@@ -27,13 +27,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            FOutput.SliceCount = FInput.SliceCount;
             if (FInput.IsChanged)
             {
                 var clones = from message in FInput
                              where message != null
                              select message.Clone() as Message;
 
+                FOutput.SliceCount = 0; 
                 FOutput.AssignFrom(clones);
                 FOutput.Flush();
             }

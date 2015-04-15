@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Read (Message) help.v4p" systemname="Message (Join) help" filename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\Message (Join) help.v4p" scrollx="0" scrolly="5760">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Read (Message) help.v4p" systemname="Message (Join) help" filename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\Message (Join) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="1140" top="6045" width="14595" height="9255">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -553,7 +553,7 @@
    </PIN>
    <PIN pinname="Count" slicecount="1" visible="1" values="3">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Couter" visible="1">
    </PIN>
@@ -609,7 +609,7 @@
    </PIN>
    <PIN pinname="Field" visible="1">
    </PIN>
-   <PIN pinname="Type" slicecount="1" values="string" visible="1">
+   <PIN pinname="Type" slicecount="1" visible="1" values="string">
    </PIN>
    <BOUNDS type="Box" left="6525" top="13950">
    </BOUNDS>
