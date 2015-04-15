@@ -71,6 +71,7 @@
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
     <Compile Include="Configurable\MessageCreateNode.cs" />
+    <Compile Include="Configurable\MessageWriteNode.cs" />
     <Compile Include="Keep\MessageKeepCreateNode.cs" />
     <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs" />
     <Compile Include="GenericNodes.cs" />

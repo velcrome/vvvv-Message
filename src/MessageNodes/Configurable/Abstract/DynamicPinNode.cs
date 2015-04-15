@@ -24,7 +24,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected Pin<Message> FOutput;
 
         protected IIOContainer FValue;
-        protected IIOContainer FBinSize;
+
         protected Type TargetDynamicType;
 
         [Import()]
@@ -62,7 +62,6 @@ namespace VVVV.Packs.Messaging.Nodes
             if (FValue != null)
             {
                 FValue.Dispose();
-                FBinSize.Dispose();
             }
 
             var name = formular.Fields.First();
@@ -72,11 +71,6 @@ namespace VVVV.Packs.Messaging.Nodes
             Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(TargetDynamicType)); // the Pin is always a binsized one
   
            FValue = FIOFactory.CreateIOContainer(pinType, attr);
-           attr.Order = 2;
-           attr.Name = "Message Bin Size";
-           attr.Visibility = PinVisibility.Hidden;
-
-           FBinSize = FIOFactory.CreateIOContainer(typeof(ISpread<>).MakeGenericType(typeof(int)), attr);
         }
 
    

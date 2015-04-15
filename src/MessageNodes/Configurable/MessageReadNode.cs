@@ -17,6 +17,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("AvoidNil", IsSingle = true, IsToggle = true, DefaultBoolean = true, Order = 3)]
         protected ISpread<bool> FAvoidNil;
 
+        [Output("Message Bin Size", AutoFlush = false)]
+        protected ISpread<int> FBinSize;
+
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
             var attr = new OutputAttribute("Field");
@@ -33,19 +36,17 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged && !FAvoidNil.IsChanged) return;
 
-            var binSpread = FBinSize.ToGenericISpread<int>();
-
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             if (SpreadMax == 0)
             {
-                if (FOutput.SliceCount > 0)
+                if (FOutput.SliceCount > 0) // zero inputs -> zero outputs.
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
 
-                    binSpread.SliceCount = 1;
-                    binSpread[0] = 0;
-                    binSpread.Flush();
+                    FBinSize.SliceCount = 1;
+                    FBinSize[0] = 0;
+                    FBinSize.Flush();
 
                     var output = (ISpread)(FValue.RawIOObject);
                     output.SliceCount = 0;
@@ -53,7 +54,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     return;
                 }
-                else return;
+                else return; // already zero'ed
             }
 
             FOutput.SliceCount = 0;
@@ -61,7 +62,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FOutput.Flush();
 
             var keyCount = FKey.SliceCount;
-            binSpread.SliceCount = SpreadMax;
+            FBinSize.SliceCount = SpreadMax;
 
             var Value = FValue.ToISpread();
             Value.SliceCount = SpreadMax * keyCount;
@@ -97,27 +98,24 @@ namespace VVVV.Packs.Messaging.Nodes
                             for (int j = 0; j < inputBin.Count; j++)
                                 output[j] = inputBin[j];
                         }
-                        else //if (inputBin.GetInnerType().IsCastableTo(type, true))
+                        else // will throw Exception, if Conversion is not possible
                         {
                             
                             output.SliceCount = inputBin.Count;
                             for (int j = 0; j < inputBin.Count; j++)
                                 output[j] = Convert.ChangeType(inputBin[j], type, CultureInfo.InvariantCulture);
                         }
-                        //else
-                        //{
-                        //    // illegal operation. fail silently.
-                        //}
+
                     }
                     count += output.SliceCount;
                     index ++;
                         
                 }
-                binSpread[i] = count;
+                FBinSize[i] = count;
             }
 
             Value.Flush();
-            binSpread.Flush();
+            FBinSize.Flush();
         }
 
     }
