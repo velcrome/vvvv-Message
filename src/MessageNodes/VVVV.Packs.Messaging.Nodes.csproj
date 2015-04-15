@@ -38,6 +38,7 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
@@ -98,6 +99,7 @@
     <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spread\MessageSortNode.cs" />
+    <Compile Include="Utils\MessageStreamingNodes.cs" />
     <Compile Include="Utils\MessageTopicNode.cs" />
   </ItemGroup>
   <ItemGroup>
