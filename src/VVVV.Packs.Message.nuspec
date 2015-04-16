@@ -14,8 +14,8 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="..\build\x64\Debug\vvvv-Message\core\VVVV.Packs.Message.Core.dll" target="build\net40\x64\VVVV.Packs.Message.Core.dll" />
-        <file src="..\build\x86\Debug\vvvv-Message\core\VVVV.Packs.Message.Core.dll" target="build\net40\x86\VVVV.Packs.Message.Core.dll" />
+        <file src="..\build\x64\Release\core\VVVV.Packs.Messaging.dll" target="build\net40\x64\VVVV.Packs.Messaging.dll" />
+        <file src="..\build\x86\Release\core\VVVV.Packs.Messaging.dll" target="build\net40\x86\VVVV.Packs.Messaging.dll" />
         <file src="Message.targets" target="build\net40\Message.targets" />
     </files>
 </package>
