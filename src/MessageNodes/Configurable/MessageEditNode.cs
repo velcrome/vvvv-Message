@@ -58,7 +58,6 @@ namespace VVVV.Nodes.Messaging.Nodes
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
                 }
-                
                 return;
             }
 

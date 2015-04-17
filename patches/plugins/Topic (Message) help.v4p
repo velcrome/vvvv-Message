@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Topic (Message) help.v4p" scrollx="0" scrolly="15" systemname="Topic (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Topic (Message) help.v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Topic (Message) help.v4p" scrollx="90" scrolly="0" systemname="Topic (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Topic (Message) help.v4p">
    <BOUNDS type="Window" left="9900" top="5100" width="13320" height="9600">
    </BOUNDS>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="0">

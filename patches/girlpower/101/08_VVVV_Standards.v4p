@@ -1,0 +1,155 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="5535" top="4026" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5535" top="4026">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetSlice (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetSlice (Message)" componentmode="Hidden" id="11">
+   <BOUNDS type="Node" left="4047" top="4029" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4047" top="4029">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="10">
+   <BOUNDS type="Node" left="1563" top="6126" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1563" top="6126">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="UnZip (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="UnZip (Message)" componentmode="Hidden" id="9">
+   <BOUNDS type="Node" left="1515" top="6570" width="1428" height="276">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1515" top="6570">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="1395" top="630" width="6600" height="1056">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1395" top="630" width="6564" height="468">
+   </BOUNDS>
+   <PIN pinname="Size" slicecount="1" visible="1" values="12">
+   </PIN>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Wading through the wash of Messages|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="7" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="1395" top="1302" width="9120" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1395" top="1302" width="6576" height="1896">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|This is the boiled down version of the most useful nodes to come to grips with most situations involving spreads of Messages. &cr;&lf;&cr;&lf;Most other generic nodes I tested during development behaved nicely, feel free to try a dynamic plugin with an additional reference to VVVV.Packs.Messaging.dll and adding &cr;&lf;&cr;&lf;using VVVV.Packs.Messaging; &cr;&lf;&cr;&lf;near the top of your code.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="6">
+   <BOUNDS type="Node" left="3555" top="4650" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3555" top="4650" width="3072" height="588">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.83502,0.79038,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="5">
+   <BOUNDS type="Node" left="2211" top="5226" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2211" top="5226" width="6036" height="384">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.76927,0.91618,1.00000,0.78497|">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="4">
+   <BOUNDS type="Node" left="1587" top="5610" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1587" top="5610" width="7224" height="264">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.83300,0.47674,0.06935,1.00000|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="12" dstpinname="Input">
+   <LINKPOINT x="3692" y="4477">
+   </LINKPOINT>
+   <LINKPOINT x="3709" y="3569">
+   </LINKPOINT>
+   <LINKPOINT x="6557" y="4438">
+   </LINKPOINT>
+   <LINKPOINT x="6490" y="3518">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="FrameDelay (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FrameDelay (Message)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="6495" top="6444" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="6867" top="3618" width="5472" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6867" top="3618" width="1884" height="1200">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|[GetSlice] and [Select] take always center stage in any credible spread management action.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="1" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="1503" top="7026" width="3456" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1503" top="7026" width="2700" height="1860">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|These three friends should need no further introduction. &cr;&lf;The Message pack devotes itself to decreasing redundant use of them. It seems appropriate to have the same functionality for high-level Message too..|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="6312" top="6831" width="3456" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6312" top="6831" width="2580" height="372">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Use at your own discretion. |">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <PACK Name="addonpack" Version="33.8.0">
+   </PACK>
+   </PATCH>

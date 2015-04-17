@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\modules\Formular (TouchOSC).v4p" systemname="Formular (TouchOSC)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\modules\Formular (TouchOSC).v4p" scrollx="180" scrolly="2760">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\touchosc\modules\Formular (TouchOSC).v4p" systemname="Formular (TouchOSC)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\modules\Formular (TouchOSC).v4p" scrollx="180" scrolly="2760">
    <BOUNDS type="Window" left="2664" top="936" width="14724" height="9720">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.7.0">
+   <PACK Name="addonpack" Version="33.8.0">
    </PACK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2124" top="8400" width="9840" height="270">

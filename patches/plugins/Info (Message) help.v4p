@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\plugins\Info (Message) help.v4p" scrollx="15" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Info (Message) help.v4p" scrollx="15" scrolly="360">
    <BOUNDS type="Window" left="8520" top="1230" width="15330" height="10365">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -41,7 +41,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="450" top="3645" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output Bin Length" slicecount="1" values="1">
    </PIN>
@@ -64,14 +64,6 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Message 2|">
-   </PIN>
-   </NODE>
-   <NODE systemname="AsMessage (Message, Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Message, Json)" componentmode="Hidden" id="5">
-   <BOUNDS type="Node" left="435" top="3045" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Message" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="6">
@@ -166,8 +158,6 @@
    </NODE>
    <LINK srcnodeid="4" srcpinname="Output String" dstnodeid="12" dstpinname="Input 1">
    </LINK>
-   <LINK srcnodeid="12" srcpinname="Output" dstnodeid="5" dstpinname="Input">
-   </LINK>
    <NODE systemname="Blinker (Animation)" nodename="Blinker (Animation)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="45" top="1410" width="100" height="100">
    </BOUNDS>
@@ -252,7 +242,7 @@
    </NODE>
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Input">
    </LINK>
-   <PACK Name="addonpack" Version="33.3.0">
+   <PACK Name="addonpack" Version="33.8.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="29" systemname="IOBox (String)">
    <BOUNDS type="Box" left="4725" top="4140" width="3540" height="420">
@@ -267,6 +257,16 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="Configuration" dstnodeid="29" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="AsMessage (string)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="435" top="3045" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Message" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Output" dstnodeid="5" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="5" srcpinname="Message" dstnodeid="0" dstpinname="Input">
    </LINK>

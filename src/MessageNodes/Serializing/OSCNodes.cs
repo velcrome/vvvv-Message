@@ -85,7 +85,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             for (int i = 0; i < SpreadMax; i++)
             {
                 Message message = OSCExtensions.FromOSC(FInput[i], FExtendedMode[0], FTopicAdd[0], FContract[0]);
-                FOutput[i] = message;
+                if (message != null) FOutput.Add(message);
             }
             FOutput.Flush();
         }

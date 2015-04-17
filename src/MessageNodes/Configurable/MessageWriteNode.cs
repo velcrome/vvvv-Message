@@ -66,10 +66,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 Message message = FInput[i];
 
 
-                var index = 0;
+                var keyIndex = 0;
                 foreach (var key in FKey)
                 {
-                    var input = (Value[i * keyCount + index] as ISpread);
+                    var fieldIndex = i * keyCount + keyIndex;
+                    var input = (Value[fieldIndex] as ISpread);
 
                     if (!message.Fields.Contains(key)) message[key] = BinFactory.New(TargetDynamicType);
 
@@ -78,12 +79,12 @@ namespace VVVV.Packs.Messaging.Nodes
                         if (message[key].GetInnerType().IsAssignableFrom(TargetDynamicType))
                         {
                             // check if any relevant change occurred
-                            if (FUpdate[i] && !message[key].Equals(input as IEnumerable)) message.AssignFrom(key, input);
+                            if (FUpdate[fieldIndex] && !message[key].Equals(input as IEnumerable)) message.AssignFrom(key, input);
                         }
 
                         else
                         {
-                            if (!FUpdate[i]) continue;
+                            if (!FUpdate[fieldIndex]) continue;
 
                             IList casted = new ArrayList();
                             foreach (var slice in input)
@@ -95,7 +96,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     }
                     else message[key].Clear();
-                    index++;
+                    keyIndex++;
 
                 }
             }

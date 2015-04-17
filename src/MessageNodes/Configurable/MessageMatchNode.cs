@@ -10,9 +10,9 @@ namespace VVVV.Packs.Messaging.Nodes
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "Update", AutoEvaluate = true, Category = "Message", Version = "Formular", Help = "Injects a Message into a matching other Message", Tags = "", Author = "velcrome")]
+//    [PluginInfo(Name = "Inject", AutoEvaluate = true, Category = "Message", Version = "Formular", Help = "Injects a Message into a matching other Message", Tags = "", Author = "velcrome")]
     #endregion PluginInfo    
-    public class UpdateMessageNode : AbstractFormularableNode
+    public class MessageInjectNode : AbstractFormularableNode
     {
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;

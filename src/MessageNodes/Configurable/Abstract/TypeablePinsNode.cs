@@ -49,14 +49,16 @@ namespace VVVV.Packs.Messaging.Nodes
 
             foreach (string name in FPins.Keys)
             {
+                // don't change if pin data still the same
                 if (!checkForChange || FPins[name].ToISpread().IsChanged)
                 {
                     var pinSpread = FPins[name].ToISpread();
                     if (!pinSpread.IsAnyInvalid())
                     {
-                        // don't changedBinSize if data still the same
                         var bin = pinSpread[index] as IEnumerable;
-                        if (!message.Fields.Contains(name) || !message[name].Equals(bin))
+
+                        // don't change if pin data equals the message data
+                        if (!checkForChange || !message.Fields.Contains(name) || !message[name].Equals(bin))
                         {
                             message.AssignFrom(name, bin);
                             hasCopied = true;

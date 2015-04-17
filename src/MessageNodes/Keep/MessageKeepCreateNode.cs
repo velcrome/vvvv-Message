@@ -138,19 +138,28 @@ namespace VVVV.Packs.Messaging.Nodes
 
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
 
-            if (newData || update || Keep.IsChanged)
+            if (newData || update)
             {
                 // ...and start filling messages
                 int messageIndex = 0;
                 foreach (var message in Keep)
                 {
-                    if (CopyFromPins(message, messageIndex, !update)) update = true;
+                    if (CopyFromPins(message, messageIndex, newData)) update = true;
                     messageIndex++;
                 }
+            }
 
+            if (Keep.IsChanged)
+            {
                 UpKeep(update);
-
-
+            }
+            else  // no change, so make sure, none is reported
+            {
+                if (FChangeOut.SliceCount > 0)
+                {
+                    FChangeOut.SliceCount = 0;
+                    FChangeIndexOut.SliceCount = 0;
+                }
             }
 
         }

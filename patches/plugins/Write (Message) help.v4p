@@ -115,13 +115,15 @@
    </PIN>
    <PIN pinname="Type" slicecount="1" values="string">
    </PIN>
-   <PIN pinname="Field" slicecount="1" values="v" visible="1">
+   <PIN pinname="Field" slicecount="1" visible="1" values="v">
    </PIN>
-   <PIN pinname="Field Bin Size" slicecount="1" values="1" visible="1">
+   <PIN pinname="Field Bin Size" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Key" visible="1">
+   </PIN>
+   <PIN pinname="Update" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="12" dstpinname="Input">
@@ -151,9 +153,9 @@
    <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="1" dstpinname="Key">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="13" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="8385" top="5355" width="795" height="720">
+   <BOUNDS type="Box" left="7785" top="5040" width="795" height="720">
    </BOUNDS>
-   <BOUNDS type="Node" left="8385" top="5355" width="0" height="0">
+   <BOUNDS type="Node" left="7785" top="5040" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="6" visible="1" values="2,2,5,4,11,4">
    </PIN>
@@ -191,9 +193,9 @@
    <LINK srcnodeid="7" srcpinname="Field" dstnodeid="14" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7305" top="6090" width="795" height="240">
+   <BOUNDS type="Box" left="6705" top="6015" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7305" top="6090" width="0" height="0">
+   <BOUNDS type="Node" left="6705" top="6015" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="v">
    </PIN>
@@ -302,4 +304,24 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="21" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="8880" top="5730" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8880" top="5730" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Update">
+   </LINK>
    </PATCH>

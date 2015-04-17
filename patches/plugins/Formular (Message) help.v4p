@@ -138,22 +138,6 @@
    </LINK>
    <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="14" dstpinname="Configuration">
    </LINK>
-   <NODE systemname="Reflection (Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Formular)" componentmode="Hidden" id="22">
-   <BOUNDS type="Node" left="5670" top="1725" width="3375" height="270">
-   </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="MyLayout">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
-   </PIN>
-   <PIN pinname="Field Type" visible="1">
-   </PIN>
-   <PIN pinname="Bin Definition" visible="1">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="5670" top="1725">
-   </BOUNDS>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="23" systemname="IOBox (String)">
    <BOUNDS type="Box" left="5670" top="2340" width="1425" height="1380">
    </BOUNDS>
@@ -170,8 +154,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="22" srcpinname="Field Type" dstnodeid="23" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="24" systemname="IOBox (String)">
    <BOUNDS type="Box" left="7095" top="2340" width="945" height="1365">
    </BOUNDS>
@@ -188,8 +170,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="22" srcpinname="Bin Definition" dstnodeid="24" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="25" systemname="IOBox (String)">
    <BOUNDS type="Box" left="8160" top="2340" width="945" height="1365">
    </BOUNDS>
@@ -206,8 +186,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="22" srcpinname="Field" dstnodeid="25" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="26" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5670" top="1020" width="1590" height="270">
    </BOUNDS>
@@ -216,8 +194,6 @@
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
    </PIN>
    </NODE>
-   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="22" dstpinname="Message Formular">
-   </LINK>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="9">
    <BOUNDS type="Node" left="375" top="5115" width="900" height="270">
    </BOUNDS>
@@ -327,5 +303,29 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="33" srcpinname="Output Enum" dstnodeid="30" dstpinname="Message Formular">
+   </LINK>
+   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="22">
+   <BOUNDS type="Node" left="5670" top="1725" width="3375" height="270">
+   </BOUNDS>
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="MyLayout">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
+   </PIN>
+   <PIN pinname="Field Type" visible="1">
+   </PIN>
+   <PIN pinname="Bin Definition" visible="1">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="5670" top="1725">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="22" srcpinname="Field Type" dstnodeid="23" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="22" srcpinname="Bin Definition" dstnodeid="24" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="22" srcpinname="Field" dstnodeid="25" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="22" dstpinname="Message Formular">
    </LINK>
    </PATCH>

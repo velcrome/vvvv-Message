@@ -1,8 +1,11 @@
 ﻿using System.IO;
+using System.Linq;
 using VVVV.Utils.OSC;
+
 
 namespace VVVV.Packs.Messaging.Serializing
 {
+    using System;
     using Time = VVVV.Packs.Time.Time;
 
     public static class OSCExtensions
@@ -41,8 +44,8 @@ namespace VVVV.Packs.Messaging.Serializing
             stream.Position = 0;
             stream.CopyTo(ms);
             byte[] bytes = ms.ToArray();
-//            int start = 0;
-//            OSCBundle bundle = OSCBundle.Unpack(bytes, ref start, (int)stream.Length, extendedMode);
+
+            if (bytes.Length == 0) return null;
 
             var pack = OSCPacket.Unpack(bytes, extendedMode);
 
@@ -61,36 +64,29 @@ namespace VVVV.Packs.Messaging.Serializing
 
             foreach (OSCMessage m in bundle.Values)
             {
-                //                  Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
 
-                Bin bin = BinFactory.New(m.Values[0].GetType());
-                bin.AssignFrom(m.Values); // does not clone implicitly
+                string[] address = m.Address.Trim(new char[] { '/' }).Split('/');
 
-                string oldAddress = m.Address;
-                while (oldAddress.StartsWith("/")) oldAddress = oldAddress.Substring(1);
-                while (oldAddress.EndsWith("/")) oldAddress = oldAddress.Substring(0, oldAddress.Length - 1);
-
-                string[] address = oldAddress.Split('/');
-
-                contractAddress = address.Length > contractAddress ? contractAddress : address.Length - ((messagePrefix.Trim() == "") ? 1 : 0);
-                string attribName = "";
-                for (int i = address.Length - contractAddress; i < address.Length; i++)
+                string messageAddress = string.Join(".", address.Take(Math.Max(1, address.Length - contractAddress)).ToArray());
+                if (messagePrefix.Trim() == "")
+                    message.Topic = messageAddress;
+                else message.Topic = messagePrefix + "." + messageAddress;
+                
+                Bin bin = null;
+                // empty messages are usually used for requesting data
+                if (m.Values.Count <= 0)
                 {
-                    attribName += ".";
-                    attribName += address[i];
-                    address[i] = "";
+                    // leave message emtpy
                 }
-                attribName = attribName.Substring(1);
-
-                string messageAddress = "";
-                foreach (string part in address)
+                else
                 {
-                    if (part.Trim() != "") messageAddress += "." + part;
-                }
-                if (messagePrefix.Trim() == "") message.Topic = messageAddress.Substring(1);
-                else message.Topic = messagePrefix + messageAddress;
+                    // Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
+                    bin = BinFactory.New(m.Values[0].GetType());
+                    bin.AssignFrom(m.Values);
 
-                message[attribName] = bin;
+                    string attribName = string.Join(".", address.Skip(Math.Max(0, address.Length - contractAddress)).ToArray());
+                    message[attribName] = bin;
+                }
             }
 
             return message;

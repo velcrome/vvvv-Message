@@ -1,0 +1,181 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\07_None_Wiring.v4p" systemname="07_Application" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\07_Application.v4p" scrollx="0" scrolly="-360">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   <PACK Name="addonpack" Version="33.8.0">
+   </PACK>
+   <NODE systemname="Listen (Message.VVVV Sift)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Listen (Message.VVVV Sift)" componentmode="Hidden" id="21">
+   <BOUNDS type="Node" left="1152" top="5043" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1152" top="5043">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="OnReceive" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Send (Message.VVVV)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Send (Message.VVVV)" componentmode="Hidden" id="20">
+   <BOUNDS type="Node" left="1188" top="3423" width="960" height="276">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1188" top="3423">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Send" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="1320" top="4107" width="564" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1320" top="4107" width="324" height="540">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="v">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="19">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2292" top="5055" width="300" height="336">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2292" top="5055" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="OnReceive" dstnodeid="16" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="780" top="543" width="6600" height="1056">
+   </BOUNDS>
+   <BOUNDS type="Box" left="780" top="543" width="6564" height="468">
+   </BOUNDS>
+   <PIN pinname="Size" slicecount="1" visible="1" values="12">
+   </PIN>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Sending a Message flying|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="14" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="780" top="1215" width="9120" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="780" top="1215" width="6420" height="588">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|A lot of my inital motivation was to overcome S and R nodes, because of their (almost exclusive) use as global variables. However, their use as a meta linking can be useful.&cr;&lf;|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="1188" top="3027" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Send" visible="1">
+   </PIN>
+   <PIN pinname="Spread Count" slicecount="1" visible="1" values="2">
+   </PIN>
+   <PIN pinname="New" slicecount="1" visible="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Output" dstnodeid="20" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="11" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="1128" top="5499" width="792" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1128" top="5499" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Output" dstnodeid="11" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2076" top="2679" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2076" top="2679" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Send">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="1182" top="1953" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1182" top="1953" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Press">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="10" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="12" dstpinname="New">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="3708" top="2367" width="13200" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3708" top="2367" width="3084" height="2424">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|So this is my compromise to the whole issue, which is conceptually closer to an Event vvvvramework. All Messages get collected into a common pipeline and can be listened to, according to their Address.&cr;&lf;&cr;&lf;If you want to &quot;listen&quot; according to some other criterion, feel free to build your custom Listen|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="7" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="1512" top="2727" width="300" height="264">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1512" top="2727" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="2">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Spread Count">
+   </LINK>
+   </PATCH>
