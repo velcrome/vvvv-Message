@@ -5,7 +5,6 @@ using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
-using System.Linq;
 using System.Globalization;
 
 

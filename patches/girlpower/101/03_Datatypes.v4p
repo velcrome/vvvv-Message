@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="2055">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="1596">
+   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="33.7.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="49" systemname="IOBox (String)">
    <BOUNDS type="Node" left="912" top="105" width="6600" height="1056">
@@ -16,20 +16,6 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="48" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="1119" top="10716" width="3360" height="240">
-   </BOUNDS>
-   <BOUNDS type="Box" left="1119" top="10716" width="3195" height="2205">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|You might be wondering. If Messages are only floating around quickly, as in only one vvvv frame, then how can they be of any use?&cr;&lf;Even if you retrieve the data with [Split], you still need a lot of AvoidNIL, S+H, Buffer and whatnot for each individual Field of the Message...&cr;&lf;&cr;&lf;Behold! I introduce the mighty Keep!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="47">
@@ -58,6 +44,8 @@
    <PIN pinname="vvvvTime" visible="1">
    </PIN>
    <PIN pinname="Autolearn Type" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Topic" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="46">
@@ -129,7 +117,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2868" top="3981" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Color Input" slicecount="2" visible="1" values="|0.00000,0.91289,0.48519,1.00000|,|0.00000,0.36832,0.88134,1.00000|">
+   <PIN pinname="Color Input" slicecount="2" visible="1" values="|0.00000,0.89806,0.44359,1.00000|,|0.00000,0.36832,0.88134,1.00000|">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>
@@ -469,6 +457,8 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
+   <PIN pinname="Input String" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="24" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="8835" top="8904" width="1788" height="636">
@@ -489,11 +479,11 @@
    <LINK srcnodeid="24" srcpinname="Output Node" dstnodeid="29" dstpinname="Source">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="23" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="876" top="678" width="1560" height="240">
+   <BOUNDS type="Node" left="8484" top="4554" width="1560" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="876" top="678" width="6855" height="1560">
+   <BOUNDS type="Box" left="8484" top="4554" width="3504" height="1284">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Again, available (fully serializable) Types : &cr;&lf;* bool, int, float, double&cr;&lf;* Vector2d, Vector3d, Vector4d &cr;&lf;* Color, Transform&cr;&lf;* Raw, Time, Message&cr;&lf;&cr;&lf;Take them for a Test Ride!|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Again, available (fully serializable) Types : &cr;&lf;* bool, int, float, double&cr;&lf;* Vector2d, Vector3d, Vector4d &cr;&lf;* Color, Transform&cr;&lf;* Raw, Time, Message&cr;&lf;|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -852,4 +842,22 @@
    </NODE>
    <LINK srcnodeid="50" srcpinname="Output Enum" dstnodeid="47" dstpinname="Message Formular">
    </LINK>
+   <LINK srcnodeid="47" srcpinname="Topic" dstnodeid="25" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="51" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="852" top="660" width="3360" height="240">
+   </BOUNDS>
+   <BOUNDS type="Box" left="852" top="660" width="6840" height="1548">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Exercise:&cr;&lf;&cr;&lf;Just play with the inputs and see what happens. With and without New.&cr;&lf;&cr;&lf;Repeat after you hit Ctrl+F9 (Debug Timing ON)|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="9">
+   </PIN>
+   </NODE>
    </PATCH>

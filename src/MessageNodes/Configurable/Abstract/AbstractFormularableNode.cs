@@ -9,6 +9,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
+#pragma warning disable 649, 169
         [Config("Autolearn Type", IsSingle = true, DefaultBoolean = true, IsToggle = true)]
         public IDiffSpread<bool> FAutoLearnMode;
         
@@ -16,7 +17,9 @@ namespace VVVV.Packs.Messaging.Nodes
         public IDiffSpread<EnumEntry> FFormular;
 
         [Import]
-        IHDEHost FHDEHost;
+        protected IHDEHost FHDEHost;
+#pragma warning restore
+
         protected bool FirstFrame = true;
 
         public override void OnImportsSatisfied()

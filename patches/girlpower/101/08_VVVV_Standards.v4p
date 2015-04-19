@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
    </BOUNDS>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="5535" top="4026" width="100" height="100">
@@ -150,6 +150,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="33.7.0">
    </PACK>
    </PATCH>

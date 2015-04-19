@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="-360">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="-360">
+   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="33.7.0">
    </PACK>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="14">
    <BOUNDS type="Node" left="570" top="4425" width="6825" height="270">
@@ -21,6 +21,8 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
+   <PIN pinname="Print Message" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="13" systemname="IOBox (String)">
    <BOUNDS type="Node" left="570" top="75" width="6600" height="1056">
@@ -37,9 +39,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="12" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="570" top="5685" width="3360" height="240">
+   <BOUNDS type="Node" left="7956" top="4506" width="3360" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="570" top="5685" width="3855" height="780">
+   <BOUNDS type="Box" left="7956" top="4506" width="2448" height="864">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|[Info] tends to come in pairs with [Hold].|">
    </PIN>
@@ -71,6 +73,8 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
+   <PIN pinname="Topic Bin Size" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
    <BOUNDS type="Box" left="570" top="4785" width="792" height="240">
@@ -90,16 +94,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <NODE systemname="AsString (Time)" filename="%VVVV%\packs\vvvv-Time\nodes\plugins\VVVV.Packs.Time.Nodes.dll" nodename="AsString (Time)" componentmode="Hidden" id="9" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="1665" top="4788" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Time" visible="1">
-   </PIN>
-   <PIN pinname="Timestring" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="14" srcpinname="Timestamp" dstnodeid="9" dstpinname="Time">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
    <BOUNDS type="Box" left="2433" top="4800" width="1836" height="288">
    </BOUNDS>
@@ -111,15 +105,15 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
+   <PIN pinname="Input String" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="9" srcpinname="Timestring" dstnodeid="8" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="7" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="570" top="2445" width="480" height="480">
    </BOUNDS>
    <BOUNDS type="Node" left="570" top="2445" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -129,7 +123,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Press">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="New">
    </PIN>
@@ -179,7 +173,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="570" top="615" width="6300" height="1524">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Things flow easily into a new Message. Hovering over pins makes sense again and the quirky hidden binsize is helping too.&cr;&lf;&cr;&lf;So all the data is now in the Message, maybe even in a save Keep. But how can I know whats going on, if we cannot see it? What&apos;s up with visual coding, the ? &cr;&lf;&cr;&lf;Easy, there is the one-stop window  [Info] for all your information needs.|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Things flow easily into a new Message. Hovering over pins makes sense again and the quirky hidden binsize is helping too in the most weird cases.&cr;&lf;&cr;&lf;So all the data is now in the Message, maybe even in a save Keep. But how can I know whats going on, if we cannot see it? What&apos;s up with visual coding, the ? &cr;&lf;&cr;&lf;Easy, there is the one-stop window  [Info] for all your information needs.|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -195,6 +189,10 @@
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
    </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Message Formular|">
+   </PIN>
+   <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
+   </PIN>
    </NODE>
    <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Message Formular">
    </LINK>
@@ -203,7 +201,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4518" top="3204" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="MyEvent">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Event">
    </PIN>
@@ -213,19 +211,27 @@
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Topic">
+   </PIN>
+   <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="5796" top="3195" width="300" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="5796" top="3195" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="4">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Spread Count|">
+   </PIN>
+   <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Spread Count">
@@ -241,5 +247,51 @@
    <LINK srcnodeid="2" srcpinname="Output String" dstnodeid="11" dstpinname="Topic">
    </LINK>
    <LINK srcnodeid="14" srcpinname="Topic" dstnodeid="10" dstpinname="Input String">
+   </LINK>
+   <NODE id="9" systemname="AsString (Object)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="AsString (Object)" componentmode="Hidden" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="1665" top="4788" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Time" visible="1">
+   </PIN>
+   <PIN pinname="Timestring" visible="1">
+   </PIN>
+   <PIN pinname="Object" visible="1">
+   </PIN>
+   <PIN pinname="String" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="14" srcpinname="Timestamp" dstnodeid="9" dstpinname="Object">
+   </LINK>
+   <LINK srcnodeid="9" srcpinname="String" dstnodeid="8" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="15">
+   <BOUNDS type="Node" left="624" top="7908" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="624" top="7908" width="7992" height="1920">
+   </BOUNDS>
+   <BOUNDS type="Window" left="4872" top="8892" width="6216" height="4980">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="7368" top="3432" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7368" top="3432" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Print Message|">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Print Message">
    </LINK>
    </PATCH>

@@ -5,7 +5,6 @@ using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
-using System.Linq;
 using System.Globalization;
 
 
@@ -14,9 +13,10 @@ namespace VVVV.Packs.Messaging.Nodes
     [PluginInfo(Name = "Write", AutoEvaluate = true, Category = "Message", Help = "Writes into Fields of arbitrary Type", Version = "Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
     public class MessageWriteNode : DynamicPinNode
     {
-
+#pragma warning disable 649, 169
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
+#pragma warning restore
 
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {

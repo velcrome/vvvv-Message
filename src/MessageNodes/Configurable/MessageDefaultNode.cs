@@ -15,10 +15,10 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
         ISpread<bool> FNew;
 
-        [Input("Topic", DefaultString = "Event", Order = 3, BinSize=1)]
+        [Input("Topic", DefaultString = "Event", Order = 3, BinSize=1, BinVisibility=PinVisibility.Hidden, BinOrder=4)]
         ISpread<ISpread<string>> FTopic;
 
-        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 4)]
+        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 5)]
         ISpread<int> FSpreadCount;
 
         [Output("Output", AutoFlush = false)]

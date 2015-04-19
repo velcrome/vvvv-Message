@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="33.7.0">
    </PACK>
    <NODE systemname="AsOSC (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOSC (Message)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="2934" top="3927" width="100" height="100">
@@ -101,31 +101,31 @@
    </PIN>
    </NODE>
    <NODE systemname="AsXElement (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsXElement (Message)" componentmode="Hidden" id="3" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="11190" top="4935" width="100" height="100">
+   <BOUNDS type="Node" left="11178" top="4299" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Element" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="11190" top="4935">
+   <BOUNDS type="Box" left="11178" top="4299">
    </BOUNDS>
    </NODE>
    <NODE systemname="AsString (Object)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="AsString (Object)" componentmode="Hidden" id="2" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="11190" top="5430" width="100" height="100">
+   <BOUNDS type="Node" left="11178" top="4794" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Object" visible="1">
    </PIN>
    <PIN pinname="String" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="11190" top="5430">
+   <BOUNDS type="Box" left="11178" top="4794">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="3" srcpinname="Element" dstnodeid="2" dstpinname="Object">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="1" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="11190" top="5865" width="2592" height="1668">
+   <BOUNDS type="Box" left="11178" top="5229" width="2592" height="1668">
    </BOUNDS>
-   <BOUNDS type="Node" left="11190" top="5865" width="0" height="0">
+   <BOUNDS type="Node" left="11178" top="5229" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -348,4 +348,10 @@
    </NODE>
    <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Simulate">
    </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="27">
+   <BOUNDS type="Node" left="540" top="6684" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="540" top="6684" width="10104" height="240">
+   </BOUNDS>
+   </NODE>
    </PATCH>

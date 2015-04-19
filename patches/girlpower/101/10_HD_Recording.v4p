@@ -1,11 +1,11 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_HD_Recording.v4p" systemname="10_HD_Recording" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_HD_Recording.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\10_HD_Recording.v4p" systemname="10_HD_Recording" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_HD_Recording.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
    </BOUNDS>
    <NODE systemname="Reader (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" nodename="Reader (Message)" componentmode="Hidden" id="15">
-   <BOUNDS type="Node" left="2253" top="5367" width="1248" height="276">
+   <BOUNDS type="Node" left="681" top="4575" width="1248" height="276">
    </BOUNDS>
-   <BOUNDS type="Box" left="2253" top="5367">
+   <BOUNDS type="Box" left="681" top="4575">
    </BOUNDS>
    <PIN pinname="Handle" visible="1">
    </PIN>
@@ -17,9 +17,9 @@
    </PIN>
    </NODE>
    <NODE systemname="Writer (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message).v4p" nodename="Writer (Message)" componentmode="Hidden" id="14">
-   <BOUNDS type="Node" left="2709" top="4635" width="100" height="100">
+   <BOUNDS type="Node" left="1137" top="3843" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="2709" top="4635">
+   <BOUNDS type="Box" left="1137" top="3843">
    </BOUNDS>
    <PIN pinname="Handle" visible="1">
    </PIN>
@@ -31,9 +31,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="13" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2265" top="4119" width="1212" height="288">
+   <BOUNDS type="Box" left="693" top="3327" width="1212" height="288">
    </BOUNDS>
-   <BOUNDS type="Node" left="2265" top="4119" width="0" height="0">
+   <BOUNDS type="Node" left="693" top="3327" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="Demo.json">
    </PIN>
@@ -53,9 +53,9 @@
    <LINK srcnodeid="13" srcpinname="Output String" dstnodeid="14" dstpinname="Handle">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="12" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2709" top="4863" width="564" height="240">
+   <BOUNDS type="Node" left="1137" top="4071" width="564" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="2709" top="4863" width="324" height="540">
+   <BOUNDS type="Box" left="1137" top="4071" width="324" height="540">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="v">
    </PIN>
@@ -69,9 +69,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="11" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2166" top="1755" width="9120" height="240">
+   <BOUNDS type="Node" left="594" top="963" width="9120" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="2166" top="1755" width="1836" height="720">
+   <BOUNDS type="Box" left="594" top="963" width="1836" height="720">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Writing a savegame is just as easy as passing it along your hard drive.|">
    </PIN>
@@ -83,7 +83,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="2700" top="3297" width="100" height="100">
+   <BOUNDS type="Node" left="1128" top="2505" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -95,9 +95,9 @@
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="14" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="9" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2685" top="2937" width="795" height="240">
+   <BOUNDS type="Box" left="1113" top="2145" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2685" top="2937" width="0" height="0">
+   <BOUNDS type="Node" left="1113" top="2145" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="|hello world|">
    </PIN>
@@ -111,7 +111,7 @@
    <LINK srcnodeid="9" srcpinname="Output String" dstnodeid="10" dstpinname="Foo">
    </LINK>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="8">
-   <BOUNDS type="Node" left="2340" top="6162" width="100" height="100">
+   <BOUNDS type="Node" left="672" top="5694" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|string Value|">
    </PIN>
@@ -121,9 +121,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="7" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4575" top="2772" width="480" height="480">
+   <BOUNDS type="Box" left="3003" top="1980" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="4575" top="2772" width="0" height="0">
+   <BOUNDS type="Node" left="3003" top="1980" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -141,9 +141,9 @@
    <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Read">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3825" top="2652" width="480" height="480">
+   <BOUNDS type="Box" left="2253" top="1860" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="3825" top="2652" width="0" height="0">
+   <BOUNDS type="Node" left="2253" top="1860" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -163,9 +163,9 @@
    <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Save">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="5" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2700" top="6717" width="795" height="240">
+   <BOUNDS type="Box" left="1032" top="6249" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2700" top="6717" width="0" height="0">
+   <BOUNDS type="Node" left="1032" top="6249" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -179,7 +179,7 @@
    <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="10" dstpinname="New">
    </LINK>
    <NODE systemname="Hold (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Hold (Message.Keep)" componentmode="Hidden" id="4">
-   <BOUNDS type="Node" left="2250" top="5727" width="100" height="100">
+   <BOUNDS type="Node" left="654" top="5127" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -191,9 +191,9 @@
    <LINK srcnodeid="4" srcpinname="Output" dstnodeid="8" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="1980" top="1095" width="6600" height="1056">
+   <BOUNDS type="Node" left="408" top="303" width="6600" height="1056">
    </BOUNDS>
-   <BOUNDS type="Box" left="1980" top="1095" width="6564" height="468">
+   <BOUNDS type="Box" left="408" top="303" width="6564" height="468">
    </BOUNDS>
    <PIN pinname="Size" slicecount="1" visible="1" values="12">
    </PIN>
@@ -204,22 +204,14 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <NODE systemname="Reader (Message Stream)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Reader (Message Stream).v4p" nodename="Reader (Message Stream)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="7650" top="3627" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Window" left="7680" top="624" width="14400" height="10332">
-   </BOUNDS>
-   <BOUNDS type="Box" left="7650" top="3627">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Writer (Message Stream)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message Stream).v4p" nodename="Writer (Message Stream)" componentmode="Hidden" id="1">
-   <BOUNDS type="Node" left="6237" top="3609" width="100" height="100">
+   <BOUNDS type="Node" left="4665" top="2817" width="100" height="100">
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="6381" top="2085" width="9120" height="240">
+   <BOUNDS type="Node" left="4809" top="1293" width="9120" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="6381" top="2085" width="2940" height="1200">
+   <BOUNDS type="Box" left="4809" top="1293" width="2940" height="1200">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|These two modules help you to stream Messages continuously, similar to SequentialReader for texts|">
    </PIN>
@@ -230,6 +222,14 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="33.7.0">
    </PACK>
+   <NODE systemname="Reader (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reader (Message)" componentmode="InAWindow" id="2">
+   <BOUNDS type="Node" left="6078" top="2835" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Window" left="7680" top="624" width="14400" height="10332">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6078" top="2835">
+   </BOUNDS>
+   </NODE>
    </PATCH>
