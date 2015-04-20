@@ -9,6 +9,7 @@ using System.Linq;
 using VVVV.Packs.Time;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
+using ProtoBuf;
 
 #endregion usings
 
@@ -29,6 +30,7 @@ namespace VVVV.Packs.Messaging {
 
         private string _topic;
         private bool _isTopicChanged = false;
+        
         public string Topic{
 			get {
                 return _topic;

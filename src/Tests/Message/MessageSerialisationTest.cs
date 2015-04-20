@@ -11,6 +11,8 @@ namespace VVVV.Packs.Messaging.Tests
 
     using Time = VVVV.Packs.Time.Time;
     using System.IO;
+    using ProtoBuf;
+    using ProtoBuf.Meta;
 
     [TestClass]
     public class MessageSerialisationTest
@@ -64,6 +66,56 @@ namespace VVVV.Packs.Messaging.Tests
             var newMessage = JsonConvert.DeserializeObject<Message>(json);
             Assert.AreEqual(message.ToString(), newMessage.ToString());
 //            Assert.AreEqual(message, newMessage);
+
+
+        }
+
+
+        [TestMethod]
+        public void MessageToProtobuf()
+        {
+            var message = new Message();
+            message.Topic = "foo";
+            message.Init("Foo", "bar");
+
+
+            //var model = RuntimeTypeModel.Create();
+            //var meta = model.Add(typeof(Message), false);
+
+            //meta.Add(1, "Topic");
+   //         meta.AddField(2, "Foo");
+
+
+            var stream = new MemoryStream();
+            var writer = new ProtoWriter(stream, null, null);
+
+
+
+            //var token = ProtoWriter.StartSubItem(1, writer);
+            
+            ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
+//            ProtoWriter.SetPackedField(1, writer);
+
+            ProtoWriter.WriteInt32(42, writer);
+            ProtoWriter.WriteInt32(18, writer);
+
+            //ProtoWriter.EndSubItem(token, writer);
+
+
+            //ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
+ 
+            ProtoWriter.WriteFieldHeader(8, WireType.String, writer);
+            ProtoWriter.WriteString("ww", writer);
+
+            writer.Close();
+            stream.Position = 0;
+
+            var reader = new ProtoReader(stream, null, null);
+            var h = reader.ReadFieldHeader();
+            var t = reader.ReadInt32();
+
+            reader.ReadFieldHeader();
+            var s = reader.ReadString();
 
 
         }
