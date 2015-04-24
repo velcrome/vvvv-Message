@@ -9,7 +9,7 @@ using System.Linq;
 using VVVV.Packs.Time;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
-using ProtoBuf;
+
 
 #endregion usings
 
