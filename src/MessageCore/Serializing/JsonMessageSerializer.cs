@@ -87,10 +87,19 @@ namespace VVVV.Packs.Messaging.Serializing
                 {
                     name = m.Groups[1].Value as string;
                     var alias = m.Groups[2].Value as string;
+                    var baseType = TypeIdentity.Instance.FindType(alias);
                     
-                    var binType = typeof(Bin<>).MakeGenericType(TypeIdentity.Instance.FindType(alias));
-                    var content = bin.Value.ToObject(binType) as Bin;
-                    message[name] = content;
+                    var binType = typeof(Bin<>).MakeGenericType(baseType);
+
+                    if (bin.Value.Type != JTokenType.Null)
+                    {
+                        var content = bin.Value.ToObject(binType) as Bin;
+                        message[name] = content;
+                    }
+                    else
+                    {
+                        //skip Null
+                    }
                 }
                 else
                 {
@@ -115,11 +124,15 @@ namespace VVVV.Packs.Messaging.Serializing
                         case JTokenType.Uri: itemType = typeof(string); break;
 
                         case JTokenType.Object: itemType = typeof(Message); break; // any non-descriptant objects will be included as nested Messages
+
                     }
 
-                    var binType = typeof(Bin<>).MakeGenericType(itemType);
-                    var content = bin.Value.ToObject(binType) as Bin;
-                    message[name] = content;
+                    if (itemType != null) // e.g. JTokenType.Null will be skipped
+                    {
+                        var binType = typeof(Bin<>).MakeGenericType(itemType);
+                        var content = bin.Value.ToObject(binType) as Bin;
+                        message[name] = content;
+                    }
                 }
 
             

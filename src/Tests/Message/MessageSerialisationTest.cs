@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
@@ -6,13 +7,13 @@ using VVVV.Packs.Messaging.Serializing;
 using VVVV.Utils.VMath;
 
 
+
 namespace VVVV.Packs.Messaging.Tests
 {
 
     using Time = VVVV.Packs.Time.Time;
     using System.IO;
-    using ProtoBuf;
-    using ProtoBuf.Meta;
+
 
     [TestClass]
     public class MessageSerialisationTest
@@ -70,6 +71,24 @@ namespace VVVV.Packs.Messaging.Tests
 
         }
 
+        [TestMethod]
+        public void JsonToMessage()
+        {
+
+            string json = "{'Int':42, 'NullTyped<string>':null, 'Null':null, 'String':'Hello World'}";
+
+            var newMessage = JsonConvert.DeserializeObject<Message>(json);
+            Assert.AreEqual(42, newMessage["Int"].First);
+            Assert.AreEqual("Hello World", newMessage["String"].First);
+
+            Assert.AreEqual(2, newMessage.Fields.Count());
+
+            Assert.IsNull(newMessage["NullTyped"]);
+            Assert.IsNull(newMessage["Null"]);
+        
+
+        }
+
 
         [TestMethod]
         public void MessageToProtobuf()
@@ -87,35 +106,37 @@ namespace VVVV.Packs.Messaging.Tests
 
 
             var stream = new MemoryStream();
-            var writer = new ProtoWriter(stream, null, null);
+
+//            var b = MessageUtil.GetDefaultMessage(;
+//            var writer = new ProtoWriter(stream, null, null);
 
 
 
-            //var token = ProtoWriter.StartSubItem(1, writer);
+//            //var token = ProtoWriter.StartSubItem(1, writer);
             
-            ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
-//            ProtoWriter.SetPackedField(1, writer);
+//            ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
+////            ProtoWriter.SetPackedField(1, writer);
 
-            ProtoWriter.WriteInt32(42, writer);
-            ProtoWriter.WriteInt32(18, writer);
+//            ProtoWriter.WriteInt32(42, writer);
+//            ProtoWriter.WriteInt32(18, writer);
 
-            //ProtoWriter.EndSubItem(token, writer);
+//            //ProtoWriter.EndSubItem(token, writer);
 
 
-            //ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
+//            //ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
  
-            ProtoWriter.WriteFieldHeader(8, WireType.String, writer);
-            ProtoWriter.WriteString("ww", writer);
+//            ProtoWriter.WriteFieldHeader(8, WireType.String, writer);
+//            ProtoWriter.WriteString("ww", writer);
 
-            writer.Close();
-            stream.Position = 0;
+//            writer.Close();
+//            stream.Position = 0;
 
-            var reader = new ProtoReader(stream, null, null);
-            var h = reader.ReadFieldHeader();
-            var t = reader.ReadInt32();
+//            var reader = new ProtoReader(stream, null, null);
+//            var h = reader.ReadFieldHeader();
+//            var t = reader.ReadInt32();
 
-            reader.ReadFieldHeader();
-            var s = reader.ReadString();
+//            reader.ReadFieldHeader();
+//            var s = reader.ReadString();
 
 
         }
