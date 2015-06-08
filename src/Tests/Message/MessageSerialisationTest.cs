@@ -66,7 +66,21 @@ namespace VVVV.Packs.Messaging.Tests
 
             var newMessage = JsonConvert.DeserializeObject<Message>(json);
             Assert.AreEqual(message.ToString(), newMessage.ToString());
-//            Assert.AreEqual(message, newMessage);
+
+
+            Assert.IsInstanceOfType(newMessage["stringy"].First, typeof(string));
+            Assert.IsInstanceOfType(newMessage["inty"].First, typeof(int));
+            Assert.IsInstanceOfType(newMessage["float"].First, typeof(float));
+            Assert.IsInstanceOfType(newMessage["double"].First, typeof(double));
+            Assert.IsInstanceOfType(newMessage["raw"].First, typeof(Stream));
+            Assert.IsInstanceOfType(newMessage["time"].First, typeof(Time));
+
+            Assert.IsInstanceOfType(newMessage["V2"].First, typeof(Vector2D));
+            Assert.IsInstanceOfType(newMessage["V3"].First, typeof(Vector3D));
+            Assert.IsInstanceOfType(newMessage["V4"].First, typeof(Vector4D));
+            Assert.IsInstanceOfType(newMessage["Matrix"].First, typeof(Matrix4x4));
+
+            Assert.IsInstanceOfType(newMessage["Message"].First, typeof(Message));
 
 
         }
