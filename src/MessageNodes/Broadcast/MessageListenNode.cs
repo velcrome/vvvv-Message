@@ -28,10 +28,11 @@ namespace VVVV.Packs.Messaging.Nodes.Broadcast
         
         public override void Evaluate(int SpreadMax)
         {
-            var filtered = 
+            var filtered =
+                from filter in FFilter
+                let regexFilter = Message.CreateWildCardRegex(filter)
                 from message in Receive
-                    from filter in FFilter
-                    where message.AddressMatches(filter)
+                    where message.TopicMatch(regexFilter)
                 select message;
 
             FOutput.SliceCount = 0;

@@ -126,52 +126,50 @@ namespace VVVV.Packs.Messaging
         #region Methods for filling a Bin
 
 //      Think of this as a combined Add and AddRange with internal type checks. it will NOT accept null!
-        public int Add(object val)
+        public int Add(object val)  
         {
-            var index = this.Count;  //proper return as of ArrayList.Add()
-
-            // if type is in the Registry of allowed basetypes, add this single instance
-            Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
-            if (type != null)
+            try
             {
-                if (val is T)
-                {
-                    Data.Add((T)val);
-                }
-                else Data.Add((T)Convert.ChangeType(val, this.GetInnerType())); // close, but no match. so convert.
+                var index = this.Count;  //proper return as of ArrayList.Add()
 
-                IsDirty = true;
-                return Count;
-            }
+                if (val == null) return index;
+                // throw new Exception("Cannot Add null to "+this.ToString()+".");
 
-//          Add a enumeration
-            if (val is IEnumerable ) // string should be treated differently, but that is implicit in the lines before
-            {
-                var enumerable = ((IEnumerable)val).Cast<T>();
-
-                try
+                // if type is in the Registry of allowed basetypes, add this single instance
+                Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
+                if (type != null)
                 {
-                    var first = enumerable.First();
-  //                  if ((T)first == null) return index;
-                    type = TypeIdentity.Instance.FindBaseType(first.GetType());
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Cannot add objects in " + enumerable.ToString() + " to Bin because cannot determine type. Maybe null or empty?", e);
-                }
-
-                if (type != null && this.GetInnerType() == type)
-                {
-                    foreach (var o in enumerable)
+                    if (val is T)
                     {
-                        if (!this.GetInnerType().IsAssignableFrom(o.GetType())) 
-                            throw new Exception("Cannot add object " + enumerable.ToString() + " from "+enumerable+ " to Bin because Type of inside element does not match");
-                        Data.Add((T)o);
+                        Data.Add((T)val);
                     }
+                    else Data.Add((T)Convert.ChangeType(val, this.GetInnerType())); // close, but no match. so convert.
+
+                    IsDirty = true;
+                    return Count;
+                }
+
+                //          Add a enumeration
+                if (val is IEnumerable) // string should be treated differently, but that is implicit in the lines before
+                {
+                    foreach (var o in (IEnumerable)val)
+                    {
+                        if (o is T)
+                        {
+                            Data.Add((T)o);
+                        }
+                        else Data.Add((T)Convert.ChangeType(o, typeof(T))); // close, but no match. so convert.
+                    }
+
                     IsDirty = true;
                     return index;
                 }
-            } 
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Cannot add (" + val + ") of Type " + val.GetType() + ". It is not convertible to "+this.GetType());
+            }
 
             throw new Exception("Cannot add this value ("+val+"). "+ val.GetType() + " is neither a Enumeration of matching registered Type nor a matching Type.");
         }

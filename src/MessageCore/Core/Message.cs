@@ -165,11 +165,15 @@ namespace VVVV.Packs.Messaging {
         #region Matching
 
         //      use simple wildcard pattern: use * for any amount of characters (including 0) or ? for exactly one character.
-        public bool AddressMatches(string wildcardPattern)
+        public static Regex CreateWildCardRegex(string wildcardPattern)
         {
-
             var regexPattern = "^" + Regex.Escape(wildcardPattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
             var regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            return regex;
+        }
+
+        public bool TopicMatch(Regex regex)
+        {
             return regex.IsMatch(Topic ?? "");
         }
 

@@ -61,10 +61,11 @@ namespace VVVV.Pack.Messaging.Nodes
             for (int i = 0; i < FFilter.SliceCount; i++)
             {
                 string[] filter = FFilter[i].Split('.');
-
+                var regex = Message.CreateWildCardRegex(FFilter[i]);
+                
                 for (int j = 0; j < SpreadMax; j++)
                 {
-                    if (!found[j]) found[j] = FInput[j].AddressMatches(FFilter[i]);
+                    if (!found[j]) found[j] = FInput[j].TopicMatch(regex);
                 }
             }
 
