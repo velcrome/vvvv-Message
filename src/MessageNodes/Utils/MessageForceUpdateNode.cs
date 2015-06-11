@@ -9,14 +9,16 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Clone", Category = "Message", Help = "Clones Messages to prevent overriding an instance somewhere else. Slow.",
-        Author = "velcrome")]
+    [PluginInfo(Name = "ForceUpdate", Category = "Message", Help = "Enforces downstream Update", AutoEvaluate = true, Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageCloneNode : IPluginEvaluate
+    public class MessageForceUpdateNode : IPluginEvaluate
     {
 #pragma warning disable 649, 169
         [Input("Input")]
         private IDiffSpread<Message> FInput;
+
+        [Input("Update", IsSingle=true)]
+        private IDiffSpread<bool> FUpdate;
 
         [Output("Output", AutoFlush = false)]
         private ISpread<Message> FOutput;
@@ -27,14 +29,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInput.IsChanged)
+            if (FInput.IsChanged || FUpdate[0])
             {
-                var clones = from message in FInput
-                             where message != null
-                             select message.Clone() as Message;
-
-                FOutput.SliceCount = 0; 
-                FOutput.AssignFrom(clones);
+                FOutput.SliceCount = 0;
+                FOutput.AssignFrom(FInput);
                 FOutput.Flush();
             }
         }

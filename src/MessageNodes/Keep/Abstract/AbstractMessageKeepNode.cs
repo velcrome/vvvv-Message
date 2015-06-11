@@ -61,8 +61,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 Change = FIOFactory.CreateIOContainer(pinType, attr);
 
                 FChangeOut = Change.RawIOObject as Pin<Message>;
-
-
                 attr = new OutputAttribute("Changed Message Index");
                 attr.AutoFlush = false;
                 attr.Order = 3;
@@ -100,8 +98,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 foreach (var message in FRemove)
                 {
-//                    if (Keep.Contains(message)) 
-                        anyChange |= Keep.Remove(message);
+                    anyChange |= Keep.Remove(message); // Remove will return false, if not in contained in Keep
                 }
             }
             return anyChange;

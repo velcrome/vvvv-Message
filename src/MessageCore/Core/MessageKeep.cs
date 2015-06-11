@@ -45,7 +45,7 @@ namespace VVVV.Packs.Messaging
         public bool IsChanged
         {
             get {
-                return Messages.Any(m => m.IsChanged);
+                return Changes.Count > 0 || Messages.Any(m => m.IsChanged);
             }
             protected set {
                 if (value == false)
@@ -116,7 +116,8 @@ namespace VVVV.Packs.Messaging
                 {
                     temp.Add(Messages.IndexOf(orig));
                     if (!QuickMode) changes.Add(Changes[orig]);
-//                        else changes.Add(orig);
+//                        else changes.Add(orig);#
+                    Changes[orig].Data.Clear();
                 }
             }
 
@@ -174,7 +175,8 @@ namespace VVVV.Packs.Messaging
             }
             else
             {
-                Changes.Add(message, message.Clone() as Message);
+//                Changes.Add(message, message);
+                Changes.Add(message, message.Clone() as Message);  // to clone or not to clone...
                 message.ChangedWithDetails += MessageChangedWithDetails;
             }
 
