@@ -18,6 +18,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Reset", IsSingle = true, IsBang = true, Order = 1, Visibility = PinVisibility.Hidden)]
         public IDiffSpread<bool> FReset;
 
+        [Input("Remove", Order = 2, Visibility = PinVisibility.OnlyInspector)]
+        public IDiffSpread<Message> FRemove;
+
         [Output("Output", Order = 0, AutoFlush = false)]
         public Pin<Message> FOutput;
 
@@ -90,14 +93,31 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
+        protected virtual bool CheckRemove()
+        {
+            var anyChange = false;
+            if (!FRemove.IsAnyInvalid())
+            {
+                foreach (var message in FRemove)
+                {
+//                    if (Keep.Contains(message)) 
+                        anyChange |= Keep.Remove(message);
+                }
+            }
+            return anyChange;
+        }
+        
+        
         protected virtual bool CheckReset()
         {
+            var anyChange = CheckRemove();
+
             if (!FReset.IsAnyInvalid() && FReset[0])
             {
                 Keep.Clear();
-                return true;
+                anyChange = true;
             }
-            return false;
+            return anyChange;
 
         }
 
@@ -111,7 +131,6 @@ namespace VVVV.Packs.Messaging.Nodes
                     FChangeOut.Flush();
                     FChangeIndexOut.SliceCount = 0;
                     FChangeIndexOut.Flush();
-
                 }
 
                 return false;

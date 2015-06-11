@@ -26,6 +26,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Removed Messages", AutoFlush = false, Order = 2)]
         public ISpread<Message> FRemovedMessages;
 
+        List<Message> DeadMessages = new List<Message>();
+
         #endregion fields & pins
 
         //called when data for any output pin is requested
@@ -33,18 +35,14 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var update = CheckReset();
 
-            // inject all incoming messages and keep a list of all
-            var idFields = from fieldName in FUseAsID
-                            select fieldName.Name;
 
             if (!FInput.IsAnyInvalid())
                 foreach (var message in FInput)
                 {
-                    var found = MatchOrInsert(message, idFields);
+                    var found = MatchOrInsert(message);
                 }
 
-            if (FTime[0] > 0) 
-                if (RemoveOld()) update = true;
+            if (RemoveOld()) update = true;
 
             if (UpKeep(update)) update = true;  
            
@@ -58,6 +56,9 @@ namespace VVVV.Packs.Messaging.Nodes
                     var change = FChangeOut[i];
                     var orig = Keep[FChangeIndexOut[i]];
 
+                    var idFields = from fieldName in FUseAsID
+                                   select fieldName.Name; 
+                    
                     foreach (var field in idFields)
                     {
                         if (field != TOPIC)
@@ -67,23 +68,13 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
-        public Message MatchOrInsert(Message message, IEnumerable<string> idFields)
+        public Message MatchOrInsert(Message message)
         {
-            var compatibleBins = idFields.Intersect(message.Fields).ToArray();
-            bool includeTopic = idFields.Contains(TOPIC) ;
-            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
-
-            var match = (
-                           from keep in Keep
-                           where isCompatible 
-                           where !includeTopic || keep.Topic.Equals(message.Topic)
-                           where compatibleBins.Length == 0 || (
-                                    from fieldName in compatibleBins
-                                    select (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)
-                                ).All(x => x)
-                           select keep
-
-                         ).DefaultIfEmpty(null).First();
+            // inject all incoming messages and keep a list of all
+            var idFields = from fieldName in FUseAsID
+                           select fieldName.Name;
+            
+            var match = MatchByField(message, idFields);
 
             if (match == null)
             {
@@ -97,24 +88,95 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
+        protected Message MatchByField(Message message, IEnumerable<string> idFields)
+        {
+            var compatibleBins = idFields.Intersect(message.Fields).ToArray();
+            bool includeTopic = idFields.Contains(TOPIC);
+            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
+
+            var match = (
+                           from keep in Keep
+                           where isCompatible
+                           where !includeTopic || keep.Topic.Equals(message.Topic)
+                           where compatibleBins.Length == 0 || (
+                                    from fieldName in compatibleBins
+                                    select (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)
+                                ).All(x => x)
+                           select keep
+
+                         ).DefaultIfEmpty(null).First();
+            return match;
+        }
+
+        protected override bool CheckRemove()
+        {
+            var anyChange = false;
+            if (!FRemove.IsAnyInvalid())
+            {
+                foreach (var message in FRemove)
+                {
+                    if (Keep.Contains(message))
+                    {
+                        anyChange |= Keep.Remove(message);
+                        DeadMessages.Add(message);
+                    }
+                    else
+                    {
+                        var idFields = from fieldName in FUseAsID
+                                       select fieldName.Name;
+
+                        var match = MatchByField(message, idFields);
+
+                        if (match != null)
+                        {
+                            anyChange = true;
+
+                            DeadMessages.Add(match);
+                            Keep.Remove(match);
+                        }
+                    }
+                }
+            }
+            return anyChange;
+        }
+
+        protected override bool CheckReset()
+        {
+            var anyChange = CheckRemove();
+
+            if (!FReset.IsAnyInvalid() && FReset[0])
+            {
+                DeadMessages.AddRange(Keep);
+
+                Keep.Clear();
+                anyChange = true;
+            }
+            return anyChange;
+
+        }
+        
         private bool RemoveOld()
         {
+
+            
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
 
-            var deadMessages =
-                (
-                from message in Keep.ToList()
-                where message.TimeStamp < validTime
-                let removed = Keep.Remove(message)
-                select message
-                );
+            if (FTime[0] > 0)
+                DeadMessages = DeadMessages.Concat(
+                    from message in Keep.ToList()
+                    where message.TimeStamp < validTime
+                    let removed = Keep.Remove(message)
+                    select message
+                ).ToList();
 
-            if (FRemovedMessages.SliceCount > 0 || deadMessages.Count() > 0)
+            if (FRemovedMessages.SliceCount > 0 || DeadMessages.Count() > 0)
             {
                 FRemovedMessages.SliceCount = 0;
-                FRemovedMessages.AssignFrom(deadMessages);
+                FRemovedMessages.AssignFrom(DeadMessages);
                 FRemovedMessages.Flush();
+
+                DeadMessages.Clear();
                 return true;
             }
             else
