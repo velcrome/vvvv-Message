@@ -44,7 +44,6 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
             FAdvanced.Changed += ManageDiffOutput;
-//            FReset.Changed += Reset;
         }
 
         private void ManageDiffOutput(IDiffSpread<bool> advanced)

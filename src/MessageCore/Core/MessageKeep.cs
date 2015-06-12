@@ -116,8 +116,7 @@ namespace VVVV.Packs.Messaging
                 {
                     temp.Add(Messages.IndexOf(orig));
                     if (!QuickMode) changes.Add(Changes[orig]);
-//                        else changes.Add(orig);#
-                    Changes[orig].Data.Clear();
+//                    Changes[orig].Data.Clear();
                 }
             }
 
@@ -140,19 +139,8 @@ namespace VVVV.Packs.Messaging
         }
         #endregion Syncing
 
-        public void Sort()
-        {
-            Messages.Sort(
-                delegate(Message x, Message y)
-                {
-                    return (x.TimeStamp.UniversalTime > y.TimeStamp.UniversalTime) ? 1 : 0;
-                }
-            );
-        }
-
         public void AssignFrom(IEnumerable<Message> input)
         {
-
             Clear();
             foreach (var message in input)
             {
@@ -161,7 +149,6 @@ namespace VVVV.Packs.Messaging
         }
 
         #region IList implementation
-
         
         public void Add(Message message)
         {
@@ -251,13 +238,17 @@ namespace VVVV.Packs.Messaging
             }
             set
             {
-                var message = Messages[index];
-                message.ChangedWithDetails -= MessageChangedWithDetails;
-                message.Changed -= MessageChanged;
+                Message message;
+                if (Messages.ElementAtOrDefault(index) != null)
+                {
+                    message = Messages[index];
+                    message.ChangedWithDetails -= MessageChangedWithDetails;
+                    message.Changed -= MessageChanged;
+                }
 
                 Messages[index] = value;
                 if (QuickMode)
-                    message.Changed += MessageChanged;
+                    value.Changed += MessageChanged;
                     else value.ChangedWithDetails += MessageChangedWithDetails;
             }
         }

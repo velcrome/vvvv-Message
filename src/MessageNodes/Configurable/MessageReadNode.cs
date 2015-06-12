@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageReadNode : DynamicPinNode
     {
         [Input("AvoidNil", IsSingle = true, IsToggle = true, DefaultBoolean = true, Order = 3)]
-        protected ISpread<bool> FAvoidNil;
+        protected IDiffSpread<bool> FAvoidNil;
 
         [Output("Message Bin Size", AutoFlush = false)]
         protected ISpread<int> FBinSize;

@@ -13,9 +13,46 @@ namespace VVVV.Packs.Messaging.Tests
     [TestClass]
     public class MessageKeepTest
     {
-
         [TestMethod]
         public void KeepTest()
+        {
+            var message = new Message("A");
+            message.Init("foo", "bar");
+            var code = message.GetHashCode();
+
+            var keep = new MessageKeep();
+            keep.Add(message);
+
+            keep.Sync();
+
+            Assert.AreEqual(keep.IsChanged, false);
+            message["foo"].First = "xxx";
+            Assert.AreEqual(keep.IsChanged, true);
+
+            message.Sync();
+
+            Assert.AreEqual(keep.IsChanged, true);
+            message["foo"].First = "yyy";
+            Assert.AreEqual(keep.IsChanged, true);
+
+            keep.QuickMode = false;
+            Assert.AreEqual(keep.IsChanged, true);
+
+            message.Sync();
+
+            IEnumerable<int> indices;
+            var changes = keep.Sync(out indices);
+
+            Assert.AreEqual(keep.IsChanged, false);
+
+
+
+
+        }
+
+
+        [TestMethod]
+        public void KeepTest_2()
         {
             var messageA = new Message("A");
             messageA["Num"] = BinFactory.New<int>(1, 2, 3);
@@ -93,5 +130,8 @@ namespace VVVV.Packs.Messaging.Tests
 
         
         }
+
+
+
     }
 }

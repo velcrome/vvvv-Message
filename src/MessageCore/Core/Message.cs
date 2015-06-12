@@ -287,17 +287,12 @@ namespace VVVV.Packs.Messaging {
 				Bin list = Data[name];
 				m.AssignFrom(name, list.Clone() as IEnumerable);
 				
-				// really deep cloning
-				try {
-					for(int i =0;i<list.Count;i++) {
-						list[i] = ((ICloneable)list[i]).Clone();
+				// really deep cloning, but keep only a reference to a nested sub message
+                if (typeof(ICloneable).IsAssignableFrom(list.GetInnerType()) && list.GetInnerType() != typeof(Message))
+                    for(int i =0;i<list.Count;i++) {
+                        list[i] = ((ICloneable)list[i]).Clone();
 					}
-				} catch (Exception err) {
-					err.ToString(); // no warning
-					// not cloneble. so keep it
-				}
 			}
-			
 			return m;
 		}
 		
