@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
+﻿using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -19,7 +15,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input")]
         private IDiffSpread<Message> FInput;
 
-        [Input("Update", IsSingle=true, DefaultEnumEntry = "Block")]
+        [Input("Update", IsSingle=true, DefaultEnumEntry = "Default")]
         private IDiffSpread<FlowControlEnum> FFlowControl;
 
         [Output("Output", AutoFlush = false)]
