@@ -82,7 +82,7 @@
     <Compile Include="Configurable\MessageAvoidNilNode.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
     <Compile Include="Spread\MessageDistinctNode.cs" />
-    <Compile Include="Utils\MessageForceUpdateNode.cs" />
+    <Compile Include="Utils\MessageFlowControlNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />
     <Compile Include="Keep\MessageKeepHoldNode.cs" />
     <Compile Include="Utils\MessageInfoNode.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="Spread\MessageSortNode.cs" />
     <Compile Include="Utils\MessageStreamingNodes.cs" />
     <Compile Include="Utils\MessageTopicNode.cs" />
+    <Compile Include="Utils\MessageRemoveNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

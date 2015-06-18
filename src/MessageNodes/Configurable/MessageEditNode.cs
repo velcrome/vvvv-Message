@@ -61,10 +61,12 @@ namespace VVVV.Nodes.Messaging.Nodes
                 return;
             }
 
-            bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
-            bool forceUpdate = FUpdate.IsChanged && FUpdate.Any(update => update); // upflank of FUpdate[0] 
+            bool anyUpdate = FUpdate.Any(update => update);
 
-            if (FInput.IsChanged || forceUpdate || newData) {
+            bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
+            bool forceUpdate = FUpdate.IsChanged && anyUpdate; // upflank of FUpdate[0] 
+
+            if (anyUpdate && (FInput.IsChanged || forceUpdate || newData)) {
                 int messageIndex = 0;
                 foreach (var message in FInput)
                 {
