@@ -23,6 +23,9 @@ namespace VVVV.Nodes.Messaging.Nodes
         [Input("Input", Order = 0)] 
         IDiffSpread<Message> FInput;
 
+        [Input("Update only on data change", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FDetectChange;
+
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
 
@@ -49,24 +52,46 @@ namespace VVVV.Nodes.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = FInput.IsAnyInvalid() || FUpdate.IsAnyInvalid() ? 0 : FInput.SliceCount;
+            var anyUpdate = FUpdate.Any(x => x);
 
-            if (SpreadMax == 0)
+            // Flush upstream changes through the plugin
+            if (FInput.IsChanged)
             {
-                if (FOutput.SliceCount != 0)
+                FOutput.SliceCount = 0;
+
+                if (FInput.IsAnyInvalid())
                 {
-                    FOutput.SliceCount = 0;
+                    if (FOutput.SliceCount > 0)
+                    {
+                        FOutput.Flush();
+                        return; // if no input, no further calculation.
+                    }
+                }
+                else
+                {
+                    FOutput.AssignFrom(FInput); // push change from upstream if valid
                     FOutput.Flush();
                 }
-                return;
+            }
+            else // no change from upstream.
+            {
+                if (anyUpdate) // push change that Write will be performing
+                {
+                    FOutput.AssignFrom(FInput);
+                    FOutput.Flush();
+                }
             }
 
-            bool anyUpdate = FUpdate.Any(update => update);
-
             bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
-            bool forceUpdate = FUpdate.IsChanged && anyUpdate; // upflank of FUpdate[0] 
+            bool forceUpdate = FDetectChange[0]; // FUpdate.IsChanged && anyUpdate; // upflank of FUpdate[0] 
 
-            if (anyUpdate && (FInput.IsChanged || forceUpdate || newData)) {
+            if (!FInput.IsChanged &&
+                 !FConfig.IsChanged &&
+                 !newData
+             ) return; // if no change, no furter calc
+
+
+            if (anyUpdate && (forceUpdate || newData)) {
                 int messageIndex = 0;
                 foreach (var message in FInput)
                 {
@@ -74,8 +99,6 @@ namespace VVVV.Nodes.Messaging.Nodes
                     CopyFromPins(message, messageIndex, true) ;
                         messageIndex++;
                 }
-                FOutput.AssignFrom(FInput);
-                FOutput.Flush();
             }
         }
     }

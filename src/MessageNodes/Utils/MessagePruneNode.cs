@@ -9,7 +9,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Prune", Category = "Message", Help = "Removes all fields with the indicated Name of any Message ", Tags = "velcrome")]
+    [PluginInfo(Name = "Prune", Category = "Message", Help = "Removes all fields with the indicated Name of any Message ", Author = "velcrome")]
     #endregion PluginInfo
     public class MessagePruneNode : IPluginEvaluate
     {
@@ -50,8 +50,10 @@ namespace VVVV.Packs.Messaging.Nodes
                         message.Remove(fieldName);
             }
 
+
             FOutput.SliceCount = 0;
             FOutput.AssignFrom(FInput);
+//            FOutput.AssignFrom(FInput.Where(message => !message.IsEmpty));
             FOutput.Flush();
         }
     }

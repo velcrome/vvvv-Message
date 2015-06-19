@@ -15,10 +15,13 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
-        [Input("Reset", IsBang = true, Order = int.MaxValue - 2)]
-        public IDiffSpread<bool> FReset;
+        [Input("Update only on data change", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FDetectChange;
 
-        [Input("Count", IsSingle = true, DefaultValue = 1, Order = int.MaxValue - 1)]
+        [Input("Update", IsToggle = true, Order = int.MaxValue-1, DefaultBoolean = true)]
+        IDiffSpread<bool> FUpdate;
+
+        [Input("Count", IsSingle = true, DefaultValue = 1, Order = int.MaxValue)]
         public IDiffSpread<int> FSpreadCount;
 
         [Output("Output", AutoFlush = false)]
@@ -38,7 +41,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected virtual bool CheckReset()
         {
-            if ((!FReset.IsAnyInvalid() && FReset[0]) || FConfig.IsChanged)
+            if (FConfig.IsChanged)
+//                if ((!FReset.IsAnyInvalid() && FReset[0]) || FConfig.IsChanged)
             {
                 Keep.Clear();
                 return true;
@@ -57,9 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     FChangeIndexOut.Flush();
                     FChangeOut.SliceCount = 0;
                     FChangeOut.Flush();
-
                 }
-
                 return false;
             }
 
@@ -114,11 +116,8 @@ namespace VVVV.Packs.Messaging.Nodes
 //          Reset?
             var update = CheckReset();
 
-            if (FTopic.IsChanged)
-            {
-                Keep.Clear();
-                update = true;
-            }
+            var newData = FPins.Any(x => x.Value.ToISpread().IsChanged) || !FDetectChange[0]; // changed pins
+            var newTopic = FTopic.IsChanged;
 
 //          remove superfluous entries
             if (SpreadMax < Keep.Count) 
@@ -131,20 +130,31 @@ namespace VVVV.Packs.Messaging.Nodes
             for (int i = Keep.Count; i < SpreadMax; i++)
             {
                 update = true; // new entry in Keep will require data
+
+                newData = true;
+                newTopic = true;
+
                 var message = new Message(Formular);
                 message.Topic = FTopic[i];
                 Keep.Add(message);
             }
 
-            var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
+//          check update pin
+            update |= FUpdate.Any(x => x);
 
-            if (newData || update)
+            if (update && (newData || newTopic))
             {
                 // ...and start filling messages
                 int messageIndex = 0;
                 foreach (var message in Keep)
                 {
-                    if (CopyFromPins(message, messageIndex, newData)) update = true;
+                    // only copy, when Update is true for this message
+                    if ((update || !FDetectChange[0]) && FUpdate[messageIndex] && CopyFromPins(message, messageIndex, newData)) update = true;
+                    if (newTopic && FUpdate[messageIndex] && message.Topic != FTopic[messageIndex]) 
+                    {
+                        message.Topic = FTopic[messageIndex];
+                        update = true;
+                    }
                     messageIndex++;
                 }
             }

@@ -276,6 +276,14 @@ namespace VVVV.Packs.Messaging {
         #endregion
 
         #region Utils
+        public bool IsEmpty
+        {
+            get
+            {
+                return Fields.Count() == 0;
+            }
+        }
+
         public object Clone() {
             // might be faster when utilizing binary serialisation.
 

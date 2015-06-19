@@ -16,7 +16,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("AvoidNil", IsSingle = true, IsToggle = true, DefaultBoolean = true, Order = 3)]
         protected IDiffSpread<bool> FAvoidNil;
 
-        [Output("Message Bin Size", AutoFlush = false)]
+        [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
 
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
