@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
-        [Input("Update only on data change", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
         IDiffSpread<bool> FDetectChange;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue-1, DefaultBoolean = true)]
@@ -114,22 +114,27 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
-            var update = CheckReset();
+            var anyUpdate = CheckReset();
 
-            var newData = FPins.Any(x => x.Value.ToISpread().IsChanged) || !FDetectChange[0]; // changed pins
+            var forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
+          
+            var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
+            newData |= forceUpdate; // if update is forced, then predent it is new Data
+            
             var newTopic = FTopic.IsChanged;
+            newTopic |= forceUpdate; // if update is forced, then pretend it is a new Topic
 
 //          remove superfluous entries
             if (SpreadMax < Keep.Count) 
             {
-                update = true;
+                anyUpdate = true;
                 Keep.RemoveRange(SpreadMax, Keep.Count - SpreadMax);
             }
 
 //          add new entries
             for (int i = Keep.Count; i < SpreadMax; i++)
             {
-                update = true; // new entry in Keep will require data
+                anyUpdate = true; // new entry in Keep will require data
 
                 newData = true;
                 newTopic = true;
@@ -140,20 +145,22 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
 //          check update pin
-            update |= FUpdate.Any(x => x);
+            anyUpdate |= FUpdate.Any(x => x);
 
-            if (update && (newData || newTopic))
+            if (anyUpdate && (newData || newTopic))
             {
                 // ...and start filling messages
                 int messageIndex = 0;
                 foreach (var message in Keep)
                 {
                     // only copy, when Update is true for this message
-                    if ((update || !FDetectChange[0]) && FUpdate[messageIndex] && CopyFromPins(message, messageIndex, newData)) update = true;
+                    if (newData && FUpdate[messageIndex] && CopyFromPins(message, messageIndex, !forceUpdate)) 
+                        anyUpdate = true;
+                    
                     if (newTopic && FUpdate[messageIndex] && message.Topic != FTopic[messageIndex]) 
                     {
                         message.Topic = FTopic[messageIndex];
-                        update = true;
+                        anyUpdate = true;
                     }
                     messageIndex++;
                 }
@@ -161,7 +168,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (Keep.IsChanged)
             {
-                UpKeep(update);
+                UpKeep(anyUpdate);
             }
             else  // no change, so make sure, none is reported
             {

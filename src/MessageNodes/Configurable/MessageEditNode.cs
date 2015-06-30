@@ -23,7 +23,7 @@ namespace VVVV.Nodes.Messaging.Nodes
         [Input("Input", Order = 0)] 
         IDiffSpread<Message> FInput;
 
-        [Input("Update only on data change", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
         IDiffSpread<bool> FDetectChange;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
@@ -83,7 +83,7 @@ namespace VVVV.Nodes.Messaging.Nodes
             }
 
             bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
-            bool forceUpdate = FDetectChange[0]; // FUpdate.IsChanged && anyUpdate; // upflank of FUpdate[0] 
+            bool forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
 
             if (!FInput.IsChanged &&
                  !FConfig.IsChanged &&

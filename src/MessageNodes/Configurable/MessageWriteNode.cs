@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageWriteNode : DynamicPinNode
     {
 #pragma warning disable 649, 169
-        [Input("Update only on data change", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility=PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility=PinVisibility.OnlyInspector)]
         IDiffSpread<bool> FDetectChange;
         
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
@@ -71,7 +71,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (!anyUpdate) return; // all is pushed before hand, so preempt here, if no change will occur in Write
 
-           if (!FDetectChange[0] &&
+            var forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
+
+           if ( !forceUpdate &&
                !FInput.IsChanged && 
                 !FConfig.IsChanged && 
                 !FKey.IsChanged && 
