@@ -52,26 +52,26 @@ namespace VVVV.Nodes.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            var anyUpdate = FUpdate.Any(x => x);
+ 
+            if (FInput.IsAnyInvalid())
+            {
+                if (FOutput.SliceCount > 0)
+                {
+                    FOutput.Flush();
+                    return; // if no input, no further calculation.
+                }
+                return;
+            }
 
+            // is any Update slice checked?
+            var anyUpdate = FUpdate.Any(x => x);
+ 
             // Flush upstream changes through the plugin
             if (FInput.IsChanged)
             {
                 FOutput.SliceCount = 0;
-
-                if (FInput.IsAnyInvalid())
-                {
-                    if (FOutput.SliceCount > 0)
-                    {
-                        FOutput.Flush();
-                        return; // if no input, no further calculation.
-                    }
-                }
-                else
-                {
-                    FOutput.AssignFrom(FInput); // push change from upstream if valid
-                    FOutput.Flush();
-                }
+                FOutput.AssignFrom(FInput); // push change from upstream if valid
+                FOutput.Flush();
             }
             else // no change from upstream.
             {

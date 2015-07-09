@@ -157,8 +157,6 @@ namespace VVVV.Packs.Messaging.Nodes
         
         private bool RemoveOld()
         {
-
-            
             var validTime = Time.Time.CurrentTime() -
                             new TimeSpan(0, 0, 0, (int)Math.Floor(FTime[0]), (int)Math.Floor((FTime[0] * 1000) % 1000));
 

@@ -80,7 +80,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             
             if (!FInput.IsChanged && !FTopicAdd.IsChanged && !FContract.IsChanged) return;
 
-            FOutput.SliceCount = SpreadMax;
+            FOutput.SliceCount = 0;
 
             for (int i = 0; i < SpreadMax; i++)
             {
