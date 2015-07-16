@@ -292,15 +292,18 @@ namespace VVVV.Packs.Messaging {
 			m.TimeStamp = TimeStamp;
 			
 			foreach (string name in Data.Keys) {
-				Bin list = Data[name];
-				m.AssignFrom(name, list.Clone() as IEnumerable);
-				
+				var list = Data[name];
+                var type = list.GetInnerType();
+                var newList = BinFactory.New(type, list.Count);
+
 				// really deep cloning, but keep only a reference to a nested sub message
-                if (typeof(ICloneable).IsAssignableFrom(list.GetInnerType()) && list.GetInnerType() != typeof(Message))
+                if (typeof(ICloneable).IsAssignableFrom(type) && type != typeof(Message))
                     for(int i =0;i<list.Count;i++) {
-                        list[i] = ((ICloneable)list[i]).Clone();
+                        newList.Add( ((ICloneable)list[i]).Clone() );
 					}
-			}
+             
+                m.AssignFrom(name, newList); // add list to new Message
+            }
 			return m;
 		}
 		
