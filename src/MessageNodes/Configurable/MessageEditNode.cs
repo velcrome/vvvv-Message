@@ -24,7 +24,7 @@ namespace VVVV.Nodes.Messaging.Nodes
         IDiffSpread<Message> FInput;
 
         [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
-        IDiffSpread<bool> FDetectChange;
+        IDiffSpread<bool> FAutoSense;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
@@ -52,16 +52,18 @@ namespace VVVV.Nodes.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
- 
             if (FInput.IsAnyInvalid())
             {
                 if (FOutput.SliceCount > 0)
                 {
+                    FOutput.SliceCount = 0;
                     FOutput.Flush();
                     return; // if no input, no further calculation.
                 }
                 return;
             }
+
+            bool doFlush = false;
 
             // is any Update slice checked?
             var anyUpdate = FUpdate.Any(x => x);
@@ -71,35 +73,25 @@ namespace VVVV.Nodes.Messaging.Nodes
             {
                 FOutput.SliceCount = 0;
                 FOutput.AssignFrom(FInput); // push change from upstream if valid
-                FOutput.Flush();
+                doFlush = true;
             }
-            else // no change from upstream.
-            {
-                if (anyUpdate) // push change that Write will be performing
-                {
-                    FOutput.AssignFrom(FInput);
-                    FOutput.Flush();
-                }
-            }
+            else if (!anyUpdate) return; // if no update and no change, no need to flush! 
 
             bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
-            bool forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
+            newData |= !FAutoSense[0]; // assume newData, if AutoSense is off.
 
-            if (!FInput.IsChanged &&
-                 !FConfig.IsChanged &&
-                 !newData
-             ) return; // if no change, no furter calc
-
-
-            if (anyUpdate && (forceUpdate || newData)) {
+            if (anyUpdate && newData) {
                 int messageIndex = 0;
                 foreach (var message in FInput)
                 {
                     if (FUpdate[messageIndex])
-                    CopyFromPins(message, messageIndex, true) ;
-                        messageIndex++;
+                    doFlush |= CopyFromPins(message, messageIndex, FAutoSense[0]);
+                        
+                    messageIndex++;
                 }
             }
+
+            if (doFlush) FOutput.Flush();
         }
     }
 }

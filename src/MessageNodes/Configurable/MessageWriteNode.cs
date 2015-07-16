@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Nodes
     {
 #pragma warning disable 649, 169
         [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility=PinVisibility.OnlyInspector)]
-        IDiffSpread<bool> FDetectChange;
+        IDiffSpread<bool> FAutoSense;
         
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
@@ -38,90 +38,80 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            if (FInput.IsAnyInvalid())
+            {
+                if (FOutput.SliceCount > 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
+                return; // if no input, no further calculation.
+            }
+
+            bool doFlush = false;
+
             // any of the update slices is true -> update the plugin.
             var anyUpdate = FUpdate.Any(x => x);
-            
+
             // Flush upstream changes through the plugin
             if (FInput.IsChanged)
             {
                 FOutput.SliceCount = 0;
-
-                if (FInput.IsAnyInvalid())
-                {
-                    if (FOutput.SliceCount > 0)
-                    {
-                        FOutput.Flush();
-                        return; // if no input, no further calculation.
-                    }
-                }
-                else
-                {
-                    FOutput.AssignFrom(FInput); // push change from upstream if valid
-                    FOutput.Flush();
-                }
+                FOutput.AssignFrom(FInput);
+                doFlush = true;
             }
-            else // no change from upstream.
-            {
-                if (anyUpdate) // push change that Write will be performing
-                {
-                    FOutput.AssignFrom(FInput);
-                    FOutput.Flush();
-                }
-            }
-
-            if (!anyUpdate) return; // all is pushed before hand, so preempt here, if no change will occur in Write
-
-            var forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
-
-           if ( !forceUpdate &&
-               !FInput.IsChanged && 
-                !FConfig.IsChanged && 
-                !FKey.IsChanged && 
-                !FValue.ToISpread().IsChanged 
-            ) return; // if no change, no furter calc
-
-            SpreadMax = FInput.SliceCount;
+            else if (!anyUpdate) return;
 
             var keyCount = FKey.SliceCount;
             var ValueSpread = FValue.ToISpread();
 
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                Message message = FInput[i];
+            bool newData = ValueSpread.IsChanged; // changed pin
+            newData |= !FAutoSense[0]; // assume newData, if AutoSense is off.
 
-                var keyIndex = 0;
-                foreach (var key in FKey)
+            if (anyUpdate && newData) {
+                SpreadMax = FInput.SliceCount;
+                doFlush = true;
+
+                for (int i = 0; i < SpreadMax; i++)
                 {
-                    var fieldIndex = i * keyCount + keyIndex;
-                    var value = (ValueSpread[fieldIndex] as ISpread);
-
-                    if (!message.Fields.Contains(key)) message[key] = BinFactory.New(TargetDynamicType);
-
-                    if (value.SliceCount > 0)
+                    Message message = FInput[i];
+                       
+                    var keyIndex = 0;
+                    foreach (var key in FKey)
                     {
-                        if (message[key].GetInnerType().IsAssignableFrom(TargetDynamicType))
+                        var fieldIndex = i * keyCount + keyIndex;
+                        var value = (ValueSpread[fieldIndex] as ISpread);
+
+                        if (!message.Fields.Contains(key)) message[key] = BinFactory.New(TargetDynamicType);
+
+                        if (value.SliceCount > 0)
                         {
-                            // check if any relevant change occurred
-                            if (FUpdate[fieldIndex] && !message[key].Equals(value as IEnumerable)) message.AssignFrom(key, value);
+                            if (message[key].GetInnerType().IsAssignableFrom(TargetDynamicType))
+                            {
+                                // check if any relevant change occurred
+                                if (FUpdate[fieldIndex] && !message[key].Equals(value as IEnumerable)) message.AssignFrom(key, value);
+                            }
+                            else
+                            {
+                                if (!FUpdate[fieldIndex]) continue;
+
+                                IList casted = new ArrayList();
+                                foreach (var slice in value)
+                                    casted.Add(Convert.ChangeType(slice, message[key].GetInnerType()));
+
+                                // check if any relevant change occurred
+                                if (!message[key].Equals(casted as IEnumerable)) message.AssignFrom(key, casted);
+                            }
                         }
-
-                        else
-                        {
-                            if (!FUpdate[fieldIndex]) continue;
-
-                            IList casted = new ArrayList();
-                            foreach (var slice in value)
-                                casted.Add(Convert.ChangeType(slice, message[key].GetInnerType()));
-
-                            // check if any relevant change occurred
-                            if (!message[key].Equals(casted as IEnumerable)) message.AssignFrom(key, casted);
-                        }
-
+                        else message[key].Clear();
+                        keyIndex++;
                     }
-                    else message[key].Clear();
-                    keyIndex++;
-
                 }
+            }
+
+            if (doFlush)
+            {
+                FOutput.Flush();
             }
         }
 
