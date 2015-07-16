@@ -302,7 +302,7 @@ namespace VVVV.Packs.Messaging {
                         newList.Add( ((ICloneable)list[i]).Clone() );
 					}
              
-                m.AssignFrom(name, newList); // add list to new Message
+                m[name] = newList; // add list to new Message
             }
 			return m;
 		}
