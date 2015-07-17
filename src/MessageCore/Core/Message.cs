@@ -297,11 +297,26 @@ namespace VVVV.Packs.Messaging {
                 var newList = BinFactory.New(type, list.Count);
 
 				// really deep cloning, but keep only a reference to a nested sub message
-                if (typeof(ICloneable).IsAssignableFrom(type) && type != typeof(Message))
-                    for(int i =0;i<list.Count;i++) {
-                        newList.Add( ((ICloneable)list[i]).Clone() );
-					}
-             
+                bool isPrimitiveType = type.IsPrimitive || type.IsValueType || (type == typeof(string));
+
+                if (isPrimitiveType || type == typeof(Message))
+                {
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        newList.Add(list[i]); // if primitive -> auto copy. if Message -> reference only
+                    }
+                }
+                else
+                {
+                    if (typeof(ICloneable).IsAssignableFrom(type)) {
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            var clone = ((ICloneable)list[i]).Clone();
+                            newList.Add(clone);
+                        }
+                    } else throw new Exception(type.FullName + " cannot be cloned nor copied, while cloning the message "+this.Topic);
+                }
+                
                 m[name] = newList; // add list to new Message
             }
 			return m;

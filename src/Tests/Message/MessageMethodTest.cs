@@ -47,7 +47,6 @@ namespace VVVV.Packs.Messaging.Tests
 
             message.AddFrom("num", new object[] { "6", true });
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 4 5 6 1 \r\n", message.ToString());
-
         }
 
         
@@ -65,8 +64,6 @@ namespace VVVV.Packs.Messaging.Tests
 
             newMessage.InjectWith(message, true);
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 \r\n", newMessage.ToString());
-
-
         }
 
         [TestMethod]
@@ -79,11 +76,20 @@ namespace VVVV.Packs.Messaging.Tests
             message.SetFormular(formular);
 
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: vvvv \r\n num \t: 0 0 0 0 \r\n", message.ToString());
-
-
-
-
         }
 
+        [TestMethod]
+        public void MessageClone()
+        {
+            var message = fresh();
+            message.AddFrom("foo", new string[] { "bar", "DD" });
+            message.AddFrom("num", new int[] { 1, 2, 3 });
+
+            var clone = message.Clone();
+
+            Assert.AreEqual(clone.ToString(), message.ToString());
+        }
+
+    
     }
 }
