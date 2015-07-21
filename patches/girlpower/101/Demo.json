@@ -1,8 +1,8 @@
 [{
   "Topic": "Event",
-  "Foo": "hello world",
+  "Foo": "asdf",
   "Stamp": {
-    "UTC": "2015-04-18 22:39:41.9519",
+    "UTC": "2015-07-21 16:29:49.6249",
     "ZoneId": "W. Europe Standard Time"
   }
 }, ]

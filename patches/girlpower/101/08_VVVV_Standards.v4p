@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta34_x64\packs\vvvv-Message\nodes\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="5535" top="4026" width="100" height="100">
@@ -150,6 +150,22 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="33.7.0">
+   <PACK Name="addonpack" Version="34.0.0">
    </PACK>
+   <NODE systemname="Change (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message.Spread)" componentmode="Hidden" id="13">
+   <BOUNDS type="Node" left="4680" top="6570" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Update" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="14" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="5190" top="6135" width="885" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5190" top="6135" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Default">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="14" srcpinname="Output Enum" dstnodeid="13" dstpinname="Update">
+   </LINK>
    </PATCH>

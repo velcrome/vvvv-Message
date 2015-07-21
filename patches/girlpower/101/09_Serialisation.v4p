@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta34_x64\packs\vvvv-Message\nodes\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="315">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.7.0">
+   <PACK Name="addonpack" Version="34.0.0">
    </PACK>
    <NODE systemname="AsOSC (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOSC (Message)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="2934" top="3927" width="100" height="100">

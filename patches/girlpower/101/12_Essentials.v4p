@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta33.7_x64\packs\vvvv-Message\nodes\girlpower\101\12_Essentials.v4p" systemname="12_Essentials" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\12_Essentials.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2796" top="0" width="12816" height="10944">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta34_x64\packs\vvvv-Message\nodes\girlpower\101\12_Essentials.v4p" systemname="12_Essentials" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\12_Essentials.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.7.0">
+   <PACK Name="addonpack" Version="34.0.0">
    </PACK>
    <NODE systemname="Sort (Message)" nodename="Sort (Message)" componentmode="Hidden" id="7" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
    <BOUNDS type="Node" left="6588" top="2370" width="100" height="100">
@@ -26,10 +26,6 @@
    </NODE>
    <NODE systemname="Change (Message.Spread)" nodename="Change (Message.Spread)" componentmode="Hidden" id="3" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
    <BOUNDS type="Node" left="429" top="2310" width="100" height="100">
-   </BOUNDS>
-   </NODE>
-   <NODE systemname="Distinct (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Distinct (Message.Spread)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="4584" top="2415" width="100" height="100">
    </BOUNDS>
    </NODE>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="1">
@@ -97,5 +93,17 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
+   </NODE>
+   <NODE systemname="Merge (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Merge (Message.Spread)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="4584" top="2415" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Change (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message.Spread)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="7155" top="4320" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Remove (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Remove (Message)" componentmode="Hidden" id="14">
+   <BOUNDS type="Node" left="1890" top="5310" width="100" height="100">
+   </BOUNDS>
    </NODE>
    </PATCH>
