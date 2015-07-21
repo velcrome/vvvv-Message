@@ -1,0 +1,56 @@
+<positions>
+    <element name="audio">
+        <x>0.000000000</x>
+        <y>142.000000000</y>
+        <width>1280.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="bangs">
+        <x>0.000000000</x>
+        <y>206.000000000</y>
+        <width>1680.000000000</width>
+        <height>410.000000000</height>
+    </element>
+    <element name="colors">
+        <x>0.000000000</x>
+        <y>206.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="colors_0">
+        <x>0.000000000</x>
+        <y>462.000000000</y>
+        <width>1280.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="curves">
+        <x>0.000000000</x>
+        <y>142.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="curves_0">
+        <x>0.000000000</x>
+        <y>398.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="flags">
+        <x>0.000000000</x>
+        <y>462.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="lfo">
+        <x>0.000000000</x>
+        <y>334.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="switches">
+        <x>0.000000000</x>
+        <y>270.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+</positions>

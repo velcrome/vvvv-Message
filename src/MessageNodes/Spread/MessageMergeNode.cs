@@ -21,7 +21,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Config("Input Count", DefaultValue = 1, MinValue = 1, IsSingle = true)]
         public IDiffSpread<int> FInputCount;
 
-        [Output("Distinct", DefaultBoolean=true, IsSingle=true, IsToggle = true)]
+        [Input("Distinct", DefaultBoolean=true, IsSingle=true, IsToggle = true)]
         private ISpread<bool> FDistinct;
 
         [Output("Output", AutoFlush = false)]
