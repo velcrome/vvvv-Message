@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageDefaultNode : AbstractFormularableNode
     {
 #pragma warning disable 649, 169
-        [Input("New", IsToggle = true, IsSingle = true, DefaultBoolean = true, Order = 0)]
+        [Input("New", IsBang = true, DefaultBoolean = false, Order = 0)]
         ISpread<bool> FNew;
 
         [Input("Topic", DefaultString = "Event", Order = 3, BinSize=1, BinVisibility=PinVisibility.Hidden, BinOrder=4)]
@@ -31,7 +31,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = (FNew.IsAnyInvalid() || !FNew.Any(x => x) || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid()) ? 0 : FTopic.CombineWith(FSpreadCount).CombineWith(FFormular);
+            SpreadMax = (FNew.IsAnyInvalid() || !FNew.Any(x => x) || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid()) 
+                            ?   0   :    FTopic.CombineWith(FSpreadCount).CombineWith(FFormular);
             
             if (SpreadMax == 0)
             {
@@ -43,7 +44,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            FOutput.SliceCount = SpreadMax;
+            FOutput.SliceCount = 0;
 
             for (int i = 0; i < SpreadMax; i++)
             {
@@ -53,17 +54,20 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 for (int j = 0; j < count; j++)
                 {
-                    Message message = new Message();
-                    message.Topic = FTopic[i][j];
-                    foreach (var field in formular.Fields)
+                    if (FNew[i*FConfig.SliceCount + j])
                     {
-                        message[field] = BinFactory.New(formular[field].Type);
+                        Message message = new Message();
+                        message.Topic = FTopic[i][j];
+                        foreach (var field in formular.Fields)
+                        {
+                            message[field] = BinFactory.New(formular[field].Type);
 
-                        var binsize = formular[field].DefaultSize;
-                        if (binsize > 0) message[field].Count = binsize;
+                            var binsize = formular[field].DefaultSize;
+                            if (binsize > 0) message[field].Count = binsize;
+                        }
+
+                        FOutput[i].Add(message);
                     }
-
-                    FOutput[i][j] = message;
                 }
             }
             FOutput.Flush();

@@ -296,7 +296,7 @@ namespace VVVV.Packs.Messaging {
                 var type = list.GetInnerType();
                 var newList = BinFactory.New(type, list.Count);
 
-				// really deep cloning, but keep only a reference to a nested sub message
+				// deep cloning of all fields, but messages: nested messages are merely a reference by design.
                 bool isPrimitiveType = type.IsPrimitive || type.IsValueType || (type == typeof(string));
 
                 if (isPrimitiveType || type == typeof(Message))

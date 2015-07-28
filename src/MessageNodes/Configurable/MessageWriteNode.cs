@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageWriteNode : DynamicPinNode
     {
 #pragma warning disable 649, 169
-        [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility=PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility=PinVisibility.OnlyInspector)]
         IDiffSpread<bool> FAutoSense;
         
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]

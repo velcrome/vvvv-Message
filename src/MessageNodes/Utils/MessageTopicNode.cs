@@ -43,13 +43,11 @@ namespace VVVV.Packs.Messaging.Nodes
             FOutput.AssignFrom(FInput);
             FOutput.Flush();
 
-            //if (!FUpdate.Any()) return;
-
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                // check if relevant change occurred
+                // check if topic change needs to occur, because doing so will mark the message as dirty
                 if (FUpdate[i] && !FInput[i].Topic.Equals(FTopic[i]))
                     FInput[i].Topic = FTopic[i];
             }

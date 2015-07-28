@@ -4,8 +4,14 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
+
+    // should be cleaned up at one point. danger: counters the basic idea of a solid path for messages and introduces uncertainty in target patches when used in conjunction with split
+
     #region PluginInfo
-    [PluginInfo(Name = "AvoidNil", Category = "Message", Version = "Formular", Help = "Avoid empty spreads of Messages. Usually just above a split node.", Tags = "Split", Author = "velcrome")]
+    [PluginInfo(Name = "AvoidNil", Category = "Message", Version = "Formular", 
+        Ignore = true, 
+        Help = "Avoid empty spreads of Messages. Usually just above a split node.", 
+        Tags = "Split", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageAvoidNilNode : AbstractFormularableNode
     {
@@ -13,7 +19,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input", Order = 0)]
         ISpread<Message> FInput;
 
-        [Input("Topic", Order = 1, DefaultString="Dummy")]
+        [Input("Topic", Order = 1, DefaultString="Event")]
         ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]

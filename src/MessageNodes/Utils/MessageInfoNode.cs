@@ -18,7 +18,7 @@ namespace VVVV.Pack.Messaging.Nodes
         [Input("Input")] 
         IDiffSpread<Message> FInput;
 
-        [Input("Print Message", IsBang = true)]
+        [Input("Print to TTY", IsToggle = true)]
         IDiffSpread<bool> FPrint;
 
         [Output("Topic", AutoFlush = false)] 
@@ -60,11 +60,11 @@ namespace VVVV.Pack.Messaging.Nodes
 
             if (!FInput.IsChanged) return;
 
-            FOutput.SliceCount = SpreadMax;
-            FTopic.SliceCount = SpreadMax;
-            FConfigOut.SliceCount = SpreadMax;
+            FOutput.SliceCount      = 
+            FTopic.SliceCount       = 
+            FConfigOut.SliceCount   = SpreadMax;
 
-            var timeConnected = FTimeStamp.IsConnected; // treat time a little different, because it can be quite slow.
+            var timeConnected = FTimeStamp.IsConnected; // treat the time pin a little different, because it can be quite slow. time type is a struct that gets copied within the pin
             FTimeStamp.SliceCount = timeConnected? SpreadMax : 0;
 
             for (int i = 0; i < SpreadMax; i++)
@@ -79,16 +79,16 @@ namespace VVVV.Pack.Messaging.Nodes
                 if (FPrint[i])
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("== Message " + i + " ==");
-                    sb.AppendLine();
-
+                    sb.Append("\t === \t ["+i+"]\t ===\t");
                     sb.AppendLine(FInput[i].ToString());
-                    sb.Append("====\n");
-                    FLogger.Log(LogType.Debug, sb.ToString());
+                    sb.AppendLine();
+                    FLogger.Log(LogType.Message, sb.ToString());
                 }
             }
-            FTopic.Flush();
+            
             if (timeConnected) FTimeStamp.Flush();
+
+            FTopic.Flush();
             FOutput.Flush();
             FConfigOut.Flush();
         }
