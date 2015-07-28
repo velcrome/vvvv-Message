@@ -21,12 +21,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Input("Update", IsSingle=true, DefaultEnumEntry = "Default")]
         private IDiffSpread<FlowControlEnum> FFlowControl;
-
+        
+        [Output("Change")]
+        private ISpread<bool> FChange;
+        
         [Output("Output", AutoFlush = false)]
         private ISpread<Message> FOutput;
 
-        [Output("Change")]
-        private ISpread<bool> FChange;
 
         [Import()]
         protected ILogger FLogger;

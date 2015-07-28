@@ -50,7 +50,7 @@ namespace VVVV.Packs.Messaging
 	    }
 
 
-        public object Default(Type type)
+        public object NewDefault(Type type)
         {
             return Default(FindBaseAlias(type));
         }

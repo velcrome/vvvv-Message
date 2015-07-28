@@ -49,7 +49,7 @@ namespace VVVV.Packs.Messaging
                 // or add
                 for (int i = Count; i < value; i++)
                 {
-                    var defaultValue = TypeIdentity.Instance.Default(this.GetInnerType());
+                    var defaultValue = TypeIdentity.Instance.NewDefault(this.GetInnerType());
                     this.Add(defaultValue);
                     IsDirty = true;
                 }
@@ -71,7 +71,7 @@ namespace VVVV.Packs.Messaging
             }
             set
             {
-                if (value == null) value = TypeIdentity.Instance.Default(this.GetInnerType());
+                if (value == null) value = TypeIdentity.Instance.NewDefault(this.GetInnerType());
                 var tmp = (T)value;
                 Data[slice] = tmp;
                 IsDirty = true;
@@ -101,7 +101,7 @@ namespace VVVV.Packs.Messaging
                 if (Data.Count == 0)
                 {
                     var type = this.GetInnerType();
-                    var o = (T)TypeIdentity.Instance.Default(type);  // if no default defined -> return null
+                    var o = (T)TypeIdentity.Instance.NewDefault(type);  // if no default defined -> return null
                     Data.Add(o);
                 }
                 return Data[0];

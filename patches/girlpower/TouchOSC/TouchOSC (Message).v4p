@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\touchosc\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="105" scrolly="6360">
-   <BOUNDS type="Window" left="4155" top="225" width="16545" height="13215">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\TouchOSC\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="0" scrolly="348">
+   <BOUNDS type="Window" left="-168" top="384" width="16536" height="13212">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="4431" top="6759" width="1830" height="270">
@@ -282,7 +282,7 @@
    </NODE>
    <LINK srcnodeid="181" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Local Port">
    </LINK>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="34.0.0">
    </PACK>
    <NODE systemname="AsMessage (Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (Raw)" componentmode="Hidden" id="182">
    <BOUNDS type="Node" left="4431" top="10299" width="100" height="100">
@@ -305,11 +305,11 @@
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="195" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="12555" top="9519" width="480" height="480">
+   <BOUNDS type="Box" left="2940" top="7884" width="528" height="1968">
    </BOUNDS>
-   <BOUNDS type="Node" left="12555" top="9519" width="0" height="0">
+   <BOUNDS type="Node" left="2940" top="7884" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="4" visible="1" values="0,0,0,0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -317,13 +317,17 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   <PIN pinname="Behavior" slicecount="1" values="Press">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="4" values="0,0,0,0">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Reset">
+   <PIN pinname="Descriptive Name" slicecount="1" values="New">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="Maximum">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="196" systemname="IOBox (String)">
@@ -421,9 +425,9 @@
    <LINK srcnodeid="112" srcpinname="Output" dstnodeid="6" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="275" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="6831" top="10602" width="1980" height="300">
+   <BOUNDS type="Box" left="10503" top="10242" width="1980" height="300">
    </BOUNDS>
-   <BOUNDS type="Node" left="6831" top="10602" width="0" height="0">
+   <BOUNDS type="Node" left="10503" top="10242" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="4" visible="1" values="1,2,3,4">
    </PIN>
@@ -459,9 +463,9 @@
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="275" srcpinname="Output String" dstnodeid="274" dstpinname="Filter" linkstyle="VHV">
-   <LINKPOINT x="6825" y="11048">
+   <LINKPOINT x="9273" y="10808">
    </LINKPOINT>
-   <LINKPOINT x="5340" y="11048">
+   <LINKPOINT x="6564" y="10928">
    </LINKPOINT>
    </LINK>
    <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="272">
@@ -666,16 +670,6 @@
    </LINK>
    <LINK srcnodeid="383" srcpinname="Output" dstnodeid="206" dstpinname="Input">
    </LINK>
-   <NODE systemname="OnOpen (VVVV)" nodename="OnOpen (VVVV)" componentmode="Hidden" id="385">
-   <BOUNDS type="Node" left="12591" top="10251" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Simulate" visible="1">
-   </PIN>
-   <PIN pinname="Bang" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="195" srcpinname="Y Output Value" dstnodeid="385" dstpinname="Simulate">
-   </LINK>
    <NODE systemname="Formular (TouchOSC)" filename="modules\Formular (TouchOSC).v4p" nodename="modules\Formular (TouchOSC).v4p" componentmode="Hidden" id="390">
    <BOUNDS type="Node" left="11644" top="6084" width="5664" height="276">
    </BOUNDS>
@@ -811,9 +805,9 @@
    <NODE nodename="IOBox (String)" componentmode="InABox" id="404" systemname="IOBox (String)">
    <BOUNDS type="Node" left="6435" top="8775" width="3360" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="6435" top="8775" width="1530" height="735">
+   <BOUNDS type="Box" left="6435" top="8775" width="1524" height="924">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|special case for multitoggle. TouchOSC ain&apos;t making it easy.|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|special case for multitoggle. TouchOSC ain&apos;t making it easy but two more nodes are sufficient.|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -941,9 +935,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="418" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4905" top="14865" width="744" height="276">
+   <BOUNDS type="Box" left="5277" top="14625" width="672" height="912">
    </BOUNDS>
-   <BOUNDS type="Node" left="4905" top="14865" width="0" height="0">
+   <BOUNDS type="Node" left="5277" top="14625" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="Foo">
    </PIN>
@@ -956,6 +950,10 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    <PIN pinname="Input String" visible="1" slicecount="4" values="toggle1,toggle2,toggle3,toggle4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="418" srcpinname="Output String" dstnodeid="392" dstpinname="Key">
@@ -1089,7 +1087,7 @@
    <NODE systemname="UDP (Network Client)" nodename="UDP (Network Client)" componentmode="Hidden" id="428">
    <BOUNDS type="Node" left="1725" top="15375" width="1860" height="270">
    </BOUNDS>
-   <PIN pinname="Remote Port" slicecount="1" values="5001" visible="1">
+   <PIN pinname="Remote Port" slicecount="1" visible="1" values="5001">
    </PIN>
    <PIN pinname="Remote Host" slicecount="1" visible="1" values="192.168.2.29">
    </PIN>
@@ -1107,6 +1105,10 @@
    </PIN>
    <BOUNDS type="Box" left="615" top="14865">
    </BOUNDS>
+   <PIN pinname="Change" visible="1">
+   </PIN>
+   <PIN pinname="Update" slicecount="1" values="Default">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="435" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="615" top="15435" width="525" height="660">
@@ -1202,18 +1204,12 @@
    <LINKPOINT x="7440" y="13680">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="434" srcpinname="OnChange" dstnodeid="428" dstpinname="Do Send" linkstyle="VHV">
-   <LINKPOINT x="675" y="15240">
-   </LINKPOINT>
-   <LINKPOINT x="2325" y="15240">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="486" systemname="IOBox (String)">
    <BOUNDS type="Box" left="300" top="5250" width="2385" height="465">
    </BOUNDS>
    <BOUNDS type="Node" left="300" top="5250" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="192.168.189.73">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="192.168.1.101">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="192.168.1.1">
    </PIN>
@@ -1234,54 +1230,16 @@
    <LINKPOINT x="2940" y="10545">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="490">
-   <BOUNDS type="Node" left="6795" top="11235" width="4770" height="270">
-   </BOUNDS>
-   <PIN pinname="New" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Topic" visible="1">
-   </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="4" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="4" values="|float toggle1, float toggle2, float toggle3, float toggle4, float fader1, float fader2, float fader3, float fader4, float fader5|,|float toggle1, float toggle2, float toggle3, float toggle4, float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16|,|float toggle1, float toggle2, float toggle3, float toggle4, float[2] xy|,|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="275" srcpinname="Output String" dstnodeid="490" dstpinname="Topic" linkstyle="VHV">
-   <LINKPOINT x="6885" y="11055">
-   </LINKPOINT>
-   <LINKPOINT x="10320" y="11055">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="490" srcpinname="Output" dstnodeid="272" dstpinname="Input 3">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="493" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="9150" top="9375" width="2055" height="1290">
+   <BOUNDS type="Box" left="8358" top="9135" width="2055" height="1290">
    </BOUNDS>
-   <BOUNDS type="Node" left="9150" top="9375" width="0" height="0">
+   <BOUNDS type="Node" left="8358" top="9135" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="4" visible="1" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="4">
    </PIN>
    </NODE>
-   <LINK srcnodeid="493" srcpinname="Output Enum" dstnodeid="490" dstpinname="Message Formular">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="495" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5979" top="12711" width="792" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="5979" top="12711" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="465" srcpinname="Changed Message Index" dstnodeid="495" dstpinname="Y Input Value">
-   </LINK>
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="497">
    <BOUNDS type="Node" left="12903" top="20727" width="100" height="100">
    </BOUNDS>
@@ -1301,6 +1259,8 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" values="TouchOSC.3">
    </PIN>
+   <PIN pinname="AutoSense" visible="1" pintype="Input" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="194" srcpinname="Output" dstnodeid="497" dstpinname="Input">
    <LINKPOINT x="13470" y="15690">
@@ -1309,11 +1269,11 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="498" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="13401" top="20040" width="795" height="480">
+   <BOUNDS type="Box" left="13341" top="19716" width="795" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="13401" top="20040" width="0" height="0">
+   <BOUNDS type="Node" left="13341" top="19716" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0.93,0.58">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0.39,0.36">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1338,22 +1298,6 @@
    </NODE>
    <LINK srcnodeid="497" srcpinname="Output" dstnodeid="499" dstpinname="Input Node">
    </LINK>
-   <LINK srcnodeid="434" srcpinname="OnChange" dstnodeid="435" dstpinname="Y Input Value">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="504" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="8139" top="11823" width="792" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="8139" top="11823" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="272" srcpinname="Output Bin Size" dstnodeid="504" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="506" systemname="IOBox (String)">
    <BOUNDS type="Node" left="645" top="12567" width="3360" height="240">
    </BOUNDS>
@@ -1377,15 +1321,9 @@
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="390" srcpinname="Toggle Names" dstnodeid="418" dstpinname="Input String" hiddenwhenlocked="1" linkstyle="Bezier">
-   <LINKPOINT x="12750" y="10598">
+   <LINKPOINT x="12874" y="10518">
    </LINKPOINT>
-   <LINKPOINT x="4965" y="10598">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="385" srcpinname="Bang" dstnodeid="490" dstpinname="New" linkstyle="Bezier">
-   <LINKPOINT x="12585" y="10860">
-   </LINKPOINT>
-   <LINKPOINT x="6855" y="10860">
+   <LINKPOINT x="5213" y="10438">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="439" srcpinname="Output" dstnodeid="428" dstpinname="Input">
@@ -1442,12 +1380,6 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    </NODE>
-   <LINK srcnodeid="385" srcpinname="Bang" dstnodeid="465" dstpinname="Reset" linkstyle="Bezier">
-   <LINKPOINT x="12585" y="11363">
-   </LINKPOINT>
-   <LINKPOINT x="5910" y="11363">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="514" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="1035" top="6285" width="1470" height="600">
    </BOUNDS>
@@ -1471,5 +1403,171 @@
    </LINKPOINT>
    <LINKPOINT x="3540" y="11130">
    </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="434" srcpinname="Change" dstnodeid="435" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="517">
+   <BOUNDS type="Node" left="1944" top="16104" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="518" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="1296" top="16824" width="2316" height="2592">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1296" top="16824" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="517" srcpinname="Output" dstnodeid="518" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="490">
+   <BOUNDS type="Node" left="6795" top="11235" width="4770" height="270">
+   </BOUNDS>
+   <PIN pinname="New" slicecount="4" visible="1" values="0,0,0,0">
+   </PIN>
+   <PIN pinname="Topic" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" visible="1" slicecount="4" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="4" values="|float toggle1, float toggle2, float toggle3, float toggle4, float fader1, float fader2, float fader3, float fader4, float fader5|,|float toggle1, float toggle2, float toggle3, float toggle4, float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16|,|float toggle1, float toggle2, float toggle3, float toggle4, float[2] xy|,|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Spread Count per Formular" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="275" srcpinname="Output String" dstnodeid="490" dstpinname="Topic" linkstyle="VHV">
+   <LINKPOINT x="9333" y="10815">
+   </LINKPOINT>
+   <LINKPOINT x="11544" y="10935">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="490" srcpinname="Output" dstnodeid="272" dstpinname="Input 3">
+   </LINK>
+   <LINK srcnodeid="493" srcpinname="Output Enum" dstnodeid="490" dstpinname="Message Formular">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="519" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="11604" top="10848" width="300" height="288">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11604" top="10848" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="519" srcpinname="Y Output Value" dstnodeid="490" dstpinname="Spread Count per Formular">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="520" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="14244" top="19608" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="14244" top="19608" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="520" srcpinname="Y Output Value" dstnodeid="497" dstpinname="AutoSense">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="521" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="5496" top="12576" width="792" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5496" top="12576" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="465" srcpinname="Message Diff" dstnodeid="521" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="523" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="14184" top="20004" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="14184" top="20004" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="523" srcpinname="Y Output Value" dstnodeid="497" dstpinname="Update">
+   </LINK>
+   <LINK srcnodeid="434" srcpinname="Change" dstnodeid="428" dstpinname="Do Send">
+   </LINK>
+   <NODE systemname="OR (Boolean)" nodename="OR (Boolean)" componentmode="Hidden" id="524">
+   <BOUNDS type="Node" left="2160" top="9924" width="852" height="276">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="195" srcpinname="Y Output Value" dstnodeid="524" dstpinname="Input 2">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="525" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2172" top="7884" width="732" height="1944">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2172" top="7884" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Press">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Reset">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="525" srcpinname="Y Output Value" dstnodeid="465" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="0">
+   <LINKPOINT x="1320" y="11232">
+   </LINKPOINT>
+   <LINKPOINT x="5856" y="11028">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="524" srcpinname="Output" dstnodeid="490" dstpinname="New" linkstyle="Bezier" hiddenwhenlocked="0">
+   <LINKPOINT x="2220" y="10710">
+   </LINKPOINT>
+   <LINKPOINT x="6792" y="10710">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="525" srcpinname="Y Output Value" dstnodeid="524" dstpinname="Input 1">
    </LINK>
    </PATCH>

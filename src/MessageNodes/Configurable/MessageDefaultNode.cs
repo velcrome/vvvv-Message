@@ -11,30 +11,49 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageDefaultNode : AbstractFormularableNode
     {
-#pragma warning disable 649, 169
         [Input("New", IsBang = true, DefaultBoolean = false, Order = 0)]
-        ISpread<bool> FNew;
+        protected ISpread<bool> FNew;
 
-        [Input("Topic", DefaultString = "Event", Order = 3, BinSize=1, BinVisibility=PinVisibility.Hidden, BinOrder=4)]
-        ISpread<ISpread<string>> FTopic;
+        [Input("Topic", DefaultString = "Event", Order = 3)]
+        protected ISpread<string> FTopic;
 
-        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 5)]
-        ISpread<int> FSpreadCount;
+        [Input("Spread Count per Formular", IsSingle = true, DefaultValue = 1, Order = 5)]
+        protected ISpread<int> FSpreadCount;
 
         [Output("Output", AutoFlush = false)]
-        ISpread<ISpread<Message>> FOutput;
-#pragma warning restore
+        protected ISpread<ISpread<Message>> FOutput;
 
+        protected bool ForceNewDefaults = true;
+
+        public override void OnImportsSatisfied()
+        {
+ 	        base.OnImportsSatisfied();
+  //          FOutput.Connected += HandleOutputConnect;
+        }
+
+        private void HandleOutputConnect(object sender, PinConnectionEventArgs args)
+        {
+            ForceNewDefaults = true;
+        }
+        
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
+            ForceNewDefaults = true;
         }
+
+
 
         public override void Evaluate(int SpreadMax)
         {
-            SpreadMax = (FNew.IsAnyInvalid() || !FNew.Any(x => x) || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid()) 
-                            ?   0   :    FTopic.CombineWith(FSpreadCount).CombineWith(FFormular);
-            
-            if (SpreadMax == 0)
+            // graceful fallback when being fed bad data
+            if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid() || FirstFrame)
+            {
+                FOutput.SliceCount = 0;
+                FOutput.Flush();
+                return;
+            }
+
+            if (!FNew.Any(x => x) && !ForceNewDefaults)
             {
                 if (FOutput.SliceCount != 0)
                 {
@@ -44,33 +63,44 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            FOutput.SliceCount = 0;
+            FOutput.SliceCount = FConfig.SliceCount;
 
-            for (int i = 0; i < SpreadMax; i++)
+            var counter = 0;
+            for (int i = 0; i < FConfig.SliceCount; i++)
             {
-                var formular = new MessageFormular(FConfig[i]);
-                var count = FSpreadCount[i];
-                FOutput[i].SliceCount = count;
+                FOutput[i].SliceCount = 0;
 
+                var formular = new MessageFormular(FConfig[i]);
+                
+                var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)
                 {
-                    if (FNew[i*FConfig.SliceCount + j])
+                    if (FNew[counter] || ForceNewDefaults)
                     {
                         Message message = new Message();
-                        message.Topic = FTopic[i][j];
+                        message.Topic = FTopic[counter];
                         foreach (var field in formular.Fields)
                         {
-                            message[field] = BinFactory.New(formular[field].Type);
+                            int binsize = formular[field].DefaultSize;
+                            binsize = binsize > 0 ? binsize : 1;
+                            var type = formular[field].Type;
 
-                            var binsize = formular[field].DefaultSize;
-                            if (binsize > 0) message[field].Count = binsize;
+                            message[field] = BinFactory.New(type, binsize);
+
+                            for (int slice = 0; slice < binsize; slice++)
+                            {
+                                message[field].Add(TypeIdentity.Instance.NewDefault(type));
+                            }
                         }
 
                         FOutput[i].Add(message);
                     }
+                    counter++;
                 }
             }
             FOutput.Flush();
+
+            ForceNewDefaults = false;
         }
     }
 }

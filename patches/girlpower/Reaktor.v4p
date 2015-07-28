@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha33.8.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45alpha33.8_x64\packs\vvvv-Message\nodes\girlpower\Reaktor.v4p" scrollx="0" scrolly="0" systemname="Root_patch" filename="C:\dev\vvvv\TEST\vvvv_reaktor_VObject\Root_patch.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Reaktor.v4p" scrollx="0" scrolly="0" systemname="Root_patch" filename="C:\dev\vvvv\TEST\vvvv_reaktor_VObject\Root_patch.v4p">
    <BOUNDS type="Window" left="0" top="0" width="22056" height="11364">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="34.0.0">
    </PACK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="840" top="3588" width="3060" height="276">
@@ -303,6 +303,8 @@
    </PIN>
    <BOUNDS type="Box" left="7056" top="4176">
    </BOUNDS>
+   <PIN pinname="New" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="16" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="6528" top="3648" width="924" height="288">
@@ -397,7 +399,7 @@
    </LINKPOINT>
    </LINK>
    <NODE id="24" systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Y Input Value" slicecount="5" pintype="Input" visible="1" values="0.65,0.59,0.42,0.56,0.54">
+   <PIN pinname="Y Input Value" slicecount="5" pintype="Input" visible="1" values="0.65,0.59,0.42,0.71,0.4">
    </PIN>
    <BOUNDS type="Node" left="1464" top="6744" width="100" height="100">
    </BOUNDS>
@@ -599,7 +601,7 @@
    </LINKPOINT>
    </LINK>
    <NODE id="31" systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Y Input Value" slicecount="5" pintype="Input" visible="1" values="0.65,0.39,0.83,0.59,0.36">
+   <PIN pinname="Y Input Value" slicecount="5" pintype="Input" visible="1" values="0.65,0.41,0.79,0.59,0.36">
    </PIN>
    <BOUNDS type="Node" left="5364" top="6684" width="100" height="100">
    </BOUNDS>
@@ -818,28 +820,6 @@
    </LINK>
    <LINK srcnodeid="43" srcpinname="Y Output Value" dstnodeid="34" dstpinname="ExtendedMode">
    </LINK>
-   <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="44">
-   <BOUNDS type="Node" left="8160" top="4668" width="768" height="276">
-   </BOUNDS>
-   <PIN pinname="Input 2" visible="1">
-   </PIN>
-   <PIN pinname="Input 1" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Switch" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="44" dstpinname="Input 2" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="7116" y="4554">
-   </LINKPOINT>
-   <LINKPOINT x="8868" y="4554">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="44" dstpinname="Input 1">
-   </LINK>
-   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="19" dstpinname="Input">
-   </LINK>
    <NODE systemname="OnOpen (VVVV)" nodename="OnOpen (VVVV)" componentmode="Hidden" id="45" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="5964" top="4176" width="100" height="100">
    </BOUNDS>
@@ -849,9 +829,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="46" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5964" top="3180" width="480" height="480">
+   <BOUNDS type="Box" left="5940" top="2676" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="5964" top="3180" width="0" height="0">
+   <BOUNDS type="Node" left="5940" top="2676" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -869,12 +849,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="46" srcpinname="Y Output Value" dstnodeid="45" dstpinname="Simulate">
-   </LINK>
-   <LINK srcnodeid="45" srcpinname="Bang" dstnodeid="44" dstpinname="Switch" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="6024" y="4554">
-   </LINKPOINT>
-   <LINKPOINT x="8160" y="4554">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="Listen (Message.VVVV Sift)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Listen (Message.VVVV Sift)" componentmode="Hidden" id="47">
    <BOUNDS type="Node" left="17136" top="1404" width="100" height="100">
@@ -1325,7 +1299,7 @@
    </PIN>
    </NODE>
    <NODE id="65" systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Y Input Value" slicecount="1" pintype="Input" visible="1" values="0.39">
+   <PIN pinname="Y Input Value" slicecount="1" pintype="Input" visible="1" values="0.46">
    </PIN>
    <BOUNDS type="Node" left="7548" top="6672" width="100" height="100">
    </BOUNDS>
@@ -1683,5 +1657,25 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="49" srcpinname="Topic" dstnodeid="85" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Bang" dstnodeid="15" dstpinname="New">
+   </LINK>
+   <NODE systemname="Zip (Message Bin)" nodename="Zip (Message Bin)" componentmode="Hidden" id="44" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <BOUNDS type="Node" left="8160" top="4668" width="768" height="276">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input 1" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="19" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="44" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="44" dstpinname="Input 1">
    </LINK>
    </PATCH>
