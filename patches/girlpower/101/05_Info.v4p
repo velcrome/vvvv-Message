@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta34_x64\packs\vvvv-Message\nodes\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="1365">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="2040">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.0.0">
@@ -22,6 +22,8 @@
    <PIN pinname="Topic" visible="1">
    </PIN>
    <PIN pinname="Print Message" visible="1">
+   </PIN>
+   <PIN pinname="Print to TTY" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="13" systemname="IOBox (String)">
@@ -74,6 +76,8 @@
    <PIN pinname="Topic" visible="1">
    </PIN>
    <PIN pinname="Topic Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Spread Count per Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
@@ -183,9 +187,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="3" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="3174" top="3180" width="708" height="288">
+   <BOUNDS type="Box" left="2310" top="3120" width="708" height="288">
    </BOUNDS>
-   <BOUNDS type="Node" left="3174" top="3180" width="0" height="0">
+   <BOUNDS type="Node" left="2310" top="3120" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
    </PIN>
@@ -197,9 +201,9 @@
    <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Message Formular">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4518" top="3204" width="792" height="240">
+   <BOUNDS type="Box" left="4050" top="3084" width="792" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="4518" top="3204" width="0" height="0">
+   <BOUNDS type="Node" left="4050" top="3084" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="MyEvent">
    </PIN>
@@ -229,9 +233,11 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Spread Count|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Spread Count per Formular|">
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Spread Count">
@@ -293,6 +299,8 @@
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Print Message">
    </LINK>
@@ -325,5 +333,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="17" dstpinname="DoWrite">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Print to TTY">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Spread Count per Formular">
    </LINK>
    </PATCH>

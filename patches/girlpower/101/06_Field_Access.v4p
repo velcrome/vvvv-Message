@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta34_x64\packs\vvvv-Message\nodes\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="9105" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="7836" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.0.0">
@@ -223,7 +223,7 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.0572390572390561,0,0.185185185185185">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.13131313131313,0,0.185185185185185">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -237,7 +237,7 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0.404745989304813">
+   <PIN pinname="X Input Value" slicecount="1" values="0.420370989304813">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="19" systemname="IOBox (Value Advanced)">
@@ -299,7 +299,7 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.516835016835017,1,0.181818181818182">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.627946127946128,1,0.181818181818182">
    </PIN>
    <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
    </PIN>
@@ -313,7 +313,7 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="3" values="0.0392156862745098,0.0980392156862745,0.0392156862745098">
+   <PIN pinname="X Input Value" slicecount="3" values="0.0860906862745098,0.0980392156862745,0.0392156862745098">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="17" systemname="IOBox (Value Advanced)">
@@ -369,13 +369,13 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.518518518518519,0,0.338383838383839">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.333333333333334,0,0.338383838383839">
    </PIN>
    <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="3" values="0.407451923076923,0.235294117647059,0.548539695598519">
+   <PIN pinname="X Input Value" slicecount="3" values="0.423076923076923,0.235294117647059,0.548539695598519">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="fader4">
    </PIN>
@@ -581,7 +581,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Field">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.721548821548821,0.381481481481481,0.15925925925926,0.708080808080809,0.640740740740741,0.307407407407407,0.825925925925926,0.307407407407407,0.418518518518519,0.9,0.27037037037037,0.371380471380472">
+   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.236700336700336,0.139057239057239,0.0303030303030303,0.727272727272727,0.0952861952861955,0.307407407407407,0.492592592592593,0.307407407407407,0.418518518518519,0.9,0.27037037037037,0.613804713804714">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
@@ -591,7 +591,7 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="12" values="1,0.394736842105263,0.5,1,0.131578947368421,0.157894736842105,0.105263157894737,0.368421052631579,0.5,0.0263157894736842,0,1">
+   <PIN pinname="X Input Value" slicecount="12" values="1,0.644736842105263,0.5,1,0.214912280701754,0.157894736842105,0.459429824561404,0.368421052631579,0.5,0.0263157894736842,0,1">
    </PIN>
    </NODE>
    <NODE systemname="Unzip (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Unzip (Value)" componentmode="Hidden" id="34">
@@ -693,7 +693,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Field">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.686868686868687,0.801346801346802,0.222222222222223,0.629629629629629,0.703703703703704,0.814814814814815,0.518518518518519,0.777777777777779,0.851851851851852,0.754208754208754,1,0.814814814814814">
+   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.171717171717172,0.286195286195287,0.222222222222223,0.629629629629629,0.703703703703704,0.814814814814815,0.518518518518519,0.777777777777779,0.851851851851852,0.542087542087542,1,0.299663299663298">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
@@ -703,7 +703,7 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="12" values="0.5,0.5,0.368421052631577,0.5,0,0.0526315789473685,0,0,0.342105263157895,0.297149122807018,0.0526315789473684,0.236842105263157">
+   <PIN pinname="X Input Value" slicecount="12" values="0.5,0.5,0.368421052631577,0.5,0,0.0526315789473685,0,0,0.342105263157895,0.338815789473685,0.0526315789473684,0.382675438596491">
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="39" dstpinname="Type" linkstyle="Bezier" hiddenwhenlocked="0">
@@ -1015,11 +1015,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="60" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="315" top="14295" width="480" height="480">
+   <BOUNDS type="Box" left="4659" top="14199" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="315" top="14295" width="0" height="0">
+   <BOUNDS type="Node" left="4659" top="14199" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1031,15 +1031,15 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="AutoSense">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="60" srcpinname="Y Output Value" dstnodeid="10" dstpinname="AutoSense">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="61" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7260" top="14235" width="480" height="480">
+   <BOUNDS type="Box" left="10596" top="14427" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="7260" top="14235" width="0" height="0">
+   <BOUNDS type="Node" left="10596" top="14427" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
@@ -1097,5 +1097,7 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Update">
+   </LINK>
+   <LINK srcnodeid="36" srcpinname="Output" dstnodeid="10" dstpinname="Update">
    </LINK>
    </PATCH>

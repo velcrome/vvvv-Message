@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta34_x64\packs\vvvv-Message\nodes\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="0">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="1236">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="12">
@@ -105,7 +105,7 @@
    </LINKPOINT>
    </LINK>
    <NODE systemname="FrameDelay (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FrameDelay (Message)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="6495" top="6444" width="100" height="100">
+   <BOUNDS type="Node" left="6507" top="6576" width="100" height="100">
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
@@ -137,9 +137,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="6312" top="6831" width="3456" height="240">
+   <BOUNDS type="Node" left="6324" top="7095" width="3456" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="6312" top="6831" width="2580" height="372">
+   <BOUNDS type="Box" left="6324" top="7095" width="2580" height="372">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Use at your own discretion. |">
    </PIN>
