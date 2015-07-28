@@ -3,12 +3,13 @@ using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
     [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages",
-        Tags = "velcrome", AutoEvaluate = true)]
+        Author = "velcrome", AutoEvaluate = true)]
     #endregion PluginInfo
     public class MessageFrameDelayNode : IPluginEvaluate
     {
@@ -16,10 +17,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input")] 
         IDiffSpread<Message> FInput;
 
-        [Input("Default")] 
-        ISpread<Message> FDefault;
-
-        [Input("Initialize", IsSingle = true, IsBang = true)] 
+        [Input("Clear", IsSingle = true, IsToggle = true)] 
         IDiffSpread<bool> FInit;
 
         [Output("Output", AutoFlush = false, AllowFeedback = true)] 
@@ -38,22 +36,24 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInit[0])
-            {
-                lastFrame.Clear();
-                lastFrame.AddRange(FDefault);
-            }
-            else
-            {
-                lastFrame.Clear();
-
-                if (FInput.SliceCount > 0 && FInput[0] != null) lastFrame.AddRange(FInput);
+            if (FInit[0]) {
+                if (FOutput.SliceCount > 0) {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
+                return;
             }
 
-            FOutput.SliceCount = lastFrame.Count;
+            lastFrame.Clear();
 
-            FOutput.AssignFrom(lastFrame);
-            FOutput.Flush();
+            if (FInput.IsChanged && !FInput.IsAnyInvalid())
+            {
+                lastFrame.AddRange(FInput);
+
+                FOutput.SliceCount = lastFrame.Count;
+                FOutput.AssignFrom(lastFrame);
+                FOutput.Flush();
+            }
         }
 
 
