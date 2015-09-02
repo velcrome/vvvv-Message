@@ -34,6 +34,9 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
 
+        [Output("Error Message", AutoFlush = false)]
+        ISpread<string> FError;
+
         [Output("End of Stream")]
         ISpread<bool> FEndOfStream;
 
@@ -58,17 +61,26 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 Reader.Close();
                 File.Dispose();
             }
-            File = new FileStream(FFile[0], FileMode.Open);
+            try
+            {
+                File = new FileStream(FFile[0], FileMode.Open);
+                var io = new StreamReader(File);
+                Reader = new JsonTextReader(io);
+                MessageEnumerator = (JObject.ReadFrom(Reader) as JArray).Children().GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                FError[0] = e.Message;
+            }
 
-            var io = new StreamReader(File);
-            Reader = new JsonTextReader(io);
-            MessageEnumerator = (JObject.ReadFrom(Reader) as JArray).Children().GetEnumerator();
 
         }
 
         public void Evaluate(int SpreadMax)
         {
-            if (!FReset.IsAnyInvalid() && FReset[0] && MessageEnumerator != null)
+            if (MessageEnumerator == null) return;
+
+            if (!FReset.IsAnyInvalid() && FReset[0])
             {
                 MessageEnumerator.Reset();
             }
@@ -97,6 +109,8 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 }
             }
             FOutput.Flush();
+
+            FError[0] = "";
         }
 
         public void Dispose()

@@ -18,7 +18,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>f38b5e5b</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>c7c1b814</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -53,9 +53,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex">
@@ -76,13 +76,11 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\VVVV.Core.34.0.0\lib\net40\VVVV.Core.dll</HintPath>
+      <HintPath>..\packages\VVVV.Core.34.1.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\VVVV.Utils.34.0.0\lib\net40\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.34.1.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -118,10 +116,10 @@
     <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props'))" />
     <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets'))" />
   </Target>
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" />
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets" Condition="Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
 </Project>

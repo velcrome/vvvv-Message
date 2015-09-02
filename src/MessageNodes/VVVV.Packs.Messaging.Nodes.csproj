@@ -13,7 +13,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>04d88d1c</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>3b4c9e6c</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
@@ -35,10 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
@@ -65,12 +64,12 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="VVVV.Core">
-      <HintPath>..\packages\VVVV.Core.34.0.0\lib\net40\VVVV.Core.dll</HintPath>
+    <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Core.34.1.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Utils">
-      <HintPath>..\packages\VVVV.Utils.34.0.0\lib\net40\VVVV.Utils.dll</HintPath>
+    <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Utils.34.1.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -116,6 +115,7 @@
     <Compile Include="Utils\MessageRemoveNode.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -141,11 +141,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets" Condition="Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets')" />
 </Project>

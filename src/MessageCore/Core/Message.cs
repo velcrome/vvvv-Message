@@ -109,7 +109,8 @@ namespace VVVV.Packs.Messaging {
         {
             var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
 
-            var type = (obj != null) ? TypeIdentity.Instance.FindBaseType(obj.GetType()) : null;
+            var type = TypeIdentity.Instance.FindBaseType(obj.GetType());
+            if (type == null) type =  TypeIdentity.Instance.FindBaseType(en.GetType().GenericTypeArguments[0]);
 
             if (!Data.ContainsKey(name) || ((type != null) && (type != Data[name].GetInnerType())))
             {

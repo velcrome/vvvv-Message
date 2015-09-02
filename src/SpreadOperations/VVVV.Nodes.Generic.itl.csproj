@@ -17,7 +17,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>84157395</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>bdb79306</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -54,12 +54,12 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
-    <Reference Include="VVVV.Core">
-      <HintPath>..\packages\VVVV.Core.34.0.0\lib\net40\VVVV.Core.dll</HintPath>
+    <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Core.34.1.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Utils">
-      <HintPath>..\packages\VVVV.Utils.34.0.0\lib\net40\VVVV.Utils.dll</HintPath>
+    <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Utils.34.1.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -84,10 +84,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.33.7.0\build\net40\VVVV.Nodes.Generic.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.34.1.0\build\net40\VVVV.Nodes.Generic.targets')" />
 </Project>
