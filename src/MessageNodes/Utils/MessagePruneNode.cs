@@ -33,13 +33,15 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
             if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0)
+            {
+                if (FOutput.SliceCount >= 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
                     return;
                 }
                 else return;
+            }
 
             var keepOnly = new HashSet<string>(FFilter);
 
@@ -80,13 +82,15 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
             if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0)
+            {
+                if (FOutput.SliceCount >= 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
                     return;
                 }
                 else return;
+            }
 
             foreach (var message in FInput)
             {
@@ -125,13 +129,15 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
 
             if (SpreadMax <= 0)
-                if (FOutput.SliceCount == 0)
+            {
+                if (FOutput.SliceCount >= 0)
                 {
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
                     return;
                 }
                 else return;
+            }
 
             var keepOnly = new HashSet<string>(FFilter);
 
