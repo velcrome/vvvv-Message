@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
@@ -49,18 +49,23 @@
     <Reference Include="System.Linq.Dynamic, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Linq.Dynamic.1.0.4\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.Core">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.Interfaces">
       <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.Linq">
       <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -122,6 +127,7 @@
     <ProjectReference Include="..\MessageCore\VVVV.Packs.Messaging.Core.csproj">
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
       <Name>VVVV.Packs.Messaging.Core</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
       <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
