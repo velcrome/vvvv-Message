@@ -9,8 +9,8 @@
         <copyright>intolight</copyright>
         <dependencies>
             <dependency id="VVVV.Packs.Time" version="0.5.5" />
-            <dependency id="Newtonsoft.Json" version="6.0.8" />
-            <dependency id="VVVV.Utils" version="33.7.0" />
+            <dependency id="Newtonsoft.Json" version="7.0.1" />
+            <dependency id="VVVV.Utils" version="34.2.0" />
         </dependencies>
     </metadata>
     <files>
