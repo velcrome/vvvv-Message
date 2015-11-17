@@ -16,7 +16,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>b2da0835</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>3cc608e0</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
@@ -38,14 +38,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex">
       <HintPath>..\packages\VVVV.System.ComponentModel.Composition.Codeplex.2.5.0\lib\net40\System.ComponentModel.Composition.CodePlex.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Core" />
+    <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Core.34.1.0\lib\net40\VVVV.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Utils.34.2.0\lib\net40\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.34.1.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -56,13 +58,19 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
+      <Project>{6b67bbda-f27b-4905-8f5c-490c3b8ae7f1}</Project>
+      <Name>VVVV.Nodes.Generic.itl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.1.0\build\net40\VVVV.PluginInterfaces.targets'))" />
   </Target>
 </Project>

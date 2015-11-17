@@ -1,7 +1,7 @@
 using System.ComponentModel.Composition;
 
 using System.Linq;
-using System.Linq.Dynamic;
+
 
 using VVVV.Core.Logging;
 using VVVV.Packs.Messaging; 
@@ -34,7 +34,7 @@ namespace VVVV.Packs.Messaging.Nodes
         					from message in FInput
         					let foo = (string)message["Foo"][0]
         					where foo != "bar"
-        					select message;
+        					select message; 
 
              FOutput.SliceCount = 0;
             FOutput.AssignFrom(result.ToArray());

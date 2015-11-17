@@ -166,7 +166,7 @@ namespace VVVV.Packs.Messaging
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Cannot add (" + val + ") of Type " + val.GetType() + ". It is not convertible to "+this.GetType());
             }

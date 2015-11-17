@@ -1,0 +1,143 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\modules\Reader (Message) help.v4p" systemname="Reader (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Reader (Message) help.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="3915" top="1965" width="14400" height="9675">
+   </BOUNDS>
+   <PACK Name="addonpack" Version="33.8.0">
+   </PACK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="46">
+   <BOUNDS type="Node" left="3750" top="5235" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="47" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="3255" top="5865" width="2970" height="4365">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3255" top="5865" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="5">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Output">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="46" srcpinname="Output" dstnodeid="47" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="48" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="6270" top="2040" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6270" top="2040" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Read">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="49" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="1770" top="1035" width="2865" height="360">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1770" top="1035" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="1" values="|saveMessage - Kopie (2).txt|">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="|All Files (*.*)||*.*|">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="Filename">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Filename">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="50" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="6945" top="6150" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6945" top="6150" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|End of Stream|">
+   </PIN>
+   </NODE>
+   <NODE id="44" systemname="Reader (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reader (Message)" componentmode="Hidden">
+   <PIN pinname="Count" slicecount="1" visible="1" values="3">
+   </PIN>
+   <PIN pinname="End of Stream" visible="1">
+   </PIN>
+   <BOUNDS type="Node" left="3765" top="4005" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Filename" visible="1" slicecount="1" values="|saveMessage - Kopie.txt|">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Read" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="44" srcpinname="End of Stream" dstnodeid="50" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="49" srcpinname="Output String" dstnodeid="44" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Read">
+   </LINK>
+   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="46" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="52" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4020" top="2025" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4020" top="2025" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Messages Per Frame|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Count">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="53" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="2250" top="4845" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2250" top="4845" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Output">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="53" dstpinname="Input Node">
+   </LINK>
+   </PATCH>
