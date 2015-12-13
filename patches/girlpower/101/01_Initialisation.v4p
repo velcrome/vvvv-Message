@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="1344" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.0.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="18">
    <BOUNDS type="Node" left="528" top="5352" width="2256" height="276">
@@ -367,9 +367,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="22" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="516" top="2976" width="3360" height="240">
+   <BOUNDS type="Node" left="504" top="2976" width="3360" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="516" top="2976" width="6720" height="768">
+   <BOUNDS type="Box" left="504" top="2976" width="6720" height="768">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|&cr;&lf;Hit New!&cr;&lf;|">
    </PIN>
@@ -384,4 +384,6 @@
    </NODE>
    <LINK srcnodeid="12" srcpinname="Y Output Value" dstnodeid="17" dstpinname="Spread Count per Formular">
    </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>
