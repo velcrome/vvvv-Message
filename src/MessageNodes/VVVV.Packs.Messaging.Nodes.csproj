@@ -68,7 +68,9 @@
     <Compile Include="Configurable\Abstract\RowPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
+    <Compile Include="Configurable\Abstract\TypeablePinsNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configurable\MessageMatchNode.cs" />
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
