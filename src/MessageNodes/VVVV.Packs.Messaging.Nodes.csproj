@@ -38,6 +38,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -59,8 +61,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurable\Abstract\ConfigurableNode.cs" />
+    <Compile Include="Configurable\Abstract\ConfigurableNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
+    <Compile Include="Configurable\Abstract\RowPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
     <Compile Include="Configurable\MessageMatchNode.cs" />
     <Compile Include="Configurable\MessageDefaultNode.cs" />
@@ -68,7 +75,9 @@
     <Compile Include="Configurable\MessageCreateNode.cs" />
     <Compile Include="Configurable\MessageWriteNode.cs" />
     <Compile Include="Keep\MessageKeepCreateNode.cs" />
-    <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs" />
+    <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GenericNodes.cs" />
     <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
     <Compile Include="Keep\MessageKeepSafe.cs" />
