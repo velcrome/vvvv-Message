@@ -64,43 +64,81 @@
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
+    <Compile Include="Configurable\Abstract\DynamicPinNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configurable\Abstract\RowPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configurable\MessageMatchNode.cs" />
-    <Compile Include="Configurable\MessageDefaultNode.cs" />
-    <Compile Include="Configurable\MessageEditNode.cs" />
-    <Compile Include="Configurable\MessageCreateNode.cs" />
-    <Compile Include="Configurable\MessageWriteNode.cs" />
-    <Compile Include="Keep\MessageKeepCreateNode.cs" />
+    <Compile Include="Configurable\MessageMatchNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageDefaultNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageEditNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageCreateNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageWriteNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\WinForms\PicturePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Configurable\WinForms\PinDefinitionPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Keep\MessageKeepCreateNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GenericNodes.cs" />
-    <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
-    <Compile Include="Keep\MessageKeepSafe.cs" />
-    <Compile Include="Configurable\MessageAvoidNilNode.cs" />
+    <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Keep\MessageKeepSafe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageAvoidNilNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Utils\MessageCloneNode.cs" />
     <Compile Include="Spread\MessageMergeNode.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />
-    <Compile Include="Keep\MessageKeepHoldNode.cs" />
+    <Compile Include="Keep\MessageKeepHoldNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Utils\MessageInfoNode.cs" />
     <Compile Include="Utils\MessagePruneNode.cs" />
     <Compile Include="Spread\MessageSiftNode.cs" />
-    <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />
-    <Compile Include="Configurable\MessageSplitNode.cs" />
-    <Compile Include="Configurable\MessageReadNode.cs" />
-    <Compile Include="Keep\MessageKeepSessionNode.cs" />
+    <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageSplitNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configurable\MessageReadNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Keep\MessageKeepSessionNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Serializing\BinaryNodes.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
-    <Compile Include="Formular\FormularReflectionNode.cs" />
+    <Compile Include="Formular\FormularReflectionNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spread\MessageSortNode.cs" />

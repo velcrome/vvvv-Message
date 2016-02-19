@@ -20,6 +20,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected bool FirstFrame = true;
 
+
+        protected override void InitializeWindow()
+        {
+            FWindow = new PinDefinitionPanel();
+            Controls.Add(FWindow);
+        }
+
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
