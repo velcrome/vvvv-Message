@@ -29,8 +29,6 @@ namespace VVVV.Packs.Messaging.Nodes
             Controls.Add(FWindow);
 
         }
-
-
         public virtual void OnImportsSatisfied()
         {
             FConfig.Changed += HandleConfigChange;
