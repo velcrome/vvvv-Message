@@ -67,7 +67,7 @@
     <Compile Include="Configurable\Abstract\DynamicPinNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configurable\Abstract\RowPanel.cs">
+    <Compile Include="Configurable\WinForms\RowPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs">

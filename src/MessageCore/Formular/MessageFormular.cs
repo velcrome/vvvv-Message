@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageFormular
+    public class MessageFormular // : IEnumerable<FormularFieldDescriptor>, IEnumerable
     {
         public static string DYNAMIC = "None";
 
-        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"ID", "Output", "Input", "Message", "Keep" } ); // These names are likely to be pin names
+        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"ID", "Output", "Input", "Message", "Keep"} ); // These names are likely to be pin names
         
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
@@ -21,7 +23,29 @@ namespace VVVV.Packs.Messaging
             get { return dict.Keys; }
         }
 
+        public ICollection<FormularFieldDescriptor> FieldDescriptors
+        {
+            get { return dict.Values; }
+        }
+/*
+        #region IEnumerable Members
+        IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            foreach (var item in dict.Values.ToList())
+            {
+                yield return item;
+            }
+        }
 
+        IEnumerator<FormularFieldDescriptor> IEnumerable<FormularFieldDescriptor>.GetEnumerator()
+        {
+            foreach (var field in dict.Values.ToList())
+            {
+                yield return field;
+            }
+        }
+        #endregion IEnumerable Members
+*/
         public FormularFieldDescriptor this[string name]
         {
             get

@@ -5,47 +5,62 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using VVVV.Utils.VMath;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
         class RowPanel : TableLayoutPanel
         {
             #region fields and properties
-            private CheckBox _toggle;
-            private TextBox _text;
+            public event EventHandler OnChange;
+
+            private CheckBox FToggle;
+            private TextBox FText;
 
             public bool AllowDrag { get; set; }
-            private bool _isDragging = false;
 
-            private int _DDradius = 40;
-            private int _mX = 0;
-            private int _mY = 0;
+            private bool FIsDragging = false;
+            private int FMinMovementRadius = 40;
+            private Vector2D FClickPos;
+
+            private FormularFieldDescriptor _descriptor;
+            public FormularFieldDescriptor Descriptor
+            {
+                get {
+                    return _descriptor;
+                }
+                set {
+                    _descriptor = value;
+                    this.Description = Descriptor == null ? "empty" : Descriptor.ToString();
+                }
+            }
 
             public bool Checked
             {
                 get
                 {
-                    return _toggle.Checked;
+                    return FToggle.Checked;
                 }
                 set
                 {
-                    _toggle.Checked = value;
+                    FToggle.Checked = value;
                 }
             }
-
             public string Description
             {
                 get
                 {
-                    return _text.Text;
+                    return FText.Text;
                 }
                 set
                 {
-                    _text.Text = value;
+                    FText.Text = value;
                 }
             }
+            
             #endregion fields and properties
 
+            #region constructors
             public RowPanel()
             {
                 this.AutoSize = true;
@@ -65,26 +80,34 @@ namespace VVVV.Packs.Messaging.Nodes
                 this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 
 
-                _toggle = new CheckBox();
-                LayoutToggle(_toggle);
-                this.Controls.Add(_toggle);
+                FToggle = new CheckBox();
+                LayoutToggle(FToggle);
+                this.Controls.Add(FToggle);
+                FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
 
-
-                _text = new TextBox();
-                LayoutText(_text);
-                this.Controls.Add(_text);
+                FText = new TextBox();
+                LayoutText(FText);
+                this.Controls.Add(FText);
 
                 AllowDrag = true;
 
             }
 
-            public RowPanel(string text, bool isChecked)
+            public RowPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
+            {
+                Descriptor = descriptor;
+                Checked = isChecked;
+            }
+
+            public RowPanel(string text, bool isChecked = false)
                 : this()
             {
                 Checked = isChecked;
                 Description = text;
             }
+            #endregion constructors
 
+            #region children layouts
             void LayoutToggle(CheckBox box)
             {
                 box.Text = "";
@@ -103,10 +126,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 box.BorderStyle = BorderStyle.None;
                 box.BackColor = Color.FromArgb(230, 230, 230);
             }
+            #endregion children layouts
 
+            #region focus
             protected override void OnGotFocus(EventArgs e)
             {
-                _text.BackColor =
+                FText.BackColor =
                 this.BackColor = Color.Silver;
                 base.OnGotFocus(e);
             }
@@ -114,7 +139,7 @@ namespace VVVV.Packs.Messaging.Nodes
             protected override void OnLostFocus(EventArgs e)
             {
                 this.BackColor =
-                _text.BackColor = Color.FromArgb(230, 230, 230);
+                FText.BackColor = Color.FromArgb(230, 230, 230);
                 base.OnLostFocus(e);
             }
 
@@ -124,29 +149,29 @@ namespace VVVV.Packs.Messaging.Nodes
                 base.OnClick(e);
             }
 
+            #endregion focus
+
+            #region drag and drop
             protected override void OnMouseDown(MouseEventArgs e)
             {
                 this.Focus();
                 base.OnMouseDown(e);
-                _mX = e.X;
-                _mY = e.Y;
-                this._isDragging = false;
+                FClickPos = new Vector2D(e.X, e.Y);
+                this.FIsDragging = false;
             }
 
             protected override void OnMouseMove(MouseEventArgs e)
             {
-                if (!_isDragging)
+                if (!FIsDragging)
                 {
                     // This is a check to see if the mouse is moving while pressed.
                     // Without this, the DragDrop is fired directly when the control is clicked, now you have to drag a few pixels first.
-                    if (e.Button == MouseButtons.Left && _DDradius > 0 && this.AllowDrag)
+                    if (e.Button == MouseButtons.Left && FMinMovementRadius > 0 && this.AllowDrag)
                     {
-                        int num1 = _mX - e.X;
-                        int num2 = _mY - e.Y;
-                        if (((num1 * num1) + (num2 * num2)) > _DDradius)
+                        if (VMath.Dist(FClickPos, new Vector2D(e.X, e.Y)) > FMinMovementRadius)
                         {
                             DoDragDrop(this, DragDropEffects.All);
-                            _isDragging = true;
+                            FIsDragging = true;
                             return;
                         }
                     }
@@ -156,10 +181,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
             protected override void OnMouseUp(MouseEventArgs e)
             {
-                _isDragging = false;
+                FIsDragging = false;
                 base.OnMouseUp(e);
             }
-
+            #endregion drag and drop
 
         }
     }

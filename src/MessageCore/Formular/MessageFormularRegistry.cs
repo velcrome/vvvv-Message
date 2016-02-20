@@ -34,7 +34,7 @@ namespace VVVV.Packs.Messaging
             if (!supressEvent)
             {
                 var e = new MessageFormularChangedEvent(form);
-                TypeChanged(this, e);
+                if (TypeChanged != null) TypeChanged(this, e);
             }
 
             return form;

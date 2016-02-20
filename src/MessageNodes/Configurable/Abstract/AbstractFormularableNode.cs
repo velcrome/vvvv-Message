@@ -9,16 +9,13 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Config("Autolearn Type", IsSingle = true, DefaultBoolean = true, IsToggle = true)]
-        public IDiffSpread<bool> FAutoLearnMode;
-        
         [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
         public IDiffSpread<EnumEntry> FFormular;
+        protected bool FirstFrame = true;
 
         [Import]
         protected IHDEHost FHDEHost;
 
-        protected bool FirstFrame = true;
 
 
         protected override void InitializeWindow()
@@ -32,51 +29,69 @@ namespace VVVV.Packs.Messaging.Nodes
             base.OnImportsSatisfied();
 
             FFormular.Changed += HandleTypeChange;
-            FAutoLearnMode.Changed += HandleLearnModeChange;
+            ((PinDefinitionPanel)FWindow).OnChange += ConfigNextFrame;
 
             var reg = MessageFormularRegistry.Instance;
-            reg.TypeChanged += ConfigChanged;
+            reg.TypeChanged += FormularChanged;
 
             EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
-            FHDEHost.MainLoop.OnRender += SecondFrame;
+            FHDEHost.MainLoop.OnRender += ConfigurePins;
         }
 
-        private void SecondFrame(object sender, System.EventArgs e)
+        private void ConfigNextFrame(object sender, System.EventArgs e)
+        {
+            FHDEHost.MainLoop.OnRender += ConfigurePins;
+        }
+
+        private void ConfigurePins(object sender, System.EventArgs e)
         {
             FirstFrame = false;
-            FHDEHost.MainLoop.OnRender -= SecondFrame;
-        }
+            FHDEHost.MainLoop.OnRender -= ConfigurePins;
+            var forms = SetFormularFromConfig();
 
-        protected virtual void HandleLearnModeChange(IDiffSpread<bool> spread)
-        {
-            if (!FirstFrame) SetFormular();
+//            FConfig[0] = forms[0].ToString();
         }
 
         protected virtual void HandleTypeChange(IDiffSpread<EnumEntry> spread)
         {
-            if (!FirstFrame) SetFormular();
+            if (!FirstFrame) SetFormularFromRegistry();
         }
 
-        protected virtual IList<string> SetFormular() 
+        public virtual IList<MessageFormular> SetFormularFromConfig()
         {
-            var forms = new List<string>();
-            
-            if (!FAutoLearnMode[0] || FFormular.IsAnyInvalid()) return forms;
+            var formular = new MessageFormular(FConfig[0]);
 
-            FConfig.SliceCount = FFormular.SliceCount;
+            var forms = SetFormular(formular, true);
+            return forms;
 
-            for (int i = 0; i < FFormular.SliceCount;i++ )
-            {
-                var form = FFormular[i].Name;
-                if (form != MessageFormular.DYNAMIC) FConfig[i] = MessageFormularRegistry.Instance[form].ToString(true);
-                forms.Add(form);
-                
-            }
-            return forms; //returns names of the Formulars.
         }
 
-        protected virtual void ConfigChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
+        public virtual IList<MessageFormular> SetFormularFromRegistry()
+        {
+            if (FFormular.IsAnyInvalid() || FFormular[0]==MessageFormular.DYNAMIC) return SetFormularFromConfig();
+
+            var form = FFormular[0].Name;
+            var formular = MessageFormularRegistry.Instance[form];
+
+            var forms = SetFormular(formular);
+            return forms;
+
+        }
+
+        protected virtual IList<MessageFormular> SetFormular(MessageFormular formular, bool forceChecked = false) 
+        {
+            var forms = new List<MessageFormular>();
+            var rows = FWindow.Controls.OfType<RowPanel>().ToList();
+                       
+            var pinDef = FWindow as PinDefinitionPanel;
+            pinDef.LayoutByFormular(formular, forceChecked);
+            forms.Add(formular);
+                
+            return forms; //returns the Formulars.
+        }
+
+        protected virtual void FormularChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
         {
             if (FFormular.IsAnyInvalid()) return;
 
@@ -85,7 +100,7 @@ namespace VVVV.Packs.Messaging.Nodes
             foreach (var type in FFormular) 
                 if (type.Name == e.Formular.Name) used = true;
 
-            if (used) SetFormular();
+            if (used) SetFormularFromRegistry();
         }
 
   
