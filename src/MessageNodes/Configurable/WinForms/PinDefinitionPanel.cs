@@ -8,7 +8,11 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public class PinDefinitionPanel : FlowLayoutPanel
     {
-        public PinDefinitionPanel() {
+        
+        public event EventHandler OnChange;
+
+        public PinDefinitionPanel()
+        {
             //table panel fills the whole window
             FlowDirection = FlowDirection.LeftToRight;
 
@@ -24,21 +28,28 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        #region Change Management
-        protected bool FIsChanged;
-        public bool IsChanged
+        public IEnumerable<RowPanel> RowPanels
         {
-            get {
-                var tmp = FIsChanged;
-                FIsChanged = false;
-                return tmp;
-            }
-            private set {
-                FIsChanged = value;                
+            get
+            {
+                return Controls.OfType<RowPanel>();
             }
         }
 
-        public event EventHandler OnChange;
+
+        public IEnumerable<FormularFieldDescriptor> CheckedDescriptors
+        {
+            get 
+            {
+                var desc = from row in RowPanels
+                           where row.Checked
+                           select row.Descriptor;
+                return desc;
+            }
+        }
+
+        #region Change Management
+
         
         #endregion Change Management
 
@@ -46,7 +57,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
             this.SuspendLayout();
 
-            var prev =    Controls.OfType<RowPanel>().ToList();
+            var prev =    RowPanels.ToList();
 
             var remove =  (
                                 from field in prev
@@ -85,9 +96,10 @@ namespace VVVV.Packs.Messaging.Nodes
                     Controls.Add(row);
                     row.OnChange += (sender, args) =>
                     {
-                        IsChanged = true;
+                        //IsChanged = true;
                         OnChange(this, args);
                     };
+                    row.InitializeListeners();
                 }
             }
             
@@ -114,34 +126,33 @@ namespace VVVV.Packs.Messaging.Nodes
         void InsideDragDrop(object sender, DragEventArgs e)
         {
             var row = (RowPanel)e.Data.GetData(typeof(RowPanel));
-            FlowLayoutPanel _destination = (FlowLayoutPanel)sender;
-            FlowLayoutPanel _source = (FlowLayoutPanel)row.Parent;
+            FlowLayoutPanel destination = (FlowLayoutPanel)sender;
+            FlowLayoutPanel source = (FlowLayoutPanel)row.Parent;
 
             // this commented code can be used to drag'n'drop across windows.
-            if (_source != _destination)
+            if (source != destination)
             {
                 //// Move control to panel, updates Parent
-                //_destination.Controls.Add(data);
-                //data.Size = new Size(_destination.Width, 50);
+                //destination.Controls.Add(row);
+                //row.Size = new Size(destination.Width, 50);
 
                 //// Reorder
-                //Point p = _destination.PointToClient(new Point(e.X, e.Y));
-                //var item = _destination.GetChildAtPoint(p);
-                //int index = _destination.Controls.GetChildIndex(item, false);
-                //_destination.Controls.SetChildIndex(data, index);
+                //Point p = destination.PointToClient(new Point(e.X, e.Y));
+                //var item = destination.GetChildAtPoint(p);
+                //int index = destination.Controls.GetChildIndex(item, false);
+                //destination.Controls.SetChildIndex(row, index);
 
-                //// Invalidate to paint!
-                //_destination.Invalidate();
-                //_source.Invalidate();
+                //source.Invalidate();
             }
             else
             {
-                Point p = _destination.PointToClient(new Point(e.X, e.Y));
-                var item = _destination.GetChildAtPoint(p);
-                int index = _destination.Controls.GetChildIndex(item, false);
-                _destination.Controls.SetChildIndex(row, index);  // move it
-                _destination.Invalidate();
+                Point p = destination.PointToClient(new Point(e.X, e.Y));
+                var item = destination.GetChildAtPoint(p);
+                int index = destination.Controls.GetChildIndex(item, false);
+                destination.Controls.SetChildIndex(row, index);  // move it
             }
+            OnChange(this, new EventArgs());
+            destination.Invalidate();
         }
 
         void InsideDragEnter(object sender, DragEventArgs e)

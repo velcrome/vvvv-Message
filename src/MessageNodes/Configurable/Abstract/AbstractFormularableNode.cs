@@ -16,10 +16,10 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import]
         protected IHDEHost FHDEHost;
 
-
-
         protected override void InitializeWindow()
         {
+            // don't call inherited InitializeWindow, so the placeholder pic will disappear
+            
             FWindow = new PinDefinitionPanel();
             Controls.Add(FWindow);
         }
@@ -28,37 +28,64 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
 
-            FFormular.Changed += HandleTypeChange;
-            ((PinDefinitionPanel)FWindow).OnChange += ConfigNextFrame;
-
+            // base provider of Formulars
             var reg = MessageFormularRegistry.Instance;
             reg.TypeChanged += FormularChanged;
 
+            // dummy enum, will be populated from registry
             EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
-            FHDEHost.MainLoop.OnRender += ConfigurePins;
+
+            // defer usage of all Formular related config to the end of the frame, when all nodes have finished at least once
+            FHDEHost.MainLoop.OnRender += InitConfig;
+
+            // events are always deferred to end of frame, so all potential participators have finished
+            FFormular.Changed += (e) => FHDEHost.MainLoop.OnRender += HandleChangeOfFormular;
+            ((PinDefinitionPanel)FWindow).OnChange += (s, e) => FHDEHost.MainLoop.OnRender += HandleChangeInWindow;
         }
 
-        private void ConfigNextFrame(object sender, System.EventArgs e)
+
+        #region node formular update during runtime
+        private void InitConfig(object sender, System.EventArgs e)
         {
-            FHDEHost.MainLoop.OnRender += ConfigurePins;
+            FHDEHost.MainLoop.OnRender -= InitConfig;
+
+            SetWindowFromConfig();
+            SetWindowFromRegistry();
         }
 
-        private void ConfigurePins(object sender, System.EventArgs e)
+        private void HandleChangeOfFormular(object sender, System.EventArgs e)
         {
             FirstFrame = false;
-            FHDEHost.MainLoop.OnRender -= ConfigurePins;
-            var forms = SetFormularFromConfig();
+            FHDEHost.MainLoop.OnRender -= HandleChangeOfFormular;
 
-//            FConfig[0] = forms[0].ToString();
+            SetWindowFromRegistry();
         }
 
-        protected virtual void HandleTypeChange(IDiffSpread<EnumEntry> spread)
+        private void HandleChangeInWindow(object sender, System.EventArgs e)
         {
-            if (!FirstFrame) SetFormularFromRegistry();
+            FHDEHost.MainLoop.OnRender -= HandleChangeInWindow;
+            var config = GetConfigurationFromWindow();
+            FConfig[0] = config;
         }
 
-        public virtual IList<MessageFormular> SetFormularFromConfig()
+        private void FormularChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
+        {
+            if (FFormular.IsAnyInvalid()) return;
+
+            var used = false;
+
+            foreach (var type in FFormular)
+                if (type.Name == e.Formular.Name) used = true;
+
+            if (used) SetWindowFromRegistry();
+        }
+        #endregion node update during runtime
+
+
+
+        #region update gui
+        public virtual IList<MessageFormular> SetWindowFromConfig()
         {
             var formular = new MessageFormular(FConfig[0]);
 
@@ -67,9 +94,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        public virtual IList<MessageFormular> SetFormularFromRegistry()
+        public virtual IList<MessageFormular> SetWindowFromRegistry()
         {
-            if (FFormular.IsAnyInvalid() || FFormular[0]==MessageFormular.DYNAMIC) return SetFormularFromConfig();
+            if (FFormular.IsAnyInvalid() || FirstFrame || FFormular[0]==MessageFormular.DYNAMIC) return SetWindowFromConfig();
 
             var form = FFormular[0].Name;
             var formular = MessageFormularRegistry.Instance[form];
@@ -82,7 +109,6 @@ namespace VVVV.Packs.Messaging.Nodes
         protected virtual IList<MessageFormular> SetFormular(MessageFormular formular, bool forceChecked = false) 
         {
             var forms = new List<MessageFormular>();
-            var rows = FWindow.Controls.OfType<RowPanel>().ToList();
                        
             var pinDef = FWindow as PinDefinitionPanel;
             pinDef.LayoutByFormular(formular, forceChecked);
@@ -90,19 +116,17 @@ namespace VVVV.Packs.Messaging.Nodes
                 
             return forms; //returns the Formulars.
         }
+        #endregion update gui
 
-        protected virtual void FormularChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
+        #region utils
+        private string GetConfigurationFromWindow()
         {
-            if (FFormular.IsAnyInvalid()) return;
-
-            var used = false;
-            
-            foreach (var type in FFormular) 
-                if (type.Name == e.Formular.Name) used = true;
-
-            if (used) SetFormularFromRegistry();
+            var window = FWindow as PinDefinitionPanel;
+            var desc = window.CheckedDescriptors;
+            var result = string.Join(", ", desc.Select(d => d.ToString()));
+            return result;
         }
+        #endregion utils
 
-  
     }
 }

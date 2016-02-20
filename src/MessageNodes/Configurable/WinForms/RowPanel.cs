@@ -9,7 +9,7 @@ using VVVV.Utils.VMath;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-        class RowPanel : TableLayoutPanel
+        public class RowPanel : TableLayoutPanel
         {
             #region fields and properties
             public event EventHandler OnChange;
@@ -83,7 +83,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 FToggle = new CheckBox();
                 LayoutToggle(FToggle);
                 this.Controls.Add(FToggle);
-                FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
 
                 FText = new TextBox();
                 LayoutText(FText);
@@ -91,6 +90,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 AllowDrag = true;
 
+            }
+
+            public void InitializeListeners()
+            {
+                FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
+                
             }
 
             public RowPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
