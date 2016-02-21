@@ -25,6 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
             AllowDrop = true;
             DragEnter += new DragEventHandler(InsideDragEnter);
             DragDrop += new DragEventHandler(InsideDragDrop);
+            DoubleClick += InsideDoubleClick;
 
         }
 
@@ -104,14 +105,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 else
                 {
-                    var row = new RowPanel(newEntry, forceChecked);
-                    row.CanEdit = CanEditDescription;
-                    Controls.Add(row);
-                    row.OnChange += (sender, args) =>
-                    {
-                        OnChange(this, args);
-                    };
-                    row.InitializeListeners();
+                    AddNewRow(newEntry, forceChecked);
                 }
             }
             
@@ -121,16 +115,25 @@ namespace VVVV.Packs.Messaging.Nodes
                 var row = remove[maxCount - counter];
                 if (row != null)
                 {
-
-                    row.Descriptor = null;
-                    row.Description = "empty";
-                    row.Visible = false;
-                    row.Checked = false;
+                    row.Clear(); 
                 }
                 counter--;
             }
             this.ResumeLayout();
             return true; // return 
+        }
+
+        private void AddNewRow(FormularFieldDescriptor desc, bool isChecked)
+        {
+            var row = new RowPanel(desc, isChecked);
+            row.CanEdit = CanEditDescription;
+            Controls.Add(row);
+            row.OnChange += (sender, args) =>
+            {
+                OnChange(this, args);
+            };
+            row.InitializeListeners();
+
         }
         #endregion dynamic control layout
 
@@ -167,6 +170,13 @@ namespace VVVV.Packs.Messaging.Nodes
             e.Effect = DragDropEffects.Move;
         }
         #endregion drag and drop
-  
+
+
+        private void InsideDoubleClick(object sender, EventArgs e)
+        {
+            if (!CanEditDescription) return;
+            AddNewRow(new FormularFieldDescriptor("string Foo"), false);
+            
+        }
     }
 }

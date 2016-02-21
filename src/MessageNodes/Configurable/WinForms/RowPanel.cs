@@ -11,24 +11,25 @@ namespace VVVV.Packs.Messaging.Nodes
 {
         public class RowPanel : TableLayoutPanel
         {
+            #region color constants
             public static Color COLOR_STANDARD = Color.FromArgb(230, 230, 230);
-            public static Color COLOR_DYNAMIC = Color.FromArgb(244, 244, 244);
+            public static Color COLOR_DYNAMIC = Color.FromArgb(250, 250, 250);
             public static Color COLOR_FOCUS = Color.Silver;
             public static Color COLOR_FAULTY = Color.IndianRed;
-            
+            #endregion color constants
+
             #region fields and properties
             public event EventHandler OnChange;
+            public bool IsFaulty { get; set; }
 
-            private CheckBox FToggle;
-            private TextBox FText;
+            protected CheckBox FToggle;
+            protected TextBox FText;
 
             public bool AllowDrag { get; set; }
 
             private bool FIsDragging = false;
             private int FMinMovementRadius = 40;
             private Vector2D FClickPos;
-
-            public bool IsFaulty { get; set; }
 
             private FormularFieldDescriptor _descriptor;
             public FormularFieldDescriptor Descriptor
@@ -100,17 +101,17 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             #endregion fields and properties
 
-            #region constructors
+            #region constructor, gui creation and event initialisation
             public RowPanel()
             {
                 this.AutoSize = true;
                 this.Anchor = AnchorStyles.Left | AnchorStyles.Right; 
                 this.Height = 29;
-                this.MinimumSize = new Size(375, 29);
+                this.MinimumSize = new Size(370, 29);
                 this.Dock = DockStyle.Fill;
 
                 this.BorderStyle = BorderStyle.FixedSingle;
-                this.BackColor = Color.FromArgb(230, 230, 230);
+                this.BackColor = COLOR_STANDARD;
 
                 this.ColumnCount = 2;
                 this.RowCount = 1;
@@ -128,7 +129,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 this.Controls.Add(FText);
 
                 AllowDrag = true;
-
+            }
+            
+            public RowPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
+            {
+                Descriptor = descriptor;
+                Checked = isChecked;
             }
 
             public void InitializeListeners()
@@ -165,31 +171,32 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
 
                     if (CanEdit) OnChange(this, e);
+
+                    Color = IsFaulty ? COLOR_FAULTY : Focused? COLOR_FOCUS : CanEdit? COLOR_DYNAMIC : COLOR_STANDARD;
+
                 };
 
-                FText.KeyPress  += (sender, e) =>
+                FText.KeyDown  += (sender, e) =>
                 {
-                    if (e.KeyChar.Equals((char)13))
+                    if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Enter)
                     {
                         e.Handled = true; // suppress default handling
                         this.Focus(); // remove Focus from textfield -> might trigger OnChange
                     }
                 };
-            }
 
-            public RowPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
-            {
-                Descriptor = descriptor;
-                Checked = isChecked;
-            }
+                KeyDown += (sender, e) =>
+                {
+                    if (CanEdit && e.KeyCode == Keys.Delete)
+                    {
+                        e.Handled = true; // suppress default handling
+                        this.Clear();
+                    }
+                };
 
-            //protected RowPanel(string text, bool isChecked = false)
-            //    : this()
-            //{
-            //    Description = text;
-            //    Checked = isChecked;
-            //}
-            #endregion constructors
+                    
+            }
+            #endregion constructor, gui creation and event initialisation
 
             #region children layouts
             void LayoutToggle(CheckBox box)
@@ -270,7 +277,13 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             #endregion drag and drop
 
-
+            internal void Clear()
+            {
+                _descriptor = null;
+                Description = "string Foo";
+                Visible = false;
+                Checked = false;
+            }
         }
     }
 
