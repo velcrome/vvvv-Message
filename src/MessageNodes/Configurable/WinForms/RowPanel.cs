@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 set {
                     _descriptor = value;
-                    this.Description = Descriptor == null ? "empty" : Descriptor.ToString();
+                    this.Description = Descriptor == null ? "string Foo" : Descriptor.ToString();
                 }
             }
 
@@ -57,17 +57,33 @@ namespace VVVV.Packs.Messaging.Nodes
                     FText.Text = value;
                 }
             }
-            
+
+            private bool _canEdit = true;
+            public bool CanEdit
+            {
+                get
+                {
+                    return _canEdit;
+                }
+                set
+                {
+                    if (value != CanEdit)
+                    {
+                        FText.ReadOnly = !value;
+                        _canEdit = value;
+                    }
+                }
+            }
+
             #endregion fields and properties
 
             #region constructors
             public RowPanel()
             {
                 this.AutoSize = true;
-                this.Anchor = AnchorStyles.Left | AnchorStyles.Right; //| AnchorStyles.Right
-
-                this.Height = 27;
-                this.MinimumSize = new Size(300, 27);
+                this.Anchor = AnchorStyles.Left | AnchorStyles.Right; 
+                this.Height = 29;
+                this.MinimumSize = new Size(375, 29);
                 this.Dock = DockStyle.Fill;
 
                 this.BorderStyle = BorderStyle.FixedSingle;
@@ -95,7 +111,36 @@ namespace VVVV.Packs.Messaging.Nodes
             public void InitializeListeners()
             {
                 FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
-                
+                FText.LostFocus += (sender, e) =>
+                {
+                    var oldDescription = _descriptor.ToString();
+                    
+                    // failsafe
+                    if (!_canEdit)
+                    {
+                        Description = oldDescription;
+                        return;
+                    }
+
+                    // generate new Descriptor, if (manual) description from textbox does not match
+                    if (oldDescription != Description)
+                    {
+                        _descriptor = new FormularFieldDescriptor(Description);
+                        Checked = true;
+                    }
+
+                    OnChange(this, e);
+                };
+
+                FText.KeyPress  += (sender, e) =>
+                {
+                    if (e.KeyChar.Equals((char)13))
+                    {
+                        // call your method for action on enter
+                        e.Handled = true; // suppress default handling
+                        this.Focus();
+                    }
+                };
             }
 
             public RowPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
@@ -104,11 +149,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 Checked = isChecked;
             }
 
-            public RowPanel(string text, bool isChecked = false)
+            protected RowPanel(string text, bool isChecked = false)
                 : this()
             {
-                Checked = isChecked;
                 Description = text;
+                Checked = isChecked;
             }
             #endregion constructors
 
@@ -119,15 +164,17 @@ namespace VVVV.Packs.Messaging.Nodes
                 box.FlatStyle = FlatStyle.Standard;
                 box.AutoCheck = true;
                 box.Dock = DockStyle.Top;
-                box.Height = 18;
+                box.Height = 22;
                 box.Width = 20;
             }
 
             void LayoutText(TextBox box)
             {
-                box.ReadOnly = true;
+//                box.ReadOnly = true;
                 box.Dock = DockStyle.Top;
-                box.Text = "Lorem ipsum";
+                
+                box.Text = "string Foo";
+  
                 box.BorderStyle = BorderStyle.None;
                 box.BackColor = Color.FromArgb(230, 230, 230);
             }

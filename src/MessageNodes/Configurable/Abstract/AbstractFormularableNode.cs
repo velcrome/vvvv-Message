@@ -60,6 +60,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FHDEHost.MainLoop.OnRender -= HandleChangeOfFormular;
 
             SetWindowFromRegistry();
+            ((PinDefinitionPanel)FWindow).CanEditDescription = FFormular[0] == MessageFormular.DYNAMIC;
         }
 
         private void HandleChangeInWindow(object sender, System.EventArgs e)
@@ -99,6 +100,8 @@ namespace VVVV.Packs.Messaging.Nodes
             if (FFormular.IsAnyInvalid() || FirstFrame || FFormular[0]==MessageFormular.DYNAMIC) return SetWindowFromConfig();
 
             var form = FFormular[0].Name;
+            
+            
             var formular = MessageFormularRegistry.Instance[form];
 
             var forms = SetFormular(formular);

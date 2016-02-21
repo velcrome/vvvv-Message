@@ -32,6 +32,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             get
             {
+                // add type checks when needed
                 return Controls.OfType<RowPanel>();
             }
         }
@@ -48,10 +49,22 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
-        #region Change Management
-
-        
-        #endregion Change Management
+        private bool _canEdit = false;
+        public bool CanEditDescription
+        {
+            get
+            {
+                return _canEdit;
+            }
+            set
+            {
+                if (value != CanEditDescription)
+                {
+                    _canEdit = value;
+                    foreach (var row in RowPanels) row.CanEdit = value;
+                }
+            }
+        }
 
         #region dynamic control layout
         public bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
@@ -93,10 +106,10 @@ namespace VVVV.Packs.Messaging.Nodes
                 else
                 {
                     var row = new RowPanel(newEntry, forceChecked);
+                    row.CanEdit = CanEditDescription;
                     Controls.Add(row);
                     row.OnChange += (sender, args) =>
                     {
-                        //IsChanged = true;
                         OnChange(this, args);
                     };
                     row.InitializeListeners();
@@ -135,22 +148,17 @@ namespace VVVV.Packs.Messaging.Nodes
                 //// Move control to panel, updates Parent
                 //destination.Controls.Add(row);
                 //row.Size = new Size(destination.Width, 50);
-
-                //// Reorder
-                //Point p = destination.PointToClient(new Point(e.X, e.Y));
-                //var item = destination.GetChildAtPoint(p);
-                //int index = destination.Controls.GetChildIndex(item, false);
-                //destination.Controls.SetChildIndex(row, index);
-
+                
+                //destination.Controls.SetChildIndex(row, index);  // move it
                 //source.Invalidate();
             }
-            else
-            {
-                Point p = destination.PointToClient(new Point(e.X, e.Y));
-                var item = destination.GetChildAtPoint(p);
-                int index = destination.Controls.GetChildIndex(item, false);
-                destination.Controls.SetChildIndex(row, index);  // move it
-            }
+
+            // Reorder
+            Point p = destination.PointToClient(new Point(e.X, e.Y));
+            var item = destination.GetChildAtPoint(p);
+            int index = destination.Controls.GetChildIndex(item, false);
+            destination.Controls.SetChildIndex(row, index);  // move it
+
             OnChange(this, new EventArgs());
             destination.Invalidate();
         }
