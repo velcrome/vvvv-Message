@@ -43,16 +43,15 @@ namespace VVVV.Packs.Messaging
                         count = -1;
                     else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
                 }
-                if (!MessageFormular.ForbiddenNames.Contains(name))
-                {
-                    if (name != "")
-                    {
-                        this.Type = type;
-                        this.Name = name;
-                        this.DefaultSize = count;
-                    }
-                }
-                else throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
+                if (MessageFormular.ForbiddenNames.Contains(name)) 
+                    throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
+                
+                if (name == "")  
+                    throw new Exception("Could not parse "+config);
+
+               this.Type = type;
+               this.Name = name;
+               this.DefaultSize = count;
             }
             catch (Exception e)
             {

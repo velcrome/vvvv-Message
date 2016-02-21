@@ -11,6 +11,11 @@ namespace VVVV.Packs.Messaging.Nodes
 {
         public class RowPanel : TableLayoutPanel
         {
+            public static Color COLOR_STANDARD = Color.FromArgb(230, 230, 230);
+            public static Color COLOR_DYNAMIC = Color.FromArgb(244, 244, 244);
+            public static Color COLOR_FOCUS = Color.Silver;
+            public static Color COLOR_FAULTY = Color.IndianRed;
+            
             #region fields and properties
             public event EventHandler OnChange;
 
@@ -23,6 +28,8 @@ namespace VVVV.Packs.Messaging.Nodes
             private int FMinMovementRadius = 40;
             private Vector2D FClickPos;
 
+            public bool IsFaulty { get; set; }
+
             private FormularFieldDescriptor _descriptor;
             public FormularFieldDescriptor Descriptor
             {
@@ -30,8 +37,10 @@ namespace VVVV.Packs.Messaging.Nodes
                     return _descriptor;
                 }
                 set {
+                    if (value == null) throw new ArgumentNullException();
                     _descriptor = value;
-                    this.Description = Descriptor == null ? "string Foo" : Descriptor.ToString();
+                    IsFaulty = false; // assume innocence
+                    Description = _descriptor == null ? "string Foo" : _descriptor.ToString();
                 }
             }
 
@@ -54,6 +63,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 set
                 {
+                    if (value == null) value = "";
                     FText.Text = value;
                 }
             }
@@ -69,12 +79,25 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     if (value != CanEdit)
                     {
-                        FText.ReadOnly = !value;
                         _canEdit = value;
+                        Color = _canEdit ? COLOR_DYNAMIC : COLOR_STANDARD; 
+                        FText.ReadOnly = !_canEdit;
                     }
                 }
             }
 
+            public Color Color
+            {
+                get
+                {
+                    return this.BackColor;
+                }
+
+                set
+                {
+                    this.BackColor = FText.BackColor = value;
+                }
+            }
             #endregion fields and properties
 
             #region constructors
@@ -111,12 +134,16 @@ namespace VVVV.Packs.Messaging.Nodes
             public void InitializeListeners()
             {
                 FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
+                FText.GotFocus += (sender, e) => OnGotFocus(e);
+                
                 FText.LostFocus += (sender, e) =>
                 {
+                    OnLostFocus(e);
+
                     var oldDescription = _descriptor.ToString();
                     
                     // failsafe
-                    if (!_canEdit)
+                    if (!CanEdit)
                     {
                         Description = oldDescription;
                         return;
@@ -125,20 +152,27 @@ namespace VVVV.Packs.Messaging.Nodes
                     // generate new Descriptor, if (manual) description from textbox does not match
                     if (oldDescription != Description)
                     {
-                        _descriptor = new FormularFieldDescriptor(Description);
-                        Checked = true;
+                        try
+                        {
+                            _descriptor = new FormularFieldDescriptor(Description);
+                            Checked = true; // assume this is even a wanted pin, so autocheck
+                            IsFaulty = false;
+                        }
+                        catch (Exception)
+                        {
+                            IsFaulty = true;
+                        }
                     }
 
-                    OnChange(this, e);
+                    if (CanEdit) OnChange(this, e);
                 };
 
                 FText.KeyPress  += (sender, e) =>
                 {
                     if (e.KeyChar.Equals((char)13))
                     {
-                        // call your method for action on enter
                         e.Handled = true; // suppress default handling
-                        this.Focus();
+                        this.Focus(); // remove Focus from textfield -> might trigger OnChange
                     }
                 };
             }
@@ -149,12 +183,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 Checked = isChecked;
             }
 
-            protected RowPanel(string text, bool isChecked = false)
-                : this()
-            {
-                Description = text;
-                Checked = isChecked;
-            }
+            //protected RowPanel(string text, bool isChecked = false)
+            //    : this()
+            //{
+            //    Description = text;
+            //    Checked = isChecked;
+            //}
             #endregion constructors
 
             #region children layouts
@@ -183,15 +217,13 @@ namespace VVVV.Packs.Messaging.Nodes
             #region focus
             protected override void OnGotFocus(EventArgs e)
             {
-                FText.BackColor =
-                this.BackColor = Color.Silver;
+                Color = IsFaulty ? COLOR_FAULTY : COLOR_FOCUS;
                 base.OnGotFocus(e);
             }
 
             protected override void OnLostFocus(EventArgs e)
             {
-                this.BackColor =
-                FText.BackColor = Color.FromArgb(230, 230, 230);
+                Color = IsFaulty? COLOR_FAULTY : CanEdit ? COLOR_DYNAMIC : COLOR_STANDARD;
                 base.OnLostFocus(e);
             }
 
@@ -237,6 +269,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 base.OnMouseUp(e);
             }
             #endregion drag and drop
+
 
         }
     }

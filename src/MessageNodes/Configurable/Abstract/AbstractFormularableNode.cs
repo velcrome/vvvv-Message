@@ -48,6 +48,7 @@ namespace VVVV.Packs.Messaging.Nodes
         #region node formular update during runtime
         private void InitConfig(object sender, System.EventArgs e)
         {
+            FirstFrame = false;
             FHDEHost.MainLoop.OnRender -= InitConfig;
 
             SetWindowFromConfig();
@@ -56,18 +57,19 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void HandleChangeOfFormular(object sender, System.EventArgs e)
         {
-            FirstFrame = false;
             FHDEHost.MainLoop.OnRender -= HandleChangeOfFormular;
+            var isDynamic = FFormular[0] == MessageFormular.DYNAMIC;
 
-            SetWindowFromRegistry();
-            ((PinDefinitionPanel)FWindow).CanEditDescription = FFormular[0] == MessageFormular.DYNAMIC;
+            if (!isDynamic) SetWindowFromRegistry();
+            ((PinDefinitionPanel)FWindow).CanEditDescription = isDynamic;
+
+            FConfig[0] = GetConfigurationFromWindow();
         }
 
         private void HandleChangeInWindow(object sender, System.EventArgs e)
         {
             FHDEHost.MainLoop.OnRender -= HandleChangeInWindow;
-            var config = GetConfigurationFromWindow();
-            FConfig[0] = config;
+            FConfig[0] = GetConfigurationFromWindow();
         }
 
         private void FormularChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
@@ -79,7 +81,11 @@ namespace VVVV.Packs.Messaging.Nodes
             foreach (var type in FFormular)
                 if (type.Name == e.Formular.Name) used = true;
 
-            if (used) SetWindowFromRegistry();
+            if (used)
+            {
+                SetWindowFromRegistry();
+                FConfig[0] = GetConfigurationFromWindow();
+            }
         }
         #endregion node update during runtime
 

@@ -37,7 +37,6 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
-
         public IEnumerable<FormularFieldDescriptor> CheckedDescriptors
         {
             get 
