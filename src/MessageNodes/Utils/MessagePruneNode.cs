@@ -17,7 +17,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input")]
         private IDiffSpread<Message> FInput;
 
-        [Input("Remaining Fields", DefaultString = "Foo")]
+        [Input("Remaining FieldNames", DefaultString = "Foo")]
         private ISpread<string> FFilter;
 
         [Output("Output", AutoFlush = false)]
@@ -113,7 +113,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input")]
         private IDiffSpread<Message> FInput;
 
-        [Input("Prune Fields", DefaultString = "Foo")]
+        [Input("Prune FieldNames", DefaultString = "Foo")]
         private ISpread<string> FFilter;
 
         [Output("Output", AutoFlush = false)]

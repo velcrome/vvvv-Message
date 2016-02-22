@@ -68,7 +68,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var form = new MessageFormular(configSpread[0]);
 
-            FillEnum(form.Fields.ToArray());
+            FillEnum(form.FieldNames.ToArray());
         }
 
 

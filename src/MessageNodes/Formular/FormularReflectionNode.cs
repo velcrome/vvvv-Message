@@ -49,7 +49,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
 
                     var f = registry[formular];
-                    foreach (var field in f.Fields)
+                    foreach (var field in f.FieldNames)
                     {
                         FFieldType.Add(TypeIdentity.Instance.FindAlias(f[field].Type));
 

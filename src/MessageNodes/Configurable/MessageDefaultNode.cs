@@ -79,7 +79,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     {
                         Message message = new Message();
                         message.Topic = FTopic[counter];
-                        foreach (var field in formular.Fields)
+                        foreach (var field in formular.FieldNames)
                         {
                             int binsize = formular[field].DefaultSize;
                             binsize = binsize > 0 ? binsize : 1;

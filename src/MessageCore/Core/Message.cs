@@ -21,7 +21,7 @@ namespace VVVV.Packs.Messaging {
     [JsonConverter(typeof(JsonMessageSerializer))]
 	public class Message : ICloneable //, ISerializable
     {
-        #region Properties and Fields
+        #region Properties and FieldNames
         // Access to the the inner Data.
         public IEnumerable<string> Fields
         {
@@ -84,7 +84,7 @@ namespace VVVV.Packs.Messaging {
 
         public void SetFormular(MessageFormular formular)
         {
-            foreach (string field in formular.Fields)
+            foreach (string field in formular.FieldNames)
             {
                 Data[field] = BinFactory.New( formular[field].Type ); // Type
                 var count = formular[field].DefaultSize;

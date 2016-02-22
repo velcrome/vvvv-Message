@@ -18,7 +18,7 @@ namespace VVVV.Packs.Messaging
         public string Name { get; set; }
         public string Definition { get; set; } 
         
-        public ICollection<string> Fields
+        public ICollection<string> FieldNames
         {
             get { return dict.Keys; }
         }
@@ -27,6 +27,21 @@ namespace VVVV.Packs.Messaging
         {
             get { return dict.Values; }
         }
+
+        public FormularFieldDescriptor this[string name]
+        {
+            get
+            {
+                if (dict.ContainsKey(name)) return dict[name];
+                else return null;
+            }
+            set {
+                if (value == null) throw new ArgumentNullException("FormularFieldDescriptor");
+                dict[name] = (FormularFieldDescriptor)value; 
+            }
+        }
+
+
 /*
         #region IEnumerable Members
         IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -46,15 +61,7 @@ namespace VVVV.Packs.Messaging
         }
         #endregion IEnumerable Members
 */
-        public FormularFieldDescriptor this[string name]
-        {
-            get
-            {
-                if (dict.ContainsKey(name)) return dict[name];
-                else return null;
-            }
-            set { dict[name] = (FormularFieldDescriptor)value; }
-        }
+
 
         protected MessageFormular()
         {
