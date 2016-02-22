@@ -97,9 +97,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (sourceBin as object == null)
                     {
-                        if (FDevMode[0])
-                            FLogger.Log(LogType.Debug,
-                                        "\"" + FTypes[name] + " " + name + "\" is not defined in Input Message.");
+                            FLogger.Log(LogType.Error,
+                                        "\"" + Formular[name].Type + " " + name + "\" is not defined in Input Message.");
                     }
                     else count = sourceBin.Count;
 

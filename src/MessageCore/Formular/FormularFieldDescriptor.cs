@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
-    public class FormularFieldDescriptor : IEquatable<FormularFieldDescriptor>
+    public class FormularFieldDescriptor : IEquatable<FormularFieldDescriptor>, ICloneable
     {
  
         public string Name {get; set;}
@@ -83,6 +83,15 @@ namespace VVVV.Packs.Messaging
             }
             sb.Append(" " + Name);
             return sb.ToString();
+        }
+
+        public object Clone()
+        {
+            var c = new FormularFieldDescriptor();
+            c.Type = Type;
+            c.Name = Name;
+            c.DefaultSize = DefaultSize;
+            return c;
         }
     }
 }

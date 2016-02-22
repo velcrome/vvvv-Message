@@ -61,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var isDynamic = FFormular[0] == MessageFormular.DYNAMIC;
 
             if (!isDynamic) SetWindowFromRegistry();
-            ((FormularLayoutPanel)FWindow).CanEditDescription = isDynamic;
+            ((FormularLayoutPanel)FWindow).CanEditFields = isDynamic;
 
             FConfig[0] = GetConfigurationFromWindow();
         }
@@ -110,7 +110,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var fieldDef = FWindow as FormularLayoutPanel;
             fieldDef.LayoutByFormular(formular, forceChecked);
-            fieldDef.CanEditDescription = (FFormular.SliceCount == 0) || FFormular[0].Name == MessageFormular.DYNAMIC;
+            fieldDef.CanEditFields = (FFormular.SliceCount == 0) || FFormular[0].Name == MessageFormular.DYNAMIC;
             return formular; 
         }
         #endregion update gui

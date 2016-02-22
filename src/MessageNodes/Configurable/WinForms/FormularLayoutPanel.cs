@@ -50,7 +50,7 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
         private bool _canEdit = false;
-        public bool CanEditDescription
+        public bool CanEditFields
         {
             get
             {
@@ -58,7 +58,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             set
             {
-                if (value != CanEditDescription)
+                if (value != CanEditFields)
                 {
                     _canEdit = value;
                     foreach (var field in FieldPanels) field.CanEdit = value;
@@ -126,7 +126,7 @@ namespace VVVV.Packs.Messaging.Nodes
         private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
         {
             var field = new FieldPanel(desc, isChecked);
-            field.CanEdit = CanEditDescription;
+            field.CanEdit = CanEditFields;
             Controls.Add(field);
             field.OnChange += (sender, args) =>
             {
@@ -141,28 +141,28 @@ namespace VVVV.Packs.Messaging.Nodes
         void InsideDragDrop(object sender, DragEventArgs e)
         {
             var field = (FieldPanel)e.Data.GetData(typeof(FieldPanel));
-            FlowLayoutPanel destination = (FlowLayoutPanel)sender;
-            FlowLayoutPanel source = (FlowLayoutPanel)field.Parent;
+            var source = field.Parent;
 
-            // this commented code can be used to drag'n'drop across windows.
-            if (source != destination)
+            if (!CanEditFields) return;
+
+            Point p = PointToClient(new Point(e.X, e.Y));
+            var item = GetChildAtPoint(p);
+            int index = Controls.GetChildIndex(item, false);
+
+            // drag'n'drop even across windows.
+            if (source != this)
             {
-                //// Move control to panel, updates Parent
-                //destination.Controls.Add(field);
-                //field.Size = new Size(destination.Width, 50);
-                
-                //destination.Controls.SetChildIndex(field, index);  // move it
-                //source.Invalidate();
-            }
+                // Copy control to panel
+                var copy = new FieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked); 
+                copy.CanEdit = true;
 
-            // Reorder
-            Point p = destination.PointToClient(new Point(e.X, e.Y));
-            var item = destination.GetChildAtPoint(p);
-            int index = destination.Controls.GetChildIndex(item, false);
-            destination.Controls.SetChildIndex(field, index);  // move it
+                Controls.Add(copy);
+                Controls.SetChildIndex(copy, index);  // place it
+            }
+            else Controls.SetChildIndex(field, index);  // move it
 
             OnChange(this, new EventArgs());
-            destination.Invalidate();
+            Invalidate();
         }
 
         void InsideDragEnter(object sender, DragEventArgs e)
@@ -174,7 +174,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void InsideDoubleClick(object sender, EventArgs e)
         {
-            if (!CanEditDescription) return;
+            if (!CanEditFields) return;
 
             var field = AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
             field.CanEdit = true;

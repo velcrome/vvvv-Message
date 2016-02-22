@@ -22,7 +22,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IIOFactory FIOFactory;
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-        protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
+//      protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
 
         protected int DynPinCount = 5;
         protected MessageFormular Formular = new MessageFormular("");
@@ -73,7 +73,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
-            Formular = new MessageFormular(configSpread[0]);
+            var newFormular = new MessageFormular(configSpread[0]);
 
             // pin removals
             var danger = from pinName in FPins.Keys
@@ -86,7 +86,7 @@ namespace VVVV.Packs.Messaging.Nodes
             danger.Concat(
                             from desc in Formular.FieldDescriptors
                             where FPins.Keys.Contains(desc.Name)
-                            where FTypes[desc.Name] == desc.Type
+                            where Formular[desc.Name].Type == desc.Type
                             let pin = FPins[desc.Name].GetPluginIO()
                             where pin == null || pin.IsConnected // first frame pin will not be initialized
                             select desc.Name
@@ -98,7 +98,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             List<string> invalidPins = FPins.Keys.ToList();
-            foreach (string field in Formular.FieldNames)
+            foreach (string field in newFormular.FieldNames)
             {
                 bool create = false;
 
@@ -106,11 +106,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     invalidPins.Remove(field);
 
-                    if (FTypes.ContainsKey(field))
+                    if (Formular.FieldNames.Contains(field))
                     {
                         // same name, but types don't match
                         // todo: in fact eg float does match double here...
-                        if (FTypes[field] != Formular[field].Type)
+                        if (Formular[field].Type != newFormular[field].Type)
                         {
                             FPins[field].Dispose();
                             FPins[field] = null;
@@ -131,23 +131,22 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 if (create)
                 {
-                    IOAttribute attr = DefinePin(Formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+                    IOAttribute attr = DefinePin(newFormular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
 
-                    Type type = Formular[field].Type;
+                    Type type = newFormular[field].Type;
                     Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
                     FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
-
-                    FTypes.Add(field, type);
                 }
                 DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
             }
             
             // cleanup
+            Formular = newFormular;
+
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();
                 FPins.Remove(name);
-                FTypes.Remove(name);
             }
 
             //// reorder - does not work right now
@@ -158,6 +157,7 @@ namespace VVVV.Packs.Messaging.Nodes
             //    var pin = FPins[name].GetPluginIO();
             //    pin.Order = i * 2 + 5;
             //}
+
         }
 
         #endregion pin management
