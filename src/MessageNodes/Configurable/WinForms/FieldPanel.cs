@@ -84,7 +84,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-            private bool _canEdit = false
+            private bool _canEdit = false;
             public bool CanEdit
             {
                 get
