@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 
 using VVVV.PluginInterfaces.V2;
+using VVVV.PluginInterfaces.V1;
 using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -24,7 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
 
         protected int DynPinCount = 5;
-        protected MessageFormular Formular = new MessageFormular("");
+        protected MessageFormular formular = new MessageFormular("");
 
 
         #endregion fields & pins
@@ -72,11 +73,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
-            DynPinCount = 5;
             List<string> invalidPins = FPins.Keys.ToList();
-            Formular = new MessageFormular(configSpread[0]);
+            formular = new MessageFormular(configSpread[0]);
 
-            foreach (string field in Formular.Fields)
+            foreach (string field in formular.Fields)
             {
                 bool create = false;
 
@@ -86,13 +86,14 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (FTypes.ContainsKey(field))
                     {
-                        if (FTypes[field] != Formular[field].Type)
+                        // same name, but types don't match
+                        // todo: in fact eg float does match double here...
+                        if (FTypes[field] != formular[field].Type)
                         {
                             FPins[field].Dispose();
                             FPins[field] = null;
                             create = true;
                         }
-
                     }
                     else
                     {
@@ -108,9 +109,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 if (create)
                 {
-                    IOAttribute attr = DefinePin(Formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+                    IOAttribute attr = DefinePin(formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
 
-                    Type type = Formular[field].Type;
+                    Type type = formular[field].Type;
                     Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
                     FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
 
@@ -118,12 +119,23 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
             }
+            
+            // cleanup
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();
                 FPins.Remove(name);
                 FTypes.Remove(name);
             }
+
+            //// reorder - does not work right now
+            //var names = formular.Fields.ToArray();
+            //for (int i = 0; i < formular.Fields.Count; i++)
+            //{
+            //    var name = names[i];
+            //    var pin = FPins[name].GetPluginIO();
+            //    pin.Order = i * 2 + 5;
+            //}
         }
 
         #endregion pin management

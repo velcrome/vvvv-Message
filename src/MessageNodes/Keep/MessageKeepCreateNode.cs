@@ -139,7 +139,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 newData = true;
                 newTopic = true;
 
-                var message = new Message(Formular);
+                var message = new Message(formular);
                 message.Topic = FTopic[i];
                 Keep.Add(message);
             }
