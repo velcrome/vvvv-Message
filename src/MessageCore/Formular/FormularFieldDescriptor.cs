@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging
             {
                 var data = Regex.Match(config.Trim(), pattern);
 
-                Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will gracefully return string.
+                Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will return null
                 string name = data.Groups[3].ToString();
 
                 int count = 1;
@@ -46,7 +46,7 @@ namespace VVVV.Packs.Messaging
                 if (MessageFormular.ForbiddenNames.Contains(name)) 
                     throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
                 
-                if (name == "")  
+                if (type == null || name == "")  
                     throw new Exception("Could not parse "+config);
 
                this.Type = type;

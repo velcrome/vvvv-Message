@@ -82,64 +82,23 @@ namespace VVVV.Packs.Messaging
 
         public MessageFormular (string configuration) : this()
         {
-            Definition = configuration;
+            Definition = configuration==null? "" : configuration.Trim();
+            
+            if (Definition == "") return; // nothing to do here. hand back empty Formular
+
             string[] config = configuration.Trim().Split(',');
 
             foreach (string binConfig in config)
             {
-                const string pattern = @"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$"; // "Type[N] name"
-                // Name can constitute of alphanumericals, dots, underscores and hyphens.
-
-                try
-                {
-                    var binData = Regex.Match(binConfig.Trim(), pattern);
-
-                    Type type = TypeIdentity.Instance.FindType(binData.Groups[1].ToString()); // if alias not found, it will gracefully return string.
-                    string name = binData.Groups[3].ToString();
-
-                    int count = 1;
-                    if (binData.Groups[2].Length > 0) {
-                        var arrayConnotation = binData.Groups[2].ToString();
-
-                        if (arrayConnotation == "[]") 
-                            count = -1;
-                            else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
-                    }
-                    if (!ForbiddenNames.Contains(name))
-                    {
-                        if (name != "") dict[name] = new FormularFieldDescriptor(type, name, count);
-                    }
-                    else throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Could not parse \"" + binConfig + "\". Please check Formular Configuration for syntax Error.", e);
-
-
-                }
+                var desc = new FormularFieldDescriptor(binConfig);
+                dict[desc.Name] = desc;
             }
         }
 
         public string ToString(bool withCount = false)
         {
-			StringBuilder sb = new StringBuilder();
-
-            foreach (string name in dict.Keys)
-            {
-                Type type = dict[name].Type;
-                sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
-                if (withCount && dict[name].DefaultSize != 1)
-                {
-
-                    sb.Append("[");
-                    if (dict[name].DefaultSize > 0) sb.Append(dict[name].DefaultSize);
-                    sb.Append("]");
-                }
-                sb.Append(" " + name);
-            }
-            var str = sb.ToString();
-            
-            return str.Length>0? str.Substring(2) : ""; // clean leading ", "
+            var str = dict.Values.Select(desc => desc.ToString());
+            return string.Join(", ", str.ToArray());
         }
     }
 }

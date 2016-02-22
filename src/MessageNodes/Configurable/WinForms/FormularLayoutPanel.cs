@@ -123,7 +123,7 @@ namespace VVVV.Packs.Messaging.Nodes
             return true; // return 
         }
 
-        private void AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
+        private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
         {
             var field = new FieldPanel(desc, isChecked);
             field.CanEdit = CanEditDescription;
@@ -133,7 +133,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 OnChange(this, args);
             };
             field.InitializeListeners();
-
+            return field;
         }
         #endregion dynamic control layout
 
@@ -175,7 +175,9 @@ namespace VVVV.Packs.Messaging.Nodes
         private void InsideDoubleClick(object sender, EventArgs e)
         {
             if (!CanEditDescription) return;
-            AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
+
+            var field = AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
+            field.CanEdit = true;
             
         }
     }

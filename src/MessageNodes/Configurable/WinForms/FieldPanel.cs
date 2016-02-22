@@ -20,7 +20,22 @@ namespace VVVV.Packs.Messaging.Nodes
 
             #region fields and properties
             public event EventHandler OnChange;
-            public bool IsFaulty { get; set; }
+
+            private bool _isFaulty;
+            public bool IsFaulty
+            {
+                get
+                {
+                    return _isFaulty;
+                }
+                set
+                {
+                    _isFaulty = value;
+
+                    if (_isFaulty) FToggle.Checked = false;
+                    FToggle.Enabled = !_isFaulty;
+                }
+            }
 
             protected CheckBox FToggle;
             protected TextBox FText;
@@ -38,7 +53,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     return _descriptor;
                 }
                 set {
-                    if (value == null) throw new ArgumentNullException();
+                    if (value == null) throw new ArgumentNullException("Descriptor", "Use Clear() if you want to reset the Descriptor.");
                     _descriptor = value;
                     IsFaulty = false; // assume innocence
                     Description = _descriptor == null ? "string Foo" : _descriptor.ToString();
@@ -69,7 +84,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-            private bool _canEdit = true;
+            private bool _canEdit = false
             public bool CanEdit
             {
                 get
