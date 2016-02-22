@@ -20,7 +20,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             // don't call inherited InitializeWindow, so the placeholder pic will disappear
             
-            FWindow = new PinDefinitionPanel();
+            FWindow = new FormularLayoutPanel();
             Controls.Add(FWindow);
         }
 
@@ -41,7 +41,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             // events are always deferred to end of frame, so all potential participators have finished
             FFormular.Changed += (e) => FHDEHost.MainLoop.OnRender += HandleChangeOfFormular;
-            ((PinDefinitionPanel)FWindow).OnChange += (s, e) => FHDEHost.MainLoop.OnRender += HandleChangeInWindow;
+            ((FormularLayoutPanel)FWindow).OnChange += (s, e) => FHDEHost.MainLoop.OnRender += HandleChangeInWindow;
         }
 
 
@@ -61,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var isDynamic = FFormular[0] == MessageFormular.DYNAMIC;
 
             if (!isDynamic) SetWindowFromRegistry();
-            ((PinDefinitionPanel)FWindow).CanEditDescription = isDynamic;
+            ((FormularLayoutPanel)FWindow).CanEditDescription = isDynamic;
 
             FConfig[0] = GetConfigurationFromWindow();
         }
@@ -89,48 +89,36 @@ namespace VVVV.Packs.Messaging.Nodes
         }
         #endregion node update during runtime
 
-
-
         #region update gui
-        public virtual IList<MessageFormular> SetWindowFromConfig()
+        public virtual MessageFormular SetWindowFromConfig()
         {
             var formular = new MessageFormular(FConfig[0]);
-
-            var forms = SetFormular(formular, true);
-            return forms;
-
+            return SetFormular(formular, true);
         }
 
-        public virtual IList<MessageFormular> SetWindowFromRegistry()
+        public virtual MessageFormular SetWindowFromRegistry()
         {
             if (FFormular.IsAnyInvalid() || FirstFrame || FFormular[0]==MessageFormular.DYNAMIC) return SetWindowFromConfig();
 
             var form = FFormular[0].Name;
-            
-            
             var formular = MessageFormularRegistry.Instance[form];
 
-            var forms = SetFormular(formular);
-            return forms;
-
+            return SetFormular(formular);
         }
 
-        protected virtual IList<MessageFormular> SetFormular(MessageFormular formular, bool forceChecked = false) 
+        protected virtual MessageFormular SetFormular(MessageFormular formular, bool forceChecked = false) 
         {
-            var forms = new List<MessageFormular>();
-                       
-            var pinDef = FWindow as PinDefinitionPanel;
-            pinDef.LayoutByFormular(formular, forceChecked);
-            forms.Add(formular);
-                
-            return forms; //returns the Formulars.
+            var fieldDef = FWindow as FormularLayoutPanel;
+            fieldDef.LayoutByFormular(formular, forceChecked);
+            fieldDef.CanEditDescription = (FFormular.SliceCount == 0) || FFormular[0].Name == MessageFormular.DYNAMIC;
+            return formular; 
         }
         #endregion update gui
 
         #region utils
         private string GetConfigurationFromWindow()
         {
-            var window = FWindow as PinDefinitionPanel;
+            var window = FWindow as FormularLayoutPanel;
             var desc = window.CheckedDescriptors;
             var result = string.Join(", ", desc.Select(d => d.ToString()));
             return result;

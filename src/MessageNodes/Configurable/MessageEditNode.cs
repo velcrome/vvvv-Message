@@ -12,7 +12,7 @@ namespace VVVV.Nodes.Messaging.Nodes
     [PluginInfo(Name = "Edit", 
         Category = "Message", 
         AutoEvaluate = true, 
-        Help = "Adds or edits multiple Message Fields", 
+        Help = "Adds or edits multiple Message FieldNames", 
         Version = "Formular", 
         Tags = "Formular, Bin",
         Author = "velcrome")]

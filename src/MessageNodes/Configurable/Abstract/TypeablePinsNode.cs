@@ -76,7 +76,7 @@ namespace VVVV.Packs.Messaging.Nodes
             List<string> invalidPins = FPins.Keys.ToList();
             formular = new MessageFormular(configSpread[0]);
 
-            foreach (string field in formular.Fields)
+            foreach (string field in formular.FieldNames)
             {
                 bool create = false;
 
@@ -129,8 +129,8 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             //// reorder - does not work right now
-            //var names = formular.Fields.ToArray();
-            //for (int i = 0; i < formular.Fields.Count; i++)
+            //var names = formular.FieldNames.ToArray();
+            //for (int i = 0; i < formular.FieldNames.Count; i++)
             //{
             //    var name = names[i];
             //    var pin = FPins[name].GetPluginIO();

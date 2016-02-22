@@ -9,7 +9,7 @@ using VVVV.Utils.VMath;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-        public class RowPanel : TableLayoutPanel
+        public class FieldPanel : TableLayoutPanel
         {
             #region color constants
             public static Color COLOR_STANDARD = Color.FromArgb(230, 230, 230);
@@ -102,7 +102,7 @@ namespace VVVV.Packs.Messaging.Nodes
             #endregion fields and properties
 
             #region constructor, gui creation and event initialisation
-            public RowPanel()
+            public FieldPanel()
             {
                 this.AutoSize = true;
                 this.Anchor = AnchorStyles.Left | AnchorStyles.Right; 
@@ -131,7 +131,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 AllowDrag = true;
             }
             
-            public RowPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
+            public FieldPanel(FormularFieldDescriptor descriptor, bool isChecked = false) : this()
             {
                 Descriptor = descriptor;
                 Checked = isChecked;
@@ -141,40 +141,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
                 FText.GotFocus += (sender, e) => OnGotFocus(e);
-                
-                FText.LostFocus += (sender, e) =>
-                {
-                    OnLostFocus(e);
-
-                    var oldDescription = _descriptor.ToString();
-                    
-                    // failsafe
-                    if (!CanEdit)
-                    {
-                        Description = oldDescription;
-                        return;
-                    }
-
-                    // generate new Descriptor, if (manual) description from textbox does not match
-                    if (oldDescription != Description)
-                    {
-                        try
-                        {
-                            _descriptor = new FormularFieldDescriptor(Description);
-                            Checked = true; // assume this is even a wanted pin, so autocheck
-                            IsFaulty = false;
-                        }
-                        catch (Exception)
-                        {
-                            IsFaulty = true;
-                        }
-                    }
-
-                    if (CanEdit) OnChange(this, e);
-
-                    Color = IsFaulty ? COLOR_FAULTY : Focused? COLOR_FOCUS : CanEdit? COLOR_DYNAMIC : COLOR_STANDARD;
-
-                };
+                FText.LostFocus += UpdateDescriptor;
 
                 FText.KeyDown  += (sender, e) =>
                 {
@@ -194,7 +161,55 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                 };
 
+                this.MouseDown += RemoveWithRightClick;
+                this.FText.MouseDown += RemoveWithRightClick;
+;
+
                     
+            }
+
+            private void RemoveWithRightClick(object sender, MouseEventArgs e)
+            {
+                {
+                    if (CanEdit && e.Button.IsRight())
+                    {
+                        this.Clear();
+                    }
+                }
+            }
+
+            private void UpdateDescriptor(object sender, EventArgs e)
+            {
+                OnLostFocus(e);
+
+                var oldDescription = _descriptor == null? Description : _descriptor.ToString();
+
+                // failsafe
+                if (!CanEdit)
+                {
+                    Description = oldDescription;
+                    return;
+                }
+
+                // generate new Descriptor, if (manual) description from textbox does not match
+                if (oldDescription != Description)
+                {
+                    try
+                    {
+                        _descriptor = new FormularFieldDescriptor(Description);
+                        Checked = true; // assume this is even a wanted pin, so autocheck
+                        IsFaulty = false;
+                    }
+                    catch (Exception)
+                    {
+                        IsFaulty = true;
+                    }
+                }
+
+                if (CanEdit) OnChange(this, e);
+
+                Color = IsFaulty ? COLOR_FAULTY : Focused ? COLOR_FOCUS : CanEdit ? COLOR_DYNAMIC : COLOR_STANDARD;
+
             }
             #endregion constructor, gui creation and event initialisation
 
@@ -226,6 +241,8 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 Color = IsFaulty ? COLOR_FAULTY : COLOR_FOCUS;
                 base.OnGotFocus(e);
+
+                FText.SelectAll();
             }
 
             protected override void OnLostFocus(EventArgs e)

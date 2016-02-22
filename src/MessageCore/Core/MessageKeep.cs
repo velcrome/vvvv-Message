@@ -10,7 +10,7 @@ namespace VVVV.Packs.Messaging
         protected List<Message> Messages = new List<Message>();
         protected Dictionary<Message, Message> Changes = new Dictionary<Message, Message>();
 
-        #region Fields
+        #region FieldNames
         private bool _quickMode = true;
         public bool QuickMode
         {
@@ -55,7 +55,7 @@ namespace VVVV.Packs.Messaging
                 }
             }
         }
-    #endregion Fields
+    #endregion FieldNames
 
         public MessageKeep()
         {

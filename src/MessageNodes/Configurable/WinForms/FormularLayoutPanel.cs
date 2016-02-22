@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public class PinDefinitionPanel : FlowLayoutPanel
+    public class FormularLayoutPanel : FlowLayoutPanel
     {
         
         public event EventHandler OnChange;
 
-        public PinDefinitionPanel()
+        public FormularLayoutPanel()
         {
             //table panel fills the whole window
             FlowDirection = FlowDirection.LeftToRight;
@@ -29,12 +29,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        public IEnumerable<RowPanel> RowPanels
+        public IEnumerable<FieldPanel> FieldPanels
         {
             get
             {
-                // add type checks when needed
-                return Controls.OfType<RowPanel>();
+                // filter and return all child controls of type FieldPanel
+                return Controls.OfType<FieldPanel>();
             }
         }
 
@@ -42,9 +42,9 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             get 
             {
-                var desc = from row in RowPanels
-                           where row.Checked
-                           select row.Descriptor;
+                var desc = from field in FieldPanels
+                           where field.Checked
+                           select field.Descriptor;
                 return desc;
             }
         }
@@ -61,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (value != CanEditDescription)
                 {
                     _canEdit = value;
-                    foreach (var row in RowPanels) row.CanEdit = value;
+                    foreach (var field in FieldPanels) field.CanEdit = value;
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
             this.SuspendLayout();
 
-            var prev =    RowPanels.ToList();
+            var prev =    FieldPanels.ToList();
 
             var remove =  (
                                 from field in prev
@@ -79,8 +79,8 @@ namespace VVVV.Packs.Messaging.Nodes
                           ).ToList();
 
             var current = (
-                                from row in prev
-                                select row.Descriptor
+                                from field in prev
+                                select field.Descriptor
                           );
 
             var fresh =   (
@@ -105,17 +105,17 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 else
                 {
-                    AddNewRow(newEntry, forceChecked);
+                    AddNewFieldPanel(newEntry, forceChecked);
                 }
             }
             
             // cleanup: just keep them lingering around, recycle when needed. should speed up gui
             while (counter > 0)
             {
-                var row = remove[maxCount - counter];
-                if (row != null)
+                var field = remove[maxCount - counter];
+                if (field != null)
                 {
-                    row.Clear(); 
+                    field.Clear(); 
                 }
                 counter--;
             }
@@ -123,16 +123,16 @@ namespace VVVV.Packs.Messaging.Nodes
             return true; // return 
         }
 
-        private void AddNewRow(FormularFieldDescriptor desc, bool isChecked)
+        private void AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
         {
-            var row = new RowPanel(desc, isChecked);
-            row.CanEdit = CanEditDescription;
-            Controls.Add(row);
-            row.OnChange += (sender, args) =>
+            var field = new FieldPanel(desc, isChecked);
+            field.CanEdit = CanEditDescription;
+            Controls.Add(field);
+            field.OnChange += (sender, args) =>
             {
                 OnChange(this, args);
             };
-            row.InitializeListeners();
+            field.InitializeListeners();
 
         }
         #endregion dynamic control layout
@@ -140,18 +140,18 @@ namespace VVVV.Packs.Messaging.Nodes
         #region drag and drop
         void InsideDragDrop(object sender, DragEventArgs e)
         {
-            var row = (RowPanel)e.Data.GetData(typeof(RowPanel));
+            var field = (FieldPanel)e.Data.GetData(typeof(FieldPanel));
             FlowLayoutPanel destination = (FlowLayoutPanel)sender;
-            FlowLayoutPanel source = (FlowLayoutPanel)row.Parent;
+            FlowLayoutPanel source = (FlowLayoutPanel)field.Parent;
 
             // this commented code can be used to drag'n'drop across windows.
             if (source != destination)
             {
                 //// Move control to panel, updates Parent
-                //destination.Controls.Add(row);
-                //row.Size = new Size(destination.Width, 50);
+                //destination.Controls.Add(field);
+                //field.Size = new Size(destination.Width, 50);
                 
-                //destination.Controls.SetChildIndex(row, index);  // move it
+                //destination.Controls.SetChildIndex(field, index);  // move it
                 //source.Invalidate();
             }
 
@@ -159,7 +159,7 @@ namespace VVVV.Packs.Messaging.Nodes
             Point p = destination.PointToClient(new Point(e.X, e.Y));
             var item = destination.GetChildAtPoint(p);
             int index = destination.Controls.GetChildIndex(item, false);
-            destination.Controls.SetChildIndex(row, index);  // move it
+            destination.Controls.SetChildIndex(field, index);  // move it
 
             OnChange(this, new EventArgs());
             destination.Invalidate();
@@ -175,7 +175,7 @@ namespace VVVV.Packs.Messaging.Nodes
         private void InsideDoubleClick(object sender, EventArgs e)
         {
             if (!CanEditDescription) return;
-            AddNewRow(new FormularFieldDescriptor("string Foo"), false);
+            AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
             
         }
     }
