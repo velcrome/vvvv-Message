@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="8205" top="1110" width="13050" height="9435">
    </BOUNDS>
@@ -94,7 +94,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="19" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="540" top="4740" width="1185" height="240">
@@ -219,6 +219,8 @@
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
+   <PIN pinname="quaternionXYZW" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="20" srcpinname="Output Enum" dstnodeid="6" dstpinname="Message Formular">
    </LINK>
@@ -232,6 +234,8 @@
    <BOUNDS type="Box" left="4650" top="5115">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
+   </PIN>
+   <PIN pinname="color" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="17" dstpinname="Message Formular">
@@ -327,5 +331,63 @@
    <LINK srcnodeid="22" srcpinname="Field" dstnodeid="25" dstpinname="Input String">
    </LINK>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="22" dstpinname="Message Formular">
+   </LINK>
+   <NODE nodename="IOBox (Color)" componentmode="InABox" id="36" systemname="IOBox (Color)">
+   <BOUNDS type="Box" left="6420" top="4125" width="2250" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6420" top="4125" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Color Input" slicecount="1" visible="1" values="|0.00000,1.00000,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="36" srcpinname="Color Output" dstnodeid="17" dstpinname="color">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="37" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4350" top="3540" width="795" height="960">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4350" top="3540" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="4" visible="1" values="0,0,0,0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="37" srcpinname="Y Output Value" dstnodeid="6" dstpinname="quaternionXYZW">
+   </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <NODE systemname="Renderer (TTY)" filename="" nodename="Renderer (TTY)" componentmode="InAWindow" id="38">
+   <BOUNDS type="Node" left="8145" top="6045" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8145" top="6045" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="27240" top="6105" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Log Messages" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="39" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="9060" top="5250" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9060" top="5250" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="39" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Log Messages">
    </LINK>
    </PATCH>
