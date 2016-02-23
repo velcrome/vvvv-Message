@@ -149,7 +149,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins.Remove(name);
             }
 
-            //// reorder - does not work right now
+            //// reorder - does not work right now, sdk offers only read-only access
             //var names = formular.FieldNames.ToArray();
             //for (int i = 0; i < formular.FieldNames.Count; i++)
             //{
