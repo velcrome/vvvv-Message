@@ -94,8 +94,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (danger.Count() > 0)
             {
-            
-            }
+//                FHDEHost.MainLoop.OnUpdateView += ReTryConfigChange;
+//                throw new Exception("ARG");
+            } 
+//            else FHDEHost.MainLoop.OnUpdateView -= ReTryConfigChange;
+ 
 
             List<string> invalidPins = FPins.Keys.ToList();
             foreach (string field in newFormular.FieldNames)
@@ -160,6 +163,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
+
+        protected void ReTryConfigChange(object sender, EventArgs e) {
+            HandleConfigChange(FConfig);
+        }
         #endregion pin management
 
         #region abstract methods
