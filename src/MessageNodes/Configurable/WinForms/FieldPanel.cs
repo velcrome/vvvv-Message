@@ -11,15 +11,8 @@ namespace VVVV.Packs.Messaging.Nodes
 {
         public class FieldPanel : TableLayoutPanel
         {
-            #region color constants
-            public static Color COLOR_STANDARD = Color.FromArgb(230, 230, 230);
-            public static Color COLOR_DYNAMIC = Color.FromArgb(250, 250, 250);
-            public static Color COLOR_FOCUS = Color.Silver;
-            public static Color COLOR_FAULTY = Color.IndianRed;
-            #endregion color constants
-
             #region fields and properties
-            public event EventHandler OnChange;
+            public event EventHandler Change;
 
             private bool _isFaulty;
             public bool IsFaulty
@@ -42,9 +35,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
             public bool AllowDrag { get; set; }
 
-            private bool FIsDragging = false;
-            private int FMinMovementRadius = 40;
-            private Vector2D FClickPos;
+            public bool IsDragging = false;
+            protected int MinDragPixel = 8;
+            protected Vector2D DragStartPosition;
 
             private FormularFieldDescriptor _descriptor;
             public FormularFieldDescriptor Descriptor
@@ -53,10 +46,16 @@ namespace VVVV.Packs.Messaging.Nodes
                     return _descriptor;
                 }
                 set {
-                    if (value == null) throw new ArgumentNullException("Descriptor", "Use Clear() if you want to reset the Descriptor.");
-                    _descriptor = value;
-                    IsFaulty = false; // assume innocence
-                    Description = _descriptor == null ? "string Foo" : _descriptor.ToString();
+                    if (value == null)
+                        IsEmpty = true;
+                    else
+                    {
+                        _descriptor = value;
+                        IsFaulty = false; // assume innocence
+
+                        Description = IsEmpty ? "Ø" : _descriptor.ToString();
+                        Invalidate();
+                    }
                 }
             }
 
@@ -69,6 +68,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 set
                 {
                     FToggle.Checked = value;
+                    Invalidate();
                 }
             }
             public string Description
@@ -81,6 +81,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     if (value == null) value = "";
                     FText.Text = value;
+
+                    // do not enforce a Change 
                 }
             }
 
@@ -96,24 +98,13 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (value != CanEdit)
                     {
                         _canEdit = value;
-                        Color = _canEdit ? COLOR_DYNAMIC : COLOR_STANDARD; 
                         FText.ReadOnly = !_canEdit;
                     }
+                    Invalidate();
                 }
             }
 
-            public Color Color
-            {
-                get
-                {
-                    return this.BackColor;
-                }
 
-                set
-                {
-                    this.BackColor = FText.BackColor = value;
-                }
-            }
             #endregion fields and properties
 
             #region constructor, gui creation and event initialisation
@@ -126,7 +117,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 this.Dock = DockStyle.Fill;
 
                 this.BorderStyle = BorderStyle.FixedSingle;
-                this.BackColor = COLOR_STANDARD;
 
                 this.ColumnCount = 2;
                 this.RowCount = 1;
@@ -136,11 +126,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
                 FToggle = new CheckBox();
-                LayoutToggle(FToggle);
+                InitCheckBox(FToggle);
                 this.Controls.Add(FToggle);
 
                 FText = new TextBox();
-                LayoutText(FText);
+                InitTextBox(FText);
                 this.Controls.Add(FText);
 
                 AllowDrag = true;
@@ -152,52 +142,89 @@ namespace VVVV.Packs.Messaging.Nodes
                 Checked = isChecked;
             }
 
-            public void InitializeListeners()
-            {
-                FToggle.CheckedChanged += (sender, e) => OnChange(this, e);
-                FText.GotFocus += (sender, e) => OnGotFocus(e);
-                FText.LostFocus += UpdateDescriptor;
+            public bool IsEmpty {
+                get {
+                    return _descriptor == null;
+                }
+                set
+                {
+                    if (value == true)
+                    {
+                        _descriptor = null;
+                        Description = "string Foo";
+                        Visible = false;
+                        Checked = false;
 
-                FText.KeyDown  += (sender, e) =>
+                        Invalidate();
+                    }
+                    else throw new ArgumentException("Will not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.", "IsEmpty");
+
+                }
+            }
+
+            void InitCheckBox(CheckBox box)
+            {
+                box.Text = "";
+                box.FlatStyle = FlatStyle.Standard;
+                box.AutoCheck = true;
+                box.Dock = DockStyle.Top;
+                box.Height = 22;
+                box.Width = 20;
+                FToggle.CheckedChanged += (sender, e) =>
+                {
+                    if (Change == null) Change(this, e);
+                    Focus();
+                    Invalidate();
+                };
+            }
+
+            void InitTextBox(TextBox box)
+            {
+                box.Dock = DockStyle.Top;
+                box.Text = "string Foo";
+  
+                box.BorderStyle = BorderStyle.None;
+
+ //               box.MouseDown += (sender, e) => OnMouseDown(e);
+
+                box.GotFocus += (sender, e) =>
+                {
+                    if (CanEdit)
+                    {
+                        box.SelectAll();
+                    }
+                    else
+                    {
+                        Focus();
+                    }
+                    Invalidate();
+                };
+
+//                box.GotFocus += (sender, e) => OnGotFocus(e);
+
+                box.LostFocus += (sender, e) =>
+                {
+                    if (CanEdit) OnChange(e);
+                };
+
+                box.KeyDown += (sender, e) =>
                 {
                     if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Enter)
                     {
                         e.Handled = true; // suppress default handling
-                        this.Focus(); // remove Focus from textfield -> might trigger OnChange
+                        Focus(); // remove Focus from textfield -> might trigger OnChange
+                        Invalidate();
                     }
                 };
-
-                KeyDown += (sender, e) =>
-                {
-                    if (CanEdit && e.KeyCode == Keys.Delete)
-                    {
-                        e.Handled = true; // suppress default handling
-                        this.Clear();
-                    }
-                };
-
-                this.MouseDown += RemoveWithRightClick;
-                this.FText.MouseDown += RemoveWithRightClick;
-;
-
-                    
             }
+            #endregion constructor, gui creation and event initialisation
 
-            private void RemoveWithRightClick(object sender, MouseEventArgs e)
+            #region change
+            protected virtual void OnChange(EventArgs e)
             {
-                {
-                    if (CanEdit && e.Button.IsRight())
-                    {
-                        this.Clear();
-                    }
-                }
-            }
+                Invalidate();
 
-            private void UpdateDescriptor(object sender, EventArgs e)
-            {
-                OnLostFocus(e);
-
-                var oldDescription = _descriptor == null? Description : _descriptor.ToString();
+                var oldDescription = _descriptor == null ? Description : _descriptor.ToString();
 
                 // failsafe
                 if (!CanEdit)
@@ -221,101 +248,83 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                 }
 
-                if (CanEdit) OnChange(this, e);
-
-                Color = IsFaulty ? COLOR_FAULTY : Focused ? COLOR_FOCUS : CanEdit ? COLOR_DYNAMIC : COLOR_STANDARD;
-
+               if (Change != null) Change(this, e);
             }
-            #endregion constructor, gui creation and event initialisation
+            #endregion change
 
-            #region children layouts
-            void LayoutToggle(CheckBox box)
+            #region events
+            protected override void OnPaint(PaintEventArgs e)
             {
-                box.Text = "";
-                box.FlatStyle = FlatStyle.Standard;
-                box.AutoCheck = true;
-                box.Dock = DockStyle.Top;
-                box.Height = 22;
-                box.Width = 20;
-            }
+                var stdColor = Color.FromArgb(230, 230, 230);
+                var editableColor = Color.FromArgb(250, 250, 250);
+                var focusColor = Color.Silver;
+                var faultyColor = Color.IndianRed;
 
-            void LayoutText(TextBox box)
-            {
-//                box.ReadOnly = true;
-                box.Dock = DockStyle.Top;
-                
-                box.Text = "string Foo";
-  
-                box.BorderStyle = BorderStyle.None;
-                box.BackColor = Color.FromArgb(230, 230, 230);
-            }
-            #endregion children layouts
-
-            #region focus
-            protected override void OnGotFocus(EventArgs e)
-            {
-                Color = IsFaulty ? COLOR_FAULTY : COLOR_FOCUS;
-                base.OnGotFocus(e);
-
-                FText.SelectAll();
+                var isFocused = Focused || FText.Focused;
+                BackColor = IsFaulty ? faultyColor : isFocused ? focusColor : CanEdit ? editableColor : stdColor;
+                FText.BackColor = !CanEdit ? BackColor : isFocused ? editableColor : stdColor;
             }
 
-            protected override void OnLostFocus(EventArgs e)
+            protected override void OnKeyDown(KeyEventArgs e)
             {
-                Color = IsFaulty? COLOR_FAULTY : CanEdit ? COLOR_DYNAMIC : COLOR_STANDARD;
-                base.OnLostFocus(e);
+                if (CanEdit && e.KeyCode == Keys.Delete)
+                {
+                    e.Handled = true; // suppress default handling
+                    this.IsEmpty = true;  // just clear and keep alive for future use
+                }
             }
 
             protected override void OnClick(EventArgs e)
             {
                 this.Focus();
-                base.OnClick(e);
+                
+                Controls.Container.Invalidate();
             }
 
-            #endregion focus
-
-            #region drag and drop
             protected override void OnMouseDown(MouseEventArgs e)
             {
-                this.Focus();
-                base.OnMouseDown(e);
-                FClickPos = new Vector2D(e.X, e.Y);
-                this.FIsDragging = false;
+                if (CanEdit && e.Button.IsRight())
+                {
+                    this.IsEmpty = true;
+                    return;
+                } 
+
+                if (e.Button.IsLeft()) {
+                    if ( !(FText.Focus()  && CanEdit) ) this.Focus();
+                    DragStartPosition = new Vector2D(e.X, e.Y);
+                    this.IsDragging = false;
+                }
             }
 
             protected override void OnMouseMove(MouseEventArgs e)
             {
-                if (!FIsDragging)
+                if (!AllowDrag || IsDragging) return;
+
+                if (!e.Button.IsLeft()) return;
+
+                var mousePos = new Vector2D(e.X, e.Y);
+
+                // This is a check to see if the mouse is moving while pressed.
+                // Without this, the DragDrop is fired directly when the control is clicked, now you have to drag a few pixels first.
+                if (VMath.Dist(mousePos, DragStartPosition) > MinDragPixel)
                 {
-                    // This is a check to see if the mouse is moving while pressed.
-                    // Without this, the DragDrop is fired directly when the control is clicked, now you have to drag a few pixels first.
-                    if (e.Button == MouseButtons.Left && FMinMovementRadius > 0 && this.AllowDrag)
-                    {
-                        if (VMath.Dist(FClickPos, new Vector2D(e.X, e.Y)) > FMinMovementRadius)
-                        {
-                            DoDragDrop(this, DragDropEffects.All);
-                            FIsDragging = true;
-                            return;
-                        }
-                    }
-                    base.OnMouseMove(e);
+                    DoDragDrop(this, DragDropEffects.All);
+                    IsDragging = true;
                 }
             }
 
             protected override void OnMouseUp(MouseEventArgs e)
             {
-                FIsDragging = false;
-                base.OnMouseUp(e);
+                IsDragging = false;
             }
-            #endregion drag and drop
 
-            internal void Clear()
+            protected override void OnLostFocus(EventArgs e)
             {
-                _descriptor = null;
-                Description = "string Foo";
-                Visible = false;
-                Checked = false;
+                Invalidate();
+                Controls.Container.Invalidate();
             }
+            #endregion events
+
         }
     }
 

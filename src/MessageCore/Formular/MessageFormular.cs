@@ -18,12 +18,12 @@ namespace VVVV.Packs.Messaging
         public string Name { get; set; }
         public string Definition { get; set; } 
         
-        public ICollection<string> FieldNames
+        public IEnumerable<string> FieldNames
         {
             get { return dict.Keys; }
         }
 
-        public ICollection<FormularFieldDescriptor> FieldDescriptors
+        public IEnumerable<FormularFieldDescriptor> FieldDescriptors
         {
             get { return dict.Values; }
         }
@@ -40,28 +40,6 @@ namespace VVVV.Packs.Messaging
                 dict[name] = (FormularFieldDescriptor)value; 
             }
         }
-
-
-/*
-        #region IEnumerable Members
-        IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            foreach (var item in dict.Values.ToList())
-            {
-                yield return item;
-            }
-        }
-
-        IEnumerator<FormularFieldDescriptor> IEnumerable<FormularFieldDescriptor>.GetEnumerator()
-        {
-            foreach (var field in dict.Values.ToList())
-            {
-                yield return field;
-            }
-        }
-        #endregion IEnumerable Members
-*/
-
 
         protected MessageFormular()
         {
@@ -93,6 +71,12 @@ namespace VVVV.Packs.Messaging
                 var desc = new FormularFieldDescriptor(binConfig);
                 dict[desc.Name] = desc;
             }
+        }
+
+        public MessageFormular(IEnumerable<FormularFieldDescriptor> fields) : this()
+        {
+            foreach (var field in fields) 
+                dict[field.Name] = field;
         }
 
         public string ToString(bool withCount = false)

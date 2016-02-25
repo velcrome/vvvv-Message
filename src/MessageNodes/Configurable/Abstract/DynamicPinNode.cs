@@ -56,7 +56,7 @@ namespace VVVV.Packs.Messaging.Nodes
        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
             var formular = new MessageFormular(configSpread[0] ?? "string Value");
-            if (formular.FieldNames.Count < 1) return;
+            if (formular.FieldNames.Count() < 1) return;
 
 
             if (FValue != null)

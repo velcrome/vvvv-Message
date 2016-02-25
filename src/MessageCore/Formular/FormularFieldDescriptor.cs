@@ -87,10 +87,7 @@ namespace VVVV.Packs.Messaging
 
         public object Clone()
         {
-            var c = new FormularFieldDescriptor();
-            c.Type = Type;
-            c.Name = Name;
-            c.DefaultSize = DefaultSize;
+            var c = new FormularFieldDescriptor(this.ToString());
             return c;
         }
     }

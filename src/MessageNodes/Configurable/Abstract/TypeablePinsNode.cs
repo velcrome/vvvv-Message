@@ -5,8 +5,8 @@ using System.ComponentModel.Composition;
 using System.Linq;
 
 using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V1;
 using VVVV.Utils;
+using VVVV.Core.Logging;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -22,12 +22,9 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IIOFactory FIOFactory;
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-//      protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
-
-        protected int DynPinCount = 5;
         protected MessageFormular Formular = new MessageFormular("");
 
-
+        protected int DynPinCount = 5;
         #endregion fields & pins
 
         #region pin management
@@ -71,6 +68,16 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
+        protected IIOContainer CreatePin(FormularFieldDescriptor field)
+        {
+            IOAttribute attr = SetPinAttributes(field); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
+
+            Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(field.Type)); // the Pin is always a binsized one
+            var pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
+            DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
+            return pin;
+        }
+
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
             var newFormular = new MessageFormular(configSpread[0]);
@@ -82,26 +89,26 @@ namespace VVVV.Packs.Messaging.Nodes
                          where pin == null || pin.IsConnected // first frame pin will not be initialized
                          select pinName;
 
-            // type changes
+            // type changes - removal and recreate new
             danger.Concat(
                             from desc in Formular.FieldDescriptors
                             where FPins.Keys.Contains(desc.Name)
-                            where Formular[desc.Name].Type == desc.Type
+                            where Formular[desc.Name].Type != desc.Type
                             let pin = FPins[desc.Name].GetPluginIO()
                             where pin == null || pin.IsConnected // first frame pin will not be initialized
                             select desc.Name
                          );
+            // ignore changes to binsize.
 
             if (danger.Count() > 0)
             {
-            
+                // throw exceptions, until danger count is zero during evaluate
+                // this will highlight afflicted nodes in red until all endangered links are removed by hand
             }
 
             List<string> invalidPins = FPins.Keys.ToList();
             foreach (string field in newFormular.FieldNames)
             {
-                bool create = false;
-
                 if (FPins.ContainsKey(field) && FPins[field] != null)
                 {
                     invalidPins.Remove(field);
@@ -113,32 +120,21 @@ namespace VVVV.Packs.Messaging.Nodes
                         if (Formular[field].Type != newFormular[field].Type)
                         {
                             FPins[field].Dispose();
-                            FPins[field] = null;
-                            create = true;
+                            FPins[field] = CreatePin(newFormular[field]);
                         }
                     }
                     else
                     {
                         // key is in FPins, but no type defined. should never happen
-                        create = true;
+                        FLogger.Log(LogType.Debug, "Internal Fault in Pin Layout detected. Override with "+newFormular.ToString());
+                        FPins[field] = CreatePin(newFormular[field]);
                     }
                 }
                 else
                 {
-                    FPins.Add(field, null);
-                    create = true;
+                    FPins[field] = CreatePin(newFormular[field]);
                 }
-
-                if (create)
-                {
-                    IOAttribute attr = DefinePin(newFormular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
-
-                    Type type = newFormular[field].Type;
-                    Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
-                    FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
-                }
-                DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
-            }
+             }
             
             // cleanup
             Formular = newFormular;
@@ -163,7 +159,7 @@ namespace VVVV.Packs.Messaging.Nodes
         #endregion pin management
 
         #region abstract methods
-        protected abstract IOAttribute DefinePin(FormularFieldDescriptor config);
+        protected abstract IOAttribute SetPinAttributes(FormularFieldDescriptor config);
         #endregion abstract methods
     }
 

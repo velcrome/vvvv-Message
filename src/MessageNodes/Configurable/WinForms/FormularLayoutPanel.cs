@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class FormularLayoutPanel : FlowLayoutPanel
     {
         
-        public event EventHandler OnChange;
+        public event EventHandler Change;
 
         public FormularLayoutPanel()
         {
@@ -23,9 +23,9 @@ namespace VVVV.Packs.Messaging.Nodes
             BorderStyle = BorderStyle.Fixed3D;
 
             AllowDrop = true;
-            DragEnter += new DragEventHandler(InsideDragEnter);
-            DragDrop += new DragEventHandler(InsideDragDrop);
-            DoubleClick += InsideDoubleClick;
+//            DragEnter += new DragEventHandler(InsideDragEnter);
+//            DragDrop += new DragEventHandler(InsideDragDrop);
+//            DoubleClick += InsideDoubleClick;
 
         }
 
@@ -34,18 +34,23 @@ namespace VVVV.Packs.Messaging.Nodes
             get
             {
                 // filter and return all child controls of type FieldPanel
-                return Controls.OfType<FieldPanel>();
+                return Controls.OfType<FieldPanel>().ToList();
             }
         }
 
-        public IEnumerable<FormularFieldDescriptor> CheckedDescriptors
+        public MessageFormular Formular
         {
             get 
             {
-                var desc = from field in FieldPanels
+                var fields = from field in FieldPanels
                            where field.Checked
+                           where field.IsEmpty == false
                            select field.Descriptor;
-                return desc;
+                return new MessageFormular(fields.ToList());
+            }
+            set
+            {
+                LayoutByFormular(value, false);
             }
         }
 
@@ -62,6 +67,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     _canEdit = value;
                     foreach (var field in FieldPanels) field.CanEdit = value;
+                    Invalidate();
                 }
             }
         }
@@ -113,44 +119,48 @@ namespace VVVV.Packs.Messaging.Nodes
             while (counter > 0)
             {
                 var field = remove[maxCount - counter];
-                if (field != null)
-                {
-                    field.Clear(); 
-                }
+                if (field != null) field.IsEmpty = true;
                 counter--;
             }
             this.ResumeLayout();
             return true; // return 
         }
+        #endregion dynamic control layout
 
+        #region new field panel
         private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
         {
             var field = new FieldPanel(desc, isChecked);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
-            field.OnChange += (sender, args) =>
-            {
-                OnChange(this, args);
-            };
-            field.InitializeListeners();
+            field.Change += (sender, args) => Change(this, args);
+            
             return field;
         }
-        #endregion dynamic control layout
+
+        protected override void OnMouseDoubleClick(MouseEventArgs e)
+        {
+            if (!CanEditFields) return;
+
+            var field = AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
+            field.CanEdit = true;
+
+        }
+        #endregion new field panel
 
         #region drag and drop
-        void InsideDragDrop(object sender, DragEventArgs e)
+
+        protected override void OnDragDrop(DragEventArgs e)
         {
             var field = (FieldPanel)e.Data.GetData(typeof(FieldPanel));
             var source = field.Parent;
-
-            if (!CanEditFields) return;
 
             Point p = PointToClient(new Point(e.X, e.Y));
             var item = GetChildAtPoint(p);
             int index = Controls.GetChildIndex(item, false);
 
-            // drag'n'drop even across windows.
-            if (source != this)
+            // drag'n'drop even across windows, but only when allowed.
+            if (source != this && CanEditFields)
             {
                 // Copy control to panel
                 var copy = new FieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked); 
@@ -161,24 +171,19 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else Controls.SetChildIndex(field, index);  // move it
 
-            OnChange(this, new EventArgs());
-            Invalidate();
+            Change(this, new EventArgs());
         }
 
-        void InsideDragEnter(object sender, DragEventArgs e)
+        protected override void OnDragEnter(DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
         }
         #endregion drag and drop
 
 
-        private void InsideDoubleClick(object sender, EventArgs e)
+        protected override void OnLostFocus(EventArgs e)
         {
-            if (!CanEditFields) return;
-
-            var field = AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
-            field.CanEdit = true;
-            
+            Refresh();
         }
     }
 }

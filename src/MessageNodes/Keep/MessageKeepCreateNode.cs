@@ -96,7 +96,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
 
-        protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
         {
             var attr = new InputAttribute(configuration.Name); 
             attr.BinVisibility = PinVisibility.Hidden;

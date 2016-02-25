@@ -34,7 +34,7 @@ namespace VVVV.Nodes.Messaging.Nodes
 
 #pragma warning restore
 
-        protected override IOAttribute DefinePin(FormularFieldDescriptor field)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {
             var attr = new InputAttribute(field.Name);
 

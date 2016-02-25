@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
 #pragma warning restore
 
-        protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
         {
             var attr = new InputAttribute(configuration.Name);
             attr.BinVisibility = PinVisibility.Hidden;

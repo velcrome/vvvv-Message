@@ -37,11 +37,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
             // defer usage of all Formular related config to the end of the frame, when all nodes have finished at least once
-            FHDEHost.MainLoop.OnRender += InitConfig;
+            FHDEHost.MainLoop.OnUpdateView += InitConfig;
 
             // events are always deferred to end of frame, so all potential participators have finished
-            FFormular.Changed += (e) => FHDEHost.MainLoop.OnRender += HandleChangeOfFormular;
-            ((FormularLayoutPanel)FWindow).OnChange += (s, e) => FHDEHost.MainLoop.OnRender += HandleChangeInWindow;
+            FFormular.Changed += (e) => FHDEHost.MainLoop.OnPrepareGraph += HandleChangeOfFormular;
+            ((FormularLayoutPanel)FWindow).Change += (s, e) => FHDEHost.MainLoop.OnPrepareGraph += HandleChangeInWindow;
         }
 
 
@@ -49,7 +49,7 @@ namespace VVVV.Packs.Messaging.Nodes
         private void InitConfig(object sender, System.EventArgs e)
         {
             FirstFrame = false;
-            FHDEHost.MainLoop.OnRender -= InitConfig;
+            FHDEHost.MainLoop.OnUpdateView -= InitConfig;
 
             SetWindowFromConfig();
             SetWindowFromRegistry();
@@ -57,7 +57,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void HandleChangeOfFormular(object sender, System.EventArgs e)
         {
-            FHDEHost.MainLoop.OnRender -= HandleChangeOfFormular;
+            FHDEHost.MainLoop.OnPrepareGraph -= HandleChangeOfFormular;
             var isDynamic = FFormular[0] == MessageFormular.DYNAMIC;
 
             if (!isDynamic) SetWindowFromRegistry();
@@ -68,7 +68,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void HandleChangeInWindow(object sender, System.EventArgs e)
         {
-            FHDEHost.MainLoop.OnRender -= HandleChangeInWindow;
+            FHDEHost.MainLoop.OnPrepareGraph -= HandleChangeInWindow;
             FConfig[0] = GetConfigurationFromWindow();
         }
 
@@ -111,6 +111,8 @@ namespace VVVV.Packs.Messaging.Nodes
             var fieldDef = FWindow as FormularLayoutPanel;
             fieldDef.LayoutByFormular(formular, forceChecked);
             fieldDef.CanEditFields = (FFormular.SliceCount == 0) || FFormular[0].Name == MessageFormular.DYNAMIC;
+
+            FWindow.Invalidate();
             return formular; 
         }
         #endregion update gui
@@ -119,8 +121,8 @@ namespace VVVV.Packs.Messaging.Nodes
         private string GetConfigurationFromWindow()
         {
             var window = FWindow as FormularLayoutPanel;
-            var desc = window.CheckedDescriptors;
-            var result = string.Join(", ", desc.Select(d => d.ToString()));
+            var fieldDesc = window.Formular.FieldDescriptors;
+            var result = string.Join(", ", fieldDesc.Select(d => d.ToString()));
             return result;
         }
         #endregion utils
