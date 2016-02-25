@@ -21,7 +21,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public ConfigurableNode()
         {
-            InitializeWindow();
         }
 
         protected virtual void InitializeWindow() {
@@ -31,6 +30,7 @@ namespace VVVV.Packs.Messaging.Nodes
         }
         public virtual void OnImportsSatisfied()
         {
+            InitializeWindow();
             FConfig.Changed += HandleConfigChange;
         }
     }
