@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -35,13 +36,13 @@ namespace VVVV.Packs.Messaging.Nodes
             // dummy enum, will be populated from registry
             EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
-
-            // defer usage of all Formular related config to the end of the frame, when all nodes have finished at least once
+            // defer usage of all Formular related config to the beginning of the next frame, when all nodes have finished at least once
             FHDEHost.MainLoop.OnUpdateView += InitConfig;
 
             // events are always deferred to end of frame, so all potential participators have finished
-            FFormular.Changed += (e) => FHDEHost.MainLoop.OnPrepareGraph += HandleChangeOfFormular;
-            ((FormularLayoutPanel)FWindow).Change += (s, e) => FHDEHost.MainLoop.OnPrepareGraph += HandleChangeInWindow;
+            FFormular.Changed += (e) => HandleChangeOfFormular(this, new EventArgs());
+//            FFormular.Changed += (e) => FHDEHost.MainLoop.OnPrepareGraph += HandleChangeOfFormular;
+            ((FormularLayoutPanel)FWindow).Change += (s, e) => HandleChangeInWindow(this, e);
         }
 
 

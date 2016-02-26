@@ -8,7 +8,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class ConfigurableNode :  UserControl, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Config("Configuration", DefaultString = "string Foo")]
+        [Config("Configuration", DefaultString = "string Foo", Visibility=PinVisibility.True)]
         public IDiffSpread<string> FConfig;
 
         [Import()]

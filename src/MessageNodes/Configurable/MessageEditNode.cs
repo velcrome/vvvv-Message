@@ -3,6 +3,7 @@ using VVVV.Packs.Messaging.Nodes;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
+using System;
 
 
 namespace VVVV.Nodes.Messaging.Nodes
@@ -92,6 +93,9 @@ namespace VVVV.Nodes.Messaging.Nodes
             }
 
             if (doFlush) FOutput.Flush();
+
+            if (RemovePinsFirst) throw new Exception("Manually remove unneeded links first!");
+
         }
     }
 }

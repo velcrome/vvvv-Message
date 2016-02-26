@@ -23,10 +23,6 @@ namespace VVVV.Packs.Messaging.Nodes
             BorderStyle = BorderStyle.Fixed3D;
 
             AllowDrop = true;
-//            DragEnter += new DragEventHandler(InsideDragEnter);
-//            DragDrop += new DragEventHandler(InsideDragDrop);
-//            DoubleClick += InsideDoubleClick;
-
         }
 
         public IEnumerable<FieldPanel> FieldPanels
@@ -163,10 +159,7 @@ namespace VVVV.Packs.Messaging.Nodes
             if (source != this && CanEditFields)
             {
                 // Copy control to panel
-                var copy = new FieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked); 
-                copy.CanEdit = true;
-
-                Controls.Add(copy);
+                var copy = AddNewFieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked); 
                 Controls.SetChildIndex(copy, index);  // place it
             }
             else Controls.SetChildIndex(field, index);  // move it

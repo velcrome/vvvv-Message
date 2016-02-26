@@ -4,6 +4,7 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
+using System;
 
 #endregion usings
 
@@ -127,6 +128,9 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FPins[name].ToISpread().Flush();
             }
+
+            if (this.RemovePinsFirst) throw new Exception("Manually remove unneeded links first!");
+
 
         }
 

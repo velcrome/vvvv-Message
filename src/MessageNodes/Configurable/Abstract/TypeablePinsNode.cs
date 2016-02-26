@@ -7,6 +7,8 @@ using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.Core.Logging;
+using System.Reflection;
+
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -23,6 +25,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
         protected MessageFormular Formular = new MessageFormular("");
+
+        protected bool RemovePinsFirst;
 
         protected int DynPinCount = 5;
         #endregion fields & pins
@@ -74,8 +78,22 @@ namespace VVVV.Packs.Messaging.Nodes
 
             Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(field.Type)); // the Pin is always a binsized one
             var pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
+
             DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
+
             return pin;
+        }
+
+        private void RetryConfig(object sender, EventArgs e)
+        {
+            this.HandleConfigChange(FConfig);
+        }
+
+        protected bool CheckForConnection(IIOContainer pinContainer)
+        {
+            var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(pinContainer.RawIOObject);
+            var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
+            return container.GetPluginIO().IsConnected;
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
@@ -84,26 +102,35 @@ namespace VVVV.Packs.Messaging.Nodes
 
             // pin removals
             var danger = from pinName in FPins.Keys
-                         where !Formular.FieldNames.Contains(pinName)
-                         let pin = FPins[pinName].GetPluginIO()
-                         where pin == null || pin.IsConnected // first frame pin will not be initialized
+                         where !newFormular.FieldNames.Contains(pinName)
+                         where CheckForConnection(FPins[pinName]) // first frame pin will not be initialized
                          select pinName;
 
             // type changes - removal and recreate new
             danger.Concat(
                             from desc in Formular.FieldDescriptors
                             where FPins.Keys.Contains(desc.Name)
-                            where Formular[desc.Name].Type != desc.Type
-                            let pin = FPins[desc.Name].GetPluginIO()
-                            where pin == null || pin.IsConnected // first frame pin will not be initialized
+                            where newFormular[desc.Name].Type != desc.Type
+                            where CheckForConnection(FPins[desc.Name]) // first frame pin will not be initialized
                             select desc.Name
                          );
             // ignore changes to binsize.
 
+
+
             if (danger.Count() > 0)
             {
+                RemovePinsFirst = true;
+                FHDEHost.MainLoop.OnPrepareGraph += RetryConfig;
                 // throw exceptions, until danger count is zero during evaluate
                 // this will highlight afflicted nodes in red until all endangered links are removed by hand
+                return;
+            }
+            else
+            {
+                RemovePinsFirst = false;
+                FHDEHost.MainLoop.OnPrepareGraph -= RetryConfig;
+                Formular = newFormular;
             }
 
             List<string> invalidPins = FPins.Keys.ToList();
@@ -137,8 +164,6 @@ namespace VVVV.Packs.Messaging.Nodes
              }
             
             // cleanup
-            Formular = newFormular;
-
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();
@@ -155,7 +180,6 @@ namespace VVVV.Packs.Messaging.Nodes
             //}
 
         }
-
         #endregion pin management
 
         #region abstract methods

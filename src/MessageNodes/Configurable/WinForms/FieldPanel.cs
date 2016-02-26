@@ -71,6 +71,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     Invalidate();
                 }
             }
+
             public string Description
             {
                 get
@@ -95,11 +96,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 set
                 {
-                    if (value != CanEdit)
-                    {
-                        _canEdit = value;
-                        FText.ReadOnly = !_canEdit;
-                    }
+                    _canEdit = value;
+                    FText.ReadOnly = !_canEdit;
                     Invalidate();
                 }
             }
@@ -172,7 +170,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 box.Width = 20;
                 FToggle.CheckedChanged += (sender, e) =>
                 {
-                    if (Change == null) Change(this, e);
+                    if (Change != null) Change(this, e);
                     Focus();
                     Invalidate();
                 };
@@ -184,8 +182,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 box.Text = "string Foo";
   
                 box.BorderStyle = BorderStyle.None;
-
- //               box.MouseDown += (sender, e) => OnMouseDown(e);
 
                 box.GotFocus += (sender, e) =>
                 {
@@ -199,8 +195,6 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                     Invalidate();
                 };
-
-//                box.GotFocus += (sender, e) => OnGotFocus(e);
 
                 box.LostFocus += (sender, e) =>
                 {
@@ -262,7 +256,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 var isFocused = Focused || FText.Focused;
                 BackColor = IsFaulty ? faultyColor : isFocused ? focusColor : CanEdit ? editableColor : stdColor;
-                FText.BackColor = !CanEdit ? BackColor : isFocused ? editableColor : stdColor;
+                FText.BackColor = !CanEdit ? BackColor : isFocused ? editableColor : BackColor;
             }
 
             protected override void OnKeyDown(KeyEventArgs e)
@@ -277,8 +271,7 @@ namespace VVVV.Packs.Messaging.Nodes
             protected override void OnClick(EventArgs e)
             {
                 this.Focus();
-                
-                Controls.Container.Invalidate();
+                Invalidate();
             }
 
             protected override void OnMouseDown(MouseEventArgs e)
