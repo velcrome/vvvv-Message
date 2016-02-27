@@ -79,7 +79,7 @@ namespace VVVV.Packs.Messaging
                 dict[field.Name] = field;
         }
 
-        public string ToString(bool withCount = false)
+        public override string ToString()
         {
             var str = dict.Values.Select(desc => desc.ToString());
             return string.Join(", ", str.ToArray());

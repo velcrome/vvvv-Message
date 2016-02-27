@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class FormularLayoutPanel : FlowLayoutPanel
     {
         
-        public event EventHandler Change;
+        public event EventHandler<FormularChangedEventArgs> Change;
 
         public FormularLayoutPanel()
         {
@@ -129,7 +129,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var field = new FieldPanel(desc, isChecked);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
-            field.Change += (sender, args) => Change(this, args);
+            field.Change += (sender, args) => Change(this, new FormularChangedEventArgs(Formular) );
             
             return field;
         }
@@ -164,7 +164,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else Controls.SetChildIndex(field, index);  // move it
 
-            Change(this, new EventArgs());
+            Change(this, new FormularChangedEventArgs(Formular) );
         }
 
         protected override void OnDragEnter(DragEventArgs e)
@@ -177,6 +177,13 @@ namespace VVVV.Packs.Messaging.Nodes
         protected override void OnLostFocus(EventArgs e)
         {
             Refresh();
+        }
+
+        public string Configuration 
+        { 
+            get {
+                return Formular.ToString();
+            } 
         }
     }
 }

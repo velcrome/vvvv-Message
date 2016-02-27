@@ -89,21 +89,30 @@ namespace VVVV.Packs.Messaging.Nodes
             this.HandleConfigChange(FConfig);
         }
 
-        protected bool CheckForConnection(IIOContainer pinContainer)
+        protected bool HasLink(IIOContainer pinContainer)
         {
-            var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(pinContainer.RawIOObject);
-            var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
-            return container.GetPluginIO().IsConnected;
+            try
+            {
+                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(pinContainer.RawIOObject);
+                var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
+                return container.GetPluginIO().IsConnected;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         protected override void HandleConfigChange(IDiffSpread<string> configSpread)
         {
+            if (FFormular.SliceCount == 0) return;
+
             var newFormular = new MessageFormular(configSpread[0]);
 
             // pin removals
             var danger = from pinName in FPins.Keys
                          where !newFormular.FieldNames.Contains(pinName)
-                         where CheckForConnection(FPins[pinName]) // first frame pin will not be initialized
+                         where HasLink(FPins[pinName]) // first frame pin will not be initialized
                          select pinName;
 
             // type changes - removal and recreate new
@@ -111,7 +120,7 @@ namespace VVVV.Packs.Messaging.Nodes
                             from desc in Formular.FieldDescriptors
                             where FPins.Keys.Contains(desc.Name)
                             where newFormular[desc.Name].Type != desc.Type
-                            where CheckForConnection(FPins[desc.Name]) // first frame pin will not be initialized
+                            where HasLink(FPins[desc.Name]) // first frame pin will not be initialized
                             select desc.Name
                          );
             // ignore changes to binsize.
@@ -120,8 +129,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (danger.Count() > 0)
             {
-                RemovePinsFirst = true;
-                FHDEHost.MainLoop.OnPrepareGraph += RetryConfig;
+//                RemovePinsFirst = true;
+  //              FHDEHost.MainLoop.OnPrepareGraph += RetryConfig;
                 // throw exceptions, until danger count is zero during evaluate
                 // this will highlight afflicted nodes in red until all endangered links are removed by hand
                 return;

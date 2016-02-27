@@ -2,18 +2,18 @@
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageFormularChangedEvent : EventArgs
+    public class FormularChangedEventArgs : EventArgs
     {
         public MessageFormular Formular { get; private set; }
         public string FormularName { get { return Formular.Name; }
         }
 
-        private MessageFormularChangedEvent()
+        private FormularChangedEventArgs()
         {
             
         }
 
-        public MessageFormularChangedEvent(MessageFormular formular) : base()
+        public FormularChangedEventArgs(MessageFormular formular) : base()
         {
             this.Formular = formular;
         }

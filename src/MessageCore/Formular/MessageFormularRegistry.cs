@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VVVV.Packs.Messaging
 {
-    public delegate void MessageFormularChangedHandler(MessageFormularRegistry sender, MessageFormularChangedEvent e);
+    public delegate void MessageFormularChangedHandler(MessageFormularRegistry sender, FormularChangedEventArgs e);
 
     public class MessageFormularRegistry : Dictionary<string, MessageFormular>
     {
@@ -33,7 +33,7 @@ namespace VVVV.Packs.Messaging
 
             if (!supressEvent)
             {
-                var e = new MessageFormularChangedEvent(form);
+                var e = new FormularChangedEventArgs(form);
                 if (TypeChanged != null) TypeChanged(this, e);
             }
 

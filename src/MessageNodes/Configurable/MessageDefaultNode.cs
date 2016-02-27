@@ -46,7 +46,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void Evaluate(int SpreadMax)
         {
             // graceful fallback when being fed bad data
-            if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid() || FirstFrame)
+            if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
             {
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
