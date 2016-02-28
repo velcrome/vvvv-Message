@@ -53,12 +53,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void NewDefault()
         {
-            Default = new Message(new MessageFormular(FConfig[0]));
+            Default = new Message(new MessageFormular(FConfig[0], FFormular[0].Name));
             Default.TimeStamp = Time.Time.CurrentTime();
             
         }
 
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             Default = null;
         }

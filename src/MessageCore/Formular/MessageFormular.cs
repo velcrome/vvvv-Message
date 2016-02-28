@@ -16,7 +16,12 @@ namespace VVVV.Packs.Messaging
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
         public string Name { get; set; }
-        public string Definition { get; set; } 
+        public string Configuration { 
+            get {
+                var str = dict.Values.Select(desc => desc.ToString());
+                return string.Join(", ", str.ToArray());            
+            }
+        } 
         
         public IEnumerable<string> FieldNames
         {
@@ -41,6 +46,12 @@ namespace VVVV.Packs.Messaging
             }
         }
 
+        public bool IsDynamic { 
+            get {
+                return this.Name == MessageFormular.DYNAMIC;
+            }
+        }
+
         protected MessageFormular()
         {
             Name = "Formular";
@@ -55,34 +66,43 @@ namespace VVVV.Packs.Messaging
 
                 dict.Add(field, new FormularFieldDescriptor(type, field, count));
             }
-            Definition = ToString();
         }
 
-        public MessageFormular (string configuration) : this()
+        public MessageFormular (string config, string name) : this()
         {
-            Definition = configuration==null? "" : configuration.Trim();
-            
-            if (Definition == "") return; // nothing to do here. hand back empty Formular
+            this.Name = name;
+            config = config==null? "" : config.Trim();
 
-            string[] config = configuration.Trim().Split(',');
+            if (config == "") return; // nothing to do here. hand back empty Formular
 
-            foreach (string binConfig in config)
+            string[] configArray = config.Trim().Split(',');
+
+            foreach (string binConfig in configArray)
             {
                 var desc = new FormularFieldDescriptor(binConfig);
                 dict[desc.Name] = desc;
             }
         }
 
-        public MessageFormular(IEnumerable<FormularFieldDescriptor> fields) : this()
+        public MessageFormular(IEnumerable<FormularFieldDescriptor> fields, string name) : this()
         {
+            this.Name = name;
             foreach (var field in fields) 
                 dict[field.Name] = field;
         }
 
+        public void Append(MessageFormular fresh)
+        {
+            foreach (var field in fresh.FieldDescriptors)
+                dict[field.Name] = field;
+        }
+
+       
         public override string ToString()
         {
-            var str = dict.Values.Select(desc => desc.ToString());
-            return string.Join(", ", str.ToArray());
+            return Configuration;
+            //return "\"" + Name + "\" " + Configuration;
         }
+
     }
 }

@@ -36,7 +36,7 @@ namespace VVVV.Packs.Messaging.Nodes
             ForceNewDefaults = true;
         }
         
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             ForceNewDefaults = true;
         }
@@ -70,7 +70,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FOutput[i].SliceCount = 0;
 
-                var formular = new MessageFormular(FConfig[i]);
+                var formular = new MessageFormular(FConfig[i], FFormular[0]);
                 
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)

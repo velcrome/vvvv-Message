@@ -43,9 +43,9 @@ namespace VVVV.Packs.Messaging.Nodes
             EnumManager.UpdateEnum(EnumName, entries.First(), entries.ToArray());
         }
 
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            var form = new MessageFormular(configSpread[0]);
+            var form = new MessageFormular(configSpread[0], "temp");
             FillEnum(form.FieldNames.ToArray());
         }
     }

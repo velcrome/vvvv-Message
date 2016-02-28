@@ -24,7 +24,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IIOFactory FIOFactory;
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-        protected MessageFormular Formular = new MessageFormular("");
+        protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
 
         protected bool RemovePinsFirst;
 
@@ -84,9 +84,16 @@ namespace VVVV.Packs.Messaging.Nodes
             return pin;
         }
 
-        private void RetryConfig(object sender, EventArgs e)
+        protected bool RetryConfig()
         {
-            this.HandleConfigChange(FConfig);
+            if (RemovePinsFirst)
+            {
+                OnConfigChange(FConfig);
+            }
+
+            if (RemovePinsFirst)
+                throw new Exception("Manually remove unneeded links first!");
+            else return true;
         }
 
         protected bool HasLink(IIOContainer pinContainer)
@@ -103,12 +110,8 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected bool HasEndangeredLinks(MessageFormular newFormular)
         {
-            if (FFormular.SliceCount == 0) return;
-
-            var newFormular = new MessageFormular(configSpread[0]);
-
             // pin removals
             var danger = from pinName in FPins.Keys
                          where !newFormular.FieldNames.Contains(pinName)
@@ -125,21 +128,18 @@ namespace VVVV.Packs.Messaging.Nodes
                          );
             // ignore changes to binsize.
 
+            RemovePinsFirst = danger.Count() > 0;
+            return RemovePinsFirst;
+        }
 
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
+        {
+            var formularName = FFormular.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormular[0];
+            var newFormular = new MessageFormular(configSpread[0], formularName);
 
-            if (danger.Count() > 0)
+            if (HasEndangeredLinks(newFormular))
             {
-//                RemovePinsFirst = true;
-  //              FHDEHost.MainLoop.OnPrepareGraph += RetryConfig;
-                // throw exceptions, until danger count is zero during evaluate
-                // this will highlight afflicted nodes in red until all endangered links are removed by hand
                 return;
-            }
-            else
-            {
-                RemovePinsFirst = false;
-                FHDEHost.MainLoop.OnPrepareGraph -= RetryConfig;
-                Formular = newFormular;
             }
 
             List<string> invalidPins = FPins.Keys.ToList();
@@ -173,6 +173,8 @@ namespace VVVV.Packs.Messaging.Nodes
              }
             
             // cleanup
+            Formular = newFormular;
+
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();

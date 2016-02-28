@@ -71,7 +71,7 @@ namespace VVVV.Packs.Messaging.Tests
         {
             var message = fresh();
 
-            var formular = new MessageFormular("string foo, int[4] num");
+            var formular = new MessageFormular("string foo, int[4] num", MessageFormular.DYNAMIC);
 
             message.SetFormular(formular);
 

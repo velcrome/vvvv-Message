@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private bool _changed = true;
 
-        protected override void HandleConfigChange(IDiffSpread<string> config) {
+        protected override void OnConfigChange(IDiffSpread<string> config) {
             _changed = true;
         }
 

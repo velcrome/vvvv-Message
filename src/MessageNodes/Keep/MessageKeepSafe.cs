@@ -18,7 +18,7 @@ namespace VVVV.Nodes.Messaging.Keep
     {
 
         // must override
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
         }
 

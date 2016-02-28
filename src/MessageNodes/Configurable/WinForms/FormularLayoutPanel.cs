@@ -34,19 +34,23 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
+        protected string _formularName = "";
         public MessageFormular Formular
         {
             get 
             {
                 var fields = from field in FieldPanels
                            where field.Checked
-                           where field.IsEmpty == false
+                           where !field.IsEmpty
                            select field.Descriptor;
-                return new MessageFormular(fields.ToList());
+                var formular =  new MessageFormular(fields.ToList(), _formularName);
+                return formular;
             }
             set
             {
-                LayoutByFormular(value, false);
+                LayoutByFormular(value, value.IsDynamic);
+                _formularName = value.Name;
+                Invalidate();
             }
         }
 
@@ -69,7 +73,7 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
         #region dynamic control layout
-        public bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
+        protected bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
             this.SuspendLayout();
 
             var prev =    FieldPanels.ToList();
@@ -129,7 +133,10 @@ namespace VVVV.Packs.Messaging.Nodes
             var field = new FieldPanel(desc, isChecked);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
-            field.Change += (sender, args) => Change(this, new FormularChangedEventArgs(Formular) );
+            field.Change += (sender, args) =>
+            {
+                if (Change != null) Change(this, new FormularChangedEventArgs(Formular));
+            };
             
             return field;
         }
@@ -179,11 +186,5 @@ namespace VVVV.Packs.Messaging.Nodes
             Refresh();
         }
 
-        public string Configuration 
-        { 
-            get {
-                return Formular.ToString();
-            } 
-        }
     }
 }
