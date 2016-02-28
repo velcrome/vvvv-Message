@@ -113,23 +113,22 @@ namespace VVVV.Packs.Messaging.Nodes
         protected bool HasEndangeredLinks(MessageFormular newFormular)
         {
             // pin removals
-            var danger = from pinName in FPins.Keys
-                         where !newFormular.FieldNames.Contains(pinName)
-                         where HasLink(FPins[pinName]) // first frame pin will not be initialized
-                         select pinName;
+            var danger = from field in Formular.FieldDescriptors
+                         let fieldName = field.Name
+                         where !newFormular.FieldNames.Contains(fieldName)
+                         where HasLink(FPins[fieldName]) // first frame pin will not be initialized
+                         select fieldName;
 
             // type changes - removal and recreate new
-            danger.Concat(
-                            from desc in Formular.FieldDescriptors
-                            where FPins.Keys.Contains(desc.Name)
-                            where newFormular[desc.Name].Type != desc.Type
-                            where HasLink(FPins[desc.Name]) // first frame pin will not be initialized
-                            select desc.Name
-                         );
+            var typeDanger= from field in Formular.FieldDescriptors
+                            where newFormular.FieldNames.Contains(field.Name)
+                            where newFormular[field.Name].Type != field.Type
+                            where HasLink(FPins[field.Name]) // first frame pin will not be initialized
+                            select field.Name;
+
             // ignore changes to binsize.
 
-            RemovePinsFirst = danger.Count() > 0;
-            return RemovePinsFirst;
+            return danger.Count() > 0 || typeDanger.Count() > 0;
         }
 
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
@@ -139,8 +138,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (HasEndangeredLinks(newFormular))
             {
+                RemovePinsFirst = true;
                 return;
             }
+            else RemovePinsFirst = false;
 
             List<string> invalidPins = FPins.Keys.ToList();
             foreach (string field in newFormular.FieldNames)

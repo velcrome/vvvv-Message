@@ -17,6 +17,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import]
         protected IHDEHost FHDEHost;
 
+        protected bool SkippedFirst;
+
         protected override void InitializeWindow()
         {
             // don't call inherited InitializeWindow, so the placeholder pic will disappear
@@ -39,10 +41,24 @@ namespace VVVV.Packs.Messaging.Nodes
             FFormular.Changed += OnSelectFormular;
             ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
 
-            // one shot
-   //         FConfig.Changed += OnInitConfig;
+            FConfig.Changed += OnConfig;
         }
 
+        private void OnConfig(IDiffSpread<string> spread)
+        {
+            if (!SkippedFirst)
+            {
+                SkippedFirst = true;
+                return;
+            }
+
+
+            var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
+
+            if (!FFormular.IsAnyInvalid()) formular.Name = FFormular[0]; 
+            
+            UpdateWindow(formular, true);
+        }
 
 
         private void OnChangeLayout(object sender, FormularChangedEventArgs e)
@@ -58,8 +74,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (formularName != MessageFormular.DYNAMIC)
             {
-                var formular = MessageFormularRegistry.Instance[formularName];
-                OnChangeFormular(this, new FormularChangedEventArgs(formular));
+                var formular = new MessageFormular(MessageFormularRegistry.Instance[formularName].FieldDescriptors, formularName);
+
+                foreach (var field in formular.FieldDescriptors) field.IsRequired = false;
+
+                UpdateWindow(formular);
 
                 var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
                 if (FConfig[0] != newConfig) FConfig[0] = newConfig;
@@ -68,23 +87,13 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 (FWindow as FormularLayoutPanel).CanEditFields = true;
                 var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
-                OnChangeFormular(this, new FormularChangedEventArgs(formular));
+                UpdateWindow(formular);
             }
 
         }
 
 
         #region node formular update during runtime
-        private void OnChangeFormular(object sender, FormularChangedEventArgs e)
-        {
-            if (e.Formular == null) return;
-
-            var layoutPanel = FWindow as FormularLayoutPanel;
-            layoutPanel.CanEditFields = e.Formular.IsDynamic;
-            layoutPanel.Formular = e.Formular;
-        }
-
-
         private void FormularRemotelyChanged(MessageFormularRegistry sender, FormularChangedEventArgs e)
         {
             if (FFormular.IsAnyInvalid()) return;  // strong typing yet undecided
@@ -104,6 +113,22 @@ namespace VVVV.Packs.Messaging.Nodes
 
             var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
             if (FConfig[0] != newConfig) FConfig[0] = newConfig;
+        }
+
+        private void UpdateWindow(MessageFormular formular, bool append = false)
+        {
+            if (formular == null) return;
+
+            var layoutPanel = FWindow as FormularLayoutPanel;
+
+            if (append) {
+                var old = layoutPanel.Formular;
+                old.Append(formular, true);
+                formular = old;
+            }
+            
+            layoutPanel.Formular = formular;
+            layoutPanel.CanEditFields = formular.IsDynamic;
         }
         #endregion node update during runtime
 

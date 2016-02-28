@@ -11,15 +11,17 @@ namespace VVVV.Packs.Messaging
     {
         public static string DYNAMIC = "None";
 
-        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"ID", "Output", "Input", "Message", "Keep"} ); // These names are likely to be pin names
+        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"", "ID", "Output", "Input", "Message", "Keep"} ); // These names are likely to be pin names
         
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
         public string Name { get; set; }
         public string Configuration { 
             get {
-                var str = dict.Values.Select(desc => desc.ToString());
-                return string.Join(", ", str.ToArray());            
+                var fieldConfigs = from desc in dict.Values
+                          where desc.IsRequired
+                          select desc.ToString();
+                return string.Join(", ", fieldConfigs.ToArray());            
             }
         } 
         
@@ -64,7 +66,7 @@ namespace VVVV.Packs.Messaging
                 var type = template[field].GetInnerType();
                 var count = withCount ?  template[field].Count : -1;
 
-                dict.Add(field, new FormularFieldDescriptor(type, field, count));
+                dict.Add(field, new FormularFieldDescriptor(type, field, count, true));
             }
         }
 
@@ -79,7 +81,7 @@ namespace VVVV.Packs.Messaging
 
             foreach (string binConfig in configArray)
             {
-                var desc = new FormularFieldDescriptor(binConfig);
+                var desc = new FormularFieldDescriptor(binConfig, true);
                 dict[desc.Name] = desc;
             }
         }
@@ -87,11 +89,15 @@ namespace VVVV.Packs.Messaging
         public MessageFormular(IEnumerable<FormularFieldDescriptor> fields, string name) : this()
         {
             this.Name = name;
-            foreach (var field in fields) 
+            foreach (var field in fields)
+            {
+//                var f = field.Clone() as FormularFieldDescriptor;
+//                f.IsRequired = true;
                 dict[field.Name] = field;
+            }
         }
 
-        public void Append(MessageFormular fresh)
+        public void Append(MessageFormular fresh, bool IsRequired)
         {
             foreach (var field in fresh.FieldDescriptors)
                 dict[field.Name] = field;

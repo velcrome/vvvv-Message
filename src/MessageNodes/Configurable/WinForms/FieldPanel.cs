@@ -36,8 +36,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     {
                         _descriptor = value.Clone() as FormularFieldDescriptor; // have your own
                         IsFaulty = false; // assume innocence
-
-                        Description = IsEmpty ? "Ø" : _descriptor.ToString();
+                        Description =  _descriptor.ToString();
                         Invalidate();
                     }
                 }
@@ -73,7 +72,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (value == true)
                     {
                         _descriptor = null;
-                        Description = "string Foo";
+                        Description = "Ø";
                         Visible = false;
                         Checked = false;
 
@@ -107,6 +106,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 set
                 {
                     FToggle.Checked = value;
+                    if (Descriptor != null) Descriptor.IsRequired = value;
+
                     Invalidate();
                 }
             }
@@ -172,6 +173,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 box.Width = 20;
                 FToggle.CheckedChanged += (sender, e) =>
                 {
+                    if (_descriptor != null) _descriptor.IsRequired = Checked;
                     if (Change != null) Change(this, e);
                     Focus();
                     Invalidate();
@@ -235,7 +237,10 @@ namespace VVVV.Packs.Messaging.Nodes
                     try
                     {
                         _descriptor = new FormularFieldDescriptor(Description);
-                        Checked = true; // assume this is even a wanted pin, so autocheck
+
+                        // assume this is even a wanted pin, so autocheck
+                        _descriptor.IsRequired = true;
+                        Checked = true; 
                         IsFaulty = false;
                     }
                     catch (Exception)

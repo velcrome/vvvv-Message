@@ -40,7 +40,7 @@ namespace VVVV.Packs.Messaging.Nodes
             get 
             {
                 var fields = from field in FieldPanels
-                           where field.Checked
+//                           where field.Checked
                            where !field.IsEmpty
                            select field.Descriptor;
                 var formular =  new MessageFormular(fields.ToList(), _formularName);
@@ -105,13 +105,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var overwrite = remove[maxCount - counter];
                     overwrite.Descriptor = newEntry;
-                    overwrite.Checked = overwrite.Checked || forceChecked; // stay true, when likely to be a rename
+                    overwrite.Checked = overwrite.Checked || forceChecked || newEntry.IsRequired; // stay true, when likely to be a rename
                     overwrite.Visible = true;
                     counter--;
                 }
                 else
                 {
-                    AddNewFieldPanel(newEntry, forceChecked);
+                    AddNewFieldPanel(newEntry, forceChecked || newEntry.IsRequired);
                 }
             }
             
@@ -180,11 +180,12 @@ namespace VVVV.Packs.Messaging.Nodes
         }
         #endregion drag and drop
 
-
+        #region focus
         protected override void OnLostFocus(EventArgs e)
         {
-            Refresh();
+            Invalidate();
         }
+        #endregion focus
 
     }
 }
