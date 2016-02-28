@@ -18,6 +18,8 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
             CreateEnumPin("Use as ID", new string[] { TOPIC });
+
+            (FWindow as FormularLayoutPanel).Locked = true;
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)
@@ -47,6 +49,17 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var form = new MessageFormular(configSpread[0], "temp");
             FillEnum(form.FieldNames.ToArray());
+        }
+
+        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
+        {
+            base.OnSelectFormular(spread);
+
+            var window = (FWindow as FormularLayoutPanel);
+            var fields = window.Controls.OfType<FieldPanel>();
+
+            foreach (var field in fields) field.Checked = true;
+            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
         }
     }
 }

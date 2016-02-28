@@ -61,6 +61,19 @@ namespace VVVV.Packs.Messaging.Nodes
                     FToggle.Enabled = !_isFaulty;
                 }
             }
+
+            public bool Locked
+            {
+                get
+                {
+                    return !FToggle.Enabled;
+                }
+                set
+                {
+                    if (!IsFaulty) FToggle.Enabled = !value;
+                }
+            }
+
             public bool IsEmpty
             {
                 get

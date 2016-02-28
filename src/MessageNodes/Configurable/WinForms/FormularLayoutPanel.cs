@@ -25,6 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
             AllowDrop = true;
         }
 
+        #region fields
         public IEnumerable<FieldPanel> FieldPanels
         {
             get
@@ -34,13 +35,36 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
+        private bool _isLocked;
+        public bool Locked
+        {
+            get
+            {
+                return _isLocked;
+            }
+            set
+            {
+                _isLocked = value;
+
+                var all = from field in FieldPanels
+                          where !field.IsEmpty
+                          where !field.IsFaulty
+                          select field;
+
+                foreach (var field in all)
+                {
+                    field.Locked = _isLocked;
+                }
+            }
+        }
+        
+        
         protected string _formularName = "";
         public MessageFormular Formular
         {
             get 
             {
                 var fields = from field in FieldPanels
-//                           where field.Checked
                            where !field.IsEmpty
                            select field.Descriptor;
                 var formular =  new MessageFormular(fields.ToList(), _formularName);
@@ -71,6 +95,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
         }
+
+        #endregion fields
 
         #region dynamic control layout
         protected bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
@@ -107,6 +133,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     overwrite.Descriptor = newEntry;
                     overwrite.Checked = overwrite.Checked || forceChecked || newEntry.IsRequired; // stay true, when likely to be a rename
                     overwrite.Visible = true;
+                    overwrite.Locked = Locked;
                     counter--;
                 }
                 else
@@ -133,11 +160,12 @@ namespace VVVV.Packs.Messaging.Nodes
             var field = new FieldPanel(desc, isChecked);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
+            field.Locked = Locked;
+
             field.Change += (sender, args) =>
             {
                 if (Change != null) Change(this, new FormularChangedEventArgs(Formular));
             };
-            
             return field;
         }
 
@@ -166,10 +194,13 @@ namespace VVVV.Packs.Messaging.Nodes
             if (source != this && CanEditFields)
             {
                 // Copy control to panel
-                var copy = AddNewFieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked); 
+                var copy = AddNewFieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked);
+                copy.Locked = Locked;
                 Controls.SetChildIndex(copy, index);  // place it
             }
             else Controls.SetChildIndex(field, index);  // move it
+
+
 
             Change(this, new FormularChangedEventArgs(Formular) );
         }

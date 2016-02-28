@@ -28,6 +28,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
  	        base.OnImportsSatisfied();
+            (FWindow as FormularLayoutPanel).Locked = true;
   //          FOutput.Connected += HandleOutputConnect;
         }
 
@@ -41,6 +42,18 @@ namespace VVVV.Packs.Messaging.Nodes
             ForceNewDefaults = true;
         }
 
+        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
+        {
+            base.OnSelectFormular(spread);
+
+            var window = (FWindow as FormularLayoutPanel);
+            var fields = window.Controls.OfType<FieldPanel>();
+
+            foreach (var field in fields) field.Checked = true;
+            
+            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
+
+        }
 
 
         public override void Evaluate(int SpreadMax)

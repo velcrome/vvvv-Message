@@ -16,12 +16,6 @@ namespace VVVV.Nodes.Messaging.Keep
         Author = "velcrome")]
     public class MessageKeepSafe : AbstractMessageKeepNode
     {
-
-        // must override
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-        }
-
         public override void Evaluate(int SpreadMax)
         {
 

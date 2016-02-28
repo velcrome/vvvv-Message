@@ -11,7 +11,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
+        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2, IsSingle = true)]
         public IDiffSpread<EnumEntry> FFormular;
 
         [Import]
@@ -46,17 +46,16 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void OnConfig(IDiffSpread<string> spread)
         {
+            // usually just the Default of the pin, any saved data will come next
             if (!SkippedFirst)
             {
                 SkippedFirst = true;
                 return;
             }
 
-
             var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
 
-            if (!FFormular.IsAnyInvalid()) formular.Name = FFormular[0]; 
-            
+            if (!FFormular.IsAnyInvalid()) formular.Name = FFormular[0].Name; 
             UpdateWindow(formular, true);
         }
 

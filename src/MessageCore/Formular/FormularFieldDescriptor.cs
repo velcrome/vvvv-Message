@@ -9,6 +9,9 @@ namespace VVVV.Packs.Messaging
 {
     public class FormularFieldDescriptor : IEquatable<FormularFieldDescriptor>, ICloneable
     {
+        // "Type[N] name"
+        // Name can constitute of alphanumericals, dots, underscores and hyphens.
+        public static Regex Parser = new Regex(@"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$");
  
         public string Name {get; set;}
         public Type Type {get; set;}
@@ -32,12 +35,9 @@ namespace VVVV.Packs.Messaging
         public FormularFieldDescriptor(string config = "", bool isRequired = false) 
         {
 
-            const string pattern = @"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$"; // "Type[N] name"
-            // Name can constitute of alphanumericals, dots, underscores and hyphens.
-
             try
             {
-                var data = Regex.Match(config.Trim(), pattern);
+                var data = Parser.Match(config.Trim());
 
                 Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will return null
                 string name = data.Groups[3].ToString();
@@ -73,6 +73,7 @@ namespace VVVV.Packs.Messaging
             if ((object)other == null) return false;
             if (other.Name != Name) return false;
             if (other.Type != Type) return false;
+            if (other.DefaultSize != DefaultSize) return false;
 
             return true;
         }

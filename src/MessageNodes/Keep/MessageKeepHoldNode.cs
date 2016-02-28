@@ -69,9 +69,5 @@ namespace VVVV.Packs.Messaging.Nodes
             }
          }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-           // do nothing.
-        }
     }
 }
