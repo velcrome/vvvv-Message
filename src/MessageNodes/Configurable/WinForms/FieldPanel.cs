@@ -14,22 +14,6 @@ namespace VVVV.Packs.Messaging.Nodes
             #region fields and properties
             public event EventHandler Change;
 
-            private bool _isFaulty;
-            public bool IsFaulty
-            {
-                get
-                {
-                    return _isFaulty;
-                }
-                set
-                {
-                    _isFaulty = value;
-
-                    if (_isFaulty) FToggle.Checked = false;
-                    FToggle.Enabled = !_isFaulty;
-                }
-            }
-
             protected CheckBox FToggle;
             protected TextBox FText;
 
@@ -50,40 +34,65 @@ namespace VVVV.Packs.Messaging.Nodes
                         IsEmpty = true;
                     else
                     {
-                        _descriptor = value;
+                        _descriptor = value.Clone() as FormularFieldDescriptor; // have your own
                         IsFaulty = false; // assume innocence
-
-                        Description = IsEmpty ? "Ø" : _descriptor.ToString();
+                        Description =  _descriptor.ToString();
                         Invalidate();
                     }
                 }
             }
 
-            public bool Checked
+            private bool _isFaulty;
+            public bool IsFaulty
             {
                 get
                 {
-                    return FToggle.Checked;
+                    return _isFaulty;
                 }
                 set
                 {
-                    FToggle.Checked = value;
-                    Invalidate();
+                    _isFaulty = value;
+
+                    if (_isFaulty)
+                    {
+                        FToggle.Checked = false;
+                        _descriptor = null;
+                    }
+                    FToggle.Enabled = !_isFaulty;
                 }
             }
 
-            public string Description
+            public bool Locked
             {
                 get
                 {
-                    return FText.Text;
+                    return !FToggle.Enabled;
                 }
                 set
                 {
-                    if (value == null) value = "";
-                    FText.Text = value;
+                    if (!IsFaulty) FToggle.Enabled = !value;
+                }
+            }
 
-                    // do not enforce a Change 
+            public bool IsEmpty
+            {
+                get
+                {
+                    return _descriptor == null;
+                }
+                set
+                {
+                    if (value == true)
+                    {
+                        _descriptor = null;
+                        Description = "Ø";
+                        Visible = false;
+                        Checked = false;
+
+                        Invalidate();
+                    }
+                    else throw new ArgumentException("Will not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.", "IsEmpty");
+
                 }
             }
 
@@ -101,7 +110,34 @@ namespace VVVV.Packs.Messaging.Nodes
                     Invalidate();
                 }
             }
+            public bool Checked
+            {
+                get
+                {
+                    return FToggle.Checked;
+                }
+                set
+                {
+                    FToggle.Checked = value;
+                    if (Descriptor != null) Descriptor.IsRequired = value;
 
+                    Invalidate();
+                }
+            }
+            public string Description
+            {
+                get
+                {
+                    return FText.Text;
+                }
+                set
+                {
+                    if (value == null) value = "";
+                    FText.Text = value;
+
+                    // do not enforce a Change 
+                }
+            }
 
             #endregion fields and properties
 
@@ -140,26 +176,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 Checked = isChecked;
             }
 
-            public bool IsEmpty {
-                get {
-                    return _descriptor == null;
-                }
-                set
-                {
-                    if (value == true)
-                    {
-                        _descriptor = null;
-                        Description = "string Foo";
-                        Visible = false;
-                        Checked = false;
-
-                        Invalidate();
-                    }
-                    else throw new ArgumentException("Will not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.", "IsEmpty");
-
-                }
-            }
-
             void InitCheckBox(CheckBox box)
             {
                 box.Text = "";
@@ -170,6 +186,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 box.Width = 20;
                 FToggle.CheckedChanged += (sender, e) =>
                 {
+                    if (_descriptor != null) _descriptor.IsRequired = Checked;
                     if (Change != null) Change(this, e);
                     Focus();
                     Invalidate();
@@ -218,7 +235,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 Invalidate();
 
-                var oldDescription = _descriptor == null ? Description : _descriptor.ToString();
+                var oldDescription = _descriptor == null ? "" : _descriptor.ToString();
 
                 // failsafe
                 if (!CanEdit)
@@ -233,7 +250,10 @@ namespace VVVV.Packs.Messaging.Nodes
                     try
                     {
                         _descriptor = new FormularFieldDescriptor(Description);
-                        Checked = true; // assume this is even a wanted pin, so autocheck
+
+                        // assume this is even a wanted pin, so autocheck
+                        _descriptor.IsRequired = true;
+                        Checked = true; 
                         IsFaulty = false;
                     }
                     catch (Exception)

@@ -28,6 +28,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
  	        base.OnImportsSatisfied();
+            (FWindow as FormularLayoutPanel).Locked = true;
   //          FOutput.Connected += HandleOutputConnect;
         }
 
@@ -36,17 +37,29 @@ namespace VVVV.Packs.Messaging.Nodes
             ForceNewDefaults = true;
         }
         
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             ForceNewDefaults = true;
         }
 
+        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
+        {
+            base.OnSelectFormular(spread);
+
+            var window = (FWindow as FormularLayoutPanel);
+            var fields = window.Controls.OfType<FieldPanel>();
+
+            foreach (var field in fields) field.Checked = true;
+            
+            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
+
+        }
 
 
         public override void Evaluate(int SpreadMax)
         {
             // graceful fallback when being fed bad data
-            if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid() || FirstFrame)
+            if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
             {
                 FOutput.SliceCount = 0;
                 FOutput.Flush();
@@ -70,7 +83,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FOutput[i].SliceCount = 0;
 
-                var formular = new MessageFormular(FConfig[i]);
+                var formular = new MessageFormular(FConfig[i], FFormular[0]);
                 
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)

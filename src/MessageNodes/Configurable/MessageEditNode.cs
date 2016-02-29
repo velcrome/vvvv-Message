@@ -94,7 +94,8 @@ namespace VVVV.Nodes.Messaging.Nodes
 
             if (doFlush) FOutput.Flush();
 
-            if (RemovePinsFirst) throw new Exception("Manually remove unneeded links first!");
+
+            if (RemovePinsFirst) RetryConfig();
 
         }
     }

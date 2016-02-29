@@ -24,7 +24,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IIOFactory FIOFactory;
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-        protected MessageFormular Formular = new MessageFormular("");
+        protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
 
         protected bool RemovePinsFirst;
 
@@ -84,54 +84,64 @@ namespace VVVV.Packs.Messaging.Nodes
             return pin;
         }
 
-        private void RetryConfig(object sender, EventArgs e)
+        protected bool RetryConfig()
         {
-            this.HandleConfigChange(FConfig);
+            if (RemovePinsFirst)
+            {
+                OnConfigChange(FConfig);
+            }
+
+            if (RemovePinsFirst)
+                throw new Exception("Manually remove unneeded links first!");
+            else return true;
         }
 
-        protected bool CheckForConnection(IIOContainer pinContainer)
+        protected bool HasLink(IIOContainer pinContainer)
         {
-            var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(pinContainer.RawIOObject);
-            var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
-            return container.GetPluginIO().IsConnected;
+            try
+            {
+                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(pinContainer.RawIOObject);
+                var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
+                return container.GetPluginIO().IsConnected;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected bool HasEndangeredLinks(MessageFormular newFormular)
         {
-            var newFormular = new MessageFormular(configSpread[0]);
-
             // pin removals
-            var danger = from pinName in FPins.Keys
-                         where !newFormular.FieldNames.Contains(pinName)
-                         where CheckForConnection(FPins[pinName]) // first frame pin will not be initialized
-                         select pinName;
+            var danger = from field in Formular.FieldDescriptors
+                         let fieldName = field.Name
+                         where !newFormular.FieldNames.Contains(fieldName)
+                         where HasLink(FPins[fieldName]) // first frame pin will not be initialized
+                         select fieldName;
 
             // type changes - removal and recreate new
-            danger.Concat(
-                            from desc in Formular.FieldDescriptors
-                            where FPins.Keys.Contains(desc.Name)
-                            where newFormular[desc.Name].Type != desc.Type
-                            where CheckForConnection(FPins[desc.Name]) // first frame pin will not be initialized
-                            select desc.Name
-                         );
+            var typeDanger= from field in Formular.FieldDescriptors
+                            where newFormular.FieldNames.Contains(field.Name)
+                            where newFormular[field.Name].Type != field.Type
+                            where HasLink(FPins[field.Name]) // first frame pin will not be initialized
+                            select field.Name;
+
             // ignore changes to binsize.
 
+            return danger.Count() > 0 || typeDanger.Count() > 0;
+        }
 
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
+        {
+            var formularName = FFormular.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormular[0];
+            var newFormular = new MessageFormular(configSpread[0], formularName);
 
-            if (danger.Count() > 0)
+            if (HasEndangeredLinks(newFormular))
             {
                 RemovePinsFirst = true;
-                FHDEHost.MainLoop.OnPrepareGraph += RetryConfig;
-                // throw exceptions, until danger count is zero during evaluate
-                // this will highlight afflicted nodes in red until all endangered links are removed by hand
                 return;
             }
-            else
-            {
-                RemovePinsFirst = false;
-                FHDEHost.MainLoop.OnPrepareGraph -= RetryConfig;
-                Formular = newFormular;
-            }
+            else RemovePinsFirst = false;
 
             List<string> invalidPins = FPins.Keys.ToList();
             foreach (string field in newFormular.FieldNames)
@@ -164,6 +174,8 @@ namespace VVVV.Packs.Messaging.Nodes
              }
             
             // cleanup
+            Formular = newFormular;
+
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();

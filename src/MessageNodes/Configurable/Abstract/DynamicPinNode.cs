@@ -39,7 +39,7 @@ namespace VVVV.Packs.Messaging.Nodes
             
             FAlias.Changed += ConfigPin;
 
-            HandleConfigChange(FConfig);
+            OnConfigChange(FConfig);
         }
 
         protected abstract IOAttribute DefinePin(FormularFieldDescriptor field);
@@ -53,9 +53,9 @@ namespace VVVV.Packs.Messaging.Nodes
             if (newConfig != FConfig[0]) FConfig[0] = newConfig; // first frame or user mistake will not reconfigure
         }
 
-       protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+       protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            var formular = new MessageFormular(configSpread[0] ?? "string Value");
+            var formular = new MessageFormular(configSpread[0] ?? "string Value", MessageFormular.DYNAMIC);
             if (formular.FieldNames.Count() < 1) return;
 
 

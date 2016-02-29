@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using System.ComponentModel.Composition;
@@ -160,6 +161,23 @@ namespace VVVV.Packs.Messaging.Nodes
 
             return true;
 
+        }
+
+        // override here, so children don't have to unless needed
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
+        {
+            // nothing to do
+        }
+
+        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
+        {
+            base.OnSelectFormular(spread);
+
+            var window = (FWindow as FormularLayoutPanel);
+            var fields = window.Controls.OfType<FieldPanel>();
+
+            foreach (var field in fields) field.Checked = true;
+            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
         }
 
     }

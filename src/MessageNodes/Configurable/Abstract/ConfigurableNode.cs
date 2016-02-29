@@ -16,7 +16,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected Panel FWindow;
 
-        protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);
+        protected abstract void OnConfigChange(IDiffSpread<string> configSpread);
         public abstract void Evaluate(int SpreadMax);
 
         public ConfigurableNode()
@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public virtual void OnImportsSatisfied()
         {
             InitializeWindow();
-            FConfig.Changed += HandleConfigChange;
+            FConfig.Changed += OnConfigChange;
         }
     }
 }

@@ -9,27 +9,35 @@ namespace VVVV.Packs.Messaging
 {
     public class FormularFieldDescriptor : IEquatable<FormularFieldDescriptor>, ICloneable
     {
+        // "Type[N] name"
+        // Name can constitute of alphanumericals, dots, underscores and hyphens.
+        public static Regex Parser = new Regex(@"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$");
  
         public string Name {get; set;}
-        public Type Type {get;set;}
+        public Type Type {get; set;}
         public int DefaultSize {get; set;}
+        public bool IsRequired { get; set;}
 
-        public FormularFieldDescriptor(Type type, string name, int size = -1)
+        public FormularFieldDescriptor(Type type, string name, int size = -1, bool isRequired=false)
         {
-            Name = name;
-            Type = type;
-            DefaultSize = size;
+            if (MessageFormular.ForbiddenNames.Contains(name))
+                throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
+            
+            if (!TypeIdentity.Instance.ContainsKey(type))
+                throw new Exception(type + " is not a valid Type for a MessageFormular.");
+
+            this.Name = name;
+            this.Type = type;
+            this.DefaultSize = size;
+            this.IsRequired = isRequired;
         }
 
-        public FormularFieldDescriptor(string config = "") 
+        public FormularFieldDescriptor(string config = "", bool isRequired = false) 
         {
-
-            const string pattern = @"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$"; // "Type[N] name"
-            // Name can constitute of alphanumericals, dots, underscores and hyphens.
 
             try
             {
-                var data = Regex.Match(config.Trim(), pattern);
+                var data = Parser.Match(config.Trim());
 
                 Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will return null
                 string name = data.Groups[3].ToString();
@@ -52,6 +60,7 @@ namespace VVVV.Packs.Messaging
                this.Type = type;
                this.Name = name;
                this.DefaultSize = count;
+               this.IsRequired = isRequired;
             }
             catch (Exception e)
             {
@@ -64,6 +73,7 @@ namespace VVVV.Packs.Messaging
             if ((object)other == null) return false;
             if (other.Name != Name) return false;
             if (other.Type != Type) return false;
+            if (other.DefaultSize != DefaultSize) return false;
 
             return true;
         }
@@ -87,7 +97,7 @@ namespace VVVV.Packs.Messaging
 
         public object Clone()
         {
-            var c = new FormularFieldDescriptor(this.ToString());
+            var c = new FormularFieldDescriptor(this.Type, this.Name, this.DefaultSize, this.IsRequired);
             return c;
         }
     }

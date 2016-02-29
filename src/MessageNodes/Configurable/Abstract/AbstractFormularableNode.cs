@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
@@ -10,12 +11,13 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2)]
+        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2, IsSingle = true)]
         public IDiffSpread<EnumEntry> FFormular;
-        protected bool FirstFrame = true;
 
         [Import]
         protected IHDEHost FHDEHost;
+
+        protected bool SkippedFirst;
 
         protected override void InitializeWindow()
         {
@@ -31,102 +33,103 @@ namespace VVVV.Packs.Messaging.Nodes
 
             // base provider of Formulars
             var reg = MessageFormularRegistry.Instance;
-            reg.TypeChanged += FormularChanged;
+            reg.TypeChanged += FormularRemotelyChanged;
 
             // dummy enum, will be populated from registry
             EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
-            // defer usage of all Formular related config to the beginning of the next frame, when all nodes have finished at least once
-            FHDEHost.MainLoop.OnUpdateView += InitConfig;
+            FFormular.Changed += OnSelectFormular;
+            ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
 
-            // events are always deferred to end of frame, so all potential participators have finished
-            FFormular.Changed += (e) => HandleChangeOfFormular(this, new EventArgs());
-//            FFormular.Changed += (e) => FHDEHost.MainLoop.OnPrepareGraph += HandleChangeOfFormular;
-            ((FormularLayoutPanel)FWindow).Change += (s, e) => HandleChangeInWindow(this, e);
+            FConfig.Changed += OnConfig;
+        }
+
+        private void OnConfig(IDiffSpread<string> spread)
+        {
+            // usually just the Default of the pin, any saved data will come next
+            if (!SkippedFirst)
+            {
+                SkippedFirst = true;
+                return;
+            }
+
+            var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
+
+            if (!FFormular.IsAnyInvalid()) formular.Name = FFormular[0].Name; 
+            UpdateWindow(formular, true);
+        }
+
+
+        private void OnChangeLayout(object sender, FormularChangedEventArgs e)
+        {
+            var config = e.Formular.Configuration;
+            if (config != FConfig[0]) FConfig[0] = config;
+        }
+
+
+        protected virtual void OnSelectFormular(IDiffSpread<EnumEntry> spread)
+        {
+            var formularName = FFormular[0].Name;
+
+            if (formularName != MessageFormular.DYNAMIC)
+            {
+                var formular = new MessageFormular(MessageFormularRegistry.Instance[formularName].FieldDescriptors, formularName);
+
+                foreach (var field in formular.FieldDescriptors) field.IsRequired = false;
+
+                UpdateWindow(formular);
+
+                var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
+                if (FConfig[0] != newConfig) FConfig[0] = newConfig;
+            }
+            else
+            {
+                (FWindow as FormularLayoutPanel).CanEditFields = true;
+                var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
+                UpdateWindow(formular);
+            }
+
         }
 
 
         #region node formular update during runtime
-        private void InitConfig(object sender, System.EventArgs e)
+        private void FormularRemotelyChanged(MessageFormularRegistry sender, FormularChangedEventArgs e)
         {
-            FirstFrame = false;
-            FHDEHost.MainLoop.OnUpdateView -= InitConfig;
+            if (FFormular.IsAnyInvalid()) return;  // strong typing yet undecided
 
-            SetWindowFromConfig();
-            SetWindowFromRegistry();
-        }
+            var used = from formularEntry in FFormular
+                       where formularEntry.Name == e.FormularName
+                       where formularEntry.Name != MessageFormular.DYNAMIC
+                       select true;
 
-        private void HandleChangeOfFormular(object sender, System.EventArgs e)
-        {
-            FHDEHost.MainLoop.OnPrepareGraph -= HandleChangeOfFormular;
-            var isDynamic = FFormular[0] == MessageFormular.DYNAMIC;
-
-            if (!isDynamic) SetWindowFromRegistry();
-            ((FormularLayoutPanel)FWindow).CanEditFields = isDynamic;
-
-            FConfig[0] = GetConfigurationFromWindow();
-        }
-
-        private void HandleChangeInWindow(object sender, System.EventArgs e)
-        {
-            FHDEHost.MainLoop.OnPrepareGraph -= HandleChangeInWindow;
-            FConfig[0] = GetConfigurationFromWindow();
-        }
-
-        private void FormularChanged(MessageFormularRegistry sender, MessageFormularChangedEvent e)
-        {
-            if (FFormular.IsAnyInvalid()) return;
-
-            var used = false;
-
-            foreach (var type in FFormular)
-                if (type.Name == e.Formular.Name) used = true;
-
-            if (used)
+            if (used.Any(use => use))
             {
-                SetWindowFromRegistry();
-                FConfig[0] = GetConfigurationFromWindow();
+                var layoutPanel = FWindow as FormularLayoutPanel;
+
+                layoutPanel.CanEditFields = e.Formular.IsDynamic;
+                layoutPanel.Formular = e.Formular;
             }
+
+            var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
+            if (FConfig[0] != newConfig) FConfig[0] = newConfig;
+        }
+
+        private void UpdateWindow(MessageFormular formular, bool append = false)
+        {
+            if (formular == null) return;
+
+            var layoutPanel = FWindow as FormularLayoutPanel;
+
+            if (append) {
+                var old = layoutPanel.Formular;
+                old.Append(formular, true);
+                formular = old;
+            }
+            
+            layoutPanel.Formular = formular;
+            layoutPanel.CanEditFields = formular.IsDynamic;
         }
         #endregion node update during runtime
-
-        #region update gui
-        public virtual MessageFormular SetWindowFromConfig()
-        {
-            var formular = new MessageFormular(FConfig[0]);
-            return SetFormular(formular, true);
-        }
-
-        public virtual MessageFormular SetWindowFromRegistry()
-        {
-            if (FFormular.IsAnyInvalid() || FirstFrame || FFormular[0]==MessageFormular.DYNAMIC) return SetWindowFromConfig();
-
-            var form = FFormular[0].Name;
-            var formular = MessageFormularRegistry.Instance[form];
-
-            return SetFormular(formular);
-        }
-
-        protected virtual MessageFormular SetFormular(MessageFormular formular, bool forceChecked = false) 
-        {
-            var fieldDef = FWindow as FormularLayoutPanel;
-            fieldDef.LayoutByFormular(formular, forceChecked);
-            fieldDef.CanEditFields = (FFormular.SliceCount == 0) || FFormular[0].Name == MessageFormular.DYNAMIC;
-
-            FWindow.Invalidate();
-            return formular; 
-        }
-        #endregion update gui
-
-        #region utils
-        private string GetConfigurationFromWindow()
-        {
-            var window = FWindow as FormularLayoutPanel;
-            var fieldDesc = window.Formular.FieldDescriptors;
-            var result = string.Join(", ", fieldDesc.Select(d => d.ToString()));
-            return result;
-        }
-        #endregion utils
 
     }
 }

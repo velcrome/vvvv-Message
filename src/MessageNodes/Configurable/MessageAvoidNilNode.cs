@@ -1,4 +1,5 @@
-﻿using VVVV.PluginInterfaces.V2;
+﻿using System.Linq;
+using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
 
@@ -29,7 +30,12 @@ namespace VVVV.Packs.Messaging.Nodes
 #pragma warning restore
 
 
- 
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            (FWindow as FormularLayoutPanel).Locked = true;
+        }
+
         public override void Evaluate(int SpreadMax)
         {
             if (Default != null && !FInput.IsChanged) return;
@@ -53,14 +59,26 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void NewDefault()
         {
-            Default = new Message(new MessageFormular(FConfig[0]));
+            Default = new Message(new MessageFormular(FConfig[0], FFormular[0].Name));
             Default.TimeStamp = Time.Time.CurrentTime();
             
         }
 
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             Default = null;
+        }
+
+        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
+        {
+            base.OnSelectFormular(spread);
+
+            var window = (FWindow as FormularLayoutPanel);
+            var fields = window.Controls.OfType<FieldPanel>();
+
+            foreach (var field in fields) field.Checked = true;
+
+            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
         }
     }
 }
