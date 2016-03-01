@@ -47,7 +47,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1785" top="1185" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4D quaternion|">
+   <PIN pinname="Input String" slicecount="1" values="|Color[3] hcozlor, Transform matrix, string name, Vector4D quaternion|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
@@ -101,7 +101,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="540" top="4740" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="None">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="20" systemname="IOBox (Enumerations)">
@@ -139,9 +139,9 @@
    <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="14" dstpinname="Configuration">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="23" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5670" top="2340" width="1425" height="1380">
+   <BOUNDS type="Box" left="5430" top="2160" width="1425" height="1380">
    </BOUNDS>
-   <BOUNDS type="Node" left="5670" top="2340" width="0" height="0">
+   <BOUNDS type="Node" left="5430" top="2160" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -152,6 +152,8 @@
    <PIN pinname="Rows" slicecount="1" values="5">
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input String">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="24" systemname="IOBox (String)">
@@ -169,6 +171,8 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
+   <PIN pinname="Input String">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="25" systemname="IOBox (String)">
    <BOUNDS type="Box" left="8160" top="2340" width="945" height="1365">
@@ -185,6 +189,8 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
+   <PIN pinname="Input String">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="26" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5670" top="1020" width="1590" height="270">
@@ -194,12 +200,12 @@
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
    </PIN>
    </NODE>
-   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="9">
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="9">
    <BOUNDS type="Node" left="375" top="5115" width="900" height="270">
    </BOUNDS>
    <PIN pinname="Message Type">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
+   <PIN pinname="Configuration" slicecount="1" values="|Transform matrix, string[] name, Vector4d quaternion, Color[8] hcozlor|">
    </PIN>
    <BOUNDS type="Box" left="375" top="5115">
    </BOUNDS>
@@ -208,37 +214,21 @@
    </NODE>
    <LINK srcnodeid="19" srcpinname="Output Enum" dstnodeid="9" dstpinname="Message Formular">
    </LINK>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="6">
-   <BOUNDS type="Node" left="2490" top="5115" width="100" height="100">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="6">
+   <BOUNDS type="Node" left="2490" top="5115" width="2055" height="270">
    </BOUNDS>
    <PIN pinname="Message Type" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
+   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, Vector4d quaternion|">
    </PIN>
    <BOUNDS type="Box" left="2490" top="5115">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
-   <PIN pinname="quaternionXYZW" visible="1">
+   <PIN pinname="quaternionXYZW" visible="1" slicecount="4" values="0,0,0,0">
    </PIN>
    </NODE>
    <LINK srcnodeid="20" srcpinname="Output Enum" dstnodeid="6" dstpinname="Message Formular">
-   </LINK>
-   <NODE systemname="Create (Message.Keep Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message.Keep Formular)" componentmode="Hidden" id="17">
-   <BOUNDS type="Node" left="4650" top="5115" width="900" height="270">
-   </BOUNDS>
-   <PIN pinname="Message Type">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
-   </PIN>
-   <BOUNDS type="Box" left="4650" top="5115">
-   </BOUNDS>
-   <PIN pinname="Message Formular" visible="1">
-   </PIN>
-   <PIN pinname="color" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="17" dstpinname="Message Formular">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="35" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="555" top="6060" width="1185" height="240">
@@ -253,84 +243,54 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2655" top="6060" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="33" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="4830" top="6060" width="1185" height="240">
+   <BOUNDS type="Box" left="5550" top="6015" width="1185" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="4830" top="6060" width="0" height="0">
+   <BOUNDS type="Node" left="5550" top="6015" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="32">
-   <BOUNDS type="Node" left="390" top="6435" width="900" height="270">
-   </BOUNDS>
-   <PIN pinname="Message Type">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
-   </PIN>
-   <BOUNDS type="Box" left="390" top="6435">
-   </BOUNDS>
-   <PIN pinname="Message Formular" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="35" srcpinname="Output Enum" dstnodeid="32" dstpinname="Message Formular">
-   </LINK>
-   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="31">
+   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="InAWindow" id="31">
    <BOUNDS type="Node" left="2505" top="6435" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Type" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo|">
    </PIN>
    <BOUNDS type="Box" left="2505" top="6435">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="480" top="4380" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="34" srcpinname="Output Enum" dstnodeid="31" dstpinname="Message Formular">
    </LINK>
-   <NODE systemname="AvoidNil (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AvoidNil (Message Formular)" componentmode="Hidden" id="30">
+   <NODE systemname="AvoidNil (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AvoidNil (Message Formular)" componentmode="InAWindow" id="30">
    <BOUNDS type="Node" left="4665" top="6435" width="900" height="270">
    </BOUNDS>
    <PIN pinname="Message Type">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
+   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, string name, Transform matrix, Vector4d quaternion|">
    </PIN>
    <BOUNDS type="Box" left="4665" top="6435">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1" slicecount="1" values="MyLayout">
    </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="480" top="4380" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="33" srcpinname="Output Enum" dstnodeid="30" dstpinname="Message Formular">
-   </LINK>
-   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="22">
-   <BOUNDS type="Node" left="5670" top="1725" width="3375" height="270">
-   </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="MyLayout">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[4] color, Transform matrix, string name, Vector4d quaternion|">
-   </PIN>
-   <PIN pinname="Field Type" visible="1">
-   </PIN>
-   <PIN pinname="Bin Definition" visible="1">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="5670" top="1725">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="22" srcpinname="Field Type" dstnodeid="23" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Bin Definition" dstnodeid="24" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Field" dstnodeid="25" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="22" dstpinname="Message Formular">
    </LINK>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="36" systemname="IOBox (Color)">
    <BOUNDS type="Box" left="6420" top="4125" width="2250" height="480">
@@ -339,9 +299,9 @@
    </BOUNDS>
    <PIN pinname="Color Input" slicecount="1" visible="1" values="|0.00000,1.00000,0.00000,1.00000|">
    </PIN>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="36" srcpinname="Color Output" dstnodeid="17" dstpinname="color">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="37" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4350" top="3540" width="795" height="960">
    </BOUNDS>
@@ -357,6 +317,8 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="4">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="37" srcpinname="Y Output Value" dstnodeid="6" dstpinname="quaternionXYZW">
    </LINK>
@@ -367,7 +329,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="8145" top="6045" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="27240" top="6105" width="6240" height="5085">
+   <BOUNDS type="Window" left="18840" top="5625" width="9960" height="5085">
    </BOUNDS>
    <PIN pinname="Log Messages" visible="1">
    </PIN>
@@ -389,5 +351,75 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="39" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Log Messages">
+   </LINK>
+   <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="40">
+   <BOUNDS type="Node" left="7335" top="6615" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="41" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="4710" top="7110" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4710" top="7110" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="30" srcpinname="Output" dstnodeid="41" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="42" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="2790" top="7350" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2790" top="7350" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Output" dstnodeid="42" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="InAWindow" id="47">
+   <BOUNDS type="Node" left="5670" top="1725" width="3375" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5670" top="1725">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, Transform matrix, string name, Vector4d quaternion|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="47" srcpinname="Field Type" dstnodeid="23" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="47" srcpinname="Bin Definition" dstnodeid="24" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="47" srcpinname="Field" dstnodeid="25" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="47" dstpinname="Message Formular">
+   </LINK>
+   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="InAWindow" id="48">
+   <BOUNDS type="Node" left="390" top="6435" width="900" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="390" top="6435">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|Transform matrix, string name, Color[3] hcozlor|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="35" srcpinname="Output Enum" dstnodeid="48" dstpinname="Message Formular">
+   </LINK>
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="17">
+   <BOUNDS type="Node" left="4650" top="5115" width="900" height="270">
+   </BOUNDS>
+   <PIN pinname="Message Type">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, Transform matrix, string name, Vector4d quaternion|">
+   </PIN>
+   <BOUNDS type="Box" left="4650" top="5115">
+   </BOUNDS>
+   <PIN pinname="Message Formular" visible="1">
+   </PIN>
+   <PIN pinname="color" visible="1">
+   </PIN>
+   <PIN pinname="cozlor" visible="1">
+   </PIN>
+   <PIN pinname="hcozlor" visible="1">
+   </PIN>
+   <PIN pinname="hcozlor Bin Size" slicecount="1" values="8">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="17" dstpinname="Message Formular">
+   </LINK>
+   <LINK srcnodeid="36" srcpinname="Color Output" dstnodeid="17" dstpinname="hcozlor">
    </LINK>
    </PATCH>

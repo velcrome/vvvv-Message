@@ -17,11 +17,12 @@ namespace VVVV.Packs.Messaging.Nodes
         #region fields & pins
         protected const string Tags = "Formular";
 
-        [Input("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = false, Order = 2)]
-        public ISpread<bool> FDevMode;
 
         [Import()]
         protected IIOFactory FIOFactory;
+
+        [Import]
+        protected IPluginHost2 PluginHost;
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
         protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
@@ -100,12 +101,14 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             try
             {
-                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(pinContainer.RawIOObject);
+                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance | BindingFlags.FlattenHierarchy).GetValue(pinContainer.RawIOObject);
                 var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
                 return container.GetPluginIO().IsConnected;
             }
             catch (Exception)
             {
+                string nodePath = PluginHost.GetNodePath(false);
+                FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node: " + nodePath);
                 return false;
             }
         }

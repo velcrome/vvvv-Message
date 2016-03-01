@@ -25,11 +25,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
 #pragma warning restore
 
-        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {
-            var attr = new InputAttribute(configuration.Name);
+            var attr = new InputAttribute(field.Name);
             attr.BinVisibility = PinVisibility.Hidden;
-            attr.BinSize = configuration.DefaultSize;
+            attr.BinSize = field.DefaultSize;
 
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;

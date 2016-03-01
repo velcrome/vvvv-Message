@@ -96,11 +96,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
 
-        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {
-            var attr = new InputAttribute(configuration.Name); 
+            var attr = new InputAttribute(field.Name); 
             attr.BinVisibility = PinVisibility.Hidden;
-            attr.BinSize = configuration.DefaultSize;
+            attr.BinSize = field.DefaultSize;
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
             attr.CheckIfChanged = true;
@@ -110,6 +110,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            if (RemovePinsFirst) RetryConfig();
+
             SpreadMax = FSpreadCount.IsAnyInvalid() || FTopic.IsAnyInvalid() ? 0 : FSpreadCount[0];
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 

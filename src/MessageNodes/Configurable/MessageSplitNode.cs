@@ -54,6 +54,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            if (RemovePinsFirst) RetryConfig();
+
             if (!FInput.IsChanged) return;
             
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
@@ -98,7 +100,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (sourceBin as object == null)
                     {
-                            FLogger.Log(LogType.Error,
+                            FLogger.Log(LogType.Warning,
                                         "\"" + Formular[name].Type + " " + name + "\" is not defined in Input Message.");
                     }
                     else count = sourceBin.Count;
@@ -129,8 +131,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins[name].ToISpread().Flush();
             }
 
-
-            if (RemovePinsFirst) RetryConfig();
 
 
         }
