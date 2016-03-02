@@ -1,11 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VVVV.Packs.Messaging;
-
+using System.Linq;
 
 
 namespace VVVV.Packs.Messaging.Tests
 {
 
+    using System.Collections;
     using Time = VVVV.Packs.Time.Time;
 
     [TestClass]
@@ -46,6 +47,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 4 5 \r\n", message.ToString());
 
             message.AddFrom("num", new object[] { "6", true });
+
             Assert.AreEqual("Message Test (01.01.0001 01:00:00 [UTC])\n foo \t: bar \r\n num \t: 1 2 3 4 5 6 1 \r\n", message.ToString());
         }
 

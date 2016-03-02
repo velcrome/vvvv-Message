@@ -21,6 +21,8 @@ namespace VVVV.Packs.Messaging {
     [JsonConverter(typeof(JsonMessageSerializer))]
 	public class Message : ICloneable //, ISerializable
     {
+        protected Regex NameParser = new Regex(@"^([\w\._-]+?)$");
+
         #region Properties and FieldNames
         // Access to the the inner Data.
         public IEnumerable<string> Fields
@@ -107,6 +109,9 @@ namespace VVVV.Packs.Messaging {
 
         public void AssignFrom(string name, IEnumerable en)
         {
+
+            if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+            
             var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
 
             var type = TypeIdentity.Instance.FindBaseType(obj.GetType());
@@ -158,7 +163,10 @@ namespace VVVV.Packs.Messaging {
 				if (Data.ContainsKey(name)) return Data[name];
 					else return null;				
 			} 
-			set { Data[name] = (Bin) value; }
+			set {
+                if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                Data[name] = (Bin) value; 
+            }
 		}
 
         #endregion

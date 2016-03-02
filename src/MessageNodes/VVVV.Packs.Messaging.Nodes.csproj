@@ -42,8 +42,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
@@ -51,13 +52,20 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="VVVV.Core, Version=34.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Core.34.2.0\lib\net40\VVVV.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="VVVV.Utils, Version=34.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.34.2.0\lib\net40\VVVV.Utils.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="VVVV.Packs.Time, Version=1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -147,14 +155,13 @@
     <Compile Include="Utils\MessageRemoveNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageCore\VVVV.Packs.Messaging.Core.csproj">
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
       <Name>VVVV.Packs.Messaging.Core</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
       <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
@@ -178,7 +185,6 @@
     <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets" Condition="Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" />
   <Import Project="..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets')" />
 </Project>

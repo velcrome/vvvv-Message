@@ -11,7 +11,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\build\$(Platform)\$(Configuration)\test\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -49,24 +49,28 @@
     <Compile Include="Message\MessageSerialisationTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
-    <Reference Include="VVVV.Core, Version=34.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="VVVV.Core, Version=34.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Core.34.2.0\lib\net40\VVVV.Core.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="VVVV.Utils, Version=34.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="VVVV.Utils, Version=34.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.34.2.0\lib\net40\VVVV.Utils.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="VVVV.Packs.Time, Version=1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -100,9 +104,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets'))" />
   </Target>
-  <Import Project="..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets" Condition="Exists('..\packages\VVVV.Packs.Time.0.5.5\build\net40\VVVV.Packs.Time.targets')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" />
 </Project>
