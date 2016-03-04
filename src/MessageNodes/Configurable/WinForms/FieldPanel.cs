@@ -53,12 +53,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     _isFaulty = value;
 
-                    if (_isFaulty)
-                    {
-                        FToggle.Checked = false;
-                        _descriptor = null;
-                    }
-                    FToggle.Enabled = !_isFaulty;
+                if (_isFaulty)
+                {
+                    _descriptor = null;
+                }
+                FToggle.Enabled = !_isFaulty;
                 }
             }
 
@@ -255,14 +254,15 @@ namespace VVVV.Packs.Messaging.Nodes
                         _descriptor.IsRequired = true;
                         Checked = true; 
                         IsFaulty = false;
-                    }
-                    catch (Exception)
+
+                        if (Change != null) Change(this, e);
+                }
+                catch (Exception)
                     {
                         IsFaulty = true;
                     }
                 }
 
-               if (Change != null) Change(this, e);
             }
             #endregion change
 

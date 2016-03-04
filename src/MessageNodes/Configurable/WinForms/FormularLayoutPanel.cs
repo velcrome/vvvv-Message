@@ -66,6 +66,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 var fields = from field in FieldPanels
                            where !field.IsEmpty
+                           where !field.IsFaulty
                            select field.Descriptor;
                 var formular =  new MessageFormular(fields.ToList(), _formularName);
                 return formular;
