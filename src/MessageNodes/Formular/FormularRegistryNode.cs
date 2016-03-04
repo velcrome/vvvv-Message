@@ -17,11 +17,18 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Configuration", DefaultString = "string Foo", BinSize=1)]
         public ISpread<ISpread<string>> FConfig;
 
-        [Input("Clear All", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.Hidden)]
-        public IDiffSpread<bool> FClear;
+        [Input("Inherits", IsSingle = true)]
+        public ISpread<MessageFormular> FInherits;
 
         [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
         public IDiffSpread<bool> FUpdate;
+
+        [Input("Clear All", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        public IDiffSpread<bool> FClear;
+
+        [Output("Formular")]
+        public ISpread<MessageFormular> FOutput;
+
 
         private bool firstFrame = true;
 
@@ -31,31 +38,27 @@ namespace VVVV.Packs.Messaging.Nodes
             if (!FClear.IsAnyInvalid() && FClear[0])
             {
                 var registry = MessageFormularRegistry.Instance;
-                
-                var none = registry[MessageFormular.DYNAMIC];
                 registry.Clear();
 
-                registry.Add(MessageFormular.DYNAMIC, none);
                 EnumManager.UpdateEnum(registry.RegistryName, MessageFormular.DYNAMIC, registry.Keys.ToArray());
             }
             
             if (FUpdate.IsAnyInvalid() || FConfig.IsAnyInvalid()) return;
             if (!FUpdate[0] && !firstFrame) return; 
 
-            SpreadMax = FName.SliceCount;
+            FOutput.SliceCount = SpreadMax = FName.SliceCount;
 
             var reg = MessageFormularRegistry.Instance; 
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                var config = "";
-                for (int j = 0; j < FConfig[i].SliceCount; j++)
-                {
-                    config += FConfig[i][j] + ", ";
-                }
-                if (config != "") config = config.Substring(0, config.Length - 2); // remove tailing comma
+                var config = string.Join(", ", FConfig[i]);
+                var formular = new MessageFormular(config, FName[i]);
 
-                reg.Define(FName[i], config, firstFrame);
+                if (!FInherits.IsAnyInvalid() && FInherits[i] != null)
+                    formular.Append(FInherits[i], false);
+
+                FOutput[i] = reg.Define(formular, firstFrame);
             }
 
             firstFrame = false;
