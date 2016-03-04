@@ -1,26 +1,37 @@
 ﻿using System.ComponentModel.Composition;
+using System.Drawing;
+using System.Windows.Forms;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class ConfigurableNode :  IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class ConfigurableNode :  UserControl, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Config("Configuration", DefaultString = "string Foo")]
+        [Config("Configuration", DefaultString = "string Foo", Visibility=PinVisibility.True)]
         public IDiffSpread<string> FConfig;
 
         [Import()]
         protected ILogger FLogger;
 
+        protected Panel FWindow;
 
-        public virtual void OnImportsSatisfied()
+        protected abstract void OnConfigChange(IDiffSpread<string> configSpread);
+        public abstract void Evaluate(int SpreadMax);
+
+        public ConfigurableNode()
         {
-            FConfig.Changed += HandleConfigChange;
         }
 
+        protected virtual void InitializeWindow() {
+            FWindow = new PicturePanel();
+            Controls.Add(FWindow);
 
-
-        protected abstract void HandleConfigChange(IDiffSpread<string> configSpread);
-        public abstract void Evaluate(int SpreadMax);
+        }
+        public virtual void OnImportsSatisfied()
+        {
+            InitializeWindow();
+            FConfig.Changed += OnConfigChange;
+        }
     }
 }

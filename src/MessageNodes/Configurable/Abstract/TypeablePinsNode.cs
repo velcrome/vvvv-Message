@@ -6,6 +6,9 @@ using System.Linq;
 
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
+using VVVV.Core.Logging;
+using System.Reflection;
+
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -14,19 +17,19 @@ namespace VVVV.Packs.Messaging.Nodes
         #region fields & pins
         protected const string Tags = "Formular";
 
-        [Input("Verbose", Visibility = PinVisibility.OnlyInspector, IsSingle = true, DefaultBoolean = false, Order = 2)]
-        public ISpread<bool> FDevMode;
 
         [Import()]
         protected IIOFactory FIOFactory;
 
+        [Import]
+        protected IPluginHost2 PluginHost;
+
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-        protected Dictionary<string, Type> FTypes = new Dictionary<string, Type>();
+        protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
+
+        protected bool RemovePinsFirst;
 
         protected int DynPinCount = 5;
-        protected MessageFormular Formular = new MessageFormular("");
-
-
         #endregion fields & pins
 
         #region pin management
@@ -70,66 +73,132 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        protected override void HandleConfigChange(IDiffSpread<string> configSpread)
+        protected IIOContainer CreatePin(FormularFieldDescriptor field)
         {
-            DynPinCount = 5;
-            List<string> invalidPins = FPins.Keys.ToList();
-            Formular = new MessageFormular(configSpread[0]);
+            IOAttribute attr = SetPinAttributes(field); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
 
-            foreach (string field in Formular.Fields)
+            Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(field.Type)); // the Pin is always a binsized one
+            var pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
+
+            DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
+
+            return pin;
+        }
+
+        protected bool RetryConfig()
+        {
+            if (RemovePinsFirst)
             {
-                bool create = false;
+                OnConfigChange(FConfig);
+            }
 
+            if (RemovePinsFirst)
+                throw new Exception("Manually remove unneeded links first!");
+            else return true;
+        }
+
+        protected bool HasLink(IIOContainer pinContainer)
+        {
+            try
+            {
+                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance | BindingFlags.FlattenHierarchy).GetValue(pinContainer.RawIOObject);
+                var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
+                return container.GetPluginIO().IsConnected;
+            }
+            catch (Exception)
+            {
+                string nodePath = PluginHost.GetNodePath(false);
+                FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node: " + nodePath);
+                return false;
+            }
+        }
+
+        protected bool HasEndangeredLinks(MessageFormular newFormular)
+        {
+            // pin removals
+            var danger = from field in Formular.FieldDescriptors
+                         let fieldName = field.Name
+                         where !newFormular.FieldNames.Contains(fieldName)
+                         where HasLink(FPins[fieldName]) // first frame pin will not be initialized
+                         select fieldName;
+
+            // type changes - removal and recreate new
+            var typeDanger= from field in Formular.FieldDescriptors
+                            where newFormular.FieldNames.Contains(field.Name)
+                            where newFormular[field.Name].Type != field.Type
+                            where HasLink(FPins[field.Name]) // first frame pin will not be initialized
+                            select field.Name;
+
+            // ignore changes to binsize.
+
+            return danger.Count() > 0 || typeDanger.Count() > 0;
+        }
+
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
+        {
+            var formularName = FFormular.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormular[0];
+            var newFormular = new MessageFormular(configSpread[0], formularName);
+
+            if (HasEndangeredLinks(newFormular))
+            {
+                RemovePinsFirst = true;
+                return;
+            }
+            else RemovePinsFirst = false;
+
+            List<string> invalidPins = FPins.Keys.ToList();
+            foreach (string field in newFormular.FieldNames)
+            {
                 if (FPins.ContainsKey(field) && FPins[field] != null)
                 {
                     invalidPins.Remove(field);
 
-                    if (FTypes.ContainsKey(field))
+                    if (Formular.FieldNames.Contains(field))
                     {
-                        if (FTypes[field] != Formular[field].Type)
+                        // same name, but types don't match
+                        // todo: in fact eg float does match double here...
+                        if (Formular[field].Type != newFormular[field].Type)
                         {
                             FPins[field].Dispose();
-                            FPins[field] = null;
-                            create = true;
+                            FPins[field] = CreatePin(newFormular[field]);
                         }
-
                     }
                     else
                     {
                         // key is in FPins, but no type defined. should never happen
-                        create = true;
+                        FLogger.Log(LogType.Debug, "Internal Fault in Pin Layout detected. Override with "+newFormular.ToString());
+                        FPins[field] = CreatePin(newFormular[field]);
                     }
                 }
                 else
                 {
-                    FPins.Add(field, null);
-                    create = true;
+                    FPins[field] = CreatePin(newFormular[field]);
                 }
+             }
+            
+            // cleanup
+            Formular = newFormular;
 
-                if (create)
-                {
-                    IOAttribute attr = DefinePin(Formular[field]); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
-
-                    Type type = Formular[field].Type;
-                    Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(type)); // the Pin is always a binsized one
-                    FPins[field] = FIOFactory.CreateIOContainer(pinType, attr);
-
-                    FTypes.Add(field, type);
-                }
-                DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
-            }
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();
                 FPins.Remove(name);
-                FTypes.Remove(name);
             }
-        }
 
+            //// reorder - does not work right now, sdk offers only read-only access
+            //var names = formular.FieldNames.ToArray();
+            //for (int i = 0; i < formular.FieldNames.Count; i++)
+            //{
+            //    var name = names[i];
+            //    var pin = FPins[name].GetPluginIO();
+            //    pin.Order = i * 2 + 5;
+            //}
+
+        }
         #endregion pin management
 
         #region abstract methods
-        protected abstract IOAttribute DefinePin(FormularFieldDescriptor config);
+        protected abstract IOAttribute SetPinAttributes(FormularFieldDescriptor config);
         #endregion abstract methods
     }
 

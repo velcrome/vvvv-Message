@@ -1,26 +1,39 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageFormular
+    public class MessageFormular // : IEnumerable<FormularFieldDescriptor>, IEnumerable
     {
         public static string DYNAMIC = "None";
 
-        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"ID", "Output", "Input", "Message", "Keep" } ); // These names are likely to be pin names
+        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"", "ID", "Output", "Input", "Message", "Keep"} ); // These names are likely to be pin names
         
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
         public string Name { get; set; }
-        public string Definition { get; set; } 
+        public string Configuration { 
+            get {
+                var fieldConfigs = from desc in dict.Values
+                          where desc.IsRequired
+                          select desc.ToString();
+                return string.Join(", ", fieldConfigs.ToArray());            
+            }
+        } 
         
-        public ICollection<string> Fields
+        public IEnumerable<string> FieldNames
         {
             get { return dict.Keys; }
         }
 
+        public IEnumerable<FormularFieldDescriptor> FieldDescriptors
+        {
+            get { return dict.Values; }
+        }
 
         public FormularFieldDescriptor this[string name]
         {
@@ -29,7 +42,16 @@ namespace VVVV.Packs.Messaging
                 if (dict.ContainsKey(name)) return dict[name];
                 else return null;
             }
-            set { dict[name] = (FormularFieldDescriptor)value; }
+            set {
+                if (value == null) throw new ArgumentNullException("FormularFieldDescriptor");
+                dict[name] = (FormularFieldDescriptor)value; 
+            }
+        }
+
+        public bool IsDynamic { 
+            get {
+                return this.Name == MessageFormular.DYNAMIC;
+            }
         }
 
         protected MessageFormular()
@@ -44,71 +66,49 @@ namespace VVVV.Packs.Messaging
                 var type = template[field].GetInnerType();
                 var count = withCount ?  template[field].Count : -1;
 
-                dict.Add(field, new FormularFieldDescriptor(type, field, count));
+                dict.Add(field, new FormularFieldDescriptor(type, field, count, true));
             }
-            Definition = ToString();
         }
 
-        public MessageFormular (string configuration) : this()
+        public MessageFormular (string config, string name) : this()
         {
-            Definition = configuration;
-            string[] config = configuration.Trim().Split(',');
+            this.Name = name;
+            config = config==null? "" : config.Trim();
 
-            foreach (string binConfig in config)
+            if (config == "") return; // nothing to do here. hand back empty Formular
+
+            string[] configArray = config.Trim().Split(',');
+
+            foreach (string binConfig in configArray)
             {
-                const string pattern = @"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$"; // "Type[N] name"
-                // Name can constitute of alphanumericals, dots, underscores and hyphens.
-
-                try
-                {
-                    var binData = Regex.Match(binConfig.Trim(), pattern);
-
-                    Type type = TypeIdentity.Instance.FindType(binData.Groups[1].ToString()); // if alias not found, it will gracefully return string.
-                    string name = binData.Groups[3].ToString();
-
-                    int count = 1;
-                    if (binData.Groups[2].Length > 0) {
-                        var arrayConnotation = binData.Groups[2].ToString();
-
-                        if (arrayConnotation == "[]") 
-                            count = -1;
-                            else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
-                    }
-                    if (!ForbiddenNames.Contains(name))
-                    {
-                        if (name != "") dict[name] = new FormularFieldDescriptor(type, name, count);
-                    }
-                    else throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Could not parse \"" + binConfig + "\". Please check Formular Configuration for syntax Error.", e);
-
-
-                }
+                var desc = new FormularFieldDescriptor(binConfig, true);
+                dict[desc.Name] = desc;
             }
         }
 
-        public string ToString(bool withCount = false)
+        public MessageFormular(IEnumerable<FormularFieldDescriptor> fields, string name) : this()
         {
-			StringBuilder sb = new StringBuilder();
-
-            foreach (string name in dict.Keys)
+            this.Name = name;
+            foreach (var field in fields)
             {
-                Type type = dict[name].Type;
-                sb.Append(", " + TypeIdentity.Instance.FindBaseAlias(type));
-                if (withCount && dict[name].DefaultSize != 1)
-                {
-
-                    sb.Append("[");
-                    if (dict[name].DefaultSize > 0) sb.Append(dict[name].DefaultSize);
-                    sb.Append("]");
-                }
-                sb.Append(" " + name);
+//                var f = field.Clone() as FormularFieldDescriptor;
+//                f.IsRequired = true;
+                dict[field.Name] = field;
             }
-            var str = sb.ToString();
-            
-            return str.Length>0? str.Substring(2) : ""; // clean leading ", "
         }
+
+        public void Append(MessageFormular fresh, bool IsRequired)
+        {
+            foreach (var field in fresh.FieldDescriptors)
+                dict[field.Name] = field;
+        }
+
+       
+        public override string ToString()
+        {
+            return Configuration;
+            //return "\"" + Name + "\" " + Configuration;
+        }
+
     }
 }

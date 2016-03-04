@@ -3,6 +3,7 @@ using VVVV.Packs.Messaging.Nodes;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
+using System;
 
 
 namespace VVVV.Nodes.Messaging.Nodes
@@ -12,7 +13,7 @@ namespace VVVV.Nodes.Messaging.Nodes
     [PluginInfo(Name = "Edit", 
         Category = "Message", 
         AutoEvaluate = true, 
-        Help = "Adds or edits multiple Message Fields", 
+        Help = "Adds or edits multiple Message FieldNames", 
         Version = "Formular", 
         Tags = "Formular, Bin",
         Author = "velcrome")]
@@ -34,7 +35,7 @@ namespace VVVV.Nodes.Messaging.Nodes
 
 #pragma warning restore
 
-        protected override IOAttribute DefinePin(FormularFieldDescriptor field)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {
             var attr = new InputAttribute(field.Name);
 
@@ -92,6 +93,10 @@ namespace VVVV.Nodes.Messaging.Nodes
             }
 
             if (doFlush) FOutput.Flush();
+
+
+            if (RemovePinsFirst) RetryConfig();
+
         }
     }
 }

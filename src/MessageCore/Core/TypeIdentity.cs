@@ -111,7 +111,7 @@ namespace VVVV.Packs.Messaging
 
         public Type FindType(string alias)
         {
-            Type type = typeof(string);
+            Type type = null;
             foreach (Type key in this.Keys)
             {
                 if (this[key].ToLower() == alias.ToLower())

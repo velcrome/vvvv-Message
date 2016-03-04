@@ -1,19 +1,18 @@
 #region usings
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Linq;
-using VVVV.Packs.Time;
-using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging {
+namespace VVVV.Packs.Messaging
+{
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
 	
@@ -21,7 +20,9 @@ namespace VVVV.Packs.Messaging {
     [JsonConverter(typeof(JsonMessageSerializer))]
 	public class Message : ICloneable //, ISerializable
     {
-        #region Properties and Fields
+        protected Regex NameParser = new Regex(@"^([\w\._-]+?)$");
+
+        #region Properties and FieldNames
         // Access to the the inner Data.
         public IEnumerable<string> Fields
         {
@@ -84,7 +85,7 @@ namespace VVVV.Packs.Messaging {
 
         public void SetFormular(MessageFormular formular)
         {
-            foreach (string field in formular.Fields)
+            foreach (string field in formular.FieldNames)
             {
                 Data[field] = BinFactory.New( formular[field].Type ); // Type
                 var count = formular[field].DefaultSize;
@@ -107,6 +108,9 @@ namespace VVVV.Packs.Messaging {
 
         public void AssignFrom(string name, IEnumerable en)
         {
+
+            if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+            
             var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
 
             var type = TypeIdentity.Instance.FindBaseType(obj.GetType());
@@ -158,7 +162,10 @@ namespace VVVV.Packs.Messaging {
 				if (Data.ContainsKey(name)) return Data[name];
 					else return null;				
 			} 
-			set { Data[name] = (Bin) value; }
+			set {
+                if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                Data[name] = (Bin) value; 
+            }
 		}
 
         #endregion

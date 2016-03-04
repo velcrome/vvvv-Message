@@ -4,6 +4,7 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
+using System;
 
 #endregion usings
 
@@ -40,7 +41,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
 #pragma warning restore
 
-        protected override IOAttribute DefinePin(FormularFieldDescriptor configuration)
+        protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
         {
             var attr = new OutputAttribute(configuration.Name);
             attr.BinVisibility = PinVisibility.Hidden;
@@ -53,6 +54,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            if (RemovePinsFirst) RetryConfig();
+
             if (!FInput.IsChanged) return;
             
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
@@ -97,9 +100,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (sourceBin as object == null)
                     {
-                        if (FDevMode[0])
-                            FLogger.Log(LogType.Debug,
-                                        "\"" + FTypes[name] + " " + name + "\" is not defined in Input Message.");
+                            FLogger.Log(LogType.Warning,
+                                        "\"" + Formular[name].Type + " " + name + "\" is not defined in Input Message.");
                     }
                     else count = sourceBin.Count;
 
@@ -128,6 +130,8 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FPins[name].ToISpread().Flush();
             }
+
+
 
         }
 

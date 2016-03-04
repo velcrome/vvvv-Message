@@ -16,7 +16,7 @@ namespace VVVV.Packs.Messaging
     [JsonConverter(typeof(JsonBinSerializer))]
     internal class BinList<T> : Bin<T>
     {
-        #region Fields
+        #region FieldNames
         internal IList<T> Data = new List<T>(1);
 
         public bool IsDirty { get; set; }
