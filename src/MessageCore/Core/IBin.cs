@@ -24,25 +24,24 @@ namespace VVVV.Packs.Messaging
 
     public interface Bin<T> : Bin, IEnumerable<T>
     {
-        // this is not working like that. too bad! still pondering a better way to provide strong typing in these cases...
-        
-        //new T this[int slice] {get; set;}
-        // T First { get; set; }
+        // new T [int slice] {get; set;} // does not compile, automatic up casting not possible with c#
+        // T First<T> { get; set; } // available from system.ling
     }
 
     public class BinFactory {
         #region alternative factory constructor for runtime typing of the field
         public static Bin New(Type type, int initialCapacity = 1)
         {
-            Type spreadType = typeof(BinList<>).MakeGenericType(type);
-            if (TypeIdentity.Instance.ContainsKey(type))
+            var baseType = TypeIdentity.Instance.FindBaseType(type);
+            if (baseType != null)
             {
-                var sl = Activator.CreateInstance(spreadType);
+                Type genericBin = typeof(BinList<>).MakeGenericType(baseType); // downcast to allowed type, if intial type does not match directly
+                var sl = Activator.CreateInstance(genericBin);
                 return (Bin)sl;
             }
             else
             {
-                throw new Exception(type.ToString() + " is not a supported Type in TypeIdentity.cs");
+                throw new Exception(type.ToString() + " is not a supported Type in Message. See TypeIdentity.cs");
             }
         }
 

@@ -187,24 +187,6 @@ namespace VVVV.Packs.Messaging
             return typeof(T);
         }
 
-//        public object[] ToArray()
-//        {
-//            var tmp = new T[this.Count];
-//            ((ICollection)Data).CopyTo(tmp, 0);
-
-////            Object[] tmp = new Object[this.Count];
-////            Array.Copy(Data.ToArray(), tmp, this.Count);
-
-//            return tmp;
-//        }
-
-
-        //public T[] ToArray()
-        //{
-            
-        //    return Data.ToArray();
-        //}
-
         public static implicit operator T(BinList<T> sl)
         {
             return (T)sl.First;
@@ -223,7 +205,7 @@ namespace VVVV.Packs.Messaging
         public static explicit operator BinList<T>(T s)  // explicit generic value to Bin-First conversion operator
         {
             var bin = new BinList<T>();
-            bin.Add(s);
+            bin.Add(s); // better to assign?
             return bin;
         }
         #endregion Generic Casting Utils
