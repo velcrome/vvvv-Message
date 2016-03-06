@@ -1,19 +1,18 @@
 #region usings
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Linq;
-using VVVV.Packs.Time;
-using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging {
+namespace VVVV.Packs.Messaging
+{
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
 	

@@ -23,22 +23,26 @@ namespace VVVV.Packs.Messaging
             this[MessageFormular.DYNAMIC] = new MessageFormular("", MessageFormular.DYNAMIC);
         }
 
-        public MessageFormular Define(string formularName, string configuration, bool supressEvent = false)
+        public MessageFormular Define(MessageFormular formular, bool supressEvent = false)
         {
-            if (formularName == MessageFormular.DYNAMIC) return null; 
-            
-            var form = new MessageFormular(configuration, formularName);
-            this[formularName] = form;
+            if (formular.Name == MessageFormular.DYNAMIC) return null;
+
+            this[formular.Name] = formular;
 
             if (!supressEvent)
             {
-                var e = new FormularChangedEventArgs(form);
+                var e = new FormularChangedEventArgs(formular);
                 if (TypeChanged != null) TypeChanged(this, e);
             }
-
-            return form;
+            return formular;
         }
 
-  
+        public new void Clear() // just hides the base.Clear(), if cast to Dictionary, it will still call the base Clear
+        {
+            base.Clear();
+            this[MessageFormular.DYNAMIC] = new MessageFormular("", MessageFormular.DYNAMIC);
+        }
+
+
     }
 }
