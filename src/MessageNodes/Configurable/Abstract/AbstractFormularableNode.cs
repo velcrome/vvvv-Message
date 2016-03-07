@@ -35,8 +35,8 @@ namespace VVVV.Packs.Messaging.Nodes
             var reg = MessageFormularRegistry.Instance;
             reg.TypeChanged += FormularRemotelyChanged;
 
-            // dummy enum, will be populated from registry
-            EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
+            //// dummy enum, will be populated from registry
+            //EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
             FFormular.Changed += OnSelectFormular;
             ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
@@ -122,7 +122,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (append) {
                 var old = layoutPanel.Formular;
-                old.Append(formular, true);
+                foreach (var field in formular.FieldDescriptors)
+                    old.Append(field, true);
                 formular = old;
             }
             

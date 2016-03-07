@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
+using VVVV.Core.Logging;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
@@ -9,7 +13,7 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Formular", AutoEvaluate = true, Category = "Message", Help = "Define a high level Template for Messages", Tags = "Dynamic, Bin, velcrome")]
     #endregion PluginInfo
-    public class FormularRegistryNode : IPluginEvaluate
+    public class FormularRegistryNode : IPluginEvaluate, IDisposable
     {
         [Input("Formular Name", DefaultString = "Event")]
         public ISpread<string> FName;
@@ -23,47 +27,112 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
         public IDiffSpread<bool> FUpdate;
 
-        [Input("Clear All", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
-        public IDiffSpread<bool> FClear;
+        //[Input("Clear All", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        //public IDiffSpread<bool> FClear;
 
         [Output("Formular")]
         public ISpread<MessageFormular> FOutput;
 
+        [Import()]
+        protected ILogger FLogger;
 
-        private bool firstFrame = true;
+        [Import]
+        protected IPluginHost2 PluginHost;
 
+        private bool _firstFrame = true;
+        private bool _success = true;
+        
         public void Evaluate(int SpreadMax)
         {
-            
-            if (!FClear.IsAnyInvalid() && FClear[0])
-            {
-                var registry = MessageFormularRegistry.Instance;
-                registry.Clear();
-
-                EnumManager.UpdateEnum(registry.RegistryName, MessageFormular.DYNAMIC, registry.Keys.ToArray());
-            }
-            
             if (FUpdate.IsAnyInvalid() || FConfig.IsAnyInvalid()) return;
-            if (!FUpdate[0] && !firstFrame) return; 
+            if (!FUpdate[0] && !_firstFrame)
+            {
+                if (!_success) throw new Exception("Somthing wrong with this Formular!");
+                return;
+            }
+
+            _success = true; // assume innocence
 
             FOutput.SliceCount = SpreadMax = FName.SliceCount;
 
+            var id = this.PluginHost.GetNodePath(false);
             var reg = MessageFormularRegistry.Instance; 
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                var config = string.Join(", ", FConfig[i]);
-                var formular = new MessageFormular(config, FName[i]);
+                var config = string.Join(", ", FConfig[i]).Split(',');
+
+                var fields = new List<FormularFieldDescriptor>();
+                foreach (var def in config)
+                {
+                    try
+                    {
+                        var field = new FormularFieldDescriptor(def.Trim(), true);
+                        
+                        if (fields.Any(f => f.Name == field.Name))
+                        {
+                            FLogger.Log(LogType.Error, "Cannot add \"" + def + "\" in Formular for [" + FName[i] + "]. Field with the same name already defined.");
+                            _success = false;
+                        }
+                        else fields.Add(field);
+                    } catch (Exception e)
+                    {
+                        FLogger.Log(LogType.Error, "Cannot parse \"" + def + "\" in Formular for [" + FName[i]+"]. "+ e.Message);
+                        _success = false;
+                    }
+                }
+
+
+                var formular = new MessageFormular(fields, FName[i]);
 
                 if (!FInherits.IsAnyInvalid() && FInherits[i] != null)
-                    formular.Append(FInherits[i], false);
+                {
+                    foreach (var field in FInherits[i].FieldDescriptors)
+                    {
+                        try
+                        {
+                            formular.Append(field, false);
+                        }
+                        catch (Exception e)
+                        {
+                            FLogger.Log(LogType.Error, e.Message);
+                            _success = false;
+                        }
+                    }
+                }
 
-                FOutput[i] = reg.Define(formular, firstFrame);
+                try
+                {
+                    var defined = reg.Define(id, formular, _firstFrame);
+                    if (defined)
+                    {
+                        FOutput[i] = formular;
+                    }
+                    else _success = false;
+                }
+                catch (Exception e)
+                {
+                    FLogger.Log(LogType.Error, e.Message);
+                    _success = false;
+                } 
             }
 
-            firstFrame = false;
-            if (SpreadMax > 0) EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
+            foreach (var form in reg.FromId(id))
+            {
+                if (!FName.Contains(form.Name))
+                    reg.Undefine(id, form);
+            }
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
+            _firstFrame = false;
+            
+        }
 
+        public void Dispose()
+        {
+            var reg = MessageFormularRegistry.Instance;
+
+            reg.UndefineAll(PluginHost.GetNodePath(false));
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
         }
     }
 

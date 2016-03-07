@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging
 {
     public class MessageFormular // : IEnumerable<FormularFieldDescriptor>, IEnumerable
     {
-        public static string DYNAMIC = "None";
+        public const string DYNAMIC = "None";
 
         public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"", "ID", "Output", "Input", "Message", "Keep"} ); // These names are likely to be pin names
         
@@ -92,18 +92,26 @@ namespace VVVV.Packs.Messaging
             foreach (var field in fields)
             {
 //                var f = field.Clone() as FormularFieldDescriptor;
-//                f.IsRequired = true;
                 dict[field.Name] = field;
             }
         }
 
-        public void Append(MessageFormular fresh, bool IsRequired)
+
+        public bool Append(FormularFieldDescriptor field, bool isRequired) 
         {
-            foreach (var field in fresh.FieldDescriptors)
+            if (!dict.ContainsKey(field.Name))
+            {
                 dict[field.Name] = field;
+                return true;
+            }
+            else
+            {
+                if (dict[field.Name] != field)
+                    throw new Exception("Cannot add new Field \"" + field.ToString() + "\" to Formular [" + this.Name + "]. Field is already defined as \"" + dict[field.Name].ToString() + "\".");
+            }
+            return false;
         }
 
-       
         public override string ToString()
         {
             return Configuration;
