@@ -1,18 +1,19 @@
 #region usings
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Linq;
+using VVVV.Packs.Time;
+using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging
-{
+namespace VVVV.Packs.Messaging {
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
 	
@@ -20,7 +21,7 @@ namespace VVVV.Packs.Messaging
     [JsonConverter(typeof(JsonMessageSerializer))]
 	public class Message : ICloneable //, ISerializable
     {
-        protected Regex NameParser = new Regex(@"^([\w\._-]+?)$");
+        protected static Regex NameParser = new Regex(@"^([\w\._-]+?)$");
 
         #region Properties and FieldNames
         // Access to the the inner Data.
