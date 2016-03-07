@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -21,7 +20,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Configuration", DefaultString = "string Foo", BinSize=1)]
         public ISpread<ISpread<string>> FConfig;
 
-        [Input("Inherits", IsSingle = true)]
+        [Input("Inherits")]
         public ISpread<MessageFormular> FInherits;
 
         [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
@@ -75,7 +74,8 @@ namespace VVVV.Packs.Messaging.Nodes
                             _success = false;
                         }
                         else fields.Add(field);
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         FLogger.Log(LogType.Error, "Cannot parse \"" + def + "\" in Formular for [" + FName[i]+"]. "+ e.Message);
                         _success = false;
@@ -85,9 +85,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 var formular = new MessageFormular(fields, FName[i]);
 
-                if (!FInherits.IsAnyInvalid() && FInherits[i] != null)
+                if (!FInherits.IsAnyInvalid())
                 {
-                    foreach (var field in FInherits[i].FieldDescriptors)
+                    var allFields = from form in FInherits
+                                    from field in form.FieldDescriptors
+                                    select field;
+
+                    foreach (var field in allFields)
                     {
                         try
                         {
