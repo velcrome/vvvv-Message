@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageFormular // : IEnumerable<FormularFieldDescriptor>, IEnumerable
+    public class MessageFormular
     {
         public const string DYNAMIC = "None";
 
@@ -44,6 +41,8 @@ namespace VVVV.Packs.Messaging
             }
             set {
                 if (value == null) throw new ArgumentNullException("FormularFieldDescriptor");
+                if (string.IsNullOrWhiteSpace(name)) throw new IndexOutOfRangeException("Empty strings cannot identify a field in a Formular.");
+
                 dict[name] = (FormularFieldDescriptor)value; 
             }
         }
