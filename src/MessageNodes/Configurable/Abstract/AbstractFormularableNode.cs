@@ -25,6 +25,8 @@ namespace VVVV.Packs.Messaging.Nodes
             
             FWindow = new FormularLayoutPanel();
             Controls.Add(FWindow);
+            var reg = MessageFormularRegistry.Instance;
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
         }
 
         public override void OnImportsSatisfied()
@@ -73,7 +75,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (formularName != MessageFormular.DYNAMIC)
             {
-                var formular = new MessageFormular(MessageFormularRegistry.Instance[formularName].FieldDescriptors, formularName);
+                var fromReg = MessageFormularRegistry.Instance[formularName];
+                if (fromReg == null) return;
+
+                var formular = new MessageFormular(fromReg.FieldDescriptors, formularName);
 
                 foreach (var field in formular.FieldDescriptors) field.IsRequired = false;
 

@@ -93,7 +93,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             if (RemovePinsFirst)
-                throw new Exception("Manually remove unneeded links first!");
+                throw new PinConnectionException("Manually remove unneeded links first!");
             else return true;
         }
 

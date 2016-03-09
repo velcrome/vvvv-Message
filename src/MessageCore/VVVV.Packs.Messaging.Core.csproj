@@ -41,6 +41,7 @@
     <Compile Include="Core\IBin.cs" />
     <Compile Include="Core\MessageKeep.cs" />
     <Compile Include="Core\Message.cs" />
+    <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Formular\FormularFieldDescriptor.cs" />
     <Compile Include="Formular\MessageFormular.cs" />
     <Compile Include="Formular\MessageFormularChangedEvent.cs" />

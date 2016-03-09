@@ -96,7 +96,10 @@ namespace VVVV.Packs.Messaging
             }
         }
 
-
+        /// <summary>Appends a field to an existing Formular, with extensive type checking.</summary>
+        /// <param name="field">The field to be added</param>
+        /// <param name="isRequired">A bool indicating if the registry should skip informing interested parties about this change.</param>
+        /// <exception cref="DuplicateFieldException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
         public bool Append(FormularFieldDescriptor field, bool isRequired) 
         {
             if (!dict.ContainsKey(field.Name))
@@ -106,8 +109,8 @@ namespace VVVV.Packs.Messaging
             }
             else
             {
-                if (dict[field.Name] != field)
-                    throw new Exception("Cannot add new Field \"" + field.ToString() + "\" to Formular [" + this.Name + "]. Field is already defined as \"" + dict[field.Name].ToString() + "\".");
+                if (!dict[field.Name].Equals(field))
+                    throw new DuplicateFieldException("Cannot add new Field \"" + field.ToString() + "\" to Formular [" + this.Name + "]. Field is already defined as \"" + dict[field.Name].ToString() + "\".", field, dict[field.Name]);
             }
             return false;
         }
