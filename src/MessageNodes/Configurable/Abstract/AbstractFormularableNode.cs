@@ -17,6 +17,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import]
         protected IHDEHost FHDEHost;
 
+        [Import]
+        protected IPluginHost2 PluginHost;
+
         protected bool SkippedFirst;
 
         protected override void InitializeWindow()
@@ -71,6 +74,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected virtual void OnSelectFormular(IDiffSpread<EnumEntry> spread)
         {
+            if (FFormular.IsAnyInvalid())
+            {
+                FLogger.Log(LogType.Warning, "["+ this.GetType().Name + "] - Select a Formular. ID = " + PluginHost.GetNodePath(false));
+                return;
+            }
+
             var formularName = FFormular[0].Name;
 
             if (formularName != MessageFormular.DYNAMIC)

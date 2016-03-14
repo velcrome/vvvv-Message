@@ -21,9 +21,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        [Import]
-        protected IPluginHost2 PluginHost;
-
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
         protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
 
