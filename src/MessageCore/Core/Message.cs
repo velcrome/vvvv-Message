@@ -152,6 +152,21 @@ namespace VVVV.Packs.Messaging
             Data.Remove(name);
         }
 
+        public bool Rename(string oldName, string newName, bool overwrite=false)
+        {
+            if (!overwrite && Data.ContainsKey(newName)) return false;
+            else
+            {
+                var bin = Data[oldName];
+                Data[newName] = bin;
+                bin.IsDirty = true;
+
+                Remove(oldName);
+            }
+            return true;
+        }
+
+
         #endregion
 
         #region Bin Access

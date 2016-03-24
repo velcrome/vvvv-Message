@@ -6,6 +6,7 @@ using VVVV.Utils.OSC;
 namespace VVVV.Packs.Messaging.Serializing
 {
     using System;
+    using System.Collections.Generic;
     using Time = VVVV.Packs.Time.Time;
 
     public static class OSCExtensions
@@ -48,17 +49,22 @@ namespace VVVV.Packs.Messaging.Serializing
             if (bytes.Length == 0) return null;
 
             var pack = OSCPacket.Unpack(bytes, extendedMode);
+            bool useNesting;
 
             OSCBundle bundle;
             if (pack.IsBundle())
             {
                 bundle = (OSCBundle)pack;
                 message.TimeStamp = bundle.getTimeStamp();
-            } else {
+                useNesting = true;
+            }
+            else
+            {
                 bundle = new OSCBundle(extendedMode);
                 var m = (OSCMessage)pack;
                 bundle.Append(m);
                 message.TimeStamp = Time.CurrentTime();
+                useNesting = false;
             }
 
 
@@ -68,24 +74,52 @@ namespace VVVV.Packs.Messaging.Serializing
                 string[] address = m.Address.Trim(new char[] { '/' }).Split('/');
 
                 string messageAddress = string.Join(".", address.Take(Math.Max(1, address.Length - contractAddress)).ToArray());
-                if (messagePrefix.Trim() == "")
-                    message.Topic = messageAddress;
-                else message.Topic = messagePrefix + "." + messageAddress;
+
+                if (messagePrefix.Trim() == "") message.Topic = messageAddress;
+                    else message.Topic = messagePrefix + "." + messageAddress;
                 
-                Bin bin = null;
                 // empty messages are usually used for requesting data
                 if (m.Values.Count <= 0)
                 {
-                    // leave message emtpy
+                    // leave message emtpy, cannot infer type.
                 }
                 else
                 {
-                    // Todo: mixing of types in a singular message is not allowed right now! however, many uses of osc do mix values
-                    bin = BinFactory.New(m.Values[0].GetType());
-                    bin.AssignFrom(m.Values);
+                    var usedTypes = (
+                                        from v in m.Values.ToArray()
+                                        select v.GetType()
+                                    ).Distinct();
 
                     string attribName = string.Join(".", address.Skip(Math.Max(0, address.Length - contractAddress)).ToArray());
-                    message[attribName] = bin;
+
+                    if (usedTypes.Count() > 1)
+                    {
+                        var inner = new Message(message.Topic + "." + attribName);
+                        var max = m.Values.Count;
+
+                        for( int i=0;i< max;i++)
+                        {
+                            var item = m.Values[i];
+                            var num = i.ToString();
+                            inner[num] = BinFactory.New(item.GetType());
+                            inner[num].Add(item);
+                        }
+
+                        if (useNesting)
+                        {
+                            message[attribName] = BinFactory.New(inner);
+                        }
+                        else
+                        {
+                            message = inner;
+                        }
+                    }
+                    else
+                    {
+                        var bin = BinFactory.New(usedTypes.First());
+                        bin.AssignFrom(m.Values);
+                        message[attribName] = bin;
+                    }
                 }
             }
 
