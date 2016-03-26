@@ -21,14 +21,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
     public class MessageSplitNode : DynamicPinsNode
     {
-        public enum PinHoldEnum
-        {
-            Off,
-            Message,
-            Pin
-        }
-
-
 #pragma warning disable 649, 169
         [Input("Input", Order = 0)]
         IDiffSpread<Message> FInput;
