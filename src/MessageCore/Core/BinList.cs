@@ -9,7 +9,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
-
 namespace VVVV.Packs.Messaging
 {
     [Serializable]
@@ -110,11 +109,11 @@ namespace VVVV.Packs.Messaging
             {
                 if (!TypeIdentity.Instance.ContainsKey(value.GetType()))
                 {
-                    throw new Exception(value.GetType() + " is not a supported Type in TypeIdentity.cs");
+                    throw new TypeNotSupportedException(value.GetType() + " is not a supported Type in TypeIdentity.cs");
                 }
                 if (this.GetInnerType() != value.GetType())
                 {
-                    throw new Exception("Bin " + value.ToString() + " of type "+ value.GetType().ToString() +" cannot be the first among " +this.GetInnerType());
+                    throw new BinTypeMismatchException("Bin " + value.ToString() + " of type "+ value.GetType().ToString() +" cannot be the first among " +this.GetInnerType());
                 }
                 Data[0] = (T)value;
                 IsDirty = true;
@@ -131,9 +130,7 @@ namespace VVVV.Packs.Messaging
             try
             {
                 var index = this.Count;  //proper return as of ArrayList.Add()
-
                 if (val == null) return index;
-                // throw new Exception("Cannot Add null to "+this.ToString()+".");
 
                 // if type is in the Registry of allowed basetypes, add this single instance
                 Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
@@ -166,12 +163,12 @@ namespace VVVV.Packs.Messaging
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception("Cannot add (" + val + ") of Type " + val.GetType() + ". It is not convertible to "+this.GetType());
+                throw new BinTypeMismatchException("Cannot add (" + val + ") of Type " + val.GetType() + ". It is not convertible to "+this.GetType(), e);
             }
 
-            throw new Exception("Cannot add this value ("+val+"). "+ val.GetType() + " is neither a Enumeration of matching registered Type nor a matching Type.");
+            throw new TypeNotSupportedException("Cannot add this value ("+val+"). "+ val.GetType() + " is neither a Enumeration of matching registered Type nor a matching Type.");
         }
 
         public void AssignFrom(IEnumerable enumerable) {

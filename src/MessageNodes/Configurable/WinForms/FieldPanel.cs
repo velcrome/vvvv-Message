@@ -91,7 +91,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                         Invalidate();
                     }
-                    else throw new ArgumentException("Will not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.", "IsEmpty");
+                    else throw new InvalidOperationException("Can not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.");
 
                 }
             }
@@ -259,7 +259,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         IsFaulty = false;
 
                     }
-                    catch (Exception)
+                    catch (ParseFormularException)
                     {
                         IsFaulty = true;
                     }

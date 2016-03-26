@@ -110,7 +110,7 @@ namespace VVVV.Packs.Messaging {
         public void AssignFrom(string name, IEnumerable en)
         {
 
-            if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+            if (!NameParser.IsMatch(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
             
             var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
 
@@ -153,6 +153,21 @@ namespace VVVV.Packs.Messaging {
             Data.Remove(name);
         }
 
+        public bool Rename(string oldName, string newName, bool overwrite=false)
+        {
+            if (!overwrite && Data.ContainsKey(newName)) return false;
+            else
+            {
+                var bin = Data[oldName];
+                Data[newName] = bin;
+                bin.IsDirty = true;
+
+                Remove(oldName);
+            }
+            return true;
+        }
+
+
         #endregion
 
         #region Bin Access
@@ -164,7 +179,7 @@ namespace VVVV.Packs.Messaging {
 					else return null;				
 			} 
 			set {
-                if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                if (!NameParser.IsMatch(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
                 Data[name] = (Bin) value; 
             }
 		}
@@ -213,7 +228,7 @@ namespace VVVV.Packs.Messaging {
                     }
                     else
                     {
-                        throw new Exception("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
+                        throw new BinTypeMismatchException("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
                                             "> with Bin<" + TypeIdentity.Instance.FindAlias(newType) + "> implicitly.");
                     }
                 }
@@ -323,7 +338,7 @@ namespace VVVV.Packs.Messaging {
                             var clone = ((ICloneable)list[i]).Clone();
                             newList.Add(clone);
                         }
-                    } else throw new Exception(type.FullName + " cannot be cloned nor copied, while cloning the message "+this.Topic);
+                    } else throw new SystemException(type.FullName + " cannot be cloned nor copied, while cloning the message "+this.Topic);
                 }
                 
                 m[name] = newList; // add list to new Message

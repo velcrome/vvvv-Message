@@ -19,7 +19,6 @@ namespace VVVV.Packs.Messaging
                 if (_instance == null) _instance = new TypeIdentity();
                 return _instance;
             }
-            private set { throw new NotImplementedException(); }
         }
 
         public string[] Types

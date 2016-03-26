@@ -41,7 +41,7 @@ namespace VVVV.Packs.Messaging
             }
             else
             {
-                throw new Exception(type.ToString() + " is not a supported Type in Message. See TypeIdentity.cs");
+                throw new TypeNotSupportedException(type.ToString() + " is not a supported Type in vvvv-Message. See TypeIdentity.cs");
             }
         }
 

@@ -21,9 +21,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        [Import]
-        protected IPluginHost2 PluginHost;
-
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
         protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
 
@@ -93,7 +90,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             if (RemovePinsFirst)
-                throw new Exception("Manually remove unneeded links first!");
+                throw new PinConnectionException("Manually remove unneeded links first!");
             else return true;
         }
 

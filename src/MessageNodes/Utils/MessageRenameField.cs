@@ -1,0 +1,85 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Linq;
+using VVVV.Core.Logging;
+using VVVV.Packs.Messaging;
+using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
+
+namespace VVVV.Packs.Messaging.Nodes
+{
+    #region PluginInfo
+    [PluginInfo(Name = "RenameField", Category = "Message", Help = "Renames specific fields inside a Message.", Author = "velcrome")]
+    #endregion PluginInfo
+    public class MessageFieldRename : IPluginEvaluate
+    {
+#pragma warning disable 649, 169
+        [Input("Input")]
+        private IDiffSpread<Message> FInput;
+
+        [Input("Match Field Name", DefaultString = "Foo")]
+        private ISpread<string> FOld;
+
+        [Input("New Field Name", DefaultString = "Bar")]
+        private ISpread<string> FNew;
+
+        [Input("Force Overwrite", DefaultBoolean = true, IsSingle = true, IsToggle = true)]
+        private ISpread<bool> FOverwrite;
+
+        [Output("Output", AutoFlush = false)]
+        private ISpread<Message> FOutput;
+
+        [Import()]
+        protected ILogger FLogger;
+
+#pragma warning restore
+
+        public void Evaluate(int SpreadMax)
+        {
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+
+            if (SpreadMax <= 0)
+            {
+                if (FOutput.SliceCount >= 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                    return;
+                }
+                else return;
+            }
+
+
+            var translate = new Dictionary<string, string>();
+
+            var max = FNew.CombineWith(FOld);
+            for (int i = 0; i < max; i++)
+            {
+                var n = FNew[i].Trim();
+                var o = FOld[i].Trim();
+
+                if (string.IsNullOrWhiteSpace(n) || string.IsNullOrWhiteSpace(o)) continue;
+                translate[o] = n;
+            }
+
+            foreach (var message in FInput)
+            {
+                foreach (var fieldName in message.Fields.ToArray())
+                {
+                    if (translate.ContainsKey(fieldName))
+                    {
+                        var success = message.Rename(fieldName, translate[fieldName], FOverwrite[0]);
+
+                        if (!success) FLogger.Log(LogType.Debug, "Cannot rename " + fieldName + " to " + translate[fieldName] + " because it already exists.");
+                    }
+                }
+            }
+
+
+            FOutput.SliceCount = 0;
+            FOutput.AssignFrom(FInput);
+            FOutput.Flush();
+        }
+    }
+
+}

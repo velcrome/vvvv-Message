@@ -21,10 +21,10 @@ namespace VVVV.Packs.Messaging
         public FormularFieldDescriptor(Type type, string name, int size = -1, bool isRequired=false)
         {
             if (MessageFormular.ForbiddenNames.Contains(name))
-                throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
+                throw new ParseFormularException(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
             
             if (!TypeIdentity.Instance.ContainsKey(type))
-                throw new Exception(type + " is not a valid Type for a MessageFormular.");
+                throw new TypeNotSupportedException(type + " is not a valid Type for a MessageFormular.");
 
             this.Name = name;
             this.Type = type;
@@ -32,11 +32,12 @@ namespace VVVV.Packs.Messaging
             this.IsRequired = isRequired;
         }
 
+        /// <summary>Constructor that parses a configuration string.</summary>
+        /// <param name="config">A path to a directory that will be zipped.</param>
+        /// <param name="isRequired">A bool indicating if all fields should be required by force.</param>
+        /// <exception cref="ParseFormularException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
         public FormularFieldDescriptor(string config = "", bool isRequired = false) 
         {
-
-            try
-            {
                 var data = Parser.Match(config.Trim());
 
                 Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will return null
@@ -45,27 +46,22 @@ namespace VVVV.Packs.Messaging
                 int count = 1;
                 if (data.Groups[2].Length > 0)
                 {
-                    var arrayConnotation = data.Groups[2].ToString();
+                    var arrayConnotation = data.Groups[2].ToString().Trim();
 
                     if (arrayConnotation == "[]")
                         count = -1;
-                    else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']'));
+                    else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']').Trim());
                 }
                 if (MessageFormular.ForbiddenNames.Contains(name)) 
-                    throw new Exception(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
+                    throw new ParseFormularException(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
                 
                 if (type == null || name == "")  
-                    throw new Exception("Could not parse "+config);
+                    throw new ParseFormularException("Could not parse "+config);
 
                this.Type = type;
                this.Name = name;
                this.DefaultSize = count;
                this.IsRequired = isRequired;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Could not parse \"" + config + "\". Please check Formular Configuration for syntax Error.", e);
-            }
         }
 
         public bool Equals(FormularFieldDescriptor other)

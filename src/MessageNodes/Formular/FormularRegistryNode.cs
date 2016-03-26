@@ -14,22 +14,19 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class FormularRegistryNode : IPluginEvaluate, IDisposable
     {
-        [Input("Formular Name", DefaultString = "Event")]
-        public ISpread<string> FName;
+        [Input("Formular Name", DefaultString = MessageFormularRegistry.DefaultFormularName)]
+        public IDiffSpread<string> FName;
 
-        [Input("Configuration", DefaultString = "string Foo", BinSize=1)]
+        [Input("Configuration", DefaultString = MessageFormularRegistry.DefaultField, BinSize=-1)]
         public ISpread<ISpread<string>> FConfig;
 
-        [Input("Inherits")]
-        public ISpread<MessageFormular> FInherits;
+        [Input("Inherit All")]
+        public IDiffSpread<MessageFormular> FInherits;
 
         [Input("Update", IsSingle = true, IsBang = true, DefaultBoolean = false)]
         public IDiffSpread<bool> FUpdate;
 
-        //[Input("Clear All", IsSingle = true, IsBang = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
-        //public IDiffSpread<bool> FClear;
-
-        [Output("Formular")]
+        [Output("Formular", AutoFlush = false)]
         public ISpread<MessageFormular> FOutput;
 
         [Import()]
@@ -39,18 +36,23 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IPluginHost2 PluginHost;
 
         private bool _firstFrame = true;
-        private bool _success = true;
+        private Exception _lastException = null;
         
         public void Evaluate(int SpreadMax)
         {
-            if (FUpdate.IsAnyInvalid() || FConfig.IsAnyInvalid()) return;
-            if (!FUpdate[0] && !_firstFrame)
+            if (FUpdate.IsAnyInvalid() || FConfig.IsAnyInvalid() || FName.IsAnyInvalid()) return;
+
+            var update = FUpdate[0] || FInherits.IsChanged || FName.IsChanged;
+
+            if (!_firstFrame && !update)
             {
-                if (!_success) throw new Exception("Somthing wrong with this Formular!");
+                if (_lastException != null) throw _lastException;
                 return;
             }
+            _firstFrame = false;
 
-            _success = true; // assume innocence
+
+            _lastException = null; // assume innocence
 
             FOutput.SliceCount = SpreadMax = FName.SliceCount;
 
@@ -59,27 +61,40 @@ namespace VVVV.Packs.Messaging.Nodes
 
             for (int i = 0; i < SpreadMax; i++)
             {
+                if (string.IsNullOrWhiteSpace(FName[i]))
+                {
+                    _lastException = new FormatException("A Formular cannot have an empty Name.");
+                    return;
+                }
+
                 var config = string.Join(", ", FConfig[i]).Split(',');
 
                 var fields = new List<FormularFieldDescriptor>();
                 foreach (var def in config)
                 {
+                    FormularFieldDescriptor field;
                     try
                     {
-                        var field = new FormularFieldDescriptor(def.Trim(), true);
-                        
-                        if (fields.Any(f => f.Name == field.Name))
-                        {
-                            FLogger.Log(LogType.Error, "Cannot add \"" + def + "\" in Formular for [" + FName[i] + "]. Field with the same name already defined.");
-                            _success = false;
-                        }
-                        else fields.Add(field);
+                        field = new FormularFieldDescriptor(def.Trim(), true);
                     }
-                    catch (Exception e)
+                    catch (ParseFormularException e)
                     {
-                        FLogger.Log(LogType.Error, "Cannot parse \"" + def + "\" in Formular for [" + FName[i]+"]. "+ e.Message);
-                        _success = false;
+                        _lastException = e;
+                        return;
                     }
+
+                    var match = (
+                                    from f in fields
+                                    where f.Name == field.Name
+                                    select f
+                                ).FirstOrDefault();
+                        
+                    if (match != null)
+                    {
+                        _lastException = new DuplicateFieldException("Cannot add \"" + def + "\" in Formular for [" + FName[i] + "]. Field with the same name already defined.", match, field);
+                        return;
+                    }
+                    else fields.Add(field);
                 }
 
 
@@ -87,9 +102,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 if (!FInherits.IsAnyInvalid())
                 {
-                    var allFields = from form in FInherits
-                                    from field in form.FieldDescriptors
-                                    select field;
+                    var allFields = (
+                                        from form in FInherits
+                                        from field in form.FieldDescriptors
+                                        select field
+                                     ).Distinct();
 
                     foreach (var field in allFields)
                     {
@@ -97,10 +114,10 @@ namespace VVVV.Packs.Messaging.Nodes
                         {
                             formular.Append(field, false);
                         }
-                        catch (Exception e)
+                        catch (DuplicateFieldException e)
                         {
-                            FLogger.Log(LogType.Error, e.Message);
-                            _success = false;
+                            _lastException = e;
+                            return;
                         }
                     }
                 }
@@ -109,15 +126,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var defined = reg.Define(id, formular, _firstFrame);
                     if (defined)
-                    {
                         FOutput[i] = formular;
-                    }
-                    else _success = false;
                 }
-                catch (Exception e)
+                catch (RegistryException e)
                 {
-                    FLogger.Log(LogType.Error, e.Message);
-                    _success = false;
+                    _lastException = e;
+                    return;
                 } 
             }
 
@@ -126,8 +140,10 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (!FName.Contains(form.Name))
                     reg.Undefine(id, form);
             }
+
+            FOutput.Flush();
+
             EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
-            _firstFrame = false;
             
         }
 

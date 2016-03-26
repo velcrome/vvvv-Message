@@ -10,8 +10,10 @@ namespace VVVV.Packs.Messaging
     public class MessageFormularRegistry
     {
         public const string RegistryName = "VVVV.Packs.Message.Core.Formular";
-        public const string Default = MessageFormular.DYNAMIC;
-        
+        public const string DefaultFormular = MessageFormular.DYNAMIC;
+        public const string DefaultFormularName = "Event";
+        public const string DefaultField = "string Foo";
+
         private static MessageFormularRegistry _instance;
         public event MessageFormularChangedHandler TypeChanged;
 
@@ -25,9 +27,9 @@ namespace VVVV.Packs.Messaging
 
         internal MessageFormularRegistry()
         {
-            Data[Default] = new List<MessageFormular>();
+            Data[DefaultFormular] = new List<MessageFormular>();
             var formular = new MessageFormular("", MessageFormular.DYNAMIC);
-            Data[Default].Add(formular);
+            Data[DefaultFormular].Add(formular);
         }
 
         public MessageFormular this[string name]
@@ -62,6 +64,11 @@ namespace VVVV.Packs.Messaging
         }
 
 
+        /// <summary>Constructor that parses a configuration string.</summary>
+        /// <param name="senderId">A unique string that helps to keep track, who registered a given Formular.</param>
+        /// <param name="formular">A MessageFormular to be registered.</param>
+        /// <param name="supressEvent">A bool indicating if the registry should skip informing interested parties about this change.</param>
+        /// <exception cref="RegistryException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
         public bool Define(string senderId, MessageFormular formular, bool supressEvent = false)
         {
             if (formular.Name == MessageFormular.DYNAMIC) return false;
@@ -79,7 +86,7 @@ namespace VVVV.Packs.Messaging
 
             if (match != null)
             {
-                throw new Exception("Cannot add the formular to the registry. Another formular with that name already exists.");
+                throw new RegistryException("Cannot add the formular to the registry. Another formular with that name already exists.");
             }
 
             var ownFormulars = Data[senderId];

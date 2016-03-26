@@ -153,6 +153,7 @@
     <Compile Include="Utils\MessageStreamingNodes.cs" />
     <Compile Include="Utils\MessageTopicNode.cs" />
     <Compile Include="Utils\MessageRemoveNode.cs" />
+    <Compile Include="Utils\MessageRenameField.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
