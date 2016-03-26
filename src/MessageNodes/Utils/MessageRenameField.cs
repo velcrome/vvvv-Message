@@ -70,7 +70,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     {
                         var success = message.Rename(fieldName, translate[fieldName], FOverwrite[0]);
 
-                        if (!success) FLogger.Log(LogType.Debug, "Cannot rename " + fieldName + " to " + translate[fieldName] + " because it already exists.");
+                        if (!success) FLogger.Log(LogType.Error, "Cannot rename " + fieldName + " to " + translate[fieldName] + " because it already exists.");
                     }
                 }
             }

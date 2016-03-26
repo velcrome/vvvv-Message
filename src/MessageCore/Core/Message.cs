@@ -148,21 +148,21 @@ namespace VVVV.Packs.Messaging {
             }
         }
 
-        public void Remove(string name)
+        public void Remove(string fieldname)
         {
-            Data.Remove(name);
+            Data.Remove(fieldname);
         }
 
-        public bool Rename(string oldName, string newName, bool overwrite=false)
+        public bool Rename(string fieldname, string newName, bool overwrite=false)
         {
             if (!overwrite && Data.ContainsKey(newName)) return false;
             else
             {
-                var bin = Data[oldName];
+                var bin = Data[fieldname];
                 Data[newName] = bin;
                 bin.IsDirty = true;
 
-                Remove(oldName);
+                Remove(fieldname);
             }
             return true;
         }

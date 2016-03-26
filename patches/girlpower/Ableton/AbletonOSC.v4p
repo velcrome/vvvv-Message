@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p" scrollx="0" scrolly="1995" systemname="AbletonOSC" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p">
-   <BOUNDS type="Window" left="7185" top="4440" width="15990" height="13785">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p" scrollx="0" scrolly="7455" systemname="AbletonOSC" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p">
+   <BOUNDS type="Window" left="-105" top="0" width="14610" height="15705">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="5385" top="3900" width="2235" height="270">
@@ -116,6 +116,8 @@
    <PIN pinname="OSC" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="14">
@@ -372,12 +374,12 @@
    </NODE>
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="253" dstpinname="Input">
    </LINK>
-   <NODE systemname="Clips (Message Ableton)" filename="Clips (Message Ableton).v4p" nodename="Clips (Message Ableton).v4p" componentmode="Hidden" id="256">
+   <NODE systemname="Clips (Message Ableton)" filename="Clips (Message Ableton).v4p" nodename="Clips (Message Ableton).v4p" componentmode="InAWindow" id="256">
    <BOUNDS type="Node" left="9532" top="9453" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="5025" top="3048" width="9015" height="12810">
    </BOUNDS>
-   <BOUNDS type="Window" left="-1" top="-1" width="9015" height="12810">
+   <BOUNDS type="Window" left="12330" top="4665" width="9015" height="12810">
    </BOUNDS>
    <PIN pinname="Clips" visible="1">
    </PIN>
@@ -417,7 +419,7 @@
    </PIN>
    <PIN pinname="OSCMessage" visible="1">
    </PIN>
-   <PIN pinname="Address" slicecount="1" values="/live/devicelist" visible="1">
+   <PIN pinname="Address" slicecount="1" visible="1" values="/live/devicelist">
    </PIN>
    <PIN pinname="Type Tags" slicecount="1" values="i">
    </PIN>
@@ -512,14 +514,14 @@
    </NODE>
    <LINK srcnodeid="274" srcpinname="Output" dstnodeid="261" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="256" srcpinname="Clips" dstnodeid="14" dstpinname="Input">
-   </LINK>
    <NODE systemname="OSCEncoder (Network)" nodename="OSCEncoder (Network)" componentmode="Hidden" id="275">
    <BOUNDS type="Node" left="12060" top="9135" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSCMessage" visible="1">
    </PIN>
    <PIN pinname="Address" visible="1">
+   </PIN>
+   <PIN pinname="Spread as Bundle" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="276" systemname="IOBox (String)">
@@ -538,18 +540,12 @@
    </NODE>
    <LINK srcnodeid="276" srcpinname="Output String" dstnodeid="275" dstpinname="Address">
    </LINK>
-   <LINK srcnodeid="208" srcpinname="Output" dstnodeid="10" dstpinname="OSC">
-   </LINK>
-   <LINK srcnodeid="259" srcpinname="OSCMessage" dstnodeid="257" dstpinname="Input">
-   <LINKPOINT x="14055" y="10740">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Tracks (Message Ableton)" filename="Tracks (Message Ableton).v4p" nodename="Tracks (Message Ableton)" componentmode="Hidden" id="249">
    <BOUNDS type="Node" left="8580" top="8025" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="0" top="3189" width="18525" height="9675">
    </BOUNDS>
-   <BOUNDS type="Window" left="29385" top="1140" width="18525" height="9675">
+   <BOUNDS type="Window" left="6420" top="1695" width="18525" height="9675">
    </BOUNDS>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
@@ -558,16 +554,52 @@
    </NODE>
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="249" dstpinname="Input">
    </LINK>
-   <NODE systemname="Live (Message Ableton)" filename="Live (Message Ableton).v4p" nodename="Live (Message Ableton)" componentmode="Hidden" id="254">
+   <NODE systemname="Live (Message Ableton)" filename="Live (Message Ableton).v4p" nodename="Live (Message Ableton)" componentmode="InAWindow" id="254">
    <BOUNDS type="Node" left="8490" top="11190" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="5988" top="8240" width="4995" height="5910">
    </BOUNDS>
-   <BOUNDS type="Window" left="-1" top="-1" width="4995" height="5910">
+   <BOUNDS type="Window" left="7710" top="4920" width="4995" height="5910">
    </BOUNDS>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Live" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="254" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="277" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="6180" top="10755" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6180" top="10755" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="272" srcpinname="Devices" dstnodeid="277" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="259" srcpinname="OSCMessage" dstnodeid="257" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="278" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="9600" top="10005" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9600" top="10005" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="256" srcpinname="Clips" dstnodeid="278" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="279">
+   <BOUNDS type="Node" left="11790" top="12045" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="11790" top="12045" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="22560" top="8370" width="6240" height="5085">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Hold (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Hold (Message.Keep)" componentmode="Hidden" id="280">
+   <BOUNDS type="Node" left="2010" top="11190" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="10" dstpinname="OSC">
+   </LINK>
+   <LINK srcnodeid="250" srcpinname="DeviceParams" dstnodeid="14" dstpinname="Input">
    </LINK>
    </PATCH>

@@ -29,12 +29,35 @@ namespace VVVV.Packs.Messaging.Serializing
                     if (part.Trim() != "") oscAddress += "/" + part;
                 }
 
-                OSCMessage m = new OSCMessage(oscAddress, extendedMode);
-                Bin bl = message[name];
-                for (int i = 0; i < bl.Count; i++) m.Append(bl[i]);
-                bundle.Append(m);
+                OSCMessage msg = new OSCMessage(oscAddress, extendedMode);
+                Bin bin = message[name];
+                for (int i = 0; i < bin.Count; i++) msg.Append(bin[i]);
+                bundle.Append(msg);
             }
             return new MemoryStream(bundle.BinaryData); // packs implicitly
+        }
+
+        public static Stream ToOSC(this Message message, IEnumerable<FormularFieldDescriptor> fields, bool extendedMode = false)
+        {
+            string oscAddress = "";
+            foreach (string part in message.Topic.Split('.'))
+            {
+                if (part.Trim() != "") oscAddress += "/" + part;
+            }
+
+            var msg = new OSCMessage(oscAddress, extendedMode);
+            foreach (var field in fields)
+            {
+                var name = field.Name;
+
+                Bin bin = message[field.Name];
+                var size = bin == null ? 0 : bin.Count;
+                var count = field.DefaultSize < 1 ? size : field.DefaultSize;
+
+                for (int i = 0; i < count; i++) msg.Append(bin[i]);
+                
+            }
+            return new MemoryStream(msg.BinaryData); // packs implicitly
         }
 
         public static Message FromOSC(Stream stream, bool extendedMode = false, string messagePrefix = "", int contractAddress = 1)

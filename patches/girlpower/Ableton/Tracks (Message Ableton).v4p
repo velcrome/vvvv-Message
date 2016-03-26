@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message).v4p" systemname="Tracks (Message)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message).v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message).v4p" scrollx="0" scrolly="450">
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="4965" top="3150" width="100" height="100">
    </BOUNDS>
@@ -175,7 +175,7 @@
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="2760" top="7710" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="Ableton.Track" visible="1">
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Ableton.Track">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int TrackId, string Name, bool mute, float pan, bool solo, bool arm|">
    </PIN>
@@ -185,7 +185,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="12">
@@ -193,7 +193,7 @@
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" visible="1" values="Track">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Name, int TrackId, bool mute, bool solo, bool arm|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Name, int TrackId|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -518,7 +518,7 @@
    <BOUNDS type="Box" left="14310" top="4260">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="36">
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="36">
    <BOUNDS type="Node" left="13695" top="5790" width="100" height="100">
    </BOUNDS>
    <PIN pinname="New" visible="1" slicecount="1" values="1">
@@ -791,9 +791,9 @@
    <LINK srcnodeid="7" srcpinname="Message Bin Size" dstnodeid="13" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="23" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="3025" y="2445">
+   <LINKPOINT x="3030" y="2445">
    </LINKPOINT>
-   <LINKPOINT x="3020" y="2445">
+   <LINKPOINT x="3030" y="2445">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="24" srcpinname="Output String" dstnodeid="23" dstpinname="Filter">
@@ -815,9 +815,9 @@
    <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="3" dstpinname="New Field Name">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="0" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="3055" y="2430">
+   <LINKPOINT x="3060" y="2430">
    </LINKPOINT>
-   <LINKPOINT x="4955" y="2430">
+   <LINKPOINT x="4950" y="2430">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output String" dstnodeid="0" dstpinname="Filter">
@@ -828,14 +828,18 @@
    </LINK>
    <LINK srcnodeid="50" srcpinname="Output String" dstnodeid="48" dstpinname="New Field Name">
    </LINK>
-   <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="47" dstpinname="Input">
+   <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="47" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="3060" y="2430">
+   </LINKPOINT>
+   <LINKPOINT x="7155" y="2430">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="51" srcpinname="Output String" dstnodeid="47" dstpinname="Filter">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="17" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="3055" y="2430">
+   <LINKPOINT x="3060" y="2430">
    </LINKPOINT>
-   <LINKPOINT x="9320" y="2430">
+   <LINKPOINT x="9315" y="2430">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="22" srcpinname="Output String" dstnodeid="17" dstpinname="Filter">
@@ -873,9 +877,9 @@
    <LINK srcnodeid="27" srcpinname="Output String" dstnodeid="29" dstpinname="Key">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="25" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="3055" y="2430">
+   <LINKPOINT x="3060" y="2430">
    </LINKPOINT>
-   <LINKPOINT x="12125" y="2430">
+   <LINKPOINT x="12120" y="2430">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="26" srcpinname="Output String" dstnodeid="25" dstpinname="Filter" hiddenwhenlocked="1">
@@ -936,7 +940,7 @@
    </LINK>
    <LINK srcnodeid="40" srcpinname="Output String" dstnodeid="42" dstpinname="Key">
    </LINK>
-   <BOUNDS type="Window" left="29385" top="1140" width="18525" height="9675">
+   <BOUNDS type="Window" left="6420" top="1695" width="18525" height="9675">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>

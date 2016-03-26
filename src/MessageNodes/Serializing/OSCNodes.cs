@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using VVVV.Nodes;
 using VVVV.Packs.Messaging;
@@ -9,28 +10,24 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
     #region PluginInfo
-    [PluginInfo(Name = "AsOSC", Category = "Message", Help = "Outputs OSC Bundle Strings", Tags = "Raw", Author = "velcrome")]
+    [PluginInfo(Name = "AsOscBundle", Category = "Message", Help = "Outputs OSC Bundle Streams", Tags = "Raw", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageMessageAsOscNode : IPluginEvaluate
+    public class MessageAsOscBundleNode : IPluginEvaluate
     {
-
-        #pragma warning disable 649, 169
         [Input("Input")]
-        IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true)]
-        IDiffSpread<bool> FExtendedMode;
+        protected IDiffSpread<bool> FExtendedMode;
         
         [Output("OSC", AutoFlush = false)]
-        ISpread<Stream> FOutput;
-        #pragma warning restore
+        protected ISpread<Stream> FOutput;
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInput.SliceCount <= 0 || FInput[0] == null) SpreadMax = 0;
-            else SpreadMax = FInput.SliceCount;
-
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             if (!FInput.IsChanged && !FExtendedMode.IsChanged) return;
+
             FOutput.SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)
@@ -38,6 +35,40 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 FOutput[i] = FInput[i].ToOSC(FExtendedMode[0]);
             }
             FOutput.Flush();
+        }
+    }
+
+    #region PluginInfo
+    [PluginInfo(Name = "AsOscMessage", Category = "Message", Help = "Outputs OSC Message Streams", Tags = "Raw", Author = "velcrome")]
+    #endregion PluginInfo
+    public class MessageAsOscMessageNode : AbstractFormularableNode, IPluginEvaluate
+    {
+        [Input("Input")]
+        protected IDiffSpread<Message> FInput;
+
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true)]
+        protected IDiffSpread<bool> FExtendedMode;
+
+        [Output("OSC", AutoFlush = false)]
+        protected ISpread<Stream> FOutput;
+
+        public override void Evaluate(int SpreadMax)
+        {
+            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
+            if (!FInput.IsChanged && !FExtendedMode.IsChanged) return;
+
+            FOutput.SliceCount = SpreadMax;
+
+            for (int i = 0; i < SpreadMax; i++)
+            {
+                FOutput[i] = FInput[i].ToOSC(FExtendedMode[0]);
+            }
+            FOutput.Flush();
+        }
+
+        protected override void OnConfigChange(IDiffSpread<string> configSpread)
+        {
+            throw new NotImplementedException();
         }
     }
 
