@@ -35,9 +35,15 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public Pin<Message> FChangeOut;
         public Pin<int> FChangeIndexOut;
+        public bool ManageAllChanges
+        {
+            get;
+            private set;
+        }
 
-        public IIOContainer Change;
-        public IIOContainer ChangeIndex;
+        private IIOContainer Change;
+        private IIOContainer ChangeIndex;
+        private IIOContainer DoAllChange;
 
         public readonly MessageKeep Keep = new MessageKeep();
 
@@ -53,26 +59,43 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 Keep.QuickMode = false;
 
+                var ia = new InputAttribute("Include input in Diff");
+                ia.Order = 2;
+                ia.IsSingle = true;
+                ia.IsToggle = true;
+                ia.DefaultBoolean = true;
+
+                Type pinType = typeof(IDiffSpread<>).MakeGenericType(typeof(bool));
+                DoAllChange = FIOFactory.CreateIOContainer(pinType, ia);
+                var pin = DoAllChange.RawIOObject as IDiffSpread<bool>;
+                pin.Changed += UpdateChangeAll;
+
                 var attr = new OutputAttribute("Message Diff");
                 attr.AutoFlush = false;
                 attr.Order = 2;
-                
-                Type pinType = typeof(Pin<>).MakeGenericType(typeof(Message)); 
-                Change = FIOFactory.CreateIOContainer(pinType, attr);
 
+                pinType = typeof(Pin<>).MakeGenericType(typeof(Message));
+                Change = FIOFactory.CreateIOContainer(pinType, attr);
                 FChangeOut = Change.RawIOObject as Pin<Message>;
+
                 attr = new OutputAttribute("Changed Message Index");
                 attr.AutoFlush = false;
                 attr.Order = 3;
 
                 pinType = typeof(ISpread<>).MakeGenericType(typeof(int)); 
                 ChangeIndex = FIOFactory.CreateIOContainer(pinType, attr);
-
                 FChangeIndexOut = ChangeIndex.RawIOObject as Pin<int>;
             }
             else
             {
                 Keep.QuickMode = true;
+
+                if (DoAllChange!= null)
+                {
+                    DoAllChange.Dispose();
+                    DoAllChange = null;
+                    ManageAllChanges = true; 
+                }
 
                 if (ChangeIndex != null)
                 {
@@ -89,6 +112,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
 
             }
+        }
+
+        private void UpdateChangeAll(IDiffSpread<bool> spread)
+        {
+            ManageAllChanges = spread[0];
         }
 
         protected virtual bool CheckRemove()
@@ -139,9 +167,8 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else
             {
-                IEnumerable<Message> changes;
                 IEnumerable<int> indexes;
-                changes = Keep.Sync(out indexes);
+                var changes = Keep.Sync(out indexes);
 
                 FChangeIndexOut.SliceCount = 0;
                 FChangeIndexOut.AssignFrom(indexes);
@@ -152,15 +179,19 @@ namespace VVVV.Packs.Messaging.Nodes
                 FChangeOut.Flush();
             }
 
+            SetKeepToOutput();
+            return true;
+
+        }
+
+        protected void SetKeepToOutput()
+        {
             FOutput.SliceCount = 0;
             FOutput.AssignFrom(Keep);
             FOutput.Flush();
 
             FCountOut[0] = Keep.Count;
             FCountOut.Flush();
-
-            return true;
-
         }
 
         // override here, so children don't have to unless needed

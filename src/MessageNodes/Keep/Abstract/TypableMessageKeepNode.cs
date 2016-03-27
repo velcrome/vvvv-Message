@@ -10,7 +10,6 @@ namespace VVVV.Packs.Messaging.Nodes
     public abstract class TypableMessageKeepNode : AbstractMessageKeepNode
     {
         public const string TOPIC = "Topic";
-
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 

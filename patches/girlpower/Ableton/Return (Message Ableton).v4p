@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message).v4p" scrollx="0" scrolly="90">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Return (Message Ableton).v4p" systemname="Return (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Return (Message Ableton).v4p" scrollx="2055" scrolly="345">
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="4965" top="3150" width="100" height="100">
    </BOUNDS>
@@ -19,7 +19,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5280" top="2640" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="live.name.track">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="live.name.return">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="*">
    </PIN>
@@ -149,7 +149,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="2760" top="6255" width="16485" height="270">
+   <BOUNDS type="Node" left="2760" top="6255" width="16470" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="1" values="||">
    </PIN>
@@ -325,7 +325,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9630" top="2640" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="live.volume">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="live.return.volume">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="*">
    </PIN>
@@ -349,11 +349,11 @@
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="24" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="3135" top="2730" width="930" height="330">
+   <BOUNDS type="Box" left="3135" top="2730" width="1425" height="345">
    </BOUNDS>
    <BOUNDS type="Node" left="3135" top="2730" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="live.name">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="live.return.name">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="*">
    </PIN>
@@ -379,7 +379,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="12930" top="2475" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="live">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="live.return">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="*">
    </PIN>
@@ -649,9 +649,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="46" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="1725" top="5265" width="690" height="345">
+   <BOUNDS type="Box" left="870" top="5235" width="1365" height="375">
    </BOUNDS>
-   <BOUNDS type="Node" left="1725" top="5265" width="0" height="0">
+   <BOUNDS type="Node" left="870" top="5235" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="Ableton.Track">
    </PIN>
@@ -733,7 +733,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7470" top="2640" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="live.pan">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="live.return.pan">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="*">
    </PIN>
@@ -777,9 +777,9 @@
    <LINK srcnodeid="14" srcpinname="Output" dstnodeid="12" dstpinname="New">
    </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="12" dstpinname="Message Formular" linkstyle="VHV">
-   <LINKPOINT x="1785" y="5685">
+   <LINKPOINT x="1215" y="5665">
    </LINKPOINT>
-   <LINKPOINT x="2940" y="5685">
+   <LINKPOINT x="2655" y="5675">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output String" dstnodeid="12" dstpinname="Topic" hiddenwhenlocked="1">
@@ -853,7 +853,7 @@
    <LINK srcnodeid="32" srcpinname="Output" dstnodeid="30" dstpinname="New">
    </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="30" dstpinname="Message Formular" linkstyle="VHV">
-   <LINKPOINT x="1785" y="5685">
+   <LINKPOINT x="930" y="5685">
    </LINKPOINT>
    <LINKPOINT x="11670" y="5685">
    </LINKPOINT>
@@ -887,9 +887,9 @@
    <LINK srcnodeid="38" srcpinname="Output" dstnodeid="36" dstpinname="New">
    </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="36" dstpinname="Message Formular" linkstyle="VHV">
-   <LINKPOINT x="1775" y="5685">
+   <LINKPOINT x="930" y="5685">
    </LINKPOINT>
-   <LINKPOINT x="13870" y="5685">
+   <LINKPOINT x="13860" y="5685">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="26" srcpinname="Output String" dstnodeid="36" dstpinname="Topic" hiddenwhenlocked="1">
@@ -905,9 +905,9 @@
    <LINK srcnodeid="35" srcpinname="Field" dstnodeid="34" dstpinname="XY">
    </LINK>
    <LINK srcnodeid="25" srcpinname="Output" dstnodeid="35" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="12170" y="3825">
+   <LINKPOINT x="12180" y="3825">
    </LINKPOINT>
-   <LINKPOINT x="14320" y="3825">
+   <LINKPOINT x="14310" y="3825">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="33" srcpinname="Output String" dstnodeid="35" dstpinname="Key">
@@ -915,7 +915,7 @@
    <LINK srcnodeid="45" srcpinname="Output" dstnodeid="43" dstpinname="New">
    </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="43" dstpinname="Message Formular" linkstyle="VHV">
-   <LINKPOINT x="1785" y="5685">
+   <LINKPOINT x="930" y="5685">
    </LINKPOINT>
    <LINKPOINT x="16065" y="5685">
    </LINKPOINT>
@@ -977,5 +977,121 @@
    <LINK srcnodeid="54" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Reset" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="28" srcpinname="Y" dstnodeid="30" dstpinname="mute">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="67" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="19065" top="3885" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="19065" top="3885" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="1" values="meter">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="Foo">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="66">
+   <BOUNDS type="Node" left="18570" top="5115" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="65">
+   <BOUNDS type="Node" left="18675" top="4260" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|int Value|">
+   </PIN>
+   <PIN pinname="Key" visible="1">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" values="int">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="Message Bin Size" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="18675" top="4260">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="64">
+   <BOUNDS type="Node" left="18060" top="5790" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="New" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Topic" visible="1" slicecount="1" values="Event">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Ableton.Track">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, bool arm, float meter|">
+   </PIN>
+   <PIN pinname="TrackId" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="mute" visible="1" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS type="Window" left="975" top="825" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Solo" visible="1" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS type="Box" left="18060" top="5790">
+   </BOUNDS>
+   <PIN pinname="Arm" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="arm" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GT (Value)" nodename="GT (Value)" componentmode="Hidden" id="63">
+   <BOUNDS type="Node" left="18090" top="4560" width="300" height="270">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="OR (Boolean Spectral)" nodename="OR (Boolean Spectral)" componentmode="Hidden" id="62">
+   <BOUNDS type="Node" left="18075" top="5115" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="62" srcpinname="Output" dstnodeid="64" dstpinname="New">
+   </LINK>
+   <LINK srcnodeid="66" srcpinname="X" dstnodeid="64" dstpinname="TrackId">
+   </LINK>
+   <LINK srcnodeid="66" srcpinname="Y" dstnodeid="64" dstpinname="arm">
+   </LINK>
+   <LINK srcnodeid="63" srcpinname="Output" dstnodeid="62" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="65" srcpinname="Message Bin Size" dstnodeid="63" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="65" srcpinname="Field" dstnodeid="66" dstpinname="XY">
+   </LINK>
+   <LINK srcnodeid="67" srcpinname="Output String" dstnodeid="65" dstpinname="Key">
+   </LINK>
+   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="65" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="12180" y="3825">
+   </LINKPOINT>
+   <LINKPOINT x="18675" y="3825">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="64" srcpinname="Output" dstnodeid="10" dstpinname="Input 8">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="64" dstpinname="Message Formular" linkstyle="VHV">
+   <LINKPOINT x="930" y="5685">
+   </LINKPOINT>
+   <LINKPOINT x="18225" y="5685">
+   </LINKPOINT>
    </LINK>
    </PATCH>

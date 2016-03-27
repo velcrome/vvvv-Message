@@ -13,7 +13,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="1">
-   <BOUNDS type="Node" left="1935" top="7575" width="100" height="100">
+   <BOUNDS type="Node" left="1935" top="7575" width="3975" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -29,11 +29,17 @@
    </PIN>
    <PIN pinname="Message Formular" visible="1" slicecount="1" values="Device">
    </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   <PIN pinname="Include input in Diff" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="2" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="2520" top="6600" width="1110" height="885">
+   <BOUNDS type="Box" left="4260" top="6570" width="1110" height="885">
    </BOUNDS>
-   <BOUNDS type="Node" left="2520" top="6600" width="0" height="0">
+   <BOUNDS type="Node" left="4260" top="6570" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="4" visible="1" values="Topic,TrackId,DeviceId,ParamId">
    </PIN>
@@ -228,14 +234,14 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="15" hiddenwhenlocked="1">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="15" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="4365" top="5760" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" visible="1" values="Device">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int TrackId|">
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, float Value|">
    </PIN>
    <PIN pinname="TrackId" visible="1">
    </PIN>
@@ -392,4 +398,46 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="32" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="3945" top="8295" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3945" top="8295" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Message Diff|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Message Diff" dstnodeid="32" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="33" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="6375" top="7185" width="4710" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6375" top="7185" width="2130" height="885">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|topic remembers, if it where track, returntrack or mastertrack|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="34" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5640" top="6870" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5640" top="6870" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Include input in Diff">
+   </LINK>
    </PATCH>

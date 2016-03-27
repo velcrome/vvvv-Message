@@ -23,6 +23,10 @@
    </PIN>
    <PIN pinname="Reset" visible="1">
    </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
    <BOUNDS type="Box" left="2235" top="1500" width="1860" height="360">
@@ -39,9 +43,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="3" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="1500" top="3375" width="795" height="240">
+   <BOUNDS type="Box" left="1545" top="4665" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1500" top="3375" width="0" height="0">
+   <BOUNDS type="Node" left="1545" top="4665" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Master">
    </PIN>
@@ -72,7 +76,7 @@
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output String" dstnodeid="0" dstpinname="Filter">
    </LINK>
-   <BOUNDS type="Window" left="15690" top="2865" width="5130" height="4875">
+   <BOUNDS type="Window" left="15690" top="2865" width="7845" height="6660">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -97,5 +101,39 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Reset">
+   </LINK>
+   <NODE systemname="AsOscBundle (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="7">
+   <BOUNDS type="Node" left="2940" top="3900" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="OSC" visible="1">
+   </PIN>
+   <PIN pinname="ExtendedMode" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Message Diff" dstnodeid="7" dstpinname="Input">
+   </LINK>
+   <NODE systemname="UnBundle (OSC)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Packs.Messaging.Nodes.OSC.dll" nodename="UnBundle (OSC)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="2910" top="4305" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="ExtendedMode" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="OSC" dstnodeid="8" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="9" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="2895" top="5085" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2895" top="5085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Output">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Output" dstnodeid="9" dstpinname="Input Node">
    </LINK>
    </PATCH>

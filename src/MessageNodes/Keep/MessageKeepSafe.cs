@@ -19,20 +19,35 @@ namespace VVVV.Nodes.Messaging.Keep
         public override void Evaluate(int SpreadMax)
         {
 
-            var forceUpdate = CheckReset();
+            var update = CheckReset();
+
+            // early sync only, when not interested in input changes
+            if (!ManageAllChanges)
+                if (UpKeep(update)) update = true;
+
 
             foreach (var message in FInput)
             {
                 if (message != null && message.Topic != "")
                 {
                     var m = MatchOrInsert(message);
-                    if (m != null) forceUpdate = true;
+                    if (m != null) update = true;
                 }
             }
 
-            UpKeep(forceUpdate);
+            if (ManageAllChanges)
+            {
+                if (UpKeep(update)) update = true;
+
+            }
+            else {
+                var change = Keep.Sync(); // not interested input changes, so sync right away
+                if (change != null && change.Count() > 0) update = true;
+
+                if (update) SetKeepToOutput(); // manually flush again
+            }
         }
-        
+
         public Message MatchOrInsert(Message message)
         {
            

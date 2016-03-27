@@ -54,7 +54,12 @@ namespace VVVV.Packs.Messaging.Serializing
                 var size = bin == null ? 0 : bin.Count;
                 var count = field.DefaultSize < 1 ? size : field.DefaultSize;
 
-                for (int i = 0; i < count; i++) msg.Append(bin[i]);
+                for (int i = 0; i < count; i++)
+                {
+                    if (bin == null || i >= bin.Count)
+                        msg.Append(TypeIdentity.Instance.NewDefault(field.Type)); // send out defaults to keep the integrity of the osc message
+                    else msg.Append(bin[i]);
+                }
                 
             }
             return new MemoryStream(msg.BinaryData); // packs implicitly
