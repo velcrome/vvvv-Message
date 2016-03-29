@@ -24,6 +24,11 @@ namespace VVVV.Packs.Messaging
         public ParseFormularException(string message) : base(message) { }
     }
 
+    public class ParseMessageException : FormatException
+    {
+        public ParseMessageException(string message) : base(message) { }
+    }
+
     public class DuplicateFieldException : ArgumentException
     {
         public FormularFieldDescriptor Fresh {

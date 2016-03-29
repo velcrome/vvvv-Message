@@ -69,6 +69,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configurable\Abstract\ConfigurableNode.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -13,7 +13,6 @@ namespace VVVV.Packs.Messaging.Nodes
     {
         public const string TypeIdentityEnum = "TypeIdentityEnum";
 
-
         [Input("Input", Order = 0)] 
         protected IDiffSpread<Message> FInput;
 

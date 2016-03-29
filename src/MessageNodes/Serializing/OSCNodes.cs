@@ -43,72 +43,18 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
     #region PluginInfo
     [PluginInfo(Name = "AsOscMessage", Category = "Message", Help = "Outputs OSC Message Streams", Tags = "Raw", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageAsOscMessageNode : AbstractFormularableNode, IPluginEvaluate
+    public class MessageAsOscMessageNode : AbstractFieldSelectionNode, IPluginEvaluate
     {
-        [Input("Input")]
+        [Input("Input", Order = 0)]
         protected IDiffSpread<Message> FInput;
 
-        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true)]
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, Order = 1)]
         protected IDiffSpread<bool> FExtendedMode;
 
         [Output("OSC", AutoFlush = false)]
         protected ISpread<Stream> FOutput;
 
-        public ISpread<EnumEntry> FUseAsID = null;
-        private string EnumName;
 
-        private MessageFormular Formular;
-
-        [Import()]
-        protected IIOFactory FIOFactory;
-
-        // most code copied from abstract TypableMessageKeepNode 
-        public override void OnImportsSatisfied()
-        {
-            base.OnImportsSatisfied();
-            CreateEnumPin("Use as ID", new string[] { "Foo" });
-
-            (FWindow as FormularLayoutPanel).Locked = true;
-        }
-
-        public void CreateEnumPin(string pinName, IEnumerable<string> entries)
-        {
-            EnumName = "Enum_" + this.GetHashCode().ToString();
-
-            EnumManager.UpdateEnum(EnumName, entries.First(), entries.ToArray());
-
-            var attr = new InputAttribute(pinName);
-            attr.Order = 2;
-            attr.AutoValidate = true;
-
-            attr.EnumName = EnumName;
-
-            Type pinType = typeof(ISpread<EnumEntry>);
-            var pin = FIOFactory.CreateIOContainer(pinType, attr);
-            FUseAsID = (ISpread<EnumEntry>)(pin.RawIOObject);
-        }
-
-        private void FillEnum(IEnumerable<string> fields)
-        {
-            EnumManager.UpdateEnum(EnumName, fields.First(), fields.ToArray());
-        }
-
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
-            FillEnum(Formular.FieldNames.ToArray());
-        }
-
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
 
         public override void Evaluate(int SpreadMax)
         {
@@ -118,11 +64,11 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             FOutput.SliceCount = SpreadMax;
 
 
-            var fields = from fieldName in FUseAsID
-                         select Formular[fieldName];
-
             for (int i = 0; i < SpreadMax; i++)
             {
+                var fields = from fieldName in FUseAsID[i]
+                             select Formular[fieldName];
+
                 FOutput[i] = FInput[i].ToOSC(fields, FExtendedMode[0]);
             }
             FOutput.Flush();
@@ -131,9 +77,9 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
 
     #region PluginInfo
-    [PluginInfo(Name = "AsMessage", Category = "Raw", Help = "Converts OSC Bundles into Messages ", Tags = "OSC", Author = "velcrome")]
+    [PluginInfo(Name = "FromOsc", Category = "Message", Version ="Raw", Help = "Converts single OSC Messages into Messages ", Tags = "OSC", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageOscAsMessageNode : IPluginEvaluate
+    public class MessageFromOscNode : IPluginEvaluate
     {
         #pragma warning disable 649, 169
         [Input("OSC")]
@@ -178,5 +124,75 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             FOutput.Flush();
         }
     }
+
+    #region PluginInfo
+    [PluginInfo(Name = "FromOscMessage", Category = "Message", Version = "Raw", Help = "Converts OSC Bundles into Messages ", Tags = "OSC", Author = "velcrome")]
+    #endregion PluginInfo
+    public class MessageFromOscMessageNode : AbstractFieldSelectionNode
+    {
+#pragma warning disable 649, 169
+        [Input("OSC")]
+        IDiffSpread<Stream> FInput;
+
+        [Input("Topic", DefaultString = "")]
+        IDiffSpread<string> FTopic;
+
+//        [Input("Format", DefaultString = "f")]
+//        IDiffSpread<string> FFormat;
+
+        [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
+        IDiffSpread<bool> FExtendedMode;
+
+        [Output("Output", AutoFlush = false)]
+        ISpread<Message> FOutput;
+
+        Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser = new Dictionary<string, IEnumerable<FormularFieldDescriptor>>();
+
+#pragma warning restore
+
+        public override void Evaluate(int SpreadMax)
+        {
+            if (FInput.IsAnyInvalid())
+            {
+                SpreadMax = 0;
+                if (FOutput.SliceCount != 0)
+                {
+                    FOutput.SliceCount = 0;
+                    FOutput.Flush();
+                }
+                return;
+            }
+            else SpreadMax = FInput.SliceCount;
+
+            var update = false;
+
+            if (FTopic.IsChanged || FExtendedMode.IsChanged || FUseAsID.IsChanged)
+            {
+                Parser.Clear();
+                
+                for (int i=0;i<FTopic.SliceCount;i++)
+                {
+                    var fields = (
+                                    from f in FUseAsID[i]
+                                    select Formular[f.Name]
+                                 );
+                    Parser[FTopic[i]] = fields;
+                }
+                update = true;
+            }
+
+            if (!update && !FInput.IsChanged) return;
+
+            FOutput.SliceCount = 0;
+
+            for (int i = 0; i < SpreadMax; i++)
+            {
+                Message message = OSCExtensions.FromOSC(FInput[i], Parser, FExtendedMode[0]);
+                if (message != null) FOutput.Add(message);
+            }
+            FOutput.Flush();
+        }
+    }
+
 
 }
