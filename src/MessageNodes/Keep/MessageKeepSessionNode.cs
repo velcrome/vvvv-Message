@@ -38,10 +38,11 @@ namespace VVVV.Packs.Messaging.Nodes
             // early sync only, when not interested in input changes
             if (!ManageAllChanges && UpKeep(update)) update = true;
 
-            if (!FInput.IsAnyInvalid())
+            if (!FInput.IsAnyInvalid() && FInput.IsChanged)
                 foreach (var message in FInput)
                 {
                     var found = MatchOrInsert(message);
+                    if (found != null) update = true;
                 }
 
 
@@ -86,7 +87,7 @@ namespace VVVV.Packs.Messaging.Nodes
             // inject all incoming messages and keep a list of all
             var idFields = from fieldName in FUseAsID
                            select fieldName.Name;
-            
+
             var match = MatchByField(message, idFields);
 
             if (match == null)
@@ -103,16 +104,30 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected Message MatchByField(Message message, IEnumerable<string> idFields)
         {
-            var compatibleBins = idFields.Intersect(message.Fields).ToArray();
+            // make sure all messages have the field
+            var missingFields = from fieldName in idFields.Distinct()
+                                where fieldName != TOPIC
+                                where !message.Fields.Contains(fieldName)
+                                select fieldName;
+            foreach (var fieldName in missingFields) message[fieldName] = BinFactory.New(Formular[fieldName].Type);
+
+            var bins = (
+                                    from fieldName in idFields.Distinct()
+                                    where fieldName != TOPIC
+//                                    where message.Fields.Contains(fieldName)
+                                    select fieldName
+                                 ).ToArray();
+
             bool includeTopic = idFields.Contains(TOPIC);
-            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
+
+//            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
 
             var match = (
                            from keep in Keep
-                           where isCompatible
+ //                          where isCompatible
                            where !includeTopic || keep.Topic.Equals(message.Topic)
-                           where compatibleBins.Length == 0 || (
-                                    from fieldName in compatibleBins
+                           where bins.Length == 0 || (
+                                    from fieldName in bins
                                     select (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)
                                 ).All(x => x)
                            select keep

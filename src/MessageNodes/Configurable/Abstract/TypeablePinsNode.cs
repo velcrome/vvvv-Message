@@ -53,17 +53,25 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (!checkPinForChange || FPins[name].ToISpread().IsChanged)
                 {
                     var pinSpread = FPins[name].ToISpread();
-                    if (!pinSpread.IsAnyInvalid())
-                    {
-                        var bin = pinSpread[index] as IEnumerable;
+                    var type = Formular[name].Type;
 
-                        // don't change if pin data equals the message data
-                        if (!message.Fields.Contains(name) || !message[name].Equals(bin))
-                        {
-                            message.AssignFrom(name, bin);
-                            hasCopied = true;
-                        }  
+                    IEnumerable bin;
+
+                    if (pinSpread.IsAnyInvalid()) bin = Enumerable.Empty<object>();
+                    else bin = pinSpread[index] as IEnumerable;
+
+                    // don't change if pin data equals the message data
+                    if (!message.Fields.Contains(name))
+                    {
+                        message[name] = BinFactory.New(type);
+                        hasCopied = true;
                     }
+
+                    if (!message[name].Equals(bin))
+                    {
+                        message.AssignFrom(name, bin, type);
+                        hasCopied = true;
+                    }  
                 }
             }
             return hasCopied;

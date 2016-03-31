@@ -49,6 +49,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     FOutput.SliceCount = 0;
                     FOutput.Flush();
                 }
+                if (RemovePinsFirst) RetryConfig();
                 return;
             }
 
@@ -72,9 +73,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     foreach (string name in FPins.Keys)
                     {
                         var pin = FPins[name].ToISpread();
-
-                        if (!pin.IsAnyInvalid() && !(pin[i] as ISpread).IsAnyInvalid())
-                            message.AssignFrom(name, pin[i] as ISpread);
+//                        if (!pin.IsAnyInvalid() && !(pin[i] as ISpread).IsAnyInvalid())
+                         message.AssignFrom(name, pin[i] as ISpread); // will do empty spreads as well
                     }
                     FOutput.Add(message);
                 }

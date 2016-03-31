@@ -107,17 +107,28 @@ namespace VVVV.Packs.Messaging {
             AddFrom(name, values);
         }
 
-        public void AssignFrom(string name, IEnumerable en)
+        public void AssignFrom(string name, IEnumerable en, Type type = null)
         {
-
             if (!NameParser.IsMatch(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
-            
-            var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
 
-            var type = TypeIdentity.Instance.FindBaseType(obj.GetType());
-            if (type == null) type =  TypeIdentity.Instance.FindBaseType(en.GetType().GenericTypeArguments[0]);
+            if (type == null)
+            {
+                var gen = en.GetType().GenericTypeArguments;
 
-            if (!Data.ContainsKey(name) || ((type != null) && (type != Data[name].GetInnerType())))
+                // in case en is not generic, pick the first one and reflect
+                if (gen == null || gen.Count() != 1)
+                {
+                    var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
+                    type = obj.GetType();
+                }
+                else type = en.GetType().GenericTypeArguments[0];
+            }
+
+            type = TypeIdentity.Instance.FindBaseType(type); // break it down.
+
+            if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + name + "] failed, type is not supported: " + this.Topic);
+
+            if (!Data.ContainsKey(name) || type != Data[name].GetInnerType())
             {
                 Data.Remove(name);
                 Data.Add(name, BinFactory.New(type));
@@ -129,7 +140,7 @@ namespace VVVV.Packs.Messaging {
 
             foreach (object o in en)
             {
-                Data[name].Add(o); // implicit cast
+                Data[name].Add(o); // implicit conversion
             }
         }
 
@@ -143,7 +154,7 @@ namespace VVVV.Packs.Messaging {
             {
                 foreach (object o in en)
                 {
-                    Data[name].Add(o); // implicit cast
+                    Data[name].Add(o); // implicit conversion
                 }
             }
         }
