@@ -12,6 +12,16 @@ namespace VVVV.Packs.Messaging.Serializing
     public static class OSCExtensions
     {
 
+        public static string AsAddress(string topic)
+        {
+            return "/" + string.Join("/", topic.Trim().Trim(new char[] { '.' }).Split('.'));
+        }
+
+        public static string AsTopic(string address)
+        {
+            return string.Join(".", address.Trim().Trim(new char[] { '/' }).Split('/'));
+        }
+
         public static Stream ToOSC(this Message message, bool extendedMode = false)
         {
             OSCBundle bundle = new OSCBundle(message.TimeStamp, extendedMode);
@@ -94,54 +104,32 @@ namespace VVVV.Packs.Messaging.Serializing
 
             if (bytes.Length == 0) return null;
 
-            var pack = OSCPacket.Unpack(bytes, extendedMode);
+            var oscMessage = OSCPacket.Unpack(bytes, extendedMode);
+            if (oscMessage.IsBundle()) return null;
 
-            List<OSCMessage> osc;
-            if (!pack.IsBundle())
+            if (!parser.ContainsKey(oscMessage.Address))
+                return null; // skip if unknown address
+
+            message.TimeStamp = Time.CurrentTime();
+            message.Topic = AsTopic(oscMessage.Address);
+
+            var fields = parser[oscMessage.Address].ToList();
+
+            int pointer = 0;
+            for (int i = 0; i<fields.Count();i++)
             {
-                message.TimeStamp = Time.CurrentTime();
-                message.Topic = string.Join(".", pack.Address.Trim(new char[] { '/' }).Split('/')); 
-                osc = Enumerable.Repeat((OSCMessage)pack, 1).ToList();
-            }
-            else
-            {
-                message.TimeStamp = ((OSCBundle)pack).getTimeStamp();
+                var field = fields[i];
 
-                osc = pack.Values.OfType<OSCMessage>().ToList();
-                var addresses = (
-                                    from m in osc
-                                    select m.Address
-                                ).ToArray();
+                var count = field.DefaultSize; // todo: how to deal with -1 ?
+                if (count < 0) count = 1;
 
-                var address = CommonPrefix(addresses);
-                if (string.IsNullOrWhiteSpace(address)) throw new ParseMessageException("No common part in the topic.");
+                var bin = BinFactory.New(field.Type, count);
 
-                message.Topic = string.Join(".", address.Trim(new char[] { '/' }).Split('/') );
-            }
-
-            foreach (var oscMessage in osc)
-            {
-                var topic = oscMessage.Address;
-                if (!parser.ContainsKey(topic)) continue; // skip if unknown address
-
-                var fields = parser[topic].ToList();
-
-                int pointer = 0;
-                for (int i = 0; i<fields.Count();i++)
+                for (int j = 0; (j < count) && (pointer < oscMessage.Values.Count); j++, pointer++) // stop short if running out of parser fields OR data from osc
                 {
-                    var field = fields[i];
-
-                    var count = field.DefaultSize; // todo: how to deal with -1 ?
-                    if (count < 0) count = 1;
-
-                    var bin = BinFactory.New(field.Type, count);
-
-                    for (int j = 0; (j < count) && (pointer < oscMessage.Values.Count); j++, pointer++) // stop short if running out of parser fields OR data from osc
-                    {
-                        bin.Add(oscMessage.Values[pointer]); // implicit conversion
-                    }
-                    message[field.Name] = bin;
+                    bin.Add(oscMessage.Values[pointer]); // implicit conversion
                 }
+                message[field.Name] = bin;
             }
 
             return message;

@@ -146,7 +146,10 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
 
-        Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser = new Dictionary<string, IEnumerable<FormularFieldDescriptor>>();
+        [Output("Unrecognized Input", AutoFlush = false)]
+        ISpread<Stream> FUnrecognized;
+
+        Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser;
 
 #pragma warning restore
 
@@ -157,8 +160,9 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 SpreadMax = 0;
                 if (FOutput.SliceCount != 0)
                 {
-                    FOutput.SliceCount = 0;
+                    FUnrecognized.SliceCount = FOutput.SliceCount = 0;
                     FOutput.Flush();
+                    FUnrecognized.Flush();
                 }
                 return;
             }
@@ -166,16 +170,18 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             var update = false;
 
-            if (FTopic.IsChanged || FExtendedMode.IsChanged || FUseAsID.IsChanged)
+            if (FTopic.IsChanged || FExtendedMode.IsChanged || FUseAsID.IsChanged || Parser == null)
             {
-                Parser.Clear();
+                if (Parser == null)
+                    Parser = new Dictionary<string, IEnumerable<FormularFieldDescriptor>>();
+                    else Parser.Clear();
                 
                 for (int i=0;i<FTopic.SliceCount;i++)
                 {
                     var fields = (
                                     from f in FUseAsID[i]
                                     select Formular[f.Name]
-                                 );
+                                 ).ToList();
                     Parser[FTopic[i]] = fields;
                 }
                 update = true;
@@ -183,14 +189,27 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             if (!update && !FInput.IsChanged) return;
 
-            FOutput.SliceCount = 0;
+            FUnrecognized.SliceCount = FOutput.SliceCount = 0;
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                Message message = OSCExtensions.FromOSC(FInput[i], Parser, FExtendedMode[0]);
-                if (message != null) FOutput.Add(message);
+                try
+                {
+                    Message message = OSCExtensions.FromOSC(FInput[i], Parser, FExtendedMode[0]);
+
+//                    var address = OSCExtensions.AsAddress(message.Topic);
+//                    if (!FTopic.Contains(address)) message = null;
+
+                    if (message != null)
+                        FOutput.Add(message);
+                        else FUnrecognized.Add(FInput[i]);
+                } catch (Exception)
+                {
+                    FUnrecognized.Add(FInput[i]);
+                }
             }
             FOutput.Flush();
+            FUnrecognized.Flush();
         }
     }
 
