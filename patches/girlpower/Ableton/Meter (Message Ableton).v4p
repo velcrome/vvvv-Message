@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p" scrollx="0" scrolly="1410" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
    <BOUNDS type="Window" left="6960" top="4050" width="9000" height="9510">
    </BOUNDS>
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="6">
@@ -77,7 +77,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2520" top="2295" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="3" visible="1" values="TrackId,Right,Meter">
+   <PIN pinname="Input String" slicecount="3" visible="1" values="TrackId,Channel,Meter">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Foo">
    </PIN>
@@ -111,7 +111,7 @@
    </PIN>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int Right, float Meter|">
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int Channel, float Meter|">
    </PIN>
    <PIN pinname="Use as ID" visible="1">
    </PIN>
@@ -225,7 +225,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4515" top="2535" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="2" visible="1" values="Right,Meter">
+   <PIN pinname="Input String" slicecount="2" visible="1" values="Channel,Meter">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Foo">
    </PIN>
@@ -285,7 +285,7 @@
    </PIN>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int TrackId|">
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int Channel|">
    </PIN>
    <BOUNDS type="Box" left="3930" top="3705">
    </BOUNDS>
@@ -430,4 +430,6 @@
    </NODE>
    <LINK srcnodeid="22" srcpinname="Change" dstnodeid="23" dstpinname="Y Input Value">
    </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>
