@@ -66,7 +66,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                var fields = from fieldName in FUseAsID[i]
+                var fields = from fieldName in FUseFields[i]
                              select Formular[fieldName];
 
                 FOutput[i] = FInput[i].ToOSC(fields, FExtendedMode[0]);
@@ -137,17 +137,14 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         [Input("Topic", DefaultString = "")]
         IDiffSpread<string> FTopic;
 
-//        [Input("Format", DefaultString = "f")]
-//        IDiffSpread<string> FFormat;
-
         [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
         IDiffSpread<bool> FExtendedMode;
 
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
 
-        [Output("Unrecognized Input", AutoFlush = false)]
-        ISpread<Stream> FUnrecognized;
+//        [Output("Unrecognized", AutoFlush = false)]
+//        ISpread<Stream> FUnrecognized;
 
         Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser;
 
@@ -158,11 +155,15 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             if (FInput.IsAnyInvalid())
             {
                 SpreadMax = 0;
-                if (FOutput.SliceCount != 0)
+                if (    FOutput.SliceCount != 0 
+//                    ||  FUnrecognized.SliceCount != 0
+                    )
                 {
-                    FUnrecognized.SliceCount = FOutput.SliceCount = 0;
+//                    FUnrecognized.SliceCount    = 
+                    FOutput.SliceCount          = 0;
+
                     FOutput.Flush();
-                    FUnrecognized.Flush();
+//                    FUnrecognized.Flush();
                 }
                 return;
             }
@@ -170,7 +171,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             var update = false;
 
-            if (FTopic.IsChanged || FExtendedMode.IsChanged || FUseAsID.IsChanged || Parser == null)
+            if (FTopic.IsChanged || FExtendedMode.IsChanged || FUseFields.IsChanged || Parser == null)
             {
                 if (Parser == null)
                     Parser = new Dictionary<string, IEnumerable<FormularFieldDescriptor>>();
@@ -179,7 +180,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 for (int i=0;i<FTopic.SliceCount;i++)
                 {
                     var fields = (
-                                    from f in FUseAsID[i]
+                                    from f in FUseFields[i]
                                     select Formular[f.Name]
                                  ).ToList();
                     Parser[FTopic[i]] = fields;
@@ -189,27 +190,34 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             if (!update && !FInput.IsChanged) return;
 
-            FUnrecognized.SliceCount = FOutput.SliceCount = 0;
+            //FUnrecognized.SliceCount    = 
+            FOutput.SliceCount          = 0;
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                try
-                {
-                    Message message = OSCExtensions.FromOSC(FInput[i], Parser, FExtendedMode[0]);
+                var stream = FInput[i];
+                stream.Position = 0;
 
-//                    var address = OSCExtensions.AsAddress(message.Topic);
-//                    if (!FTopic.Contains(address)) message = null;
+                var address = OSCExtensions.PeekAddress(stream);
+                stream.Position = 0;
 
-                    if (message != null)
-                        FOutput.Add(message);
-                        else FUnrecognized.Add(FInput[i]);
-                } catch (Exception)
-                {
-                    FUnrecognized.Add(FInput[i]);
+                var isMatch = (
+                                from a in FTopic
+                                where address == a
+                                select true
+                                ).Any();
+
+                Message message = isMatch? OSCExtensions.FromOSC(stream, Parser, FExtendedMode[0]) : null;
+
+                if (message != null)
+                    FOutput.Add(message);
+                else {
+                    stream.Position = 0;
+//                    FUnrecognized.Add(stream); // copy instead. 
                 }
             }
             FOutput.Flush();
-            FUnrecognized.Flush();
+//            FUnrecognized.Flush();
         }
     }
 

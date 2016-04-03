@@ -7,6 +7,7 @@ namespace VVVV.Packs.Messaging.Serializing
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
     using Time = VVVV.Packs.Time.Time;
 
     public static class OSCExtensions
@@ -93,23 +94,49 @@ namespace VVVV.Packs.Messaging.Serializing
             return addresses[0]; // all strings identical up to shortest length
         }
 
+        public static readonly Encoding OSCEncoding = new ASCIIEncoding();
+
+        public static string PeekAddress(Stream stream)
+        {
+            if (stream == null || stream.Length == 0) return "";
+
+            string address = "";
+
+            using (var reader = new BinaryReader(stream, OSCEncoding, true))
+            {
+                while (reader.PeekChar() != ',' && stream.Position < stream.Length)
+                {
+                    var c = reader.ReadChars(4);
+
+                    address += new string(c);
+
+                }
+            }
+
+            return address.TrimEnd('\0'); // remove padding
+        }
+
+
         public static Message FromOSC(Stream stream, Dictionary<string, IEnumerable<FormularFieldDescriptor>> parser, bool extendedMode = false)
         {
-            Message message = new Message();
+            if (stream == null || stream.Length == 0) return null;
 
-            MemoryStream ms = new MemoryStream();
+            OSCPacket oscMessage;
+
             stream.Position = 0;
-            stream.CopyTo(ms);
-            byte[] bytes = ms.ToArray();
+            var reader = new BinaryReader(stream);
 
-            if (bytes.Length == 0) return null;
+            {
+                var bytes = reader.ReadBytes((int)stream.Length);
+                oscMessage = OSCPacket.Unpack(bytes, extendedMode);
+            }
 
-            var oscMessage = OSCPacket.Unpack(bytes, extendedMode);
             if (oscMessage.IsBundle()) return null;
 
             if (!parser.ContainsKey(oscMessage.Address))
                 return null; // skip if unknown address
 
+            Message message = new Message();
             message.TimeStamp = Time.CurrentTime();
             message.Topic = AsTopic(oscMessage.Address);
 
@@ -136,8 +163,6 @@ namespace VVVV.Packs.Messaging.Serializing
         }
 
 
-
-
         public static Message FromOSC(Stream stream, bool extendedMode = false, string messagePrefix = "", int contractAddress = 1)
         {
             Message message = new Message();
@@ -145,7 +170,7 @@ namespace VVVV.Packs.Messaging.Serializing
             MemoryStream ms = new MemoryStream();
             stream.Position = 0;
             stream.CopyTo(ms);
-            byte[] bytes = ms.ToArray();
+            byte[] bytes = ms.GetBuffer();
 
             if (bytes.Length == 0) return null;
 

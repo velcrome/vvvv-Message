@@ -9,18 +9,32 @@ namespace VVVV.Packs.Messaging
 {
     public class FormularFieldDescriptor : IEquatable<FormularFieldDescriptor>, ICloneable
     {
+
+        #region static utilities
         // "Type[N] name"
         // Name can constitute of alphanumericals, dots, underscores and hyphens.
         public static Regex Parser = new Regex(@"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$");
- 
+        protected static Regex NameParser = new Regex(@"^([\w\._-]+?)$");
+        public static ISet<string> ForbiddenNames = new HashSet<string>(new[] { "", "ID", "Output", "Input", "Message", "Keep", "Topic", "Timestamp" }); // These names are likely to be pin names
+
+        public static bool IsValidFieldName(string fieldName)
+        {
+            return NameParser.IsMatch(fieldName) && !ForbiddenNames.Contains(fieldName);
+        }
+        #endregion static utilities
+
+        #region fields
+
         public string Name {get; set;}
         public Type Type {get; set;}
         public int DefaultSize {get; set;}
         public bool IsRequired { get; set;}
+        #endregion fields
 
+        #region constructors
         public FormularFieldDescriptor(Type type, string name, int size = -1, bool isRequired=false)
         {
-            if (MessageFormular.ForbiddenNames.Contains(name))
+            if (!IsValidFieldName(name))
                 throw new ParseFormularException(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
             
             if (!TypeIdentity.Instance.ContainsKey(type))
@@ -52,7 +66,7 @@ namespace VVVV.Packs.Messaging
                         count = -1;
                     else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']').Trim());
                 }
-                if (MessageFormular.ForbiddenNames.Contains(name)) 
+                if (!IsValidFieldName(name)) 
                     throw new ParseFormularException(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
                 
                 if (type == null || name == "")  
@@ -64,6 +78,9 @@ namespace VVVV.Packs.Messaging
                this.IsRequired = isRequired;
         }
 
+        #endregion constructors
+
+        #region utils
         public bool Equals(FormularFieldDescriptor other)
         {
             if ((object)other == null) return false;
@@ -96,5 +113,6 @@ namespace VVVV.Packs.Messaging
             var c = new FormularFieldDescriptor(this.Type, this.Name, this.DefaultSize, this.IsRequired);
             return c;
         }
+        #endregion utils
     }
 }

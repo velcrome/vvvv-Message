@@ -8,8 +8,6 @@ namespace VVVV.Packs.Messaging
     {
         public const string DYNAMIC = "None";
 
-        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"", "ID", "Output", "Input", "Message", "Keep", "Topic"} ); // These names are likely to be pin names
-        
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
         public string Name { get; set; }

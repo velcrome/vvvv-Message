@@ -10,7 +10,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractFieldSelectionNode : AbstractFormularableNode
     {
-        public ISpread<ISpread<EnumEntry>> FUseAsID = null;
+        public ISpread<ISpread<EnumEntry>> FUseFields = null;
         private string EnumName;
 
         protected MessageFormular Formular;
@@ -22,7 +22,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            CreateEnumPin("Use as ID", new string[] { "Foo" });
+            CreateEnumPin("Use Fields", new string[] { "Foo" });
 
             (FWindow as FormularLayoutPanel).Locked = true;
         }
@@ -46,7 +46,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             Type pinType = typeof(ISpread<ISpread<EnumEntry>>);
             var pin = FIOFactory.CreateIOContainer(pinType, attr);
-            FUseAsID = (ISpread<ISpread<EnumEntry>>)(pin.RawIOObject);
+            FUseFields = (ISpread<ISpread<EnumEntry>>)(pin.RawIOObject);
         }
 
         private void FillEnum(IEnumerable<string> fields)

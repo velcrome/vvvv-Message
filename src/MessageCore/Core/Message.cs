@@ -14,6 +14,8 @@ using VVVV.Packs.Messaging.Serializing;
 #endregion usings
 
 namespace VVVV.Packs.Messaging {
+    using Time = VVVV.Packs.Time.Time;
+
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
 	
@@ -21,8 +23,6 @@ namespace VVVV.Packs.Messaging {
     [JsonConverter(typeof(JsonMessageSerializer))]
 	public class Message : ICloneable //, ISerializable
     {
-        protected static Regex NameParser = new Regex(@"^([\w\._-]+?)$");
-
         #region Properties and FieldNames
         // Access to the the inner Data.
         public IEnumerable<string> Fields
@@ -39,12 +39,13 @@ namespace VVVV.Packs.Messaging {
             }
             set
             {
+                // todo: validate topic to be namespace-syntax
                 _isTopicChanged = true;
                 _topic = value;
             }
 		}
 
-        public VVVV.Packs.Time.Time TimeStamp
+        public Time TimeStamp
         {
             get;
             set;
@@ -61,13 +62,13 @@ namespace VVVV.Packs.Messaging {
         public Message()
         {
             Topic = "vvvv";
-            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+            TimeStamp = Time.CurrentTime(); // init with local timezone
         }
 
         public Message(string topic)
         {
             Topic = topic;
-            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+            TimeStamp = Time.CurrentTime(); // init with local timezone
         }
 
        
@@ -109,7 +110,7 @@ namespace VVVV.Packs.Messaging {
 
         public void AssignFrom(string name, IEnumerable en, Type type = null)
         {
-            if (!NameParser.IsMatch(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+            if (!FormularFieldDescriptor.IsValidFieldName(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
 
             if (type == null)
             {
@@ -190,7 +191,7 @@ namespace VVVV.Packs.Messaging {
 					else return null;				
 			} 
 			set {
-                if (!NameParser.IsMatch(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                if (!FormularFieldDescriptor.IsValidFieldName(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
                 Data[name] = (Bin) value; 
             }
 		}
@@ -282,7 +283,7 @@ namespace VVVV.Packs.Messaging {
             
             if (changedFields.Count > 0 || _isTopicChanged)
             {
-                TimeStamp = Time.Time.CurrentTime(); // timestamp always shows last Synced Change.
+                TimeStamp = Time.CurrentTime(); // timestamp always shows last Synced Change.
 
                 if (ChangedWithDetails != null) // for all subscribers with detailled interest
                 {
