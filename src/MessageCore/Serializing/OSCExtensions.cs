@@ -165,15 +165,15 @@ namespace VVVV.Packs.Messaging.Serializing
 
         public static Message FromOSC(Stream stream, bool extendedMode = false, string messagePrefix = "", int contractAddress = 1)
         {
-            Message message = new Message();
+            if (stream == null || stream.Length <= 0) return null;
 
-            MemoryStream ms = new MemoryStream();
             stream.Position = 0;
-            stream.CopyTo(ms);
-            byte[] bytes = ms.GetBuffer();
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, (int)stream.Length);
 
             if (bytes.Length == 0) return null;
 
+            Message message = new Message();
             var pack = OSCPacket.Unpack(bytes, extendedMode);
             bool useNesting;
 

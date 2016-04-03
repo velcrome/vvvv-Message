@@ -29,6 +29,8 @@
    </PIN>
    <PIN pinname="Use Fields Bin Size" visible="1" pintype="Input" slicecount="1" values="-1">
    </PIN>
+   <PIN pinname="Success" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
    <BOUNDS type="Box" left="4935" top="2955" width="1650" height="315">
@@ -891,5 +893,39 @@
    <LINK srcnodeid="56" srcpinname="Output Enum" dstnodeid="53" dstpinname="Use Fields">
    </LINK>
    <LINK srcnodeid="77" srcpinname="Y Output Value" dstnodeid="19" dstpinname="Use Fields Bin Size">
+   </LINK>
+   <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="92">
+   <BOUNDS type="Node" left="7725" top="6570" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Select (Raw Bin)" filename="%VVVV%\addonpack\lib\nodes\plugins\Select.dll" nodename="Select (Raw Bin)" componentmode="Hidden" id="91">
+   <BOUNDS type="Node" left="7230" top="6930" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Select" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="92" srcpinname="Output" dstnodeid="91" dstpinname="Select">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="90" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="7245" top="7485" width="810" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7245" top="7485" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Unrecognized OSC|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="91" srcpinname="Output" dstnodeid="90" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="Success" dstnodeid="92" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="5" srcpinname="Output Node" dstnodeid="91" dstpinname="Input">
    </LINK>
    </PATCH>

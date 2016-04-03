@@ -143,8 +143,8 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
 
-//        [Output("Unrecognized", AutoFlush = false)]
-//        ISpread<Stream> FUnrecognized;
+        [Output("Success", AutoFlush = false)]
+        Pin<bool> FSuccess;
 
         Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser;
 
@@ -155,15 +155,15 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             if (FInput.IsAnyInvalid())
             {
                 SpreadMax = 0;
-                if (    FOutput.SliceCount != 0 
-//                    ||  FUnrecognized.SliceCount != 0
-                    )
+                if ( FOutput.SliceCount != 0 )
                 {
-//                    FUnrecognized.SliceCount    = 
+                    FSuccess.SliceCount = 1;
+                    FSuccess[0] = false;
+
                     FOutput.SliceCount          = 0;
 
                     FOutput.Flush();
-//                    FUnrecognized.Flush();
+                    FSuccess.Flush();
                 }
                 return;
             }
@@ -190,7 +190,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             if (!update && !FInput.IsChanged) return;
 
-            //FUnrecognized.SliceCount    = 
+            FSuccess.SliceCount = FInput.SliceCount;
             FOutput.SliceCount          = 0;
 
             for (int i = 0; i < SpreadMax; i++)
@@ -210,14 +210,18 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 Message message = isMatch? OSCExtensions.FromOSC(stream, Parser, FExtendedMode[0]) : null;
 
                 if (message != null)
+                {
                     FOutput.Add(message);
-                else {
-                    stream.Position = 0;
-//                    FUnrecognized.Add(stream); // copy instead. 
+                    FSuccess[i] = true;
+                }
+                else 
+                {
+//                    stream.Position = 0;
+                    FSuccess[i] = false;
                 }
             }
             FOutput.Flush();
-//            FUnrecognized.Flush();
+            FSuccess.Flush();
         }
     }
 
