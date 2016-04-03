@@ -106,6 +106,8 @@ namespace VVVV.Packs.Messaging.Serializing
             {
                 while (reader.PeekChar() != ',' && stream.Position < stream.Length)
                 {
+                    // todo: break early if not starting with '/' or hitting invalid char
+
                     var c = reader.ReadChars(4);
 
                     address += new string(c);
@@ -116,22 +118,26 @@ namespace VVVV.Packs.Messaging.Serializing
             return address.TrimEnd('\0'); // remove padding
         }
 
-
         public static Message FromOSC(Stream stream, Dictionary<string, IEnumerable<FormularFieldDescriptor>> parser, bool extendedMode = false)
         {
             if (stream == null || stream.Length == 0) return null;
 
-            OSCPacket oscMessage;
+            var size = stream.Length;
+            var bytes = new byte[size];
 
             stream.Position = 0;
-            var reader = new BinaryReader(stream);
+            stream.Read(bytes, 0, (int)size);
+            OSCPacket oscMessage = OSCPacket.Unpack(bytes, extendedMode);
 
-            {
-                var bytes = reader.ReadBytes((int)stream.Length);
-                oscMessage = OSCPacket.Unpack(bytes, extendedMode);
-            }
+            // seems slightly slower. 
+            //OSCPacket oscMessage;
+            //var reader = new BinaryReader(stream);
+            //{
+            //    var bytes = reader.ReadBytes((int)stream.Length);
+            //    oscMessage = OSCPacket.Unpack(bytes, extendedMode);
+            //}
 
-            if (oscMessage.IsBundle()) return null;
+            if (oscMessage == null || oscMessage.IsBundle()) return null;
 
             if (!parser.ContainsKey(oscMessage.Address))
                 return null; // skip if unknown address

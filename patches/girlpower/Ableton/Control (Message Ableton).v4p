@@ -48,7 +48,7 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="Hidden">
    </PIN>
    </NODE>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="2">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="1875" top="2265" width="4470" height="270">
    </BOUNDS>
    <PIN pinname="Topic" slicecount="1" values="live">
@@ -69,7 +69,7 @@
    </PIN>
    <PIN pinname="AutoSense" slicecount="1" visible="1" pintype="Input" values="1">
    </PIN>
-   <BOUNDS type="Window" left="0" top="0" width="7260" height="7605">
+   <BOUNDS type="Window" left="21780" top="7500" width="7260" height="7605">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
@@ -182,7 +182,7 @@
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="Ableton.Control">
    </PIN>
    </NODE>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="10">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="10">
    <BOUNDS type="Node" left="8205" top="7335" width="4410" height="270">
    </BOUNDS>
    <PIN pinname="Topic" slicecount="1" values="live">
@@ -492,7 +492,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="tempo">
    </PIN>
    </NODE>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="19">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="19">
    <BOUNDS type="Node" left="8340" top="9255" width="6600" height="270">
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" visible="1" values="Ableton.Live">
@@ -505,17 +505,17 @@
    </PIN>
    <PIN pinname="AutoSense" visible="1" pintype="Input" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="master.pan" slicecount="1" values="0.15" visible="1">
+   <PIN pinname="master.pan" slicecount="1" visible="1" values="0.15">
    </PIN>
-   <PIN pinname="track" slicecount="1" values="-5" visible="1">
+   <PIN pinname="track" slicecount="1" visible="1" values="-5">
    </PIN>
    <PIN pinname="overdub" slicecount="1" visible="1" values="2">
    </PIN>
-   <PIN pinname="master.volume" slicecount="1" values="0.63" visible="1">
+   <PIN pinname="master.volume" slicecount="1" visible="1" values="0.63">
    </PIN>
    <PIN pinname="time" visible="1" slicecount="1" values="1.76">
    </PIN>
-   <PIN pinname="master.crossfader" slicecount="1" values="0.06" visible="1">
+   <PIN pinname="master.crossfader" slicecount="1" visible="1" values="0.06">
    </PIN>
    <PIN pinname="tempo" visible="1" slicecount="1" values="247">
    </PIN>

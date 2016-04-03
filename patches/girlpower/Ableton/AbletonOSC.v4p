@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p" scrollx="0" scrolly="1665" systemname="AbletonOSC" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p">
-   <BOUNDS type="Window" left="-105" top="0" width="14610" height="15705">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p" scrollx="0" scrolly="3600" systemname="AbletonOSC" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p">
+   <BOUNDS type="Window" left="1515" top="840" width="14610" height="15705">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="7560" top="3330" width="2235" height="270">
@@ -15,7 +15,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Buffer Size" slicecount="1" values="2048">
+   <PIN pinname="Buffer Size" slicecount="1" visible="1" values="2048">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
@@ -125,7 +125,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2190" top="12345" width="7065" height="12645">
+   <BOUNDS type="Box" left="2190" top="12345" width="7095" height="13545">
    </BOUNDS>
    <BOUNDS type="Node" left="2190" top="12345" width="0" height="0">
    </BOUNDS>
@@ -135,7 +135,7 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="6">
+   <PIN pinname="Rows" slicecount="1" values="16">
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
@@ -325,6 +325,8 @@
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
+   <PIN pinname="Unrecognized OSC" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="OSCEncoder (Network)" nodename="OSCEncoder (Network)" componentmode="Hidden" id="259">
    <BOUNDS type="Node" left="14025" top="8220" width="100" height="100">
@@ -371,9 +373,9 @@
    <LINK srcnodeid="273" srcpinname="Output String" dstnodeid="259" dstpinname="Address">
    </LINK>
    <NODE systemname="Live (Message Ableton)" filename="Live (Message Ableton).v4p" nodename="Live (Message Ableton)" componentmode="Hidden" id="254">
-   <BOUNDS type="Node" left="780" top="7650" width="1620" height="270">
+   <BOUNDS type="Node" left="345" top="9165" width="1620" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="0" top="4700" width="4995" height="5910">
+   <BOUNDS type="Box" left="0" top="6215" width="4995" height="5910">
    </BOUNDS>
    <BOUNDS type="Window" left="7530" top="615" width="15915" height="11580">
    </BOUNDS>
@@ -411,6 +413,8 @@
    </BOUNDS>
    <BOUNDS type="Node" left="855" top="6030" width="0" height="0">
    </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="256" srcpinname="Clips" dstnodeid="278" dstpinname="Input Node">
    </LINK>
@@ -482,46 +486,12 @@
    </NODE>
    <LINK srcnodeid="305" srcpinname="Output" dstnodeid="306" dstpinname="Input String">
    </LINK>
-   <NODE systemname="Meter (Message Ableton)" filename="Meter (Message Ableton).v4p" componentmode="InAWindow" id="321" nodename="Meter (Message Ableton).v4p">
-   <BOUNDS type="Node" left="10875" top="10305" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="10875" top="10305" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="6960" top="4050" width="9000" height="9510">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Meter" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <NODE systemname="Tracks (Message Ableton)" filename="Tracks (Message Ableton).v4p" nodename="Tracks (Message Ableton)" componentmode="Hidden" id="333" stayontop="0">
-   <BOUNDS type="Node" left="9240" top="9660" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Tracks" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0">
-   </PIN>
-   <BOUNDS type="Window" left="630" top="10440" width="18525" height="9675">
-   </BOUNDS>
-   </NODE>
-   <NODE systemname="Hold (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Hold (Message.Keep)" componentmode="Hidden" id="337">
-   <BOUNDS type="Node" left="2985" top="10440" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
    <LINK srcnodeid="259" srcpinname="OSCMessage" dstnodeid="305" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="349" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2310" top="6990" width="480" height="480">
+   <BOUNDS type="Box" left="1875" top="8505" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="2310" top="6990" width="0" height="0">
+   <BOUNDS type="Node" left="1875" top="8505" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -539,9 +509,9 @@
    <LINK srcnodeid="349" srcpinname="Y Output Value" dstnodeid="254" dstpinname="Reset">
    </LINK>
    <NODE systemname="Control (Message Ableton)" filename="Control (Message Ableton).v4p" nodename="Control (Message Ableton).v4p" componentmode="Hidden" id="350">
-   <BOUNDS type="Node" left="795" top="9000" width="2655" height="270">
+   <BOUNDS type="Node" left="360" top="10515" width="2655" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="0" top="4448" width="14115" height="9105">
+   <BOUNDS type="Box" left="0" top="5963" width="14115" height="9105">
    </BOUNDS>
    <BOUNDS type="Window" left="3630" top="1755" width="14115" height="9105">
    </BOUNDS>
@@ -561,9 +531,9 @@
    <LINK srcnodeid="254" srcpinname="Live" dstnodeid="350" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="353" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1515" top="8295" width="480" height="480">
+   <BOUNDS type="Box" left="1080" top="9810" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="1515" top="8295" width="0" height="0">
+   <BOUNDS type="Node" left="1080" top="9810" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -583,9 +553,9 @@
    <LINK srcnodeid="353" srcpinname="Y Output Value" dstnodeid="350" dstpinname="play">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="354" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2190" top="8280" width="480" height="480">
+   <BOUNDS type="Box" left="1755" top="9795" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="2190" top="8280" width="0" height="0">
+   <BOUNDS type="Node" left="1755" top="9795" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -604,15 +574,7 @@
    </NODE>
    <LINK srcnodeid="354" srcpinname="Y Output Value" dstnodeid="350" dstpinname="stop">
    </LINK>
-   <NODE nodename="IOBox (Node)" componentmode="InABox" id="355" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="3795" top="11490" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="3795" top="11490" width="0" height="0">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="333" srcpinname="Tracks" dstnodeid="355" dstpinname="Input Node">
-   </LINK>
-   <NODE systemname="Definition (Formular Ableton)" filename="Definition (Formular Ableton).v4p" componentmode="Hidden" id="356" nodename="Definition (Formular Ableton).v4p">
+   <NODE systemname="Definition (Formular Ableton)" filename="Definition (Formular Ableton).v4p" componentmode="InAWindow" id="356" nodename="Definition (Formular Ableton).v4p">
    <BOUNDS type="Node" left="11535" top="2130" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="11535" top="2130" width="4800" height="3600">
@@ -621,7 +583,7 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="UDP (Network Client)" nodename="UDP (Network Client)" componentmode="Hidden" id="357">
-   <BOUNDS type="Node" left="6465" top="10950" width="100" height="100">
+   <BOUNDS type="Node" left="8505" top="11895" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Remote Port" slicecount="1" values="9000">
    </PIN>
@@ -631,9 +593,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="358" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6615" top="9960" width="480" height="480">
+   <BOUNDS type="Box" left="8655" top="10905" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="6615" top="9960" width="0" height="0">
+   <BOUNDS type="Node" left="8655" top="10905" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
@@ -650,8 +612,8 @@
    </NODE>
    <LINK srcnodeid="358" srcpinname="Y Output Value" dstnodeid="357" dstpinname="Do Send">
    </LINK>
-   <NODE systemname="Scene (Message Ableton)" filename="Scene (Message Ableton).v4p" nodename="Scene (Message Ableton)" componentmode="InAWindow" id="359">
-   <BOUNDS type="Node" left="6285" top="7890" width="100" height="100">
+   <NODE systemname="Scene (Message Ableton)" filename="Scene (Message Ableton).v4p" nodename="Scene (Message Ableton)" componentmode="Hidden" id="359">
+   <BOUNDS type="Node" left="1470" top="7155" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -661,35 +623,35 @@
    </PIN>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Unrecognized OSC" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="3450" top="345" width="14610" height="15705">
+   </BOUNDS>
    </NODE>
    <NODE systemname="Zip (Raw Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Raw Bin)" componentmode="Hidden" id="360">
-   <BOUNDS type="Node" left="6090" top="9375" width="100" height="100">
+   <BOUNDS type="Node" left="8130" top="10320" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Count" slicecount="1" values="3">
+   <PIN pinname="Input Count" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Input 1" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input 2" visible="1">
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Input 3" visible="1">
+   <PIN pinname="Input 3" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input 4" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="254" srcpinname="Output" dstnodeid="360" dstpinname="Input 1">
    </LINK>
    <LINK srcnodeid="360" srcpinname="Output" dstnodeid="357" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="256" srcpinname="OSC" dstnodeid="360" dstpinname="Input 2">
-   </LINK>
-   <LINK srcnodeid="359" srcpinname="OSC" dstnodeid="360" dstpinname="Input 3">
-   </LINK>
-   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="359" dstpinname="OSC Input">
-   </LINK>
    <NODE systemname="_Return (Message Ableton)" filename="_Return (Message Ableton).v4p" nodename="_Return (Message Ableton)" componentmode="Hidden" id="249">
-   <BOUNDS type="Node" left="9585" top="8985" width="100" height="100">
+   <BOUNDS type="Node" left="11415" top="8805" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="1005" top="4149" width="18525" height="9675">
+   <BOUNDS type="Box" left="2835" top="3969" width="18525" height="9675">
    </BOUNDS>
    <BOUNDS type="Window" left="6150" top="5925" width="18525" height="9675">
    </BOUNDS>
@@ -699,9 +661,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="361" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="5550" top="10215" width="795" height="240">
+   <BOUNDS type="Box" left="7590" top="11160" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5550" top="10215" width="0" height="0">
+   <BOUNDS type="Node" left="7590" top="11160" width="0" height="0">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="360" srcpinname="Output" dstnodeid="361" dstpinname="Input Node">
@@ -832,8 +794,6 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="256" dstpinname="OSC Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="375" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4050" top="5220" width="795" height="240">
    </BOUNDS>
@@ -846,20 +806,16 @@
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    </NODE>
-   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="198" dstpinname="Input Node">
-   </LINK>
    <NODE systemname="Damper (Animation)" nodename="Damper (Animation)" componentmode="Hidden" id="377">
    <BOUNDS type="Node" left="3690" top="5895" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Go To Position" visible="1">
+   <PIN pinname="Go To Position" visible="1" slicecount="1" values="14">
    </PIN>
    <PIN pinname="Position Out" visible="1">
    </PIN>
    <PIN pinname="FilterTime" slicecount="1" values="0.77">
    </PIN>
    </NODE>
-   <LINK srcnodeid="185" srcpinname="Count" dstnodeid="377" dstpinname="Go To Position">
-   </LINK>
    <LINK srcnodeid="377" srcpinname="Position Out" dstnodeid="371" dstpinname="Y Input Value">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="378" systemname="IOBox (Enumerations)">
@@ -867,23 +823,89 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4695" top="390" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Raw">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Filtered">
    </PIN>
    </NODE>
    <LINK srcnodeid="378" srcpinname="Output Enum" dstnodeid="-6" dstpinname="Time Mode">
    </LINK>
-   <LINK srcnodeid="359" srcpinname="Output" dstnodeid="14" dstpinname="Input">
-   </LINK>
    <NODE systemname="FromOsc (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOsc (Message Raw)" componentmode="Hidden" id="379">
    <BOUNDS type="Node" left="10830" top="9480" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="OSC" visible="1">
+   <PIN pinname="OSC" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="379" dstpinname="OSC">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="381" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="8955" top="2910" width="1110" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8955" top="2910" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="2097152">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="B">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="381" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Buffer Size">
    </LINK>
-   <LINK srcnodeid="379" srcpinname="Output" dstnodeid="321" dstpinname="Input">
+   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="256" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="256" srcpinname="Unrecognized OSC" dstnodeid="359" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="359" srcpinname="OSC" dstnodeid="360" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="256" srcpinname="OSC" dstnodeid="360" dstpinname="Input 3">
+   </LINK>
+   <LINK srcnodeid="362" srcpinname="frames per second" dstnodeid="377" dstpinname="Go To Position">
+   </LINK>
+   <NODE systemname="Meter (Message Ableton)" filename="Meter (Message Ableton).v4p" componentmode="InAWindow" id="321" nodename="Meter (Message Ableton).v4p">
+   <BOUNDS type="Node" left="6765" top="3720" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6765" top="3720" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="6960" top="4050" width="9000" height="9510">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Meter" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="OSC Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Unrecognized OSC" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Tracks (Message Ableton)" filename="Tracks (Message Ableton).v4p" nodename="Tracks (Message Ableton)" componentmode="InAWindow" id="333" stayontop="0">
+   <BOUNDS type="Node" left="8925" top="9360" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Tracks" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS type="Window" left="7455" top="3195" width="18525" height="9675">
+   </BOUNDS>
+   <PIN pinname="OSC Input" visible="1">
+   </PIN>
+   <PIN pinname="OSC" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="333" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="333" srcpinname="OSC" dstnodeid="360" dstpinname="Input 4">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="321" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="321" srcpinname="Unrecognized OSC" dstnodeid="198" dstpinname="Input Node">
+   <LINKPOINT x="4635" y="4478">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="14" dstpinname="Input">
    </LINK>
    </PATCH>

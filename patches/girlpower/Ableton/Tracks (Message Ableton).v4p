@@ -1,0 +1,463 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="345" scrolly="750">
+   <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="11">
+   <BOUNDS type="Node" left="3255" top="9375" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Ableton.Track">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, string Name, float Volume, bool Mute, float Pan, bool Solo, bool Arm|">
+   </PIN>
+   <PIN pinname="Use as ID" slicecount="1" visible="1" values="TrackId">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Internal Count" visible="1">
+   </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="16" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="2640" top="10770" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2640" top="10770" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Tracks">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="21" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="3840" top="8835" width="795" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3840" top="8835" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="TrackId">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="46" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="2235" top="4665" width="1485" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2235" top="4665" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="LiveOSC.Track">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="16" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="11" dstpinname="Use as ID">
+   </LINK>
+   <BOUNDS type="Window" left="7455" top="3195" width="18525" height="9675">
+   </BOUNDS>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <PACK Name="addonpack" Version="34.1.0">
+   </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="54" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5430" top="8670" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5430" top="8670" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Reset">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="54" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Reset" hiddenwhenlocked="1">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="56" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4335" top="9330" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4335" top="9330" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Internal Count" dstnodeid="56" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Hold (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Hold (Message.Keep)" componentmode="Hidden" id="60">
+   <BOUNDS type="Node" left="9030" top="8865" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="61" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="9045" top="9465" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9045" top="9465" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="60" srcpinname="Output" dstnodeid="61" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="62">
+   <BOUNDS type="Node" left="10590" top="9195" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="60" srcpinname="Output" dstnodeid="62" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="63" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="10440" top="9810" width="4980" height="1515">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10440" top="9810" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="62" srcpinname="Output" dstnodeid="63" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="FromOscMessage (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOscMessage (Message Raw)" componentmode="InAWindow" id="80">
+   <BOUNDS type="Node" left="3255" top="5550" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="OSC" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Topic" visible="1" slicecount="1" values="/live/name/clip">
+   </PIN>
+   <PIN pinname="ExtendedMode" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="LiveOSC.Clip">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, bool Mute, float Pan, bool Solo, bool Arm, float Volume, string Name|">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Use as ID" visible="1" slicecount="30" values="TrackId,ClipId,Name,TrackId,ClipId,Play,TrackId,ClipId,Signature,TrackId,ClipId,Pitch,TrackId,ClipId,Position,Length,LoopStart,LoopEnd,TrackId,ClipId,LoopState,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd">
+   </PIN>
+   <PIN pinname="Use as ID Bin Size" visible="1" pintype="Input" slicecount="8" values="3,3,3,3,6,3,3,3">
+   </PIN>
+   <PIN pinname="Unrecognized Input" visible="1">
+   </PIN>
+   <PIN pinname="Use Fields" visible="1" slicecount="12" values="Pan,Arm,Pan,Mute,Pan,(nil),Pan,(nil),Pan,(nil),Pan,(nil)">
+   </PIN>
+   <PIN pinname="Use Fields Bin Size" visible="1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Success" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="79" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="4410" top="1530" width="10020" height="315">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4410" top="1530" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="10" visible="1" values="/live/name/track,/live/pan,/live/volume,/live/mute,/live/solo,/live/arm,/live/clip/loopstart,/live/clip/loopend,/live/clip/warping,|float Pan|">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|string Foo|">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="6">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="78" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="4410" top="2085" width="1005" height="1275">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4410" top="2085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Name">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="77" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="6090" top="2085" width="1005" height="1275">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6090" top="2085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Pan">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="76" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="7755" top="2085" width="1005" height="1275">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7755" top="2085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Volume">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="75" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="9420" top="2085" width="1005" height="1275">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9420" top="2085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Mute">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="74" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="11085" top="2085" width="1005" height="1275">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11085" top="2085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Solo">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE id="68" systemname="Zip (Enumerations Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Enumerations Bin)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <PIN pinname="Output" visible="1" pintype="Output">
+   </PIN>
+   <BOUNDS type="Node" left="4425" top="3555" width="9225" height="270">
+   </BOUNDS>
+   <PIN pinname="Input 6" visible="1" slicecount="2" values="(nil),Name">
+   </PIN>
+   <PIN pinname="Input 5" visible="1" slicecount="2" values="(nil),ClipId">
+   </PIN>
+   <PIN pinname="Input 4" visible="1" slicecount="2" values="(nil),Arm">
+   </PIN>
+   <PIN pinname="Input 3" visible="1" slicecount="2" values="(nil),Play">
+   </PIN>
+   <PIN pinname="Input 8" visible="1" slicecount="2" values="TrackId,ClipId">
+   </PIN>
+   <PIN pinname="Input 7" visible="1" slicecount="2" values="TrackId,ClipId">
+   </PIN>
+   <PIN pinname="Output Bin Size" visible="1" pintype="Output">
+   </PIN>
+   <PIN pinname="Input 2" visible="1" pintype="Input" slicecount="2" values="(nil),TrackId">
+   </PIN>
+   <PIN pinname="Input 1" visible="1" pintype="Input" slicecount="2" values="(nil),Signature">
+   </PIN>
+   <PIN pinname="Input Count" slicecount="1" pintype="Configuration" values="6">
+   </PIN>
+   <BOUNDS type="Box" left="4425" top="3555" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Allow Empty Spreads" pintype="Input" visible="-1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Input 1 Bin Size" pintype="Input" visible="1" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" pintype="Input" visible="1" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Window Handle" pintype="Output">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="Input 9" visible="1" slicecount="1" values="(nil)">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="67" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="3285" top="1530" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3285" top="1530" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|OSC Input|">
+   </PIN>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Enum2String (Enumerations)" nodename="Enum2String (Enumerations)" componentmode="Hidden" id="66" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4860" top="3960" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" visible="1" slicecount="30" values="TrackId,ClipId,Name,TrackId,ClipId,Play,TrackId,ClipId,Signature,TrackId,ClipId,Pitch,TrackId,ClipId,Position,Length,LoopStart,LoopEnd,TrackId,ClipId,LoopState,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd">
+   </PIN>
+   <PIN pinname="String Value" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="65" systemname="IOBox (String)" hiddenwhenlocked="1">
+   <BOUNDS type="Box" left="4695" top="4680" width="1050" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4695" top="4680" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Input String" visible="1" slicecount="12" values="TrackId,Name,TrackId,Pan,TrackId,Volume,TrackId,Mute,TrackId,Solo,TrackId,Arm">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="String2Enum (Enumerations)" nodename="String2Enum (Enumerations)" componentmode="Hidden" id="64" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4695" top="5025" width="945" height="270">
+   </BOUNDS>
+   <PIN pinname="String Value" visible="1">
+   </PIN>
+   <PIN pinname="Enum" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="67" srcpinname="Output Node" dstnodeid="80" dstpinname="OSC">
+   </LINK>
+   <LINK srcnodeid="79" srcpinname="Output String" dstnodeid="80" dstpinname="Topic">
+   <LINKPOINT x="3585" y="2310">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="65" srcpinname="Output String" dstnodeid="64" dstpinname="String Value">
+   </LINK>
+   <LINK srcnodeid="68" srcpinname="Output" dstnodeid="66" dstpinname="Enum">
+   </LINK>
+   <LINK srcnodeid="68" srcpinname="Output Bin Size" dstnodeid="80" dstpinname="Use Fields Bin Size" linkstyle="Bezier">
+   <LINKPOINT x="18595" y="4695">
+   </LINKPOINT>
+   <LINKPOINT x="4790" y="4650">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="80" dstpinname="Message Formular">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="81" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="12750" top="2085" width="1005" height="1275">
+   </BOUNDS>
+   <BOUNDS type="Node" left="12750" top="2085" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Arm">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="78" srcpinname="Output Enum" dstnodeid="68" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="77" srcpinname="Output Enum" dstnodeid="68" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="76" srcpinname="Output Enum" dstnodeid="68" dstpinname="Input 3">
+   </LINK>
+   <LINK srcnodeid="75" srcpinname="Output Enum" dstnodeid="68" dstpinname="Input 4">
+   </LINK>
+   <LINK srcnodeid="74" srcpinname="Output Enum" dstnodeid="68" dstpinname="Input 5">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="Output Enum" dstnodeid="68" dstpinname="Input 6">
+   </LINK>
+   <LINK srcnodeid="64" srcpinname="Enum" dstnodeid="80" dstpinname="Use Fields">
+   </LINK>
+   <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="82">
+   <BOUNDS type="Node" left="6915" top="9675" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="OSC" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="83" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="7035" top="10245" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7035" top="10245" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="OSC">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="82" srcpinname="OSC" dstnodeid="83" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="11" dstpinname="Message Formular">
+   </LINK>
+   <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="85">
+   <BOUNDS type="Node" left="3255" top="7335" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Topic" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="80" srcpinname="Output" dstnodeid="85" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="86" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="3405" top="6675" width="1215" height="300">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3405" top="6675" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="1" values="live.tracks">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="86" srcpinname="Output String" dstnodeid="85" dstpinname="Topic">
+   </LINK>
+   <LINK srcnodeid="85" srcpinname="Output" dstnodeid="11" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="80" srcpinname="Output" dstnodeid="60" dstpinname="Input">
+   </LINK>
+   </PATCH>

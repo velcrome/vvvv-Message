@@ -434,7 +434,7 @@
    <BOUNDS type="Box" left="12120" top="4260">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="30">
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="11505" top="5790" width="100" height="100">
    </BOUNDS>
    <PIN pinname="New" visible="1" slicecount="1" values="1">
