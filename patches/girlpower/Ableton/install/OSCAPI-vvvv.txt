@@ -28,7 +28,6 @@ CALLS
 */live/master/crossfader () -> (float position)                                Set the crossfader position
 
 
-*/live/name/return
 */live/track/meter (int track) (int 0=left, 1=right) (float value)
 
 === Scene
@@ -60,7 +59,6 @@ __/live/name/scene        () -> (int scene, string name)                  Return
 		                (int track, float pan(-1.0 to 1.0))             	Sets track number track's pan to pan
 
 
-/live/tracks            () -> (int trackcount)                          Returns the total number of tracks in the form /live/tracks (int)
 */live/name/track        (int track) -> (int track, string name, int color)
 									                                    Returns a single track's name in the form /live/name/track (int track, string name, int color)
 
@@ -73,6 +71,7 @@ __/live/name/scene        () -> (int scene, string name)                  Return
 
 /live/track/jump        (int track, float beats)                        Jumps in track's currently running session clip by beats
 
+_/live/tracks            () -> (int trackcount)                          Returns the total number of tracks in the form /live/tracks (int)
 
 __/live/stop/track        (int track)                                     Stops track number track
 __/live/track/info        (int track)                                     Returns clip slot status' for all clips in a track in the form /live/track/info (tracknumber, armed  (clipnumber, state, length))

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="0" scrolly="7875">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="0" scrolly="12885">
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="3270" top="14145" width="5010" height="270">
    </BOUNDS>
@@ -367,7 +367,7 @@
    </PIN>
    <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Track" visible="1">
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="LiveOSC.Track">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int TrackId, string Name, float Volume, int Mute, float Pan, int Solo, int Arm, float Crossfader, int ColorValue, int Jump|">
    </PIN>
@@ -1003,7 +1003,7 @@
    </PIN>
    <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Track" visible="1">
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="LiveOSC.Track">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int TrackId, string Name, float Volume, int Mute, float Pan, int Solo, int Arm, float Crossfader, int ColorValue, int Jump|">
    </PIN>
@@ -1095,23 +1095,17 @@
    </PIN>
    </NODE>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="159">
-   <BOUNDS type="Node" left="8775" top="17040" width="100" height="100">
+   <BOUNDS type="Node" left="8775" top="17295" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Select" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="8775" top="17040">
+   <BOUNDS type="Box" left="8775" top="17295">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="159" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="3330" y="15713">
-   </LINKPOINT>
-   <LINKPOINT x="8775" y="15713">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Count (String)" nodename="Count (String)" componentmode="Hidden" id="161">
    <BOUNDS type="Node" left="9540" top="16095" width="100" height="100">
    </BOUNDS>
@@ -1134,8 +1128,6 @@
    </NODE>
    <LINK srcnodeid="161" srcpinname="Count" dstnodeid="162" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="162" srcpinname="Output" dstnodeid="159" dstpinname="Select">
-   </LINK>
    <NODE systemname="Clone (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Clone (Message)" componentmode="Hidden" id="163">
    <BOUNDS type="Node" left="8775" top="19440" width="100" height="100">
    </BOUNDS>
@@ -1153,7 +1145,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Caps Mode" slicecount="1" values="LowerCase" visible="1">
+   <PIN pinname="Caps Mode" slicecount="1" visible="1" values="LowerCase">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1241,7 +1233,7 @@
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="174">
    <BOUNDS type="Node" left="9450" top="19440" width="2220" height="270">
    </BOUNDS>
-   <PIN pinname="Intersperse" slicecount="1" values="Dot" visible="1">
+   <PIN pinname="Intersperse" slicecount="1" visible="1" values="Dot">
    </PIN>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -1423,7 +1415,7 @@
    </PIN>
    <PIN pinname="Intersperse" visible="1">
    </PIN>
-   <PIN pinname="Input 1" slicecount="1" values="live.master" visible="1">
+   <PIN pinname="Input 1" slicecount="1" visible="1" values="live.master">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1528,7 +1520,7 @@
    <BOUNDS type="Box" left="12060" top="19965">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="InAWindow" id="221">
+   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="221">
    <BOUNDS type="Node" left="13080" top="18060" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -2131,5 +2123,41 @@
    <LINK srcnodeid="176" srcpinname="Up Edge" dstnodeid="265" dstpinname="Y Input Value">
    <LINKPOINT x="6090" y="17820">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="FrameDelay (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FrameDelay (Message)" componentmode="Hidden" id="267">
+   <BOUNDS type="Node" left="6255" top="16320" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="267" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="3330" y="15353">
+   </LINKPOINT>
+   <LINKPOINT x="6255" y="15353">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="267" srcpinname="Output" dstnodeid="159" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="6315" y="16928">
+   </LINKPOINT>
+   <LINKPOINT x="8775" y="16928">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="OR (Boolean)" nodename="OR (Boolean)" componentmode="Hidden" id="268">
+   <BOUNDS type="Node" left="9285" top="16875" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="176" srcpinname="Up Edge" dstnodeid="268" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="162" srcpinname="Output" dstnodeid="268" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="268" srcpinname="Output" dstnodeid="159" dstpinname="Select">
    </LINK>
    </PATCH>
