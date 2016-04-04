@@ -143,6 +143,9 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         [Output("Output", AutoFlush = false)]
         ISpread<Message> FOutput;
 
+        [Output("Match Index", AutoFlush = false)]
+        Pin<int> FMatch;
+
         [Output("Success", AutoFlush = false)]
         Pin<bool> FSuccess;
 
@@ -160,10 +163,12 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                     FSuccess.SliceCount = 1;
                     FSuccess[0] = false;
 
-                    FOutput.SliceCount          = 0;
+                    FMatch.SliceCount = 0;
+                    FOutput.SliceCount = 0;
 
                     FOutput.Flush();
                     FSuccess.Flush();
+                    FMatch.Flush();
                 }
                 return;
             }
@@ -190,8 +195,9 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
             if (!update && !FInput.IsChanged) return;
 
-            FSuccess.SliceCount = FInput.SliceCount;
-            FOutput.SliceCount          = 0;
+            FSuccess.SliceCount = SpreadMax;
+            FOutput.SliceCount = 0;
+            FMatch.SliceCount = 0;
 
             for (int i = 0; i < SpreadMax; i++)
             {
@@ -213,15 +219,16 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 {
                     FOutput.Add(message);
                     FSuccess[i] = true;
+                    FMatch.Add( FTopic.IndexOf(address) );
                 }
                 else 
                 {
-//                    stream.Position = 0;
                     FSuccess[i] = false;
                 }
             }
             FOutput.Flush();
             FSuccess.Flush();
+            FMatch.Flush();
         }
     }
 

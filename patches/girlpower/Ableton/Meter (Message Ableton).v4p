@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
-   <BOUNDS type="Window" left="6960" top="4050" width="9000" height="9510">
+   <BOUNDS type="Window" left="15375" top="3915" width="9000" height="9510">
    </BOUNDS>
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="InAWindow" id="1">
    <BOUNDS type="Node" left="1935" top="6375" width="100" height="100">
@@ -419,15 +419,13 @@
    <NODE systemname="Select (Raw Bin)" filename="%VVVV%\addonpack\lib\nodes\plugins\Select.dll" nodename="Select (Raw Bin)" componentmode="Hidden" id="40">
    <BOUNDS type="Node" left="5640" top="5070" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Select" visible="1">
+   <PIN pinname="Select" visible="1" slicecount="3" values="0,0,0">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="39" srcpinname="Success" dstnodeid="40" dstpinname="Select">
-   </LINK>
    <LINK srcnodeid="27" srcpinname="Output Node" dstnodeid="40" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="41" systemname="IOBox (Node)">
@@ -439,5 +437,17 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="41" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="42">
+   <BOUNDS type="Node" left="6120" top="4560" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="39" srcpinname="Success" dstnodeid="42" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="42" srcpinname="Output" dstnodeid="40" dstpinname="Select">
    </LINK>
    </PATCH>

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" systemname="Definition (Formular Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" scrollx="5730" scrolly="330">
-   <BOUNDS type="Window" left="11340" top="2595" width="9000" height="6900">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" systemname="Definition (Formular Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" scrollx="3735" scrolly="0">
+   <BOUNDS type="Window" left="11430" top="2595" width="13770" height="11205">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -151,7 +151,7 @@
    </BOUNDS>
    <PIN pinname="Intersperse" slicecount="1" values="CommaPlusSpace">
    </PIN>
-   <PIN pinname="Input" slicecount="1" values="|int play, float time, float tempo, int overdub, int scene, int track, float master.crossfader, float master.pan, float master.volume|" visible="1">
+   <PIN pinname="Input" slicecount="1" visible="1" values="|int play, float time, float tempo, int overdub, int scene, int track, float master.crossfader, float master.pan, float master.volume|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -241,7 +241,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="11535" top="915" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="7" visible="1" values="|int TrackId|,|string Name|,|float Volume|,|bool Mute|,|float Pan|,|bool Solo|,|bool Arm|">
+   <PIN pinname="Input String" slicecount="10" visible="1" values="|int TrackId|,|string Name|,|float Volume|,|int Mute|,|float Pan|,|int Solo|,|int Arm|,|float Crossfader|,|int ColorValue|,|int Jump|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
@@ -297,17 +297,19 @@
    <LINK srcnodeid="13" srcpinname="Output String" dstnodeid="16" dstpinname="Formular Name">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="10740" top="4965" width="3540" height="630">
+   <BOUNDS type="Box" left="10740" top="4965" width="4515" height="915">
    </BOUNDS>
    <BOUNDS type="Node" left="10740" top="4965" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="|int TrackId, string Name, float Volume, bool Mute, float Pan, bool Solo, bool Arm|">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="|int TrackId, string Name, float Volume, int Mute, float Pan, int Solo, int Arm, float Crossfader, int ColorValue, int Jump|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="text">
    </PIN>
    <PIN pinname="File Mask" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="17" srcpinname="Output String" dstnodeid="8" dstpinname="Input">

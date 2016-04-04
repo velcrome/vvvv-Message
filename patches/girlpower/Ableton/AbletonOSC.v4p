@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p" scrollx="0" scrolly="3600" systemname="AbletonOSC" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p">
-   <BOUNDS type="Window" left="1515" top="840" width="14610" height="15705">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p" scrollx="1395" scrolly="6060" systemname="AbletonOSC" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\AbletonOSC.v4p">
+   <BOUNDS type="Window" left="1515" top="840" width="16320" height="15705">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="7560" top="3330" width="2235" height="270">
@@ -125,7 +125,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2190" top="12345" width="7095" height="13545">
+   <BOUNDS type="Box" left="2190" top="12345" width="7455" height="14310">
    </BOUNDS>
    <BOUNDS type="Node" left="2190" top="12345" width="0" height="0">
    </BOUNDS>
@@ -135,11 +135,11 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="16">
+   <PIN pinname="Rows" slicecount="1" values="13">
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Columns" slicecount="1" values="1">
+   <PIN pinname="Columns" slicecount="1" values="3">
    </PIN>
    <PIN pinname="Input String" visible="1" slicecount="13" values="|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|">
    </PIN>
@@ -243,7 +243,7 @@
    <LINK srcnodeid="14" srcpinname="Configuration" dstnodeid="143" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="144" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="600" top="12720" width="795" height="240">
+   <BOUNDS type="Box" left="600" top="12720" width="1215" height="4905">
    </BOUNDS>
    <BOUNDS type="Node" left="600" top="12720" width="0" height="0">
    </BOUNDS>
@@ -252,6 +252,10 @@
    <PIN pinname="File Mask" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="11">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="14" srcpinname="Topic" dstnodeid="144" dstpinname="Input String">
@@ -279,9 +283,9 @@
    <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="185" dstpinname="Input">
    </LINK>
    <NODE systemname="DeviceParams (Message Ableton)" filename="DeviceParams (Message Ableton).v4p" nodename="DeviceParams (Message Ableton)" componentmode="Hidden" id="250">
-   <BOUNDS type="Node" left="9652" top="11820" width="0" height="0">
+   <BOUNDS type="Node" left="12022" top="11925" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="8460" top="6983" width="7170" height="9675">
+   <BOUNDS type="Box" left="10830" top="7088" width="7170" height="9675">
    </BOUNDS>
    <BOUNDS type="Window" left="3735" top="4800" width="10650" height="9675">
    </BOUNDS>
@@ -337,15 +341,15 @@
    </PIN>
    <PIN pinname="Address" slicecount="1" visible="1" values="/live/devicelist">
    </PIN>
-   <PIN pinname="Type Tags" slicecount="1" values="||">
+   <PIN pinname="Type Tags" slicecount="1" values="f">
    </PIN>
-   <PIN pinname="Arguments" slicecount="1" visible="1" values="||">
+   <PIN pinname="Arguments" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Devices (Message Ableton)" filename="Devices (Message Ableton).v4p" nodename="Devices (Message Ableton).v4p" componentmode="Hidden" id="272">
-   <BOUNDS type="Node" left="10030" top="7681" width="0" height="0">
+   <BOUNDS type="Node" left="10585" top="12436" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="8208" top="3466" width="3645" height="8430">
+   <BOUNDS type="Box" left="8763" top="8221" width="3645" height="8430">
    </BOUNDS>
    <BOUNDS type="Window" left="12015" top="4275" width="10590" height="8430">
    </BOUNDS>
@@ -361,7 +365,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="12660" top="7335" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="/live/name/track">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="/live/master/crossfader">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -400,14 +404,6 @@
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Node)" componentmode="InABox" id="277" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="10125" top="8055" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="10125" top="8055" width="0" height="0">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="272" srcpinname="Devices" dstnodeid="277" dstpinname="Input Node">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="278" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="855" top="6030" width="795" height="240">
    </BOUNDS>
@@ -485,8 +481,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="305" srcpinname="Output" dstnodeid="306" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="259" srcpinname="OSCMessage" dstnodeid="305" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="349" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="1875" top="8505" width="480" height="480">
@@ -574,12 +568,12 @@
    </NODE>
    <LINK srcnodeid="354" srcpinname="Y Output Value" dstnodeid="350" dstpinname="stop">
    </LINK>
-   <NODE systemname="Definition (Formular Ableton)" filename="Definition (Formular Ableton).v4p" componentmode="InAWindow" id="356" nodename="Definition (Formular Ableton).v4p">
+   <NODE systemname="Definition (Formular Ableton)" filename="Definition (Formular Ableton).v4p" componentmode="Hidden" id="356" nodename="Definition (Formular Ableton).v4p">
    <BOUNDS type="Node" left="11535" top="2130" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="11535" top="2130" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="11340" top="2595" width="9000" height="6900">
+   <BOUNDS type="Window" left="11430" top="2595" width="13770" height="11205">
    </BOUNDS>
    </NODE>
    <NODE systemname="UDP (Network Client)" nodename="UDP (Network Client)" componentmode="Hidden" id="357">
@@ -641,25 +635,13 @@
    </PIN>
    <PIN pinname="Input 3" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Input 4" visible="1">
+   <PIN pinname="Input 4" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="254" srcpinname="Output" dstnodeid="360" dstpinname="Input 1">
    </LINK>
    <LINK srcnodeid="360" srcpinname="Output" dstnodeid="357" dstpinname="Input">
    </LINK>
-   <NODE systemname="_Return (Message Ableton)" filename="_Return (Message Ableton).v4p" nodename="_Return (Message Ableton)" componentmode="Hidden" id="249">
-   <BOUNDS type="Node" left="11415" top="8805" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2835" top="3969" width="18525" height="9675">
-   </BOUNDS>
-   <BOUNDS type="Window" left="6150" top="5925" width="18525" height="9675">
-   </BOUNDS>
-   <PIN pinname="Reset" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Tracks" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="361" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="7590" top="11160" width="795" height="240">
    </BOUNDS>
@@ -781,9 +763,9 @@
    <LINK srcnodeid="368" srcpinname="Minimum" dstnodeid="369" dstpinname="Y Input Value">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="371" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3675" top="6240" width="1515" height="660">
+   <BOUNDS type="Box" left="1065" top="2895" width="1515" height="660">
    </BOUNDS>
-   <BOUNDS type="Node" left="3675" top="6240" width="0" height="0">
+   <BOUNDS type="Node" left="1065" top="2895" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -807,7 +789,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Damper (Animation)" nodename="Damper (Animation)" componentmode="Hidden" id="377">
-   <BOUNDS type="Node" left="3690" top="5895" width="100" height="100">
+   <BOUNDS type="Node" left="1080" top="2550" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Go To Position" visible="1" slicecount="1" values="14">
    </PIN>
@@ -828,14 +810,6 @@
    </NODE>
    <LINK srcnodeid="378" srcpinname="Output Enum" dstnodeid="-6" dstpinname="Time Mode">
    </LINK>
-   <NODE systemname="FromOsc (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOsc (Message Raw)" componentmode="Hidden" id="379">
-   <BOUNDS type="Node" left="10830" top="9480" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="OSC" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="381" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="8955" top="2910" width="1110" height="240">
    </BOUNDS>
@@ -852,8 +826,6 @@
    </NODE>
    <LINK srcnodeid="381" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Buffer Size">
    </LINK>
-   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="256" dstpinname="OSC Input">
-   </LINK>
    <LINK srcnodeid="256" srcpinname="Unrecognized OSC" dstnodeid="359" dstpinname="OSC Input">
    </LINK>
    <LINK srcnodeid="359" srcpinname="OSC" dstnodeid="360" dstpinname="Input 2">
@@ -862,12 +834,12 @@
    </LINK>
    <LINK srcnodeid="362" srcpinname="frames per second" dstnodeid="377" dstpinname="Go To Position">
    </LINK>
-   <NODE systemname="Meter (Message Ableton)" filename="Meter (Message Ableton).v4p" componentmode="InAWindow" id="321" nodename="Meter (Message Ableton).v4p">
-   <BOUNDS type="Node" left="6765" top="3720" width="100" height="100">
+   <NODE systemname="Meter (Message Ableton)" filename="Meter (Message Ableton).v4p" componentmode="Hidden" id="321" nodename="Meter (Message Ableton).v4p">
+   <BOUNDS type="Node" left="4440" top="3705" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="6765" top="3720" width="4800" height="3600">
+   <BOUNDS type="Box" left="4440" top="3705" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="6960" top="4050" width="9000" height="9510">
+   <BOUNDS type="Window" left="15375" top="3915" width="9000" height="9510">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -880,8 +852,8 @@
    <PIN pinname="Unrecognized OSC" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Tracks (Message Ableton)" filename="Tracks (Message Ableton).v4p" nodename="Tracks (Message Ableton)" componentmode="InAWindow" id="333" stayontop="0">
-   <BOUNDS type="Node" left="8925" top="9360" width="100" height="100">
+   <NODE systemname="Tracks (Message Ableton)" filename="Tracks (Message Ableton).v4p" nodename="Tracks (Message Ableton)" componentmode="Hidden" id="333" stayontop="0">
+   <BOUNDS type="Node" left="8190" top="8700" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -889,23 +861,317 @@
    </PIN>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
-   <BOUNDS type="Window" left="7455" top="3195" width="18525" height="9675">
+   <BOUNDS type="Window" left="2100" top="1290" width="18525" height="9675">
    </BOUNDS>
-   <PIN pinname="OSC Input" visible="1">
+   <PIN pinname="OSC Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="333" dstpinname="OSC Input">
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="321" dstpinname="OSC Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="382" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="8070" top="9450" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8070" top="9450" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="333" srcpinname="Tracks" dstnodeid="382" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="198" srcpinname="Output Node" dstnodeid="256" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="333" srcpinname="Tracks" dstnodeid="14" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="333" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="198" dstpinname="Input Node">
    </LINK>
    <LINK srcnodeid="333" srcpinname="OSC" dstnodeid="360" dstpinname="Input 4">
    </LINK>
-   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="321" dstpinname="OSC Input">
+   <NODE systemname="UDP (Network Client)" nodename="UDP (Network Client)" componentmode="Hidden" id="384">
+   <BOUNDS type="Node" left="14040" top="9840" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Remote Port" slicecount="1" values="9000">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Do Send" visible="1" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="259" srcpinname="OSCMessage" dstnodeid="384" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="321" srcpinname="Unrecognized OSC" dstnodeid="198" dstpinname="Input Node">
-   <LINKPOINT x="4635" y="4478">
-   </LINKPOINT>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="385" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="14985" top="9165" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="14985" top="9165" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="385" srcpinname="Y Output Value" dstnodeid="384" dstpinname="Do Send">
    </LINK>
-   <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="14" dstpinname="Input">
+   <NODE systemname="AsString (Value)" nodename="AsString (Value)" componentmode="Hidden" id="386">
+   <BOUNDS type="Node" left="15645" top="7335" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="386" srcpinname="Output" dstnodeid="259" dstpinname="Arguments">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="387" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="15780" top="6420" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="15780" top="6420" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.09">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="387" srcpinname="Y Output Value" dstnodeid="386" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Change (String)" nodename="Change (String)" componentmode="Hidden" id="388">
+   <BOUNDS type="Node" left="15120" top="8655" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="386" srcpinname="Output" dstnodeid="388" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="388" srcpinname="OnChange" dstnodeid="385" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Count (Node)" nodename="Count (Node)" componentmode="Hidden" id="389">
+   <BOUNDS type="Node" left="11190" top="8940" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Count" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="333" srcpinname="OSC" dstnodeid="389" dstpinname="Input">
+   </LINK>
+   <NODE systemname="GT (Value)" nodename="GT (Value)" componentmode="Hidden" id="390">
+   <BOUNDS type="Node" left="11295" top="9615" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="389" srcpinname="Count" dstnodeid="390" dstpinname="Input 1">
+   </LINK>
+   <NODE systemname="S+H (Raw)" nodename="S+H (Raw)" componentmode="Hidden" id="391">
+   <BOUNDS type="Node" left="11220" top="10665" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="390" srcpinname="Output" dstnodeid="391" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="333" srcpinname="OSC" dstnodeid="391" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="391" srcpinname="Output" dstnodeid="305" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="401">
+   <BOUNDS type="Node" left="10815" top="19410" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Track">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|string Name, float Volume, int Mute, float Pan, int Solo, int Arm, float Crossfader, int Jump|">
+   </PIN>
+   <PIN pinname="Name" visible="1">
+   </PIN>
+   <PIN pinname="AutoSense" visible="1" pintype="Input" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Volume" visible="1">
+   </PIN>
+   <PIN pinname="Mute" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Pan" visible="1">
+   </PIN>
+   <PIN pinname="Solo" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Arm" visible="1" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Crossfader" slicecount="1" visible="1" values="-1.47">
+   </PIN>
+   <PIN pinname="Pitch" slicecount="1" values="18">
+   </PIN>
+   <PIN pinname="Jump" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetSlice (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetSlice (Message)" componentmode="Hidden" id="400">
+   <BOUNDS type="Node" left="10545" top="18105" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="400" srcpinname="Output" dstnodeid="401" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="399" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="11610" top="16830" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11610" top="16830" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="1" values="Testar">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="399" srcpinname="Output String" dstnodeid="401" dstpinname="Name">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="398" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="12660" top="16155" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="12660" top="16155" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.19">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="398" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Volume">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="397" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="12630" top="16695" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="12630" top="16695" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="397" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Mute">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="396" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="13830" top="16920" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="13830" top="16920" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.97">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="396" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Pan">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="395" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="14745" top="16200" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="14745" top="16200" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="395" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Solo">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="394" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="15270" top="17115" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="15270" top="17115" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="394" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Arm">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="393" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="13950" top="18660" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="13950" top="18660" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1.25">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="393" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Crossfader">
+   </LINK>
+   <LINK srcnodeid="382" srcpinname="Output Node" dstnodeid="400" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="402" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="15825" top="18720" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="15825" top="18720" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="32">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="402" srcpinname="Y Output Value" dstnodeid="401" dstpinname="Jump">
    </LINK>
    </PATCH>
