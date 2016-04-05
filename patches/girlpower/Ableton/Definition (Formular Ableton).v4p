@@ -467,7 +467,7 @@
    <LINK srcnodeid="22" srcpinname="Output String" dstnodeid="25" dstpinname="Formular Name">
    </LINK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="29">
-   <BOUNDS type="Node" left="6000" top="12255" width="3810" height="270">
+   <BOUNDS type="Node" left="6000" top="12855" width="3810" height="270">
    </BOUNDS>
    <PIN pinname="Formular Name" slicecount="1" visible="1" values="LiveOSC.Clip">
    </PIN>
@@ -475,15 +475,15 @@
    </PIN>
    <PIN pinname="Update" slicecount="1" visible="1" values="0">
    </PIN>
-   <BOUNDS type="Box" left="6000" top="12255">
+   <BOUNDS type="Box" left="6000" top="12855">
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="28" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="6945" top="11070" width="1620" height="1080">
+   <BOUNDS type="Box" left="6945" top="11070" width="1710" height="1620">
    </BOUNDS>
    <BOUNDS type="Node" left="6945" top="11070" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="5" visible="1" values="|int TrackId|,|int DeviceId|,|int ParamId|,|float Value|,|string Name|">
+   <PIN pinname="Input String" slicecount="7" visible="1" values="|int TrackId|,|int DeviceId|,|int ParamId|,|float Value|,|string Name|,|float Min|,|float Max|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
@@ -491,7 +491,7 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="5">
+   <PIN pinname="Rows" slicecount="1" values="7">
    </PIN>
    <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
    </PIN>
@@ -501,9 +501,9 @@
    <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="29" dstpinname="Configuration">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="27" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9750" top="11625" width="480" height="480">
+   <BOUNDS type="Box" left="9750" top="12225" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="9750" top="11625" width="0" height="0">
+   <BOUNDS type="Node" left="9750" top="12225" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
