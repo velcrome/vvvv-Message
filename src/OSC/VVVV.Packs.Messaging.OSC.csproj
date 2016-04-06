@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BundleOSCNode.cs" />
     <Compile Include="Enum.cs" />
+    <Compile Include="OSCDecoderNode.cs" />
     <Compile Include="UnbundleOSCNode.cs" />
     <Compile Include="SiftNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" systemname="Definition (Formular Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" scrollx="210" scrolly="3735">
-   <BOUNDS type="Window" left="11430" top="2595" width="13770" height="11205">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" systemname="Definition (Formular Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Definition (Formular Ableton).v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="9180" top="2265" width="15375" height="11535">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -89,13 +89,15 @@
    </PIN>
    <BOUNDS type="Box" left="675" top="4560">
    </BOUNDS>
+   <PIN pinname="Inherit All" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="6" systemname="IOBox (String)">
    <BOUNDS type="Box" left="1620" top="945" width="2385" height="3420">
    </BOUNDS>
    <BOUNDS type="Node" left="1620" top="945" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="9" visible="1" values="|int play|,|float time|,|float tempo|,|bool overdub|,|int scene|,|int track|,|float master.crossfader|,|float master.pan|,|float master.volume|">
+   <PIN pinname="Input String" slicecount="7" visible="1" values="|int Play|,|float Time|,|float Tempo|,|int Overdub|,|int Scene|,|int Track|,|int Quantisation|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
@@ -150,16 +152,6 @@
    </NODE>
    <LINK srcnodeid="4" srcpinname="Output String" dstnodeid="7" dstpinname="Formular Name">
    </LINK>
-   <NODE systemname="Separate (String)" nodename="Separate (String)" componentmode="Hidden" id="8">
-   <BOUNDS type="Node" left="435" top="6525" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Intersperse" slicecount="1" values="CommaPlusSpace">
-   </PIN>
-   <PIN pinname="Input" slicecount="1" visible="1" values="|int play, float time, float tempo, int overdub, int scene, int track, float master.crossfader, float master.pan, float master.volume|">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="5940" top="7260" width="3810" height="270">
    </BOUNDS>
@@ -303,24 +295,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="13" srcpinname="Output String" dstnodeid="16" dstpinname="Formular Name">
-   </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="480" top="5445" width="4515" height="915">
-   </BOUNDS>
-   <BOUNDS type="Node" left="480" top="5445" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="|int TrackId, int DeviceId, int ParamId, float Value, string Name|">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="text">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Output String" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="17" srcpinname="Output String" dstnodeid="8" dstpinname="Input">
    </LINK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="10650" top="7260" width="3810" height="270">
@@ -467,7 +441,7 @@
    <LINK srcnodeid="22" srcpinname="Output String" dstnodeid="25" dstpinname="Formular Name">
    </LINK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="29">
-   <BOUNDS type="Node" left="6000" top="12855" width="3810" height="270">
+   <BOUNDS type="Node" left="10740" top="10335" width="3810" height="270">
    </BOUNDS>
    <PIN pinname="Formular Name" slicecount="1" visible="1" values="LiveOSC.Clip">
    </PIN>
@@ -475,13 +449,13 @@
    </PIN>
    <PIN pinname="Update" slicecount="1" visible="1" values="0">
    </PIN>
-   <BOUNDS type="Box" left="6000" top="12855">
+   <BOUNDS type="Box" left="10740" top="10335">
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="28" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="6945" top="11070" width="1710" height="1620">
+   <BOUNDS type="Box" left="11685" top="8550" width="1710" height="1620">
    </BOUNDS>
-   <BOUNDS type="Node" left="6945" top="11070" width="0" height="0">
+   <BOUNDS type="Node" left="11685" top="8550" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="7" visible="1" values="|int TrackId|,|int DeviceId|,|int ParamId|,|float Value|,|string Name|,|float Min|,|float Max|">
    </PIN>
@@ -501,9 +475,9 @@
    <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="29" dstpinname="Configuration">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="27" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9750" top="12225" width="480" height="480">
+   <BOUNDS type="Box" left="14490" top="9705" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="9750" top="12225" width="0" height="0">
+   <BOUNDS type="Node" left="14490" top="9705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -521,9 +495,9 @@
    <LINK srcnodeid="27" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Update">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="26" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="6000" top="10395" width="3360" height="495">
+   <BOUNDS type="Box" left="10740" top="7875" width="3360" height="495">
    </BOUNDS>
-   <BOUNDS type="Node" left="6000" top="10395" width="0" height="0">
+   <BOUNDS type="Node" left="10740" top="7875" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="LiveOSC.DeviceParam">
    </PIN>
@@ -537,5 +511,81 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Output String" dstnodeid="29" dstpinname="Formular Name">
+   </LINK>
+   <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="33">
+   <BOUNDS type="Node" left="870" top="9915" width="3810" height="270">
+   </BOUNDS>
+   <PIN pinname="Formular Name" slicecount="1" visible="1" values="LiveOSC.Clip">
+   </PIN>
+   <PIN pinname="Configuration" visible="1">
+   </PIN>
+   <PIN pinname="Update" slicecount="1" visible="1" values="0">
+   </PIN>
+   <BOUNDS type="Box" left="870" top="9915">
+   </BOUNDS>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="32" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="1815" top="6300" width="2385" height="3420">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1815" top="6300" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="8" visible="1" values="|bool Undo|,|bool Redo|,|bool Start|,|bool Stop|,|bool next.cue|,|bool prev.cue|,|bool play.continue|,|bool play.selection|">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|string Foo|">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="12">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="32" srcpinname="Output String" dstnodeid="33" dstpinname="Configuration">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="31" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4620" top="9240" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4620" top="9240" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Y Output Value" dstnodeid="33" dstpinname="Update">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="30" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="885" top="5550" width="2520" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="885" top="5550" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="1" values="LiveOSC.Control">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="Event">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="14">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="30" srcpinname="Output String" dstnodeid="33" dstpinname="Formular Name">
+   </LINK>
+   <LINK srcnodeid="33" srcpinname="Formular" dstnodeid="7" dstpinname="Inherit All">
    </LINK>
    </PATCH>
