@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="0" scrolly="1575">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="0" scrolly="15015">
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="3270" top="14145" width="5010" height="270">
    </BOUNDS>
@@ -1161,6 +1161,8 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="159" srcpinname="Output" dstnodeid="166" dstpinname="Input">
    </LINK>
@@ -1404,6 +1406,8 @@
    <PIN pinname="TrackId" visible="1">
    </PIN>
    <BOUNDS type="Box" left="6120" top="20685">
+   </BOUNDS>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="191" srcpinname="Output" dstnodeid="147" dstpinname="Input">
@@ -2020,20 +2024,6 @@
    </LINK>
    <LINK srcnodeid="242" srcpinname="Output" dstnodeid="16" dstpinname="Input Node">
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="261" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="17385" top="21855" width="1500" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="17385" top="21855" width="1500" height="270">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|seems not to work!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="262" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="19815" top="21000" width="795" height="240">
    </BOUNDS>

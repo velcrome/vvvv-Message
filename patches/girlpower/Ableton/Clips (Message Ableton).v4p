@@ -27,6 +27,8 @@
    </PIN>
    <PIN pinname="Success" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="1" systemname="IOBox (String)">
    <BOUNDS type="Box" left="2655" top="1500" width="15015" height="300">

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Scene (Message Ableton).v4p" systemname="Scene (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Scene (Message Ableton).v4p" scrollx="0" scrolly="750">
-   <BOUNDS type="Window" left="0" top="-105" width="14610" height="15705">
+   <BOUNDS type="Window" left="3450" top="345" width="14610" height="15705">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.1.0">
    </PACK>
@@ -253,7 +253,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="180" top="12555" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Output">
+   <PIN pinname="Descriptive Name" slicecount="1" values="Scene">
    </PIN>
    <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
@@ -928,4 +928,6 @@
    </LINK>
    <LINK srcnodeid="5" srcpinname="Output Node" dstnodeid="91" dstpinname="Input">
    </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

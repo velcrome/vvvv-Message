@@ -87,7 +87,7 @@
    </BOUNDS>
    <PIN pinname="OSC" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Send" visible="1">
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="LiveOSC.Send">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int SendId, float Value|">
    </PIN>
@@ -163,6 +163,8 @@
    </PIN>
    <PIN pinname="TrackId" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="21" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="2085" top="330" width="795" height="240">
@@ -331,6 +333,8 @@
    </PIN>
    <PIN pinname="SendId" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="35" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="8865" top="960" width="480" height="480">

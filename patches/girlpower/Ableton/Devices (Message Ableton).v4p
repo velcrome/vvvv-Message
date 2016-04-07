@@ -87,6 +87,8 @@
    </PIN>
    <PIN pinname="DeviceId Bin Size" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="26" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5460" top="6045" width="1590" height="270">
@@ -141,7 +143,7 @@
    </BOUNDS>
    <PIN pinname="Diff Output" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Devices" visible="1">
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="LiveOSC.Devices">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int DeviceId, string Name|">
    </PIN>
@@ -209,6 +211,8 @@
    </PIN>
    <BOUNDS type="Box" left="12600" top="7575">
    </BOUNDS>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="77" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
    </LINK>
@@ -228,6 +232,8 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    <BOUNDS type="Box" left="15015" top="7575">
+   </BOUNDS>
+   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="78" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
@@ -655,7 +661,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Input 2" slicecount="1" values="2" visible="1">
+   <PIN pinname="Input 2" slicecount="1" visible="1" values="2">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>

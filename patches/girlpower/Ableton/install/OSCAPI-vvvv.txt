@@ -1,4 +1,4 @@
-CALLS
+Live
 =====
 
 /live/next/cue                                                          Jumps to the next cue point
@@ -21,15 +21,6 @@ CALLS
 
 */live/master/meter (int 0=left, 1=right) (float value)
 
-==== Master
-
-*/live/master/volume     (int track) -> (int track, float volume(0.0 to 1.0))           Sets the master track's volume to volume (0.0 to 1.0)
-*/live/master/pan        (int track) -> (int track, float pan(-1.0 to 1.0))             Sets master track's pan to pan (-1.0 to 1.0)
-*/live/master/crossfader () -> (float position)                                Set the crossfader position
-
-
-*/live/track/meter (int track) (int 0=left, 1=right) (float value)
-
 === Scene
 /live/play/scene        (int scene)                                     Launches scene number scene
 
@@ -41,6 +32,15 @@ CALLS
 /live/name/scene        (int scene, string name)                        Sets scene number scene's name to name
 
 __/live/name/scene        () -> (int scene, string name)                  Returns a a series of all the scene names in the form /live/name/scene (int scene, string name)
+
+==== Master
+
+*/live/master/volume     (int track) -> (int track, float volume(0.0 to 1.0))           Sets the master track's volume to volume (0.0 to 1.0)
+*/live/master/pan        (int track) -> (int track, float pan(-1.0 to 1.0))             Sets master track's pan to pan (-1.0 to 1.0)
+*/live/master/crossfader () -> (float position)                                Set the crossfader position
+
+
+*/live/track/meter (int track) (int 0=left, 1=right) (float value)
 
 === Track
 
@@ -90,6 +90,7 @@ __/live/name/trackblock   (int track, int size)                           Return
 */live/return/pan
 */live/return/meter (int track) (int 0=left, 1=right) (float value)
 
+/live/return/crossfader (int return)                                    Gets the current cross fader assignment for return track track
 /live/return/crossfader (int return) (int assign)                       Sets the current cross fader assignment for return track track
 /live/return/mute       (int track, int mute/unmute)                    Mutes/unmutes return track number track
 /live/return/solo       (int track, int solo/unsolo)                    Solos/unsolos return track number track
@@ -107,7 +108,6 @@ __/live/name/trackblock   (int track, int size)                           Return
 
 /live/return/send       (int track)                                     ? Returns a list of all sends and values on return track number track as: /live/send (int track, int send, float level, int send, ...)
 /live/return/send       (int track, int send)                           Returns the send level of send (send) on return track number track as: /live/send (int track, int send, float level(0.0 to 1.0))
-/live/return/crossfader (int return)                                    Gets the current cross fader assignment for return track track
 
 */live/return/send
 /live/return/send       (int track, int send, float level(0.0 to 1.0))  Sets the send (send) of return track number (track)'s level to (level)
@@ -152,12 +152,6 @@ __/live/name/trackblock   (int track, int size)                           Return
 __/live/name/clipblock    (int track, int clip, int sizeX, int sizeY)     Returns a series of clip names in a area starting at (int track, int clip) of size (sizeX, sizeY)
 
 
-=== Devices
-
-/live/devicelist        (int track)                                     Returns a list of all devices and names on track number track as: /live/device (int track, int device, str name,..
-/live/device            (int track, int device)                         Returns a list of all parameter values and names on device on track number track
-                                                                        as: /live/deviceall/param (int track, int device, int parameter int value,  str name, ...)
-/live/device            (int track, int device, int parameter)          Returns the name and value of parameter on device on track as: /live/device/param (int track, int device, int paarmeter, int value, str name)
 
 
 === View
@@ -188,32 +182,38 @@ __/live/name/clipblock    (int track, int clip, int sizeX, int sizeY)     Return
 */live/return/device/param (int track) (int device) (int param) (int value) (str name)
 */live/master/device/param (int device) (int param) (int value) (str name)
 
-/live/device            (int track, int device, int parameter,          Sets parameter on device on track number track to value
-                        int value) 
-
-/live/device/range      (int track, int device)                         Returns the min and max value of all parameters of device on track in the format /live/device/range (int track, int device, int/float min, int/float max, ...)
-/live/device/range      (int track, int device, int parameter)          Returns the min and max value of parameter of device on track in the format /live/device/range (int track, int device, int/float min, int/float max)
-
-/live/return/devicelist (int track)                                     Returns a list of all devices and names on track number track as: /live/device (int track, int device, str name, ...)
-/live/return/device     (int track, int device)                         Returns a list of all parameter values and names on device on track number track
-                                                                        as: /live/device/allparm (int track, int device, int parameter int value,  str name, ...)
-/live/return/device     (int track, int device, int parameter)          Returns the name and value of parameter on device on track as: /live/device/param (int track, int device, int parameter, int value)
-/live/return/device     (int track, int device, int parameter,          Sets parameter on device on track number track to value
-                        int value) 
-
-/live/return/device/range (int track, int device)                       Returns the min and max value of all parameters of device on return track in the format /live/return/device/range (int track, int device, int/float min, int/float max, ...)
-/live/return/device/range (int track, int device, int parameter)        Returns the min and max value of parameter of device on return track in the format /live/return/device/range (int track, int device, int/float min, int/float max)                        
-
 /live/master/devicelist                                                 Returns a list of all devices and names on the master track as: /live/device (int device, str name, ...)
+/live/devicelist        (int track)                                     Returns a list of all devices and names on track number track as: /live/device (int track, int device, str name,..
+/live/return/devicelist (int track)                                     Returns a list of all devices and names on track number track as: /live/device (int track, int device, str name, ...)
+
+/live/device            (int track, int device)                         Returns a list of all parameter values and names on device on track number track
+                                                                        as: /live/device/allparam (int track, int device, int parameter int value,  str name, ...)
+/live/return/device     (int track, int device)                         Returns a list of all parameter values and names on device on track number track
+                                                                        as: /live/device/allparam (int track, int device, int parameter int value,  str name, ...)
 /live/master/device     (int device)                                    Returns a list of all parameter values and names on device on the master track
                                                                         as: /live/device (int device, int parameter int value,  str name, ...)
-/live/master/device     (int device, int parameter)                     Returns the name and value of parameter on device on the master track as: /live/device (int device, int parameter, int value)
+
+
+/live/device            (int track, int device, int parameter,          Sets parameter on device on track number track to value
+                        int value) 
+/live/return/device     (int track, int device, int parameter,          Sets parameter on device on track number track to value
+                        int value) 
 /live/master/device     (int device, int parameter, int value)          Sets parameter on device on track number track to value
 
-/live/return/device/range (int device)                                  Returns the min and max value of all parameters of device on the master track in the format /live/master/device/range (int device, int/float min, int/float max, ...)
+
+/live/device/range      (int track, int device, int parameter)          Returns the min and max value of parameter of device on track in the format /live/device/range (int track, int device, int/float min, int/float max)
+/live/return/device/range (int track, int device, int parameter)        Returns the min and max value of parameter of device on return track in the format /live/return/device/range (int track, int device, int/float min, int/float max)                        
 /live/return/device/range (int device, int parameter)                   Returns the min and max value of parameter of device on the master track in the format /live/master/device/range (int device, int/float min, int/float max)          
 
 
+__/live/master/device     (int device, int parameter)                     Returns the name and value of parameter on device on the master track as: /live/device (int device, int parameter, int value)
+
+__/live/device            (int track, int device, int parameter)          Returns the name and value of parameter on device on track as: /live/device/param (int track, int device, int paarmeter, int value, str name)
+__/live/return/device     (int track, int device, int parameter)          Returns the name and value of parameter on device on track as: /live/device/param (int track, int device, int parameter, int value)
+__/live/return/device/range (int track, int device)                       Returns the min and max value of all parameters of device on return track in the format /live/return/device/range (int track, int device, int/float min, int/float max, ...)
+
+__/live/device/range      (int track, int device)                         Returns the min and max value of all parameters of device on track in the format /live/device/range (int track, int device, int/float min, int/float max, ...)
+__/live/return/device/range (int device)                                  Returns the min and max value of all parameters of device on the master track in the format /live/master/device/range (int device, int/float min, int/float max, ...)
 
 
 
