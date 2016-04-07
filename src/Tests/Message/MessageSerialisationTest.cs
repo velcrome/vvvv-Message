@@ -53,7 +53,7 @@ namespace VVVV.Packs.Messaging.Tests
             var innerMessage = new Message("InnerMessage2");
             innerMessage.Init("Foo", "bar");
             innerMessage.TimeStamp = Time.MinUTCTime();
-            message.Init("Message", innerMessage);
+            message.Init(innerMessage.Topic, innerMessage);
 
 
             message.Topic = "Test";
@@ -62,7 +62,7 @@ namespace VVVV.Packs.Messaging.Tests
             var settings = new JsonSerializerSettings { Formatting = Formatting.None, TypeNameHandling = TypeNameHandling.Auto };
             string json = JsonConvert.SerializeObject(message, settings);
 //            Assert.AreEqual("{\"Topic\":\"Test\",\"stringy\":\"bar\",\"inty\":[1,2],\"float<float>\":[1.0,2.0],\"double\":[1.0,2.0],\"raw<Raw>\":\"\",\"time<Time>\":[{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},{\"UTC\":\"2001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}],\"V2<Vector2d>\":[{\"x\":0.0,\"y\":0.0},{\"x\":1.0,\"y\":2.0}],\"V3<Vector3d>\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0}],\"V4<Vector4d>\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0,\"w\":4.0}],\"Matrix<Transform>\":[{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{\"Values\":[1.0,-2.0,-3.0,-4.0,2.0,1.0,4.0,-3.0,3.0,-4.0,1.0,2.0,4.0,3.0,-2.0,1.0]}],\"Message<Message>\":{\"Topic\":\"InnerMessage2\",\"Foo\":\"bar\",\"Stamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}},\"Stamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}}", json);
-            Assert.AreEqual("{\"Topic\":\"Test\",\"stringy\":\"bar\",\"inty\":[1,2],\"float<float>\":[1.0,2.0],\"double\":[1.0,2.0],\"raw<Raw>\":\"\",\"time<Time>\":[{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},{\"UTC\":\"2001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}],\"V2<Vector2d>\":[{\"x\":0.0,\"y\":0.0},{\"x\":1.0,\"y\":2.0}],\"V3<Vector3d>\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0}],\"V4<Vector4d>\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0,\"w\":4.0}],\"Matrix<Transform>\":[{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{\"Values\":[1.0,-2.0,-3.0,-4.0,2.0,1.0,4.0,-3.0,3.0,-4.0,1.0,2.0,4.0,3.0,-2.0,1.0]}],\"Message\":{\"Topic\":\"InnerMessage2\",\"Foo\":\"bar\",\"Stamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}},\"Stamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}}", json);
+            Assert.AreEqual("{\"Topic\":\"Test\",\"stringy\":\"bar\",\"inty\":[1,2],\"float<float>\":[1.0,2.0],\"double\":[1.0,2.0],\"raw<Raw>\":\"\",\"time<Time>\":[{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"},{\"UTC\":\"2001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}],\"V2<Vector2d>\":[{\"x\":0.0,\"y\":0.0},{\"x\":1.0,\"y\":2.0}],\"V3<Vector3d>\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0}],\"V4<Vector4d>\":[{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":0.0},{\"x\":1.0,\"y\":2.0,\"z\":3.0,\"w\":4.0}],\"Matrix<Transform>\":[{\"Values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{\"Values\":[1.0,-2.0,-3.0,-4.0,2.0,1.0,4.0,-3.0,3.0,-4.0,1.0,2.0,4.0,3.0,-2.0,1.0]}],\"InnerMessage2\":{\"Topic\":\"InnerMessage2\",\"Foo\":\"bar\",\"Stamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}},\"Stamp\":{\"UTC\":\"0001-01-01 00:00:00.0000\",\"ZoneId\":\"UTC\"}}", json);
 
             var newMessage = JsonConvert.DeserializeObject<Message>(json);
             Assert.AreEqual(message.ToString(), newMessage.ToString());
@@ -80,7 +80,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.IsInstanceOfType(newMessage["V4"].First, typeof(Vector4D));
             Assert.IsInstanceOfType(newMessage["Matrix"].First, typeof(Matrix4x4));
 
-            Assert.IsInstanceOfType(newMessage["Message"].First, typeof(Message));
+            Assert.IsInstanceOfType(newMessage["InnerMessage2"].First, typeof(Message));
 
 
         }

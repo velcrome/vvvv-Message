@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="0" scrolly="2865">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="4590" scrolly="0">
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="2835" top="11250" width="3975" height="270">
    </BOUNDS>
@@ -64,7 +64,7 @@
    </NODE>
    <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="1" dstpinname="Use as ID">
    </LINK>
-   <BOUNDS type="Window" left="25080" top="-570" width="29040" height="16260">
+   <BOUNDS type="Window" left="480" top="1140" width="29040" height="16260">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
