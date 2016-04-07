@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="7836" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="3420" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.0.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="30" systemname="IOBox (String)">
    <BOUNDS type="Node" left="270" top="231" width="6600" height="1056">
@@ -1100,4 +1100,6 @@
    </LINK>
    <LINK srcnodeid="36" srcpinname="Output" dstnodeid="10" dstpinname="Update">
    </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

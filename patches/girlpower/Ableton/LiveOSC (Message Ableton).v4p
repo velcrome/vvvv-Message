@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
-   <BOUNDS type="Window" left="6030" top="2685" width="13050" height="15150">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p" scrollx="0" scrolly="5775" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
+   <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="4800" top="2250" width="2235" height="270">
@@ -19,9 +19,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5460" top="1290" width="795" height="240">
+   <BOUNDS type="Box" left="5325" top="1185" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5460" top="1290" width="0" height="0">
+   <BOUNDS type="Node" left="5325" top="1185" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="9001">
    </PIN>
@@ -133,7 +133,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="11400" top="11865" width="7935" height="8355">
+   <BOUNDS type="Box" left="11400" top="11865" width="7740" height="5205">
    </BOUNDS>
    <BOUNDS type="Node" left="11400" top="11865" width="0" height="0">
    </BOUNDS>
@@ -143,11 +143,11 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="5">
+   <PIN pinname="Rows" slicecount="1" values="3">
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Columns" slicecount="1" values="3">
+   <PIN pinname="Columns" slicecount="1" values="2">
    </PIN>
    <PIN pinname="Input String" visible="1" slicecount="13" values="|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|,|string Name, int TrackId|">
    </PIN>
@@ -523,9 +523,9 @@
    <LINK srcnodeid="359" srcpinname="Unrecognized OSC" dstnodeid="252" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="420" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="2265" top="6975" width="795" height="240">
+   <BOUNDS type="Box" left="2280" top="6975" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2265" top="6975" width="0" height="0">
+   <BOUNDS type="Node" left="2280" top="6975" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Meter">
    </PIN>
@@ -559,9 +559,9 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="422" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="6225" top="7620" width="795" height="240">
+   <BOUNDS type="Box" left="3225" top="8100" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="6225" top="7620" width="0" height="0">
+   <BOUNDS type="Node" left="3225" top="8100" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Tracks">
    </PIN>
@@ -569,9 +569,9 @@
    <LINK srcnodeid="333" srcpinname="Tracks" dstnodeid="422" dstpinname="Input Node">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="423" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="4245" top="6975" width="795" height="240">
+   <BOUNDS type="Box" left="5235" top="8145" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="4245" top="6975" width="0" height="0">
+   <BOUNDS type="Node" left="5235" top="8145" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="DeviceParams">
    </PIN>
@@ -579,9 +579,9 @@
    <LINK srcnodeid="250" srcpinname="DeviceParams" dstnodeid="423" dstpinname="Input Node">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="424" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="3285" top="6975" width="735" height="240">
+   <BOUNDS type="Box" left="4275" top="8145" width="735" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="3285" top="6975" width="0" height="0">
+   <BOUNDS type="Node" left="4275" top="8145" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Devices">
    </PIN>
