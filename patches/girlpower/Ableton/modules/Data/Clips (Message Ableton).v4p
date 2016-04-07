@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Clips (Message Ableton).v4p" systemname="Clips (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Clips (Message Ableton).v4p" scrollx="0" scrolly="660">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\Clips (Message Ableton).v4p" systemname="Clips (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Clips (Message Ableton).v4p" scrollx="0" scrolly="120">
    <NODE systemname="FromOscMessage (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOscMessage (Message Raw)" componentmode="InAWindow" id="0">
    <BOUNDS type="Node" left="1500" top="5520" width="100" height="100">
    </BOUNDS>
@@ -21,7 +21,7 @@
    </PIN>
    <PIN pinname="Unrecognized Input" visible="1">
    </PIN>
-   <PIN pinname="Use Fields" visible="1">
+   <PIN pinname="Use Fields" visible="1" slicecount="3" values="TrackId,ClipId,Warping">
    </PIN>
    <PIN pinname="Use Fields Bin Size" visible="1" pintype="Input" slicecount="1" values="-1">
    </PIN>
@@ -369,7 +369,7 @@
    </PIN>
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
-   <PIN pinname="Input String" visible="1" slicecount="30" values="TrackId,ClipId,Name,TrackId,ClipId,Play,TrackId,ClipId,Signature,TrackId,ClipId,Pitch,TrackId,ClipId,Position,Length,LoopStart,LoopEnd,TrackId,ClipId,LoopState,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd">
+   <PIN pinname="Input String" visible="1" slicecount="30" values="TrackId,ClipId,Name,TrackId,ClipId,Play,TrackId,ClipId,Signature,TrackId,ClipId,Pitch,TrackId,ClipId,Position,Length,LoopStart,LoopEnd,TrackId,ClipId,LoopState,TrackId,ClipId,LoopEnd,TrackId,ClipId,LoopEnd,TrackId,ClipId,Warping">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -393,7 +393,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="15990" top="1980" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="3" visible="1" values="TrackId,ClipId,LoopEnd">
+   <PIN pinname="Input Enum" slicecount="3" visible="1" values="TrackId,ClipId,Warping">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="3">
    </PIN>
@@ -1230,8 +1230,6 @@
    </NODE>
    <LINK srcnodeid="78" srcpinname="Output String" dstnodeid="75" dstpinname="Topic">
    </LINK>
-   <LINK srcnodeid="23" srcpinname="Enum" dstnodeid="0" dstpinname="Use Fields">
-   </LINK>
    <LINK srcnodeid="35" srcpinname="Output Enum" dstnodeid="34" dstpinname="Use Fields">
    </LINK>
    <LINK srcnodeid="53" srcpinname="Output Enum" dstnodeid="52" dstpinname="Use Fields">
@@ -1287,5 +1285,7 @@
    <LINK srcnodeid="62" srcpinname="Down Edge" dstnodeid="68" dstpinname="Update">
    </LINK>
    <LINK srcnodeid="0" srcpinname="Success" dstnodeid="79" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="23" srcpinname="Enum" dstnodeid="0" dstpinname="Use Fields">
    </LINK>
    </PATCH>

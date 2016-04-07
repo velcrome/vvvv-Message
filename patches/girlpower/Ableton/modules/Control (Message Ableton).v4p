@@ -65,9 +65,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="8" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="5670" top="4470" width="1470" height="270">
+   <BOUNDS type="Box" left="7755" top="2820" width="1470" height="270">
    </BOUNDS>
-   <BOUNDS type="Node" left="5670" top="4470" width="0" height="0">
+   <BOUNDS type="Node" left="7755" top="2820" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="LiveOSC.Control">
    </PIN>
@@ -221,9 +221,9 @@
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="33" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="15" top="1650" width="1590" height="270">
+   <BOUNDS type="Box" left="1860" top="135" width="1590" height="270">
    </BOUNDS>
-   <BOUNDS type="Node" left="15" top="1650" width="0" height="0">
+   <BOUNDS type="Node" left="1860" top="135" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="LiveOSC.Live">
    </PIN>
@@ -401,7 +401,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6840" top="15" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="7">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -411,7 +411,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Quantization">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="4">
+   <PIN pinname="X Input Value" slicecount="1" values="6">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
@@ -431,7 +431,7 @@
    </BOUNDS>
    <PIN pinname="Topic" slicecount="1" values="live">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|bool Undo, bool Redo, bool Stop, bool Play, bool Play.Continue, bool Prev.Cue, bool Next.Cue, bool Play.Selection|">
+   <PIN pinname="Configuration" slicecount="1" values="|bool Undo, bool Redo, bool Stop, bool Play, bool Play.Continue, bool Play.Selection, bool Prev.Cue, bool Next.Cue|">
    </PIN>
    <PIN pinname="redo Bin Size" visible="1" slicecount="1" values="1">
    </PIN>
@@ -447,7 +447,7 @@
    </PIN>
    <PIN pinname="AutoSense" slicecount="1" visible="1" pintype="Input" values="1">
    </PIN>
-   <BOUNDS type="Window" left="21780" top="7500" width="7260" height="7605">
+   <BOUNDS type="Window" left="2715" top="6300" width="7260" height="7605">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
@@ -470,6 +470,8 @@
    <PIN pinname="Play.Continue" visible="1">
    </PIN>
    <PIN pinname="Update" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Play.Selection" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="8" srcpinname="Output Enum" dstnodeid="2" dstpinname="Message Formular" hiddenwhenlocked="1">
@@ -540,4 +542,28 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="49" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="11025" top="4245" width="285" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11025" top="4245" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Play.Selection">
+   </PIN>
+   <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="49" srcpinname="Y Output Value" dstnodeid="2" dstpinname="Play.Selection">
+   </LINK>
    </PATCH>

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_45beta34.2_x64\packs\vvvv-Message\nodes\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="Timing (Debug)" nodename="Timing (Debug)" componentmode="Hidden" id="7">
@@ -243,7 +243,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4245" top="11550" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="18510" top="480" width="6240" height="5085">
+   <BOUNDS type="Window" left="17490" top="6435" width="7545" height="5085">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -642,6 +642,14 @@
    <PIN pinname="Stop" visible="1">
    </PIN>
    <PIN pinname="Play" visible="1">
+   </PIN>
+   <PIN pinname="Quantization" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Play.Continue" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Prev.Cue" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Next.Cue" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="40" systemname="IOBox (Value Advanced)">
