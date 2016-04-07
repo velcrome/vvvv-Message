@@ -129,7 +129,7 @@ namespace VVVV.Packs.Messaging
         {
             List<Message> changes = null;
 
-            foreach (var message in Messages) message.Sync(); // will inform all subscribers of the message about changes.
+            foreach (var message in Messages) message.Sync(); // will inform all subscribers of the message about the imprint of all changes
 
             if (!QuickMode)
                 changes = new List<Message>(Changes.Values);
@@ -162,7 +162,6 @@ namespace VVVV.Packs.Messaging
             }
             else
             {
-//                Changes.Add(message, message);
                 Changes.Add(message, message.Clone() as Message);  // to clone or not to clone...
                 message.ChangedWithDetails += MessageChangedWithDetails;
             }

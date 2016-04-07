@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageFormular // : IEnumerable<FormularFieldDescriptor>, IEnumerable
+    public class MessageFormular
     {
-        public static string DYNAMIC = "None";
+        public const string DYNAMIC = "None";
 
-        public static ISet<string> ForbiddenNames = new HashSet<string> ( new[]{"", "ID", "Output", "Input", "Message", "Keep"} ); // These names are likely to be pin names
-        
         private Dictionary<string, FormularFieldDescriptor> dict = new Dictionary<string, FormularFieldDescriptor>();
 
         public string Name { get; set; }
@@ -44,6 +39,8 @@ namespace VVVV.Packs.Messaging
             }
             set {
                 if (value == null) throw new ArgumentNullException("FormularFieldDescriptor");
+                if (string.IsNullOrWhiteSpace(name)) throw new IndexOutOfRangeException("Empty strings cannot identify a field in a Formular.");
+
                 dict[name] = (FormularFieldDescriptor)value; 
             }
         }
@@ -92,18 +89,29 @@ namespace VVVV.Packs.Messaging
             foreach (var field in fields)
             {
 //                var f = field.Clone() as FormularFieldDescriptor;
-//                f.IsRequired = true;
                 dict[field.Name] = field;
             }
         }
 
-        public void Append(MessageFormular fresh, bool IsRequired)
+        /// <summary>Appends a field to an existing Formular, with extensive type checking.</summary>
+        /// <param name="field">The field to be added</param>
+        /// <param name="isRequired">A bool indicating if the registry should skip informing interested parties about this change.</param>
+        /// <exception cref="DuplicateFieldException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
+        public bool Append(FormularFieldDescriptor field, bool isRequired) 
         {
-            foreach (var field in fresh.FieldDescriptors)
+            if (!dict.ContainsKey(field.Name))
+            {
                 dict[field.Name] = field;
+                return true;
+            }
+            else
+            {
+                if (!dict[field.Name].Equals(field))
+                    throw new DuplicateFieldException("Cannot add new Field \"" + field.ToString() + "\" to Formular [" + this.Name + "]. Field is already defined as \"" + dict[field.Name].ToString() + "\".", field, dict[field.Name]);
+            }
+            return false;
         }
 
-       
         public override string ToString()
         {
             return Configuration;

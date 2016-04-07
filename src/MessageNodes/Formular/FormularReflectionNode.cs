@@ -62,9 +62,10 @@ namespace VVVV.Packs.Messaging.Nodes
                 FFieldName[i].SliceCount = 0;
                 
                 var formularName = FFormular[i].Name;
-                if (registry.ContainsKey(formularName))
+                var def = registry[formularName];
+                if (def != null)
                 {
-                    var descriptors = registry[formularName].FieldDescriptors;
+                    var descriptors = def.FieldDescriptors;
 
                     FFieldName[i].AssignFrom(from field in descriptors select field.Name);
 

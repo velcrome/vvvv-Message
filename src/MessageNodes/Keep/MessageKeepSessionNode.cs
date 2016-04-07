@@ -19,9 +19,9 @@ namespace VVVV.Packs.Messaging.Nodes
     public class TypableMessageSessionNode : TypableMessageKeepNode
     {
         #region fields & pins
-
-        [Input("Retain Time", IsSingle = true, DefaultValue = -1.0, Order = 3)]
+        [Input("Retain Time", IsSingle = true, DefaultValue = -1.0, Order = 4)]
         public ISpread<double> FTime;
+
 
         [Output("Removed Messages", AutoFlush = false, Order = 2)]
         public ISpread<Message> FRemovedMessages;
@@ -35,17 +35,31 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var update = CheckReset();
 
+            // early sync only, when not interested in input changes
+            if (!ManageAllChanges && UpKeep(update)) update = true;
 
-            if (!FInput.IsAnyInvalid())
+            if (!FInput.IsAnyInvalid() && FInput.IsChanged)
                 foreach (var message in FInput)
                 {
                     var found = MatchOrInsert(message);
+                    if (found != null) update = true;
                 }
+
 
             if (RemoveOld()) update = true;
 
-            if (UpKeep(update)) update = true;  
-           
+            if (ManageAllChanges)
+            {
+                if (UpKeep(update)) update = true;
+
+            }
+            else {
+                var change = Keep.Sync(); // not interested input changes, so sync right away
+                if (change != null && change.Count() > 0) update = true;
+
+                if (update) SetKeepToOutput(); // manually flush again
+            }
+
             // add all additional id fields to the changed message
             if (update && !Keep.QuickMode)
             {
@@ -73,7 +87,7 @@ namespace VVVV.Packs.Messaging.Nodes
             // inject all incoming messages and keep a list of all
             var idFields = from fieldName in FUseAsID
                            select fieldName.Name;
-            
+
             var match = MatchByField(message, idFields);
 
             if (match == null)
@@ -90,16 +104,30 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected Message MatchByField(Message message, IEnumerable<string> idFields)
         {
-            var compatibleBins = idFields.Intersect(message.Fields).ToArray();
+            // make sure all messages have the field
+            var missingFields = from fieldName in idFields.Distinct()
+                                where fieldName != TOPIC
+                                where !message.Fields.Contains(fieldName)
+                                select fieldName;
+            foreach (var fieldName in missingFields) message[fieldName] = BinFactory.New(Formular[fieldName].Type);
+
+            var bins = (
+                                    from fieldName in idFields.Distinct()
+                                    where fieldName != TOPIC
+//                                    where message.Fields.Contains(fieldName)
+                                    select fieldName
+                                 ).ToArray();
+
             bool includeTopic = idFields.Contains(TOPIC);
-            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
+
+//            bool isCompatible = compatibleBins.Count() == idFields.Distinct().Count() - (includeTopic ? 1 : 0);
 
             var match = (
                            from keep in Keep
-                           where isCompatible
+ //                          where isCompatible
                            where !includeTopic || keep.Topic.Equals(message.Topic)
-                           where compatibleBins.Length == 0 || (
-                                    from fieldName in compatibleBins
+                           where bins.Length == 0 || (
+                                    from fieldName in bins
                                     select (keep[fieldName] as Bin).Equals(message[fieldName] as Bin)
                                 ).All(x => x)
                            select keep

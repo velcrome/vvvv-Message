@@ -107,7 +107,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             var remove =  (
                                 from field in prev
-                                where (field.Descriptor == null) || !(formular.FieldDescriptors.Contains(field.Descriptor))
+                                where !(field.IsFaulty && field.CanEdit)
+                                where field.IsEmpty || !(formular.FieldDescriptors.Contains(field.Descriptor))
                                 select field
                           ).ToList();
 

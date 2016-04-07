@@ -38,6 +38,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex">
       <HintPath>..\packages\VVVV.System.ComponentModel.Composition.Codeplex.2.5.0\lib\net40\System.ComponentModel.Composition.CodePlex.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -55,7 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OSCNodes.cs" />
+    <Compile Include="BundleOSCNode.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="OSCDecoderNode.cs" />
+    <Compile Include="UnbundleOSCNode.cs" />
+    <Compile Include="SiftNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

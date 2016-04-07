@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -10,9 +8,10 @@ namespace VVVV.Packs.Messaging.Nodes
     public abstract class TypableMessageKeepNode : AbstractMessageKeepNode
     {
         public const string TOPIC = "Topic";
-
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
+
+        protected MessageFormular Formular = new MessageFormular("", "temp");
 
         public override void OnImportsSatisfied()
         {
@@ -47,8 +46,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            var form = new MessageFormular(configSpread[0], "temp");
-            FillEnum(form.FieldNames.ToArray());
+            Formular = new MessageFormular(configSpread[0], "temp");
+            FillEnum(Formular.FieldNames.ToArray());
         }
 
         protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)

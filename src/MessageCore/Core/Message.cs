@@ -1,18 +1,21 @@
 #region usings
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Linq;
+using VVVV.Packs.Time;
+using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging
-{
+namespace VVVV.Packs.Messaging {
+    using Time = VVVV.Packs.Time.Time;
+
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
 	
@@ -20,8 +23,6 @@ namespace VVVV.Packs.Messaging
     [JsonConverter(typeof(JsonMessageSerializer))]
 	public class Message : ICloneable //, ISerializable
     {
-        protected Regex NameParser = new Regex(@"^([\w\._-]+?)$");
-
         #region Properties and FieldNames
         // Access to the the inner Data.
         public IEnumerable<string> Fields
@@ -38,12 +39,13 @@ namespace VVVV.Packs.Messaging
             }
             set
             {
+                // todo: validate topic to be namespace-syntax
                 _isTopicChanged = true;
                 _topic = value;
             }
 		}
 
-        public VVVV.Packs.Time.Time TimeStamp
+        public Time TimeStamp
         {
             get;
             set;
@@ -60,13 +62,13 @@ namespace VVVV.Packs.Messaging
         public Message()
         {
             Topic = "vvvv";
-            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+            TimeStamp = Time.CurrentTime(); // init with local timezone
         }
 
         public Message(string topic)
         {
             Topic = topic;
-            TimeStamp = Time.Time.CurrentTime(); // init with local timezone
+            TimeStamp = Time.CurrentTime(); // init with local timezone
         }
 
        
@@ -106,17 +108,28 @@ namespace VVVV.Packs.Messaging
             AddFrom(name, values);
         }
 
-        public void AssignFrom(string name, IEnumerable en)
+        public void AssignFrom(string name, IEnumerable en, Type type = null)
         {
+            if (!FormularFieldDescriptor.IsValidFieldName(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
 
-            if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
-            
-            var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
+            if (type == null)
+            {
+                var gen = en.GetType().GenericTypeArguments;
 
-            var type = TypeIdentity.Instance.FindBaseType(obj.GetType());
-            if (type == null) type =  TypeIdentity.Instance.FindBaseType(en.GetType().GenericTypeArguments[0]);
+                // in case en is not generic, pick the first one and reflect
+                if (gen == null || gen.Count() != 1)
+                {
+                    var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
+                    type = obj.GetType();
+                }
+                else type = en.GetType().GenericTypeArguments[0];
+            }
 
-            if (!Data.ContainsKey(name) || ((type != null) && (type != Data[name].GetInnerType())))
+            type = TypeIdentity.Instance.FindBaseType(type); // break it down.
+
+            if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + name + "] failed, type is not supported: " + this.Topic);
+
+            if (!Data.ContainsKey(name) || type != Data[name].GetInnerType())
             {
                 Data.Remove(name);
                 Data.Add(name, BinFactory.New(type));
@@ -128,7 +141,7 @@ namespace VVVV.Packs.Messaging
 
             foreach (object o in en)
             {
-                Data[name].Add(o); // implicit cast
+                Data[name].Add(o); // implicit conversion
             }
         }
 
@@ -142,15 +155,30 @@ namespace VVVV.Packs.Messaging
             {
                 foreach (object o in en)
                 {
-                    Data[name].Add(o); // implicit cast
+                    Data[name].Add(o); // implicit conversion
                 }
             }
         }
 
-        public void Remove(string name)
+        public void Remove(string fieldname)
         {
-            Data.Remove(name);
+            Data.Remove(fieldname);
         }
+
+        public bool Rename(string fieldname, string newName, bool overwrite=false)
+        {
+            if (!overwrite && Data.ContainsKey(newName)) return false;
+            else
+            {
+                var bin = Data[fieldname];
+                Data[newName] = bin;
+                bin.IsDirty = true;
+
+                Remove(fieldname);
+            }
+            return true;
+        }
+
 
         #endregion
 
@@ -163,7 +191,7 @@ namespace VVVV.Packs.Messaging
 					else return null;				
 			} 
 			set {
-                if (!NameParser.IsMatch(name)) throw new Exception("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                if (!FormularFieldDescriptor.IsValidFieldName(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
                 Data[name] = (Bin) value; 
             }
 		}
@@ -212,7 +240,7 @@ namespace VVVV.Packs.Messaging
                     }
                     else
                     {
-                        throw new Exception("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
+                        throw new BinTypeMismatchException("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
                                             "> with Bin<" + TypeIdentity.Instance.FindAlias(newType) + "> implicitly.");
                     }
                 }
@@ -255,7 +283,7 @@ namespace VVVV.Packs.Messaging
             
             if (changedFields.Count > 0 || _isTopicChanged)
             {
-                TimeStamp = Time.Time.CurrentTime(); // timestamp always shows last Synced Change.
+                TimeStamp = Time.CurrentTime(); // timestamp always shows last Synced Change.
 
                 if (ChangedWithDetails != null) // for all subscribers with detailled interest
                 {
@@ -322,7 +350,7 @@ namespace VVVV.Packs.Messaging
                             var clone = ((ICloneable)list[i]).Clone();
                             newList.Add(clone);
                         }
-                    } else throw new Exception(type.FullName + " cannot be cloned nor copied, while cloning the message "+this.Topic);
+                    } else throw new SystemException(type.FullName + " cannot be cloned nor copied, while cloning the message "+this.Topic);
                 }
                 
                 m[name] = newList; // add list to new Message

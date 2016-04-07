@@ -17,6 +17,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import]
         protected IHDEHost FHDEHost;
 
+        [Import]
+        protected IPluginHost2 PluginHost;
+
         protected bool SkippedFirst;
 
         protected override void InitializeWindow()
@@ -25,6 +28,8 @@ namespace VVVV.Packs.Messaging.Nodes
             
             FWindow = new FormularLayoutPanel();
             Controls.Add(FWindow);
+            var reg = MessageFormularRegistry.Instance;
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
         }
 
         public override void OnImportsSatisfied()
@@ -35,8 +40,8 @@ namespace VVVV.Packs.Messaging.Nodes
             var reg = MessageFormularRegistry.Instance;
             reg.TypeChanged += FormularRemotelyChanged;
 
-            // dummy enum, will be populated from registry
-            EnumManager.UpdateEnum(reg.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
+            //// dummy enum, will be populated from registry
+            //EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
             FFormular.Changed += OnSelectFormular;
             ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
@@ -69,11 +74,20 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected virtual void OnSelectFormular(IDiffSpread<EnumEntry> spread)
         {
+            if (FFormular.IsAnyInvalid())
+            {
+                FLogger.Log(LogType.Warning, "["+ this.GetType().Name + "] - Select a Formular. ID = " + PluginHost.GetNodePath(false));
+                return;
+            }
+
             var formularName = FFormular[0].Name;
 
             if (formularName != MessageFormular.DYNAMIC)
             {
-                var formular = new MessageFormular(MessageFormularRegistry.Instance[formularName].FieldDescriptors, formularName);
+                var fromReg = MessageFormularRegistry.Instance[formularName];
+                if (fromReg == null) return;
+
+                var formular = new MessageFormular(fromReg.FieldDescriptors, formularName);
 
                 foreach (var field in formular.FieldDescriptors) field.IsRequired = false;
 
@@ -122,7 +136,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (append) {
                 var old = layoutPanel.Formular;
-                old.Append(formular, true);
+                foreach (var field in formular.FieldDescriptors)
+                    old.Append(field, true);
                 formular = old;
             }
             

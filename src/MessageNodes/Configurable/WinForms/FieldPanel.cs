@@ -56,6 +56,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (_isFaulty)
                 {
                     _descriptor = null;
+                    FToggle.Checked = false;
                 }
                 FToggle.Enabled = !_isFaulty;
                 }
@@ -90,7 +91,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                         Invalidate();
                     }
-                    else throw new ArgumentException("Will not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.", "IsEmpty");
+                    else throw new InvalidOperationException("Can not autofill FieldPanel. Feed a new FormularFieldDescriptor to fill FieldPanel instead.");
 
                 }
             }
@@ -106,6 +107,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     _canEdit = value;
                     FText.ReadOnly = !_canEdit;
+
+                if (IsFaulty && !_canEdit) IsEmpty = true;
                     Invalidate();
                 }
             }
@@ -255,15 +258,15 @@ namespace VVVV.Packs.Messaging.Nodes
                         Checked = true; 
                         IsFaulty = false;
 
-                        if (Change != null) Change(this, e);
-                }
-                catch (Exception)
+                    }
+                    catch (ParseFormularException)
                     {
                         IsFaulty = true;
                     }
-                }
-
+                    if (Change != null) Change(this, e);
             }
+
+        }
             #endregion change
 
             #region events
