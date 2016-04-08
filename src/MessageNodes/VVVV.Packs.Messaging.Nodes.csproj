@@ -121,6 +121,9 @@
     <Compile Include="Configurable\MessageAvoidNilNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Spread\SortByFieldNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Utils\MessageCloneNode.cs" />
     <Compile Include="Spread\MessageMergeNode.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />

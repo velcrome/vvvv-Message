@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\Devices (Message Ableton).v4p" systemname="Devices (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Devices (Message Ableton).v4p" scrollx="5235" scrolly="0">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\Devices (Message Ableton).v4p" systemname="Devices (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Devices (Message Ableton).v4p" scrollx="9195" scrolly="510">
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="2" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="7245" top="9615" width="795" height="240">
    </BOUNDS>
@@ -315,7 +315,7 @@
    <LINK srcnodeid="83" srcpinname="Output" dstnodeid="77" dstpinname="TrackId">
    </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="85">
-   <BOUNDS type="Node" left="12630" top="8385" width="100" height="100">
+   <BOUNDS type="Node" left="12600" top="8385" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
@@ -331,7 +331,7 @@
    </PIN>
    <PIN pinname="Use Fields Bin Size" slicecount="1" visible="1" pintype="Input" values="-1">
    </PIN>
-   <BOUNDS type="Box" left="12630" top="8385">
+   <BOUNDS type="Box" left="12600" top="8385">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="85" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
@@ -349,9 +349,9 @@
    <LINK srcnodeid="86" srcpinname="Output Enum" dstnodeid="85" dstpinname="Use Fields">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="87" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="12660" top="9930" width="795" height="240">
+   <BOUNDS type="Box" left="12600" top="9930" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="12660" top="9930" width="0" height="0">
+   <BOUNDS type="Node" left="12600" top="9930" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="OSC">
    </PIN>
@@ -393,7 +393,7 @@
    <LINK srcnodeid="89" srcpinname="Y Output Value" dstnodeid="88" dstpinname="Use Fields Bin Size">
    </LINK>
    <NODE systemname="Zip (Raw Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Raw Bin)" componentmode="Hidden" id="90">
-   <BOUNDS type="Node" left="12645" top="8835" width="3630" height="270">
+   <BOUNDS type="Node" left="12600" top="8835" width="3630" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -401,6 +401,8 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="12600" top="8835">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="85" srcpinname="OSC" dstnodeid="90" dstpinname="Input 1">
    </LINK>
@@ -792,4 +794,38 @@
    </LINK>
    <LINK srcnodeid="94" srcpinname="Argument Bin Size" dstnodeid="131" dstpinname="Input 2 Bin Size">
    </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="154">
+   <BOUNDS type="Node" left="12600" top="9255" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="12600" top="9255" width="4275" height="240">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="155">
+   <BOUNDS type="Node" left="12600" top="4860" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="12600" top="4860" width="4275" height="240">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="156" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="15000" top="9645" width="2190" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="15000" top="9645" width="1890" height="630">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|query all devices from all tracks|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
    </PATCH>

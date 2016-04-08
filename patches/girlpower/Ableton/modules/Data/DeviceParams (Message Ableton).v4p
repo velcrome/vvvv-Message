@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="4590" scrolly="0">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="0" scrolly="16170">
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="2835" top="11250" width="3975" height="270">
    </BOUNDS>
@@ -125,9 +125,9 @@
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Include input in Diff">
    </LINK>
    <NODE systemname="IOBox (Node)" nodename="IOBox (Node)" componentmode="InABox" id="35">
-   <BOUNDS type="Node" left="19275" top="12870" width="100" height="100">
+   <BOUNDS type="Node" left="16080" top="15015" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="19275" top="12870" width="795" height="240">
+   <BOUNDS type="Box" left="16080" top="15015" width="795" height="240">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Device">
    </PIN>
@@ -199,25 +199,15 @@
    </PIN>
    </NODE>
    <NODE systemname="Clone (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Clone (Message)" componentmode="Hidden" id="40">
-   <BOUNDS type="Node" left="19260" top="15345" width="100" height="100">
+   <BOUNDS type="Node" left="16095" top="17490" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="42" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="19965" top="14400" width="1590" height="270">
-   </BOUNDS>
-   <BOUNDS type="Node" left="19965" top="14400" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="LiveOSC.Devices">
-   </PIN>
-   <PIN pinname="Output Enum" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="45">
-   <BOUNDS type="Node" left="19275" top="15930" width="100" height="100">
+   <BOUNDS type="Node" left="16095" top="18045" width="3285" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -231,9 +221,9 @@
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="45" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="46" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="19965" top="15360" width="795" height="240">
+   <BOUNDS type="Box" left="18675" top="17730" width="855" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="19965" top="15360" width="0" height="0">
+   <BOUNDS type="Node" left="18675" top="17730" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="*master*">
    </PIN>
@@ -246,24 +236,8 @@
    </NODE>
    <LINK srcnodeid="46" srcpinname="Output String" dstnodeid="45" dstpinname="Filter">
    </LINK>
-   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="47">
-   <BOUNDS type="Node" left="20910" top="16305" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Message Formular" visible="1">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Topic" visible="1">
-   </PIN>
-   <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="42" srcpinname="Output Enum" dstnodeid="47" dstpinname="Message Formular">
-   </LINK>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="50">
-   <BOUNDS type="Node" left="18495" top="16665" width="100" height="100">
+   <BOUNDS type="Node" left="16110" top="18870" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -271,15 +245,15 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="16110" top="18870">
+   </BOUNDS>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="NotFound" dstnodeid="47" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="45" srcpinname="Output" dstnodeid="50" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="51" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="17475" top="16005" width="1485" height="255">
+   <BOUNDS type="Box" left="16320" top="18450" width="1485" height="255">
    </BOUNDS>
-   <BOUNDS type="Node" left="17475" top="16005" width="0" height="0">
+   <BOUNDS type="Node" left="16320" top="18450" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="live.master.device">
    </PIN>
@@ -293,7 +267,7 @@
    <LINK srcnodeid="51" srcpinname="Output String" dstnodeid="50" dstpinname="Topic">
    </LINK>
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="52">
-   <BOUNDS type="Node" left="19260" top="14445" width="100" height="100">
+   <BOUNDS type="Node" left="16095" top="16590" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -307,9 +281,9 @@
    <LINK srcnodeid="52" srcpinname="Output" dstnodeid="40" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="53" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="19575" top="13995" width="795" height="240">
+   <BOUNDS type="Box" left="16410" top="16140" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="19575" top="13995" width="0" height="0">
+   <BOUNDS type="Node" left="16410" top="16140" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="*.device">
    </PIN>
@@ -323,7 +297,7 @@
    <LINK srcnodeid="53" srcpinname="Output String" dstnodeid="52" dstpinname="Filter">
    </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="54">
-   <BOUNDS type="Node" left="18510" top="18345" width="100" height="100">
+   <BOUNDS type="Node" left="16125" top="20475" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
@@ -335,15 +309,17 @@
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="16125" top="20475">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="54" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="50" srcpinname="Output" dstnodeid="54" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="55" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="19815" top="17535" width="1005" height="675">
+   <BOUNDS type="Box" left="17430" top="19680" width="1005" height="675">
    </BOUNDS>
-   <BOUNDS type="Node" left="19815" top="17535" width="0" height="0">
+   <BOUNDS type="Node" left="17430" top="19680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="DeviceId">
    </PIN>
@@ -359,7 +335,7 @@
    <LINK srcnodeid="55" srcpinname="Output Enum" dstnodeid="54" dstpinname="Use Fields">
    </LINK>
    <NODE systemname="Zip (Raw Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Raw Bin)" componentmode="Hidden" id="56">
-   <BOUNDS type="Node" left="5685" top="19230" width="17700" height="270">
+   <BOUNDS type="Node" left="3300" top="20925" width="17700" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="1" values="||">
    </PIN>
@@ -379,7 +355,7 @@
    </PIN>
    </NODE>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="58">
-   <BOUNDS type="Node" left="21915" top="18150" width="100" height="100">
+   <BOUNDS type="Node" left="19335" top="20475" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1" slicecount="1" values="None">
    </PIN>
@@ -391,11 +367,13 @@
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="19335" top="20475">
+   </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="57" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="23595" top="17025" width="1005" height="675">
+   <BOUNDS type="Box" left="20640" top="19680" width="1005" height="675">
    </BOUNDS>
-   <BOUNDS type="Node" left="23595" top="17025" width="0" height="0">
+   <BOUNDS type="Node" left="20640" top="19680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,DeviceId">
    </PIN>
@@ -410,54 +388,8 @@
    </NODE>
    <LINK srcnodeid="57" srcpinname="Output Enum" dstnodeid="58" dstpinname="Use Fields">
    </LINK>
-   <NODE systemname="EQ (String)" nodename="EQ (String)" componentmode="Hidden" id="59">
-   <BOUNDS type="Node" left="22710" top="16845" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input 1" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Input 2" slicecount="1" values="live.return.device">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="47" srcpinname="Topic" dstnodeid="59" dstpinname="Input 1">
-   </LINK>
-   <NODE systemname="GetSlice (String)" nodename="GetSlice (String)" componentmode="Hidden" id="60">
-   <BOUNDS type="Node" left="22080" top="17265" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Index" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="59" srcpinname="Output" dstnodeid="60" dstpinname="Index">
-   </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="61" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="22080" top="15630" width="1530" height="825">
-   </BOUNDS>
-   <BOUNDS type="Node" left="22080" top="15630" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input String" slicecount="2" visible="1" values="live.device,live.return.device">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="text">
-   </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="61" srcpinname="Output String" dstnodeid="60" dstpinname="Input">
-   </LINK>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="62">
-   <BOUNDS type="Node" left="21855" top="17745" width="100" height="100">
+   <BOUNDS type="Node" left="19320" top="18870" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Topic" visible="1">
    </PIN>
@@ -465,15 +397,17 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="19320" top="18870">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="45" srcpinname="NotFound" dstnodeid="62" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="62" srcpinname="Output" dstnodeid="58" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="63" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="5670" top="20175" width="795" height="240">
+   <BOUNDS type="Box" left="3285" top="21870" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5670" top="20175" width="0" height="0">
+   <BOUNDS type="Node" left="3285" top="21870" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="OSC">
    </PIN>
@@ -481,7 +415,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="64">
-   <BOUNDS type="Node" left="19290" top="13410" width="100" height="100">
+   <BOUNDS type="Node" left="16095" top="15555" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Select" visible="1" slicecount="1" values="0">
    </PIN>
@@ -495,9 +429,9 @@
    <LINK srcnodeid="64" srcpinname="Output" dstnodeid="52" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="69" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="24585" top="15255" width="1635" height="405">
+   <BOUNDS type="Box" left="19560" top="18480" width="1155" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="24585" top="15255" width="0" height="0">
+   <BOUNDS type="Node" left="19560" top="18480" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="live.device">
    </PIN>
@@ -591,7 +525,7 @@
    <LINK srcnodeid="100" srcpinname="Output" dstnodeid="1" dstpinname="Input">
    </LINK>
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="101">
-   <BOUNDS type="Node" left="6045" top="14415" width="615" height="270">
+   <BOUNDS type="Node" left="3660" top="16110" width="615" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -601,7 +535,7 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="6045" top="14415">
+   <BOUNDS type="Box" left="3660" top="16110">
    </BOUNDS>
    <PIN pinname="Timestamp" visible="1">
    </PIN>
@@ -609,17 +543,17 @@
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="101" dstpinname="Message Formular" hiddenwhenlocked="1">
    </LINK>
    <NODE systemname="Clone (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Clone (Message)" componentmode="Hidden" id="103">
-   <BOUNDS type="Node" left="5730" top="13995" width="100" height="100">
+   <BOUNDS type="Node" left="3345" top="15690" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="5730" top="13995">
+   <BOUNDS type="Box" left="3345" top="15690">
    </BOUNDS>
    </NODE>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="104">
-   <BOUNDS type="Node" left="5730" top="13590" width="100" height="100">
+   <BOUNDS type="Node" left="3345" top="15285" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -627,7 +561,7 @@
    </PIN>
    <PIN pinname="Select" visible="1" slicecount="1" values="0">
    </PIN>
-   <BOUNDS type="Box" left="5730" top="13590">
+   <BOUNDS type="Box" left="3345" top="15285">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="104" dstpinname="Input">
@@ -637,7 +571,7 @@
    <LINK srcnodeid="103" srcpinname="Output" dstnodeid="101" dstpinname="Input">
    </LINK>
    <NODE systemname="Sift (String)" nodename="Sift (String)" componentmode="Hidden" id="110">
-   <BOUNDS type="Node" left="6045" top="15345" width="100" height="100">
+   <BOUNDS type="Node" left="3660" top="17040" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Filter" visible="1">
    </PIN>
@@ -649,9 +583,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="111" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7350" top="14430" width="795" height="240">
+   <BOUNDS type="Box" left="4965" top="16125" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7350" top="14430" width="0" height="0">
+   <BOUNDS type="Node" left="4965" top="16125" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="track">
    </PIN>
@@ -667,7 +601,7 @@
    <LINK srcnodeid="101" srcpinname="Topic" dstnodeid="110" dstpinname="Input">
    </LINK>
    <NODE systemname="Switch (String Input)" nodename="Switch (String Input)" componentmode="Hidden" id="113">
-   <BOUNDS type="Node" left="6045" top="16605" width="585" height="270">
+   <BOUNDS type="Node" left="3660" top="18300" width="585" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -681,9 +615,9 @@
    <LINK srcnodeid="110" srcpinname="Hits" dstnodeid="113" dstpinname="Switch">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="114" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7095" top="15885" width="1830" height="255">
+   <BOUNDS type="Box" left="4710" top="17580" width="1830" height="255">
    </BOUNDS>
-   <BOUNDS type="Node" left="7095" top="15885" width="0" height="0">
+   <BOUNDS type="Node" left="4710" top="17580" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="live.device.range">
    </PIN>
@@ -697,7 +631,7 @@
    <LINK srcnodeid="114" srcpinname="Output String" dstnodeid="113" dstpinname="Input 2">
    </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="115">
-   <BOUNDS type="Node" left="6315" top="15900" width="100" height="100">
+   <BOUNDS type="Node" left="3930" top="17595" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Intersperse" slicecount="1" visible="1" values="Dot">
    </PIN>
@@ -709,9 +643,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="116" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="6690" top="15345" width="690" height="285">
+   <BOUNDS type="Box" left="4305" top="17040" width="690" height="285">
    </BOUNDS>
-   <BOUNDS type="Node" left="6690" top="15345" width="0" height="0">
+   <BOUNDS type="Node" left="4305" top="17040" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="Dot">
    </PIN>
@@ -723,7 +657,7 @@
    <LINK srcnodeid="115" srcpinname="Output" dstnodeid="113" dstpinname="Input 1">
    </LINK>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="117">
-   <BOUNDS type="Node" left="5730" top="17025" width="720" height="270">
+   <BOUNDS type="Node" left="3345" top="18870" width="720" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -731,7 +665,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="5730" top="17025">
+   <BOUNDS type="Box" left="3345" top="18870">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="103" srcpinname="Output" dstnodeid="117" dstpinname="Input">
@@ -739,7 +673,7 @@
    <LINK srcnodeid="113" srcpinname="Output" dstnodeid="117" dstpinname="Topic">
    </LINK>
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="118">
-   <BOUNDS type="Node" left="5730" top="17400" width="3240" height="270">
+   <BOUNDS type="Node" left="3345" top="19245" width="3240" height="270">
    </BOUNDS>
    <PIN pinname="Filter" slicecount="1" visible="1" values="*master*">
    </PIN>
@@ -747,7 +681,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="5730" top="17400">
+   <BOUNDS type="Box" left="3345" top="19245">
    </BOUNDS>
    <PIN pinname="NotFound" visible="1">
    </PIN>
@@ -755,7 +689,7 @@
    <LINK srcnodeid="117" srcpinname="Output" dstnodeid="118" dstpinname="Input">
    </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="119">
-   <BOUNDS type="Node" left="8910" top="18780" width="100" height="100">
+   <BOUNDS type="Node" left="6525" top="20475" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
@@ -765,7 +699,7 @@
    </PIN>
    <PIN pinname="Use Fields" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="8910" top="18780">
+   <BOUNDS type="Box" left="6525" top="20475">
    </BOUNDS>
    <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
@@ -775,9 +709,9 @@
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="119" dstpinname="Message Formular" hiddenwhenlocked="1">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="120" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="10200" top="17955" width="1005" height="675">
+   <BOUNDS type="Box" left="7815" top="19680" width="1005" height="675">
    </BOUNDS>
-   <BOUNDS type="Node" left="10200" top="17955" width="0" height="0">
+   <BOUNDS type="Node" left="7815" top="19680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="3" visible="1" values="TrackId,DeviceId,ParamId">
    </PIN>
@@ -795,7 +729,7 @@
    <LINK srcnodeid="118" srcpinname="NotFound" dstnodeid="119" dstpinname="Input">
    </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="122">
-   <BOUNDS type="Node" left="5685" top="18780" width="100" height="100">
+   <BOUNDS type="Node" left="3300" top="20475" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Formular" visible="1" slicecount="1" values="None">
    </PIN>
@@ -805,7 +739,7 @@
    </PIN>
    <PIN pinname="Use Fields" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="5685" top="18780">
+   <BOUNDS type="Box" left="3300" top="20475">
    </BOUNDS>
    <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
@@ -813,9 +747,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="121" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="7005" top="17940" width="1005" height="675">
+   <BOUNDS type="Box" left="4620" top="19680" width="1005" height="675">
    </BOUNDS>
-   <BOUNDS type="Node" left="7005" top="17940" width="0" height="0">
+   <BOUNDS type="Node" left="4620" top="19680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="2" visible="1" values="DeviceId,ParamId">
    </PIN>
@@ -893,9 +827,9 @@
    <LINK srcnodeid="92" srcpinname="Output 3" dstnodeid="91" dstpinname="Name">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="137" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="8160" top="17100" width="795" height="240">
+   <BOUNDS type="Box" left="5775" top="18870" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="8160" top="17100" width="0" height="0">
+   <BOUNDS type="Node" left="5775" top="18870" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="*master*">
    </PIN>
@@ -1023,7 +957,7 @@
    </PIN>
    </NODE>
    <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="148">
-   <BOUNDS type="Node" left="12720" top="13125" width="100" height="100">
+   <BOUNDS type="Node" left="9735" top="15735" width="1050" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1033,13 +967,15 @@
    </PIN>
    <PIN pinname="Match" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="9735" top="15735">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Message Diff" dstnodeid="148" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="149" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="13695" top="12585" width="795" height="240">
+   <BOUNDS type="Box" left="10695" top="15390" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="13695" top="12585" width="0" height="0">
+   <BOUNDS type="Node" left="10695" top="15390" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="Value">
    </PIN>
@@ -1053,7 +989,7 @@
    <LINK srcnodeid="149" srcpinname="Output String" dstnodeid="148" dstpinname="Field Names">
    </LINK>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="150">
-   <BOUNDS type="Node" left="12705" top="13485" width="1050" height="270">
+   <BOUNDS type="Node" left="9735" top="16095" width="1050" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1061,13 +997,15 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="9735" top="16095">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="148" srcpinname="Output" dstnodeid="150" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="148" srcpinname="Match" dstnodeid="150" dstpinname="Select">
    </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="151">
-   <BOUNDS type="Node" left="12120" top="18690" width="1365" height="270">
+   <BOUNDS type="Node" left="9735" top="20475" width="1365" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1079,9 +1017,11 @@
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="9735" top="20475">
+   </BOUNDS>
    </NODE>
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="152">
-   <BOUNDS type="Node" left="12960" top="13935" width="100" height="100">
+   <BOUNDS type="Node" left="9735" top="16545" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1091,13 +1031,15 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="9735" top="16545">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="150" srcpinname="Output" dstnodeid="152" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="152" dstpinname="Message Formular" hiddenwhenlocked="1">
    </LINK>
    <NODE systemname="Sift (String)" nodename="Sift (String)" componentmode="Hidden" id="153">
-   <BOUNDS type="Node" left="12990" top="14430" width="100" height="100">
+   <BOUNDS type="Node" left="9990" top="17715" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1111,9 +1053,9 @@
    <LINK srcnodeid="152" srcpinname="Topic" dstnodeid="153" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="154" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="14070" top="13950" width="795" height="240">
+   <BOUNDS type="Box" left="10185" top="17340" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="14070" top="13950" width="0" height="0">
+   <BOUNDS type="Node" left="10185" top="17340" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="track">
    </PIN>
@@ -1127,7 +1069,7 @@
    <LINK srcnodeid="154" srcpinname="Output String" dstnodeid="153" dstpinname="Filter">
    </LINK>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="155">
-   <BOUNDS type="Node" left="12705" top="15450" width="100" height="100">
+   <BOUNDS type="Node" left="9735" top="18870" width="555" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1135,11 +1077,13 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="9735" top="18870">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="150" srcpinname="Output" dstnodeid="155" dstpinname="Input">
    </LINK>
    <NODE systemname="Switch (String Input)" nodename="Switch (String Input)" componentmode="Hidden" id="157">
-   <BOUNDS type="Node" left="12990" top="14955" width="1305" height="270">
+   <BOUNDS type="Node" left="9990" top="18180" width="1305" height="270">
    </BOUNDS>
    <PIN pinname="Switch" visible="1">
    </PIN>
@@ -1153,13 +1097,15 @@
    <LINK srcnodeid="153" srcpinname="Hits" dstnodeid="157" dstpinname="Switch">
    </LINK>
    <LINK srcnodeid="152" srcpinname="Topic" dstnodeid="157" dstpinname="Input 1">
+   <LINKPOINT x="10950" y="17430">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="157" srcpinname="Output" dstnodeid="155" dstpinname="Topic">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="158" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="14145" top="14370" width="795" height="240">
+   <BOUNDS type="Box" left="11235" top="17895" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="14145" top="14370" width="0" height="0">
+   <BOUNDS type="Node" left="11235" top="17895" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="live.device">
    </PIN>
@@ -1173,7 +1119,7 @@
    <LINK srcnodeid="158" srcpinname="Output String" dstnodeid="157" dstpinname="Input 2">
    </LINK>
    <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="159">
-   <BOUNDS type="Node" left="12705" top="15945" width="2250" height="270">
+   <BOUNDS type="Node" left="9735" top="19245" width="3240" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1183,13 +1129,15 @@
    </PIN>
    <PIN pinname="NotFound" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="9735" top="19245">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="155" srcpinname="Output" dstnodeid="159" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="159" srcpinname="Output" dstnodeid="151" dstpinname="Input">
    </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="160">
-   <BOUNDS type="Node" left="15495" top="18165" width="1365" height="270">
+   <BOUNDS type="Node" left="12915" top="20475" width="1365" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1201,13 +1149,15 @@
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
+   <BOUNDS type="Box" left="12915" top="20475">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="159" srcpinname="NotFound" dstnodeid="160" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="161" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="13545" top="15540" width="795" height="240">
+   <BOUNDS type="Box" left="12300" top="18870" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="13545" top="15540" width="0" height="0">
+   <BOUNDS type="Node" left="12300" top="18870" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="*master*">
    </PIN>
@@ -1225,9 +1175,9 @@
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="160" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="162" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="13095" top="16995" width="1005" height="675">
+   <BOUNDS type="Box" left="10785" top="19680" width="1005" height="675">
    </BOUNDS>
-   <BOUNDS type="Node" left="13095" top="16995" width="0" height="0">
+   <BOUNDS type="Node" left="10785" top="19680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="3" visible="1" values="DeviceId,ParamId,Value">
    </PIN>
@@ -1245,9 +1195,9 @@
    <LINK srcnodeid="151" srcpinname="OSC" dstnodeid="56" dstpinname="Input 3">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="163" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="17040" top="17280" width="1005" height="675">
+   <BOUNDS type="Box" left="14250" top="19680" width="1005" height="675">
    </BOUNDS>
-   <BOUNDS type="Node" left="17040" top="17280" width="0" height="0">
+   <BOUNDS type="Node" left="14250" top="19680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="4" visible="1" values="TrackId,DeviceId,ParamId,Value">
    </PIN>
@@ -1807,9 +1757,9 @@
    <LINK srcnodeid="203" srcpinname="Enum" dstnodeid="36" dstpinname="Use Fields">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="204" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7725" top="15255" width="795" height="240">
+   <BOUNDS type="Box" left="5340" top="16950" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7725" top="15255" width="0" height="0">
+   <BOUNDS type="Node" left="5340" top="16950" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="range">
    </PIN>
@@ -1831,7 +1781,7 @@
    <LINK srcnodeid="190" srcpinname="Output" dstnodeid="36" dstpinname="Topic">
    </LINK>
    <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="212">
-   <BOUNDS type="Node" left="5250" top="12525" width="100" height="100">
+   <BOUNDS type="Node" left="3345" top="14085" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1843,7 +1793,7 @@
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="212" dstpinname="Input">
    </LINK>
    <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="213">
-   <BOUNDS type="Node" left="6210" top="12840" width="100" height="100">
+   <BOUNDS type="Node" left="3825" top="14535" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1853,7 +1803,7 @@
    <LINK srcnodeid="212" srcpinname="Match" dstnodeid="213" dstpinname="Input">
    </LINK>
    <NODE systemname="AND (Boolean)" nodename="AND (Boolean)" componentmode="Hidden" id="214">
-   <BOUNDS type="Node" left="6210" top="13230" width="1080" height="270">
+   <BOUNDS type="Node" left="3825" top="14925" width="1080" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -1867,9 +1817,9 @@
    <LINK srcnodeid="214" srcpinname="Output" dstnodeid="104" dstpinname="Select">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="216" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5580" top="12195" width="795" height="240">
+   <BOUNDS type="Box" left="4020" top="13740" width="510" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5580" top="12195" width="0" height="0">
+   <BOUNDS type="Node" left="4020" top="13740" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="Min">
    </PIN>
@@ -1883,7 +1833,7 @@
    <LINK srcnodeid="216" srcpinname="Output String" dstnodeid="212" dstpinname="Field Names">
    </LINK>
    <NODE systemname="Add (Value Spectral)" nodename="Add (Value Spectral)" componentmode="Hidden" id="217">
-   <BOUNDS type="Node" left="7665" top="13545" width="100" height="100">
+   <BOUNDS type="Node" left="5280" top="15240" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1893,9 +1843,9 @@
    <LINK srcnodeid="213" srcpinname="Output" dstnodeid="217" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="218" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7725" top="13935" width="795" height="240">
+   <BOUNDS type="Box" left="5340" top="15630" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7725" top="13935" width="0" height="0">
+   <BOUNDS type="Node" left="5340" top="15630" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1941,7 +1891,7 @@
    <LINK srcnodeid="222" srcpinname="Output" dstnodeid="100" dstpinname="Input 1">
    </LINK>
    <NODE systemname="MonoFlop (Animation)" nodename="MonoFlop (Animation)" componentmode="Hidden" id="223">
-   <BOUNDS type="Node" left="6960" top="12330" width="100" height="100">
+   <BOUNDS type="Node" left="4575" top="14025" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Set" visible="1">
    </PIN>
@@ -1953,7 +1903,7 @@
    <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="223" dstpinname="Set">
    </LINK>
    <NODE systemname="TogEdge (Animation)" nodename="TogEdge (Animation)" componentmode="Hidden" id="224">
-   <BOUNDS type="Node" left="7125" top="12780" width="100" height="100">
+   <BOUNDS type="Node" left="4740" top="14475" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="1">
    </PIN>
@@ -2004,4 +1954,100 @@
    <LINKPOINT x="15060" y="2580">
    </LINKPOINT>
    </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="229">
+   <BOUNDS type="Node" left="3330" top="21315" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3330" top="21315" width="4815" height="240">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="228" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="5700" top="21570" width="2190" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5700" top="21570" width="2460" height="750">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|query all min and max of all known device parameters|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Show SliceIndex" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="231">
+   <BOUNDS type="Node" left="9690" top="21315" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="9690" top="21315" width="4815" height="240">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|1.00000,0.33114,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="230" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="12060" top="21570" width="2190" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="12060" top="21570" width="2460" height="750">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|send updates to LiveOSC|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Show SliceIndex" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="233">
+   <BOUNDS type="Node" left="16170" top="21345" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="16170" top="21345" width="4815" height="240">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,1.00000,0.58247,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="232" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="18540" top="21600" width="2190" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="18540" top="21600" width="2460" height="750">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|query all deviceparams of all known devices|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Show SliceIndex" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="234" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="18525" top="5520" width="5175" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="18525" top="5520" width="3090" height="1185">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|this is part is to allow for the weird list-based messaging from LiveOSC|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
    </PATCH>
