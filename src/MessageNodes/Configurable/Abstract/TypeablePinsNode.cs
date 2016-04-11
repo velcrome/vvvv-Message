@@ -7,8 +7,9 @@ using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.Core.Logging;
+using VVVV.Hosting.IO;
 using System.Reflection;
-
+using VVVV.Hosting.Pins;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -106,14 +107,15 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             try
             {
-                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance | BindingFlags.FlattenHierarchy).GetValue(pinContainer.RawIOObject);
-                var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
-                return container.GetPluginIO().IsConnected;
+                IIOMultiPin diffPin = (IIOMultiPin)pinContainer.RawIOObject;
+                var connected = diffPin.BaseContainer.GetPluginIO().IsConnected || diffPin.AssociatedContainers.Any(c => c.GetPluginIO().IsConnected);
+                return connected;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 string nodePath = PluginHost.GetNodePath(false);
                 FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node: " + nodePath);
+                FLogger.Log(e, LogType.Error);
                 return false;
             }
         }
