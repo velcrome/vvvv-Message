@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Serializing
     {
         private Type[] NativeJsonTypes = new Type[] { typeof(string), typeof(bool), typeof(double), typeof(int), typeof(Message) };
 
-        private Regex NameRegex = new Regex(@"(.+?)<(\w*)>|(.+?)$");
+        private Regex NameRegex = new Regex(@"(.+?)<(\w*)>|(.+?)$"); // name<specificType>
 
 
         public JsonMessageSerializer()
@@ -53,7 +53,6 @@ namespace VVVV.Packs.Messaging.Serializing
                 }
                 if (bin.Count != 1) writer.WriteEndArray();
             }
-
 
             writer.WritePropertyName("Stamp");
             serializer.Serialize(writer, message.TimeStamp, typeof(Time));
@@ -106,7 +105,8 @@ namespace VVVV.Packs.Messaging.Serializing
                     JTokenType jType = JTokenType.Null;
 
                     if (bin.Value is JArray)
-                        jType = (bin.Value as JArray).First.Type;
+                        if (bin.Value.Count() > 0)
+                            jType = (bin.Value as JArray).First.Type;
                     else
                     {
                         jType = bin.Value.Type;

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
-   <BOUNDS type="Window" left="15375" top="3915" width="9000" height="9510">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\Meter (Message Ableton).v4p" scrollx="0" scrolly="2595" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
+   <BOUNDS type="Window" left="9375" top="1980" width="9000" height="9510">
    </BOUNDS>
    <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="InAWindow" id="1">
    <BOUNDS type="Node" left="1935" top="6375" width="100" height="100">
@@ -91,7 +91,7 @@
    <LINK srcnodeid="17" srcpinname="Output Enum" dstnodeid="1" dstpinname="Use as ID">
    </LINK>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="3300" top="7005" width="100" height="100">
+   <BOUNDS type="Node" left="3465" top="8190" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|float Value|">
    </PIN>
@@ -107,9 +107,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3510" top="7425" width="1875" height="1500">
+   <BOUNDS type="Box" left="3675" top="8610" width="1875" height="1500">
    </BOUNDS>
-   <BOUNDS type="Node" left="3510" top="7425" width="0" height="0">
+   <BOUNDS type="Node" left="3675" top="8610" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -140,12 +140,10 @@
    </NODE>
    <LINK srcnodeid="19" srcpinname="Field" dstnodeid="18" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="19" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="3660" top="6465" width="795" height="240">
+   <BOUNDS type="Box" left="3825" top="7650" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="3660" top="6465" width="0" height="0">
+   <BOUNDS type="Node" left="3825" top="7650" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="Meter">
    </PIN>
@@ -425,5 +423,47 @@
    <LINK srcnodeid="28" srcpinname="Output" dstnodeid="26" dstpinname="Enum">
    </LINK>
    <LINK srcnodeid="24" srcpinname="Enum" dstnodeid="39" dstpinname="Use Fields">
+   </LINK>
+   <NODE systemname="Sort (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sort (Message Formular)" componentmode="Hidden" id="43">
+   <BOUNDS type="Node" left="990" top="7290" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" visible="1">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int Channel, float Meter|">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Use Fields" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="43" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Output Enum" dstnodeid="43" dstpinname="Message Formular">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="44" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="960" top="8115" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="960" top="8115" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="43" srcpinname="Output" dstnodeid="44" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="45" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="1095" top="5625" width="825" height="510">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1095" top="5625" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="TrackId,Channel">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="45" srcpinname="Output Enum" dstnodeid="43" dstpinname="Use Fields">
+   </LINK>
+   <LINK srcnodeid="43" srcpinname="Output" dstnodeid="19" dstpinname="Input">
    </LINK>
    </PATCH>
