@@ -62,9 +62,8 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Packs.Time, Version=1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
-      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -180,9 +179,9 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
-      <MyFiles Include="..\..\patches\**\*.*" />
+      <MyFiles Include="..\..\copy\**\*.*" />
     </ItemGroup>
-    <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
