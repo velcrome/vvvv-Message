@@ -74,7 +74,7 @@ namespace VVVV.Pack.Messaging.Nodes
                 FTopic[i] = m.Topic;
                 if (timeConnected) FTimeStamp[i] = m.TimeStamp;;
 
-                FConfigOut[i] = FInput[i].GetFormular().ToString();
+                FConfigOut[i] = FInput[i].Formular.ToString();
 
                 if (FPrint[i])
                 {

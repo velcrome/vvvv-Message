@@ -52,5 +52,9 @@ namespace VVVV.Packs.Messaging
         public RegistryException(string message) : base(message) { }
     }
 
+    public class EmptyBinException : InvalidOperationException
+    {
+        public EmptyBinException(string message) : base(message) { }
+    }
 
 }

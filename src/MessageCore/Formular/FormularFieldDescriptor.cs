@@ -19,7 +19,7 @@ namespace VVVV.Packs.Messaging
 
         public static bool IsValidFieldName(string fieldName)
         {
-            return NameParser.IsMatch(fieldName) && !ForbiddenNames.Contains(fieldName);
+            return NameParser.IsMatch(fieldName.Trim()) && !ForbiddenNames.Contains(fieldName.Trim());
         }
         #endregion static utilities
 

@@ -67,7 +67,7 @@ namespace VVVV.Pack.Messaging.Nodes
                 
                 for (int j = 0; j < SpreadMax; j++)
                 {
-                    if (!found[j]) found[j] = FInput[j].TopicMatch(regex);
+                    if (!found[j]) found[j] = regex.IsMatch(FInput[j].Topic);
                 }
             }
 

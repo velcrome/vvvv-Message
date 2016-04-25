@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging
     public interface Bin<T> : Bin, IEnumerable<T>
     {
         // new T [int slice] {get; set;} // does not compile, automatic up casting not possible with c#
-        // T First<T> { get; set; } // available from system.ling
+        // T First<T> { get; set; } // available from system.linq
     }
 
     public class BinFactory {
