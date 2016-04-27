@@ -77,7 +77,7 @@ namespace VVVV.Packs.Messaging
             }
 
             if (Changes.ContainsKey(original) && Changes[original] != null)
-                Changes[original].InjectWith(change, true, false);
+                Changes[original].InjectWith(change, false); // always update
             else
             {
                 change.Topic = original.Topic;

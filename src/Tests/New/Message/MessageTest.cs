@@ -395,6 +395,82 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.AreEqual(inner.Topic, innerCopy.Topic); // both now have a topic called "changeIt!"
 
         }
+
+        #endregion
+
+        #region Inject
+
+        [TestMethod]
+        public void TestInjectDeep()
+        {
+            var a = new Message("Topic");
+            a.Init("Field", 1, 2);
+
+            var b = new Message("Topic");
+            b.Init("Field", 1, 2);
+
+            a.Sync();
+
+            a.InjectWith(b, true);
+
+            Assert.IsFalse(a.IsChanged);
+            Assert.AreEqual(a["Field"], b["Field"]);
+        }
+
+        [TestMethod]
+        public void TestInjectDeepWithDifference()
+        {
+            var a = new Message("Topic");
+            a.Init("Field", 1, 2);
+
+            var b = new Message("Topic");
+            b.Init("Field", 1, 2, 3); // slightly different
+
+            a.Sync();
+
+            a.InjectWith(b, true);
+
+            Assert.IsTrue(a.IsChanged);
+            Assert.AreEqual(a["Field"], b["Field"]);
+        }
+
+        [TestMethod]
+        public void TestInject()
+        {
+            var a = new Message("Topic");
+            a.Init("Field", 1, 2);
+
+            var b = new Message("Topic");
+            b.Init("Field", 1, 2);
+
+            a.Sync();
+
+            a.InjectWith(b, false);
+
+            Assert.IsTrue(a.IsChanged);
+            Assert.AreEqual(a["Field"], b["Field"]);
+        }
+
+        [TestMethod]
+        public void TestInjectWithNew()
+        {
+            var a = new Message("Topic");
+            a.Init("Field", 1, 2);
+
+            var b = new Message("Topic");
+            b.Init("Field", 1, 2);
+            b.Init("Other", 1, 2);
+
+            a.Sync();
+
+            a.InjectWith(b, true);
+
+            Assert.IsTrue(a.IsChanged);
+            Assert.IsFalse(a["Field"].IsDirty);
+
+            Assert.AreEqual(a["Field"], b["Field"]);
+            Assert.AreEqual(a["Other"], b["Other"]);
+        }
         #endregion
     }
 

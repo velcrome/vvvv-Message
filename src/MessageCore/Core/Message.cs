@@ -236,8 +236,6 @@ namespace VVVV.Packs.Messaging {
             }
             return true;
         }
-
-
         #endregion
 
         #region Bin Access
@@ -277,19 +275,22 @@ namespace VVVV.Packs.Messaging {
 
         /// <summary>Attempts to conjoin data from another message.</summary>
         /// <param name="message">The message whose data should be injected.</param>
-        /// <param name="allowNewFields">Flag, whether fields formerly unknown should be inserted or not.</param>
         /// <param name="deepInspection">Flag, whether Fields should be compared for actual change before insertion.</param>
-        /// <remarks>The message will update its Topic too.</remarks>
+        /// <remarks>The message will update its Topic too, if different.</remarks>
         /// <exception cref="EmptyBinException">This exception is thrown if values is or contains null.</exception>
         /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
-        public void InjectWith(Message message, bool allowNewFields, bool deepInspection = false)
+        public void InjectWith(Message message, bool deepInspection)
         {
-            if (this.Equals(message)) return;
+            if (message == null) throw new ArgumentNullException("Cannot Inject a null Message.");
+
+            if (this.Equals(message)) return; // nothing to do
 
             if (Topic != message.Topic) Topic = message.Topic; // update Topic only if different
 
             var fieldNames = message.Fields;
-            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
+
+//            bool allowNewFields = true;
+//            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
 
             foreach (var name in fieldNames)
             {

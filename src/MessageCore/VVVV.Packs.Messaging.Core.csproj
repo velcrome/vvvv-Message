@@ -37,7 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Core\BinList.cs" />
-    <Compile Include="Core\CastUtils.cs" />
     <Compile Include="Core\IBin.cs" />
     <Compile Include="Core\MessageKeep.cs" />
     <Compile Include="Core\Message.cs" />

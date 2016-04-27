@@ -45,7 +45,6 @@
     <Compile Include="Bin\Vector2dBinTest.cs" />
     <Compile Include="Bin\Vector3dBinTest.cs" />
     <Compile Include="Bin\Vector4dBinTest.cs" />
-    <Compile Include="Keep\MessageKeepTest.cs" />
     <Compile Include="Message\MessageMethodTest.cs" />
     <Compile Include="Message\MessageSerialisationTest.cs" />
     <Compile Include="New\Bin\Bin.cs" />
@@ -88,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Keep\" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">

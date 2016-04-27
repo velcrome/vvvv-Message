@@ -97,7 +97,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else
             {
-                match.InjectWith(message, true, true); // copy all attributes from message to matching record
+                match.InjectWith(message, true); // copy all attributes from message to matching record
                 return match;
             }
         }
