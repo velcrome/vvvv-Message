@@ -32,20 +32,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
   <ItemGroup>
-    <Compile Include="Bin\BoolBinTest.cs" />
-    <Compile Include="Bin\ColorBinTest.cs" />
-    <Compile Include="Bin\DoubleBinTest.cs" />
-    <Compile Include="Bin\FloatBinTest.cs" />
-    <Compile Include="Bin\Generic\TBinTest.cs" />
-    <Compile Include="Bin\IntBinTest.cs" />
-    <Compile Include="Bin\RawBinTest.cs" />
-    <Compile Include="Bin\StringBinTest.cs" />
-    <Compile Include="Bin\TimeBinTest.cs" />
-    <Compile Include="Bin\TransformBinTest.cs" />
-    <Compile Include="Bin\Vector2dBinTest.cs" />
-    <Compile Include="Bin\Vector3dBinTest.cs" />
-    <Compile Include="Bin\Vector4dBinTest.cs" />
-    <Compile Include="Message\MessageMethodTest.cs" />
     <Compile Include="Message\MessageSerialisationTest.cs" />
     <Compile Include="New\Bin\Bin.cs" />
     <Compile Include="New\Bin\BinFactory.cs" />
@@ -88,9 +74,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Keep\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
       <ItemGroup>
