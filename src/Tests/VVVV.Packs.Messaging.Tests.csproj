@@ -51,6 +51,7 @@
     <Compile Include="New\Bin\Bin.cs" />
     <Compile Include="New\Bin\BinFactory.cs" />
     <Compile Include="New\Formular\FormularTest.cs" />
+    <Compile Include="New\Keep\Keep.cs" />
     <Compile Include="New\Message\MessageTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -63,13 +63,14 @@ namespace VVVV.Packs.Messaging
             IsDirty = true;
         }
 
-        /// <summary>Allows slicewise access to the bin. </summary>
+
+
+        /// <summary>Allows slicewise and generic access to the bin. </summary>
         /// <param name="slice">The field to read or written. </param>
         /// <exception cref="ArgumentNullException">This exception is thrown if null is to be written into a bin.</exception>
-        /// <exception cref="BinTypeMismatchException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
         /// <exception cref="InvalidCastException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
         /// <exception cref="IndexOutOfRangeException">This exception is thrown if attempt is made to read a slice that does not exist.</exception>
-        public object this[int slice]
+        public T this[int slice]
         {
             get
             {
@@ -100,6 +101,22 @@ namespace VVVV.Packs.Messaging
             }
         }
 
+        /// <summary>Allows slicewise and generic access to the bin. </summary>
+        /// <param name="slice">The field to read or written. </param>
+        /// <exception cref="ArgumentNullException">This exception is thrown if null is to be written into a bin.</exception>
+        /// <exception cref="InvalidCastException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
+        /// <exception cref="IndexOutOfRangeException">This exception is thrown if attempt is made to read a slice that does not exist.</exception>
+        object Bin.this[int slice]
+        {
+            get { return this[slice]; }
+            set {
+                if (value == null) throw new ArgumentNullException("Cannot set \"null\" as First element of Bin<" + this.GetInnerType().Name + ">.");
+                this[slice] = (T)value;
+            }
+        }
+
+
+        /// <summary>Make a string representation of the Message.</summary>
         public override string ToString()
         {
             var s = new StringWriter();
@@ -119,8 +136,7 @@ namespace VVVV.Packs.Messaging
         /// <exception cref="ArgumentNullException">This exception is thrown if null is to be written into a bin.</exception>
         /// <exception cref="TypeNotSupportedException">This exception is thrown if an item is attempting to be written to a bin without a proper registration in TypeIdentity</exception>
         /// <exception cref="InvalidCastException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
-        /// <exception cref="BinTypeMismatchException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
-        public object First
+        public T  First
         {
             get
             {
@@ -138,13 +154,31 @@ namespace VVVV.Packs.Messaging
                 {
                     throw new TypeNotSupportedException(value.GetType() + " is not a supported Type in TypeIdentity.cs");
                 }
-                //if (!typeof(T).IsCastableTo(type))
-                //{
-                //    throw new BinTypeMismatchException("Bin " + value.ToString() + " of type " + value.GetType().ToString() + " cannot be the first among " + this.GetInnerType());
-                //}
-                Data[0] = (T)value; // might not work -> exception
+                Data[0] = (T)value; // might not work -> InvalidCastException
                 IsDirty = true;
             }
+        }
+
+        object Bin.First
+        {
+            get { return this.First; }
+            set {
+                if (value == null) throw new ArgumentNullException("Cannot set \"null\" as First element of Bin<" + this.GetInnerType().Name + ">.");
+
+                var type = TypeIdentity.Instance.FindBaseType(value.GetType());
+                if (type == null)
+                {
+                    throw new TypeNotSupportedException(value.GetType() + " is not a supported Type in TypeIdentity.cs");
+                }
+
+                Data[0] = (T)value; // might not work -> InvalidCastException
+                IsDirty = true;
+            }
+        }
+
+        public Type GetInnerType()
+        {
+            return typeof(T);
         }
 
         #endregion Essentials
@@ -208,6 +242,10 @@ namespace VVVV.Packs.Messaging
             throw new TypeNotSupportedException("Cannot add this value (" + val + "). " + val.GetType() + " is neither a Enumeration of matching registered Type nor a matching Type.");
         }
 
+        /// <summary>Replaces the contents of the bin with new data.</summary>
+        /// <exception cref="ArgumentNullException">This exception is thrown if null is to be written into a bin.</exception>
+        /// <exception cref="InvalidCastException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
+        /// <exception cref="BinTypeMismatchException">This exception is thrown if an item is attempting to be written to a bin without the type matching.</exception>
         public void AssignFrom(IEnumerable enumerable) {
 			this.Clear();
     		this.Add(enumerable);
@@ -216,15 +254,13 @@ namespace VVVV.Packs.Messaging
         #endregion
 
         #region Generic Casting Utils
-        public Type GetInnerType()
-        {
-            return typeof(T);
-        }
 
         /*
          * next three operators are hardly accessible, and maybe even unnecessary...
          * but i like the funny casts they allow when using them through a DynamicObject wrapper
          */
+
+        /*
 
         public static implicit operator T(BinList<T> bin)
         {
@@ -240,12 +276,16 @@ namespace VVVV.Packs.Messaging
         public static explicit operator BinList<T>(T s)  // explicit generic value to Bin-First conversion operator
         {
             var bin = new BinList<T>();
-            bin.Add(s); // better to assign?
+            bin.Add(s); 
             return bin;
         }
+
+        */
+
         #endregion Generic Casting Utils
 
         #region Equality
+        /// <summary>Checks for type- and slicewise equality.</summary>
         public bool Equals(Bin other)
         {
             if ((object)other == null) return false;
@@ -262,6 +302,7 @@ namespace VVVV.Packs.Messaging
             return true;
         }
 
+        /// <summary>Checks for type- and slicewise equality against an enumerable.</summary>
         public bool Equals(IEnumerable other)
         {
             if (other == null) return false;
@@ -280,7 +321,11 @@ namespace VVVV.Packs.Messaging
                     if (!othersTyped[i].Equals(this[i])) return false;
                 }
             }
-            catch (Exception)
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+            catch (InvalidCastException)
             {
                 return false;
             }
@@ -288,6 +333,7 @@ namespace VVVV.Packs.Messaging
             return true;
         }
 
+        /// <summary>Checks for type- and slicewise equality against an arbitrary object.</summary>
         public override bool Equals(Object obj)
         {
             //          check for an obvious Type match

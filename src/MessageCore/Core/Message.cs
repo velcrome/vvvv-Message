@@ -18,13 +18,19 @@ namespace VVVV.Packs.Messaging {
 
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
-	
-//	[DataContract]
+
+    /// <summary>
+    /// Message is a base object to handle strongly typed data in a dynamic way.</summary>
+    /// <remarks>
+    /// see http://www.github.com/velcrome/vvvv-Message for details
+    /// </remarks>    
     [JsonConverter(typeof(JsonMessageSerializer))]
-	public class Message : ICloneable //, ISerializable
+    public class Message : ICloneable //, ISerializable
     {
         #region Properties and FieldNames
-        // Access to the the inner Data.
+        internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
+
+        /// <summary>Provides access to the names of all Fields</summary>
         public IEnumerable<string> Fields
         {
             get { return Data.Keys; }
@@ -32,7 +38,10 @@ namespace VVVV.Packs.Messaging {
 
         private string _topic;
         private bool _internalChange = false;
-        
+
+        /// <summary>The topic is a brief identifier of the Message. It can be used to sift or sort Messages quickly.</summary>
+        /// <remarks>A topic is best used with a dot-separated Namespace (e.g. MyCompany.Project.Input.Touch)
+        /// </remarks>
         public string Topic{
 			get {
                 return _topic;
@@ -46,12 +55,17 @@ namespace VVVV.Packs.Messaging {
             }
 		}
 
+        /// <summary>Returns the last geo-localized timestamp of the Message.</summary>
+        /// <remarks>Will be automatically updated with every Sync
+        /// Needs the vvvv-Time contribution or nuget.
+        /// </remarks>
         public Time TimeStamp
         {
             get;
             set;
         }
 
+        /// <summary>Returns an ad-hoc Formular describing all fields of the Message, or ensures that all fields from a given formular are created in the Message</summary>
         public MessageFormular Formular
         {
             get
@@ -70,9 +84,10 @@ namespace VVVV.Packs.Messaging {
             }
         }
 
-        internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
-
+        /// <summary>Get all changes when Message is Sync'ed</summary>
         public event MessageChangedWithDetails ChangedWithDetails;
+
+        /// <summary>Returns the last geo-localized timestamp of the Message.</summary>
         public event MessageChanged Changed;
         #endregion
 
@@ -100,11 +115,11 @@ namespace VVVV.Packs.Messaging {
         #region Bin Handling
  
         /// <summary>Initializes a new named Field. Use comma separated values to init the field.</summary>
-        /// <param name="field">The field to be added</param>
+        /// <param name="fieldName">The field to be added</param>
         /// <param name="values"></param>
-        public void Init(string name, params object[] values)
+        public void Init(string fieldName, params object[] values)
         {
-            AssignFrom(name, values);
+            AssignFrom(fieldName, values);
         }
 
         public void Add(string name, params object[] values)
@@ -113,7 +128,7 @@ namespace VVVV.Packs.Messaging {
         }
 
         /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
-        /// <param name="field">The field to be added</param>
+        /// <param name="fieldName">The field to be added</param>
         /// <param name="values">IEnumerable containing </param>
         /// <param name="type"></param>
         /// <exception cref="ParseFormularException">This exception is thrown if the fieldName contains invalid characters.</exception>
@@ -174,24 +189,24 @@ namespace VVVV.Packs.Messaging {
         /// <exception cref="BinTypeMismatchException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
         /// <exception cref="TypeNotSupportedException">This exception is thrown if the new bin's type is not registered in TypeIdentity.</exception>
         /// <exception cref="ArgumentNullException">This exception is thrown if attempt is made to add null to a the bin.</exception>
-        public void AddFrom(string fieldname, IEnumerable values)
+        public void AddFrom(string fieldName, IEnumerable values)
         {
-            if (!Data.ContainsKey(fieldname))
+            if (!Data.ContainsKey(fieldName))
             {
-                AssignFrom(fieldname, values);
+                AssignFrom(fieldName, values);
             }
             else
             {
-                Data[fieldname].Add(values); // implicit conversion
+                Data[fieldName].Add(values); // implicit conversion
             }
         }
 
         /// <summary>Removes a field from the message</summary>
         /// <param name="fieldName">The field to be added</param>
         /// <returns>False, if fieldName did not exist.</returns>
-        public bool Remove(string fieldname)
+        public bool Remove(string fieldName)
         {
-            var tmp = Data.Remove(fieldname);
+            var tmp = Data.Remove(fieldName);
             if (tmp) _internalChange = true;
             return tmp;
         }
@@ -250,7 +265,8 @@ namespace VVVV.Packs.Messaging {
 
         #region Matching
 
-        //      use simple wildcard pattern: use * for any amount of characters (including 0) or ? for exactly one character.
+        /// <summary>Extension method for creating a regex out of a wildcard pattern</summary>
+        /// <param name="message">The message whose data should be injected.</param>
         public static Regex CreateWildCardRegex(string wildcardPattern)
         {
             var regexPattern = "^" + Regex.Escape(wildcardPattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
@@ -258,41 +274,35 @@ namespace VVVV.Packs.Messaging {
             return regex;
         }
 
-        //public bool TopicMatch(Regex regex)
-        //{
-        //    return regex.IsMatch(Topic ?? "");
-        //}
 
+        /// <summary>Attempts to conjoin data from another message.</summary>
+        /// <param name="message">The message whose data should be injected.</param>
+        /// <param name="allowNewFields">Flag, whether fields formerly unknown should be inserted or not.</param>
+        /// <param name="deepInspection">Flag, whether Fields should be compared for actual change before insertion.</param>
+        /// <remarks>The message will update its Topic too.</remarks>
+        /// <exception cref="EmptyBinException">This exception is thrown if values is or contains null.</exception>
+        /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
         public void InjectWith(Message message, bool allowNewFields, bool deepInspection = false)
         {
             if (this.Equals(message)) return;
 
-            this.Topic = message.Topic;
+            if (Topic != message.Topic) Topic = message.Topic; // update Topic only if different
 
-            var keys = message.Fields;
-            if (!allowNewFields) keys = keys.Intersect(this.Fields);
+            var fieldNames = message.Fields;
+            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
 
-            foreach (var name in keys)
+            foreach (var name in fieldNames)
             {
-                if (!this.Data.ContainsKey(name))
+                var bin = message[name];
+
+                if (!this.Fields.Contains(name))
                 {
-                    this.AssignFrom(name, message.Data[name]);
+                    this.AssignFrom(name, bin); // new bin
                 }
                 else
                 {
-                    var newType = message.Data[name].GetInnerType();
-                    var oldType = this.Data[name].GetInnerType();
-
-                    if (newType.IsCastableTo(oldType))
-                    {
-                        if (!deepInspection || !Data[name].Equals(message.Data[name]))  // inject only if it brings new data
-                            Data[name].AssignFrom(message.Data[name]); // autocast.
-                    }
-                    else
-                    {
-                        throw new BinTypeMismatchException("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
-                                            "> with Bin<" + TypeIdentity.Instance.FindAlias(newType) + "> implicitly.");
-                    }
+                    if (!deepInspection || !this[name].Equals(message[name]))  // inject only if it brings new data
+                            this[name].AssignFrom(message.Data[name]); // autocast.
                 }
             }
         }
@@ -301,6 +311,7 @@ namespace VVVV.Packs.Messaging {
         #region Change Management
         /// <summary>Indicates, if any Field or the topic has been changed since the last Sync.</summary>
         /// <returns>true, if the Message has Changed</returns>        
+        /// <remarks></remarks>
         public bool IsChanged
         {
             // check all bins, if at least one has changed since the last Sync.

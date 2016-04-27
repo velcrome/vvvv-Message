@@ -1,15 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using VVVV.Utils.VMath;
-using VVVV.Utils.VColor;
 using System.Linq;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-    using System.Runtime.InteropServices;
-    using Time = VVVV.Packs.Time.Time;
-
 
     [TestClass]
     public class MessageTest
