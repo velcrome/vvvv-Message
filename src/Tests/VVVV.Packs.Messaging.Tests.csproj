@@ -35,8 +35,10 @@
     <Compile Include="Message\MessageSerialisationTest.cs" />
     <Compile Include="New\Bin\Bin.cs" />
     <Compile Include="New\Bin\BinFactory.cs" />
+    <Compile Include="New\Formular\FormularRegistryTests.cs" />
     <Compile Include="New\Formular\FormularTest.cs" />
     <Compile Include="New\Keep\Keep.cs" />
+    <Compile Include="New\Message\ChangeEvents.cs" />
     <Compile Include="New\Message\MessageTest.cs" />
   </ItemGroup>
   <ItemGroup>

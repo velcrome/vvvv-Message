@@ -68,12 +68,16 @@ namespace VVVV.Packs.Messaging
         /// <param name="senderId">A unique string that helps to keep track, who registered a given Formular.</param>
         /// <param name="formular">A MessageFormular to be registered.</param>
         /// <param name="supressEvent">A bool indicating if the registry should skip informing interested parties about this change.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the Formular is null.</exception>
         /// <exception cref="RegistryException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
+        /// <returns>success</returns>
+        /// <remarks>Setting the supressEvent parameter to true allows you to use </remarks>
         public bool Define(string senderId, MessageFormular formular, bool supressEvent = false)
         {
+            if (formular == null) throw new ArgumentNullException("Formular cannot be null");
             if (formular.Name == MessageFormular.DYNAMIC) return false;
-            if (!Data.ContainsKey(senderId)) Data[senderId] = new List<MessageFormular>();
 
+            if (!Data.ContainsKey(senderId)) Data[senderId] = new List<MessageFormular>();
 
             var match = (
                             from nodeId in Data.Keys
@@ -86,7 +90,7 @@ namespace VVVV.Packs.Messaging
 
             if (match != null)
             {
-                throw new RegistryException("Cannot add the formular to the registry. Another formular with that name already exists.");
+                throw new RegistryException("Cannot add the formular to the registry. Another formular with the name \""+ match +"\" already exists.");
             }
 
             var ownFormulars = Data[senderId];
@@ -95,6 +99,8 @@ namespace VVVV.Packs.Messaging
                             where form.Name == formular.Name
                             select form
                          ).FirstOrDefault();
+
+            if (formular.Equals(oldForm)) return false;
 
             if (oldForm != null) ownFormulars.Remove(oldForm);
             ownFormulars.Add(formular);

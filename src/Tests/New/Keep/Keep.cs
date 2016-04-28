@@ -1,13 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-    using System.Collections.Generic;
-    using Time = VVVV.Packs.Time.Time;
-
     [TestClass]
     public class KeepTest
     {
@@ -21,18 +17,28 @@ namespace VVVV.Packs.Messaging.Tests
 
             var message = new Message("Test");
 
-            keep.Add(message);
+            List<Message> diffs = new List<Message>();
+            message.ChangedWithDetails += (orig, diff) => { diffs.Add(diff); } ;
 
+            keep.Add(message);
             message.Init("Field", 1, 2, 3);
 
             Assert.IsTrue(message.IsChanged);
             Assert.IsTrue(keep.IsChanged);
+            Assert.AreEqual(0, diffs.Count);
 
             var change = keep.Sync();
 
+            Assert.AreEqual(1, diffs.Count);
+            Assert.AreEqual(message.Topic, change.First().Topic);
+
             Assert.IsFalse(message.IsChanged);
             Assert.IsFalse(keep.IsChanged);
-            Assert.IsNull(change);
+
+            Assert.IsNull(change); // when in quickmode outputs null
+
+            change = keep.Sync();
+
         }
 
         [TestMethod]
@@ -107,6 +113,8 @@ namespace VVVV.Packs.Messaging.Tests
 
             var message = new Message("Test");
             message.Init("Field", 1, 2, 3);
+
+            
             message.Sync();
 
             Assert.IsFalse(message.IsEmpty);

@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Tests
 
 
     [TestClass]
-    public class BinTest : TBinTest<float>
+    public class BinTest
     {
         #region First
         [TestMethod]

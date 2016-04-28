@@ -58,7 +58,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 var n = FNew[i].Trim();
                 var o = FOld[i].Trim();
 
-                if (string.IsNullOrWhiteSpace(n) || string.IsNullOrWhiteSpace(o) || !FormularFieldDescriptor.IsValidFieldName(n) )
+                if (string.IsNullOrWhiteSpace(n) || string.IsNullOrWhiteSpace(o) || !n.IsValidFieldName() )
                     throw new ParseFormularException("\"" + n + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
 
                 translate[o] = n;

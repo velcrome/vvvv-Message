@@ -41,6 +41,7 @@ namespace VVVV.Packs.Messaging {
 
         /// <summary>The topic is a brief identifier of the Message. It can be used to sift or sort Messages quickly.</summary>
         /// <remarks>A topic is best used with a dot-separated Namespace (e.g. MyCompany.Project.Input.Touch)
+        /// Only actually changing the topic will mark the message with IsChanged = true
         /// </remarks>
         public string Topic{
 			get {
@@ -49,9 +50,11 @@ namespace VVVV.Packs.Messaging {
             set
             {
                 if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException("Topic cannot be null, empty or clear.");
+                if (value.Trim() == _topic) return;
+
                 // todo: validate topic to be namespace-syntax?
                 _internalChange = true;
-                _topic = value;
+                _topic = value.Trim();
             }
 		}
 
@@ -139,7 +142,7 @@ namespace VVVV.Packs.Messaging {
         /// <exception cref="ArgumentNullException">This exception is thrown if attempt is made to add null to a the bin.</exception>
         public void AssignFrom(string fieldName, IEnumerable values, Type type = null)
         {
-            if (!FormularFieldDescriptor.IsValidFieldName(fieldName)) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+            if (!fieldName.IsValidFieldName()) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
 
             if (type == null)
             {
@@ -227,7 +230,7 @@ namespace VVVV.Packs.Messaging {
                 if (!Data.ContainsKey(fieldName)) throw new EmptyBinException("Field with the name \"" + fieldName + "\" does not exist.");
                 var bin = Data[fieldName];
 
-                if (!FormularFieldDescriptor.IsValidFieldName(newName)) throw new ParseFormularException("Invalid fieldname: \"" + newName+"\".");
+                if (!newName.IsValidFieldName()) throw new ParseFormularException("Invalid fieldname: \"" + newName+"\".");
 
                 Data[newName] = bin;
                 bin.IsDirty = true;
@@ -254,7 +257,7 @@ namespace VVVV.Packs.Messaging {
 					else return null;				
 			} 
 			set {
-                if (!FormularFieldDescriptor.IsValidFieldName(fieldName)) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                if (!fieldName.IsValidFieldName()) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
                 Data[fieldName] = (Bin) value; 
             }
 		}
@@ -263,21 +266,11 @@ namespace VVVV.Packs.Messaging {
 
         #region Matching
 
-        /// <summary>Extension method for creating a regex out of a wildcard pattern</summary>
-        /// <param name="message">The message whose data should be injected.</param>
-        public static Regex CreateWildCardRegex(string wildcardPattern)
-        {
-            var regexPattern = "^" + Regex.Escape(wildcardPattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
-            var regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-            return regex;
-        }
-
-
         /// <summary>Attempts to conjoin data from another message.</summary>
         /// <param name="message">The message whose data should be injected.</param>
         /// <param name="deepInspection">Flag, whether Fields should be compared for actual change before insertion.</param>
         /// <remarks>The message will update its Topic too, if different.</remarks>
-        /// <exception cref="EmptyBinException">This exception is thrown if values is or contains null.</exception>
+        /// <exception cref="ArgumentNullException">This exception is thrown if message is null.</exception>
         /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
         public void InjectWith(Message message, bool deepInspection)
         {
