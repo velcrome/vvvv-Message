@@ -46,7 +46,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            Formular = new MessageFormular(configSpread[0], "temp");
+            Formular = new MessageFormular("temp", configSpread[0]);
             FillEnum(Formular.FieldNames.ToArray());
         }
 

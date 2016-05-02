@@ -56,7 +56,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            Formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
+            Formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
             FillEnum(Formular.FieldNames.ToArray());
         }
 

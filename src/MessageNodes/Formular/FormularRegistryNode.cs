@@ -98,7 +98,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
 
 
-                var formular = new MessageFormular(fields, FName[i]);
+                var formular = new MessageFormular(FName[i], fields);
 
                 if (!FInherits.IsAnyInvalid())
                 {

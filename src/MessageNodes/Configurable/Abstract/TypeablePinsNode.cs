@@ -22,7 +22,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected IIOFactory FIOFactory;
 
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-        protected MessageFormular Formular = new MessageFormular("", MessageFormular.DYNAMIC);
+        protected MessageFormular Formular = new MessageFormular(MessageFormular.DYNAMIC, "");
 
         protected bool RemovePinsFirst;
 

@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Tests
         {
             var reg = MessageFormularRegistry.Instance;
 
-            var formular = new MessageFormular("string[3] Field", "A38");
+            var formular = new MessageFormular("A38", "string[3] Field");
 
             string lastChangedFormular = "";
             reg.TypeChanged += (sender, args) => lastChangedFormular = args.FormularName;

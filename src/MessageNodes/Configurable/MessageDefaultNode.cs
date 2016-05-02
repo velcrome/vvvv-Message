@@ -83,7 +83,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FOutput[i].SliceCount = 0;
 
-                var formular = new MessageFormular(FConfig[i], FFormular[0]);
+                var formular = new MessageFormular(FFormular[0], FConfig[i]);
                 
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)

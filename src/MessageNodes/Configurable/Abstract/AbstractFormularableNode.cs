@@ -58,7 +58,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
+            var formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
 
             if (!FFormular.IsAnyInvalid()) formular.Name = FFormular[0].Name; 
             UpdateWindow(formular, true);
@@ -87,7 +87,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 var fromReg = MessageFormularRegistry.Instance[formularName];
                 if (fromReg == null) return;
 
-                var formular = new MessageFormular(fromReg.FieldDescriptors, formularName);
+                var formular = new MessageFormular(formularName, fromReg.FieldDescriptors);
 
                 foreach (var field in formular.FieldDescriptors) field.IsRequired = false;
 
@@ -99,7 +99,7 @@ namespace VVVV.Packs.Messaging.Nodes
             else
             {
                 (FWindow as FormularLayoutPanel).CanEditFields = true;
-                var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
+                var formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
                 UpdateWindow(formular);
             }
 

@@ -59,7 +59,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void NewDefault()
         {
-            Default = new Message(new MessageFormular(FConfig[0], FFormular[0].Name));
+            Default = new Message(new MessageFormular(FFormular[0].Name, FConfig[0]));
             Default.TimeStamp = Time.Time.CurrentTime();
             
         }

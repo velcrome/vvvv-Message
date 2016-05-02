@@ -73,7 +73,7 @@ namespace VVVV.Packs.Messaging {
         {
             get
             {
-                return new MessageFormular(this, true);
+                return new MessageFormular("adhoc", this, true);
             }
             set
             {
