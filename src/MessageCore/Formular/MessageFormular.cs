@@ -13,10 +13,12 @@ namespace VVVV.Packs.Messaging
         public const string DYNAMIC = "None";
 
         /// <summary>The name of the Formular.</summary>
+        /// <remarks>Has no checks for name validity yet. Trim yourself.
+        /// </remarks>
         public string Name { get; set; }
 
         /// <summary>Returns all names of all defined Fields</summary>
-        /// <remarks>Can be used to access the Fields with the indexer []
+        /// <remarks>Can be used to iterate or acccess all Fields with the indexer []
         /// </remarks>
         public IEnumerable<string> FieldNames
         {
@@ -30,7 +32,7 @@ namespace VVVV.Packs.Messaging
         }
 
 
-        /// <summary>Quick way to ask, if the Formular is dynamic only.</summary>
+        /// <summary>Convenient way to ask, if the Formular is dynamic only.</summary>
         public bool IsDynamic { 
             get {
                 return this.Name == MessageFormular.DYNAMIC;
@@ -52,6 +54,7 @@ namespace VVVV.Packs.Messaging
         /// <param name="withCount">Use the messages bin's size as default size. Otherwise: -1</param>
         public MessageFormular(string formularName, Message template, bool withCount = false) : this()
         {
+            if (string.IsNullOrWhiteSpace(formularName)) formularName = DYNAMIC;
             this.Name = formularName.Trim();
 
             if (template == null || template.IsEmpty) return; 
@@ -68,21 +71,19 @@ namespace VVVV.Packs.Messaging
 
         /// <summary>Constructor, that uses a given message</summary>
         /// <param name="formularName">The name of the new Formular.</param>
-        /// <param name="template">The message whose data structure should be expressed with this Formular.</param>
-        /// <param name="withCount">Use the messages bin's size as default size. Otherwise: -1</param>
+        /// <param name="config">Comma separated Configuration string defining the Formular</param>
         public MessageFormular (string formularName, string config) : this()
         {
+            if (string.IsNullOrWhiteSpace(formularName)) formularName = DYNAMIC;
             this.Name = formularName.Trim();
-            config = config==null? "" : config.Trim();
 
-            if (config == "") return; // nothing to do here. hand back empty Formular
-
+            if (string.IsNullOrWhiteSpace(config)) return; // nothing to do here. hand back empty Formular
             string[] configArray = config.Trim().Split(',');
 
             foreach (string binConfig in configArray)
             {
-                var desc = new FormularFieldDescriptor(binConfig, true);
-                fields[desc.Name] = desc;
+                var field = new FormularFieldDescriptor(binConfig, true);
+                fields[field.Name] = field;
             }
         }
 
@@ -106,6 +107,7 @@ namespace VVVV.Packs.Messaging
         /// <param name="field">The field to be added</param>
         /// <param name="isRequired">A bool indicating if the registry should skip informing interested parties about this change.</param>
         /// <exception cref="DuplicateFieldException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
+        /// <returns>success</returns>
         public bool Append(FormularFieldDescriptor field, bool isRequired) 
         {
             if (!fields.ContainsKey(field.Name))
@@ -120,6 +122,15 @@ namespace VVVV.Packs.Messaging
             }
             return false;
         }
+
+        /// <summary>Checks if a field can be appended to an existing Formular, with extensive type checking.</summary>
+        /// <param name="field">The field to be added</param>
+        /// <returns>true, if possible to append</returns>
+        public bool CanAppend(FormularFieldDescriptor field)
+        {
+            return !fields.ContainsKey(field.Name) || fields[field.Name].Equals(field); 
+        }
+
 
         /// <summary>Access a specific Field definition by name</summary>
         /// <param name="fieldName">The message whose data should be injected.</param>

@@ -21,7 +21,7 @@ namespace VVVV.Packs.Messaging
         #region static utilities
         // "Type[N] name"
         // Name can constitute of alphanumericals, dots, underscores and hyphens.
-        public static Regex Parser = new Regex(@"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$");
+        public static Regex ConfigurationParser = new Regex(@"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$");
         public static Regex NameParser = new Regex(@"^([\w\._-]+?)$");
         public static ISet<string> ForbiddenNames = new HashSet<string>(new[] { "", "ID", "Output", "Input", "Message", "Keep", "Topic", "Timestamp" }); // These names are likely to be pin names
 
