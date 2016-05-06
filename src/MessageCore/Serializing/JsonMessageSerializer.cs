@@ -82,6 +82,8 @@ namespace VVVV.Packs.Messaging.Serializing
                 if (name == "Topic" || name == "Stamp") continue;
 
                 var m = NameRegex.Match(name);
+
+                // explicit typing?
                 if (m.Success && m.Groups[2].Success)
                 {
                     name = m.Groups[1].Value as string;
@@ -100,13 +102,17 @@ namespace VVVV.Packs.Messaging.Serializing
                         //skip Null
                     }
                 }
+
+                // try to infer type
                 else
                 {
                     JTokenType jType = JTokenType.Null;
 
                     if (bin.Value is JArray)
+                    {
                         if (bin.Value.Count() > 0)
                             jType = (bin.Value as JArray).First.Type;
+                    }
                     else
                     {
                         jType = bin.Value.Type;

@@ -40,9 +40,9 @@ namespace VVVV.Packs.Messaging.Nodes
         
         public void Evaluate(int SpreadMax)
         {
-            if (FUpdate.IsAnyInvalid() || FConfig.IsAnyInvalid() || FName.IsAnyInvalid()) return;
+            if (FConfig.IsAnyInvalid() || FName.IsAnyInvalid()) return;
 
-            var update = FUpdate[0] || FInherits.IsChanged || FName.IsChanged;
+            var update = (!FUpdate.IsAnyInvalid() && FUpdate[0]) || FInherits.IsChanged || FName.IsChanged;
 
             if (!_firstFrame && !update)
             {
@@ -50,7 +50,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
             _firstFrame = false;
-
 
             _lastException = null; // assume innocence
 
@@ -63,7 +62,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (string.IsNullOrWhiteSpace(FName[i]))
                 {
-                    _lastException = new FormatException("A Formular cannot have an empty Name.");
+                    _lastException = new ParseFormularException("A Formular cannot have an empty Name.");
                     return;
                 }
 
@@ -110,18 +109,27 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     foreach (var field in allFields)
                     {
-                        try
+                        if (!formular.CanAppend(field))
                         {
-                            formular.Append(field, false);
-                        }
-                        catch (DuplicateFieldException e)
-                        {
-                            _lastException = e;
+                            var duplicate = formular[field.Name];
+                            _lastException = new DuplicateFieldException("Cannot add new Field \"" + field.ToString() + "\" to Formular [" + formular.Name + "]. Field is already defined as \"" + duplicate.ToString() + "\".", field, duplicate);
                             return;
+                        } else
+                        {
+                            try
+                            {
+                                formular.Append(field, false);
+                            }
+                            catch (DuplicateFieldException e)
+                            {
+                                _lastException = e;
+                                return;
+                            }
                         }
                     }
                 }
 
+                if (!FUpdate.IsAnyInvalid() && FUpdate[0])
                 try
                 {
                     var defined = reg.Define(id, formular, _firstFrame);
@@ -132,10 +140,15 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     _lastException = e;
                     return;
-                } 
+                }
+                catch (ArgumentNullException e)
+                {
+                    _lastException = e;
+                    return;
+                }
             }
 
-            foreach (var form in reg.FromId(id))
+            foreach (var form in reg.GetFormularsFrom(id).ToList())
             {
                 if (!FName.Contains(form.Name))
                     reg.Undefine(id, form);
@@ -143,7 +156,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             FOutput.Flush();
 
-            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
             
         }
 
@@ -152,7 +165,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var reg = MessageFormularRegistry.Instance;
 
             reg.UndefineAll(PluginHost.GetNodePath(false));
-            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
         }
     }
 

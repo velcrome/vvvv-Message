@@ -153,9 +153,9 @@ namespace VVVV.Packs.Messaging {
                 // in case en is not generic, pick the first one and reflect
                 if (gen == null || gen.Count() != 1)
                 {
-                    var tmp = values.Cast<object>();
+                    var tmp = values.Cast<object>(); // throws ArgumentNullException and InvalidCastException.
 
-                    if (tmp.Count() == 0) throw new EmptyBinException("Cannot add an empty bin without information about its type. Consider adding it to AssignFrom()");
+                    if (tmp.Count() == 0) throw new EmptyBinException("Cannot add an empty bin without information about its type. Consider adding type information to AssignFrom()");
 
                     var obj = tmp.FirstOrDefault();
 

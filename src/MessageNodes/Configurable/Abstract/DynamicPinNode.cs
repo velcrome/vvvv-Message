@@ -36,7 +36,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied(); // add listener to FConfig
 
-            var types = TypeIdentity.Instance.Types;
+            var types = TypeIdentity.Instance.Aliases;
             EnumManager.UpdateEnum(TypeIdentityEnum, "string", types);
             
             FAlias.Changed += ConfigPin;

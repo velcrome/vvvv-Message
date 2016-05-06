@@ -13,6 +13,9 @@ namespace VVVV.Packs.Messaging
     public class TypeIdentity : Dictionary<Type, string>
     {
         private static TypeIdentity _instance;
+        /// <summary>
+        /// TypeIdentity is a singleton right now. 
+        /// </summary>
         public static TypeIdentity Instance
         {
             get { 
@@ -21,7 +24,10 @@ namespace VVVV.Packs.Messaging
             }
         }
 
-        public string[] Types
+        /// <summary>
+        /// Retrieve a list of all currently valid Aliases
+        /// </summary>
+        public string[] Aliases
         {
             get { return this.Values.ToArray(); }
         }
@@ -57,6 +63,7 @@ namespace VVVV.Packs.Messaging
 
         public object Default(string alias)
         {
+            alias = alias.ToLower();
             switch (alias)
             {
                 case "bool": return false; 
@@ -65,49 +72,67 @@ namespace VVVV.Packs.Messaging
                 case "float": return 0.0f; 
                 case "string": return "vvvv"; 
                 
-                case "Color": return VColor.Blue; 
-                case "Transform": return VMath.IdentityMatrix; 
-                case "Vector2d": return new Vector2D(); 
-                case "Vector3d": return new Vector3D(); 
-                case "Vector4d": return new Vector4D(); 
+                case "color": return VColor.Blue; 
+                case "transform": return VMath.IdentityMatrix; 
+                case "vector2d": return new Vector2D(); 
+                case "vector3d": return new Vector3D(); 
+                case "vector4d": return new Vector4D(); 
 
-                case "Raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
-                case "Time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
-                case "Message":return new Message();
+                case "raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
+                case "time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
+                case "message":return new Message();
             }
             return null;
         }
 
-        public string FindAlias(Type t)
+        /// <summary>
+        /// Retrieve the alias for a specific type. 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>will return null, if no exact match for type has been found.</returns>
+        public string FindAlias(Type type)
+        {
+            if (this.ContainsKey(type))
+                return this[type];
+                else return null;
+        }
+
+        /// <summary>
+        /// Retrieve the alias for a type or one of its base classes
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public string FindBaseAlias(Type type)
         {
             foreach (Type key in Keys)
             {
-                if (key == t) return this[key];
+                if (key == type) return this[key];
+                if (type.IsSubclassOf(key)) return this[key];
             }
             return null;
         }
 
-        public Type FindBaseType(Type t)
+        /// <summary>
+        /// Retrieve the registered type for any given inherited type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>Null, if no base Type was found.</returns>
+        public Type FindBaseType(Type type)
         {
             foreach (Type key in Keys)
             {
-                if (key == t) return key;
-                if (t.IsSubclassOf(key)) return key;
+                if (key == type) return key;
+                if (type.IsSubclassOf(key)) return key;
             }
             return null;
         }
 
-
-        public string FindBaseAlias(Type t)
-        {
-            foreach (Type key in Keys)
-            {
-                if (key == t) return this[key];
-                if (t.IsSubclassOf(key)) return this[key];
-            }
-            return null;
-        }
-
+        /// <summary>
+        /// Retrieve a registered type by its alias
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <returns>Null, if no Type by that alias was found.</returns>
+        /// <remarks>all aliases are Case insensitive</remarks>
         public Type FindType(string alias)
         {
             Type type = null;

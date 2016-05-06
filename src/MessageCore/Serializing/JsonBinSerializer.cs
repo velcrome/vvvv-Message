@@ -76,8 +76,15 @@ namespace VVVV.Packs.Messaging.Serializing
                 }
                 else
                 {
-                    var o = serializer.Deserialize(reader, type);
-                    bin.Add(o);
+                    try
+                    {
+                        var o = serializer.Deserialize(reader, type);
+                        bin.Add(o);
+                    }
+                    catch
+                    {
+                        // casting errors
+                    }
                 }
             }
 

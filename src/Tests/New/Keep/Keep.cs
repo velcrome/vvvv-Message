@@ -30,7 +30,7 @@ namespace VVVV.Packs.Messaging.Tests
             var change = keep.Sync();
 
             Assert.AreEqual(1, diffs.Count);
-            Assert.AreEqual(message.Topic, change.First().Topic);
+            Assert.AreEqual(message.Topic, diffs.First().Topic);
 
             Assert.IsFalse(message.IsChanged);
             Assert.IsFalse(keep.IsChanged);

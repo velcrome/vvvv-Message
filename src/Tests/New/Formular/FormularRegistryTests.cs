@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using System.Collections.Generic;
-using VVVV.Packs.Messaging;
+
 
 namespace VVVV.Packs.Messaging.Tests
 {
@@ -16,7 +15,7 @@ namespace VVVV.Packs.Messaging.Tests
             var formular = new MessageFormular("A38", "string[3] Field");
 
             string lastChangedFormular = "";
-            reg.TypeChanged += (sender, args) => lastChangedFormular = args.FormularName;
+            reg.FormularChanged += (sender, args) => lastChangedFormular = args.FormularName;
 
             Assert.AreEqual("", lastChangedFormular);
             var success = reg.Define("AddFormular", formular);
@@ -27,7 +26,7 @@ namespace VVVV.Packs.Messaging.Tests
             try
             {
                 reg.Define("Clash", formular);
-                Assert.Fail("Formular by that name already exists from a different source.");
+                Assert.Fail("Formular by that name already exists from a different definer.");
             } catch (RegistryException) {}
 
             success = reg.Undefine("AddFormular", formular);
@@ -36,7 +35,7 @@ namespace VVVV.Packs.Messaging.Tests
             success = reg.Define("NoClash", formular);
             Assert.IsTrue(success);
 
-            var definitions = reg.Names.Where(x => x != MessageFormular.DYNAMIC);
+            var definitions = reg.AllFormularNames.Where(x => x != MessageFormular.DYNAMIC);
 
             Assert.AreEqual(1, definitions.Count());
             Assert.AreEqual("A38", definitions.First()); 
