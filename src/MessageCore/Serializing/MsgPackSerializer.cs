@@ -63,23 +63,21 @@ namespace VVVV.Packs.Messaging.Serializing
                     string fieldName = unpacker.LastReadData.AsString();
 
                     unpacker.Read();
-                    unpacker.UnpackSubtree();
+                    unpacker.UnpackSubtree(); // 
 
+                    Bin bin;
+                    var data = unpacker.LastReadData;
+                    var type = data.UnderlyingType;
 
-                    if (unpacker.LastReadData.IsList)
+                    if (data.IsList)
                     {
                         var list = unpacker.LastReadData.AsList();
-
                         if (list.Count == 0) continue;
 
-                        Bin bin;
-
-                        var type = list.First().UnderlyingType;
+                        type = list.First().UnderlyingType; // pull out first inner type
 
                         if (type.IsPrimitive && AsInt.Contains(type))
-                        {
                             bin = BinFactory.New(typeof(int));
-                        }
                         else bin = BinFactory.New(type);
 
                         if (type != bin.GetInnerType())
@@ -90,28 +88,25 @@ namespace VVVV.Packs.Messaging.Serializing
 
                         yield return new Tuple<string, Bin>( fieldName, bin );
                     }
-                    else {
 
-                        var data = unpacker.LastReadData;
-
-
-                        if (data.IsDictionary)
-                        {
-                            var serializer = MessagePackSerializer.Get<Message>(OwnerContext);
-                            var tmp =serializer.UnpackFrom(unpacker);
-
-                        }
-
-
-                        var type = data.UnderlyingType;
-                        var bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
-
-                        if (type != bin.GetInnerType())
-                            bin.Add(Convert.ChangeType(data.ToObject(), bin.GetInnerType() ) );
-                            else bin.Add(data.ToObject());
-
+                    // single map
+                    if (unpacker.LastReadData.IsDictionary)
+                    {
+                        
+                        bin = BinFactory.New<Message>();
+                        bin.Add(FromMap(data.AsDictionary()));
                         yield return new Tuple<string, Bin>(fieldName, bin);
+
                     }
+
+                    // single value
+                    bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
+
+                    if (type != bin.GetInnerType())
+                        bin.Add(Convert.ChangeType(data.ToObject(), bin.GetInnerType() ) );
+                        else bin.Add(data.ToObject());
+
+                    yield return new Tuple<string, Bin>(fieldName, bin);
 
                 }
                 
@@ -140,18 +135,44 @@ namespace VVVV.Packs.Messaging.Serializing
                 }
             }
 
-            if (data.IsDictionary)
+            return message;
+        }
+
+        protected Message FromMap(MessagePackObjectDictionary dict)
+        {
+            var message = new Message();
+
+            foreach (var field in dict)
             {
-                foreach (var field in data.AsDictionary())
+                Bin bin;
+
+                var fieldName = field.Key.AsString();
+
+                var data = field.Value;
+                if (data.IsArray)
                 {
-                    var fieldName = field.Key.AsString();
+                    var list = data.AsList();
 
-//                    var bin = field.Value.
-
+                    
+                } else if (data.IsMap)
+                {
 
                 }
-            }
+                else
+                {
+                    // single value
+                    var type = data.UnderlyingType;
+                    bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
 
+                    if (type != bin.GetInnerType())
+                        bin.Add(Convert.ChangeType(data.ToObject(), bin.GetInnerType()));
+                    else bin.Add(data.ToObject());
+
+                }
+
+
+
+            }
 
             return message;
         }
