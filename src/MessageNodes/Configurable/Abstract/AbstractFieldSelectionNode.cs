@@ -51,13 +51,17 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void FillEnum(IEnumerable<string> fields)
         {
-            EnumManager.UpdateEnum(EnumName, fields.First(), fields.ToArray());
+            var enums = fields.ToArray();
+
+            if (enums.Count() > 0)
+                EnumManager.UpdateEnum(EnumName, enums.First(), enums);
+            else EnumManager.UpdateEnum(EnumName, MessageFormular.DYNAMIC, new string[] { MessageFormular.DYNAMIC });
         }
 
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             Formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
-            FillEnum(Formular.FieldNames.ToArray());
+            FillEnum(Formular.FieldNames);
         }
 
         protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)

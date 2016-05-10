@@ -11,7 +11,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2, IsSingle = true)]
+        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = true)]
         public IDiffSpread<EnumEntry> FFormular;
 
         [Import]

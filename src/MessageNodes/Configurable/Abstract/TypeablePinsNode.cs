@@ -142,7 +142,7 @@ namespace VVVV.Packs.Messaging.Nodes
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             var formularName = FFormular.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormular[0];
-            var newFormular = new MessageFormular(configSpread[0], formularName);
+            var newFormular = new MessageFormular(formularName, configSpread[0]);
 
             if (HasEndangeredLinks(newFormular))
             {
