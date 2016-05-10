@@ -49,8 +49,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (_lastException != null) throw _lastException;
                 return;
             }
-            _firstFrame = false;
-
             _lastException = null; // assume innocence
 
             FOutput.SliceCount = SpreadMax = FName.SliceCount;
@@ -129,7 +127,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                 }
 
-                if (!FUpdate.IsAnyInvalid() && FUpdate[0])
+                if (_firstFrame || (!FUpdate.IsAnyInvalid() && FUpdate[0]))
                 try
                 {
                     var defined = reg.Define(id, formular, _firstFrame);
@@ -154,8 +152,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     reg.Undefine(id, form);
             }
 
+            _firstFrame = false;
             FOutput.Flush();
-
             EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
             
         }

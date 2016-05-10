@@ -63,10 +63,9 @@ namespace VVVV.Packs.Messaging
         {
             get
             {
-                var names = from nodeId in Data.Keys
-                            from form in Data[nodeId]
-                            select form.Name;
-                return names; // already distinct
+                foreach (var nodeId in Data.Keys)
+                    foreach (var form in Data[nodeId])
+                        yield return form.Name;
             }
         }
 
@@ -77,9 +76,8 @@ namespace VVVV.Packs.Messaging
         /// <returns></returns>
         public IEnumerable<MessageFormular> GetFormularsFrom(string definerId)
         {
-            return 
-                from form in Data[definerId]
-                select form;
+            if (Data.ContainsKey(definerId))
+                foreach (var form in Data[definerId]) yield return form;
         }
 
 

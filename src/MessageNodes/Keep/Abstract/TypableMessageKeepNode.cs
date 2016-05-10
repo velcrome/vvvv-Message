@@ -11,7 +11,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        protected MessageFormular Formular = new MessageFormular("", "temp");
+        protected MessageFormular Formular = new MessageFormular(MessageFormular.DYNAMIC, "string Foo");
 
         public override void OnImportsSatisfied()
         {
