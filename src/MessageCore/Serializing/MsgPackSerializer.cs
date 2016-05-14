@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MsgPack.Serialization;
 using System.Collections;
 using System;
+using System.IO;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
@@ -15,6 +16,7 @@ namespace VVVV.Packs.Messaging.Serializing
         // CAUTION: You MUST implement your serializer thread safe (usually, you can and you should implement serializer as immutable.)
 
         protected readonly HashSet<Type> AsInt;
+        protected delegate bool Next(out object data);
 
         // ownerContext should be match the context to be registered.
         public MsgPackMessageSerializer(SerializationContext ownerContext) : base(ownerContext)
@@ -37,13 +39,23 @@ namespace VVVV.Packs.Messaging.Serializing
                 var bin = message[fieldName];
                 if (bin.Count == 1)
                 {
-                    if (bin.GetInnerType() != typeof(Message))
-                        packer.Pack(bin.First);
-                    else
+                    if (bin.GetInnerType() == typeof(Message))
                     {
-                        var serializer = MessagePackSerializer.Get<Message>(OwnerContext);
-                        serializer.PackTo(packer, bin.First as Message);
+                        PackToCore(packer, (Message)bin.First);
                     }
+                    else if (bin.GetInnerType() == typeof(Stream))
+                    {
+                        var stream = (Stream)bin.First;
+                        byte[] raw = new byte[stream.Length];
+
+                        stream.Position = 0;
+                        stream.Write(raw, 0, (int)stream.Length);
+
+                        packer.PackRaw(raw);
+
+                    }
+                    else packer.Pack(bin.First);
+
                 }
                 else
                 {
@@ -53,128 +65,127 @@ namespace VVVV.Packs.Messaging.Serializing
             }
         }
 
-
-        protected IEnumerable<Tuple<string, Bin>> NextBin(Unpacker unpacker)
-        {
-            while (unpacker.Read())
-            {
-                if (unpacker.LastReadData.IsRaw)
-                {
-                    string fieldName = unpacker.LastReadData.AsString();
-
-                    unpacker.Read();
-                    unpacker.UnpackSubtree(); // 
-
-                    Bin bin;
-                    var data = unpacker.LastReadData;
-                    var type = data.UnderlyingType;
-
-                    if (data.IsList)
-                    {
-                        var list = unpacker.LastReadData.AsList();
-                        if (list.Count == 0) continue;
-
-                        type = list.First().UnderlyingType; // pull out first inner type
-
-                        if (type.IsPrimitive && AsInt.Contains(type))
-                            bin = BinFactory.New(typeof(int));
-                        else bin = BinFactory.New(type);
-
-                        if (type != bin.GetInnerType())
-                        {
-                            var f = list.Select(boxed => Convert.ChangeType(boxed.ToObject(), bin.GetInnerType()));
-                            bin.Add(f);
-                        } else bin.Add(list.Select(boxed => boxed.ToObject() ) );
-
-                        yield return new Tuple<string, Bin>( fieldName, bin );
-                    }
-
-                    // single map
-                    if (unpacker.LastReadData.IsDictionary)
-                    {
-                        
-                        bin = BinFactory.New<Message>();
-                        bin.Add(FromMap(data.AsDictionary()));
-                        yield return new Tuple<string, Bin>(fieldName, bin);
-
-                    }
-
-                    // single value
-                    bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
-
-                    if (type != bin.GetInnerType())
-                        bin.Add(Convert.ChangeType(data.ToObject(), bin.GetInnerType() ) );
-                        else bin.Add(data.ToObject());
-
-                    yield return new Tuple<string, Bin>(fieldName, bin);
-
-                }
-                
-
-            }
-        }
-
+        /// <summary>
+        /// Utility method to unpack from msgpack. 
+        /// </summary>
+        /// <remarks>Will be used recursively to parse nested messages</remarks>
+        /// <param name="unpacker"></param>
+        /// <returns></returns>
+        /// <exception cref="TypeNotSupportedException"
+        /// <exception cref="EmptyBinException"
+        /// <exception cref="ParseMessageException"
+        /// <exception cref="InvalidCastException"
+        /// <exception cref="OverflowException" 
         protected override Message UnpackFromCore(Unpacker unpacker)
         {
             var message = new Message();
 
-            var data = unpacker.LastReadData;
+            if (!unpacker.IsMapHeader) throw new ParseMessageException("Incoming msgpack stream does not seem to be a Map, only Maps can be transcoded to Message. Did you rewind Position?");
 
+            var count = unpacker.ItemsCount;
 
-            if (AsInt.Contains(data.UnderlyingType))
+            string fieldName;
+            while (count > 0 && unpacker.ReadString(out fieldName))
             {
-                var count = data.AsInt32();
-                foreach ( var field in NextBin(unpacker))
-                {
-                    if (field.Item1 == "Topic")
-                    {
-                        message.Topic = field.Item2.First as string;
-                        continue;
-                    }
-                    message[field.Item1] = field.Item2;
-                }
-            }
+                count--;
 
+                if (fieldName == "Topic") {
+                    string topic;
+                    unpacker.ReadString(out topic);
+                    message.Topic = topic;
+                    continue;
+                }
+
+                if (fieldName == "Stamp")
+                {
+                    // todo: add time to msgpack
+                    continue;
+                }
+
+                Bin bin;
+                unpacker.Read();
+
+                if (unpacker.IsMapHeader) // single Message
+                {
+                    bin = BinFactory.New<Message>(UnpackFromCore(unpacker));
+                }
+                else if (unpacker.IsArrayHeader) // multiples!
+                {
+                    long binCount = unpacker.LastReadData.AsInt64();
+                    if (binCount <= 0) continue; // cannot infer type, so skip
+
+                    if (unpacker.IsMapHeader) // multiple nested messages
+                    {
+                        bin = BinFactory.New<Message>();
+                        for (int i = 0;i<binCount;i++)
+                        {
+                            bin.Add(UnpackFromCore(unpacker));
+                        }
+                    }
+                    else // multiple slices
+                    {
+                        unpacker.Read();
+                        bin = BinFromCurrent(unpacker);
+                        for (int i=1;i<binCount;i++)
+                        {
+                            bin.Add(GetNext(unpacker, bin.GetInnerType()));
+                        }
+                    }
+                }
+                else // single item
+                {
+                    bin = BinFromCurrent(unpacker);
+                }
+
+                message[fieldName] = bin;
+
+            }
             return message;
         }
 
-        protected Message FromMap(MessagePackObjectDictionary dict)
+        private object GetNext(Unpacker unpacker, Type targetType)
         {
-            var message = new Message();
+            unpacker.Read();
+            var data = unpacker.LastReadData;
 
-            foreach (var field in dict)
+            if (data.IsRaw)
             {
-                Bin bin;
-
-                var fieldName = field.Key.AsString();
-
-                var data = field.Value;
-                if (data.IsArray)
-                {
-                    var list = data.AsList();
-
-                    
-                } else if (data.IsMap)
-                {
-
-                }
-                else
-                {
-                    // single value
-                    var type = data.UnderlyingType;
-                    bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
-
-                    if (type != bin.GetInnerType())
-                        bin.Add(Convert.ChangeType(data.ToObject(), bin.GetInnerType()));
-                    else bin.Add(data.ToObject());
-
-                }
-
-
-
+                return RawFromCurrent(unpacker);
             }
 
-            return message;
+            if (data.UnderlyingType != targetType)
+                return Convert.ChangeType(data.ToObject(), targetType);
+            else return data.ToObject();
+        }
+
+        private Bin BinFromCurrent(Unpacker unpacker)
+        {
+            var data = unpacker.LastReadData;
+
+            if(data.IsArray || data.IsList ) throw new ParseMessageException("Message cannot handle nested arrays or lists.");
+            if (data.IsNil) throw new EmptyBinException("Message cannot infer type for Nil.");
+
+            if (data.IsRaw)
+            {
+                var rawBin = BinFactory.New<Stream>(RawFromCurrent(unpacker));
+                return rawBin;
+            }
+
+            var type = data.UnderlyingType;
+            var bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
+
+            if (type != bin.GetInnerType())
+                bin.Add(Convert.ChangeType(data.ToObject(), bin.GetInnerType()));
+            else bin.Add(data.ToObject());
+
+            return bin;
+        }
+
+        private Stream RawFromCurrent(Unpacker unpacker)
+        {
+            var raw = unpacker.LastReadData.AsBinary();
+            var stream = new MemoryStream(raw);
+            return stream;
         }
     }
 }
