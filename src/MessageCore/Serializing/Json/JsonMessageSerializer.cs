@@ -135,7 +135,6 @@ namespace VVVV.Packs.Messaging.Serializing
 
                     if (itemType != null) // e.g. JTokenType.Null will be skipped
                     {
-//                        var content = BinFactory.New(itemType);
                         var binType = typeof(Bin<>).MakeGenericType(itemType);
                         var content = bin.Value.ToObject(binType) as Bin;
                         message[name] = content;
