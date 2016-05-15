@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging {
     /// see http://www.github.com/velcrome/vvvv-Message for details
     /// </remarks>    
     [JsonConverter(typeof(JsonMessageSerializer))]
-    public class Message : ICloneable //, ISerializable
+    public class Message : ICloneable, IEquatable<Message> //, ISerializable
     {
         #region Properties and FieldNames
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
@@ -444,7 +444,26 @@ namespace VVVV.Packs.Messaging {
 			}
 			return sb.ToString();
 		}
-        #endregion 
+
+        public bool Equals(Message other)
+        {
+            if (this.Topic != other.Topic) return false;
+            if (Data.Count != other.Data.Count) return false;
+
+            foreach (var fieldName in Fields)
+            {
+                if (!other.Fields.Contains(fieldName)) return false;
+
+                var bin = this[fieldName];
+                var otherBin = other[fieldName];
+
+                if (!bin.Equals(otherBin)) return false;
+            }
+
+
+            return true;
+        }
+        #endregion
 
 
 

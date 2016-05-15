@@ -122,7 +122,7 @@ namespace VVVV.Packs.Messaging.Serializing
                     switch (jType)
                     {
                         case JTokenType.Boolean: itemType = typeof(bool); break;
-                        case JTokenType.Float: itemType = typeof(double); break;
+                        case JTokenType.Float: itemType = typeof(double); break; // promote to double, as this is the default for vvvv
                         case JTokenType.Integer: itemType = typeof(int); break;
                         case JTokenType.String: itemType = typeof(string); break;
 
@@ -135,6 +135,7 @@ namespace VVVV.Packs.Messaging.Serializing
 
                     if (itemType != null) // e.g. JTokenType.Null will be skipped
                     {
+//                        var content = BinFactory.New(itemType);
                         var binType = typeof(Bin<>).MakeGenericType(itemType);
                         var content = bin.Value.ToObject(binType) as Bin;
                         message[name] = content;

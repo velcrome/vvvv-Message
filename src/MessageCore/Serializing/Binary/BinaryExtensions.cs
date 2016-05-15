@@ -18,7 +18,7 @@ namespace VVVV.Packs.Messaging.Serializing
             serialized.WriteUint(message.Topic.UnicodeLength());
             serialized.WriteUnicode(message.Topic);
 
-            var t = message.TimeStamp;
+            var  t = message.TimeStamp;
             var time = t.UniversalTime.ToString("yyyy-MM-dd HH:mm:ss.ffff");
             var zone = t.TimeZone.Id;
 

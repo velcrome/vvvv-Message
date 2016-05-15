@@ -4,6 +4,10 @@ using MsgPack.Serialization;
 using VVVV.Packs.Messaging.Serializing;
 using System.IO;
 using System.Linq;
+using Time = VVVV.Packs.Time.Time;
+using VVVV.Utils.VMath;
+using VVVV.Utils.VColor;
+using System.Text;
 
 [TestClass]
 public class MsgPackTest
@@ -14,37 +18,41 @@ public class MsgPackTest
     {
 
         var context = new SerializationContext();
+//        context.CompatibilityOptions.PackerCompatibilityOptions = MsgPack.PackerCompatibilityOptions.PackBinaryAsRaw;
+        //        context.DefaultDateTimeConversionMethod = DateTimeConversionMethod.Native;
+
+
+
         context.Serializers.RegisterOverride(new MsgPackMessageSerializer(context));
 
         return context;
     }
 
-    
+
 
     [TestMethod]
-    public void Message()
+    public void SerializePrimitives()
     {
         var context = Setup();
 
         var orig = new Message("Test");
 
-        //orig.Init("m1", new Message("Inner"));
+    //            orig.Init("time", Time.CurrentTime());
 
-        //orig.Init("b", true, false, false);
-        //orig.Init("i", 1, 2, 3);
-        //orig.Init("f", 1.0f, 2.0f, 3.0f);
-        //orig.Init("d", 1.0d, 2.0d, 3.0d);
 
-        //orig.Init("s1", "A", "ョ", "asdfa");
+        orig.Init("b", true, false, false);
+        orig.Init("i", 1, 2, 3);
+        orig.Init("f", 1.0f, 2.0f, 3.0f);
+        orig.Init("d", 1.0d, 2.0d, 3.0d);
+        orig.Init("s", "A", "ョ", "asdfa");
 
-        //orig.Init("b1", true);
-        //orig.Init("i1", 1);
-        //orig.Init("f1", 1.0f);
-        //orig.Init("d1", 1.0d);
-        //orig.Init("s1", "ョ");
+        
 
-        orig.Init("r1", new MemoryStream());
-
+        orig.Init("bs", true);
+        orig.Init("is", 1);
+        orig.Init("fs", 1.0f);
+        orig.Init("ds", 1.0d);
+        orig.Init("ss", "ョ");
 
 
         var serializer = MessagePackSerializer.Get<Message>(context);
@@ -56,12 +64,123 @@ public class MsgPackTest
         var copy = serializer.Unpack(stream);
 
         Assert.AreEqual(orig.Topic, copy.Topic);
+//        Assert.AreEqual(orig.TimeStamp, copy.TimeStamp);
 
-        foreach (var fieldName in orig.Fields.Where( f => f != "m1"))
+        foreach (var fieldName in orig.Fields)
         {
             Assert.AreEqual(orig[fieldName], copy[fieldName]);
         }
     }
 
+
+    [TestMethod]
+    public void SerializeNestedMessages()
+    {
+        var context = Setup();
+
+        var orig = new Message("Test");
+//        orig.Init("m1", new Message("Inner"));
+        orig.Init("m", new Message("Inner"), new Message("OtherInner"));
+
+        var serializer = MessagePackSerializer.Get<Message>(context);
+        var stream = new MemoryStream();
+        serializer.Pack(stream, orig);
+        stream.Position = 0;
+        var copy = serializer.Unpack(stream);
+
+        foreach (var fieldName in orig.Fields)
+        {
+            var origBin = orig[fieldName] as Bin<Message>;
+            var copyBin = orig[fieldName] as Bin<Message>;
+
+            for (int i = 0; i<VMath.Max(origBin.Count, copyBin.Count);i++)
+            {
+                var origInner = origBin[i];
+                var copyInner = copyBin[i];
+
+                Assert.AreEqual(origInner, copyInner);
+
+            }
+
+        }
+    }
+
+    [TestMethod]
+    public void SerializeExtended()
+    {
+        var context = Setup();
+
+        var orig = new Message("Test");
+
+        orig.Init("v2", new Vector2D(1, 2), new Vector2D(2, 4));
+        orig.Init("v3", new Vector3D(1, 2, 3), new Vector3D(2, 4, 8));
+        orig.Init("v4", new Vector4D(1, 2, 3, 4), new Vector4D(2, 4, 8, 16));
+
+        orig.Init("c", VColor.Red, VColor.Blue, VColor.Green);
+        orig.Init("t", VMath.IdentityMatrix, new Matrix4x4(), VMath.IdentityMatrix);
+
+        orig.Init("v2s", new Vector2D(1, 2));
+        orig.Init("v3s", new Vector3D(1, 2, 3));
+        orig.Init("v4s", new Vector4D(1, 2, 3, 4));
+
+        orig.Init("c1", VColor.Red);
+        orig.Init("t1", VMath.IdentityMatrix);
+        var serializer = MessagePackSerializer.Get<Message>(context);
+
+        var stream = new MemoryStream();
+        serializer.Pack(stream, orig);
+
+        stream.Position = 0;
+        var copy = serializer.Unpack(stream);
+
+        Assert.AreEqual(orig.Topic, copy.Topic);
+        //        Assert.AreEqual(orig.TimeStamp, copy.TimeStamp);
+
+        foreach (var fieldName in orig.Fields)
+        {
+            Assert.AreEqual(orig[fieldName], copy[fieldName]);
+        }
+
+
+    }
+
+    [TestMethod]
+    public void SerializeStreams()
+    {
+        var context = Setup();
+
+        var orig = new Message("Test");
+
+        var ms = new MemoryStream(Encoding.ASCII.GetBytes("vvvv"));
+
+        orig.Init("r", ms, new MemoryStream(), ms);
+        orig.Init("r1", new MemoryStream());
+
+        var serializer = MessagePackSerializer.Get<Message>(context);
+
+        var stream = new MemoryStream();
+        serializer.Pack(stream, orig);
+
+        stream.Position = 0;
+        var copy = serializer.Unpack(stream);
+
+
+        foreach (var fieldName in orig.Fields)
+        {
+            var origBin = orig[fieldName] as Bin<Stream>;
+            var copyBin = copy[fieldName] as Bin<Stream>;
+
+            for (int i=0;i<VMath.Max(origBin.Count, copyBin.Count);i++)
+            {
+                byte[] origRaw = new byte[origBin[i].Length];
+                origBin[i].Read(origRaw, 0, origRaw.Length);
+
+                byte[] copyRaw = new byte[copyBin[i].Length];
+                copyBin[i].Read(copyRaw, 0, copyRaw.Length);
+
+                Assert.AreEqual(Encoding.ASCII.GetString(origRaw), Encoding.ASCII.GetString(copyRaw));
+            }
+        }
+    }
     #endregion
 }
