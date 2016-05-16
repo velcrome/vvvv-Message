@@ -183,12 +183,12 @@ namespace VVVV.Packs.Messaging.Serializing
 
                     if (unpacker.IsMapHeader) // multiple nested messages
                     {
-                        bin = BinFactory.New<Message>();
+                        bin = BinFactory.New<Message>(UnpackFromCore(unpacker));
 
-                        for (int i = 0;i<binCount;i++)
+                        for (int i = 1;i<binCount;i++)
                         {
-                            bin.Add(UnpackFromCore(unpacker));
                             unpacker.Read();
+                            bin.Add(UnpackFromCore(unpacker));
                         }
                     }
                     else // multiple slices

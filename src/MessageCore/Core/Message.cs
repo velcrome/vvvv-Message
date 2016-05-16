@@ -445,11 +445,22 @@ namespace VVVV.Packs.Messaging {
 			return sb.ToString();
 		}
 
+        /// <summary>
+        /// Equality is given, only when the contents of the Message exactly match
+        /// </summary>
+        /// <remarks>Will not deep-inspect Streams</remarks>
+        /// <param name="other"></param>
+        /// <returns>Will deep-inspect nested Messages.</returns>
         public bool Equals(Message other)
         {
+            if (other == null) return false;
+
+            if (this == other) return true; // same reference detected
+
             if (this.Topic != other.Topic) return false;
             if (Data.Count != other.Data.Count) return false;
 
+            // deep-check all fields
             foreach (var fieldName in Fields)
             {
                 if (!other.Fields.Contains(fieldName)) return false;
@@ -457,12 +468,21 @@ namespace VVVV.Packs.Messaging {
                 var bin = this[fieldName];
                 var otherBin = other[fieldName];
 
-                if (!bin.Equals(otherBin)) return false;
+                if (!bin.Equals(otherBin)) return false; // if Bin<Message>, it will use the default Equals()
             }
-
-
             return true;
         }
+
+        /// <summary>
+        /// Equality is only given, if  the other object is a Message with identical content.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>true, when identical.</returns>
+        public override bool Equals(object other)
+        {
+            return this.Equals(other as Message);
+        }
+
         #endregion
 
 

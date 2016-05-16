@@ -63,13 +63,7 @@ public class MsgPackTest
         stream.Position = 0;
         var copy = serializer.Unpack(stream);
 
-        Assert.AreEqual(orig.Topic, copy.Topic);
-//        Assert.AreEqual(orig.TimeStamp, copy.TimeStamp);
-
-        foreach (var fieldName in orig.Fields)
-        {
-            Assert.AreEqual(orig[fieldName], copy[fieldName]);
-        }
+        Assert.AreEqual(orig, copy);
     }
 
 
@@ -79,8 +73,16 @@ public class MsgPackTest
         var context = Setup();
 
         var orig = new Message("Test");
-        orig.Init("m1", new Message("Inner"));
+
+        var m1 = new Message("Inner");
+        m1.TimeStamp = Time.CurrentTime();
+        m1.Init("Foo", "Bar");
+
+        orig.Init("m1", m1);
         orig.Init("m", new Message("Inner"), new Message("OtherInner"));
+
+        orig.Init("test", 1, 2, 3);
+
 
         var serializer = MessagePackSerializer.Get<Message>(context);
         var stream = new MemoryStream();
@@ -88,21 +90,7 @@ public class MsgPackTest
         stream.Position = 0;
         var copy = serializer.Unpack(stream);
 
-        foreach (var fieldName in orig.Fields)
-        {
-            var origBin = orig[fieldName] as Bin<Message>;
-            var copyBin = orig[fieldName] as Bin<Message>;
-
-            for (int i = 0; i<VMath.Max(origBin.Count, copyBin.Count);i++)
-            {
-                var origInner = origBin[i];
-                var copyInner = copyBin[i];
-
-                Assert.AreEqual(origInner, copyInner);
-
-            }
-
-        }
+        Assert.AreEqual(orig, copy);
     }
 
     [TestMethod]
@@ -133,15 +121,7 @@ public class MsgPackTest
         stream.Position = 0;
         var copy = serializer.Unpack(stream);
 
-        Assert.AreEqual(orig.Topic, copy.Topic);
-        //        Assert.AreEqual(orig.TimeStamp, copy.TimeStamp);
-
-        foreach (var fieldName in orig.Fields)
-        {
-            Assert.AreEqual(orig[fieldName], copy[fieldName]);
-        }
-
-
+        Assert.AreEqual(orig, copy);
     }
 
     [TestMethod]
@@ -181,6 +161,10 @@ public class MsgPackTest
                 Assert.AreEqual(Encoding.ASCII.GetString(origRaw), Encoding.ASCII.GetString(copyRaw));
             }
         }
+
+
+        // Assert.AreEqual(orig, copy);  //fails because of Stream not being deep-checkable
+
     }
     #endregion
 }
