@@ -37,6 +37,10 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MsgPack, Version=0.6.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
+      <HintPath>..\packages\MsgPack.Cli.0.6.8\lib\net45\MsgPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -120,6 +124,7 @@
     <Compile Include="Configurable\MessageAvoidNilNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Serializing\MsgPackNodes.cs" />
     <Compile Include="Spread\SortByFieldNode.cs">
       <SubType>UserControl</SubType>
     </Compile>

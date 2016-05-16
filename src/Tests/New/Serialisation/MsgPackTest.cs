@@ -18,7 +18,7 @@ public class MsgPackTest
     {
 
         var context = new SerializationContext();
-//        context.CompatibilityOptions.PackerCompatibilityOptions = MsgPack.PackerCompatibilityOptions.PackBinaryAsRaw;
+        context.CompatibilityOptions.PackerCompatibilityOptions = MsgPack.PackerCompatibilityOptions.PackBinaryAsRaw;
         //        context.DefaultDateTimeConversionMethod = DateTimeConversionMethod.Native;
 
 
@@ -79,7 +79,7 @@ public class MsgPackTest
         var context = Setup();
 
         var orig = new Message("Test");
-//        orig.Init("m1", new Message("Inner"));
+        orig.Init("m1", new Message("Inner"));
         orig.Init("m", new Message("Inner"), new Message("OtherInner"));
 
         var serializer = MessagePackSerializer.Get<Message>(context);

@@ -10,9 +10,8 @@ namespace VVVV.Packs.Messaging.Serializing
     using Utils.VColor;
     using Utils.VMath;
     using Time = VVVV.Packs.Time.Time;
-    /// <summary>
-    ///		A custom serializer sample: Serialize <see cref="System.DateTime"/> as UTC.
-    /// </summary>
+
+
     public class MsgPackMessageSerializer : MessagePackSerializer<Message>
     {
         // CAUTION: You MUST implement your serializer thread safe (usually, you can and you should implement serializer as immutable.)

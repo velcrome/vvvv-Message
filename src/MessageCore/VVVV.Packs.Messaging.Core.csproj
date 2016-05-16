@@ -51,7 +51,7 @@
     <Compile Include="Serializing\Json\JsonBinSerializer.cs" />
     <Compile Include="Serializing\Binary\BinaryUtils.cs" />
     <Compile Include="Serializing\Json\JsonMessageSerializer.cs" />
-    <Compile Include="Serializing\MsgPack\MsgPackSerializer.cs" />
+    <Compile Include="Serializing\MsgPack\MsgPackMessageSerializer.cs" />
     <Compile Include="Serializing\MsgPack\MsgPackExtendedSerializer.cs" />
     <Compile Include="Serializing\XML\XElementExtensions.cs" />
     <Compile Include="Serializing\OSCExtensions.cs" />
