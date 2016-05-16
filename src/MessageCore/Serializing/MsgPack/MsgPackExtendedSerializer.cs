@@ -15,13 +15,7 @@ namespace VVVV.Packs.Messaging.Serializing
 
         public MsgPackTimeSerializer(SerializationContext ownerContext) : base(ownerContext)
         {
-            OwnerContext.ExtTypeCodeMapping.Add("Time", 0x10);
-            OwnerContext.ExtTypeCodeMapping.Add("Vector2d", 0x11);
-            OwnerContext.ExtTypeCodeMapping.Add("Vector3d", 0x12);
-            OwnerContext.ExtTypeCodeMapping.Add("Vector4d", 0x13);
-            OwnerContext.ExtTypeCodeMapping.Add("Raw", 0x14);
-            OwnerContext.ExtTypeCodeMapping.Add("Color", 0x15);
-            OwnerContext.ExtTypeCodeMapping.Add("Transform", 0x16);
+
         }
 
         protected override void PackToCore(Packer packer, Time time)            

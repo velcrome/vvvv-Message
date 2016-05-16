@@ -41,26 +41,34 @@ namespace VVVV.Packs.Messaging.Serializing
             var subtypes = new Type[] { typeof(byte), typeof(sbyte), typeof(Int16), typeof(UInt16), typeof(UInt32), typeof(Int64), typeof(UInt64) };
             AsInt = new HashSet<Type>(subtypes);
 
+            OwnerContext.ExtTypeCodeMapping.Add("Time", 0x10);
+            OwnerContext.ExtTypeCodeMapping.Add("Raw", 0x11);
+
             TimeSerializer = new MsgPackTimeSerializer(OwnerContext);
+            StreamSerializer = new MsgPackStreamSerializer(OwnerContext);
+
+            OwnerContext.ExtTypeCodeMapping.Add("Vector2d", 0x12);
+            OwnerContext.ExtTypeCodeMapping.Add("Vector3d", 0x13);
+            OwnerContext.ExtTypeCodeMapping.Add("Vector4d", 0x14);
+            OwnerContext.ExtTypeCodeMapping.Add("Transform", 0x15);
+            OwnerContext.ExtTypeCodeMapping.Add("Color", 0x16);
+
             Vector2dSerializer = new MsgPackVector2dSerializer(OwnerContext);
             Vector3dSerializer = new MsgPackVector3dSerializer(OwnerContext);
             Vector4dSerializer = new MsgPackVector4dSerializer(OwnerContext);
-
             MatrixSerializer = new MsgPackMatrixSerializer(OwnerContext);
             ColorSerializer = new MsgPackColorSerializer(OwnerContext);
-
-            StreamSerializer = new MsgPackStreamSerializer(OwnerContext);
         }
 
         protected override void PackToCore(Packer packer, Message message)
         {
-            packer.PackMapHeader(message.Data.Count + 1); // accomodate for all fields, topic and stamp
+            packer.PackMapHeader(message.Data.Count + 2); // accomodate for all fields, topic and stamp
 
             packer.PackString("Topic");
             packer.PackString(message.Topic);
 
-//            packer.PackString("Stamp");
-//            packer.PackExtendedTypeValue(Code["Time"], TimeSerializer.PackSingleObject(message.TimeStamp));
+            packer.PackString("Stamp");
+            packer.PackExtendedTypeValue(Code["Time"], TimeSerializer.PackSingleObject(message.TimeStamp));
 
             foreach (var fieldName in message.Fields)
             {
@@ -96,31 +104,26 @@ namespace VVVV.Packs.Messaging.Serializing
             switch (alias)
             {
                 case "Raw":         raw = StreamSerializer.PackSingleObject((Stream)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
                 case "Time":        raw = TimeSerializer.PackSingleObject((Time)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
                 case "Vector2d":    raw = Vector2dSerializer.PackSingleObject((Vector2D)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
                 case "Vector3d":    raw = Vector3dSerializer.PackSingleObject((Vector3D)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
                 case "Vector4d":    raw = Vector4dSerializer.PackSingleObject((Vector4D)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
                 case "Transform":   raw = MatrixSerializer.PackSingleObject((Matrix4x4)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
                 case "Color":       raw = Vector4dSerializer.PackSingleObject((RGBAColor)item);
-                                    packer.PackExtendedTypeValue(Code[alias], raw);
                                     break;
-                case "string":      packer.PackString((string)item);
-                                    break;
+                case "string":      packer.PackString((string)item); // Utf8, without BOM, as ambiguous str
+                                    return; // preempt
                 default:            packer.Pack(item); // all primitives
-                                    break;
+                                    return; // preempt
             }
+            packer.PackExtendedTypeValue(Code[alias], raw);
+
         }
 
         /// <summary>
@@ -176,7 +179,7 @@ namespace VVVV.Packs.Messaging.Serializing
                     long binCount = unpacker.LastReadData.AsInt64();
                     if (binCount <= 0) continue; // cannot infer type, so skip
 
-                    unpacker.Read();
+                    unpacker.Read(); // populates a new MessagePackObject, GC ahoy
 
                     if (unpacker.IsMapHeader) // multiple nested messages
                     {
