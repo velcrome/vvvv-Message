@@ -1,16 +1,15 @@
 using MsgPack;
 using System.Collections.Generic;
 using MsgPack.Serialization;
-using System.Collections;
+using System.Linq;
 using System;
 using System.IO;
+using VVVV.Utils.VColor;
+using VVVV.Utils.VMath;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using Utils.VColor;
-    using Utils.VMath;
     using Time = VVVV.Packs.Time.Time;
-
 
     public class MsgPackMessageSerializer : MessagePackSerializer<Message>
     {
@@ -126,17 +125,21 @@ namespace VVVV.Packs.Messaging.Serializing
 
         }
 
+        protected bool AssertSuccess(bool success)
+        {
+            if (!success) throw new ParseMessageException("Internal msgpack-cli Error during Read().");
+            return success;
+        }
+
         /// <summary>
         /// Utility method to unpack from msgpack. 
         /// </summary>
         /// <remarks>Will be used recursively to parse nested messages</remarks>
         /// <param name="unpacker"></param>
         /// <returns></returns>
-        /// <exception cref="TypeNotSupportedException"
-        /// <exception cref="EmptyBinException"
-        /// <exception cref="ParseMessageException"
-        /// <exception cref="InvalidCastException"
-        /// <exception cref="OverflowException" 
+        /// <exception cref="TypeNotSupportedException">Thrown, when a datatype of msgpack is not supported, e.g. enums</exception>
+        /// <exception cref="ParseMessageException">Generic exception that </exception>
+        /// <exception cref="OverflowException" >Thrown from msgpack, if a received long does not fit into an int.</exception>
         protected override Message UnpackFromCore(Unpacker unpacker)
         {
             var message = new Message();
@@ -145,10 +148,13 @@ namespace VVVV.Packs.Messaging.Serializing
 
             var count = unpacker.ItemsCount;
 
-            string fieldName;
-            while (count > 0 && unpacker.ReadString(out fieldName))
+            while (count > 0 && AssertSuccess(unpacker.Read()))
             {
                 count--;
+
+                if (!unpacker.LastReadData.IsRaw) throw new ParseMessageException("Only strings can be keys of supported dictionaries. Sorry, only Json style here");
+
+                string fieldName = unpacker.LastReadData.AsString(); 
 
                 if (fieldName == "Topic") {
                     string topic;
@@ -166,20 +172,18 @@ namespace VVVV.Packs.Messaging.Serializing
                 }
 
                 Bin bin;
-
-                
-                unpacker.Read();
+                AssertSuccess(unpacker.Read());
 
                 if (unpacker.IsMapHeader) // single Message
                 {
-                    bin = BinFactory.New<Message>(UnpackFromCore(unpacker));
+                    bin = BinFactory.New(UnpackFromCore(unpacker));
                 }
                 else if (unpacker.IsArrayHeader) // multiples!
                 {
                     long binCount = unpacker.LastReadData.AsInt64();
                     if (binCount <= 0) continue; // cannot infer type, so skip
 
-                    unpacker.Read(); // populates a new MessagePackObject, GC ahoy
+                    AssertSuccess(unpacker.Read()); // populates a new MessagePackObject, GC ahoy
 
                     if (unpacker.IsMapHeader) // multiple nested messages
                     {
@@ -187,7 +191,7 @@ namespace VVVV.Packs.Messaging.Serializing
 
                         for (int i = 1;i<binCount;i++)
                         {
-                            unpacker.Read();
+                            AssertSuccess(unpacker.Read());
                             bin.Add(UnpackFromCore(unpacker));
                         }
                     }
@@ -198,52 +202,74 @@ namespace VVVV.Packs.Messaging.Serializing
 
                         for (int i=1;i<binCount;i++)
                         {
-                            unpacker.Read();
+                            AssertSuccess(unpacker.Read());
                             var item = FromCurrent(unpacker, alias);
                             bin.Add(item);
                         }
                     }
                 }
-                else // single item
+                else // single slice of non-Message
                 {
                     bin = BinFromCurrent(unpacker);
                 }
 
                 message[fieldName] = bin;
-
             }
             return message;
         }
 
-        private object FromCurrent(Unpacker unpacker, string alias)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="unpacker"></param>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseMessageException">thrown if any error is detected during parsing of a single Item</exception>
+        protected object FromCurrent(Unpacker unpacker, string alias)
         {
             var data = unpacker.LastReadData;
 
-            switch (alias) {
-                case "bool":    return data.AsBoolean();
-                case "int" :    return data.AsInt32();
-                case "float":   return data.AsSingle();
-                case "double":  return data.AsDouble();
-                case "string":  return data.AsString();
-                case "Message": return UnpackFromCore(unpacker);
-            }
-
-            var ext = (MessagePackExtendedTypeObject)data;
-
-            switch (alias)
+            try
             {
-                case "Time": return TimeSerializer.UnpackSingleObject(ext.GetBody());
-                case "Vector2d": return Vector2dSerializer.UnpackSingleObject(ext.GetBody());
-                case "Vector3d": return Vector3dSerializer.UnpackSingleObject(ext.GetBody());
-                case "Vector4d": return Vector4dSerializer.UnpackSingleObject(ext.GetBody());
-                case "Color": return ColorSerializer.UnpackSingleObject(ext.GetBody());
-                case "Transform": return MatrixSerializer.UnpackSingleObject(ext.GetBody());
-                case "Raw": return StreamSerializer.UnpackSingleObject(ext.GetBody());
+                switch (alias) {
+                    case "bool": return data.AsBoolean();
+                    case "int": return data.AsInt32();
+                    case "float": return data.AsSingle();
+                    case "double": return data.AsDouble();
+                    case "string": return data.AsString();
+                    case "Message": return UnpackFromCore(unpacker);
+                }
             }
-            throw new TypeNotSupportedException("There is no msgpack Serializer for the alias " + alias);
+            catch (Exception)
+            {
+                var pEx = new ParseMessageException("Types of \"" + alias + "\" must be encoded as a valid msgpack primitive, or as a sub-directory in the case of a nested message.");
+                throw pEx;
+            }
+
+            try
+            {
+                var ext = (MessagePackExtendedTypeObject)data;
+                switch (alias)
+                {
+                    case "Time": return TimeSerializer.UnpackSingleObject(ext.GetBody());
+                    case "Vector2d": return Vector2dSerializer.UnpackSingleObject(ext.GetBody());
+                    case "Vector3d": return Vector3dSerializer.UnpackSingleObject(ext.GetBody());
+                    case "Vector4d": return Vector4dSerializer.UnpackSingleObject(ext.GetBody());
+                    case "Color": return ColorSerializer.UnpackSingleObject(ext.GetBody());
+                    case "Transform": return MatrixSerializer.UnpackSingleObject(ext.GetBody());
+                    case "Raw": return StreamSerializer.UnpackSingleObject(ext.GetBody());
+                }
+            } catch (Exception ex)
+            {
+                var pEx = new ParseMessageException("Typtes of \"" + alias + "\" must be encoded as a known msgpack Extension.");
+                throw pEx;
+            } 
+
+            throw new TypeNotSupportedException("There is no msgpack Serializer for the alias \"" + alias+"\".");
         }
 
-        private Bin BinFromCurrent(Unpacker unpacker)
+        protected Bin BinFromCurrent(Unpacker unpacker)
         {
             var data = unpacker.LastReadData;
 
@@ -257,13 +283,16 @@ namespace VVVV.Packs.Messaging.Serializing
             if (type == typeof(byte[]))
             {
                 var ext = (MessagePackExtendedTypeObject)data;
-                foreach (var mapping in Code)
-                {
-                    if (mapping.Value == ext.TypeCode) {
-                        bin = BinFactory.New(TypeIdentity.Instance.FindType(mapping.Key));
-                        break;
-                    }
-                }
+                var binType = (
+                            from mapping in Code
+                            where mapping.Value == ext.TypeCode
+                            let t = TypeIdentity.Instance.FindType(mapping.Key)
+                            where t != null
+                            select t
+                            ).FirstOrDefault();
+                if (binType == null) new ParseMessageException("No matching extension deserializer found in the SerializationContext");
+
+                bin = BinFactory.New(binType);
             }
             else bin = type.IsPrimitive && AsInt.Contains(type) ? BinFactory.New<int>() : BinFactory.New(type); // check if small ints were converted down for saving traffic
 

@@ -132,7 +132,7 @@ namespace VVVV.Packs.Messaging
         /// </summary>
         /// <param name="alias"></param>
         /// <returns>Null, if no Type by that alias was found.</returns>
-        /// <remarks>all aliases are Case insensitive</remarks>
+        /// <remarks>aliases are treated Case-insensitive here, even though they are case-sensitive.</remarks>
         public Type FindType(string alias)
         {
             Type type = null;
