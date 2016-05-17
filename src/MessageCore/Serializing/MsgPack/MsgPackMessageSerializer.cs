@@ -262,7 +262,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 }
             } catch (Exception ex)
             {
-                var pEx = new ParseMessageException("Typtes of \"" + alias + "\" must be encoded as a known msgpack Extension.");
+                var pEx = new ParseMessageException("Typtes of \"" + alias + "\" must be encoded as a known msgpack Extension.", ex);
                 throw pEx;
             } 
 

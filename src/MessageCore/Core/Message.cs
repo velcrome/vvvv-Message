@@ -483,6 +483,10 @@ namespace VVVV.Packs.Messaging {
             return this.Equals(other as Message);
         }
 
+        public override int GetHashCode()
+        {
+            return Data.GetHashCode() * ( 1+ Data.Count);
+        }
         #endregion
 
 
