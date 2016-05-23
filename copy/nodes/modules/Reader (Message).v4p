@@ -1,9 +1,9 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv-sdk\vvvv45\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" systemname="Reader (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" scrollx="90" scrolly="1260">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta34.2_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" systemname="Reader (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" scrollx="0" scrolly="795">
    <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="1500" top="1500" width="792" height="240">
+   <BOUNDS type="Box" left="1050" top="1395" width="792" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1500" top="1500" width="0" height="0">
+   <BOUNDS type="Node" left="1050" top="1395" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="packs\vvvv-Message\nodes\modules\file.txt">
    </PIN>
@@ -21,9 +21,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4512" top="1752" width="480" height="480">
+   <BOUNDS type="Box" left="4257" top="1347" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="4512" top="1752" width="0" height="0">
+   <BOUNDS type="Node" left="4257" top="1347" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -39,11 +39,13 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Read">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="7" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="2412" top="1572" width="1596" height="276">
+   <BOUNDS type="Box" left="2637" top="1542" width="780" height="315">
    </BOUNDS>
-   <BOUNDS type="Node" left="2412" top="1572" width="0" height="0">
+   <BOUNDS type="Node" left="2637" top="1542" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="utf-8">
    </PIN>
@@ -51,45 +53,27 @@
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
+   <PIN pinname="Pin Visibility" slicecount="1" values="Hidden">
+   </PIN>
    </NODE>
    <NODE id="9" systemname="IOBox (Node)" componentmode="InABox" nodename="IOBox (Node)">
    <PIN pinname="Descriptive Name" slicecount="1" values="Message">
    </PIN>
-   <BOUNDS type="Box" left="795" top="5801" width="750" height="240">
+   <BOUNDS type="Box" left="720" top="6356" width="750" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="795" top="5801" width="750" height="240">
+   <BOUNDS type="Node" left="720" top="6356" width="750" height="240">
    </BOUNDS>
-   <PIN pinname="Input Node" visible="1">
+   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <BOUNDS type="Window" left="12816" top="4752" width="6012" height="6156">
+   <BOUNDS type="Window" left="2580" top="4755" width="11295" height="10845">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
-   <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="780" top="4845" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Switch" visible="1" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Input 2" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Input 1" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="NIL (Node)" filename="%VVVV%\lib\nodes\modules\Node\NIL (Node).v4p" nodename="NIL (Node)" componentmode="Hidden" id="11">
-   <BOUNDS type="Node" left="585" top="3810" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="10" dstpinname="Input 1">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="12" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3855" top="5235" width="480" height="480">
+   <BOUNDS type="Box" left="2895" top="6255" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="3855" top="5235" width="0" height="0">
+   <BOUNDS type="Node" left="2895" top="6255" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -105,7 +89,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Reader (Raw)" filename="" nodename="Reader (Raw)" componentmode="InAWindow" id="6">
-   <BOUNDS type="Node" left="1572" top="2652" width="100" height="100">
+   <BOUNDS type="Node" left="1050" top="2520" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Encoding" visible="1">
    </PIN>
@@ -120,36 +104,64 @@
    </LINK>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Read">
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Success" dstnodeid="10" dstpinname="Switch">
-   </LINK>
    <LINK srcnodeid="6" srcpinname="Success" dstnodeid="12" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="AsString (Raw)" nodename="AsString (Raw)" componentmode="Hidden" id="13">
-   <BOUNDS type="Node" left="1590" top="3630" width="100" height="100">
+   <BOUNDS type="Node" left="435" top="3945" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Encoding" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Content" dstnodeid="13" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="7" srcpinname="Output Enum" dstnodeid="13" dstpinname="Encoding">
    </LINK>
    <NODE id="4" systemname="AsMessage (string)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden">
    <PIN pinname="Message" visible="1">
    </PIN>
-   <BOUNDS type="Node" left="1512" top="4134" width="100" height="100">
+   <BOUNDS type="Node" left="465" top="4455" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="|{&quot;menu&quot;: {&cr;&lf;  &quot;id&quot;: &quot;file&quot;,&cr;&lf;  &quot;value&quot;: &quot;File&quot;,&cr;&lf;  &quot;popup&quot;: {&cr;&lf;    &quot;menuitem&quot;: [&cr;&lf;      {&quot;value&quot;: &quot;New&quot;, &quot;onclick&quot;: &quot;CreateNewDoc()&quot;},&cr;&lf;      {&quot;value&quot;: &quot;Open&quot;, &quot;onclick&quot;: &quot;OpenDoc()&quot;},&cr;&lf;      {&quot;value&quot;: &quot;Close&quot;, &quot;onclick&quot;: &quot;CloseDoc()&quot;}&cr;&lf;    ]&cr;&lf;  }&cr;&lf;}}|">
+   <PIN pinname="Input" visible="1" slicecount="1" values="|[{&cr;&lf;  &quot;Topic&quot;: &quot;Wall&quot;,&cr;&lf;  &quot;Tight&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      -1.4861163322166249E-07,&cr;&lf;      0.0,&cr;&lf;      3.9599995613098145,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      2.4000000953674316,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      -0.99999988079071045,&cr;&lf;      0.0,&cr;&lf;      2.8658951123361476E-07,&cr;&lf;      0.0,&cr;&lf;      3.5405159337642544E-07,&cr;&lf;      1.2000000476837158,&cr;&lf;      -5.9399995803833008,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Margins&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.2400000095367432,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.12000000476837158,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Color&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 0.0,&cr;&lf;    &quot;G&quot;: 0.22999999999999998,&cr;&lf;    &quot;B&quot;: 0.92,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;  &quot;Index&quot;: 0,&cr;&lf;  &quot;BelongsToBeamer&quot;: 0,&cr;&lf;  &quot;ImmersiveViewProjection&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      -2.2036278247833252,&cr;&lf;      0.30517259240150452,&cr;&lf;      -0.27320584654808044,&cr;&lf;      -1.8310370445251465,&cr;&lf;      2.4400651454925537E-07,&cr;&lf;      3.4179356098175049,&cr;&lf;      0.024393374100327492,&cr;&lf;      1.2665987014770508E-07,&cr;&lf;      1.6705455780029297,&cr;&lf;      1.5607710679432785E-07,&cr;&lf;      -0.41834640502929688,&cr;&lf;      -1.1920928955078125E-07,&cr;&lf;      9.1291961669921875,&cr;&lf;      -4.1015219688415527,&cr;&lf;      -0.48747414350509644,&cr;&lf;      4.1015224456787109&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Homography&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      0.77241373062133789,&cr;&lf;      -0.15172414481639862,&cr;&lf;      0.0,&cr;&lf;      0.30344828963279724,&cr;&lf;      -0.22758620977401733,&cr;&lf;      0.84827578067779541,&cr;&lf;      0.0,&cr;&lf;      0.45517244935035706,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.5,&cr;&lf;      0.0,&cr;&lf;      -0.037931036204099655,&cr;&lf;      0.037931036204099655,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Stamp&quot;: {&cr;&lf;    &quot;UTC&quot;: &quot;2016-05-23 11:41:48.0631&quot;,&cr;&lf;    &quot;ZoneId&quot;: &quot;W. Europe Standard Time&quot;&cr;&lf;  }&cr;&lf;}, {&cr;&lf;  &quot;Topic&quot;: &quot;Wall&quot;,&cr;&lf;  &quot;Tight&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      -1.4861163322166249E-07,&cr;&lf;      0.0,&cr;&lf;      3.9599995613098145,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      2.4000000953674316,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      -0.99999988079071045,&cr;&lf;      0.0,&cr;&lf;      2.8658951123361476E-07,&cr;&lf;      0.0,&cr;&lf;      1.1801719779214181E-07,&cr;&lf;      1.2000000476837158,&cr;&lf;      -1.9799997806549072,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Margins&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.2400000095367432,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      -0.12000000476837158,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Color&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 0.92,&cr;&lf;    &quot;G&quot;: 0.0,&cr;&lf;    &quot;B&quot;: 0.69000000000000006,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;  &quot;Index&quot;: 1,&cr;&lf;  &quot;BelongsToBeamer&quot;: 1,&cr;&lf;  &quot;ImmersiveViewProjection&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      0.023022830486297607,&cr;&lf;      0.17191360890865326,&cr;&lf;      -0.4849819540977478,&cr;&lf;      -1.0314818620681763,&cr;&lf;      -2.7939677238464355E-08,&cr;&lf;      1.9254326820373535,&cr;&lf;      0.043301947414875031,&cr;&lf;      1.4901161193847656E-08,&cr;&lf;      0.94107180833816528,&cr;&lf;      -1.9435514531096487E-08,&cr;&lf;      0.11475026607513428,&cr;&lf;      -1.4901161193847656E-08,&cr;&lf;      2.3105192184448242,&cr;&lf;      -2.3105192184448242,&cr;&lf;      1.3060683012008667,&cr;&lf;      2.3105192184448242&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Homography&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      0.78787875175476074,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.21212123334407806,&cr;&lf;      0.99999988079071045,&cr;&lf;      0.0,&cr;&lf;      0.4242425262928009,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.5,&cr;&lf;      0.0,&cr;&lf;      0.10606061667203903,&cr;&lf;      0.10606057941913605,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Stamp&quot;: {&cr;&lf;    &quot;UTC&quot;: &quot;2016-05-23 11:41:44.1776&quot;,&cr;&lf;    &quot;ZoneId&quot;: &quot;W. Europe Standard Time&quot;&cr;&lf;  }&cr;&lf;}, {&cr;&lf;  &quot;Topic&quot;: &quot;Wall&quot;,&cr;&lf;  &quot;Tight&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      3.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      2.4000000953674316,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      1.5,&cr;&lf;      1.2000000476837158,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Margins&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.2400000095367432,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.12000000476837158,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Color&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 0.92,&cr;&lf;    &quot;G&quot;: 0.69000000000000006,&cr;&lf;    &quot;B&quot;: 0.0,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;  &quot;Index&quot;: 2,&cr;&lf;  &quot;BelongsToBeamer&quot;: 2,&cr;&lf;  &quot;ImmersiveViewProjection&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.4109909534454346,&cr;&lf;      -1.7134199836732478E-08,&cr;&lf;      -0.14105287194252014,&cr;&lf;      2.9802322387695313E-08,&cr;&lf;      -2.9802322387695313E-08,&cr;&lf;      2.1870357990264893,&cr;&lf;      0.038122374564409256,&cr;&lf;      -1.2665987014770508E-07,&cr;&lf;      0.21361629664897919,&cr;&lf;      -0.17426574230194092,&cr;&lf;      0.47843599319458008,&cr;&lf;      1.0455948114395142,&cr;&lf;      -2.6244430541992187,&cr;&lf;      -2.6244430541992187,&cr;&lf;      1.4536979198455811,&cr;&lf;      2.6244430541992187&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Homography&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Stamp&quot;: {&cr;&lf;    &quot;UTC&quot;: &quot;2016-05-23 11:41:18.9837&quot;,&cr;&lf;    &quot;ZoneId&quot;: &quot;W. Europe Standard Time&quot;&cr;&lf;  }&cr;&lf;}, {&cr;&lf;  &quot;Topic&quot;: &quot;Wall&quot;,&cr;&lf;  &quot;Tight&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      3.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      2.4000000953674316,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      4.5,&cr;&lf;      1.2000000476837158,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Margins&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.2400000095367432,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      -0.12000000476837158,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Color&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 0.0,&cr;&lf;    &quot;G&quot;: 0.92,&cr;&lf;    &quot;B&quot;: 0.23,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;  &quot;Index&quot;: 3,&cr;&lf;  &quot;BelongsToBeamer&quot;: 3,&cr;&lf;  &quot;ImmersiveViewProjection&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.8190563917160034,&cr;&lf;      8.1746499347445933E-08,&cr;&lf;      0.33414620161056519,&cr;&lf;      -1.1920928955078125E-07,&cr;&lf;      9.6857547760009766E-08,&cr;&lf;      2.8195374011993408,&cr;&lf;      0.029570454731583595,&cr;&lf;      -7.0780515670776367E-08,&cr;&lf;      -1.3769748210906982,&cr;&lf;      -0.2246643453836441,&cr;&lf;      0.37110933661460876,&cr;&lf;      1.347986102104187,&cr;&lf;      -7.5308923721313477,&cr;&lf;      -3.3834447860717773,&cr;&lf;      0.12841397523880005,&cr;&lf;      3.3834450244903564&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Homography&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.5,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;Stamp&quot;: {&cr;&lf;    &quot;UTC&quot;: &quot;2016-05-23 11:41:18.9837&quot;,&cr;&lf;    &quot;ZoneId&quot;: &quot;W. Europe Standard Time&quot;&cr;&lf;  }&cr;&lf;}]|">
+   </PIN>
+   <BOUNDS type="Box" left="465" top="4455">
+   </BOUNDS>
+   </NODE>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="20">
+   <BOUNDS type="Node" left="705" top="5595" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Select" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="4" srcpinname="Message" dstnodeid="10" dstpinname="Input 2">
+   <LINK srcnodeid="4" srcpinname="Message" dstnodeid="20" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="13" srcpinname="Output" dstnodeid="4" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="10" srcpinname="Output" dstnodeid="9" dstpinname="Input Node">
+   <NODE systemname="Select (Raw Bin)" nodename="Select (Raw Bin)" componentmode="Hidden" id="24" filename="%VVVV%\addonpack\lib\nodes\plugins\Select.dll">
+   <BOUNDS type="Node" left="435" top="3270" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Select" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Content" dstnodeid="24" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Success" dstnodeid="24" dstpinname="Select">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="Output" dstnodeid="13" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Success" dstnodeid="20" dstpinname="Select">
+   </LINK>
+   <LINK srcnodeid="20" srcpinname="Output" dstnodeid="9" dstpinname="Input Node">
    </LINK>
    </PATCH>
