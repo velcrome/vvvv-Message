@@ -59,7 +59,7 @@ namespace VVVV.Packs.Messaging.Nodes
         }
         
         
-        protected string _formularName = "";
+        protected string _formularName = MessageFormular.DYNAMIC;
         public MessageFormular Formular
         {
             get 
@@ -133,14 +133,16 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var overwrite = remove[maxCount - counter];
                     overwrite.Descriptor = newEntry;
-                    overwrite.Checked = overwrite.Checked || forceChecked || newEntry.IsRequired; // stay true, when likely to be a rename
+                    overwrite.Checked = overwrite.Checked || forceChecked; 
+//                    overwrite.Checked = overwrite.Checked || forceChecked || newEntry.IsRequired; // stay true, when likely to be a rename
                     overwrite.Visible = true;
                     overwrite.Locked = Locked;
                     counter--;
                 }
                 else
                 {
-                    AddNewFieldPanel(newEntry, forceChecked || newEntry.IsRequired);
+                    AddNewFieldPanel(newEntry, forceChecked );
+//                    AddNewFieldPanel(newEntry, forceChecked || newEntry.IsRequired);
                 }
             }
             

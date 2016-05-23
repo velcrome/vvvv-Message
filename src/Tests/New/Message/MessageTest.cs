@@ -441,7 +441,7 @@ namespace VVVV.Packs.Messaging.Tests
             a.Init("Field", 1, 2);
 
             var b = new Message("Topic");
-            b.Init("Field", 1, 2);
+            b.Init("Field", 1, 2, 3);
 
             a.Sync();
 

@@ -47,19 +47,25 @@
     <Compile Include="Formular\MessageFormularChangedEvent.cs" />
     <Compile Include="Formular\MessageFormularRegistry.cs" />
     <Compile Include="Core\TypeIdentity.cs" />
-    <Compile Include="Serializing\BinaryExtensions.cs" />
-    <Compile Include="Serializing\JsonBinSerializer.cs" />
-    <Compile Include="Serializing\BinaryUtils.cs" />
-    <Compile Include="Serializing\JsonMessageSerializer.cs" />
-    <Compile Include="Serializing\XElementExtensions.cs" />
+    <Compile Include="Serializing\Binary\BinaryExtensions.cs" />
+    <Compile Include="Serializing\Json\JsonBinSerializer.cs" />
+    <Compile Include="Serializing\Binary\BinaryUtils.cs" />
+    <Compile Include="Serializing\Json\JsonMessageSerializer.cs" />
+    <Compile Include="Serializing\MsgPack\MsgPackMessageSerializer.cs" />
+    <Compile Include="Serializing\MsgPack\MsgPackExtendedSerializer.cs" />
+    <Compile Include="Serializing\XML\XElementExtensions.cs" />
     <Compile Include="Serializing\OSCExtensions.cs" />
-    <Compile Include="Serializing\MessageResolver.cs" />
+    <Compile Include="Serializing\XML\MessageResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MsgPack, Version=0.6.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
+      <HintPath>..\packages\MsgPack.Cli.0.6.8\lib\net45\MsgPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />

@@ -156,7 +156,7 @@ namespace VVVV.Packs.Messaging
         
         public void Add(Message message)
         {
-            if (Messages.Contains(message)) return; // no duplicates
+            if (Messages.Any(m => m == message)) return; // no direct duplicates
 
             Messages.Add(message);
             if (QuickMode)

@@ -29,6 +29,8 @@ namespace VVVV.Packs.Messaging.Nodes
             FWindow = new FormularLayoutPanel();
             Controls.Add(FWindow);
             var reg = MessageFormularRegistry.Instance;
+
+            // make sure the enum is available.
             EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
         }
 
@@ -39,9 +41,6 @@ namespace VVVV.Packs.Messaging.Nodes
             // base provider of Formulars
             var reg = MessageFormularRegistry.Instance;
             reg.FormularChanged += FormularRemotelyChanged;
-
-            //// dummy enum, will be populated from registry
-            //EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
 
             FFormular.Changed += OnSelectFormular;
             ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;

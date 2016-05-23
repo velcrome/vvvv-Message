@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging
         /// <summary>The current number of elements in the bin</summary>
         int Count               { get; set; }
 
-        /// <summary>Indicates if the bin has been changed recently. Any change to it will set IsDirty to true internally.</summary>
+        /// <summary>Indicates if the bin has been changed recently. Any change to the bin will set IsDirty to true internally.</summary>
         bool IsDirty            { get; set; }
 
         /// <summary>

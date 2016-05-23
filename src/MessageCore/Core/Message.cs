@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging {
     /// see http://www.github.com/velcrome/vvvv-Message for details
     /// </remarks>    
     [JsonConverter(typeof(JsonMessageSerializer))]
-    public class Message : ICloneable //, ISerializable
+    public class Message : ICloneable, IEquatable<Message> //, ISerializable
     {
         #region Properties and FieldNames
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
@@ -444,7 +444,50 @@ namespace VVVV.Packs.Messaging {
 			}
 			return sb.ToString();
 		}
-        #endregion 
+
+        /// <summary>
+        /// Equality is given, only when the contents of the Message exactly match
+        /// </summary>
+        /// <remarks>Will not deep-inspect Streams</remarks>
+        /// <param name="other"></param>
+        /// <returns>Will deep-inspect nested Messages.</returns>
+        public bool Equals(Message other)
+        {
+            if (other == null) return false;
+
+            if (this == other) return true; // same reference detected
+
+            if (this.Topic != other.Topic) return false;
+            if (Data.Count != other.Data.Count) return false;
+
+            // deep-check all fields
+            foreach (var fieldName in Fields)
+            {
+                if (!other.Fields.Contains(fieldName)) return false;
+
+                var bin = this[fieldName];
+                var otherBin = other[fieldName];
+
+                if (!bin.Equals(otherBin)) return false; // if Bin<Message>, it will use the default Equals()
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Equality is only given, if  the other object is a Message with identical content.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>true, when identical.</returns>
+        public override bool Equals(object other)
+        {
+            return this.Equals(other as Message);
+        }
+
+        public override int GetHashCode()
+        {
+            return Data.GetHashCode() * ( 1+ Data.Count);
+        }
+        #endregion
 
 
 

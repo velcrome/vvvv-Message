@@ -130,8 +130,9 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (_firstFrame || (!FUpdate.IsAnyInvalid() && FUpdate[0]))
                 try
                 {
-                    var defined = reg.Define(id, formular, _firstFrame);
-                    if (defined)
+//                        var defined = reg.Define(id, formular, _firstFrame);
+                        var defined = reg.Define(id, formular, false);
+                        if (defined)
                         FOutput[i] = formular;
                 }
                 catch (RegistryException e)
