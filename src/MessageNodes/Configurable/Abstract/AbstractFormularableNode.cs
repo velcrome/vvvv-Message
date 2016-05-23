@@ -29,7 +29,9 @@ namespace VVVV.Packs.Messaging.Nodes
             FWindow = new FormularLayoutPanel();
             Controls.Add(FWindow);
             var reg = MessageFormularRegistry.Instance;
- //           EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
+
+            // make sure the enum is available.
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
         }
 
         public override void OnImportsSatisfied()
