@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VVVV.Packs.Messaging</RootNamespace>
     <AssemblyName>VVVV.Packs.Messaging</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\build\$(Platform)\$(Configuration)\core\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -64,6 +64,10 @@
   <ItemGroup>
     <Reference Include="MsgPack, Version=0.6.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
       <HintPath>..\packages\MsgPack.Cli.0.6.8\lib\net45\MsgPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <HintPath>..\packages\VVVV.SlimDX.1.0.3\lib\net40\x86\SlimDX.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
