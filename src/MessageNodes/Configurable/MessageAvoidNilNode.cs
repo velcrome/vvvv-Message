@@ -30,12 +30,6 @@ namespace VVVV.Packs.Messaging.Nodes
 #pragma warning restore
 
 
-        public override void OnImportsSatisfied()
-        {
-            base.OnImportsSatisfied();
-            (FWindow as FormularLayoutPanel).Locked = true;
-        }
-
         public override void Evaluate(int SpreadMax)
         {
             if (Default != null && !FInput.IsChanged) return;

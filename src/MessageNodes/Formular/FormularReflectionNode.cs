@@ -26,11 +26,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private bool _changed = true;
 
-        public override void OnImportsSatisfied()
-        {
-            base.OnImportsSatisfied();
-            (FWindow as FormularLayoutPanel).Locked = true;
-        }
 
         protected override void OnConfigChange(IDiffSpread<string> config) {
             _changed = true;

@@ -45,7 +45,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             for (int i = 0; i < SpreadMax; i++)
             {
 
-                FOutput[i] = new MemoryStream(); // null exception. wrong usage of resiseAndDispose maybe?
+                FOutput[i] = new MemoryComStream(); // null exception. wrong usage of resiseAndDispose maybe?
                 serializer.Pack(FOutput[i], FInput[i]);
             }
             FOutput.Flush();

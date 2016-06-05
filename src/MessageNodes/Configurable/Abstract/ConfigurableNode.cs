@@ -6,15 +6,13 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class ConfigurableNode :  UserControl, IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class ConfigurableNode :  IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         [Config("Configuration", DefaultString = "string Foo", Visibility=PinVisibility.True)]
         public IDiffSpread<string> FConfig;
 
         [Import()]
         protected ILogger FLogger;
-
-        protected Panel FWindow;
 
         protected abstract void OnConfigChange(IDiffSpread<string> configSpread);
         public abstract void Evaluate(int SpreadMax);
@@ -24,9 +22,6 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
         protected virtual void InitializeWindow() {
-            FWindow = new PicturePanel();
-            Controls.Add(FWindow);
-
         }
         public virtual void OnImportsSatisfied()
         {

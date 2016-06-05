@@ -55,7 +55,7 @@ namespace VVVV.Nodes.OSC
             {
                 FOutput[i].SliceCount = 0;
 
-                MemoryStream ms = new MemoryStream();
+                MemoryStream ms = new MemoryComStream();
                 FInput[i].Position = 0;
                 FInput[i].CopyTo(ms);
                 byte[] bytes = ms.ToArray();

@@ -1,6 +1,5 @@
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.Packs.Messaging.Serializing;
 using VVVV.PluginInterfaces.V2;
 using System.Xml.Linq;

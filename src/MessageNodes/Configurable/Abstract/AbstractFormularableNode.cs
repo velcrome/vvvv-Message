@@ -24,10 +24,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void InitializeWindow()
         {
-            // don't call inherited InitializeWindow, so the placeholder pic will disappear
-            
-            FWindow = new FormularLayoutPanel();
-            Controls.Add(FWindow);
+            //FWindow = new FormularLayoutPanel();
+            //Controls.Add(FWindow);
+
             var reg = MessageFormularRegistry.Instance;
 
             // make sure the enum is available.
@@ -43,7 +42,8 @@ namespace VVVV.Packs.Messaging.Nodes
             reg.FormularChanged += FormularRemotelyChanged;
 
             FFormular.Changed += OnSelectFormular;
-            ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
+
+            //            ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
 
             FConfig.Changed += OnConfig;
         }
@@ -92,12 +92,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 UpdateWindow(formular);
 
-                var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
-                if (FConfig[0] != newConfig) FConfig[0] = newConfig;
+                //var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
+                //if (FConfig[0] != newConfig) FConfig[0] = newConfig;
             }
             else
             {
-                (FWindow as FormularLayoutPanel).CanEditFields = true;
+                //(FWindow as FormularLayoutPanel).CanEditFields = true;
                 var formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
                 UpdateWindow(formular);
             }

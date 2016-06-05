@@ -28,8 +28,8 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
  	        base.OnImportsSatisfied();
-            (FWindow as FormularLayoutPanel).Locked = true;
-  //          FOutput.Connected += HandleOutputConnect;
+
+//            (FWindow as FormularLayoutPanel).Locked = true;
         }
 
         private void HandleOutputConnect(object sender, PinConnectionEventArgs args)

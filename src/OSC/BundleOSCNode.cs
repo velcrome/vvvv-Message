@@ -4,7 +4,7 @@ using System.IO;
 
 using VVVV.PluginInterfaces.V2;
 
-using VVVV.Utils;
+
 using VVVV.Core.Logging;
 using VVVV.Utils.OSC;
 
@@ -63,7 +63,7 @@ namespace VVVV.Nodes.OSC
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                var ms = new MemoryStream();
+                var ms = new MemoryComStream();
 
                 int index = FSelect[0] == SelectEnum.Last ? SpreadMax - i - 1 : i;
                 FInput[index].Position = 0; // rewind stream
@@ -144,13 +144,13 @@ namespace VVVV.Nodes.OSC
 
             if (!FDistribute[0])
             {
-                FOutput.Add(new MemoryStream((singleBundle.BinaryData)));
+                FOutput.Add(new MemoryComStream((singleBundle.BinaryData)));
             }
             else
             {
                 foreach (OSCBundle bundle in bundles.Values)
                 {
-                    FOutput.Add(new MemoryStream((bundle.BinaryData)));
+                    FOutput.Add(new MemoryComStream((bundle.BinaryData)));
                 }
             }
             FOutput.Flush();

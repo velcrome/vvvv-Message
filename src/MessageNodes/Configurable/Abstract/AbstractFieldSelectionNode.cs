@@ -23,8 +23,6 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
             CreateEnumPin("Use Fields", new string[] { "Foo" });
-
-            (FWindow as FormularLayoutPanel).Locked = true;
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)

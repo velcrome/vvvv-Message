@@ -73,7 +73,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 }
                 
             }
-            return new MemoryStream(msg.BinaryData); // packs implicitly
+            return new MemoryComStream(msg.BinaryData); // packs implicitly
         }
 
         private static string CommonPrefix(string[] addresses)
