@@ -1,65 +1,57 @@
+#region usings
+using System;
 using System.ComponentModel.Composition;
-
 using System.Linq;
 
-
+using VVVV.PluginInterfaces.V1;
+using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging; 
-using VVVV.PluginInterfaces.V2;  
+
+using VVVV.Packs.Messaging;
 using VVVV.Utils;
 
 
-namespace VVVV.Packs.Messaging.Nodes
+#endregion usings
+
+namespace VVVV.Nodes
 {
-    [PluginInfo(Name = "SearchTemplate", Category = "Message.Spread", Help = "Allows LINQ queries for Messages", Tags = "LINQ", Author = "velcrome")]
-    public class MessageSearchNode : IPluginEvaluate
-    {
-#pragma warning disable 649, 169
-        [Input("Input")]
-        private IDiffSpread<Message> FInput; 
+	#region PluginInfo
+	[PluginInfo(Name = "SearchTemplate", Category = "Message", Help = "Basic template with one value in/out", Tags = "")]
+	#endregion PluginInfo
+	public class MessageSearchTemplateNode : IPluginEvaluate
+	{
+		#region fields & pins
+		[Input("Input", DefaultValue = 1.0)]
+		public ISpread<Message> FInput; 
 
-        [Output("Message", AutoFlush = false)]
-        private ISpread<Message> FOutput;
+		[Output("Output", AutoFlush = false)]
+		public ISpread<Message> FOutput;
 
+		[Import()]
+		public ILogger FLogger;
+		#endregion fields & pins
 
-        [Import()]
-        protected ILogger FLogger;
-#pragma warning restore
-
-        public void Evaluate(int SpreadMax)
-        {
-			if (Prep(out SpreadMax)) return;
-
-        	var result = 
-        					from message in FInput
-        					let foo = (string)message["Foo"][0]
-        					where foo != "bar"
-        					select message; 
-
-             FOutput.SliceCount = 0;
-            FOutput.AssignFrom(result.ToArray());
-            FOutput.Flush();
-        }
-    	
-		protected bool Prep(out int SpreadMax) {
-            if (FInput.SliceCount <= 0 || FInput[0] == null)
-                SpreadMax = 0;
-            else SpreadMax = FInput.SliceCount;
-
-            if (SpreadMax == 0)
-            {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
-                return true;
-            }
-			if (!FInput.IsChanged) return true;
+		//called when data for any output pin is requested
+		public void Evaluate(int SpreadMax)
+		{
+			if (FInput.IsAnyInvalid()) {
+				if (FOutput.SliceCount > 0) {
+					FOutput.SliceCount = 0;
+					FOutput.Flush();
+				}
+				return;
+			}
 			
-			return false;
-		}			
+			FOutput.SliceCount = 0;
 
-
-    }
+			FOutput.AssignFrom(
+				from message in FInput
+				let bin = message["Foo"] as Bin<string>
+				where bin.First == "bar"
+				select message
+			);
+			
+			FOutput.Flush();
+		}
+	}
 }

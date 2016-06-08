@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>VVVV.Nodes</RootNamespace>
-    <AssemblyName>MessageSearchTemplateNode</AssemblyName>
+    <AssemblyName>MessageSearchTemplate</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -39,11 +39,12 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.Codeplex" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Linq" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="VVVV.Core" />
     <Reference Include="VVVV.Packs.Messaging">
-      <HintPath>..\..\..\core\VVVV.Packs.Messaging.dll</HintPath>
+      <HintPath>..\VVVV.Packs.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="VVVV.Packs.Messaging.Generic">
+      <HintPath>..\VVVV.Packs.Messaging.Generic.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.PluginInterfaces" />
     <Reference Include="VVVV.Utils" />
