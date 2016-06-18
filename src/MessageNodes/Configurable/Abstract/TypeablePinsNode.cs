@@ -105,9 +105,13 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             try
             {
-                var binContainer = pinContainer.RawIOObject.GetType().GetField("FStream", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance | BindingFlags.FlattenHierarchy).GetValue(pinContainer.RawIOObject);
-                var container = binContainer.GetType().GetField("FDataContainer", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance).GetValue(binContainer) as IIOContainer;
-                return container.GetPluginIO().IsConnected;
+                var connected = pinContainer.GetPluginIO().IsConnected;
+
+                foreach (var associated in pinContainer.AssociatedContainers)
+                {
+                    connected &= associated.GetPluginIO().IsConnected;
+                }
+                return connected;
             }
             catch (Exception)
             {
@@ -127,11 +131,11 @@ namespace VVVV.Packs.Messaging.Nodes
                          select fieldName;
 
             // type changes - removal and recreate new
-            var typeDanger= from field in Formular.FieldDescriptors
-                            where newFormular.FieldNames.Contains(field.Name)
-                            where newFormular[field.Name].Type != field.Type
-                            where HasLink(FPins[field.Name]) // first frame pin will not be initialized
-                            select field.Name;
+            var typeDanger = from field in Formular.FieldDescriptors
+                             where newFormular.FieldNames.Contains(field.Name)
+                             where newFormular[field.Name].Type != field.Type
+                             where HasLink(FPins[field.Name]) // first frame pin will not be initialized
+                             select field.Name;
 
             // ignore changes to binsize.
 
@@ -189,14 +193,14 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins.Remove(name);
             }
 
-            //// reorder - does not work right now, sdk offers only read-only access
-            //var names = formular.FieldNames.ToArray();
-            //for (int i = 0; i < formular.FieldNames.Count; i++)
-            //{
-            //    var name = names[i];
-            //    var pin = FPins[name].GetPluginIO();
-            //    pin.Order = i * 2 + 5;
-            //}
+            // reorder - does not work right now, sdk offers only read-only access
+            var names = Formular.FieldNames.ToArray();
+            for (int i = 0; i < Formular.FieldNames.Count(); i++)
+            {
+                var name = names[i];
+                var pin = FPins[name].GetPluginIO();
+                pin.Order = i * 2 + 5;
+            }
 
         }
         #endregion pin management
