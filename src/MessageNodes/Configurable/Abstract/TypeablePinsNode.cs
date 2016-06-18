@@ -17,7 +17,6 @@ namespace VVVV.Packs.Messaging.Nodes
         #region fields & pins
         protected const string Tags = "Formular";
 
-
         [Import()]
         protected IIOFactory FIOFactory;
 

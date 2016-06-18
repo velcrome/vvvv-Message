@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -17,7 +15,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Import()]
         protected IIOFactory FIOFactory;
-
 
         public override void OnImportsSatisfied()
         {
