@@ -124,6 +124,9 @@
     <Compile Include="Configurable\MessageAvoidNilNode.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Keep\MessageKeepTimeBufferNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Serializing\MsgPackNodes.cs" />
     <Compile Include="Spread\SortByFieldNode.cs">
       <SubType>UserControl</SubType>
