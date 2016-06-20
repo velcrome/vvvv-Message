@@ -53,7 +53,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void NewDefault()
         {
-            Default = new Message(new MessageFormular(FFormular[0].Name, FConfig[0]));
+            Default = new Message(new MessageFormular(FFormularSelection[0].Name, FConfig[0]));
             Default.TimeStamp = Time.Time.CurrentTime();
             
         }
@@ -63,16 +63,5 @@ namespace VVVV.Packs.Messaging.Nodes
             Default = null;
         }
 
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
     }
 }

@@ -7,26 +7,86 @@ using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.Core.Logging;
-using System.Reflection;
-
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.OLE.Interop;
+using System.Windows.Forms;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class DynamicPinsNode : AbstractFormularableNode
+    public abstract class DynamicPinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface
     {
         #region fields & pins
         protected const string Tags = "Formular";
 
+        public override MessageFormular Formular
+        {
+            get
+            {
+                return _formular;
+            }
+            protected set
+            {
+                if (value==null) throw new ArgumentNullException("Formular cannot be null in " + GetType().Name + " at " + PluginHost.GetNodePath(false) ) ;
+
+                Window.CanEditFields = value.IsDynamic;
+                Window.Formular = value;
+
+                var newConfig = Window.Formular.Configuration;
+                if (FConfig[0] != newConfig) FConfig[0] = newConfig;
+
+                _formular = value;
+
+            }
+        }
+
         [Import()]
         protected IIOFactory FIOFactory;
-
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
-        protected MessageFormular Formular = new MessageFormular(MessageFormular.DYNAMIC, "");
+        protected int DynPinCount = 5;
 
         protected bool RemovePinsFirst;
 
-        protected int DynPinCount = 5;
+        protected FormularLayoutPanel Window = new FormularLayoutPanel();
+        
+
+        
         #endregion fields & pins
+
+        #region Initialisation
+
+
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            Window.Change += OnChangeLayout;
+
+        }
+
+        public IntPtr Handle
+        {
+            get { return Window.Handle; }
+        }
+
+        public CustomQueryInterfaceResult GetInterface(ref Guid iid, out IntPtr ppv)
+        {
+            if (iid.Equals(Guid.Parse("00000112-0000-0000-c000-000000000046")))
+            {
+                ppv = Marshal.GetComInterfaceForObject(Window, typeof(IOleObject));
+                return CustomQueryInterfaceResult.Handled;
+            }
+            else if (iid.Equals(Guid.Parse("458AB8A2-A1EA-4d7b-8EBE-DEE5D3D9442C")))
+            {
+                ppv = Marshal.GetComInterfaceForObject(Window, typeof(IWin32Window));
+                return CustomQueryInterfaceResult.Handled;
+            }
+            else
+            {
+                FLogger.Log(LogType.Debug, "missing: " + iid.ToString());
+                ppv = IntPtr.Zero;
+                return CustomQueryInterfaceResult.NotHandled;
+            }
+        }
+        #endregion
 
         #region pin management
 
@@ -142,9 +202,14 @@ namespace VVVV.Packs.Messaging.Nodes
             return danger.Count() > 0 || typeDanger.Count() > 0;
         }
 
+
+        #endregion pin management
+
+        #region window management
+
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            var formularName = FFormular.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormular[0];
+            var formularName = FFormularSelection.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormularSelection[0]; // fallback to dynamic, when unknown
             var newFormular = new MessageFormular(formularName, configSpread[0]);
 
             if (HasEndangeredLinks(newFormular))
@@ -174,7 +239,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     else
                     {
                         // key is in FPins, but no type defined. should never happen
-                        FLogger.Log(LogType.Debug, "Internal Fault in Pin Layout detected. Override with "+newFormular.ToString());
+                        FLogger.Log(LogType.Debug, "Internal Fault in Pin Layout detected. Override with " + newFormular.ToString());
                         FPins[field] = CreatePin(newFormular[field]);
                     }
                 }
@@ -182,11 +247,9 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     FPins[field] = CreatePin(newFormular[field]);
                 }
-             }
-            
-            // cleanup
-            Formular = newFormular;
+            }
 
+            // cleanup
             foreach (string name in invalidPins)
             {
                 FPins[name].Dispose();
@@ -194,16 +257,40 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             // reorder - does not work right now, sdk offers only read-only access
-            var names = Formular.FieldNames.ToArray();
-            for (int i = 0; i < Formular.FieldNames.Count(); i++)
-            {
-                var name = names[i];
-                var pin = FPins[name].GetPluginIO();
-                pin.Order = i * 2 + 5;
-            }
+            //var names = Formular.FieldNames.ToArray();
+            //for (int i = 0; i < Formular.FieldNames.Count(); i++)
+            //{
+            //    var name = names[i];
+            //    var pin = FPins[name].GetPluginIO();
+            //    pin.Order = i * 2 + 5;
+            //}
 
         }
-        #endregion pin management
+
+        private void OnChangeLayout(object sender, FormularChangedEventArgs e)
+        {
+            var config = e.Formular.Configuration;
+            if (config != FConfig[0]) FConfig[0] = config;
+        }
+
+        private void UpdateWindow(MessageFormular formular, bool append = false)
+        {
+            if (formular == null) return;
+
+            var layoutPanel = Window as FormularLayoutPanel;
+
+            if (append)
+            {
+                var old = layoutPanel.Formular;
+                foreach (var field in formular.FieldDescriptors)
+                    old.Append(field, true);
+                formular = old;
+            }
+
+            layoutPanel.Formular = formular;
+            layoutPanel.CanEditFields = formular.IsDynamic;
+        }
+        #endregion
 
         #region abstract methods
         protected abstract IOAttribute SetPinAttributes(FormularFieldDescriptor config);

@@ -11,8 +11,6 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<ISpread<EnumEntry>> FUseFields = null;
         private string EnumName;
 
-        protected MessageFormular Formular;
-
         [Import()]
         protected IIOFactory FIOFactory;
 
@@ -55,20 +53,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
-            Formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
+            Formular = new MessageFormular(MessageFormular.DYNAMIC, configSpread[0]);
             FillEnum(Formular.FieldNames);
         }
 
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread); // inject Formular into 
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
 
 
     }

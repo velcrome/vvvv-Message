@@ -42,19 +42,6 @@ namespace VVVV.Packs.Messaging.Nodes
             ForceNewDefaults = true;
         }
 
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-
-        }
-
 
         public override void Evaluate(int SpreadMax)
         {
@@ -83,7 +70,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FOutput[i].SliceCount = 0;
 
-                var formular = new MessageFormular(FFormular[0], FConfig[i]);
+                var formular = new MessageFormular(FFormularSelection[0], FConfig[i]);
                 
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)

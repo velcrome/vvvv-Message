@@ -47,12 +47,13 @@ namespace VVVV.Packs.Messaging
         {
             get
             {
-                var match = from nodeId in Data.Keys
+                var match = (
+                                from nodeId in Data.Keys
                                 from field in Data[nodeId]
                                 where field.Name == formularName
-                                select field;
-
-                return match.FirstOrDefault();
+                                select field
+                            ).FirstOrDefault();
+                return match;
             }
        }
 

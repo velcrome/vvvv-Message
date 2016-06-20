@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace VVVV.Packs.Messaging
 {
-    public class MessageFormular
+    public class MessageFormular : ICloneable
     {
         #region fields
         private Dictionary<string, FormularFieldDescriptor> fields = new Dictionary<string, FormularFieldDescriptor>();
@@ -171,6 +171,11 @@ namespace VVVV.Packs.Messaging
         {
             return Configuration;
             //return "Formular[\"" + Name + "\"] = " + Configuration;
+        }
+
+        public object Clone()
+        {
+            return new MessageFormular(Name, FieldDescriptors);
         }
 
         #endregion utils
