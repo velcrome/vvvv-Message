@@ -25,13 +25,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected bool ForceNewDefaults = true;
 
-        public override void OnImportsSatisfied()
-        {
- 	        base.OnImportsSatisfied();
-
-//            (FWindow as FormularLayoutPanel).Locked = true;
-        }
-
         private void HandleOutputConnect(object sender, PinConnectionEventArgs args)
         {
             ForceNewDefaults = true;

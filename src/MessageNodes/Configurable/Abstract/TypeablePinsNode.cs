@@ -28,7 +28,6 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (value==null) throw new ArgumentNullException("Formular cannot be null in " + GetType().Name + " at " + PluginHost.GetNodePath(false) ) ;
 
-                Window.CanEditFields = value.IsDynamic;
                 Window.Formular = value;
 
                 var newConfig = Window.Formular.Configuration;
