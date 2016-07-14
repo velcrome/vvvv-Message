@@ -38,21 +38,12 @@ namespace VVVV.Pack.Messaging.Nodes
             
             if (SpreadMax == 0)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
-                if (FNotFound.SliceCount != 0)
-                {
-                    FNotFound.SliceCount = 0;
-                    FNotFound.Flush();
-                }
+                FOutput.FlushNil();
+                FNotFound.FlushNil();
                 return;
             }
 
             if (!FInput.IsChanged && !FFilter.IsChanged) return;
-
 
             FOutput.SliceCount = 0;
             FNotFound.SliceCount = 0;

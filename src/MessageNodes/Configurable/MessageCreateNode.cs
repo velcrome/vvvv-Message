@@ -44,11 +44,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (!FNew.Any(x => x)) // if none true
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 if (RemovePinsFirst) RetryConfig();
                 return;
             }

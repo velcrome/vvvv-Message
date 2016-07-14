@@ -101,10 +101,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FInput.IsAnyInvalid())
             {
-                FUnknown.SliceCount = 0;
-                FUnknown.Flush();
+                FUnknown.FlushNil();
 
-                FChanged.SliceCount = 0;
                 FChanged.SliceCount = FKeep.SliceCount;
             }
 

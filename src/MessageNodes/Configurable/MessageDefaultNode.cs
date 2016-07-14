@@ -36,18 +36,13 @@ namespace VVVV.Packs.Messaging.Nodes
             // graceful fallback when being fed bad data
             if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
             {
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
+                FOutput.FlushNil();
                 return;
             }
 
-            if (!FNew.Any(x => x) && !ForceNewDefaults)
+            if (!FNew.Any() && !ForceNewDefaults)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return;
             }
 

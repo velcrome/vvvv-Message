@@ -40,13 +40,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (SpreadMax <= 0)
             {
-                if (FOutput.SliceCount >= 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
+                FOutput.FlushNil();
+                return;
             }
 
 
@@ -77,10 +72,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(FInput);
-            FOutput.Flush();
+            FOutput.FlushResult(FInput);
         }
     }
 

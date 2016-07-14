@@ -45,15 +45,10 @@ namespace VVVV.Pack.Messaging.Nodes
             {
                 if (FOutput.SliceCount != 0)
                 {
-                    FTopic.SliceCount = 
-                    FTimeStamp.SliceCount = 
-                    FConfigOut.SliceCount = 
-                    FOutput.SliceCount = 0;
-                    
-                    FOutput.Flush();
-                    FTimeStamp.Flush();
-                    FTopic.Flush();
-                    FConfigOut.Flush();
+                    FOutput.FlushNil();
+                    FTimeStamp.FlushNil();
+                    FTopic.FlushNil();
+                    FConfigOut.FlushNil();
                 }
                 return;
             }

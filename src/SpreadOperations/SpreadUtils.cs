@@ -45,6 +45,12 @@ namespace VVVV.Utils
             spread.Flush();
         }
 
+        public static void FlushInt(this ISpread<int> spread, int result)
+        {
+            spread.SliceCount = 1;
+            spread[0] = result;
+            spread.Flush();
+        }
         public static IEnumerable ToEnumerable(this ISpread spread)  
         {
             for (int i = 0; i < spread.SliceCount; i++) 

@@ -75,10 +75,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         ).Any(d => d);
             
             if (!data) {
-                if (FOutput.SliceCount > 0) {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return;
             }
             
@@ -88,7 +85,7 @@ namespace VVVV.Packs.Messaging.Nodes
                             where spread.IsChanged
                             where !(FPinEmpty[spread] && spread.IsAnyInvalid()) // if IS emtpy and WAS empty, don't bother
                             select true
-                          ).Any(c => c);
+                          ).Any();
             if (!changed) return;
 
             var doDistinct = FDistinct[0];
@@ -110,9 +107,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(output);
-            FOutput.Flush();
+            FOutput.FlushResult(output);
         }
     }
 }

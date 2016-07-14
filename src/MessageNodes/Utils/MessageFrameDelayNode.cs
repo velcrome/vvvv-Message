@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -13,51 +12,33 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageFrameDelayNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")] 
-        IDiffSpread<Message> FInput;
+        public IDiffSpread<Message> FInput;
 
         [Input("Clear", IsSingle = true, IsToggle = true)] 
-        IDiffSpread<bool> FInit;
+        public IDiffSpread<bool> FInit;
 
         [Output("Output", AutoFlush = false, AllowFeedback = true)] 
-        ISpread<Message> FOutput;
+        public ISpread<Message> FOutput;
 
-        private List<Message> lastFrame;
+        protected List<Message> _lastFrame = new List<Message>();
 
         [Import()] protected ILogger FLogger;
-#pragma warning restore
-
-        public MessageFrameDelayNode()
-        {
-            lastFrame = new List<Message>();
-        }
-
 
         public void Evaluate(int SpreadMax)
         {
             if (FInit[0]) {
-                if (FOutput.SliceCount > 0) {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return;
             }
 
-            lastFrame.Clear();
+            _lastFrame.Clear();
 
             if (FInput.IsChanged && !FInput.IsAnyInvalid())
             {
-                lastFrame.AddRange(FInput);
-
-                FOutput.SliceCount = lastFrame.Count;
-                FOutput.AssignFrom(lastFrame);
-                FOutput.Flush();
+                _lastFrame.AddRange(FInput);
+                FOutput.FlushResult(_lastFrame);
             }
         }
-
-
- 
-
     }
 }

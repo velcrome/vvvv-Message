@@ -8,7 +8,13 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
  
     #region PluginInfo
-    [PluginInfo(Name = "AsXElement", Category = "Message", Help = "Convert Messages", Tags = "XML", Author = "velcrome")]
+    [PluginInfo(
+        Name = "AsXElement", 
+        Category = "Message", 
+        Help = "Convert Messages",
+        Tags = "XML", 
+        Author = "velcrome", 
+        Ignore = true)]
     #endregion PluginInfo
     public class MessageAsXElementNode : IPluginEvaluate
     {

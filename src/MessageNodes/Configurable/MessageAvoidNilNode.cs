@@ -40,8 +40,8 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void Evaluate(int SpreadMax)
         {
             if (Default != null && !FInput.IsChanged) return;
-            
-            if (FInput.IsAnyInvalid()) 
+
+            if (FInput.IsAnyInvalid())
             {
                 if (Default == null) NewDefault();
 
@@ -49,13 +49,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 Default.Topic = FTopic[0];
                 FOutput[0] = Default;
+                FOutput.Flush();
             }
-            else
-            {
-                FOutput.SliceCount = 0;
-                FOutput.AssignFrom(FInput);
-            }
-            FOutput.Flush();
+            else FOutput.FlushResult(FInput);
         }
 
         private void NewDefault()

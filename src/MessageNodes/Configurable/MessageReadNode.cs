@@ -40,31 +40,26 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (FOutput.SliceCount > 0) // zero inputs -> zero outputs.
                 {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
+                    FOutput.FlushNil();
 
                     FBinSize.SliceCount = 1;
                     FBinSize[0] = 0;
                     FBinSize.Flush();
 
-                    var output = (ISpread)(FValue.RawIOObject);
-                    output.SliceCount = 0;
-                    output.Flush();
+                    (FValue.RawIOObject as ISpread).FlushNil();
 
                     return;
                 }
                 else return; // already zero'ed
             }
 
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(FInput);
-            FOutput.Flush();
+            FOutput.FlushResult(FInput);
 
             var keyCount = FKey.SliceCount;
             FBinSize.SliceCount = SpreadMax;
 
-            var Value = FValue.ToISpread();
-            Value.SliceCount = SpreadMax * keyCount;
+            var input = FValue.ToISpread();
+            input.SliceCount = SpreadMax * keyCount;
 
             for (int i = 0; i < SpreadMax; i++)
             {
@@ -76,7 +71,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var type = TargetDynamicType;
 
-                    var output = (Value[i*keyCount + index] as ISpread);
+                    var output = (input[i*keyCount + index] as ISpread);
                     output.SliceCount = 0;
 
                     if (!message.Fields.Contains(key))
@@ -113,7 +108,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 FBinSize[i] = count;
             }
 
-            Value.Flush();
+            input.Flush();
             FBinSize.Flush();
         }
 

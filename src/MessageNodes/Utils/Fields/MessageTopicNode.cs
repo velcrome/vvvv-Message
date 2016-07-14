@@ -25,29 +25,24 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Output", AutoFlush = false)]
         private ISpread<Message> FOutput;
 
-        //[Import()]
-        //protected ILogger FLogger;
 #pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
             if (!FInput.IsChanged && 
                 !FTopic.IsChanged &&
-                !(FUpdate.IsChanged && FUpdate.Any(x => x))
+                !(FUpdate.IsChanged && FUpdate.Any())
             ) return;
 
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(FInput);
-            FOutput.Flush();
-
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
-
             for (int i = 0; i < SpreadMax; i++)
             {
                 // check if topic change needs to occur, because doing so will mark the message as dirty
                 if (FUpdate[i] && !FInput[i].Topic.Equals(FTopic[i]))
                     FInput[i].Topic = FTopic[i];
             }
+
+            FOutput.FlushResult(FInput);
 
         }
     }

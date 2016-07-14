@@ -55,19 +55,14 @@ namespace VVVV.Nodes.Messaging.Nodes
         {
             if (FInput.IsAnyInvalid())
             {
-                if (FOutput.SliceCount > 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return; // if no input, no further calculation.
-                }
+                FOutput.FlushNil();
                 return;
             }
 
             bool doFlush = false;
 
             // is any Update slice checked?
-            var anyUpdate = FUpdate.Any(x => x);
+            var anyUpdate = FUpdate.Any();
  
             // Flush upstream changes through the plugin
             if (FInput.IsChanged)

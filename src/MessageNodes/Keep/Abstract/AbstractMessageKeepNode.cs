@@ -181,20 +181,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 FChangeOut.Flush();
             }
 
-            SetKeepToOutput();
+            FOutput.FlushResult(Keep);
+            FCountOut.FlushInt(Keep.Count);
+
             return true;
 
         }
 
-        protected void SetKeepToOutput()
-        {
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(Keep);
-            FOutput.Flush();
-
-            FCountOut[0] = Keep.Count;
-            FCountOut.Flush();
-        }
 
 
     }

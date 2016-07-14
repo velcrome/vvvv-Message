@@ -74,10 +74,8 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (!Keep.QuickMode && FChangeIndexOut.SliceCount != 0)
                 {
-                    FChangeIndexOut.SliceCount = 0;
-                    FChangeIndexOut.Flush();
-                    FChangeOut.SliceCount = 0;
-                    FChangeOut.Flush();
+                    FChangeIndexOut.FlushNil();
+                    FChangeOut.FlushNil();
                 }
                 return false;
             }
@@ -92,21 +90,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 IEnumerable<int> indexes;
                 changes = Keep.Sync(out indexes);
 
-                FChangeIndexOut.SliceCount = 0;
-                FChangeIndexOut.AssignFrom(indexes);
-                FChangeIndexOut.Flush();
-
-                FChangeOut.SliceCount = 0;
-                FChangeOut.AssignFrom(changes);
-                FChangeOut.Flush();
+                FChangeIndexOut.FlushResult(indexes);
+                FChangeOut.FlushResult(changes);
             }
 
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(Keep);
-            FOutput.Flush();
-
-            FCountOut[0] = Keep.Count;
-            FCountOut.Flush();
+            FOutput.FlushResult(Keep);
+            FCountOut.FlushInt(Keep.Count);
 
             return true;
         }
@@ -164,7 +153,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
 //          check update pin
-            anyUpdate |= FUpdate.Any(x => x);
+            anyUpdate |= FUpdate.Any();
 
             if (anyUpdate && (newData || newTopic))
             {

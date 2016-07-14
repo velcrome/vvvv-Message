@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -33,9 +31,7 @@ namespace VVVV.Packs.Messaging.Nodes
                              where message != null
                              select message.Clone() as Message;
 
-                FOutput.SliceCount = 0; 
-                FOutput.AssignFrom(clones);
-                FOutput.Flush();
+                FOutput.FlushResult(clones);
             }
         }
     }

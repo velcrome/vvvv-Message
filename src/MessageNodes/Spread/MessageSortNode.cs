@@ -32,20 +32,14 @@ namespace VVVV.Pack.Messaging.Nodes
 
             if (SpreadMax == 0)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return;
             }
 
             if (!FInput.IsChanged) return;
 
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom( FInput.OrderBy(message => message.TimeStamp.UniversalTime));
-
-            FOutput.Flush();
+            var result = FInput.OrderBy(message => message.TimeStamp.UniversalTime);
+            FOutput.FlushResult(result);
         }
     }
 }
