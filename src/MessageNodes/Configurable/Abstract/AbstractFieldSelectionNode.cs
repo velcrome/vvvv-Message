@@ -18,6 +18,8 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
             CreateEnumPin("Use Fields", new string[] { "Foo" });
+
+            Changed += (formular) => FillEnum(formular.FieldNames);
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)
@@ -51,11 +53,6 @@ namespace VVVV.Packs.Messaging.Nodes
             else EnumManager.UpdateEnum(EnumName, MessageFormular.DYNAMIC, new string[] { MessageFormular.DYNAMIC });
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Formular = new MessageFormular(MessageFormular.DYNAMIC, configSpread[0]);
-            FillEnum(Formular.FieldNames);
-        }
 
 
 

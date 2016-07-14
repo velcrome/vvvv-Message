@@ -40,6 +40,7 @@ namespace VVVV.Packs.Messaging
         }
         #endregion fields
 
+
         #region constructor
 
         protected MessageFormular()
@@ -100,6 +101,19 @@ namespace VVVV.Packs.Messaging
             }
         }
 
+        /// <summary>Constructor, that uses a number of field definitions.</summary>
+        /// <param name="formularName">The name of the new Formular.</param>
+        /// <param name="fields">The message whose data structure should be expressed with this Formular.</param>
+        public MessageFormular(MessageFormular formular) : this()
+        {
+            this.Name = formular.Name;
+            foreach (var field in formular.FieldDescriptors)
+            {
+                if (field != null)
+                    this.fields[field.Name] = field;
+            }
+        }
+
         #endregion constructor
 
         #region utils
@@ -113,14 +127,17 @@ namespace VVVV.Packs.Messaging
             if (!fields.ContainsKey(field.Name))
             {
                 fields[field.Name] = field;
+                field.IsRequired = isRequired;
                 return true;
             }
             else
             {
                 if (!fields[field.Name].Equals(field))
                     throw new DuplicateFieldException("Cannot add new Field \"" + field.ToString() + "\" to Formular [" + this.Name + "]. Field is already defined as \"" + fields[field.Name].ToString() + "\".", field, fields[field.Name]);
+
+                fields[field.Name].IsRequired |= isRequired;
+                return true;
             }
-            return false;
         }
 
         /// <summary>Checks if a field can be appended to an existing Formular, with extensive type checking.</summary>
@@ -153,7 +170,7 @@ namespace VVVV.Packs.Messaging
                 fields[fieldName] = (FormularFieldDescriptor)value;
             }
         }
-        /// <summary>The configuration is a comma-separated list of all defined Fields</summary>
+        /// <summary>The configuration is a comma-separated list of all required Fields</summary>
         public string Configuration
         {
             get
@@ -173,9 +190,15 @@ namespace VVVV.Packs.Messaging
             //return "Formular[\"" + Name + "\"] = " + Configuration;
         }
 
+        /// <summary>
+        /// Deep Clone, including all Field descriptors
+        /// </summary>
+        /// <returns>a FormularFieldDescriptor object</returns>
         public object Clone()
         {
-            return new MessageFormular(Name, FieldDescriptors);
+            var descriptors = from desc in FieldDescriptors
+                              select desc.Clone() as FormularFieldDescriptor;
+            return new MessageFormular(Name, descriptors);
         }
 
         #endregion utils

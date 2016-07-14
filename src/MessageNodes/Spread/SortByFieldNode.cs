@@ -30,11 +30,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (SpreadMax == 0)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return;
             }
 
@@ -45,7 +41,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var fieldNames = FUseFields[0];
             if (fieldNames.IsAnyInvalid())
             {
-                FOutput.AssignFrom(FInput);
+                FOutput.FlushResult(FInput);
             }
             else
             {
@@ -54,10 +50,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 for (int i = 1; i < fieldNames.SliceCount; i++)
                     ordered = ordered.ThenBy(message => message[fieldNames[i].Name][0]);
 
-                FOutput.AssignFrom(ordered);
+                FOutput.FlushResult(ordered);
             }
-
-            FOutput.Flush();
         }
     }
 }

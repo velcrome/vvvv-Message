@@ -18,74 +18,32 @@ namespace VVVV.Packs.Messaging.Nodes
         #region fields & pins
         protected const string Tags = "Formular";
 
-        public override MessageFormular Formular
-        {
-            get
-            {
-                return _formular;
-            }
-            protected set
-            {
-                if (value==null) throw new ArgumentNullException("Formular cannot be null in " + GetType().Name + " at " + PluginHost.GetNodePath(false) ) ;
-
-                Window.Formular = value;
-
-                var newConfig = Window.Formular.Configuration;
-                if (FConfig[0] != newConfig) FConfig[0] = newConfig;
-
-                _formular = value;
-
-            }
-        }
-
-        [Import()]
-        protected IIOFactory FIOFactory;
         protected Dictionary<string, IIOContainer> FPins = new Dictionary<string, IIOContainer>();
         protected int DynPinCount = 5;
 
         protected bool RemovePinsFirst;
 
-        protected FormularLayoutPanel Window = new FormularLayoutPanel();
-        
+        protected FormularLayoutPanel LayoutPanel = new FormularLayoutPanel();
 
-        
         #endregion fields & pins
 
         #region Initialisation
 
+        [Import()]
+        protected IIOFactory FIOFactory;
 
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            Window.Change += OnChangeLayout;
 
+            Changed += formular => UpdateWindow(formular, false);
+            Changed += TryDefinePins;
+
+            LayoutPanel.Change += (e, i) => Formular = LayoutPanel.Formular;
         }
 
-        public IntPtr Handle
-        {
-            get { return Window.Handle; }
-        }
 
-        public CustomQueryInterfaceResult GetInterface(ref Guid iid, out IntPtr ppv)
-        {
-            if (iid.Equals(Guid.Parse("00000112-0000-0000-c000-000000000046")))
-            {
-                ppv = Marshal.GetComInterfaceForObject(Window, typeof(IOleObject));
-                return CustomQueryInterfaceResult.Handled;
-            }
-            else if (iid.Equals(Guid.Parse("458AB8A2-A1EA-4d7b-8EBE-DEE5D3D9442C")))
-            {
-                ppv = Marshal.GetComInterfaceForObject(Window, typeof(IWin32Window));
-                return CustomQueryInterfaceResult.Handled;
-            }
-            else
-            {
-                FLogger.Log(LogType.Debug, "missing: " + iid.ToString());
-                ppv = IntPtr.Zero;
-                return CustomQueryInterfaceResult.NotHandled;
-            }
-        }
-        #endregion
+        #endregion Initialisation
 
         #region pin management
 
@@ -152,7 +110,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (RemovePinsFirst)
             {
-                OnConfigChange(FConfig);
+                TryDefinePins(Formular);
             }
 
             if (RemovePinsFirst)
@@ -201,16 +159,16 @@ namespace VVVV.Packs.Messaging.Nodes
             return danger.Count() > 0 || typeDanger.Count() > 0;
         }
 
-
-        #endregion pin management
-
-        #region window management
-
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
+        /// <summary>
+        /// Will try to apply the formular to the current pin layout
+        /// </summary>
+        /// <param name="newFormular"></param>
+        /// <remarks>
+        /// If any pin in the new formular is already present, it will preserve the pin.
+        /// If any current pin is not contained in the new Formular, but is linked in the patch, it will force the node to raise exceptions every frame, until the link is manually deleted.
+        /// </remarks>
+        protected void TryDefinePins(MessageFormular newFormular)
         {
-            var formularName = FFormularSelection.IsAnyInvalid() ? MessageFormular.DYNAMIC : FFormularSelection[0]; // fallback to dynamic, when unknown
-            var newFormular = new MessageFormular(formularName, configSpread[0]);
-
             if (HasEndangeredLinks(newFormular))
             {
                 RemovePinsFirst = true;
@@ -266,17 +224,15 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-        private void OnChangeLayout(object sender, FormularChangedEventArgs e)
-        {
-            var config = e.Formular.Configuration;
-            if (config != FConfig[0]) FConfig[0] = config;
-        }
+        #endregion pin management
+
+        #region window management
 
         private void UpdateWindow(MessageFormular formular, bool append = false)
         {
             if (formular == null) return;
 
-            var layoutPanel = Window as FormularLayoutPanel;
+            var layoutPanel = LayoutPanel as FormularLayoutPanel;
 
             if (append)
             {
@@ -290,6 +246,34 @@ namespace VVVV.Packs.Messaging.Nodes
             layoutPanel.CanEditFields = formular.IsDynamic;
         }
         #endregion
+
+        #region Window utils
+
+        public IntPtr Handle
+        {
+            get { return LayoutPanel.Handle; }
+        }
+
+        public CustomQueryInterfaceResult GetInterface(ref Guid iid, out IntPtr ppv)
+        {
+            if (iid.Equals(Guid.Parse("00000112-0000-0000-c000-000000000046")))
+            {
+                ppv = Marshal.GetComInterfaceForObject(LayoutPanel, typeof(IOleObject));
+                return CustomQueryInterfaceResult.Handled;
+            }
+            else if (iid.Equals(Guid.Parse("458AB8A2-A1EA-4d7b-8EBE-DEE5D3D9442C")))
+            {
+                ppv = Marshal.GetComInterfaceForObject(LayoutPanel, typeof(IWin32Window));
+                return CustomQueryInterfaceResult.Handled;
+            }
+            else
+            {
+                FLogger.Log(LogType.Debug, "missing: " + iid.ToString());
+                ppv = IntPtr.Zero;
+                return CustomQueryInterfaceResult.NotHandled;
+            }
+        }
+        #endregion window utils
 
         #region abstract methods
         protected abstract IOAttribute SetPinAttributes(FormularFieldDescriptor config);

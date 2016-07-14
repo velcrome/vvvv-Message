@@ -2,6 +2,7 @@
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace VVVV.Utils
 {
@@ -20,7 +21,30 @@ namespace VVVV.Utils
 
             return false;
         }
-        
+
+        public static void FlushNil(this ISpread spread)
+        {
+            if (spread.SliceCount != 0)
+            {
+                spread.SliceCount = 0;
+                spread.Flush();
+            }
+        }
+
+        public static void FlushResult<T>(this ISpread<T> spread, IEnumerable<T> result)
+        {
+            spread.SliceCount = 0;
+            spread.AssignFrom(result);
+            spread.Flush();
+        }
+
+        public static void FlushBool(this ISpread<bool> spread, bool result)
+        {
+            spread.SliceCount = 1;
+            spread[0] = result;
+            spread.Flush();
+        }
+
         public static IEnumerable ToEnumerable(this ISpread spread)  
         {
             for (int i = 0; i < spread.SliceCount; i++) 

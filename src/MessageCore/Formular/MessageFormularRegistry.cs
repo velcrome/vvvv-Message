@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging
         /// <summary>
         /// The Registry for all Formulars is a singleton.
         /// </summary>
-        public static MessageFormularRegistry Instance
+        public static MessageFormularRegistry Context
         {
             get { return _instance ?? (_instance = new MessageFormularRegistry()); }
         }
@@ -58,8 +58,9 @@ namespace VVVV.Packs.Messaging
        }
 
         /// <summary>
-        /// Retrieve the names of all Formulars currently defined 
+        /// Retrieve the names of all Formulars currently defined. 
         /// </summary>
+        /// <returns>At least the empty DYNAMIC type</returns>
         public IEnumerable<string> AllFormularNames
         {
             get
@@ -74,7 +75,7 @@ namespace VVVV.Packs.Messaging
         /// Retrieve all currently defined Formulars of a specific sender entity
         /// </summary>
         /// <param name="definerId"></param>
-        /// <returns></returns>
+        /// <returns>Yields empty, when definer is unknown</returns>
         public IEnumerable<MessageFormular> GetFormularsFrom(string definerId)
         {
             if (Data.ContainsKey(definerId))

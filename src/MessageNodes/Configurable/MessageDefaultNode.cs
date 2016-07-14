@@ -25,16 +25,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected bool ForceNewDefaults = true;
 
-        private void HandleOutputConnect(object sender, PinConnectionEventArgs args)
+        public override void OnImportsSatisfied()
         {
-            ForceNewDefaults = true;
+            base.OnImportsSatisfied();
+            Changed += formular => ForceNewDefaults = true;
         }
-        
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            ForceNewDefaults = true;
-        }
-
 
         public override void Evaluate(int SpreadMax)
         {
@@ -56,14 +51,15 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            FOutput.SliceCount = FConfig.SliceCount;
+            SpreadMax = 1; // numbers of supported Formulars
+            FOutput.SliceCount = SpreadMax;
 
             var counter = 0;
-            for (int i = 0; i < FConfig.SliceCount; i++)
+            for (int i = 0; i < SpreadMax; i++)
             {
                 FOutput[i].SliceCount = 0;
 
-                var formular = new MessageFormular(FFormularSelection[0], FConfig[i]);
+                var formular = new MessageFormular(Formular);
                 
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)

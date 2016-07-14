@@ -29,6 +29,13 @@ namespace VVVV.Packs.Messaging.Nodes
         protected Message Default;
 #pragma warning restore
 
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+
+            Changed += formular => Default = null; // reset everytime
+        }
+
 
         public override void Evaluate(int SpreadMax)
         {
@@ -53,15 +60,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void NewDefault()
         {
-            Default = new Message(new MessageFormular(FFormularSelection[0].Name, FConfig[0]));
+            Default = new Message(Formular);
             Default.TimeStamp = Time.Time.CurrentTime();
             
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Default = null;
-        }
 
     }
 }

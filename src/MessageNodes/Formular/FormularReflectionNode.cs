@@ -27,10 +27,11 @@ namespace VVVV.Packs.Messaging.Nodes
         private bool _changed = true;
 
 
-        protected override void OnConfigChange(IDiffSpread<string> config) {
-            _changed = true;
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            Changed += formular => _changed = true;
         }
-
 
         public override void Evaluate(int SpreadMax)
         {
@@ -41,7 +42,7 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = FFieldName.SliceCount = FFormularSelection.SliceCount;
             FFieldType.SliceCount = FBinDef.SliceCount = FDefaultSize.SliceCount = 0;
 
-            var registry = MessageFormularRegistry.Instance;
+            var registry = MessageFormularRegistry.Context;
             for (int i = 0; i < SpreadMax; i++)
             {
                 FFieldName[i].SliceCount = 0;

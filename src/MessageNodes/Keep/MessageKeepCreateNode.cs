@@ -39,17 +39,34 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractStorageNode. 
 
-        protected virtual bool CheckReset()
+
+        private bool _reset;
+        public bool ResetNecessary
         {
-            if (FConfig.IsChanged)
-//                if ((!FReset.IsAnyInvalid() && FReset[0]) || FConfig.IsChanged)
+            get
             {
-                Keep.Clear();
-                return true;
+                if (_reset)
+                {
+                    _reset = false;
+                    Keep.Clear();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            private set
+            {
+                _reset = value;
+            }
+        }
+
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            Changed += formular => ResetNecessary = true;
+
 
         }
+
 
         protected virtual bool UpKeep(bool force = false)
         {
@@ -116,7 +133,7 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
-            var anyUpdate = CheckReset();
+            var anyUpdate = ResetNecessary;
 
             var forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
           

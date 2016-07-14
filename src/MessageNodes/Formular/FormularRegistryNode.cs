@@ -18,7 +18,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public IDiffSpread<string> FName;
 
         [Input("Configuration", DefaultString = MessageFormularRegistry.DefaultField, BinSize=-1)]
-        public ISpread<ISpread<string>> FConfig;
+        public ISpread<ISpread<string>> FConfiguration;
 
         [Input("Inherit All")]
         public IDiffSpread<MessageFormular> FInherits;
@@ -40,7 +40,7 @@ namespace VVVV.Packs.Messaging.Nodes
         
         public void Evaluate(int SpreadMax)
         {
-            if (FConfig.IsAnyInvalid() || FName.IsAnyInvalid()) return;
+            if (FConfiguration.IsAnyInvalid() || FName.IsAnyInvalid()) return;
 
             var update = (!FUpdate.IsAnyInvalid() && FUpdate[0]) || FInherits.IsChanged || FName.IsChanged;
 
@@ -54,7 +54,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FOutput.SliceCount = SpreadMax = FName.SliceCount;
 
             var id = this.PluginHost.GetNodePath(false);
-            var reg = MessageFormularRegistry.Instance; 
+            var reg = MessageFormularRegistry.Context; 
 
             for (int i = 0; i < SpreadMax; i++)
             {
@@ -64,7 +64,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     return;
                 }
 
-                var config = string.Join(", ", FConfig[i]).Split(',');
+                var config = string.Join(", ", FConfiguration[i]).Split(',');
 
                 var fields = new List<FormularFieldDescriptor>();
                 foreach (var def in config)
@@ -116,7 +116,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         {
                             try
                             {
-                                formular.Append(field, false);
+                                formular.Append(field, true);
                             }
                             catch (DuplicateFieldException e)
                             {
@@ -130,10 +130,9 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (_firstFrame || (!FUpdate.IsAnyInvalid() && FUpdate[0]))
                 try
                 {
-//                        var defined = reg.Define(id, formular, _firstFrame);
-                        var defined = reg.Define(id, formular, false);
+                        var defined = reg.Define(id, formular);
                         if (defined)
-                        FOutput[i] = formular;
+                            FOutput[i] = formular;
                 }
                 catch (RegistryException e)
                 {
@@ -161,7 +160,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public void Dispose()
         {
-            var reg = MessageFormularRegistry.Instance;
+            var reg = MessageFormularRegistry.Context;
 
             reg.UndefineAll(PluginHost.GetNodePath(false));
             EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());

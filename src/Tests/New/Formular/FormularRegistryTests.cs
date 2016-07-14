@@ -10,7 +10,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void MultipleDefinitions()
         {
-            var reg = MessageFormularRegistry.Instance;
+            var reg = MessageFormularRegistry.Context;
 
             var formular = new MessageFormular("A38", "string[3] Field");
 

@@ -16,6 +16,8 @@ namespace VVVV.Packs.Messaging.Nodes
             base.OnImportsSatisfied();
             CreateEnumPin("Use as ID", new string[] { TOPIC });
 
+            Changed += formular => FillEnum(formular.FieldNames.ToArray());
+
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)
@@ -41,11 +43,6 @@ namespace VVVV.Packs.Messaging.Nodes
             EnumManager.UpdateEnum(EnumName, entries.First(), entries.ToArray());
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Formular = new MessageFormular("temp", configSpread[0]);
-            FillEnum(Formular.FieldNames.ToArray());
-        }
 
 
     }

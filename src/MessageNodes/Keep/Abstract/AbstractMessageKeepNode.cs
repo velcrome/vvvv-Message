@@ -196,13 +196,6 @@ namespace VVVV.Packs.Messaging.Nodes
             FCountOut.Flush();
         }
 
-        // override here, so children don't have to unless needed
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            // nothing to do
-        }
-
-
 
     }
 }
