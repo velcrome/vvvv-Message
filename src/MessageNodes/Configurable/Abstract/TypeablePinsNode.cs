@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class DynamicPinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface
+    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface
     {
         #region fields & pins
         protected const string Tags = "Formular";
@@ -36,12 +36,38 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
 
-            Changed += formular => UpdateWindow(formular, false);
+            Changed += UpdatePanelOnChange;
             Changed += TryDefinePins;
 
-            LayoutPanel.Change += (e, i) => Formular = LayoutPanel.Formular;
+            LayoutPanel.Changed += (sender, args) => Formular = args.Formular;
+
         }
 
+        protected void UpdatePanelOnChange(MessageFormular newFormular)
+        {
+            // no obvious changes. 
+            var oldFormular = LayoutPanel.Formular;
+            if (oldFormular.Configuration == newFormular.Configuration) return;
+
+            // dynamic will only append. will usually even append nothing
+            if (newFormular.IsDynamic)
+            {
+                UpdateWindow(newFormular, true);
+                return;
+            }
+                
+            // just an update
+            if (oldFormular.Name == newFormular.Name)
+            {
+                UpdateWindow(newFormular, true);
+             
+            }
+            // entirely new Formular
+            else
+            {
+                UpdateWindow(newFormular, false);
+            }
+        }
 
         #endregion Initialisation
 
@@ -177,32 +203,23 @@ namespace VVVV.Packs.Messaging.Nodes
             else RemovePinsFirst = false;
 
             List<string> invalidPins = FPins.Keys.ToList();
-            foreach (string field in newFormular.FieldNames)
+            foreach (FormularFieldDescriptor field in newFormular.FieldDescriptors.Where(field => field.IsRequired))
             {
-                if (FPins.ContainsKey(field) && FPins[field] != null)
+                if (FPins.ContainsKey(field.Name) && FPins[field.Name] != null)
                 {
-                    invalidPins.Remove(field);
+                    invalidPins.Remove(field.Name);
 
-                    if (Formular.FieldNames.Contains(field))
+                    // same name, but types don't match
+                    // todo: in fact eg float does match double here...
+                    if (Formular[field.Name].Type != field.Type)
                     {
-                        // same name, but types don't match
-                        // todo: in fact eg float does match double here...
-                        if (Formular[field].Type != newFormular[field].Type)
-                        {
-                            FPins[field].Dispose();
-                            FPins[field] = CreatePin(newFormular[field]);
-                        }
-                    }
-                    else
-                    {
-                        // key is in FPins, but no type defined. should never happen
-                        FLogger.Log(LogType.Debug, "Internal Fault in Pin Layout detected. Override with " + newFormular.ToString());
-                        FPins[field] = CreatePin(newFormular[field]);
+                        FPins[field.Name].Dispose();
+                        FPins[field.Name] = CreatePin(field);
                     }
                 }
                 else
                 {
-                    FPins[field] = CreatePin(newFormular[field]);
+                    FPins[field.Name] = CreatePin(field);
                 }
             }
 
@@ -228,22 +245,22 @@ namespace VVVV.Packs.Messaging.Nodes
 
         #region window management
 
-        private void UpdateWindow(MessageFormular formular, bool append = false)
+        private void UpdateWindow(MessageFormular newFormular, bool append = false)
         {
-            if (formular == null) return;
-
-            var layoutPanel = LayoutPanel as FormularLayoutPanel;
-
+            if (newFormular == null) return;
             if (append)
             {
-                var old = layoutPanel.Formular;
-                foreach (var field in formular.FieldDescriptors)
-                    old.Append(field, true);
-                formular = old;
-            }
+                var old = LayoutPanel.Formular; // retrieve copy
 
-            layoutPanel.Formular = formular;
-            layoutPanel.CanEditFields = formular.IsDynamic;
+                foreach (var field in old.FieldDescriptors)
+                    field.IsRequired = false;
+
+                foreach (var field in newFormular.FieldDescriptors)
+                    old.Append(field, field.IsRequired);
+                LayoutPanel.Formular = old; // set to appended copy
+            } else LayoutPanel.Formular = newFormular;
+
+            LayoutPanel.CanEditFields = newFormular.IsDynamic;
         }
         #endregion
 

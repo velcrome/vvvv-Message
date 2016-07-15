@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class FormularLayoutPanel : FlowLayoutPanel
     {
         
-        public event EventHandler<FormularChangedEventArgs> Change;
+        public event EventHandler<FormularChangedEventArgs> Changed;
 
         public FormularLayoutPanel()
         {
@@ -58,7 +58,6 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
         
-        
         protected string _formularName = MessageFormular.DYNAMIC;
         public MessageFormular Formular
         {
@@ -67,8 +66,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 var fields = from field in FieldPanels
                            where !field.IsEmpty
                            where !field.IsFaulty
-                           select field.Descriptor;
-                var formular =  new MessageFormular(_formularName, fields.ToList());
+                           select field;
+
+                foreach (var field in fields)
+                    field.Descriptor.IsRequired = field.Checked;
+
+                var formular =  new MessageFormular(_formularName, fields.Select(field => field.Descriptor));
                 return formular;
             }
             set
@@ -112,14 +115,21 @@ namespace VVVV.Packs.Messaging.Nodes
                                 select field
                           ).ToList();
 
-            var current = (
+            var remain = (
+                                from field in prev
+                                where !(field.IsFaulty && field.CanEdit) && !field.IsEmpty
+                                where formular.FieldDescriptors.Contains(field.Descriptor)
+                                select field
+                          ).ToList();
+
+            var currentDesc = (
                                 from field in prev
                                 select field.Descriptor
                           );
 
             var fresh =   (
                                 from field in formular.FieldDescriptors
-                                where !current.Contains(field)
+                                where !currentDesc.Contains(field)
                                 select field
                           ).ToList();
 
@@ -153,6 +163,14 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (field != null) field.IsEmpty = true;
                 counter--;
             }
+
+            // update remaining fields
+            foreach (var field in remain)
+            {
+                var isRequired = formular[field.Name].IsRequired;
+                field.Checked = field.Descriptor.IsRequired = isRequired;
+            }
+
             this.ResumeLayout();
             return true; // return 
         }
@@ -168,7 +186,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             field.Change += (sender, args) =>
             {
-                if (Change != null) Change(this, new FormularChangedEventArgs(Formular));
+                if (Changed != null) Changed(this, new FormularChangedEventArgs(Formular));
             };
             return field;
         }
@@ -206,7 +224,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
 
-            Change(this, new FormularChangedEventArgs(Formular) );
+            Changed(this, new FormularChangedEventArgs(Formular) );
         }
 
         protected override void OnDragEnter(DragEventArgs e)

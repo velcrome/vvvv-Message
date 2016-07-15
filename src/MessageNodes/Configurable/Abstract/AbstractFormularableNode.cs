@@ -75,7 +75,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     WatchConfig(true);
                 }
 
-                Changed(_formular);
+
+                if (Changed != null) Changed(_formular);
             }
         }
 

@@ -11,7 +11,7 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Create", AutoEvaluate=true, Category = "Message", Version="Formular", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageCreateNode : DynamicPinsNode
+    public class MessageCreateNode : TypeablePinsNode
     {
 #pragma warning disable 649, 169
         [Input("New", IsToggle = true, DefaultBoolean = true, Order = 0)]
@@ -42,7 +42,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (!FNew.Any(x => x)) // if none true
+            if (!FNew.Any()) // if none true
             {
                 FOutput.FlushNil();
                 if (RemovePinsFirst) RetryConfig();
@@ -69,8 +69,9 @@ namespace VVVV.Packs.Messaging.Nodes
                     foreach (string name in FPins.Keys)
                     {
                         var pin = FPins[name].ToISpread();
-//                        if (!pin.IsAnyInvalid() && !(pin[i] as ISpread).IsAnyInvalid())
-                         message.AssignFrom(name, pin[i] as ISpread); // will do empty spreads as well
+                        if (pin.SliceCount > 0)
+                            message.AssignFrom(name, pin[i] as ISpread); 
+                        else message[name] = BinFactory.New(Formular[name].Type); // will do empty spreads as well, but ignore faults
                     }
                     FOutput.Add(message);
                 }

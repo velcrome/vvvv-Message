@@ -18,7 +18,7 @@ namespace VVVV.Nodes.Messaging.Nodes
         Tags = "Formular, Bin",
         Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageEditNode : DynamicPinsNode
+    public class MessageEditNode : TypeablePinsNode
     {
 #pragma warning disable 649, 169
         [Input("Input", Order = 0)] 

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
@@ -8,9 +9,12 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class DynamicPinNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class DynamicPinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         public const string TypeIdentityEnum = "TypeIdentityEnum";
+
+        [Config("Configuration", DefaultString = "string Foo", Visibility = PinVisibility.True)]
+        public IDiffSpread<string> FConfig;
 
         [Input("Input", Order = 0)] 
         protected IDiffSpread<Message> FInput;
@@ -31,16 +35,17 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import()]
         protected IIOFactory FIOFactory;
 
-        public override void OnImportsSatisfied()
+        [Import()]
+        protected ILogger FLogger;
+
+        public void OnImportsSatisfied()
         {
-            base.OnImportsSatisfied(); // add listener to FConfig
+            FConfig.Changed += OnConfigChange;
 
             var types = TypeIdentity.Instance.Aliases;
             EnumManager.UpdateEnum(TypeIdentityEnum, "string", types);
             
             FAlias.Changed += ConfigPin;
-
-            OnConfigChange(FConfig);
         }
 
         protected abstract IOAttribute DefinePin(FormularFieldDescriptor field);
@@ -54,7 +59,7 @@ namespace VVVV.Packs.Messaging.Nodes
             if (newConfig != FConfig[0]) FConfig[0] = newConfig; // first frame or user mistake will not reconfigure
         }
 
-       protected override void OnConfigChange(IDiffSpread<string> configSpread)
+       protected void OnConfigChange(IDiffSpread<string> configSpread)
         {
             var formular = new MessageFormular(MessageFormular.DYNAMIC, configSpread[0] ?? "string Value");
             if (formular.FieldNames.Count() < 1) return;
@@ -74,6 +79,8 @@ namespace VVVV.Packs.Messaging.Nodes
            FValue = FIOFactory.CreateIOContainer(pinType, attr);
         }
 
-   
+        public abstract void Evaluate(int SpreadMax);
+
+
     }
 }

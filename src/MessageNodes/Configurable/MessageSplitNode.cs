@@ -19,7 +19,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
     #endregion PluginInfo
 
-    public class MessageSplitNode : DynamicPinsNode
+    public class MessageSplitNode : TypeablePinsNode
     {
 #pragma warning disable 649, 169
         [Input("Input", Order = 0)]
