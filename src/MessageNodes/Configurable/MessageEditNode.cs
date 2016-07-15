@@ -3,7 +3,6 @@ using VVVV.Packs.Messaging.Nodes;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
-using System;
 
 
 namespace VVVV.Nodes.Messaging.Nodes
@@ -24,7 +23,7 @@ namespace VVVV.Nodes.Messaging.Nodes
         [Input("Input", Order = 0)] 
         IDiffSpread<Message> FInput;
 
-        [Input("AutoSense", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]
         IDiffSpread<bool> FAutoSense;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]

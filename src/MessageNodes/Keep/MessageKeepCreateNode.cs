@@ -15,8 +15,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
-        [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
-        IDiffSpread<bool> FDetectChange;
+        [Input("AutoSense", Order = int.MaxValue - 2, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]
+        IDiffSpread<bool> FAutoSense;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue-1, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
@@ -124,7 +124,7 @@ namespace VVVV.Packs.Messaging.Nodes
 //          Reset?
             var anyUpdate = ResetNecessary;
 
-            var forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
+            var forceUpdate = !FAutoSense[0] || FAutoSense.IsChanged;
           
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
             newData |= forceUpdate; // if update is forced, then predent it is new Data
