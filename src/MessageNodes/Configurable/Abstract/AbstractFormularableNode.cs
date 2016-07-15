@@ -18,8 +18,11 @@ namespace VVVV.Packs.Messaging.Nodes
         public IDiffSpread<EnumEntry> FFormularSelection;
 
         #region event
-
-        public event FormularChanged Changed;
+        /// <summary>
+        /// Informs all subscribers about a pending change. 
+        /// </summary>
+        /// <remarks>Formular will reflect the status quo, the event argument the new version.</remarks>
+        public event FormularChanged FormularUpdate;
 
         #endregion event
 
@@ -65,18 +68,17 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (value == null) throw new ArgumentNullException("Formular cannot be null in " + GetType().Name + " at " + PluginHost.GetNodePath(false));
 
-                _formular = value;
-
-                var newConfig = _formular.Configuration;
+                var newConfig = value.Configuration;
                 if (FConfig[0] != newConfig)
                 {
                     WatchConfig(false);
                     FConfig[0] = newConfig;
                     WatchConfig(true);
                 }
+                if (FormularUpdate != null) FormularUpdate(value);
 
+                _formular = value;
 
-                if (Changed != null) Changed(_formular);
             }
         }
 

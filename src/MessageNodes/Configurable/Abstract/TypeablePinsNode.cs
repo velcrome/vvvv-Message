@@ -36,8 +36,8 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
 
-            Changed += UpdatePanelOnChange;
-            Changed += TryDefinePins;
+            FormularUpdate += UpdatePanelOnChange;
+            FormularUpdate += TryDefinePins;
 
             LayoutPanel.Changed += (sender, args) => Formular = args.Formular;
 
@@ -152,7 +152,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 foreach (var associated in pinContainer.AssociatedContainers)
                 {
-                    connected &= associated.GetPluginIO().IsConnected;
+                    connected |= associated.GetPluginIO().IsConnected;
                 }
                 return connected;
             }
@@ -163,24 +163,31 @@ namespace VVVV.Packs.Messaging.Nodes
                 return false;
             }
         }
-
+        /// <summary>
+        /// Detects link breaking action, that would occur when disposing a now unneeded pin, or resetting its type.
+        /// </summary>
+        /// <param name="newFormular">Includes the changes to be done.</param>
+        /// <returns>True, if no linkbreaking conflict of type or linkbreaking pin elimination</returns>
+        /// <remarks>Compares the existing dynamic pins with the required fields in the given Formular</remarks>
         protected bool HasEndangeredLinks(MessageFormular newFormular)
         {
             // pin removals
-            var danger = from field in Formular.FieldDescriptors
-                         let fieldName = field.Name
-                         where !newFormular.FieldNames.Contains(fieldName)
-                         where HasLink(FPins[fieldName]) // first frame pin will not be initialized
-                         select fieldName;
+            var danger = from pinName in FPins.Keys
+                         where HasLink(FPins[pinName])
+                         where !(    newFormular.FieldNames.Contains(pinName) 
+                                  && newFormular[pinName].IsRequired)
+                         select pinName;
 
             // type changes - removal and recreate new
-            var typeDanger = from field in Formular.FieldDescriptors
-                             where newFormular.FieldNames.Contains(field.Name)
-                             where newFormular[field.Name].Type != field.Type
-                             where HasLink(FPins[field.Name]) // first frame pin will not be initialized
-                             select field.Name;
+            var typeDanger = from pinName in FPins.Keys
+                             where HasLink(FPins[pinName]) // first frame pin will not be initialized
+                             where newFormular.FieldNames.Contains(pinName)
+                             where newFormular[pinName].IsRequired
+                             let innerType = FPins[pinName].GetInnerMostType() // ISpread<ISpread< ??? >>
+                             where newFormular[pinName].Type != innerType // rather ask for conversion? see actual pin creation for more comments
+                             select pinName;
 
-            // ignore changes to binsize.
+            // ignore changes to binsize for now
 
             return danger.Count() > 0 || typeDanger.Count() > 0;
         }
@@ -210,8 +217,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     invalidPins.Remove(field.Name);
 
                     // same name, but types don't match
-                    // todo: in fact eg float does match double here...
-                    if (Formular[field.Name].Type != field.Type)
+                    // todo: in fact eg float does match double from vvvv side, conversion useful for patching speed?
+                    if (FPins[field.Name].GetInnerMostType() != field.Type)
                     {
                         FPins[field.Name].Dispose();
                         FPins[field.Name] = CreatePin(field);
@@ -231,13 +238,13 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             // reorder - does not work right now, sdk offers only read-only access
-            //var names = Formular.FieldNames.ToArray();
-            //for (int i = 0; i < Formular.FieldNames.Count(); i++)
-            //{
-            //    var name = names[i];
-            //    var pin = FPins[name].GetPluginIO();
-            //    pin.Order = i * 2 + 5;
-            //}
+            var names = Formular.FieldNames.ToArray();
+            for (int i = 0; i < Formular.FieldNames.Count(); i++)
+            {
+                var name = names[i];
+                var pin = FPins[name].GetPluginIO();
+                pin.Order = i * 2 + 5;
+            }
 
         }
 

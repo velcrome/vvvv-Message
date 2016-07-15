@@ -3,6 +3,7 @@ using VVVV.PluginInterfaces.V2.NonGeneric;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace VVVV.Utils
 {
@@ -71,6 +72,15 @@ namespace VVVV.Utils
         public static VVVV.PluginInterfaces.V2.ISpread<T> ToGenericISpread<T>(this IIOContainer pin)
         {
             return (VVVV.PluginInterfaces.V2.ISpread<T>)(pin.RawIOObject);
+        }
+
+        public static Type GetInnerMostType(this IIOContainer pin)
+        {
+            var type = pin.GetType();
+            while (type.GenericTypeArguments.Length > 0)
+                type = type.GenericTypeArguments[0];
+            
+           return type;
         }
         #endregion cast tools
     }

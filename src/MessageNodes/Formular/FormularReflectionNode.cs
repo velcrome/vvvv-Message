@@ -30,7 +30,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            Changed += formular => _changed = true;
+            FormularUpdate += formular => _changed = true;
         }
 
         public override void Evaluate(int SpreadMax)

@@ -62,7 +62,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            Changed += formular => ResetNecessary = true;
+            FormularUpdate += formular => ResetNecessary = true;
 
 
         }

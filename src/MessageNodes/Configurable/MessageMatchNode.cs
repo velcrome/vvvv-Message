@@ -41,7 +41,7 @@ namespace VVVV.Packs.Messaging.Nodes
             base.OnImportsSatisfied();
             CreateEnumPin("Use as ID", new string[] { "Foo" });
 
-            Changed += formular => FillEnum(formular.FieldNames.ToArray());
+            FormularUpdate += formular => FillEnum(formular.FieldNames.ToArray());
 
         }
 
