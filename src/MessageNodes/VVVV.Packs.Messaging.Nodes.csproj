@@ -84,7 +84,9 @@
     <Compile Include="Keep\MessageKeepSafe.cs" />
     <Compile Include="Configurable\MessageAvoidNilNode.cs" />
     <Compile Include="Serializing\MsgPackNodes.cs" />
+    <Compile Include="SpreadUtils.cs" />
     <Compile Include="Spread\SortByFieldNode.cs" />
+    <Compile Include="Utils\MessageGetSlice.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
     <Compile Include="Spread\MessageMergeNode.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />
@@ -121,11 +123,6 @@
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
       <Name>VVVV.Packs.Messaging.Core</Name>
       <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
-      <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
-      <Name>VVVV.Nodes.Generic.itl</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

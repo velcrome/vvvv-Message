@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
 using System.Linq;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
 using System.Globalization;
-
+using VVVV.PluginInterfaces.V2.NonGeneric;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -46,7 +43,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     FBinSize[0] = 0;
                     FBinSize.Flush();
 
-                    (FValue.RawIOObject as ISpread).FlushNil();
+                    FValue.ToISpread().FlushNil();
 
                     return;
                 }

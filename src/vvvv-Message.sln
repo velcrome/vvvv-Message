@@ -4,15 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Nodes", "MessageNodes\VVVV.Packs.Messaging.Nodes.csproj", "{6A0AFB1F-8219-4A08-85F7-B7F19B66AC16}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1} = {6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Core", "MessageCore\VVVV.Packs.Messaging.Core.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.OSC", "OSC\VVVV.Packs.Messaging.OSC.csproj", "{9C003731-1D47-4E89-B598-B10ED16EA2BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Generic.itl", "SpreadOperations\VVVV.Nodes.Generic.itl.csproj", "{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1A4034C0-5DED-4AF0-88B5-7B4E445187FF}"
 	ProjectSection(SolutionItems) = preProject
@@ -69,18 +64,6 @@ Global
 		{9C003731-1D47-4E89-B598-B10ED16EA2BF}.Release|x64.Build.0 = Release|Any CPU
 		{9C003731-1D47-4E89-B598-B10ED16EA2BF}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C003731-1D47-4E89-B598-B10ED16EA2BF}.Release|x86.Build.0 = Release|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Debug|x64.Build.0 = Debug|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Debug|x86.Build.0 = Debug|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Release|x64.ActiveCfg = Release|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Release|x64.Build.0 = Release|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Release|x86.ActiveCfg = Release|Any CPU
-		{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}.Release|x86.Build.0 = Release|Any CPU
 		{13A9D7B7-BD30-4624-8000-BD5F5B303949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13A9D7B7-BD30-4624-8000-BD5F5B303949}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13A9D7B7-BD30-4624-8000-BD5F5B303949}.Debug|x64.ActiveCfg = Debug|x64

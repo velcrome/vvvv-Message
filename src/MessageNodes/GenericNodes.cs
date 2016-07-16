@@ -4,11 +4,6 @@ using VVVV.Utils.Streams;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    // better than the GetSlice (Node), because it allows binning and Index Spreading
-    [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Author = "velcrome")]
-    public class MessageGetSliceNode : GetSlice<Message>
-    {
-    }
 
     [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Author = "vvvv-sdk")]
     public class MessageSelectNode : Select<Message>

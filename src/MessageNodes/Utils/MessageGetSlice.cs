@@ -1,36 +1,31 @@
-#region usings
-using System;
 using System.ComponentModel.Composition;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
-using System.Runtime.Serialization;
 using VVVV.Utils;
 
-#endregion usings
-
-namespace VVVV.Nodes.Generic
+namespace VVVV.Packs.Messaging.Nodes
 {
-	
-	public class GetSlice<T> : IPluginEvaluate
-	{
-        const bool DeepCheck = true;
 
+    // better than the GetSlice (Node), because it allows binning and Index Spreading
+    [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Author = "velcrome")]
+    public class MessageGetSliceNode : GetSlice<Message>
+    {
+    }
+
+    public class GetSlice<T> : IPluginEvaluate
+	{
 		#region fields & pins
-        #pragma warning disable 649, 169
-        [Input("Input", BinSize = 1, CheckIfChanged=true)]
-		ISpread<ISpread<T>> FInput;
+        [Input("Input", BinSize = 1, CheckIfChanged=true, BinName = "Bin Size")]
+		protected ISpread<ISpread<T>> FInput;
 
 		[Input("Index", DefaultValue = 0, CheckIfChanged=true)]
-		ISpread<int> FIndex;
+        protected ISpread<int> FIndex;
 
-		[Output("Output", AutoFlush = false, BinVisibility = PinVisibility.Hidden)]
-		ISpread<ISpread<T>> FOutput;
+		[Output("Output", AutoFlush = false)]
+        protected ISpread<ISpread<T>> FOutput;
 
         [Import]
-		ILogger FLogger;
-		
-		protected DataContractResolver FResolver = null;
-        #pragma warning restore
+        protected ILogger FLogger;
         #endregion fields & pins
 
         public void Evaluate(int SpreadMax)
@@ -39,11 +34,7 @@ namespace VVVV.Nodes.Generic
 
             if (SpreadMax == 0)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+               FOutput.FlushNil();
                 return;
             } else {
                 if (!FIndex.IsChanged && !FInput.IsChanged) return;
@@ -56,8 +47,5 @@ namespace VVVV.Nodes.Generic
 			}
 			FOutput.Flush();
 		}
-		
 	}
-	
-	
 }
