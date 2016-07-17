@@ -1,12 +1,13 @@
-﻿using MsgPack;
+﻿using System.IO;
+using VVVV.Utils.VColor;
+using VVVV.Utils.VMath;
+
+using MsgPack;
 using MsgPack.Serialization;
+using VVVV.Packs.Time;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using System;
-    using System.IO;
-    using Utils.VColor;
-    using Utils.VMath;
     using Time = VVVV.Packs.Time.Time;
 
     public class MsgPackTimeSerializer : MessagePackSerializer<Time>
@@ -20,23 +21,18 @@ namespace VVVV.Packs.Messaging.Serializing
 
         protected override void PackToCore(Packer packer, Time time)            
         {
-
-            //            packer.Pack(Time.TimeStamp(time.UniversalTime));
             packer.PackString(time.ZoneTime.ToString(Encoding));
             packer.PackString(time.TimeZone.Id);
         }
 
         protected override Time UnpackFromCore(Unpacker unpacker)
         {
-            //            var timestamp = unpacker.LastReadData.AsDouble();
             var timeString = unpacker.LastReadData.AsString();
 
             unpacker.Read();
             string zoneId = unpacker.LastReadData.AsString();
 
             var time = Time.StringAsTime(zoneId, timeString, Encoding);
-            
-//            var time = Time.ValueAsTime(zoneId, timestamp);
             return time;
         }
     }
