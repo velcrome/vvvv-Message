@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.103.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
    <BOUNDS type="Window" left="0" top="0" width="2850" height="8895">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="40" systemname="IOBox (String)">
    <BOUNDS type="Node" left="282" top="153" width="5100" height="456">
@@ -98,14 +98,6 @@
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    </NODE>
-   <NODE systemname="11_Searching" filename="101\11_Searching.v4p" componentmode="InAWindow" id="390" nodename="101\11_Searching.v4p">
-   <BOUNDS type="Node" left="510" top="6315" width="1125" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="510" top="6315" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="12_Essentials" filename="101\12_Essentials.v4p" componentmode="InAWindow" id="398" nodename="101\12_Essentials.v4p">
    <BOUNDS type="Node" left="510" top="7260" width="1185" height="270">
    </BOUNDS>
@@ -116,4 +108,12 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
+   <NODE systemname="11_Searching" filename="101\11_Searching.v4p" componentmode="InAWindow" id="390" nodename="101\11_Searching.v4p">
+   <BOUNDS type="Node" left="510" top="6315" width="1125" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="6315" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
    </PATCH>

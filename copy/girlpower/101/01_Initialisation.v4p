@@ -1,10 +1,10 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="0" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.103.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="0" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
-   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="18">
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="18">
    <BOUNDS type="Node" left="528" top="5352" width="2256" height="276">
    </BOUNDS>
    <BOUNDS type="Box" left="528" top="5352">
@@ -17,11 +17,11 @@
    </PIN>
    <PIN pinname="Foo" slicecount="1" values="|hello world|">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Hello, int id|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Hello|">
    </PIN>
    <PIN pinname="HelloWorld" slicecount="1" visible="1" values="|Hello World|">
    </PIN>
-   <PIN pinname="id" slicecount="1" visible="1" values="9001">
+   <PIN pinname="id" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Message Formular" visible="1">
    </PIN>
@@ -47,7 +47,7 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" visible="1" values="None">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string[4] Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="||">
    </PIN>
    <PIN pinname="New" visible="1">
    </PIN>

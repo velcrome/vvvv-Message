@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\11_Searching.v4p" systemname="10_Searching" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_Searching.v4p" scrollx="0" scrolly="2295">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.103.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\11_Searching.v4p" systemname="10_Searching" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_Searching.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="16" systemname="IOBox (String)">
    <BOUNDS type="Node" left="660" top="495" width="6600" height="1056">
@@ -227,7 +227,7 @@
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string[4] Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -236,6 +236,8 @@
    <BOUNDS type="Box" left="660" top="2505">
    </BOUNDS>
    <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Foo Bin Size" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
