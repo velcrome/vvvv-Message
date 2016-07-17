@@ -32,7 +32,7 @@ namespace VVVV.Packs.Messaging
         /// <param name="isRequired"></param>
         /// <exception cref="ParseFormularException">Thrown if the fieldName is not valid.</exception>
         /// <exception cref="TypeNotSupportedException">Thrown if the required type is not supported by TypeIdentity.</exception>
-        public FormularFieldDescriptor(Type type, string fieldName, int size = -1, bool isRequired=false)
+        public FormularFieldDescriptor(Type type, string fieldName, int size = -1, bool isRequired=true)
         {
             if (!fieldName.IsValidFieldName())
                 throw new ParseFormularException(fieldName + " is not a valid Name for a field. Sorry, please pick a different one.");

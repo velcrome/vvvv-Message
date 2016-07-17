@@ -1,27 +1,62 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-
-
 using System.Linq;
 
 
 namespace VVVV.Packs.Messaging
 {
-    public class TypeIdentity : Dictionary<Type, string>
+    public class TypeIdentity : ReadOnlyDictionary<Type, string>
     {
+
+        internal TypeIdentity(IDictionary<Type, string> dictionary) : base(dictionary)
+        {}
+
         private static TypeIdentity _instance;
         /// <summary>
         /// TypeIdentity is a singleton right now. 
         /// </summary>
         public static TypeIdentity Instance
         {
-            get { 
-                if (_instance == null) _instance = new TypeIdentity();
+            get {
+                if (_instance == null)
+                {
+                    _instance = NewInstance();
+                }
                 return _instance;
             }
+        }
+
+        internal static TypeIdentity NewInstance()
+        {
+            // This is the only place where you need to add new datatypes.
+            // type:alias is strictly 1:!
+            // no case-sensitivity, beware clashes.
+            // use of case is purely cosmetic, to reflect c# counterpart
+
+            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
+
+            var registry = new Dictionary<Type, string>();
+
+            registry.Add(typeof(bool), "bool");
+            registry.Add(typeof(int), "int");
+            registry.Add(typeof(double), "double");
+            registry.Add(typeof(float), "float");
+            registry.Add(typeof(string), "string");
+
+            registry.Add(typeof(VVVV.Utils.VColor.RGBAColor), "Color");
+            registry.Add(typeof(VVVV.Utils.VMath.Matrix4x4), "Transform");
+            registry.Add(typeof(VVVV.Utils.VMath.Vector2D), "Vector2d");
+            registry.Add(typeof(VVVV.Utils.VMath.Vector3D), "Vector3d");
+            registry.Add(typeof(VVVV.Utils.VMath.Vector4D), "Vector4d");
+
+            registry.Add(typeof(Stream), "Raw");
+            registry.Add(typeof(Time.Time), "Time");
+
+            registry.Add(typeof(Message), "Message");
+
+            return new TypeIdentity(registry);
         }
 
         /// <summary>
@@ -31,28 +66,6 @@ namespace VVVV.Packs.Messaging
         {
             get { return this.Values.ToArray(); }
         }
-
-        public TypeIdentity()
-	    {
-            // This is the only place where you need to add new datatypes.
-
-            Add(typeof(bool), "bool");
-            Add(typeof(int), "int");
-            Add(typeof(double), "double");
-            Add(typeof(float), "float");
-            Add(typeof(string), "string");
-
-            Add(typeof(RGBAColor), "Color");
-            Add(typeof(Matrix4x4), "Transform");
-            Add(typeof(Vector2D), "Vector2d");
-            Add(typeof(Vector3D), "Vector3d");
-            Add(typeof(Vector4D), "Vector4d");
-
-            Add(typeof(Stream), "Raw");
-            Add(typeof(Time.Time), "Time");
-            
-            Add(typeof(Message), "Message");
-	    }
 
 
         public object NewDefault(Type type)
@@ -72,11 +85,11 @@ namespace VVVV.Packs.Messaging
                 case "float": return 0.0f; 
                 case "string": return "vvvv"; 
                 
-                case "color": return VColor.Blue; 
-                case "transform": return VMath.IdentityMatrix; 
-                case "vector2d": return new Vector2D(); 
-                case "vector3d": return new Vector3D(); 
-                case "vector4d": return new Vector4D(); 
+                case "color": return VVVV.Utils.VColor.VColor.Blue; 
+                case "transform": return VVVV.Utils.VMath.VMath.IdentityMatrix; 
+                case "vector2d": return new VVVV.Utils.VMath.Vector2D(); 
+                case "vector3d": return new VVVV.Utils.VMath.Vector3D(); 
+                case "vector4d": return new VVVV.Utils.VMath.Vector4D(); 
 
                 case "raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
                 case "time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
@@ -132,7 +145,7 @@ namespace VVVV.Packs.Messaging
         /// </summary>
         /// <param name="alias"></param>
         /// <returns>Null, if no Type by that alias was found.</returns>
-        /// <remarks>aliases are treated Case-insensitive here, even though they are case-sensitive.</remarks>
+        /// <remarks>aliases are treated Case-insensitive</remarks>
         public Type FindType(string alias)
         {
             Type type = null;
