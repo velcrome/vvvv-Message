@@ -39,15 +39,15 @@ namespace VVVV.Packs.Messaging.Nodes
             FormularUpdate += UpdatePanelOnChange;
             FormularUpdate += TryDefinePins;
 
-            LayoutPanel.Changed += (sender, args) => Formular = args.Formular;
+            LayoutPanel.Changed += (sender, formular) => Formular = formular;
 
         }
 
-        protected void UpdatePanelOnChange(MessageFormular newFormular)
+        protected void UpdatePanelOnChange(object sender, MessageFormular newFormular)
         {
             // no obvious changes. 
             var oldFormular = LayoutPanel.Formular;
-            if (oldFormular.Configuration == newFormular.Configuration) return;
+//            if (oldFormular.Configuration == newFormular.Configuration) return;
 
             // dynamic will only append. will usually even append nothing
             if (newFormular.IsDynamic)
@@ -136,7 +136,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (RemovePinsFirst)
             {
-                TryDefinePins(Formular);
+                TryDefinePins(this, Formular);
             }
 
             if (RemovePinsFirst)
@@ -200,7 +200,7 @@ namespace VVVV.Packs.Messaging.Nodes
         /// If any pin in the new formular is already present, it will preserve the pin.
         /// If any current pin is not contained in the new Formular, but is linked in the patch, it will force the node to raise exceptions every frame, until the link is manually deleted.
         /// </remarks>
-        protected void TryDefinePins(MessageFormular newFormular)
+        protected void TryDefinePins(object sender, MessageFormular newFormular)
         {
             if (HasEndangeredLinks(newFormular))
             {
@@ -238,14 +238,14 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             // reorder - does not work right now, sdk offers only read-only access
-            var names = Formular.FieldNames.ToArray();
-            for (int i = 0; i < Formular.FieldNames.Count(); i++)
-            {
-                var name = names[i];
-                var pin = FPins[name].GetPluginIO();
-                pin.Order = i * 2 + 5;
-            }
+            //var names = Formular.FieldNames.ToArray();
 
+            //int counter = 0;
+            //foreach (var name in newFormular.FieldNames)
+            //{
+            //    if (FPins[name] != null)
+            //        FPins[name].GetPluginIO().Order = counter * 2 + 5;
+            //}
         }
 
         #endregion pin management
@@ -255,17 +255,30 @@ namespace VVVV.Packs.Messaging.Nodes
         private void UpdateWindow(MessageFormular newFormular, bool append = false)
         {
             if (newFormular == null) return;
+
+            var old = LayoutPanel.Formular; // retrieve copy
+
             if (append)
             {
-                var old = LayoutPanel.Formular; // retrieve copy
-
-                foreach (var field in old.FieldDescriptors)
-                    field.IsRequired = false;
-
                 foreach (var field in newFormular.FieldDescriptors)
-                    old.Append(field, field.IsRequired);
+                    old.Overwrite(field);
+
                 LayoutPanel.Formular = old; // set to appended copy
-            } else LayoutPanel.Formular = newFormular;
+
+            }
+            else
+            {
+                var require = from field in old.FieldDescriptors
+                              where field.IsRequired
+                              where newFormular.FieldNames.Contains(field.Name)
+                              select field.Name;
+
+                foreach (var name in newFormular.FieldNames) newFormular[name].IsRequired = false;
+                foreach (var name in require) newFormular[name].IsRequired = true;
+
+                LayoutPanel.Formular = newFormular;
+
+            }
 
             LayoutPanel.CanEditFields = newFormular.IsDynamic;
         }

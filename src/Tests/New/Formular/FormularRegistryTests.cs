@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging.Tests
             var formular = new MessageFormular("A38", "string[3] Field");
 
             string lastChangedFormular = "";
-            reg.FormularChanged += (sender, args) => lastChangedFormular = args.FormularName;
+            reg.FormularChanged += (sender, newFormular) => lastChangedFormular = newFormular.Name;
 
             Assert.AreEqual("", lastChangedFormular);
             var success = reg.Define("AddFormular", formular);

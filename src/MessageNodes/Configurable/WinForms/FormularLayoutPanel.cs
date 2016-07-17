@@ -8,8 +8,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public class FormularLayoutPanel : FlowLayoutPanel
     {
-        
-        public event EventHandler<FormularChangedEventArgs> Changed;
+        public event FormularChanged Changed;
 
         public FormularLayoutPanel()
         {
@@ -109,22 +108,22 @@ namespace VVVV.Packs.Messaging.Nodes
             var prev =    FieldPanels.ToList();
 
             var remove =  (
-                                from field in prev
-                                where !(field.IsFaulty && field.CanEdit)
-                                where field.IsEmpty || !(formular.FieldDescriptors.Contains(field.Descriptor))
-                                select field
+                                from panel in prev
+                                where !(panel.IsFaulty && panel.CanEdit)
+                                where panel.IsEmpty || !(formular.FieldDescriptors.Contains(panel.Descriptor))
+                                select panel
                           ).ToList();
 
             var remain = (
-                                from field in prev
-                                where !(field.IsFaulty && field.CanEdit) && !field.IsEmpty
-                                where formular.FieldDescriptors.Contains(field.Descriptor)
-                                select field
+                                from panel in prev
+                                where !(panel.IsFaulty && panel.CanEdit) && !panel.IsEmpty
+                                where formular.FieldDescriptors.Contains(panel.Descriptor)
+                                select panel
                           ).ToList();
 
             var currentDesc = (
-                                from field in prev
-                                select field.Descriptor
+                                from panel in prev
+                                select panel.Descriptor
                           );
 
             var fresh =   (
@@ -159,16 +158,16 @@ namespace VVVV.Packs.Messaging.Nodes
             // cleanup: just keep them lingering around, recycle when needed. should speed up gui
             while (counter > 0)
             {
-                var field = remove[maxCount - counter];
-                if (field != null) field.IsEmpty = true;
+                var panel = remove[maxCount - counter];
+                if (panel != null) panel.IsEmpty = true;
                 counter--;
             }
 
             // update remaining fields
-            foreach (var field in remain)
+            foreach (var panel in remain)
             {
-                var isRequired = formular[field.Name].IsRequired;
-                field.Checked = field.Descriptor.IsRequired = isRequired;
+                var isRequired = formular.FieldNames.Contains(panel.Name) && formular[panel.Name].IsRequired;
+                panel.Checked = panel.Descriptor.IsRequired = isRequired;
             }
 
             this.ResumeLayout();
@@ -186,7 +185,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             field.Change += (sender, args) =>
             {
-                if (Changed != null) Changed(this, new FormularChangedEventArgs(Formular));
+                if (Changed != null) Changed(this, Formular);
             };
             return field;
         }
@@ -224,7 +223,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
 
 
-            Changed(this, new FormularChangedEventArgs(Formular) );
+            Changed(this, Formular);
         }
 
         protected override void OnDragEnter(DragEventArgs e)

@@ -19,7 +19,7 @@ namespace VVVV.Packs.Messaging.Nodes
             base.OnImportsSatisfied();
             CreateEnumPin("Use Fields", new string[] { "Foo" });
 
-            FormularUpdate += (formular) => FillEnum(formular.FieldNames);
+            FormularUpdate += (sender, formular) => FillEnum(formular.FieldNames);
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)

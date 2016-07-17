@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VVVV.Packs.Messaging
 {
-    public delegate void MessageFormularChangedHandler(MessageFormularRegistry sender, FormularChangedEventArgs e);
+    public delegate void MessageFormularChangedHandler(MessageFormularRegistry sender, MessageFormular formular);
 
     public class MessageFormularRegistry
     {
@@ -126,8 +126,7 @@ namespace VVVV.Packs.Messaging
 
             if (!supressEvent)
             {
-                var e = new FormularChangedEventArgs(formular);
-                if (FormularChanged != null) FormularChanged(this, e);
+                if (FormularChanged != null) FormularChanged(this, formular);
             }
             return true;
         }

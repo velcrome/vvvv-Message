@@ -33,7 +33,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
 
-            FormularUpdate += formular => Default = null; // reset everytime the formular acually changes
+            FormularUpdate += (sender, formular) => Default = null; // reset everytime the formular acually changes
         }
 
 
