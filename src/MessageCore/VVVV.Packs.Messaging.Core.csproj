@@ -44,7 +44,6 @@
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Formular\FormularFieldDescriptor.cs" />
     <Compile Include="Formular\MessageFormular.cs" />
-    <Compile Include="Formular\MessageFormularChangedEvent.cs" />
     <Compile Include="Formular\MessageFormularRegistry.cs" />
     <Compile Include="Core\TypeIdentity.cs" />
     <Compile Include="Serializing\Binary\BinaryExtensions.cs" />
