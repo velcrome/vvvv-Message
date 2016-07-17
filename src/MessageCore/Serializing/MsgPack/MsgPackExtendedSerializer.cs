@@ -10,13 +10,13 @@ namespace VVVV.Packs.Messaging.Serializing
 {
     using Time = VVVV.Packs.Time.Time;
 
+    // CAUTION: You MUST implement your serializer thread safe (usually, you can and you should implement serializer as immutable.)
     public class MsgPackTimeSerializer : MessagePackSerializer<Time>
     {
-        string Encoding = "yyyy-MM-dd HH:mm:ss.ffff";
+        const string Encoding = "yyyy-MM-dd HH:mm:ss.ffff";
 
         public MsgPackTimeSerializer(SerializationContext ownerContext) : base(ownerContext)
         {
-
         }
 
         protected override void PackToCore(Packer packer, Time time)            

@@ -13,8 +13,6 @@ namespace VVVV.Packs.Messaging.Serializing
 
     public class MsgPackMessageSerializer : MessagePackSerializer<Message>
     {
-        // CAUTION: You MUST implement your serializer thread safe (usually, you can and you should implement serializer as immutable.)
-
         protected readonly HashSet<Type> AsInt;
         protected ExtTypeCodeMapping Code
         {
@@ -138,7 +136,7 @@ namespace VVVV.Packs.Messaging.Serializing
         /// <param name="unpacker"></param>
         /// <returns></returns>
         /// <exception cref="TypeNotSupportedException">Thrown, when a datatype of msgpack is not supported, e.g. enums</exception>
-        /// <exception cref="ParseMessageException">Generic exception that </exception>
+        /// <exception cref="ParseMessageException">Generic exception </exception>
         /// <exception cref="OverflowException" >Thrown from msgpack, if a received long does not fit into an int.</exception>
         protected override Message UnpackFromCore(Unpacker unpacker)
         {
