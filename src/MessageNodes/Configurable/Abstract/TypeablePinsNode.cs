@@ -39,8 +39,13 @@ namespace VVVV.Packs.Messaging.Nodes
             FormularUpdate += UpdatePanelOnChange;
             FormularUpdate += TryDefinePins;
 
-            LayoutPanel.Changed += (sender, formular) => Formular = formular;
+            LayoutPanel.Changed += ReadLayoutPanel;
 
+        }
+
+        private void ReadLayoutPanel(object sender, MessageFormular formular)
+        {
+            Formular = formular;
         }
 
         protected void UpdatePanelOnChange(object sender, MessageFormular newFormular)
@@ -261,9 +266,20 @@ namespace VVVV.Packs.Messaging.Nodes
             if (append)
             {
                 foreach (var field in newFormular.FieldDescriptors)
-                    old.Overwrite(field);
+                {
+                    // keep all potential fields checked, old and new
+                    if (old.FieldNames.Contains(field.Name))
+                        field.IsRequired |= old[field.Name].IsRequired;
+
+                    old[field.Name] = field; // hard overwrite 
+                }
+
+                LayoutPanel.Changed -= ReadLayoutPanel;
 
                 LayoutPanel.Formular = old; // set to appended copy
+
+                LayoutPanel.Changed += ReadLayoutPanel;
+
 
             }
             else

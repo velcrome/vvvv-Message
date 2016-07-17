@@ -75,7 +75,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             set
             {
-                LayoutByFormular(value, value.IsDynamic);
+                LayoutByFormular(value, value.IsDynamic);  // will cause Change events, if not prevented
                 _formularName = value.Name;
                 Invalidate();
             }
@@ -102,30 +102,38 @@ namespace VVVV.Packs.Messaging.Nodes
         #endregion fields
 
         #region dynamic control layout
-        protected bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
+        protected bool LayoutByFormular(MessageFormular formular, bool keepUnused) {
             this.SuspendLayout();
 
+            var empty = Enumerable.Empty<FieldPanel>();
             var prev =    FieldPanels.ToList();
+
+            var faulty = (
+                                from panel in prev
+                                where panel.IsFaulty
+                                select panel
+                          ).ToList();
 
             var remove =  (
                                 from panel in prev
-                                where !(panel.IsFaulty && panel.CanEdit)
-                                where panel.IsEmpty || !(formular.FieldDescriptors.Contains(panel.Descriptor))
+                                where !panel.IsFaulty || !panel.CanEdit
+                                where panel.IsEmpty || !formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).ToList();
+                          ).Concat(keepUnused? empty : faulty).ToList();
 
+            // keep all that will 
             var remain = (
                                 from panel in prev
-                                where !(panel.IsFaulty && panel.CanEdit) && !panel.IsEmpty
-                                where formular.FieldDescriptors.Contains(panel.Descriptor)
+                                where !(panel.IsFaulty && panel.CanEdit)
+                                where !panel.IsEmpty
+                                where formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).ToList();
+                          ).Concat(keepUnused? faulty : empty).ToList();
 
             var currentDesc = (
                                 from panel in prev
                                 select panel.Descriptor
                           );
-
             var fresh =   (
                                 from field in formular.FieldDescriptors
                                 where !currentDesc.Contains(field)
@@ -141,17 +149,15 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (counter > 0)
                 {
                     var overwrite = remove[maxCount - counter];
-                    overwrite.Descriptor = newEntry;
-                    overwrite.Checked = overwrite.Checked || forceChecked; 
-//                    overwrite.Checked = overwrite.Checked || forceChecked || newEntry.IsRequired; // stay true, when likely to be a rename
+                    overwrite.Descriptor = newEntry; // will modify the checkbox and description text
+
                     overwrite.Visible = true;
                     overwrite.Locked = Locked;
                     counter--;
                 }
                 else
                 {
-                    AddNewFieldPanel(newEntry, forceChecked );
-//                    AddNewFieldPanel(newEntry, forceChecked || newEntry.IsRequired);
+                    AddNewFieldPanel(newEntry);
                 }
             }
             
@@ -166,8 +172,12 @@ namespace VVVV.Packs.Messaging.Nodes
             // update remaining fields
             foreach (var panel in remain)
             {
-                var isRequired = formular.FieldNames.Contains(panel.Name) && formular[panel.Name].IsRequired;
-                panel.Checked = panel.Descriptor.IsRequired = isRequired;
+                //                var isRequired = formular.FieldNames.Contains(desc.Name) && formular[desc.Name].IsRequired;
+                if (!panel.IsFaulty)
+                {
+                    panel.Descriptor = formular[panel.Descriptor.Name];
+                }
+
             }
 
             this.ResumeLayout();
@@ -176,9 +186,9 @@ namespace VVVV.Packs.Messaging.Nodes
         #endregion dynamic control layout
 
         #region new field panel
-        private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
+        private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc)
         {
-            var field = new FieldPanel(desc, isChecked);
+            var field = new FieldPanel(desc, desc.IsRequired);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
             field.Locked = Locked;
@@ -194,7 +204,9 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (!CanEditFields) return;
 
-            var field = AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
+            var desc = new FormularFieldDescriptor("string Foo");
+            desc.IsRequired = false;
+            var field = AddNewFieldPanel(desc);
             field.CanEdit = true;
 
         }
@@ -215,13 +227,12 @@ namespace VVVV.Packs.Messaging.Nodes
             if (source != this && CanEditFields)
             {
                 // Copy control to panel
-                var copy = AddNewFieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked);
+                var desc = field.Descriptor.Clone() as FormularFieldDescriptor;
+                var copy = AddNewFieldPanel(desc);
                 copy.Locked = Locked;
                 Controls.SetChildIndex(copy, index);  // place it
             }
             else Controls.SetChildIndex(field, index);  // move it
-
-
 
             Changed(this, Formular);
         }

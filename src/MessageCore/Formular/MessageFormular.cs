@@ -150,17 +150,6 @@ namespace VVVV.Packs.Messaging
             return !fields.ContainsKey(field.Name) || fields[field.Name].Equals(field); 
         }
 
-        /// <summary>Adds or overwrites a field of an existing Formular.</summary>
-        /// <param name="field">The field to be added</param>
-        /// <returns>success</returns>
-        /// <remarks>the field will be marked required, if it or the overwritten Field was marked so</remarks>
-        public bool Overwrite(FormularFieldDescriptor field)
-        {
-            fields[field.Name] = field;
-            fields[field.Name].IsRequired |= field.IsRequired;
-            return true;
-        }
-
         /// <summary>Access a specific Field definition by name</summary>
         /// <param name="fieldName">The message whose data should be injected.</param>
         /// <remarks>returns null, if a Field definition by that name does not exist in the Formular

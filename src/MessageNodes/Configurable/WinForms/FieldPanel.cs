@@ -32,6 +32,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     {
                         _descriptor = value.Clone() as FormularFieldDescriptor; // have your own
                         IsFaulty = false; // assume innocence
+
+                        FToggle.Checked = _descriptor.IsRequired;
                         Description =  _descriptor.ToString();
                         Invalidate();
                     }
@@ -186,7 +188,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     if (_descriptor != null) _descriptor.IsRequired = Checked;
                     if (Change != null) Change(this, e);
-                    Focus();
+//                    Focus();
                     Invalidate();
                 };
             }
@@ -238,7 +240,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 // failsafe
                 if (!CanEdit)
                 {
-                    Description = oldDescription;
+                    Description = oldDescription; // stick to the plan!
                     return;
                 }
 
@@ -254,12 +256,12 @@ namespace VVVV.Packs.Messaging.Nodes
                         Checked = true; 
                         IsFaulty = false;
 
+                        if (Change != null) Change(this, e);
                     }
                     catch (ParseFormularException)
                     {
                         IsFaulty = true;
                     }
-                    if (Change != null) Change(this, e);
             }
 
         }
