@@ -62,21 +62,22 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             get 
             {
-                var fields = from field in FieldPanels
-                           where !field.IsEmpty
-                           where !field.IsFaulty
-                           select field;
+                var panels = from panel in FieldPanels
+                           where !panel.IsEmpty
+                           where !panel.IsFaulty
+                           select panel;
 
-                foreach (var field in fields)
-                    field.Descriptor.IsRequired = field.Checked;
+                // might not be necessary...
+                foreach (var panel in panels)
+                    panel.Descriptor.IsRequired = panel.Checked;
 
-                var formular =  new MessageFormular(_formularName, fields.Select(field => field.Descriptor));
+                var formular =  new MessageFormular(_formularName, panels.Select(field => field.Descriptor));
                 return formular;
             }
             set
             {
-                LayoutByFormular(value, value.IsDynamic);  // will cause Change events, if not prevented
                 _formularName = value.Name;
+                LayoutByFormular(value, value.IsDynamic);  // will cause Change events, if not prevented
                 Invalidate();
             }
         }
@@ -110,13 +111,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
             var faulty = (
                                 from panel in prev
-                                where panel.IsFaulty
+                                where panel.IsFaulty && panel.CanEdit
                                 select panel
                           ).ToList();
 
             var remove =  (
                                 from panel in prev
-                                where !panel.IsFaulty || !panel.CanEdit
+                                where !panel.IsFaulty
                                 where panel.IsEmpty || !formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
                           ).Concat(keepUnused? empty : faulty).ToList();
@@ -124,7 +125,7 @@ namespace VVVV.Packs.Messaging.Nodes
             // keep all that will 
             var remain = (
                                 from panel in prev
-                                where !(panel.IsFaulty && panel.CanEdit)
+                                where !panel.IsFaulty
                                 where !panel.IsEmpty
                                 where formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
@@ -132,63 +133,62 @@ namespace VVVV.Packs.Messaging.Nodes
 
             var currentDesc = (
                                 from panel in prev
-                                select panel.Descriptor
+                                where !panel.IsEmpty
+                                select panel.Descriptor.Name
                           );
             var fresh =   (
                                 from field in formular.FieldDescriptors
-                                where !currentDesc.Contains(field)
+                                where !currentDesc.Contains(field.Name)
                                 select field
                           ).ToList();
 
             var maxCount = remove.Count();
             var counter = maxCount;
 
-            foreach (var newEntry in fresh) 
+            foreach (var descriptor in fresh) 
             {
                 // if lingering panels available, recycle it or else instanciate new one
                 if (counter > 0)
                 {
-                    var overwrite = remove[maxCount - counter];
-                    overwrite.Descriptor = newEntry; // will modify the checkbox and description text
+                    FieldPanel revive = remove[maxCount - counter];
+                    revive.Descriptor = descriptor; // will modify the checkbox and description text
 
-                    overwrite.Visible = true;
-                    overwrite.Locked = Locked;
+                    revive.Visible = true;
+                    revive.Locked = Locked;
                     counter--;
                 }
                 else
                 {
-                    AddNewFieldPanel(newEntry);
+                    AddNewFieldPanel(descriptor);
                 }
             }
             
             // cleanup: just keep them lingering around, recycle when needed. should speed up gui
             while (counter > 0)
             {
-                var panel = remove[maxCount - counter];
-                if (panel != null) panel.IsEmpty = true;
+                FieldPanel panel = remove[maxCount - counter];
+                if (panel != null && !(panel.IsFaulty && keepUnused)) panel.IsEmpty = true;
                 counter--;
             }
 
             // update remaining fields
-            foreach (var panel in remain)
+            foreach (FieldPanel panel in remain)
             {
-                //                var isRequired = formular.FieldNames.Contains(desc.Name) && formular[desc.Name].IsRequired;
                 if (!panel.IsFaulty)
                 {
-                    panel.Descriptor = formular[panel.Descriptor.Name];
+                    panel.Descriptor = formular[panel.Descriptor.Name]; // overwrite to stay in sync with the node's central formular
                 }
-
             }
 
             this.ResumeLayout();
-            return true; // return 
+            return true; 
         }
         #endregion dynamic control layout
 
         #region new field panel
         private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc)
         {
-            var field = new FieldPanel(desc, desc.IsRequired);
+            var field = new FieldPanel(desc);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
             field.Locked = Locked;

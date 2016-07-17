@@ -268,18 +268,18 @@ namespace VVVV.Packs.Messaging.Nodes
                 foreach (var field in newFormular.FieldDescriptors)
                 {
                     // keep all potential fields checked, old and new
-                    if (old.FieldNames.Contains(field.Name))
-                        field.IsRequired |= old[field.Name].IsRequired;
+                    //if (old.FieldNames.Contains(field.Name))
+                    //    field.IsRequired |= old[field.Name].IsRequired;
 
                     old[field.Name] = field; // hard overwrite 
                 }
 
                 LayoutPanel.Changed -= ReadLayoutPanel;
 
+                old.Name = newFormular.Name;
                 LayoutPanel.Formular = old; // set to appended copy
 
                 LayoutPanel.Changed += ReadLayoutPanel;
-
 
             }
             else
@@ -292,7 +292,9 @@ namespace VVVV.Packs.Messaging.Nodes
                 foreach (var name in newFormular.FieldNames) newFormular[name].IsRequired = false;
                 foreach (var name in require) newFormular[name].IsRequired = true;
 
+                LayoutPanel.Changed -= ReadLayoutPanel;
                 LayoutPanel.Formular = newFormular;
+                LayoutPanel.Changed += ReadLayoutPanel;
 
             }
 
