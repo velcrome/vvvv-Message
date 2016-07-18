@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace VVVV.Packs.Messaging
 {
+    /// <summary>
+    /// An archive for Messages. Archives will have knowledge of changes in any Message they keep.
+    /// </summary>
     public class MessageKeep : IReadOnlyList<Message>
     {
         #region fields

@@ -37,8 +37,6 @@ namespace VVVV.Packs.Messaging
         /// <summary>
         /// The runtime type of the bin.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns>Returns always one of the registered Types in TypeIdentity.</returns>
         Type GetInnerType();
 
         /// <summary>

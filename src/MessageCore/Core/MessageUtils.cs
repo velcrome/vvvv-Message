@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
+    /// <summary>
+    /// Utils and Constraints for Message 
+    /// </summary>
     public static class MessageUtils
     {
         /// <summary>Extension method for creating a regex out of a wildcard pattern</summary>

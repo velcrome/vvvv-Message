@@ -105,28 +105,7 @@ namespace VVVV.Packs.Messaging.Tests
 
 
 
-        [TestMethod]
-        public void MessageToStream()
-        {
-            var message = new Message();
-            message.Topic = "foo";
 
-            message.Init("MrBoolean", true);
-            message.Init("MrDouble", Math.PI);
-            message.Init("MsString", "lorem");
-            message["MsString"].Add("ipsum");
-
-            message["Empty"] = BinFactory.New(typeof(bool));
-
-            var stream = message.Serialize();
-            var newMessage = stream.DeSerializeMessage();
-
-            Assert.AreEqual(message["MrBoolean"].ToString(), newMessage["MrBoolean"].ToString());
-            Assert.AreEqual(message["MsString"].ToString(), newMessage["MsString"].ToString());
-            Assert.AreEqual(0, newMessage["Empty"].Count);
-
-
-        }
 
 
     }

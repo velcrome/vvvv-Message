@@ -104,7 +104,6 @@
     <Compile Include="Configurable\MessageSplitNode.cs" />
     <Compile Include="Configurable\MessageReadNode.cs" />
     <Compile Include="Keep\MessageKeepSessionNode.cs" />
-    <Compile Include="Serializing\BinaryNodes.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
