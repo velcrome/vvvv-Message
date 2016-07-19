@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
-  <Import Project="..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props" Condition="Exists('..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" />
   <PropertyGroup>
     <ProjectGuid>{6A0AFB1F-8219-4A08-85F7-B7F19B66AC16}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>VVVV.Nodes.Messaging</RootNamespace>
     <AssemblyName>VVVV.Nodes.Messaging</AssemblyName>
@@ -15,13 +14,9 @@
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
-    <PlatformTarget>x64</PlatformTarget>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -38,137 +33,82 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    <Reference Include="MsgPack">
+      <HintPath>..\packages\MsgPack.Cli.0.7.1\lib\net46\MsgPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
     <Reference Include="Newtonsoft.Json, Version=8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.System.ComponentModel.Composition.Codeplex.2.5.0\lib\net40\System.ComponentModel.Composition.CodePlex.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Core.34.103.0-develop-1598\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Core, Version=34.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Core.34.2.0\lib\net40\VVVV.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VVVV.Hosting, Version=34.9, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\vvvv-sdk\vvvv45\lib\core\VVVV.Hosting.dll</HintPath>
-    </Reference>
-    <Reference Include="VVVV.Utils, Version=34.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Utils.34.2.0\lib\net40\VVVV.Utils.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VVVV.Packs.Time, Version=1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
-      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="VVVV.UtilsIL, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.UtilsIL.34.2.0\lib\net40\VVVV.UtilsIL.dll</HintPath>
+    <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Utils.34.103.0-develop-1598\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\Abstract\ConfigurableNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\Abstract\DynamicPinNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs" />
+    <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
     <Compile Include="Configurable\WinForms\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Configurable\Abstract\TypeablePinsNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageMatchNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageDefaultNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageEditNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageCreateNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageWriteNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\WinForms\PicturePanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
+    <Compile Include="Configurable\MessageMatchNode.cs" />
+    <Compile Include="Configurable\MessageDefaultNode.cs" />
+    <Compile Include="Configurable\MessageEditNode.cs" />
+    <Compile Include="Configurable\MessageCreateNode.cs" />
+    <Compile Include="Configurable\MessageWriteNode.cs" />
     <Compile Include="Configurable\WinForms\FormularLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Keep\MessageKeepCreateNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Keep\MessageKeepCreateNode.cs" />
+    <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs" />
     <Compile Include="GenericNodes.cs" />
-    <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Keep\MessageKeepSafe.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageAvoidNilNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Spread\SortByFieldNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
+    <Compile Include="Keep\MessageKeepSafe.cs" />
+    <Compile Include="Configurable\MessageAvoidNilNode.cs" />
+    <Compile Include="Serializing\MsgPackNodes.cs" />
+    <Compile Include="SpreadUtils.cs" />
+    <Compile Include="Spread\SortByFieldNode.cs" />
+    <Compile Include="Utils\MessageGetSlice.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
     <Compile Include="Spread\MessageMergeNode.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />
     <Compile Include="Utils\Fields\MessageContainsFieldNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />
-    <Compile Include="Keep\MessageKeepHoldNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Keep\MessageKeepHoldNode.cs" />
     <Compile Include="Utils\MessageInfoNode.cs" />
     <Compile Include="Utils\Fields\MessagePruneEmptyNode.cs" />
     <Compile Include="Utils\Fields\MessagePruneIndicatedNode.cs" />
     <Compile Include="Utils\Fields\MessagePruneNode.cs" />
     <Compile Include="Spread\MessageSiftNode.cs" />
-    <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageSplitNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configurable\MessageReadNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Keep\MessageKeepSessionNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />
+    <Compile Include="Configurable\MessageSplitNode.cs" />
+    <Compile Include="Configurable\MessageReadNode.cs" />
+    <Compile Include="Keep\MessageKeepSessionNode.cs" />
     <Compile Include="Serializing\BinaryNodes.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />
     <Compile Include="Serializing\XElementNodes.cs" />
-    <Compile Include="Formular\FormularReflectionNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Formular\FormularReflectionNode.cs" />
     <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spread\MessageSortNode.cs" />
@@ -186,33 +126,23 @@
       <Name>VVVV.Packs.Messaging.Core</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\SpreadOperations\VVVV.Nodes.Generic.itl.csproj">
-      <Project>{6B67BBDA-F27B-4905-8F5C-490C3B8AE7F1}</Project>
-      <Name>VVVV.Nodes.Generic.itl</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
-      <MyFiles Include="..\..\patches\**\*.*" />
+      <MyFiles Include="..\..\copy\**\*.*" />
     </ItemGroup>
-    <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\nodes\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props'))" />
-    <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets'))" />
+    <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.34.2.0\build\net40\VVVV.Nodes.Generic.targets')" />
-  <Import Project="..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets')" />
-  <Import Project="..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets'))" />
+  </Target>
+  <Import Project="..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets')" />
 </Project>

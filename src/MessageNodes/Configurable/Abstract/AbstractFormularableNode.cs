@@ -1,150 +1,196 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class AbstractFormularableNode : ConfigurableNode, IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class AbstractFormularableNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = "VVVV.Packs.Message.Core.Formular", Order = 2, IsSingle = true)]
-        public IDiffSpread<EnumEntry> FFormular;
+        [Config("Configuration", DefaultString = "string Foo", Visibility = PinVisibility.True)]
+        private IDiffSpread<string> FConfig;
 
+        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = true)]
+        public IDiffSpread<EnumEntry> FFormularSelection;
+
+        #region event
+        /// <summary>
+        /// Informs all subscribers about a pending change. 
+        /// </summary>
+        /// <remarks>Formular will reflect the status quo, the event argument the new version.</remarks>
+        public event FormularChanged FormularUpdate;
+
+        #endregion event
+
+        #region import services
         [Import]
         protected IHDEHost FHDEHost;
 
         [Import]
         protected IPluginHost2 PluginHost;
 
+        [Import()]
+        protected ILogger FLogger;
+
         protected bool SkippedFirst;
-
-        protected override void InitializeWindow()
+        public virtual void OnImportsSatisfied()
         {
-            // don't call inherited InitializeWindow, so the placeholder pic will disappear
-            
-            FWindow = new FormularLayoutPanel();
-            Controls.Add(FWindow);
-            var reg = MessageFormularRegistry.Instance;
-            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Names.First(), reg.Names);
-        }
-
-        public override void OnImportsSatisfied()
-        {
-            base.OnImportsSatisfied();
+            // Enum pin selects new formular
+            FFormularSelection.Changed += OnSelectFormular;
 
             // base provider of Formulars
-            var reg = MessageFormularRegistry.Instance;
-            reg.TypeChanged += FormularRemotelyChanged;
+            var context = MessageFormularRegistry.Context;
+            context.FormularChanged += FormularRemotelyChanged;
 
-            //// dummy enum, will be populated from registry
-            //EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.Keys.First(), reg.Keys.ToArray());
+            // make sure the enum exits, at least with "None", might be populated later during runtime
+            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, context.AllFormularNames.First(), context.AllFormularNames.ToArray());
 
-            FFormular.Changed += OnSelectFormular;
-            ((FormularLayoutPanel)FWindow).Change += OnChangeLayout;
+            // (mandatory) changes to the config will make sure, the pin layout is restored during loading, even when not all input pins are valid
+            WatchConfig(true);
+        }
+        #endregion import services
 
-            FConfig.Changed += OnConfig;
+
+        #region Formular Handling
+
+        protected MessageFormular _formular = new MessageFormular(MessageFormular.DYNAMIC, "string Foo" );
+        public virtual MessageFormular Formular
+        {
+            get
+            {
+                return _formular;
+            }
+            protected set
+            {
+                if (value == null) throw new ArgumentNullException("Formular cannot be null in " + GetType().Name + " at " + PluginHost.GetNodePath(false));
+
+                var newConfig = value.Configuration;
+                if (FConfig[0] != newConfig)
+                {
+                    WatchConfig(false);
+                    FConfig[0] = newConfig;
+                    WatchConfig(true);
+                }
+                if (FormularUpdate != null) FormularUpdate(this, value);
+
+                _formular = value;
+
+            }
+        }
+
+        protected void WatchConfig(bool activate)
+        {
+            if (activate)
+                FConfig.Changed += OnConfig;
+            else FConfig.Changed -= OnConfig;
+
         }
 
         private void OnConfig(IDiffSpread<string> spread)
         {
-            // usually just the Default of the pin, any saved data will come next
             if (!SkippedFirst)
             {
+                // usually just the Default of the pin, any saved data will come next
                 SkippedFirst = true;
                 return;
+                // default of the pin already mimmicks default Formular for this node
             }
 
-            var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
-
-            if (!FFormular.IsAnyInvalid()) formular.Name = FFormular[0].Name; 
-            UpdateWindow(formular, true);
+            if (FFormularSelection.IsAnyInvalid())
+                Formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
+            else Formular = new MessageFormular(FFormularSelection[0], FConfig[0]);
         }
-
-
-        private void OnChangeLayout(object sender, FormularChangedEventArgs e)
-        {
-            var config = e.Formular.Configuration;
-            if (config != FConfig[0]) FConfig[0] = config;
-        }
-
-
-        protected virtual void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            if (FFormular.IsAnyInvalid())
-            {
-                FLogger.Log(LogType.Warning, "["+ this.GetType().Name + "] - Select a Formular. ID = " + PluginHost.GetNodePath(false));
-                return;
-            }
-
-            var formularName = FFormular[0].Name;
-
-            if (formularName != MessageFormular.DYNAMIC)
-            {
-                var fromReg = MessageFormularRegistry.Instance[formularName];
-                if (fromReg == null) return;
-
-                var formular = new MessageFormular(fromReg.FieldDescriptors, formularName);
-
-                foreach (var field in formular.FieldDescriptors) field.IsRequired = false;
-
-                UpdateWindow(formular);
-
-                var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
-                if (FConfig[0] != newConfig) FConfig[0] = newConfig;
-            }
-            else
-            {
-                (FWindow as FormularLayoutPanel).CanEditFields = true;
-                var formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
-                UpdateWindow(formular);
-            }
-
-        }
+        #endregion Formular Handling
 
 
         #region node formular update during runtime
-        private void FormularRemotelyChanged(MessageFormularRegistry sender, FormularChangedEventArgs e)
+        protected virtual void OnSelectFormular(IDiffSpread<EnumEntry> spread)
         {
-            if (FFormular.IsAnyInvalid()) return;  // strong typing yet undecided
+            if (FFormularSelection.IsAnyInvalid()  || string.IsNullOrWhiteSpace( FFormularSelection[0].Name) )
+            {
+                FLogger.Log(LogType.Warning, "[\""+ this.GetType().Name + "\"] - Select a Formular. ID = " + PluginHost.GetNodePath(false));
+                return;
+            }
 
-            var used = from formularEntry in FFormular
-                       where formularEntry.Name == e.FormularName
+            var formularName = FFormularSelection[0].Name;
+
+            if (Formular.Name == formularName) return;
+
+            var backup = new MessageFormular(formularName, FConfig[0]); // local backup
+            try
+            {
+                MessageFormular formular;
+                if (formularName != MessageFormular.DYNAMIC)
+                {
+                    formular = RetrieveFormular(formularName);
+
+                    var require = from field in Formular.FieldDescriptors
+                                  where field.IsRequired
+                                  where formular.FieldNames.Contains(field.Name)
+                                  select field.Name;
+
+                    foreach (var name in formular.FieldNames) formular[name].IsRequired = false;
+                    foreach (var name in require) formular[name].IsRequired = true;
+
+                }
+                else formular = backup; // fallback to what's been known to the node
+
+                Formular = formular;
+                
+            } catch (RegistryException)
+            {
+                Formular = backup;
+            }
+            
+        }
+
+        /// <summary>
+        /// Tries to retrieve a valid Formular by name from the registry 
+        /// </summary>
+        /// <param name="formularName"></param>
+        /// <exception cref="RegistryException">When Formular is unknown to the registry</exception>
+        /// <returns>A clone of the Formular in the registry</returns>
+        protected MessageFormular RetrieveFormular(string formularName)
+        {
+            MessageFormular formular;
+
+            var fromReg = MessageFormularRegistry.Context[formularName];
+            if (fromReg == null) throw new RegistryException("[" + this.GetType().Name + "] - Tried to retrieve an unknown Formular \"" + formularName + "\". ID = " + PluginHost.GetNodePath(false));
+
+            formular = fromReg.Clone() as MessageFormular; // safeguard against hot tampering with the formular in the registry
+            return formular;
+        }
+
+        /// <summary>
+        /// This will be called when a Formular is changed in the registry, to make all affected nodes comply with potential re-configuration
+        /// </summary>
+        /// <param name="sender">Usually Context</param>
+        /// <param name="e">Contains the new Formular</param>
+        protected virtual void FormularRemotelyChanged(MessageFormularRegistry sender, MessageFormular formular)
+        {
+            if (FFormularSelection.IsAnyInvalid()) return;  // before and during first frame input pins might not be valid yet
+
+
+            // little silly to expect spreaded formular input here, because it spreads nowhere else :(
+            var used = from formularEntry in FFormularSelection
+                       where formularEntry.Name == formular.Name
                        where formularEntry.Name != MessageFormular.DYNAMIC
                        select true;
 
-            if (used.Any(use => use))
+            if (used.Any())
             {
-                var layoutPanel = FWindow as FormularLayoutPanel;
-
-                layoutPanel.CanEditFields = e.Formular.IsDynamic;
-                layoutPanel.Formular = e.Formular;
+                Formular = formular.Clone() as MessageFormular; // keep a copy
             }
-
-            var newConfig = (FWindow as FormularLayoutPanel).Formular.Configuration;
-            if (FConfig[0] != newConfig) FConfig[0] = newConfig;
         }
 
-        private void UpdateWindow(MessageFormular formular, bool append = false)
-        {
-            if (formular == null) return;
-
-            var layoutPanel = FWindow as FormularLayoutPanel;
-
-            if (append) {
-                var old = layoutPanel.Formular;
-                foreach (var field in formular.FieldDescriptors)
-                    old.Append(field, true);
-                formular = old;
-            }
-            
-            layoutPanel.Formular = formular;
-            layoutPanel.CanEditFields = formular.IsDynamic;
-        }
         #endregion node update during runtime
+
+        #region Evaluate
+
+        public abstract void Evaluate(int SpreadMax);
+        #endregion
 
     }
 }

@@ -46,10 +46,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 case FlowControlEnum.Default:
                     if (FInput.IsChanged && !FInput.IsAnyInvalid())
                     {
-                        FOutput.SliceCount = 0;
-                        FOutput.AssignFrom(FInput);
-                        FOutput.Flush();
-
+                        FOutput.FlushResult(FInput);
                         FChange.AssignFrom(Enumerable.Repeat(true, 1));
                     }
                     else FChange.AssignFrom(Enumerable.Repeat(false, 1));
@@ -58,19 +55,13 @@ namespace VVVV.Packs.Messaging.Nodes
                     var change = FInput.Select(message => message.IsChanged);
                     if (FInput.IsChanged || change.Any())
                     {
-                        FOutput.SliceCount = 0;
-                        FOutput.AssignFrom(FInput);
-                        FOutput.Flush();
-    
+                        FOutput.FlushResult(FInput);
                         FChange.AssignFrom(change);
                     }
                     else FChange.AssignFrom(Enumerable.Repeat(false, 1));
                     break;
                 case FlowControlEnum.Force: 
-                    FOutput.SliceCount = 0;
-                    FOutput.AssignFrom(FInput);
-                    FOutput.Flush();
-
+                    FOutput.FlushResult(FInput);
                     FChange.AssignFrom(Enumerable.Repeat(true, 1));
                     break;
                 default: 

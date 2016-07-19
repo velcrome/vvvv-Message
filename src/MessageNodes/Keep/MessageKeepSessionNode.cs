@@ -57,7 +57,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 var change = Keep.Sync(); // not interested input changes, so sync right away
                 if (change != null && change.Count() > 0) update = true;
 
-                if (update) SetKeepToOutput(); // manually flush again
+                if (update)
+                {
+                    FOutput.FlushResult(Keep);
+                    FCountOut.FlushInt(Keep.Count);
+                }
             }
 
             // add all additional id fields to the changed message
@@ -97,7 +101,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else
             {
-                match.InjectWith(message, true, true); // copy all attributes from message to matching record
+                match.InjectWith(message, true); // copy all attributes from message to matching record
                 return match;
             }
         }
@@ -198,10 +202,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FRemovedMessages.SliceCount > 0 || DeadMessages.Count() > 0)
             {
-                FRemovedMessages.SliceCount = 0;
-                FRemovedMessages.AssignFrom(DeadMessages);
-                FRemovedMessages.Flush();
-
+                FRemovedMessages.FlushResult(DeadMessages);
                 DeadMessages.Clear();
                 return true;
             }

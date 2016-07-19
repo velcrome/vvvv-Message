@@ -11,14 +11,13 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
-        protected MessageFormular Formular = new MessageFormular("", "temp");
-
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
             CreateEnumPin("Use as ID", new string[] { TOPIC });
 
-            (FWindow as FormularLayoutPanel).Locked = true;
+            FormularUpdate += (sender, formular) => FillEnum(formular.FieldNames.ToArray());
+
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)
@@ -44,21 +43,7 @@ namespace VVVV.Packs.Messaging.Nodes
             EnumManager.UpdateEnum(EnumName, entries.First(), entries.ToArray());
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Formular = new MessageFormular(configSpread[0], "temp");
-            FillEnum(Formular.FieldNames.ToArray());
-        }
 
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
 
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
     }
 }

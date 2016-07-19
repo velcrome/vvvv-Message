@@ -1,27 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
+    /// <summary>
+    /// This class is a simple descriptor of structural data about a formulars field.
+    /// </summary>
+    /// <remarks>
+    /// While this functionality could also be done with .net reflections, this is a lot more light weight 
+    /// </remarks>
     public class FormularFieldDescriptor : IEquatable<FormularFieldDescriptor>, ICloneable
     {
-
-        #region static utilities
-        // "Type[N] name"
-        // Name can constitute of alphanumericals, dots, underscores and hyphens.
-        public static Regex Parser = new Regex(@"^(\w*?)(\[\d*\])*\s+([\w\._-]+?)$");
-        protected static Regex NameParser = new Regex(@"^([\w\._-]+?)$");
-        public static ISet<string> ForbiddenNames = new HashSet<string>(new[] { "", "ID", "Output", "Input", "Message", "Keep", "Topic", "Timestamp" }); // These names are likely to be pin names
-
-        public static bool IsValidFieldName(string fieldName)
-        {
-            return NameParser.IsMatch(fieldName) && !ForbiddenNames.Contains(fieldName);
-        }
-        #endregion static utilities
 
         #region fields
 
@@ -32,16 +23,26 @@ namespace VVVV.Packs.Messaging
         #endregion fields
 
         #region constructors
-        public FormularFieldDescriptor(Type type, string name, int size = -1, bool isRequired=false)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="size"></param>
+        /// <param name="isRequired"></param>
+        /// <exception cref="ParseFormularException">Thrown if the fieldName is not valid.</exception>
+        /// <exception cref="TypeNotSupportedException">Thrown if the required type is not supported by TypeIdentity.</exception>
+        public FormularFieldDescriptor(Type type, string fieldName, int size = -1, bool isRequired=true)
         {
-            if (!IsValidFieldName(name))
-                throw new ParseFormularException(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
-            
-            if (!TypeIdentity.Instance.ContainsKey(type))
-                throw new TypeNotSupportedException(type + " is not a valid Type for a MessageFormular.");
+            if (!fieldName.IsValidFieldName())
+                throw new ParseFormularException(fieldName + " is not a valid Name for a field. Sorry, please pick a different one.");
 
-            this.Name = name;
-            this.Type = type;
+            var baseType = TypeIdentity.Instance.FindBaseType(type);
+            if (baseType == null)
+                throw new TypeNotSupportedException(type + " is not a valid Type for a Formular field.");
+
+            this.Name = fieldName;
+            this.Type = baseType;
             this.DefaultSize = size;
             this.IsRequired = isRequired;
         }
@@ -52,10 +53,10 @@ namespace VVVV.Packs.Messaging
         /// <exception cref="ParseFormularException">This exception is thrown if a syntax error prevents the config to be parsed.</exception>
         public FormularFieldDescriptor(string config = "", bool isRequired = false) 
         {
-                var data = Parser.Match(config.Trim());
+                var data = MessageUtils.ConfigurationParser.Match(config.Trim());
 
                 Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will return null
-                string name = data.Groups[3].ToString();
+                string fieldName = data.Groups[3].ToString();
 
                 int count = 1;
                 if (data.Groups[2].Length > 0)
@@ -66,14 +67,14 @@ namespace VVVV.Packs.Messaging
                         count = -1;
                     else count = int.Parse(arrayConnotation.TrimStart('[').TrimEnd(']').Trim());
                 }
-                if (!IsValidFieldName(name)) 
-                    throw new ParseFormularException(name + " is a forbidden Name for a field. Sorry, please pick a different one.");
+                if (!fieldName.IsValidFieldName()) 
+                    throw new ParseFormularException(fieldName + " is a forbidden Name for a field. Sorry, please pick a different one.");
                 
-                if (type == null || name == "")  
+                if (type == null || fieldName == "")  
                     throw new ParseFormularException("Could not parse "+config);
 
                this.Type = type;
-               this.Name = name;
+               this.Name = fieldName;
                this.DefaultSize = count;
                this.IsRequired = isRequired;
         }
@@ -81,6 +82,12 @@ namespace VVVV.Packs.Messaging
         #endregion constructors
 
         #region utils
+        /// <summary>
+        /// Checks Equality against another field descriptor
+        /// </summary>
+        /// <remarks>Does also check, if DefaultSize is equal.</remarks>
+        /// <param name="other"></param>
+        /// <returns>true if Equal</returns>
         public bool Equals(FormularFieldDescriptor other)
         {
             if ((object)other == null) return false;
@@ -91,10 +98,14 @@ namespace VVVV.Packs.Messaging
             return true;
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Create a string representing the Configuration of the field
+        /// </summary>
+        /// <param name="withCount">If set to false, indication of the length in the configuration string will be omitted.</param>
+        /// <returns>The configuration string. </returns>
+        public string ToString(bool withCount = true)
         {
             var sb = new StringBuilder();
-            var withCount = true;
 
             sb.Append(TypeIdentity.Instance.FindAlias(Type));
             if (withCount && DefaultSize != 1)
@@ -108,10 +119,13 @@ namespace VVVV.Packs.Messaging
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Get a deep copy of a formular field descriptor.
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
-            var c = new FormularFieldDescriptor(this.Type, this.Name, this.DefaultSize, this.IsRequired);
-            return c;
+            return new FormularFieldDescriptor(this.Type, this.Name, this.DefaultSize, this.IsRequired);
         }
         #endregion utils
     }

@@ -4,19 +4,14 @@ using VVVV.Utils.Streams;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    //[PluginInfo(Name = "S+H", Category = "Message.Keep", Help = "Sample and hold a Message", Author = "velcrome")]
-    //public class MessageSAndHNode : SAndH<Message>
-    //{
-    //}
-
-    // better than the GetSlice (Node), because it allows binning and Index Spreading
-    [PluginInfo(Name = "GetSlice", Category = "Message", Help = "GetSlice Messages", Author = "velcrome")]
-    public class MessageGetSliceNode : GetSlice<Message>
-    {
-    }
 
     [PluginInfo(Name = "Select", Category = "Message", Help = "Select Messages", Author = "vvvv-sdk")]
     public class MessageSelectNode : Select<Message>
+    {
+    }
+
+    [PluginInfo(Name = "Cons", Category = "Message", Version = "Bin", Help = "Cons Messages", Author = "vvvv-sdk")]
+    public class MessageConsNode : Cons<Message>
     {
     }
 
@@ -30,9 +25,5 @@ namespace VVVV.Packs.Messaging.Nodes
     {
     }
 
-    //[PluginInfo(Name = "Stack", Category = "Message.Keep", Help = "Stack Messages", Tags = "", Author = "vvvv-sdk")]
-    //public class MessageStackNode : StackNode<Message>
-    //{
-    //}
 
 }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -13,18 +11,15 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<ISpread<EnumEntry>> FUseFields = null;
         private string EnumName;
 
-        protected MessageFormular Formular;
-
         [Import()]
         protected IIOFactory FIOFactory;
-
 
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
             CreateEnumPin("Use Fields", new string[] { "Foo" });
 
-            (FWindow as FormularLayoutPanel).Locked = true;
+            FormularUpdate += (sender, formular) => FillEnum(formular.FieldNames);
         }
 
         public void CreateEnumPin(string pinName, IEnumerable<string> entries)
@@ -51,25 +46,14 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private void FillEnum(IEnumerable<string> fields)
         {
-            EnumManager.UpdateEnum(EnumName, fields.First(), fields.ToArray());
+            var enums = fields.ToArray();
+
+            if (enums.Count() > 0)
+                EnumManager.UpdateEnum(EnumName, enums.First(), enums);
+            else EnumManager.UpdateEnum(EnumName, MessageFormular.DYNAMIC, new string[] { MessageFormular.DYNAMIC });
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Formular = new MessageFormular(FConfig[0], MessageFormular.DYNAMIC);
-            FillEnum(Formular.FieldNames.ToArray());
-        }
 
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread); // inject Formular into 
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
 
 
     }

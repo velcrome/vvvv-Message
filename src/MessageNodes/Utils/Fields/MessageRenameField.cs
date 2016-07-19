@@ -40,13 +40,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (SpreadMax <= 0)
             {
-                if (FOutput.SliceCount >= 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
+                FOutput.FlushNil();
+                return;
             }
 
 
@@ -58,7 +53,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 var n = FNew[i].Trim();
                 var o = FOld[i].Trim();
 
-                if (string.IsNullOrWhiteSpace(n) || string.IsNullOrWhiteSpace(o) || !FormularFieldDescriptor.IsValidFieldName(n) )
+                if (string.IsNullOrWhiteSpace(n) || string.IsNullOrWhiteSpace(o) || !n.IsValidFieldName() )
                     throw new ParseFormularException("\"" + n + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
 
                 translate[o] = n;
@@ -77,10 +72,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(FInput);
-            FOutput.Flush();
+            FOutput.FlushResult(FInput);
         }
     }
 

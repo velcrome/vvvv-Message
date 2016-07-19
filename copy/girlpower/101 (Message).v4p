@@ -1,0 +1,119 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.103.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
+   <BOUNDS type="Window" left="0" top="0" width="2850" height="8895">
+   </BOUNDS>
+   <PACK Name="addonpack" Version="34.101.0">
+   </PACK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="40" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="282" top="153" width="5100" height="456">
+   </BOUNDS>
+   <BOUNDS type="Box" left="282" top="153" width="2400" height="510">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|101 (Message)|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" visible="1" values="14">
+   </PIN>
+   </NODE>
+   <INFO author="" description="" tags="">
+   </INFO>
+   <NODE systemname="01_Initialisation" filename="101\01_Initialisation.v4p" componentmode="InAWindow" id="370" nodename="101\01_Initialisation.v4p">
+   <BOUNDS type="Node" left="510" top="1035" width="1275" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="1035" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="02_Formular" filename="101\02_Formular.v4p" componentmode="InAWindow" id="371" nodename="101\02_Formular.v4p">
+   <BOUNDS type="Node" left="510" top="1545" width="1140" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="1545" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="03_Datatypes" filename="101\03_Datatypes.v4p" componentmode="InAWindow" id="372" nodename="101\03_Datatypes.v4p">
+   <BOUNDS type="Node" left="510" top="2055" width="1200" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="2055" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="04_Keep" filename="101\04_Keep.v4p" componentmode="InAWindow" id="373" nodename="101\04_Keep.v4p">
+   <BOUNDS type="Node" left="510" top="2625" width="885" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="2625" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="05_Info" filename="101\05_Info.v4p" componentmode="InAWindow" id="374" nodename="101\05_Info.v4p">
+   <BOUNDS type="Node" left="510" top="3105" width="810" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="3105" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="06_Field_Access" filename="101\06_Field_Access.v4p" componentmode="InAWindow" id="378" nodename="101\06_Field_Access.v4p">
+   <BOUNDS type="Node" left="510" top="3585" width="1425" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="3585" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="07_None_Wiring" filename="101\07_None_Wiring.v4p" nodename="101\07_None_Wiring.v4p" componentmode="InAWindow" id="387">
+   <BOUNDS type="Node" left="510" top="4185" width="1365" height="270">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="4185">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="08_VVVV_Standards" filename="101\08_VVVV_Standards.v4p" componentmode="InAWindow" id="388" nodename="101\08_VVVV_Standards.v4p">
+   <BOUNDS type="Node" left="510" top="4725" width="1635" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="4725" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="09_Serialisation" filename="101\09_Serialisation.v4p" componentmode="InAWindow" id="389" nodename="101\09_Serialisation.v4p">
+   <BOUNDS type="Node" left="510" top="5220" width="1335" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="5220" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="10_HD_Recording" filename="101\10_HD_Recording.v4p" componentmode="InAWindow" id="391" nodename="101\10_HD_Recording.v4p">
+   <BOUNDS type="Node" left="510" top="5790" width="1470" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="5790" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="12_Essentials" filename="101\12_Essentials.v4p" componentmode="InAWindow" id="398" nodename="101\12_Essentials.v4p">
+   <BOUNDS type="Node" left="510" top="7260" width="1185" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="7260" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <NODE systemname="11_Searching" filename="101\11_Searching.v4p" componentmode="InAWindow" id="390" nodename="101\11_Searching.v4p">
+   <BOUNDS type="Node" left="510" top="6315" width="1125" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="6315" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
+   </PATCH>

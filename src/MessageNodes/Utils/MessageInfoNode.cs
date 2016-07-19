@@ -45,15 +45,10 @@ namespace VVVV.Pack.Messaging.Nodes
             {
                 if (FOutput.SliceCount != 0)
                 {
-                    FTopic.SliceCount = 
-                    FTimeStamp.SliceCount = 
-                    FConfigOut.SliceCount = 
-                    FOutput.SliceCount = 0;
-                    
-                    FOutput.Flush();
-                    FTimeStamp.Flush();
-                    FTopic.Flush();
-                    FConfigOut.Flush();
+                    FOutput.FlushNil();
+                    FTimeStamp.FlushNil();
+                    FTopic.FlushNil();
+                    FConfigOut.FlushNil();
                 }
                 return;
             }
@@ -74,7 +69,7 @@ namespace VVVV.Pack.Messaging.Nodes
                 FTopic[i] = m.Topic;
                 if (timeConnected) FTimeStamp[i] = m.TimeStamp;;
 
-                FConfigOut[i] = FInput[i].GetFormular().ToString();
+                FConfigOut[i] = FInput[i].Formular.ToString();
 
                 if (FPrint[i])
                 {

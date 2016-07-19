@@ -3,7 +3,6 @@ using VVVV.Packs.Messaging.Nodes;
 using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
-using System;
 
 
 namespace VVVV.Nodes.Messaging.Nodes
@@ -18,13 +17,13 @@ namespace VVVV.Nodes.Messaging.Nodes
         Tags = "Formular, Bin",
         Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageEditNode : DynamicPinsNode
+    public class MessageEditNode : TypeablePinsNode
     {
 #pragma warning disable 649, 169
         [Input("Input", Order = 0)] 
         IDiffSpread<Message> FInput;
 
-        [Input("AutoSense", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]
         IDiffSpread<bool> FAutoSense;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
@@ -55,19 +54,14 @@ namespace VVVV.Nodes.Messaging.Nodes
         {
             if (FInput.IsAnyInvalid())
             {
-                if (FOutput.SliceCount > 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return; // if no input, no further calculation.
-                }
+                FOutput.FlushNil();
                 return;
             }
 
             bool doFlush = false;
 
             // is any Update slice checked?
-            var anyUpdate = FUpdate.Any(x => x);
+            var anyUpdate = FUpdate.Any();
  
             // Flush upstream changes through the plugin
             if (FInput.IsChanged)

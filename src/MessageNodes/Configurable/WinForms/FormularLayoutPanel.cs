@@ -8,8 +8,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public class FormularLayoutPanel : FlowLayoutPanel
     {
-        
-        public event EventHandler<FormularChangedEventArgs> Change;
+        public event FormularChanged Changed;
 
         public FormularLayoutPanel()
         {
@@ -58,23 +57,27 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
         
-        
-        protected string _formularName = "";
+        protected string _formularName = MessageFormular.DYNAMIC;
         public MessageFormular Formular
         {
             get 
             {
-                var fields = from field in FieldPanels
-                           where !field.IsEmpty
-                           where !field.IsFaulty
-                           select field.Descriptor;
-                var formular =  new MessageFormular(fields.ToList(), _formularName);
+                var panels = from panel in FieldPanels
+                           where !panel.IsEmpty
+                           where !panel.IsFaulty
+                           select panel;
+
+                // might not be necessary...
+                foreach (var panel in panels)
+                    panel.Descriptor.IsRequired = panel.Checked;
+
+                var formular =  new MessageFormular(_formularName, panels.Select(field => field.Descriptor));
                 return formular;
             }
             set
             {
-                LayoutByFormular(value, value.IsDynamic);
                 _formularName = value.Name;
+                LayoutByFormular(value, value.IsDynamic);  // will cause Change events, if not prevented
                 Invalidate();
             }
         }
@@ -100,73 +103,99 @@ namespace VVVV.Packs.Messaging.Nodes
         #endregion fields
 
         #region dynamic control layout
-        protected bool LayoutByFormular(MessageFormular formular, bool forceChecked = false) {
+        protected bool LayoutByFormular(MessageFormular formular, bool keepUnused) {
             this.SuspendLayout();
 
+            var empty = Enumerable.Empty<FieldPanel>();
             var prev =    FieldPanels.ToList();
 
-            var remove =  (
-                                from field in prev
-                                where !(field.IsFaulty && field.CanEdit)
-                                where field.IsEmpty || !(formular.FieldDescriptors.Contains(field.Descriptor))
-                                select field
+            var faulty = (
+                                from panel in prev
+                                where panel.IsFaulty && panel.CanEdit
+                                select panel
                           ).ToList();
 
-            var current = (
-                                from field in prev
-                                select field.Descriptor
-                          );
+            var remove =  (
+                                from panel in prev
+                                where !panel.IsFaulty
+                                where panel.IsEmpty || !formular.FieldNames.Contains(panel.Descriptor.Name)
+                                select panel
+                          ).Concat(keepUnused? empty : faulty).ToList();
 
+            // keep all that will 
+            var remain = (
+                                from panel in prev
+                                where !panel.IsFaulty
+                                where !panel.IsEmpty
+                                where formular.FieldNames.Contains(panel.Descriptor.Name)
+                                select panel
+                          ).Concat(keepUnused? faulty : empty).ToList();
+
+            var currentDesc = (
+                                from panel in prev
+                                where !panel.IsEmpty
+                                select panel.Descriptor.Name
+                          );
             var fresh =   (
                                 from field in formular.FieldDescriptors
-                                where !current.Contains(field)
+                                where !currentDesc.Contains(field.Name)
                                 select field
                           ).ToList();
 
             var maxCount = remove.Count();
             var counter = maxCount;
 
-            foreach (var newEntry in fresh) 
+            foreach (var descriptor in fresh) 
             {
                 // if lingering panels available, recycle it or else instanciate new one
                 if (counter > 0)
                 {
-                    var overwrite = remove[maxCount - counter];
-                    overwrite.Descriptor = newEntry;
-                    overwrite.Checked = overwrite.Checked || forceChecked || newEntry.IsRequired; // stay true, when likely to be a rename
-                    overwrite.Visible = true;
-                    overwrite.Locked = Locked;
+                    FieldPanel revive = remove[maxCount - counter];
+                    revive.Descriptor = descriptor; // will modify the checkbox and description text
+
+                    revive.Visible = true;
+                    revive.Locked = Locked;
                     counter--;
                 }
                 else
                 {
-                    AddNewFieldPanel(newEntry, forceChecked || newEntry.IsRequired);
+                    AddNewFieldPanel(descriptor);
                 }
             }
             
             // cleanup: just keep them lingering around, recycle when needed. should speed up gui
             while (counter > 0)
             {
-                var field = remove[maxCount - counter];
-                if (field != null) field.IsEmpty = true;
+                FieldPanel panel = remove[maxCount - counter];
+                if (panel != null && !(panel.IsFaulty && keepUnused)) panel.IsEmpty = true;
                 counter--;
             }
+
+            // update remaining fields
+            foreach (FieldPanel panel in remain)
+            {
+                if (!panel.IsFaulty)
+                {
+                    panel.Descriptor = formular[panel.Descriptor.Name]; // overwrite to stay in sync with the node's central formular
+                }
+            }
+
             this.ResumeLayout();
-            return true; // return 
+            return true; 
         }
         #endregion dynamic control layout
 
         #region new field panel
-        private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc, bool isChecked)
+        private FieldPanel AddNewFieldPanel(FormularFieldDescriptor desc)
         {
-            var field = new FieldPanel(desc, isChecked);
+            var field = new FieldPanel(desc);
             field.CanEdit = CanEditFields;
             Controls.Add(field);
             field.Locked = Locked;
 
             field.Change += (sender, args) =>
             {
-                if (Change != null) Change(this, new FormularChangedEventArgs(Formular));
+                if (Changed != null) Changed(this, Formular);
             };
             return field;
         }
@@ -175,7 +204,9 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (!CanEditFields) return;
 
-            var field = AddNewFieldPanel(new FormularFieldDescriptor("string Foo"), false);
+            var desc = new FormularFieldDescriptor("string Foo");
+            desc.IsRequired = false;
+            var field = AddNewFieldPanel(desc);
             field.CanEdit = true;
 
         }
@@ -196,15 +227,14 @@ namespace VVVV.Packs.Messaging.Nodes
             if (source != this && CanEditFields)
             {
                 // Copy control to panel
-                var copy = AddNewFieldPanel((FormularFieldDescriptor)field.Descriptor.Clone(), field.Checked);
+                var desc = field.Descriptor.Clone() as FormularFieldDescriptor;
+                var copy = AddNewFieldPanel(desc);
                 copy.Locked = Locked;
                 Controls.SetChildIndex(copy, index);  // place it
             }
             else Controls.SetChildIndex(field, index);  // move it
 
-
-
-            Change(this, new FormularChangedEventArgs(Formular) );
+            Changed(this, Formular);
         }
 
         protected override void OnDragEnter(DragEventArgs e)

@@ -18,43 +18,79 @@ namespace VVVV.Packs.Messaging {
 
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);
-	
-//	[DataContract]
+
+    /// <summary>
+    /// Message is a base object to handle strongly typed data in a dynamic way.</summary>
+    /// <remarks>
+    /// see http://www.github.com/velcrome/vvvv-Message for details
+    /// </remarks>    
     [JsonConverter(typeof(JsonMessageSerializer))]
-	public class Message : ICloneable //, ISerializable
+    public class Message : ICloneable, IEquatable<Message> //, ISerializable
     {
         #region Properties and FieldNames
-        // Access to the the inner Data.
+        internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
+
+        /// <summary>Provides access to the names of all Fields</summary>
         public IEnumerable<string> Fields
         {
             get { return Data.Keys; }
         }
 
         private string _topic;
-        private bool _isTopicChanged = false;
-        
+        private bool _internalChange = false;
+
+        /// <summary>The topic is a brief identifier of the Message. It can be used to sift or sort Messages quickly.</summary>
+        /// <remarks>A topic is best used with a dot-separated Namespace (e.g. MyCompany.Project.Input.Touch)
+        /// Only actually changing the topic will mark the message with IsChanged = true
+        /// </remarks>
         public string Topic{
 			get {
                 return _topic;
             }
             set
             {
-                // todo: validate topic to be namespace-syntax
-                _isTopicChanged = true;
-                _topic = value;
+                if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException("Topic cannot be null, empty or clear.");
+                if (value.Trim() == _topic) return;
+
+                // todo: validate topic to be namespace-syntax?
+                _internalChange = true;
+                _topic = value.Trim();
             }
 		}
 
+        /// <summary>Returns the last geo-localized timestamp of the Message.</summary>
+        /// <remarks>Will be automatically updated with every Sync
+        /// Needs the vvvv-Time contribution or nuget.
+        /// </remarks>
         public Time TimeStamp
         {
             get;
             set;
         }
-		
 
-        internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
+        /// <summary>Returns an ad-hoc Formular describing all fields of the Message, or ensures that all fields from a given formular are created in the Message</summary>
+        public MessageFormular Formular
+        {
+            get
+            {
+                return new MessageFormular("adhoc", this, true);
+            }
+            set
+            {
+                foreach (string field in value.FieldNames)
+                {
+                    Data[field] = BinFactory.New(value[field].Type); // Type
+                    var count = value[field].DefaultSize;
+                    count = count <= -1 ? 1 : count;
+                    Data[field].Count = count;
+                }
+            }
+        }
 
+        /// <summary>Get all changes when Message is Sync'ed</summary>
         public event MessageChangedWithDetails ChangedWithDetails;
+
+        /// <summary>Returns the last geo-localized timestamp of the Message.</summary>
         public event MessageChanged Changed;
         #endregion
 
@@ -75,32 +111,18 @@ namespace VVVV.Packs.Messaging {
         public Message(MessageFormular formular)
             : base()
         {
-            SetFormular(formular);
-        }
-        #endregion
-
-        #region Formular
-        public MessageFormular GetFormular()
-        {
-			return new MessageFormular(this, true);
-		}
-
-        public void SetFormular(MessageFormular formular)
-        {
-            foreach (string field in formular.FieldNames)
-            {
-                Data[field] = BinFactory.New( formular[field].Type ); // Type
-                var count = formular[field].DefaultSize;
-                count = count <= -1 ? 1 : count;
-                Data[field].Count = count; 
-            }
+            Formular = formular;
         }
         #endregion
 
         #region Bin Handling
-        public void Init(string name, params object[] values)
+ 
+        /// <summary>Initializes a new named Field. Use comma separated values to init the field.</summary>
+        /// <param name="fieldName">The field to be added</param>
+        /// <param name="values"></param>
+        public void Init(string fieldName, params object[] values)
         {
-            AssignFrom(name, values);
+            AssignFrom(fieldName, values);
         }
 
         public void Add(string name, params object[] values)
@@ -108,91 +130,135 @@ namespace VVVV.Packs.Messaging {
             AddFrom(name, values);
         }
 
-        public void AssignFrom(string name, IEnumerable en, Type type = null)
+        /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
+        /// <param name="fieldName">The field to be added</param>
+        /// <param name="values">IEnumerable containing </param>
+        /// <param name="type"></param>
+        /// <exception cref="ParseFormularException">This exception is thrown if the fieldName contains invalid characters.</exception>
+        /// <exception cref="EmptyBinException">This exception is thrown if values is or contains null.</exception>
+        /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
+        /// <exception cref="BinTypeMismatchException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
+        /// <exception cref="TypeNotSupportedException">This exception is thrown if the new bin's type is not registered in TypeIdentity.</exception>
+        /// <exception cref="ArgumentNullException">This exception is thrown if attempt is made to add null to a the bin.</exception>
+        public void AssignFrom(string fieldName, IEnumerable values, Type type = null)
         {
-            if (!FormularFieldDescriptor.IsValidFieldName(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+            if (!fieldName.IsValidFieldName()) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
 
             if (type == null)
             {
-                var gen = en.GetType().GenericTypeArguments;
+                if (values == null) throw new ArgumentNullException("Attempted to Assign null to a new Bin.");
+
+                var gen = values.GetType().GenericTypeArguments;
 
                 // in case en is not generic, pick the first one and reflect
                 if (gen == null || gen.Count() != 1)
                 {
-                    var obj = en.Cast<object>().DefaultIfEmpty(new object()).First();
+                    var tmp = values.Cast<object>(); // throws ArgumentNullException and InvalidCastException.
+
+                    if (tmp.Count() == 0) throw new EmptyBinException("Cannot add an empty bin without information about its type. Consider adding type information to AssignFrom()");
+
+                    var obj = tmp.FirstOrDefault();
+
+                    if (obj == null) throw new ArgumentNullException("Cannot assign null to a new Bin.");
                     type = obj.GetType();
                 }
-                else type = en.GetType().GenericTypeArguments[0];
+                else type = values.GetType().GenericTypeArguments[0];
             }
 
             type = TypeIdentity.Instance.FindBaseType(type); // break it down.
+            if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + fieldName + "] failed, type is not supported: " + this.Topic);
 
-            if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + name + "] failed, type is not supported: " + this.Topic);
-
-            if (!Data.ContainsKey(name) || type != Data[name].GetInnerType())
+            // replace if type does not match
+            if (!Data.ContainsKey(fieldName) || type != Data[fieldName].GetInnerType())
             {
-                Data.Remove(name);
-                Data.Add(name, BinFactory.New(type));
+                Data.Remove(fieldName);
+                Data.Add(fieldName, BinFactory.New(type));
             }
             else
             {
-                Data[name].Clear();
+                Data[fieldName].Clear();
             }
 
-            foreach (object o in en)
-            {
-                Data[name].Add(o); // implicit conversion
-            }
+            Data[fieldName].Add(values); // implicit conversion
         }
 
-        public void AddFrom(string name, IEnumerable en)
+        /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
+        /// <param name="fieldName">The field to be added</param>
+        /// <param name="values">IEnumerable containing </param>
+        /// <param name="type"></param>
+        /// <exception cref="ParseFormularException">This exception is thrown if the fieldName contains invalid characters.</exception>
+        /// <exception cref="EmptyBinException">This exception is thrown if values is or contains null.</exception>
+        /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
+        /// <exception cref="BinTypeMismatchException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
+        /// <exception cref="TypeNotSupportedException">This exception is thrown if the new bin's type is not registered in TypeIdentity.</exception>
+        /// <exception cref="ArgumentNullException">This exception is thrown if attempt is made to add null to a the bin.</exception>
+        public void AddFrom(string fieldName, IEnumerable values)
         {
-            if (!Data.ContainsKey(name))
+            if (!Data.ContainsKey(fieldName))
             {
-                AssignFrom(name, en);
+                AssignFrom(fieldName, values);
             }
             else
             {
-                foreach (object o in en)
-                {
-                    Data[name].Add(o); // implicit conversion
-                }
+                Data[fieldName].Add(values); // implicit conversion
             }
         }
 
-        public void Remove(string fieldname)
+        /// <summary>Removes a field from the message</summary>
+        /// <param name="fieldName">The field to be added</param>
+        /// <returns>False, if fieldName did not exist.</returns>
+        public bool Remove(string fieldName)
         {
-            Data.Remove(fieldname);
+            var tmp = Data.Remove(fieldName);
+            if (tmp) _internalChange = true;
+            return tmp;
         }
 
-        public bool Rename(string fieldname, string newName, bool overwrite=false)
+        /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
+        /// <param name="fieldName">The field to be renamed</param>
+        /// <param name="newName">The new name of the field.</param>
+        /// <param name="overwrite">Allow renaming, even if the new Name already exists.</param>
+        /// <exception cref="ParseFormularException">This exception is thrown if the fieldName contains invalid characters.</exception>
+        /// <exception cref="EmptyBinException">This exception is thrown the field does not exist.</exception>
+        /// <exception cref="DuplicateFieldException">This exception is thrown if a field with newName already exists, and overwrite is set to false.</exception>
+        /// <returns>success</returns>
+        public bool Rename(string fieldName, string newName, bool overwrite=false)
         {
-            if (!overwrite && Data.ContainsKey(newName)) return false;
+            if (!overwrite && Data.ContainsKey(newName)) throw new DuplicateFieldException("Field with the name \"" + newName+"\" already exists. Consider to allow overwriting", null, null);
             else
             {
-                var bin = Data[fieldname];
+                if (!Data.ContainsKey(fieldName)) throw new EmptyBinException("Field with the name \"" + fieldName + "\" does not exist.");
+                var bin = Data[fieldName];
+
+                if (!newName.IsValidFieldName()) throw new ParseFormularException("Invalid fieldname: \"" + newName+"\".");
+
                 Data[newName] = bin;
                 bin.IsDirty = true;
 
-                Remove(fieldname);
+                Remove(fieldName);
             }
             return true;
         }
-
-
         #endregion
 
         #region Bin Access
 
-        public Bin this[string name]
+        /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
+        /// <param name="fieldName">The field to be renamed</param>
+        /// <param name="newName">The new name of the field.</param>
+        /// <param name="overwrite">Allow renaming, even if the new Name already exists.</param>
+        /// <exception cref="ParseFormularException">This exception is thrown if the fieldName contains invalid characters.</exception>
+        /// <exception cref="DuplicateFieldException">This exception is thrown if a field with newName already exists, and overwrite is set to false.</exception>
+        /// <returns>success</returns>
+        public Bin this[string fieldName]
 		{
 			get { 
-				if (Data.ContainsKey(name)) return Data[name];
+				if (Data.ContainsKey(fieldName)) return Data[fieldName];
 					else return null;				
 			} 
 			set {
-                if (!FormularFieldDescriptor.IsValidFieldName(name)) throw new ParseFormularException("\"" + name + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
-                Data[name] = (Bin) value; 
+                if (!fieldName.IsValidFieldName()) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
+                Data[fieldName] = (Bin) value; 
             }
 		}
 
@@ -200,61 +266,51 @@ namespace VVVV.Packs.Messaging {
 
         #region Matching
 
-        //      use simple wildcard pattern: use * for any amount of characters (including 0) or ? for exactly one character.
-        public static Regex CreateWildCardRegex(string wildcardPattern)
+        /// <summary>Attempts to conjoin data from another message.</summary>
+        /// <param name="message">The message whose data should be injected.</param>
+        /// <param name="deepInspection">Flag, whether Fields should be compared for actual change before insertion.</param>
+        /// <remarks>The message will update its Topic too, if different.</remarks>
+        /// <exception cref="ArgumentNullException">This exception is thrown if message is null.</exception>
+        /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
+        public void InjectWith(Message message, bool deepInspection)
         {
-            var regexPattern = "^" + Regex.Escape(wildcardPattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
-            var regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-            return regex;
-        }
+            if (message == null) throw new ArgumentNullException("Cannot Inject a null Message.");
 
-        public bool TopicMatch(Regex regex)
-        {
-            return regex.IsMatch(Topic ?? "");
-        }
+            if (this.Equals(message)) return; // nothing to do
 
-        public void InjectWith(Message message, bool allowNewFields, bool deepInspection = false)
-        {
-            if (this.Equals(message)) return;
+            if (Topic != message.Topic) Topic = message.Topic; // update Topic only if different
 
-            this.Topic = message.Topic;
+            var fieldNames = message.Fields;
 
-            var keys = message.Fields;
-            if (!allowNewFields) keys = keys.Intersect(this.Fields);
+//            bool allowNewFields = true;
+//            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
 
-            foreach (var name in keys)
+            foreach (var name in fieldNames)
             {
-                if (!this.Data.ContainsKey(name))
+                var bin = message[name];
+
+                if (!this.Fields.Contains(name))
                 {
-                    this.AssignFrom(name, message.Data[name]);
+                    this.AssignFrom(name, bin); // new bin
                 }
                 else
                 {
-                    var newType = message.Data[name].GetInnerType();
-                    var oldType = this.Data[name].GetInnerType();
-
-                    if (newType.IsCastableTo(oldType))
-                    {
-                        if (!deepInspection || !Data[name].Equals(message.Data[name]))  // inject only if it brings new data
-                            Data[name].AssignFrom(message.Data[name]); // autocast.
-                    }
-                    else
-                    {
-                        throw new BinTypeMismatchException("Cannot replace Bin<" + TypeIdentity.Instance.FindAlias(oldType) +
-                                            "> with Bin<" + TypeIdentity.Instance.FindAlias(newType) + "> implicitly.");
-                    }
+                    if (!deepInspection || !this[name].Equals(message[name]))  // inject only if it brings new data
+                            this[name].AssignFrom(message.Data[name]); // autocast.
                 }
             }
         }
         #endregion
 
         #region Change Management
-
+        /// <summary>Indicates, if any Field or the topic has been changed since the last Sync.</summary>
+        /// <returns>true, if the Message has Changed</returns>        
+        /// <remarks></remarks>
         public bool IsChanged
         {
             // check all bins, if at least one has changed since the last Sync.
             get {
-                return _isTopicChanged || Data.Values.Any(bin => bin.IsDirty);
+                return _internalChange || Data.Values.Any(bin => bin.IsDirty);
             }
             
             // reset all bins, if IsChanged is forced to false.
@@ -263,12 +319,14 @@ namespace VVVV.Packs.Messaging {
                 {
                     foreach (var bin in Data.Values)
                         if (bin.IsDirty) bin.IsDirty = false;
-                    _isTopicChanged = value;
+                    _internalChange = value;
                 }
             }
         }
 
 
+        /// <summary>Sets the IsChanged flag to false, and publishes any changes. The timestamp will be updated to Now.</summary>
+        /// <returns>true only if the Message had been changed.</returns>
         public bool Sync()
         {
             var changedFields = new List<string>();
@@ -281,7 +339,7 @@ namespace VVVV.Packs.Messaging {
                 }
             }
             
-            if (changedFields.Count > 0 || _isTopicChanged)
+            if (changedFields.Count > 0 || _internalChange)
             {
                 TimeStamp = Time.CurrentTime(); // timestamp always shows last Synced Change.
 
@@ -301,7 +359,7 @@ namespace VVVV.Packs.Messaging {
                     Changed(this);
                 }
 
-                _isTopicChanged = false;
+                _internalChange = false;
                 return true;
             }
             else return false;
@@ -312,6 +370,8 @@ namespace VVVV.Packs.Messaging {
         #endregion
 
         #region Utils
+        /// <summary>Checks if the Message contains any fields</summary>
+        /// <returns>true, if the Message contains no fields.</returns>
         public bool IsEmpty
         {
             get
@@ -320,6 +380,16 @@ namespace VVVV.Packs.Messaging {
             }
         }
 
+        /// <summary>Checks if the Message contains a specific field</summary>
+        /// <param name="fieldName">The field to be checked</param>
+        /// <returns>true, if the Message contains the field.</returns>
+        public bool Contains(string fieldName)
+        {
+            return Data.ContainsKey(fieldName);
+        }
+
+        /// <summary>Deep Clones the given Message. Fields of type Message will not be deep cloned.</summary>
+        /// <returns>A new Message</returns>
         public object Clone() {
             // might be faster when utilizing binary serialisation.
 
@@ -357,7 +427,9 @@ namespace VVVV.Packs.Messaging {
             }
 			return m;
 		}
-		
+
+        /// <summary>Creates a string representation of a given Message</summary>
+        /// <returns>A string representing the Message</returns>
         public override string ToString() {
 			var sb = new StringBuilder();
 			
@@ -372,7 +444,52 @@ namespace VVVV.Packs.Messaging {
 			}
 			return sb.ToString();
 		}
-        #endregion 
+
+        /// <summary>
+        /// Equality is given, only when the contents of the Message exactly match
+        /// </summary>
+        /// <remarks>Will not deep-inspect Streams</remarks>
+        /// <param name="other"></param>
+        /// <returns>Will deep-inspect nested Messages.</returns>
+        public bool Equals(Message other)
+        {
+            if (other == null) return false;
+
+            if (this == other) return true; // same reference detected
+
+            if (this.Topic != other.Topic) return false;
+            if (Data.Count != other.Data.Count) return false;
+
+            // deep-check all fields
+            foreach (var fieldName in Fields)
+            {
+                if (!other.Fields.Contains(fieldName)) return false;
+
+                var bin = this[fieldName];
+                var otherBin = other[fieldName];
+
+                if (!bin.Equals(otherBin)) return false; // if Bin<Message>, it will use the default Equals()
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Equality is only given, if  the other object is a Message with identical content.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>true, when identical.</returns>
+        public override bool Equals(object other)
+        {
+            return this.Equals(other as Message);
+        }
+
+        public override int GetHashCode()
+        {
+            return Data.GetHashCode() * ( 1+ Data.Count);
+        }
+        #endregion
+
+
 
     }
 }

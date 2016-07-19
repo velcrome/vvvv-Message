@@ -26,25 +26,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
         private bool _changed = true;
 
+
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            (FWindow as FormularLayoutPanel).Locked = true;
-        }
-
-        protected override void OnConfigChange(IDiffSpread<string> config) {
-            _changed = true;
-        }
-
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
+            FormularUpdate += (sender, formular) => _changed = true;
         }
 
         public override void Evaluate(int SpreadMax)
@@ -53,15 +39,15 @@ namespace VVVV.Packs.Messaging.Nodes
             if (!_changed) return;
             _changed = false;
             
-            SpreadMax = FFieldName.SliceCount = FFormular.SliceCount;
+            SpreadMax = FFieldName.SliceCount = FFormularSelection.SliceCount;
             FFieldType.SliceCount = FBinDef.SliceCount = FDefaultSize.SliceCount = 0;
 
-            var registry = MessageFormularRegistry.Instance;
+            var registry = MessageFormularRegistry.Context;
             for (int i = 0; i < SpreadMax; i++)
             {
                 FFieldName[i].SliceCount = 0;
                 
-                var formularName = FFormular[i].Name;
+                var formularName = FFormularSelection[i].Name;
                 var def = registry[formularName];
                 if (def != null)
                 {

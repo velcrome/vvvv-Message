@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
-using System.Globalization;
 
 
 namespace VVVV.Packs.Messaging.Nodes
@@ -14,9 +12,9 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageWriteNode : DynamicPinNode
     {
 #pragma warning disable 649, 169
-        [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility=PinVisibility.OnlyInspector)]
+        [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]
         IDiffSpread<bool> FAutoSense;
-        
+
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
 #pragma warning restore

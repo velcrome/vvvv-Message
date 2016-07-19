@@ -29,18 +29,19 @@ namespace VVVV.Packs.Messaging.Nodes
         protected Message Default;
 #pragma warning restore
 
-
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            (FWindow as FormularLayoutPanel).Locked = true;
+
+            FormularUpdate += (sender, formular) => Default = null; // reset everytime the formular acually changes
         }
+
 
         public override void Evaluate(int SpreadMax)
         {
             if (Default != null && !FInput.IsChanged) return;
-            
-            if (FInput.IsAnyInvalid()) 
+
+            if (FInput.IsAnyInvalid())
             {
                 if (Default == null) NewDefault();
 
@@ -48,37 +49,18 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 Default.Topic = FTopic[0];
                 FOutput[0] = Default;
+                FOutput.Flush();
             }
-            else
-            {
-                FOutput.SliceCount = 0;
-                FOutput.AssignFrom(FInput);
-            }
-            FOutput.Flush();
+            else FOutput.FlushResult(FInput);
         }
 
         private void NewDefault()
         {
-            Default = new Message(new MessageFormular(FConfig[0], FFormular[0].Name));
+            Default = new Message(Formular);
             Default.TimeStamp = Time.Time.CurrentTime();
             
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            Default = null;
-        }
 
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
     }
 }

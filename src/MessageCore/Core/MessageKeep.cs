@@ -7,10 +7,10 @@ namespace VVVV.Packs.Messaging
 {
     public class MessageKeep : IReadOnlyList<Message>
     {
+        #region fields
         protected List<Message> Messages = new List<Message>();
         protected Dictionary<Message, Message> Changes = new Dictionary<Message, Message>();
 
-        #region FieldNames
         private bool _quickMode = true;
         public bool QuickMode
         {
@@ -50,25 +50,23 @@ namespace VVVV.Packs.Messaging
             protected set {
                 if (value == false)
                 {
-                    //foreach (var message in Messages) message.IsChanged = false;
                     Changes.Clear();
                 }
             }
         }
-    #endregion FieldNames
+        #endregion fields
 
-        public MessageKeep()
-        {
-        }
+        #region ctor
+        public MessageKeep() {}
 
-        public MessageKeep(bool quickMode)
+        public MessageKeep(bool quickMode) : base()
         {
             QuickMode = quickMode;
         }
-
+        #endregion ctor
 
         #region Event Handlers 
-        
+
         // come with selective Quickmode subscription to individual Messages
         protected void MessageChangedWithDetails(Message original, Message change)
         {
@@ -79,7 +77,7 @@ namespace VVVV.Packs.Messaging
             }
 
             if (Changes.ContainsKey(original) && Changes[original] != null)
-                Changes[original].InjectWith(change, true, false);
+                Changes[original].InjectWith(change, false); // always update
             else
             {
                 change.Topic = original.Topic;
@@ -108,6 +106,8 @@ namespace VVVV.Packs.Messaging
             var temp = new List<int>();
             var changes = new List<Message>();
 
+            // this will force the message to publish change events to all other  
+            // interested parties, including this keep
             foreach (var message in Messages) message.Sync(); 
 
             foreach (var orig in Changes.Keys)
@@ -116,7 +116,9 @@ namespace VVVV.Packs.Messaging
                 {
                     temp.Add(Messages.IndexOf(orig));
                     if (!QuickMode) changes.Add(Changes[orig]);
-//                    Changes[orig].Data.Clear();
+                } else
+                {
+                    // should never happen!
                 }
             }
 
@@ -129,7 +131,9 @@ namespace VVVV.Packs.Messaging
         {
             List<Message> changes = null;
 
-            foreach (var message in Messages) message.Sync(); // will inform all subscribers of the message about the imprint of all changes
+            // this will force the message to publish change events to all other  
+            // interested parties, including this keep
+            foreach (var message in Messages) message.Sync();
 
             if (!QuickMode)
                 changes = new List<Message>(Changes.Values);
@@ -152,7 +156,7 @@ namespace VVVV.Packs.Messaging
         
         public void Add(Message message)
         {
-            if (Messages.Contains(message)) return; // no duplicates
+            if (Messages.Any(m => m == message)) return; // no direct duplicates
 
             Messages.Add(message);
             if (QuickMode)

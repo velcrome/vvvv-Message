@@ -35,9 +35,7 @@ namespace VVVV.Packs.Messaging.Nodes
             if ((FRemove.IsAnyInvalid() || FInput.IsAnyInvalid())) {
                 if (FOutput.SliceCount > 0)
                 {
-                    FOutput.SliceCount = 0;
-                    FOutput.AssignFrom(FInput);
-                    FOutput.Flush();
+                    FOutput.FlushResult(FInput);
                     return;
                 } else return;
             }
@@ -82,31 +80,16 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FInput.IsAnyInvalid() )
             {
-                if (FOutput.SliceCount > 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.AssignFrom(FInput);
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
+                FOutput.FlushNil();
+                return;
             }
 
-            SpreadMax = FInput.SliceCount;
-            FOutput.SliceCount = SpreadMax;
+            var remains = from msg in FInput
+                          where msg != null
+                          where !msg.IsEmpty
+                          select msg;
 
-            for (int i = 0; i < SpreadMax; i++)
-            {
-                var remains = from msg in FInput
-                              where msg != null
-                              where !msg.IsEmpty
-                              select msg;
-
-                FOutput.SliceCount = 0;
-                FOutput.AssignFrom(remains);
-
-            }
-            FOutput.Flush();
+            FOutput.FlushResult(remains);
         }
     }
 }

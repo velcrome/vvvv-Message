@@ -38,21 +38,12 @@ namespace VVVV.Pack.Messaging.Nodes
             
             if (SpreadMax == 0)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
-                if (FNotFound.SliceCount != 0)
-                {
-                    FNotFound.SliceCount = 0;
-                    FNotFound.Flush();
-                }
+                FOutput.FlushNil();
+                FNotFound.FlushNil();
                 return;
             }
 
             if (!FInput.IsChanged && !FFilter.IsChanged) return;
-
 
             FOutput.SliceCount = 0;
             FNotFound.SliceCount = 0;
@@ -63,11 +54,11 @@ namespace VVVV.Pack.Messaging.Nodes
             for (int i = 0; i < FFilter.SliceCount; i++)
             {
                 string[] filter = FFilter[i].Split('.');
-                var regex = Message.CreateWildCardRegex(FFilter[i]);
+                var regex = FFilter[i].CreateWildCardRegex();
                 
                 for (int j = 0; j < SpreadMax; j++)
                 {
-                    if (!found[j]) found[j] = FInput[j].TopicMatch(regex);
+                    if (!found[j]) found[j] = regex.IsMatch(FInput[j].Topic);
                 }
             }
 

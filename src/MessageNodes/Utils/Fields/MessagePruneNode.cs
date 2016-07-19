@@ -19,6 +19,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Remaining FieldNames", DefaultString = "Foo")]
         private ISpread<string> FFilter;
 
+        [Input("Remove Empty", DefaultBoolean = false, IsSingle = true)]
+        private ISpread<bool> FRemoveEmpty;
+
         [Output("Output", AutoFlush = false)]
         private ISpread<Message> FOutput;
 
@@ -33,13 +36,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (SpreadMax <= 0)
             {
-                if (FOutput.SliceCount >= 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
+                FOutput.FlushNil();
+                return;
             }
 
             var keepOnly = new HashSet<string>(FFilter);
@@ -51,11 +49,9 @@ namespace VVVV.Packs.Messaging.Nodes
                         message.Remove(fieldName);
             }
 
-
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(FInput);
-//            FOutput.AssignFrom(FInput.Where(message => !message.IsEmpty));
-            FOutput.Flush();
+            if (FRemoveEmpty[0])
+                FOutput.FlushResult(FInput.Where(message => !message.IsEmpty));
+            else FOutput.FlushResult(FInput);
         }
     }
 

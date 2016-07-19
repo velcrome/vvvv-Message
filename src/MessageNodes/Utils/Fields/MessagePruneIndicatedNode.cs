@@ -34,13 +34,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (SpreadMax <= 0)
             {
-                if (FOutput.SliceCount >= 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
+                FOutput.FlushNil();
+                return;
             }
 
             var keepOnly = new HashSet<string>(FFilter);
@@ -52,10 +47,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         message.Remove(fieldName);
             }
 
-
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(FInput);
-            FOutput.Flush();
+            FOutput.FlushResult(FInput);
         }
     }
 }

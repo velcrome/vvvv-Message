@@ -36,14 +36,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (SpreadMax <= 0)
             {
-                if (FOutput.SliceCount >= 0)
-                {
-                    FMatch.SliceCount = FOutput.SliceCount = 0;
-                    FMatch.Flush();
-                    FOutput.Flush();
-                    return;
-                }
-                else return;
+                FMatch.FlushNil();
+                FOutput.FlushNil();
+
+                return;
             }
             FMatch.SliceCount = FOutput.SliceCount = 0;
 

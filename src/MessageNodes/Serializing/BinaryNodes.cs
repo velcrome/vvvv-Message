@@ -7,7 +7,13 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
     #region PluginInfo
-    [PluginInfo(Name = "AsRaw", Category = "Message.Raw", Help = "Serialize Messages to binary", Tags = "Proprietary, Stream", Author = "velcrome, microdee")]
+    [PluginInfo(
+        Name = "AsRaw", 
+        Category = "Message.Raw", 
+        Help = "Serialize Messages to binary", 
+        Tags = "Proprietary, Stream", 
+        Author = "velcrome, microdee", 
+        Ignore = true)]
     #endregion PluginInfo
     public class MessageSerializeNode : IPluginEvaluate
     {
@@ -38,7 +44,13 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "AsMessage", Category = "Message.Raw", Help = "Convert  Messages", Tags = "Binary, Stream", Author = "velcrome, microdee")]
+    [PluginInfo
+        (Name = "AsMessage", 
+        Category = "Message.Raw", 
+        Help = "Convert  Messages",
+        Tags = "Binary, Stream", 
+        Author = "velcrome, microdee",
+        Ignore = true)]
     #endregion PluginInfo
     public class RawAsMessageNode : IPluginEvaluate
     {

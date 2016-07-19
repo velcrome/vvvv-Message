@@ -1,52 +1,71 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-
-
 using System.Linq;
 
 
 namespace VVVV.Packs.Messaging
 {
-    public class TypeIdentity : Dictionary<Type, string>
+    public class TypeIdentity : ReadOnlyDictionary<Type, string>
     {
+
+        internal TypeIdentity(IDictionary<Type, string> dictionary) : base(dictionary)
+        {}
+
         private static TypeIdentity _instance;
+        /// <summary>
+        /// TypeIdentity is a singleton right now. 
+        /// </summary>
         public static TypeIdentity Instance
         {
-            get { 
-                if (_instance == null) _instance = new TypeIdentity();
+            get {
+                if (_instance == null)
+                {
+                    _instance = NewInstance();
+                }
                 return _instance;
             }
         }
 
-        public string[] Types
+        internal static TypeIdentity NewInstance()
+        {
+            // This is the only place where you need to add new datatypes.
+            // type:alias is strictly 1:!
+            // no case-sensitivity, beware clashes.
+            // use of case is purely cosmetic, to reflect c# counterpart
+
+            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
+
+            var registry = new Dictionary<Type, string>();
+
+            registry.Add(typeof(bool), "bool");
+            registry.Add(typeof(int), "int");
+            registry.Add(typeof(double), "double");
+            registry.Add(typeof(float), "float");
+            registry.Add(typeof(string), "string");
+
+            registry.Add(typeof(VVVV.Utils.VColor.RGBAColor), "Color");
+            registry.Add(typeof(VVVV.Utils.VMath.Matrix4x4), "Transform");
+            registry.Add(typeof(VVVV.Utils.VMath.Vector2D), "Vector2d");
+            registry.Add(typeof(VVVV.Utils.VMath.Vector3D), "Vector3d");
+            registry.Add(typeof(VVVV.Utils.VMath.Vector4D), "Vector4d");
+
+            registry.Add(typeof(Stream), "Raw");
+            registry.Add(typeof(Time.Time), "Time");
+
+            registry.Add(typeof(Message), "Message");
+
+            return new TypeIdentity(registry);
+        }
+
+        /// <summary>
+        /// Retrieve a list of all currently valid Aliases
+        /// </summary>
+        public string[] Aliases
         {
             get { return this.Values.ToArray(); }
         }
-
-        public TypeIdentity()
-	    {
-            // This is the only place where you need to add new datatypes.
-
-            Add(typeof(bool), "bool");
-            Add(typeof(int), "int");
-            Add(typeof(double), "double");
-            Add(typeof(float), "float");
-            Add(typeof(string), "string");
-
-            Add(typeof(RGBAColor), "Color");
-            Add(typeof(Matrix4x4), "Transform");
-            Add(typeof(Vector2D), "Vector2d");
-            Add(typeof(Vector3D), "Vector3d");
-            Add(typeof(Vector4D), "Vector4d");
-
-            Add(typeof(Stream), "Raw");
-            Add(typeof(Time.Time), "Time");
-            
-            Add(typeof(Message), "Message");
-	    }
 
 
         public object NewDefault(Type type)
@@ -57,6 +76,7 @@ namespace VVVV.Packs.Messaging
 
         public object Default(string alias)
         {
+            alias = alias.ToLower();
             switch (alias)
             {
                 case "bool": return false; 
@@ -65,49 +85,67 @@ namespace VVVV.Packs.Messaging
                 case "float": return 0.0f; 
                 case "string": return "vvvv"; 
                 
-                case "Color": return VColor.Blue; 
-                case "Transform": return VMath.IdentityMatrix; 
-                case "Vector2d": return new Vector2D(); 
-                case "Vector3d": return new Vector3D(); 
-                case "Vector4d": return new Vector4D(); 
+                case "color": return VVVV.Utils.VColor.VColor.Blue; 
+                case "transform": return VVVV.Utils.VMath.VMath.IdentityMatrix; 
+                case "vector2d": return new VVVV.Utils.VMath.Vector2D(); 
+                case "vector3d": return new VVVV.Utils.VMath.Vector3D(); 
+                case "vector4d": return new VVVV.Utils.VMath.Vector4D(); 
 
-                case "Raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
-                case "Time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
-                case "Message":return new Message();
+                case "raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
+                case "time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
+                case "message":return new Message();
             }
             return null;
         }
 
-        public string FindAlias(Type t)
+        /// <summary>
+        /// Retrieve the alias for a specific type. 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>will return null, if no exact match for type has been found.</returns>
+        public string FindAlias(Type type)
+        {
+            if (this.ContainsKey(type))
+                return this[type];
+                else return null;
+        }
+
+        /// <summary>
+        /// Retrieve the alias for a type or one of its base classes
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public string FindBaseAlias(Type type)
         {
             foreach (Type key in Keys)
             {
-                if (key == t) return this[key];
+                if (key == type) return this[key];
+                if (type.IsSubclassOf(key)) return this[key];
             }
             return null;
         }
 
-        public Type FindBaseType(Type t)
+        /// <summary>
+        /// Retrieve the registered type for any given inherited type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>Null, if no base Type was found.</returns>
+        public Type FindBaseType(Type type)
         {
             foreach (Type key in Keys)
             {
-                if (key == t) return key;
-                if (t.IsSubclassOf(key)) return key;
+                if (key == type) return key;
+                if (type.IsSubclassOf(key)) return key;
             }
             return null;
         }
 
-
-        public string FindBaseAlias(Type t)
-        {
-            foreach (Type key in Keys)
-            {
-                if (key == t) return this[key];
-                if (t.IsSubclassOf(key)) return this[key];
-            }
-            return null;
-        }
-
+        /// <summary>
+        /// Retrieve a registered type by its alias
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <returns>Null, if no Type by that alias was found.</returns>
+        /// <remarks>aliases are treated Case-insensitive</remarks>
         public Type FindType(string alias)
         {
             Type type = null;

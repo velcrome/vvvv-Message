@@ -67,7 +67,7 @@ namespace VVVV.Nodes.OSC
 
             for (int i = 0; i < SpreadMax; i++)
             {
-                MemoryStream ms = new MemoryStream();
+                MemoryStream ms = new MemoryComStream();
                 FInput[i].Position = 0;
                 FInput[i].CopyTo(ms);
                 byte[] bytes = ms.ToArray();

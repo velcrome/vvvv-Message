@@ -181,37 +181,14 @@ namespace VVVV.Packs.Messaging.Nodes
                 FChangeOut.Flush();
             }
 
-            SetKeepToOutput();
+            FOutput.FlushResult(Keep);
+            FCountOut.FlushInt(Keep.Count);
+
             return true;
 
         }
 
-        protected void SetKeepToOutput()
-        {
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(Keep);
-            FOutput.Flush();
 
-            FCountOut[0] = Keep.Count;
-            FCountOut.Flush();
-        }
-
-        // override here, so children don't have to unless needed
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            // nothing to do
-        }
-
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-        }
 
     }
 }

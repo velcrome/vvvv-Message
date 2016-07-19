@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
+﻿using System.Linq;
 using VVVV.Packs.Messaging;
 using VVVV.Packs.Messaging.Nodes;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
 
 namespace VVVV.Nodes.Messaging.Keep
 {
@@ -44,8 +42,11 @@ namespace VVVV.Nodes.Messaging.Keep
                 var change = Keep.Sync(); // not interested input changes, so sync right away
                 if (change != null && change.Count() > 0) update = true;
 
-                if (update) SetKeepToOutput(); // manually flush again
-            }
+                if (update)
+                {
+                    FOutput.FlushResult(Keep);
+                    FCountOut.FlushInt(Keep.Count);
+                }            }
         }
 
         public Message MatchOrInsert(Message message)
@@ -64,7 +65,7 @@ namespace VVVV.Nodes.Messaging.Keep
             {
                 var found = matched.First(); // found a matching record
 
-                found.InjectWith(message, true, true); // copy all attributes from message to matching record
+                found.InjectWith(message, true); // copy all attributes from message to matching record
                 found.TimeStamp = message.TimeStamp; // forceUpdate time
 
                 return found;

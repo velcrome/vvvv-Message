@@ -27,63 +27,34 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void OnImportsSatisfied()
         {
- 	        base.OnImportsSatisfied();
-            (FWindow as FormularLayoutPanel).Locked = true;
-  //          FOutput.Connected += HandleOutputConnect;
+            base.OnImportsSatisfied();
+            FormularUpdate += (sender, formular) => ForceNewDefaults = true;
         }
-
-        private void HandleOutputConnect(object sender, PinConnectionEventArgs args)
-        {
-            ForceNewDefaults = true;
-        }
-        
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            ForceNewDefaults = true;
-        }
-
-        protected override void OnSelectFormular(IDiffSpread<EnumEntry> spread)
-        {
-            base.OnSelectFormular(spread);
-
-            var window = (FWindow as FormularLayoutPanel);
-            var fields = window.Controls.OfType<FieldPanel>();
-
-            foreach (var field in fields) field.Checked = true;
-            
-            window.Locked = FFormular[0] != MessageFormular.DYNAMIC;
-
-        }
-
 
         public override void Evaluate(int SpreadMax)
         {
             // graceful fallback when being fed bad data
             if (FNew.IsAnyInvalid() || FTopic.IsAnyInvalid() || FSpreadCount.IsAnyInvalid())
             {
-                FOutput.SliceCount = 0;
-                FOutput.Flush();
+                FOutput.FlushNil();
                 return;
             }
 
-            if (!FNew.Any(x => x) && !ForceNewDefaults)
+            if (!FNew.Any() && !ForceNewDefaults)
             {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return;
             }
 
-            FOutput.SliceCount = FConfig.SliceCount;
+            SpreadMax = 1; // numbers of supported Formulars
+            FOutput.SliceCount = SpreadMax;
 
             var counter = 0;
-            for (int i = 0; i < FConfig.SliceCount; i++)
+            for (int i = 0; i < SpreadMax; i++)
             {
                 FOutput[i].SliceCount = 0;
 
-                var formular = new MessageFormular(FConfig[i], FFormular[0]);
+                var formular = new MessageFormular(Formular);
                 
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)

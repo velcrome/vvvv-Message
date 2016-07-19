@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using Newtonsoft.Json;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using Newtonsoft.Json.Linq;
 using System.IO;

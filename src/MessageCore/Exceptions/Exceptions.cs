@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging
 
     public class ParseMessageException : FormatException
     {
-        public ParseMessageException(string message) : base(message) { }
+        public ParseMessageException(string message, Exception ex = null) : base(message, ex) { }
     }
 
     public class DuplicateFieldException : ArgumentException
@@ -52,5 +52,9 @@ namespace VVVV.Packs.Messaging
         public RegistryException(string message) : base(message) { }
     }
 
+    public class EmptyBinException : InvalidOperationException
+    {
+        public EmptyBinException(string message) : base(message) { }
+    }
 
 }

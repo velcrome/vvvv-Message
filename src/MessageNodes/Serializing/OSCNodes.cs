@@ -158,18 +158,10 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             if (FInput.IsAnyInvalid())
             {
                 SpreadMax = 0;
-                if ( FOutput.SliceCount != 0 )
-                {
-                    FSuccess.SliceCount = 1;
-                    FSuccess[0] = false;
+                FOutput.FlushNil();
+                FSuccess.FlushBool(false);
+                FMatch.FlushNil();
 
-                    FMatch.SliceCount = 0;
-                    FOutput.SliceCount = 0;
-
-                    FOutput.Flush();
-                    FSuccess.Flush();
-                    FMatch.Flush();
-                }
                 return;
             }
             else SpreadMax = FInput.SliceCount;

@@ -40,6 +40,9 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
             CreateEnumPin("Use as ID", new string[] { "Foo" });
+
+            FormularUpdate += (sender, formular) => FillEnum(formular.FieldNames.ToArray());
+
         }
 
         public void CreateEnumPin(string pinName, string[] entries)
@@ -64,14 +67,6 @@ namespace VVVV.Packs.Messaging.Nodes
             EnumManager.UpdateEnum(EnumName, entries[0], entries);
         }
 
-        protected override void OnConfigChange(IDiffSpread<string> configSpread)
-        {
-            var form = new MessageFormular(configSpread[0], FFormular[0]);
-
-            FillEnum(form.FieldNames.ToArray());
-        }
-
-
         public Message MatchOrInsert(Message message, IEnumerable<string> idFields)
         {
             var compatibleBins = idFields.Intersect(message.Fields);
@@ -92,7 +87,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 var found = matched.First(); // found a matching record
 
-                found.InjectWith(message, true); // copy all attributes from message to matching record
+                found.InjectWith(message, false); // copy all attributes from message to matching record
                 found.TimeStamp = message.TimeStamp; // forceUpdate time
 
                 return found;
@@ -106,10 +101,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FInput.IsAnyInvalid())
             {
-                FUnknown.SliceCount = 0;
-                FUnknown.Flush();
+                FUnknown.FlushNil();
 
-                FChanged.SliceCount = 0;
                 FChanged.SliceCount = FKeep.SliceCount;
             }
 

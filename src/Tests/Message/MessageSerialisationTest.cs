@@ -104,56 +104,6 @@ namespace VVVV.Packs.Messaging.Tests
         }
 
 
-        [TestMethod]
-        public void MessageToProtobuf()
-        {
-            var message = new Message();
-            message.Topic = "foo";
-            message.Init("Foo", "bar");
-
-
-            //var model = RuntimeTypeModel.Create();
-            //var meta = model.Add(typeof(Message), false);
-
-            //meta.Add(1, "Topic");
-   //         meta.AddField(2, "Foo");
-
-
-            var stream = new MemoryStream();
-
-//            var b = MessageUtil.GetDefaultMessage(;
-//            var writer = new ProtoWriter(stream, null, null);
-
-
-
-//            //var token = ProtoWriter.StartSubItem(1, writer);
-            
-//            ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
-////            ProtoWriter.SetPackedField(1, writer);
-
-//            ProtoWriter.WriteInt32(42, writer);
-//            ProtoWriter.WriteInt32(18, writer);
-
-//            //ProtoWriter.EndSubItem(token, writer);
-
-
-//            //ProtoWriter.WriteFieldHeader(1, WireType.Variant, writer);
- 
-//            ProtoWriter.WriteFieldHeader(8, WireType.String, writer);
-//            ProtoWriter.WriteString("ww", writer);
-
-//            writer.Close();
-//            stream.Position = 0;
-
-//            var reader = new ProtoReader(stream, null, null);
-//            var h = reader.ReadFieldHeader();
-//            var t = reader.ReadInt32();
-
-//            reader.ReadFieldHeader();
-//            var s = reader.ReadString();
-
-
-        }
 
         [TestMethod]
         public void MessageToStream()

@@ -9,14 +9,14 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Create", AutoEvaluate = true, Category = "Message.Keep", Help = "Joins a permanent Message from custom dynamic pins", Version = "Formular", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageKeepCreateNode : DynamicPinsNode
+    public class MessageKeepCreateNode : TypeablePinsNode
     {
 #pragma warning disable 649, 169
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
-        [Input("AutoSense", Order = -1, IsSingle = true, IsToggle = true, DefaultBoolean = false, Visibility = PinVisibility.OnlyInspector)]
-        IDiffSpread<bool> FDetectChange;
+        [Input("AutoSense", Order = int.MaxValue - 2, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]
+        IDiffSpread<bool> FAutoSense;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue-1, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
@@ -39,17 +39,34 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractStorageNode. 
 
-        protected virtual bool CheckReset()
+
+        private bool _reset;
+        public bool ResetNecessary
         {
-            if (FConfig.IsChanged)
-//                if ((!FReset.IsAnyInvalid() && FReset[0]) || FConfig.IsChanged)
+            get
             {
-                Keep.Clear();
-                return true;
+                if (_reset)
+                {
+                    _reset = false;
+                    Keep.Clear();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            private set
+            {
+                _reset = value;
+            }
+        }
+
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            FormularUpdate += (sender, formular) => ResetNecessary = true;
+
 
         }
+
 
         protected virtual bool UpKeep(bool force = false)
         {
@@ -57,10 +74,8 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (!Keep.QuickMode && FChangeIndexOut.SliceCount != 0)
                 {
-                    FChangeIndexOut.SliceCount = 0;
-                    FChangeIndexOut.Flush();
-                    FChangeOut.SliceCount = 0;
-                    FChangeOut.Flush();
+                    FChangeIndexOut.FlushNil();
+                    FChangeOut.FlushNil();
                 }
                 return false;
             }
@@ -75,21 +90,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 IEnumerable<int> indexes;
                 changes = Keep.Sync(out indexes);
 
-                FChangeIndexOut.SliceCount = 0;
-                FChangeIndexOut.AssignFrom(indexes);
-                FChangeIndexOut.Flush();
-
-                FChangeOut.SliceCount = 0;
-                FChangeOut.AssignFrom(changes);
-                FChangeOut.Flush();
+                FChangeIndexOut.FlushResult(indexes);
+                FChangeOut.FlushResult(changes);
             }
 
-            FOutput.SliceCount = 0;
-            FOutput.AssignFrom(Keep);
-            FOutput.Flush();
-
-            FCountOut[0] = Keep.Count;
-            FCountOut.Flush();
+            FOutput.FlushResult(Keep);
+            FCountOut.FlushInt(Keep.Count);
 
             return true;
         }
@@ -116,9 +122,9 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
-            var anyUpdate = CheckReset();
+            var anyUpdate = ResetNecessary;
 
-            var forceUpdate = !FDetectChange[0] || FDetectChange.IsChanged;
+            var forceUpdate = !FAutoSense[0] || FAutoSense.IsChanged;
           
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
             newData |= forceUpdate; // if update is forced, then predent it is new Data
@@ -147,7 +153,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
 //          check update pin
-            anyUpdate |= FUpdate.Any(x => x);
+            anyUpdate |= FUpdate.Any();
 
             if (anyUpdate && (newData || newTopic))
             {
