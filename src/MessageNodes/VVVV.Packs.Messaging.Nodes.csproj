@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs" />
-    <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
+    <Compile Include="Configurable\Abstract\TypeablePinNode.cs" />
     <Compile Include="Configurable\WinForms\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
