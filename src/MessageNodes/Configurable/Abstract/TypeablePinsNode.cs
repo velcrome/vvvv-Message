@@ -36,7 +36,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
 
-            FormularUpdate += UpdatePanelOnChange;
+            FormularUpdate += (sender, formular) => UpdateWindow(formular, formular.IsDynamic);
             FormularUpdate += TryDefinePins;
 
             LayoutPanel.Changed += ReadLayoutPanel;
@@ -48,31 +48,7 @@ namespace VVVV.Packs.Messaging.Nodes
             Formular = formular;
         }
 
-        protected void UpdatePanelOnChange(object sender, MessageFormular newFormular)
-        {
-            // no obvious changes. 
-            var oldFormular = LayoutPanel.Formular;
-//            if (oldFormular.Configuration == newFormular.Configuration) return;
 
-            // dynamic will only append. will usually even append nothing
-            if (newFormular.IsDynamic)
-            {
-                UpdateWindow(newFormular, true);
-                return;
-            }
-                
-            // just an update
-            if (oldFormular.Name == newFormular.Name)
-            {
-                UpdateWindow(newFormular, true);
-             
-            }
-            // entirely new Formular
-            else
-            {
-                UpdateWindow(newFormular, false);
-            }
-        }
 
         #endregion Initialisation
 
@@ -267,35 +243,23 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 foreach (var field in newFormular.FieldDescriptors)
                 {
-                    // keep all potential fields checked, old and new
-                    //if (old.FieldNames.Contains(field.Name))
-                    //    field.IsRequired |= old[field.Name].IsRequired;
-
                     old[field.Name] = field; // hard overwrite 
                 }
+                old.Require(RequireEnum.NoneButIntersect, newFormular);
+                old.Name = newFormular.Name;
 
                 LayoutPanel.Changed -= ReadLayoutPanel;
-
-                old.Name = newFormular.Name;
                 LayoutPanel.Formular = old; // set to appended copy
-
                 LayoutPanel.Changed += ReadLayoutPanel;
 
             }
             else
             {
-                var require = from field in old.FieldDescriptors
-                              where field.IsRequired
-                              where newFormular.FieldNames.Contains(field.Name)
-                              select field.Name;
-
-                foreach (var name in newFormular.FieldNames) newFormular[name].IsRequired = false;
-                foreach (var name in require) newFormular[name].IsRequired = true;
+                newFormular.Require(RequireEnum.NoneButIntersect, old);
 
                 LayoutPanel.Changed -= ReadLayoutPanel;
                 LayoutPanel.Formular = newFormular;
                 LayoutPanel.Changed += ReadLayoutPanel;
-
             }
 
             LayoutPanel.CanEditFields = newFormular.IsDynamic;

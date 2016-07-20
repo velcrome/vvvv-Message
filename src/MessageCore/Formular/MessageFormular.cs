@@ -95,6 +95,8 @@ namespace VVVV.Packs.Messaging
         /// <param name="fields">The message whose data structure should be expressed with this Formular.</param>
         public MessageFormular(string formularName, IEnumerable<FormularFieldDescriptor> fields) : this()
         {
+            if (string.IsNullOrWhiteSpace(formularName)) formularName = MessageFormular.DYNAMIC;
+
             this.Name = formularName.Trim();
             foreach (var field in fields)
             {
@@ -119,6 +121,34 @@ namespace VVVV.Packs.Messaging
         #endregion constructor
 
         #region utils
+
+        /// <summary>
+        /// High-Level method to set the IsRequired field rulebased for all fields of a Formular
+        /// </summary>
+        /// <param name="choice">Select the Rule to use.</param>
+        /// <param name="otherFormular">Optional parameter, some rules require a secondary Formular.</param>
+        public void Require(RequireEnum choice, MessageFormular otherFormular = null)
+        {
+            if (otherFormular == null) otherFormular = MessageFormularRegistry.Context[MessageFormular.DYNAMIC]; // empty formular
+            
+            switch (choice)
+            {
+                case RequireEnum.All: foreach (var f in FieldDescriptors) f.IsRequired = true;
+                    break;
+                case RequireEnum.None: foreach (var f in FieldDescriptors) f.IsRequired = false;
+                    break;
+                case RequireEnum.AllBut:
+                    foreach (var f in FieldDescriptors) f.IsRequired = !(otherFormular.FieldNames.Contains(f.Name) && otherFormular[f.Name].IsRequired);
+                    break;
+                case RequireEnum.NoneBut:
+                    foreach (var f in FieldDescriptors) f.IsRequired = otherFormular.FieldNames.Contains(f.Name) && otherFormular[f.Name].IsRequired;
+                    break;
+                case RequireEnum.NoneButIntersect:
+                    foreach (var f in FieldDescriptors) f.IsRequired = otherFormular.FieldNames.Contains(f.Name) && otherFormular[f.Name].IsRequired && f.IsRequired;
+                    break;
+            }
+        }
+
         /// <summary>Appends a field to an existing Formular, with extensive type checking.</summary>
         /// <param name="field">The field to be added</param>
         /// <param name="isRequired">A bool indicating if the registry should skip informing interested parties about this change.</param>

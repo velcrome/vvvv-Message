@@ -35,7 +35,8 @@
   <ItemGroup>
     <Reference Include="MsgPack">
       <HintPath>..\packages\MsgPack.Cli.0.7.1\lib\net46\MsgPack.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -66,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs" />
-    <Compile Include="Configurable\Abstract\DynamicPinNode.cs" />
+    <Compile Include="Configurable\Abstract\TypeablePinNode.cs" />
     <Compile Include="Configurable\WinForms\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>

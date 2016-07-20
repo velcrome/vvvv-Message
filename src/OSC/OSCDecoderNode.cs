@@ -148,9 +148,10 @@ namespace VVVV.Nodes
                     }
 
                     FType[i] = type;
-                } catch (Exception )
+                } catch (Exception e)
                 {
-                    FLogger.Log(LogType.Debug, "Error parsing OSC message.");
+                    FLogger.Log(LogType.Error, "Error parsing OSC message.");
+                    FLogger.Log(e, LogType.Debug);
                     FType[i] = "";
                     FArgument[i].SliceCount = 0;
                 }

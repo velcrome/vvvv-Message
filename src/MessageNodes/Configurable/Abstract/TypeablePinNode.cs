@@ -9,7 +9,7 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class DynamicPinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class TypeablePinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         public const string TypeIdentityEnum = "TypeIdentityEnum";
 

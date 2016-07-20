@@ -9,7 +9,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Write", AutoEvaluate = true, Category = "Message", Help = "Writes into Fields of arbitrary Type", Version = "Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
-    public class MessageWriteNode : DynamicPinNode
+    public class MessageWriteNode : TypeablePinNode
     {
 #pragma warning disable 649, 169
         [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]

@@ -8,7 +8,7 @@ using VVVV.PluginInterfaces.V2.NonGeneric;
 namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads one attribute of arbitrary Type", Version="Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
-    public class MessageReadNode : DynamicPinNode
+    public class MessageReadNode : TypeablePinNode
     {
         [Input("AvoidNil", IsSingle = true, IsToggle = true, DefaultBoolean = true, Order = 3)]
         protected IDiffSpread<bool> FAvoidNil;
