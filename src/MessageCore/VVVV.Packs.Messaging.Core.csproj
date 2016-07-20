@@ -42,6 +42,7 @@
     <Compile Include="Core\Message.cs" />
     <Compile Include="Core\MessageUtils.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
+    <Compile Include="Formular\RequireEnum.cs" />
     <Compile Include="Formular\FormularFieldDescriptor.cs" />
     <Compile Include="Formular\MessageFormular.cs" />
     <Compile Include="Formular\MessageFormularRegistry.cs" />

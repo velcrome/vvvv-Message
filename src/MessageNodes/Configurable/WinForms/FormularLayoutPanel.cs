@@ -68,8 +68,8 @@ namespace VVVV.Packs.Messaging.Nodes
                            select panel;
 
                 // might not be necessary...
-                foreach (var panel in panels)
-                    panel.Descriptor.IsRequired = panel.Checked;
+                //foreach (var panel in panels)
+                //    panel.Descriptor.IsRequired = panel.Checked;
 
                 var formular =  new MessageFormular(_formularName, panels.Select(field => field.Descriptor));
                 return formular;
@@ -109,9 +109,14 @@ namespace VVVV.Packs.Messaging.Nodes
             var empty = Enumerable.Empty<FieldPanel>();
             var prev =    FieldPanels.ToList();
 
-            var faulty = (
+            var unused = (
                                 from panel in prev
                                 where panel.IsFaulty && panel.CanEdit
+                                select panel
+                          ).Concat(
+                                from panel in prev
+                                where !panel.IsFaulty && !panel.IsEmpty
+                                where !formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
                           ).ToList();
 
@@ -120,7 +125,7 @@ namespace VVVV.Packs.Messaging.Nodes
                                 where !panel.IsFaulty
                                 where panel.IsEmpty || !formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).Concat(keepUnused? empty : faulty).ToList();
+                          ).Concat(keepUnused? empty : unused).ToList();
 
             // keep all that will 
             var remain = (
@@ -129,13 +134,14 @@ namespace VVVV.Packs.Messaging.Nodes
                                 where !panel.IsEmpty
                                 where formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).Concat(keepUnused? faulty : empty).ToList();
+                          ).Concat(keepUnused? unused : empty).ToList();
 
             var currentDesc = (
                                 from panel in prev
                                 where !panel.IsEmpty
                                 select panel.Descriptor.Name
                           );
+
             var fresh =   (
                                 from field in formular.FieldDescriptors
                                 where !currentDesc.Contains(field.Name)
@@ -167,16 +173,18 @@ namespace VVVV.Packs.Messaging.Nodes
             while (counter > 0)
             {
                 FieldPanel panel = remove[maxCount - counter];
-                if (panel != null && !(panel.IsFaulty && keepUnused)) panel.IsEmpty = true;
+                if (panel != null && !(panel.IsFaulty && keepUnused)) panel.IsEmpty = true; // removes Checked as well
                 counter--;
             }
 
             // update remaining fields
             foreach (FieldPanel panel in remain)
             {
-                if (!panel.IsFaulty)
+                if (!panel.IsFaulty) // don't touch faulty panels, user might want to fix them later.
                 {
-                    panel.Descriptor = formular[panel.Descriptor.Name]; // overwrite to stay in sync with the node's central formular
+                    var desc = formular[panel.Descriptor.Name]; 
+                    desc.IsRequired = panel.Checked;
+                    panel.Descriptor = desc; // overwrite to stay in sync with the node's central formular
                 }
             }
 

@@ -73,7 +73,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     FConfig[0] = newConfig;
                     WatchConfig(true);
                 }
-                if (FormularUpdate != null) FormularUpdate(this, value);
+                if (FormularUpdate != null) FormularUpdate(this, value); // raise event before actual update
 
                 _formular = value;
 
@@ -98,9 +98,21 @@ namespace VVVV.Packs.Messaging.Nodes
                 // default of the pin already mimmicks default Formular for this node
             }
 
+            var formular = Formular;
+            formular.Require(RequireEnum.None);
+
             if (FFormularSelection.IsAnyInvalid())
-                Formular = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
-            else Formular = new MessageFormular(FFormularSelection[0], FConfig[0]);
+                formular.Name = MessageFormular.DYNAMIC;
+            else formular.Name = FFormularSelection[0].Name;
+
+            // overwrite fiels that occur in FConfig
+            var config = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
+            foreach (var field in config.FieldDescriptors)
+            {
+                formular[field.Name] = field;
+            }
+
+            Formular = formular;
         }
         #endregion Formular Handling
 
@@ -115,7 +127,6 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             var formularName = FFormularSelection[0].Name;
-
             if (Formular.Name == formularName) return;
 
             var backup = new MessageFormular(formularName, FConfig[0]); // local backup
@@ -125,25 +136,19 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (formularName != MessageFormular.DYNAMIC)
                 {
                     formular = RetrieveFormular(formularName);
-
-                    var require = from field in Formular.FieldDescriptors
-                                  where field.IsRequired
-                                  where formular.FieldNames.Contains(field.Name)
-                                  select field.Name;
-
-                    foreach (var name in formular.FieldNames) formular[name].IsRequired = false;
-                    foreach (var name in require) formular[name].IsRequired = true;
-
+                    formular.Require(RequireEnum.NoneBut, backup);
                 }
-                else formular = backup; // fallback to what's been known to the node
+                else {
+                    formular = backup; // fallback to what's been known to the node
+                    formular.Name = formularName;
+                }
 
                 Formular = formular;
-                
-            } catch (RegistryException)
+            }
+            catch (RegistryException)
             {
                 Formular = backup;
             }
-            
         }
 
         /// <summary>
