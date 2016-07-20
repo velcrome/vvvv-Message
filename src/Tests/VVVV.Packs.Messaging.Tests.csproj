@@ -39,16 +39,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Message\MessageSerialisationTest.cs" />
-    <Compile Include="New\Bin\Bin.cs" />
-    <Compile Include="New\Bin\BinFactory.cs" />
-    <Compile Include="New\Formular\FormularRegistryTests.cs" />
-    <Compile Include="New\Formular\FormularTest.cs" />
-    <Compile Include="New\Keep\Keep.cs" />
-    <Compile Include="New\Message\ChangeEvents.cs" />
-    <Compile Include="New\Message\MessageTest.cs" />
-    <Compile Include="New\Serialisation\JsonTest.cs" />
-    <Compile Include="New\Serialisation\MsgPackTest.cs" />
+    <Compile Include="BinT\Bin.cs" />
+    <Compile Include="BinT\BinFactory.cs" />
+    <Compile Include="Formular\FormularRegistryTests.cs" />
+    <Compile Include="Formular\FormularTest.cs" />
+    <Compile Include="Keep\Keep.cs" />
+    <Compile Include="Message\ChangeEvents.cs" />
+    <Compile Include="Message\MessageTest.cs" />
+    <Compile Include="Serialisation\JsonTest.cs" />
+    <Compile Include="Serialisation\MsgPackTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
