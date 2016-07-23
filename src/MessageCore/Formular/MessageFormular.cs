@@ -126,7 +126,7 @@ namespace VVVV.Packs.Messaging
         /// High-Level method to set the IsRequired field rulebased for all fields of a Formular
         /// </summary>
         /// <param name="choice">Select the Rule to use.</param>
-        /// <param name="otherFormular">Optional parameter, some rules require a secondary Formular.</param>
+        /// <param name="otherFormular">Optional parameter, some rules require a secondary Formular. In most cases it will inspect the IsRequired field.</param>
         public void Require(RequireEnum choice, MessageFormular otherFormular = null)
         {
             if (otherFormular == null) otherFormular = MessageFormularRegistry.Context[MessageFormular.DYNAMIC]; // empty formular
@@ -143,8 +143,11 @@ namespace VVVV.Packs.Messaging
                 case RequireEnum.NoneBut:
                     foreach (var f in FieldDescriptors) f.IsRequired = otherFormular.FieldNames.Contains(f.Name) && otherFormular[f.Name].IsRequired;
                     break;
-                case RequireEnum.NoneButIntersect:
+                case RequireEnum.NoneButBoth:
                     foreach (var f in FieldDescriptors) f.IsRequired = otherFormular.FieldNames.Contains(f.Name) && otherFormular[f.Name].IsRequired && f.IsRequired;
+                    break;
+                case RequireEnum.NoneButAny:
+                    foreach (var f in FieldDescriptors) f.IsRequired = (otherFormular.FieldNames.Contains(f.Name) && otherFormular[f.Name].IsRequired) || f.IsRequired;
                     break;
             }
         }

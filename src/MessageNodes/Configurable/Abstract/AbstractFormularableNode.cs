@@ -34,6 +34,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import()]
         protected ILogger FLogger;
 
+        protected bool CustomizeFormular = false;
+
         protected bool SkippedFirst;
         public virtual void OnImportsSatisfied()
         {
@@ -155,6 +157,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             catch (RegistryException)
             {
+                // i.e. not found. might happen during first frame
                 Formular = backup;
             }
         }
@@ -184,18 +187,16 @@ namespace VVVV.Packs.Messaging.Nodes
         protected virtual void FormularRemotelyChanged(MessageFormularRegistry sender, MessageFormular formular)
         {
             if (FFormularSelection.IsAnyInvalid()) return;  // before and during first frame input pins might not be valid yet
+            if (formular.IsDynamic) return;
 
-
-            // little silly to expect spreaded formular input here, because it spreads nowhere else :(
-            var used = from formularEntry in FFormularSelection
-                       where formularEntry.Name == formular.Name
-                       where formularEntry.Name != MessageFormular.DYNAMIC
-                       select true;
-
-            if (used.Any())
+            if (FFormularSelection[0] == formular.Name)
             {
                 formular = formular.Clone() as MessageFormular; // keep a copy
-                formular.Require(RequireEnum.NoneBut, Formular);
+
+                if (CustomizeFormular)
+                    formular.Require(RequireEnum.NoneBut, Formular); // never automatically add anything. e.g never add pins without user consent
+                else formular.Require(RequireEnum.All); // always add all.
+
                 Formular = formular;
             }
         }

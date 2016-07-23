@@ -6,6 +6,8 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
+    using Time = VVVV.Packs.Time.Time;
+
     #region PluginInfo
     [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "TTY", Author = "velcrome")]
     #endregion PluginInfo

@@ -6,6 +6,7 @@
         All,
         NoneBut,
         AllBut,
-        NoneButIntersect
+        NoneButBoth,
+        NoneButAny
     }
 }

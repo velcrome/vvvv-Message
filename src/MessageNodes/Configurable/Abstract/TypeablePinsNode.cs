@@ -35,6 +35,9 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
+
+            this.CustomizeFormular = true;
+
             var init = Formular.Clone() as MessageFormular;
             init.Require(RequireEnum.None);
 
@@ -106,6 +109,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
+        /// <summary>
+        /// Creates a binsized pin according to the information in the desciptor. Ignores IsRequired. 
+        /// </summary>
+        /// <param name="field"></param>
+        /// <exception cref="InvalidComObjectException">PluginInterface: Internal COM disconnect</exception>
+        /// <returns>The container around the pin.</returns>
         protected IIOContainer CreatePin(FormularFieldDescriptor field)
         {
             IOAttribute attr = SetPinAttributes(field); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
@@ -113,16 +122,9 @@ namespace VVVV.Packs.Messaging.Nodes
             Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(field.Type)); // the Pin is always a binsized one
 
             IIOContainer pin = null;
-            try
-            {
-                pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
+            pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
 
-                DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
-            }
-            catch (InvalidComObjectException)
-            {
-                var a = false;
-            }
+            DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
 
             return pin;
         }
@@ -205,6 +207,7 @@ namespace VVVV.Packs.Messaging.Nodes
         /// </remarks>
         protected void TryDefinePins(object sender, MessageFormular newFormular)
         {
+            // reject formular, deferring it to application later on.
             if (HasEndangeredLinks(newFormular))
             {
                 RemovePinsFirst = true;
@@ -277,13 +280,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     old[field.Name] = field; // hard overwrite 
                 }
-                old.Require(RequireEnum.NoneButIntersect, newFormular);
+                old.Require(RequireEnum.NoneButBoth, newFormular);
                 old.Name = newFormular.Name;
                 newFormular = old; 
             }
             else
             {
-                newFormular.Require(RequireEnum.NoneButIntersect, old);
+                newFormular.Require(RequireEnum.NoneButBoth, old);
             }
 
             LayoutPanel.Changed -= ReadLayoutPanel;
