@@ -8,7 +8,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public abstract class TypableMessageKeepNode : AbstractMessageKeepNode
     {
         public const string TOPIC = "Topic";
-        public ISpread<EnumEntry> FUseAsID = null;
+        public IDiffSpread<EnumEntry> FUseAsID = null;
         private string EnumName;
 
         public override void OnImportsSatisfied()
@@ -32,9 +32,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
             attr.EnumName = EnumName;
 
-            Type pinType = typeof(ISpread<EnumEntry>);
+            Type pinType = typeof(IDiffSpread<EnumEntry>);
             var pin = FIOFactory.CreateIOContainer(pinType, attr);
-            FUseAsID = (ISpread<EnumEntry>)(pin.RawIOObject);
+            FUseAsID = (IDiffSpread<EnumEntry>)(pin.RawIOObject);
         }
 
         private void FillEnum(IEnumerable<string> fields)
