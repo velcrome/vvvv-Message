@@ -2,11 +2,10 @@ using System.ComponentModel.Composition;
 using System.Linq;
 
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
-namespace VVVV.Pack.Messaging.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
     [PluginInfo(Name = "Sift", Category = "Message.Spread", Help = "Filter Messages", Tags = "Wildcard", Author = "velcrome")]

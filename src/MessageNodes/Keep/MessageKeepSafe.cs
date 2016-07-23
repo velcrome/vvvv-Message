@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using VVVV.Packs.Messaging;
-using VVVV.Packs.Messaging.Nodes;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
-namespace VVVV.Nodes.Messaging.Keep
+namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Safe",
         Category = "Message.Keep",

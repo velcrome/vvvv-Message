@@ -1,12 +1,10 @@
 using System.ComponentModel.Composition;
 using System.Text;
 using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Packs.Time;
 using VVVV.Utils;
 
-namespace VVVV.Pack.Messaging.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
     [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "TTY", Author = "velcrome")]

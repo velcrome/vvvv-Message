@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using VVVV.Packs.Messaging.Nodes;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
 
-namespace VVVV.Nodes.Messaging.Nodes
+namespace VVVV.Packs.Messaging.Nodes
 {
  
     #region PluginInfo

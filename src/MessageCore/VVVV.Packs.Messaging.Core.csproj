@@ -64,7 +64,7 @@
   <ItemGroup>
     <Reference Include="MsgPack">
       <HintPath>..\packages\MsgPack.Cli.0.7.1\lib\net46\MsgPack.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
