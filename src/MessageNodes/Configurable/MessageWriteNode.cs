@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageWriteNode : TypeablePinNode
     {
 #pragma warning disable 649, 169
-        [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.True)]
+        [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
         IDiffSpread<bool> FAutoSense;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
