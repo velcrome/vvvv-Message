@@ -147,10 +147,10 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 var connected = pinContainer.GetPluginIO().IsConnected;
 
-                foreach (var associated in pinContainer.AssociatedContainers)
-                {
-                    connected |= associated.GetPluginIO().IsConnected;
-                }
+//                foreach (var associated in pinContainer.AssociatedContainers)
+//                {
+//                    connected |= associated.GetPluginIO().IsConnected;
+//                }
                 return connected;
             }
             catch (InvalidComObjectException)
