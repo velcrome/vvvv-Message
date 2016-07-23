@@ -7,7 +7,7 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class AbstractFormularableNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class AbstractFormularableNode : IPluginEvaluate, IPartImportsSatisfiedNotification, IDisposable
     {
         [Config("Configuration", DefaultString = "string Foo", Visibility = PinVisibility.True)]
         private IDiffSpread<string> FConfig;
@@ -49,6 +49,14 @@ namespace VVVV.Packs.Messaging.Nodes
 
             // (mandatory) changes to the config will make sure, the pin layout is restored during loading, even when not all input pins are valid
             WatchConfig(true);
+        }
+
+        public void Dispose()
+        {
+            // base provider of Formulars
+            var context = MessageFormularRegistry.Context;
+            context.FormularChanged -= FormularRemotelyChanged;
+
         }
         #endregion import services
 
@@ -186,7 +194,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (used.Any())
             {
-                Formular = formular.Clone() as MessageFormular; // keep a copy
+                formular = formular.Clone() as MessageFormular; // keep a copy
+                formular.Require(RequireEnum.NoneBut, Formular);
+                Formular = formular;
             }
         }
 
@@ -195,6 +205,7 @@ namespace VVVV.Packs.Messaging.Nodes
         #region Evaluate
 
         public abstract void Evaluate(int SpreadMax);
+
         #endregion
 
     }

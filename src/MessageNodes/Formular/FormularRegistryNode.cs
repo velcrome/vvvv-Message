@@ -130,7 +130,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (_firstFrame || (!FUpdate.IsAnyInvalid() && FUpdate[0]))
                 try
                 {
-                        var defined = reg.Define(id, formular);
+                        var defined = reg.Define(id, formular); // will raise Change events to inform all formularable nodes
                         if (defined)
                             FOutput[i] = formular;
                 }

@@ -35,9 +35,14 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
+            var init = Formular.Clone() as MessageFormular;
+            init.Require(RequireEnum.None);
 
-            FormularUpdate += (sender, formular) => UpdateWindow(formular, formular.IsDynamic);
-            FormularUpdate += TryDefinePins;
+            LayoutPanel.Formular = init; 
+            LayoutPanel.CanEditFields = init.IsDynamic;
+
+            FormularUpdate += (sender, formular) => UpdateWindow(formular, formular.IsDynamic);// || sender is MessageFormularRegistry);
+            FormularUpdate += (sender, formular) => TryDefinePins(sender, formular);
 
             LayoutPanel.Changed += ReadLayoutPanel;
 
@@ -106,9 +111,18 @@ namespace VVVV.Packs.Messaging.Nodes
             IOAttribute attr = SetPinAttributes(field); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
 
             Type pinType = typeof(ISpread<>).MakeGenericType((typeof(ISpread<>)).MakeGenericType(field.Type)); // the Pin is always a binsized one
-            var pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
 
-            DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
+            IIOContainer pin = null;
+            try
+            {
+                pin = FPins[field.Name] = FIOFactory.CreateIOContainer(pinType, attr);
+
+                DynPinCount += 2; // total pincount. always add two to account for data pin and binsize pin
+            }
+            catch (InvalidComObjectException)
+            {
+                var a = false;
+            }
 
             return pin;
         }
@@ -137,11 +151,19 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
                 return connected;
             }
+            catch (InvalidComObjectException)
+            {
+                // [Import]s not yet ready. try another time.
+                // its safe to assume that no pins have been created yet.
+                FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node.");
+                return false; 
+            }
             catch (Exception)
             {
                 string nodePath = PluginHost.GetNodePath(false);
                 FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node: " + nodePath);
                 return false;
+
             }
         }
         /// <summary>
@@ -202,12 +224,14 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (FPins[field.Name].GetInnerMostType() != field.Type)
                     {
                         FPins[field.Name].Dispose();
-                        FPins[field.Name] = CreatePin(field);
+                        var pin = CreatePin(field);
+                        if (pin != null) FPins[field.Name] = pin;
                     }
                 }
                 else
                 {
-                    FPins[field.Name] = CreatePin(field);
+                    var pin = CreatePin(field);
+                    if (pin != null) FPins[field.Name] = pin;
                 }
             }
 
@@ -233,34 +257,38 @@ namespace VVVV.Packs.Messaging.Nodes
 
         #region window management
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newFormular"></param>
+        /// <param name="append"></param>
+        /// 
         private void UpdateWindow(MessageFormular newFormular, bool append = false)
         {
             if (newFormular == null) return;
 
             var old = LayoutPanel.Formular; // retrieve copy
+            newFormular = newFormular.Clone() as MessageFormular; // act on copy
 
             if (append)
             {
+                // overwrite all existing fields, and hand back the result
                 foreach (var field in newFormular.FieldDescriptors)
                 {
                     old[field.Name] = field; // hard overwrite 
                 }
                 old.Require(RequireEnum.NoneButIntersect, newFormular);
                 old.Name = newFormular.Name;
-
-                LayoutPanel.Changed -= ReadLayoutPanel;
-                LayoutPanel.Formular = old; // set to appended copy
-                LayoutPanel.Changed += ReadLayoutPanel;
-
+                newFormular = old; 
             }
             else
             {
                 newFormular.Require(RequireEnum.NoneButIntersect, old);
-
-                LayoutPanel.Changed -= ReadLayoutPanel;
-                LayoutPanel.Formular = newFormular;
-                LayoutPanel.Changed += ReadLayoutPanel;
             }
+
+            LayoutPanel.Changed -= ReadLayoutPanel;
+            LayoutPanel.Formular = newFormular;
+            LayoutPanel.Changed += ReadLayoutPanel;
 
             LayoutPanel.CanEditFields = newFormular.IsDynamic;
         }

@@ -6,7 +6,7 @@ namespace VVVV.Packs.Messaging
 {
     public delegate void FormularChanged(object sender, MessageFormular formular);
 
-    public class MessageFormular : ICloneable
+    public class MessageFormular : ICloneable, IEquatable<MessageFormular>
     {
         #region fields
         private Dictionary<string, FormularFieldDescriptor> fields = new Dictionary<string, FormularFieldDescriptor>();
@@ -217,8 +217,8 @@ namespace VVVV.Packs.Messaging
         /// <returns>A string representing the Formular</returns>
         public override string ToString()
         {
-            return Configuration;
-            //return "Formular[\"" + Name + "\"] = " + Configuration;
+//            return Configuration;
+            return "Formular[\"" + Name + "\"] = " + Configuration;
         }
 
         /// <summary>
@@ -230,6 +230,23 @@ namespace VVVV.Packs.Messaging
             var descriptors = from desc in FieldDescriptors
                               select desc.Clone() as FormularFieldDescriptor;
             return new MessageFormular(Name, descriptors);
+        }
+
+        /// <summary>
+        /// Checks deep equality, including Name, Type and BinSize of each field
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(MessageFormular other)
+        {
+            if (other == null) return false;
+            if (this.Name != other.Name) return false;
+            if (this.FieldNames.Count() != other.FieldNames.Count()) return false;
+            foreach(var field in this.FieldDescriptors)
+            {
+                if (!field.Equals(other[field.Name])) return false;
+            }
+            return true;
         }
 
         #endregion utils

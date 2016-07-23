@@ -98,7 +98,7 @@ namespace VVVV.Packs.Messaging
 
             if (!Data.ContainsKey(definerId)) Data[definerId] = new List<MessageFormular>();
 
-            var match = (
+            var conflict = (
                             from nodeId in Data.Keys
                             where definerId != nodeId
                             from form in Data[nodeId]
@@ -107,9 +107,9 @@ namespace VVVV.Packs.Messaging
                         ).FirstOrDefault();
 
 
-            if (match != null)
+            if (conflict != null)
             {
-                throw new RegistryException("Cannot add the formular to the registry. Another formular with the name \""+ match +"\" already exists.");
+                throw new RegistryException("Cannot add the formular to the registry. Another formular with the name \""+ conflict +"\" already exists.");
             }
 
             var ownFormulars = Data[definerId];
@@ -119,7 +119,8 @@ namespace VVVV.Packs.Messaging
                             select form
                          ).FirstOrDefault();
 
-            if (formular.Equals(oldForm)) return false;
+            // no need to worry someone, if we conclude nothing's changed.
+            // if (formular.Equals(oldForm)) return false;
 
             if (oldForm != null) ownFormulars.Remove(oldForm);
             ownFormulars.Add(formular);
