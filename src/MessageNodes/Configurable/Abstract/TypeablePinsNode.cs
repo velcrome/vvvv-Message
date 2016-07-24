@@ -248,12 +248,12 @@ namespace VVVV.Packs.Messaging.Nodes
             // reorder - does not work right now, sdk offers only read-only access
             //var names = Formular.FieldNames.ToArray();
 
-            //int counter = 0;
-            //foreach (var name in newFormular.FieldNames)
-            //{
-            //    if (FPins[name] != null)
-            //        FPins[name].GetPluginIO().Order = counter * 2 + 5;
-            //}
+            int counter = 0;
+            foreach (var name in newFormular.FieldNames)
+            {
+                if (FPins[name] != null)
+                    FPins[name].GetPluginIO().Order = counter * 2 + 5;
+            }
         }
 
         #endregion pin management
