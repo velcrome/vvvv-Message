@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
@@ -38,18 +39,14 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             if (FInput.IsAnyInvalid())
             {
-                if (FOutput.SliceCount > 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-                }
+                FOutput.FlushNil();
                 return; // if no input, no further calculation.
             }
 
             bool doFlush = false;
 
             // any of the update slices is true -> update the plugin.
-            var anyUpdate = FUpdate.Any(x => x);
+            var anyUpdate = FUpdate.Any();
 
             // Flush upstream changes through the plugin
             if (FInput.IsChanged)
@@ -78,31 +75,31 @@ namespace VVVV.Packs.Messaging.Nodes
                     foreach (var key in FKey)
                     {
                         var fieldIndex = i * keyCount + keyIndex;
-                        var value = (ValueSpread[fieldIndex] as ISpread);
+                        keyIndex++;
+
+                        if (!FUpdate[fieldIndex]) continue;
 
                         if (!message.Fields.Contains(key)) message[key] = BinFactory.New(TargetDynamicType);
+                        var value = ValueSpread[fieldIndex] as ISpread;
 
                         if (value.SliceCount > 0)
                         {
                             if (message[key].GetInnerType().IsAssignableFrom(TargetDynamicType))
                             {
                                 // check if any relevant change occurred
-                                if (FUpdate[fieldIndex] && !message[key].Equals(value as IEnumerable)) message.AssignFrom(key, value);
+                                if (!message[key].Equals(value as IEnumerable)) message.AssignFrom(key, value);
                             }
                             else
                             {
-                                if (!FUpdate[fieldIndex]) continue;
+                                
+                                var casted = from slice in value as IEnumerable<object>
+                                             let targetType = message[key].GetInnerType()
+                                             select Convert.ChangeType(slice, targetType);
 
-                                IList casted = new ArrayList();
-                                foreach (var slice in value)
-                                    casted.Add(Convert.ChangeType(slice, message[key].GetInnerType()));
-
-                                // check if any relevant change occurred
-                                if (!message[key].Equals(casted as IEnumerable)) message.AssignFrom(key, casted);
+                                if (!message[key].Equals(casted)) message.AssignFrom(key, casted);
                             }
                         }
                         else message[key].Clear();
-                        keyIndex++;
                     }
                 }
             }
