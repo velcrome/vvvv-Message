@@ -91,7 +91,6 @@ namespace VVVV.Packs.Messaging.Nodes
                             }
                             else
                             {
-                                
                                 var casted = from slice in value as IEnumerable<object>
                                              let targetType = message[key].GetInnerType()
                                              select Convert.ChangeType(slice, targetType);

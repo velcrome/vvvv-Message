@@ -11,6 +11,9 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageDefaultNode : AbstractFormularableNode
     {
+        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = false)]
+        public new IDiffSpread<EnumEntry> FFormularSelection;
+
         [Input("New", IsBang = true, DefaultBoolean = false, Order = 0)]
         protected ISpread<bool> FNew;
 
@@ -46,16 +49,18 @@ namespace VVVV.Packs.Messaging.Nodes
                 return;
             }
 
-            SpreadMax = 1; // numbers of supported Formulars
+            SpreadMax = FFormularSelection.SliceCount; // numbers of supported Formulars
             FOutput.SliceCount = SpreadMax;
 
             var counter = 0;
             for (int i = 0; i < SpreadMax; i++)
             {
-                FOutput[i].SliceCount = 0;
+                var formularName = FFormularSelection[i].Name;
+                var formular = MessageFormularRegistry.Context[formularName];
 
-                var formular = new MessageFormular(Formular);
-                
+                FOutput[i].SliceCount = 0;
+                if (formular == null) continue;
+
                 var count = FSpreadCount[i];
                 for (int j = 0; j < count; j++)
                 {
