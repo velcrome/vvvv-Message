@@ -1,5 +1,5 @@
 Features Wanted
-- wasChanged as a solid property of Message, or maybe even Bin (leave a breadcrumb of the last sync'ing Keep)
+- wasChanged as a solid property of Message, or maybe even Bin (leave a managed breadcrumb of the last sync'ing Keep)
 - autocast from any vl class (and mimick back)
 - dx ressources as valid type in Formular and pintype
 - dynamic object wrapper for a Message's dictionary

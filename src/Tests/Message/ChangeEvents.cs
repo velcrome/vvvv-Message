@@ -19,19 +19,19 @@ namespace VVVV.Packs.Messaging.Tests
             message.Changed += orig => count++;
 
             // report ctor change of Message now
-            var hasChanged = message.Sync();
+            var hasChanged = message.Commit(this);
             Assert.IsTrue(hasChanged);
             Assert.AreEqual(1, count);
 
             message.Init("Field", "a", "b", "c");
 
             // report next one
-            hasChanged = message.Sync();
+            hasChanged = message.Commit(this);
             Assert.IsTrue(hasChanged);
             Assert.AreEqual(2, count);
 
             // stay silent, because no change
-            hasChanged = message.Sync();
+            hasChanged = message.Commit(this);
             Assert.IsFalse(hasChanged);
             Assert.AreEqual(2, count);
         }
@@ -53,7 +53,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.IsTrue(message.IsChanged);
             Assert.AreEqual(0, diffs.Count);
 
-            var hasChanged = message.Sync();
+            var hasChanged = message.Commit(this);
             Assert.IsTrue(hasChanged);
 
             // notification received
@@ -66,7 +66,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.IsFalse(message.IsChanged);
 
             // sync again, should stay silent this time
-            hasChanged = message.Sync();
+            hasChanged = message.Commit(this);
             Assert.IsFalse(hasChanged);
             Assert.AreEqual(1, diffs.Count);
 
@@ -74,7 +74,7 @@ namespace VVVV.Packs.Messaging.Tests
             message.Init("Other", 1.68, 3.14);
 
             // sync again, check changes
-            hasChanged = message.Sync();
+            hasChanged = message.Commit(this);
             Assert.IsTrue(hasChanged);
             Assert.AreEqual(2, diffs.Count);
 
@@ -94,7 +94,7 @@ namespace VVVV.Packs.Messaging.Tests
             List<Message> diffs = new List<Message>();
 
             message.Init("Field", 1, 2, 3);
-            message.Sync(); // clear now
+            message.Commit(this); // clear now
 
             // set up anonymous watcher, simply recording all changes
             message.ChangedWithDetails += (orig, diff) => { diffs.Add(diff); };
@@ -103,7 +103,7 @@ namespace VVVV.Packs.Messaging.Tests
 
             message.Topic = "OtherTopic";
 
-            var hasChanged = message.Sync();
+            var hasChanged = message.Commit(this);
             Assert.IsTrue(hasChanged);
 
             // notification received
@@ -121,7 +121,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.IsFalse(message.IsChanged);
 
             // sync again, should stay silent this time
-            hasChanged = message.Sync();
+            hasChanged = message.Commit(this);
             Assert.IsFalse(hasChanged);
             Assert.AreEqual(1, diffs.Count);
 

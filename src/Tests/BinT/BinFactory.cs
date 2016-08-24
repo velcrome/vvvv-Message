@@ -38,7 +38,7 @@ namespace VVVV.Packs.Messaging.Tests
         private Bin<T> BinCreationEmpty<T>()
         {
             var bin = BinFactory.New<T>();
-            Assert.AreEqual(bin.IsDirty, true);
+            Assert.AreEqual(bin.IsChanged, true);
 
             Assert.AreEqual(bin.GetInnerType(), typeof(T));
             Assert.IsInstanceOfType(bin, typeof(Bin<T>));
@@ -79,7 +79,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.AreEqual(bin.Count, 1);
             Assert.IsInstanceOfType(bin.First, typeof(T));
             Assert.AreEqual(bin[0], item);
-            Assert.AreEqual(bin.IsDirty, true);
+            Assert.AreEqual(bin.IsChanged, true);
             return bin;
         }
 
@@ -122,7 +122,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.AreEqual(bin[2], itemC);
 
             Assert.IsInstanceOfType(bin.First, typeof(T));
-            Assert.AreEqual(bin.IsDirty, true);
+            Assert.AreEqual(bin.IsChanged, true);
 
             return bin;
         }
