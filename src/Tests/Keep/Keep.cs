@@ -77,7 +77,7 @@ namespace VVVV.Packs.Messaging.Tests
             keep.QuickMode = false;
 
             var message = new Message("Test");
-            message.Sync();
+            message.Commit(this);
 
             keep.Add(message);
 
@@ -115,7 +115,7 @@ namespace VVVV.Packs.Messaging.Tests
             message.Init("Field", 1, 2, 3);
 
             
-            message.Sync();
+            message.Commit(this);
 
             Assert.IsFalse(message.IsEmpty);
 

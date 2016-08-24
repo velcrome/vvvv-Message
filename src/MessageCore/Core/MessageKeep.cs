@@ -8,8 +8,7 @@ namespace VVVV.Packs.Messaging
     /// <summary>
     /// An archive for Messages. Archives will have knowledge of changes in any Message they keep.
     /// </summary>
-    public class MessageKeep : IReadOnlyList<Message>
-    {
+    public class MessageKeep : IReadOnlyList<Message>    {
         #region fields
         protected List<Message> Messages = new List<Message>();
         protected Dictionary<Message, Message> Changes = new Dictionary<Message, Message>();
@@ -111,7 +110,7 @@ namespace VVVV.Packs.Messaging
 
             // this will force the message to publish change events to all other  
             // interested parties, including this keep
-            foreach (var message in Messages) message.Sync(); 
+            foreach (var message in Messages) message.Commit(this); 
 
             foreach (var orig in Changes.Keys)
             {
@@ -136,7 +135,7 @@ namespace VVVV.Packs.Messaging
 
             // this will force the message to publish change events to all other  
             // interested parties, including this keep
-            foreach (var message in Messages) message.Sync();
+            foreach (var message in Messages) message.Commit(this);
 
             if (!QuickMode)
                 changes = new List<Message>(Changes.Values);
@@ -179,8 +178,7 @@ namespace VVVV.Packs.Messaging
         {
             foreach (var message in Messages)
             {
-                message.ChangedWithDetails -= MessageChangedWithDetails;
-                message.Changed -= MessageChanged;
+                Remove(message);
             }
             Changes.Clear();
             Messages.Clear();
@@ -202,6 +200,12 @@ namespace VVVV.Packs.Messaging
             message.ChangedWithDetails -= MessageChangedWithDetails;
             message.Changed -= MessageChanged;
 
+            if (message.HasRecentCommit())
+            {
+                foreach (var bin in message.Data.Values)
+                    if (bin.IsSweeping(this)) bin.Sweep();
+            }
+
             Changes.Remove(message);
             return Messages.Remove(message);
         }
@@ -212,14 +216,10 @@ namespace VVVV.Packs.Messaging
             {
                 if (Messages.Count < i)
                 {
-                    Messages[i].Changed -= MessageChanged;
-                    Messages[i].ChangedWithDetails -= MessageChangedWithDetails;
-                    Changes.Remove(Messages[i]);
+                    Remove(Messages[i]);
                 }
-
             }            
             Messages.RemoveRange(index, count);
-
         }
 
 
@@ -260,5 +260,7 @@ namespace VVVV.Packs.Messaging
         }
 
         #endregion List
+
+
     }
 }

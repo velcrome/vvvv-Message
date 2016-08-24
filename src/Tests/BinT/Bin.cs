@@ -19,19 +19,19 @@ namespace VVVV.Packs.Messaging.Tests
         public void ChangeBinFirst()
         {
             var bin = BinFactory.New<int>(1, 2, 3, 4);
-            bin.IsDirty = false;
+            bin.IsChanged = false;
 
             Assert.AreEqual(1, bin.First);
-            Assert.IsFalse(bin.IsDirty);
+            Assert.IsFalse(bin.IsChanged);
 
             bin.First = 1;
             Assert.AreEqual(1, bin.First);
-            Assert.IsTrue(bin.IsDirty);
+            Assert.IsTrue(bin.IsChanged);
 
-            bin.IsDirty = false;
+            bin.IsChanged = false;
             bin.First = 42;
             Assert.AreEqual(42, bin.First);
-            Assert.IsTrue(bin.IsDirty);
+            Assert.IsTrue(bin.IsChanged);
 
         }
 
@@ -67,19 +67,19 @@ namespace VVVV.Packs.Messaging.Tests
         public void ChangeBinIndex()
         {
             var bin = BinFactory.New<int>(1, 2, 3, 4);
-            bin.IsDirty = false;
+            bin.IsChanged = false;
 
             Assert.AreEqual(2, bin[1]);
-            Assert.IsFalse(bin.IsDirty);
+            Assert.IsFalse(bin.IsChanged);
 
             bin[1] = 1;
-            Assert.IsTrue(bin.IsDirty);
+            Assert.IsTrue(bin.IsChanged);
             Assert.AreEqual(1, bin[1]);
 
-            bin.IsDirty = false;
+            bin.IsChanged = false;
 
             bin[4] = 1; // add one more
-            Assert.IsTrue(bin.IsDirty);
+            Assert.IsTrue(bin.IsChanged);
             Assert.AreEqual(1, bin[1]);
         }
 
@@ -120,8 +120,8 @@ namespace VVVV.Packs.Messaging.Tests
         private Bin<T> Fresh<T>()
         {
             var bin = BinFactory.New<T>();
-            Assert.IsTrue(bin.IsDirty);
-            bin.IsDirty = false;
+            Assert.IsTrue(bin.IsChanged);
+            bin.IsChanged = false;
             return bin;
         }
 
@@ -131,7 +131,7 @@ namespace VVVV.Packs.Messaging.Tests
             Bin bin = Fresh<T>();
             bin.Add(pass);
 
-            Assert.IsTrue(bin.IsDirty);
+            Assert.IsTrue(bin.IsChanged);
             Assert.AreEqual(pass, bin[0]);
             Assert.AreEqual(1, bin.Count);
         }
@@ -171,7 +171,7 @@ namespace VVVV.Packs.Messaging.Tests
                 // ok
             }
 
-            Assert.IsFalse(bin.IsDirty);
+            Assert.IsFalse(bin.IsChanged);
             Assert.AreEqual(0, bin.Count);
 
             var failArray = new object[] { pass, fail, pass };
@@ -186,7 +186,7 @@ namespace VVVV.Packs.Messaging.Tests
                 // ok
             }
 
-            Assert.IsTrue(bin.IsDirty); // first element passed -> dirty now
+            Assert.IsTrue(bin.IsChanged); // first element passed -> dirty now
             Assert.AreEqual(1, bin.Count); // only the first default(T) will make it, after that it will stop short!
         }
 
@@ -225,7 +225,7 @@ namespace VVVV.Packs.Messaging.Tests
                 // ok!
             }
 
-            Assert.IsFalse(bin.IsDirty);
+            Assert.IsFalse(bin.IsChanged);
             Assert.AreEqual(0, bin.Count);
 
             var repeat = new object[] { pass, null, pass};
@@ -239,7 +239,7 @@ namespace VVVV.Packs.Messaging.Tests
                 // ok!
             }
 
-            Assert.IsTrue(bin.IsDirty);
+            Assert.IsTrue(bin.IsChanged);
             Assert.AreEqual(1, bin.Count);
 
         }

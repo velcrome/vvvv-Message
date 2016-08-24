@@ -38,6 +38,7 @@ namespace VVVV.Packs.Messaging {
 
         private string _topic;
         private bool _internalChange = false;
+        private object _lastCommit = null;
 
         /// <summary>The topic is a brief identifier of the Message. It can be used to sift or sort Messages quickly.</summary>
         /// <remarks>A topic is best used with a dot-separated Namespace (e.g. MyCompany.Project.Input.Touch)
@@ -233,7 +234,7 @@ namespace VVVV.Packs.Messaging {
                 if (!newName.IsValidFieldName()) throw new ParseFormularException("Invalid fieldname: \"" + newName+"\".");
 
                 Data[newName] = bin;
-                bin.IsDirty = true;
+                bin.IsChanged = true;
 
                 Remove(fieldName);
             }
@@ -303,6 +304,7 @@ namespace VVVV.Packs.Messaging {
         #endregion
 
         #region Change Management
+
         /// <summary>Indicates, if any Field or the topic has been changed since the last Sync.</summary>
         /// <returns>true, if the Message has Changed</returns>        
         /// <remarks></remarks>
@@ -310,34 +312,55 @@ namespace VVVV.Packs.Messaging {
         {
             // check all bins, if at least one has changed since the last Sync.
             get {
-                return _internalChange || Data.Values.Any(bin => bin.IsDirty);
+                return _internalChange || Data.Values.Any(bin => bin.IsChanged);
             }
             
             // reset all bins, if IsChanged is forced to false.
             internal set {
-                if (!value)
+                if (!value) // false forces deflagging
                 {
                     foreach (var bin in Data.Values)
-                        if (bin.IsDirty) bin.IsDirty = false;
-                    _internalChange = value;
+                    {
+                        if (bin.IsChanged) bin.IsChanged = false;
+                    }
                 }
+                _internalChange = value;
             }
         }
 
+        public bool HasRecentCommit()
+        {
+            return Data.Values.Any(bin => bin.IsSweeping() || _lastCommit != null) ;
+        }
 
-        /// <summary>Sets the IsChanged flag to false, and publishes any changes. The timestamp will be updated to Now.</summary>
+        /// <summary>Sets the IsChanged flag to false, and publishes any changes. </summary>
         /// <returns>true only if the Message had been changed.</returns>
-        public bool Sync()
+        /// <remarks>
+        /// The timestamp will be updated to Now.
+        /// In case IsChanged was true, the message will be swept until the next Commit with this reference
+        /// </remarks>
+        public bool Commit(object reference)
         {
             var changedFields = new List<string>();
             foreach (var field in Fields)
             {
-                if (Data[field].IsDirty)
+                var bin = Data[field];
+                if (bin.IsChanged)
                 {
                     changedFields.Add(field);
-                    Data[field].IsDirty = false;
+                    bin.IsChanged = false;
+                    bin.Sweep(reference); // start sweeping
+                } else
+                {
+                    if (bin.IsSweeping(this)) bin.Sweep(); // done sweeping
                 }
             }
+
+            if (_internalChange)
+            {
+                _lastCommit = reference;
+            }
+            else if (_lastCommit == reference) _lastCommit = null;
             
             if (changedFields.Count > 0 || _internalChange)
             {

@@ -32,7 +32,16 @@ namespace VVVV.Packs.Messaging
         int Count               { get; set; }
 
         /// <summary>Indicates if the bin has been changed recently. Any change to the bin will set IsDirty to true internally.</summary>
-        bool IsDirty            { get; set; }
+        /// <returns>false, if reference was the last Committer</returns>
+        bool IsSweeping(object reference = null);
+
+        /// <summary>
+        /// Commit change, and leave a breadcrumb, so you can identify it
+        /// </summary>
+        /// <param name="reference">A value of null means Sweeping is done.</param>
+        void Sweep(object reference = null);
+
+        bool IsChanged  { get; set; }
 
         /// <summary>
         /// The runtime type of the bin.

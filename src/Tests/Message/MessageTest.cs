@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Tests
         {
             var name = "field";
             var m = new Message("topic");
-            m.Sync();
+            m.Commit(this);
 
             Assert.IsFalse(m.IsChanged);
             m.Init(name, 1, 2, 3, 4);
@@ -66,7 +66,7 @@ namespace VVVV.Packs.Messaging.Tests
         {
             var name = "field";
             var m = new Message("topic");
-            m.Sync();
+            m.Commit(this);
 
             Assert.IsFalse(m.IsChanged);
             var data = Enumerable.Repeat(4, 4);
@@ -229,7 +229,7 @@ namespace VVVV.Packs.Messaging.Tests
             var m = new Message("topic");
             var data = Enumerable.Repeat(4, 4);
             m.AssignFrom(name, data);
-            m.Sync();
+            m.Commit(this);
 
             Assert.IsFalse(m.IsChanged);
             m.Rename(name, "newName");
@@ -247,7 +247,7 @@ namespace VVVV.Packs.Messaging.Tests
             var m = new Message("topic");
             m.Init(newName, 1);
             m.Init(name, 4,4,4,4);
-            m.Sync();
+            m.Commit(this);
 
             Assert.IsFalse(m.IsChanged);
             m.Rename(name, newName, true);
@@ -306,13 +306,13 @@ namespace VVVV.Packs.Messaging.Tests
             var name = "field";
             var m = new Message("topic");
             var data = Enumerable.Repeat(4, 4);
-            m.Sync();
+            m.Commit(this);
 
             Assert.IsFalse(m.IsChanged);
             m[name] = BinFactory.New(data);
             Assert.IsTrue(m.IsChanged);
 
-            m.Sync();
+            m.Commit(this);
 
             Assert.AreEqual(m[name], BinFactory.New(4, 4, 4, 4));
             Assert.AreEqual(m[name].Count, 4);
@@ -348,7 +348,7 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.IsTrue(m.IsEmpty);
 
             m.Init("field", 1, 2);
-            var c = m.Sync();
+            var c = m.Commit(this);
             Assert.IsTrue(c);
 
             Assert.IsFalse(m.IsChanged);
@@ -358,10 +358,10 @@ namespace VVVV.Packs.Messaging.Tests
             Assert.IsTrue(m.IsEmpty);
             Assert.IsTrue(m.IsChanged);
 
-            c = m.Sync();
+            c = m.Commit(this); 
             Assert.IsTrue(c);
 
-            c = m.Sync();
+            c = m.Commit(this);
             Assert.IsFalse(c);
         }
 
@@ -409,7 +409,7 @@ namespace VVVV.Packs.Messaging.Tests
             var b = new Message("Topic");
             b.Init("Field", 1, 2);
 
-            a.Sync();
+            a.Commit(this);
 
             a.InjectWith(b, true);
 
@@ -426,7 +426,7 @@ namespace VVVV.Packs.Messaging.Tests
             var b = new Message("Topic");
             b.Init("Field", 1, 2, 3); // slightly different
 
-            a.Sync();
+            a.Commit(this);
 
             a.InjectWith(b, true);
 
@@ -443,7 +443,7 @@ namespace VVVV.Packs.Messaging.Tests
             var b = new Message("Topic");
             b.Init("Field", 1, 2, 3);
 
-            a.Sync();
+            a.Commit(this);
 
             a.InjectWith(b, false);
 
@@ -461,12 +461,12 @@ namespace VVVV.Packs.Messaging.Tests
             b.Init("Field", 1, 2);
             b.Init("Other", 1, 2);
 
-            a.Sync();
+            a.Commit(this);
 
             a.InjectWith(b, true);
 
             Assert.IsTrue(a.IsChanged);
-            Assert.IsFalse(a["Field"].IsDirty);
+            Assert.IsFalse(a["Field"].IsChanged);
 
             Assert.AreEqual(a["Field"], b["Field"]);
             Assert.AreEqual(a["Other"], b["Other"]);
