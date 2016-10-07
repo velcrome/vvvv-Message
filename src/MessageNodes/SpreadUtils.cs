@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Packs.Messaging;
 
 namespace VVVV.Utils
 {
@@ -57,7 +58,8 @@ namespace VVVV.Utils
         public static void FlushResult<T>(this ISpread<T> spread, IEnumerable<T> result)
         {
             spread.SliceCount = 0;
-            spread.AssignFrom(result);
+            if (result != null)
+                spread.AssignFrom(result);
             spread.Flush();
         }
 
@@ -77,7 +79,17 @@ namespace VVVV.Utils
 
         #endregion fast flushing
 
+        #region bin access
 
+        public static bool IsAnyInvalid(this Bin bin)
+        {
+            if (bin == null) return true;
+
+            if (bin.Count == 0 || bin[0] == null) return true;
+
+            return false;
+        }
+        #endregion
 
     }
 }

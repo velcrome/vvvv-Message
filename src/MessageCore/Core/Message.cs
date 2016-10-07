@@ -267,38 +267,44 @@ namespace VVVV.Packs.Messaging {
         #region Matching
 
         /// <summary>Attempts to conjoin data from another message.</summary>
-        /// <param name="message">The message whose data should be injected.</param>
+        /// <param name="modifier">The message whose data should be injected.</param>
         /// <param name="deepInspection">Flag, whether Fields should be compared for actual change before insertion.</param>
         /// <remarks>The message will update its Topic too, if different.</remarks>
         /// <exception cref="ArgumentNullException">This exception is thrown if message is null.</exception>
         /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
-        public void InjectWith(Message message, bool deepInspection)
+        public bool InjectWith(Message modifier, bool deepInspection)
         {
-            if (message == null) throw new ArgumentNullException("Cannot Inject a null Message.");
+            if (modifier == null) throw new ArgumentNullException("Cannot Inject a null Message.");
 
-            if (this.Equals(message)) return; // nothing to do
+            if (this.Equals(modifier)) return false; // nothing to do
 
-            if (Topic != message.Topic) Topic = message.Topic; // update Topic only if different
+            if (Topic != modifier.Topic) Topic = modifier.Topic; // update Topic only if different
 
-            var fieldNames = message.Fields;
+            var fieldNames = modifier.Fields;
 
-//            bool allowNewFields = true;
-//            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
+            //            bool allowNewFields = true;
+            //            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
 
+            var changed = false;
             foreach (var name in fieldNames)
             {
-                var bin = message[name];
+                var bin = modifier[name];
 
                 if (!this.Fields.Contains(name))
                 {
                     this.AssignFrom(name, bin); // new bin
+                    changed = true;
                 }
                 else
                 {
-                    if (!deepInspection || !this[name].Equals(message[name]))  // inject only if it brings new data
-                            this[name].AssignFrom(message.Data[name]); // autocast.
+                    if (!deepInspection || !this[name].Equals(modifier[name]))  // inject only if it brings new data
+                    {
+                        this[name].AssignFrom(modifier.Data[name]); // autocast.
+                        changed = true;
+                    }
                 }
             }
+            return changed;
         }
         #endregion
 

@@ -9,7 +9,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Merge", Category = "Message.Spread", Help = "Removes redundancy and null",
+    [PluginInfo(Name = "Cons", Category = "Message.Spread", Help = "Removes redundancy and null",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageMergeNode : IPluginEvaluate, IPartImportsSatisfiedNotification
@@ -18,10 +18,10 @@ namespace VVVV.Packs.Messaging.Nodes
         public Spread<IIOContainer<ISpread<Message>>> FInputs = new Spread<IIOContainer<ISpread<Message>>>();
         public Dictionary<ISpread<Message>, bool> FPinEmpty = new Dictionary<ISpread<Message>, bool>();
 
-        [Config("Input Count", DefaultValue = 1, MinValue = 1, IsSingle = true)]
+        [Config("Input Count", DefaultValue = 2, MinValue = 1, IsSingle = true)]
         public IDiffSpread<int> FInputCount;
 
-        [Input("Distinct", DefaultBoolean=true, IsSingle=true, IsToggle = true)]
+        [Input("Distinct", DefaultBoolean=true, IsSingle=true, IsToggle = true, Order = int.MaxValue)]
         private ISpread<bool> FDistinct;
 
         [Output("Output", AutoFlush = false)]

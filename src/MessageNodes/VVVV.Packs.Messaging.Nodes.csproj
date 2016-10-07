@@ -89,6 +89,7 @@
     <Compile Include="Configurable\MessageAvoidNilNode.cs" />
     <Compile Include="Serializing\MsgPackNodes.cs" />
     <Compile Include="SpreadUtils.cs" />
+    <Compile Include="Spread\MessageInjectNode.cs" />
     <Compile Include="Spread\SortByFieldNode.cs" />
     <Compile Include="Utils\MessageGetSlice.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
@@ -112,7 +113,6 @@
     <Compile Include="Formular\FormularReflectionNode.cs" />
     <Compile Include="Formular\FormularRegistryNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spread\MessageSortNode.cs" />
     <Compile Include="Utils\MessageStreamingNodes.cs" />
     <Compile Include="Utils\Fields\MessageTopicNode.cs" />
     <Compile Include="Utils\MessageRemoveNode.cs" />

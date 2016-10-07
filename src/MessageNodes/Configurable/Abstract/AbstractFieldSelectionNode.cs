@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public abstract class AbstractFieldSelectionNode : AbstractFormularableNode
     {
         public ISpread<ISpread<EnumEntry>> FUseFields = null;
-        private string EnumName;
+        protected string EnumName;
 
         [Import()]
         protected IIOFactory FIOFactory;
@@ -44,7 +44,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FUseFields = (ISpread<ISpread<EnumEntry>>)(pin.RawIOObject);
         }
 
-        private void FillEnum(IEnumerable<string> fields)
+        protected virtual void FillEnum(IEnumerable<string> fields)
         {
             var enums = fields.ToArray();
 

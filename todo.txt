@@ -15,6 +15,8 @@ Renamings
 - Create (Keep) -> ConfigKeep
 - (Formular) category should be resorted, it's messy
 - formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
+- "Message.Spread" -> "Message" (Sift, ..)
+
 
 Girlpower Bugs
 - 101 "Event" should not have binned Foo
