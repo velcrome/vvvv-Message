@@ -7,7 +7,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7635" top="1410" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="2" visible="1" values="k,Topic">
+   <PIN pinname="Input Enum" slicecount="2" visible="1" values="Foo,k">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>
@@ -71,7 +71,7 @@
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int k|">
    </PIN>
-   <PIN pinname="k" visible="1" slicecount="1" values="-1">
+   <PIN pinname="k" visible="1" slicecount="1" values="0">
    </PIN>
    <BOUNDS type="Window" left="1140" top="1305" width="6000" height="4500">
    </BOUNDS>
@@ -103,7 +103,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2640" top="570" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-4">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -131,7 +131,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4140" top="1485" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1,0">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0,0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -141,7 +141,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="2" values="1,0">
+   <PIN pinname="X Input Value" slicecount="2" values="0,0">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>

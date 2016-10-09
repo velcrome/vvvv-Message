@@ -7,7 +7,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Sort", Category = "Message", Version="Formular", Help = "Sort Messages by a field", Tags = "By Field", Warnings = "BinSizing Keys is ignored", Author = "velcrome")]
+    [PluginInfo(Name = "Sort", Category = "Message", Version="Formular", Help = "Sort Messages by a field", Tags = "By Field", Warnings = "Uninitialized fields in Messages might corrupt order. BinSizing Keys is ignored.", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageSortByFieldNode : AbstractFieldSelectionNode
     {
@@ -32,7 +32,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var comparable = from fieldName in fields
                              where !FFormularSelection.IsAnyInvalid()
                              let type = MessageFormularRegistry.Context[FFormularSelection[0].Name][fieldName].Type 
-                             where type.IsPrimitive || type is IComparable
+                             where type.IsPrimitive || type == typeof(string) || type is IComparable
                              select fieldName;
 
             var enums = special.Concat(comparable).ToArray();
@@ -82,8 +82,10 @@ namespace VVVV.Packs.Messaging.Nodes
                         deleg = message => message.TimeStamp.UniversalTime;
                         break;
                     default:
+                        // todo: retrieve a proper default for this typed field
+                        object fallBack = 1; // noop, when not possible
                         deleg = message => 
-                                message[fieldName].IsAnyInvalid() ? 1 // noop, when not possible
+                                message[fieldName].IsAnyInvalid() ? fallBack 
                              :  message[fieldName][0];
                         break;
                 }
