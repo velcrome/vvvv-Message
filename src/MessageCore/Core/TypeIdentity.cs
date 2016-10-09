@@ -31,7 +31,7 @@ namespace VVVV.Packs.Messaging
         internal static TypeIdentity NewInstance()
         {
             // This is the only place where you need to add new datatypes.
-            // type:alias is strictly 1:!
+            // type:alias is strictly 1:1 !
             // no case-sensitivity, beware clashes.
             // use of case is purely cosmetic, to reflect c# counterpart
 

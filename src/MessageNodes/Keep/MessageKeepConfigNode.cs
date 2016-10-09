@@ -7,9 +7,9 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Create", AutoEvaluate = true, Category = "Message.Keep", Help = "Joins a permanent Message from custom dynamic pins", Version = "Formular", Tags = "Dynamic, Bin", Author = "velcrome")]
+    [PluginInfo(Name = "ConfigKeep", AutoEvaluate = true, Category = "Message", Help = "Joins a permanent Message from custom dynamic pins", Version = "Formular", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageKeepCreateNode : TypeablePinsNode
+    public class MessageKeepConfigNode : TypeablePinsNode
     {
 #pragma warning disable 649, 169
         [Input("Topic", DefaultString = "State", Order = 1)]

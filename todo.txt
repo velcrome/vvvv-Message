@@ -1,0 +1,20 @@
+Features Wanted
+- wasChanged as a solid property of Message, or maybe even Bin (leave a managed breadcrumb of the last sync'ing Keep)
+- autocast from any vl class (and mimick back)
+- dx ressources as valid type in Formular and pintype
+- dynamic object wrapper for a Message's dictionary
+
+Treatments
+- config pin should be private (and hidden)
+
+Renamings
+- AutoSense might be called OnlyUpdateWhenChanged (
+or - AutoSense should be called Force, and polarity reverse (breaking change?!)
+
+- (Formular) category should be resorted, it's messy
+- formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
+
+Girlpower Bugs
+- 101 "Event" should not have binned Foo
+- liveosc some split node tries to retrieve Ableton.Track instead of LiveOSC.Track
+

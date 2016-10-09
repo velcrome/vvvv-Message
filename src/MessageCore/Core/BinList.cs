@@ -15,19 +15,28 @@ namespace VVVV.Packs.Messaging
     [JsonConverter(typeof(JsonBinSerializer))]
     internal class BinList<T> : Bin<T>
     {
-        #region FieldNames
         internal IList<T> Data = new List<T>(1);
 
+        #region Change Management
         /// <summary>Indicates, if a bin has been changed. Will be set to true internally, when the bin was changed</summary>
-        public bool IsDirty { get; set; }
+        public bool IsChanged { get; set; } = true;
 
-        #endregion
+        protected object Sweeper {get; set;}
 
-        public BinList()
+        public bool IsSweeping(object reference = null)
         {
-            IsDirty = true;
+            if (reference == null)
+                return Sweeper != null;
+            else return Sweeper == reference;
         }
- 
+
+        public void Sweep(object reference = null)
+        {
+            Sweeper = reference;
+        }
+
+        #endregion Change Management
+
 
         #region Essentials
         public int Count
@@ -43,7 +52,7 @@ namespace VVVV.Packs.Messaging
                 if (value < list.Count)
                 {
                     list.RemoveRange(value, list.Count - value);
-                    IsDirty = true;
+                    IsChanged = true;
                 }
 
                 // or add
@@ -51,7 +60,7 @@ namespace VVVV.Packs.Messaging
                 {
                     var defaultValue = TypeIdentity.Instance.NewDefault(this.GetInnerType());
                     this.Add(defaultValue);
-                    IsDirty = true;
+                    IsChanged = true;
                 }
             }
         }
@@ -60,7 +69,7 @@ namespace VVVV.Packs.Messaging
         public void Clear()
         {
             Data.Clear();
-            IsDirty = true;
+            IsChanged = true;
         }
 
 
@@ -97,7 +106,7 @@ namespace VVVV.Packs.Messaging
                     this.Add(tmp);
                 else Data[slice] = tmp;
 
-                IsDirty = true;
+                IsChanged = true;
             }
         }
 
@@ -155,7 +164,7 @@ namespace VVVV.Packs.Messaging
                     throw new TypeNotSupportedException(value.GetType() + " is not a supported Type in TypeIdentity.cs");
                 }
                 Data[0] = (T)value; // might not work -> InvalidCastException
-                IsDirty = true;
+                IsChanged = true;
             }
         }
 
@@ -172,7 +181,7 @@ namespace VVVV.Packs.Messaging
                 }
 
                 Data[0] = (T)value; // might not work -> InvalidCastException
-                IsDirty = true;
+                IsChanged = true;
             }
         }
 
@@ -210,7 +219,7 @@ namespace VVVV.Packs.Messaging
                     throw new BinTypeMismatchException("Cannot add (" + val + ") of Type " + val.GetType() + ". It is not convertible to " + this.GetType(), e);
                 }
 
-                IsDirty = true;
+                IsChanged = true;
                 return Count;
             }
 
@@ -229,7 +238,7 @@ namespace VVVV.Packs.Messaging
                         }
                         else Data.Add((T)Convert.ChangeType(o, typeof(T))); // close, but no match. so try to convert.
 
-                        IsDirty = true;
+                        IsChanged = true;
                     }
                     catch (Exception e)
                     {
@@ -396,6 +405,8 @@ namespace VVVV.Packs.Messaging
         {
             return BinFactory.New(this as IEnumerable<T>);
         }
+
+
         #endregion ICloneable Members
     }
     

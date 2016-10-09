@@ -10,11 +10,6 @@ namespace VVVV.Packs.Messaging.Nodes
     {
     }
 
-    [PluginInfo(Name = "Cons", Category = "Message", Version = "Bin", Help = "Cons Messages", Author = "vvvv-sdk")]
-    public class MessageConsNode : Cons<Message>
-    {
-    }
-
     [PluginInfo(Name = "Zip", Category = "Message", Version = "Bin", Help = "Zip Messages", Author = "vvvv-sdk")]
     public class MessageZipBinNode : Zip<IInStream<Message>>
     {

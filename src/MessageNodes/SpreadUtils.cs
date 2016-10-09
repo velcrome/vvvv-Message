@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Packs.Messaging;
 
 namespace VVVV.Utils
 {
@@ -15,13 +16,20 @@ namespace VVVV.Utils
             if (spread == null) return true;
 
             if (spread.SliceCount == 0 || spread[0] == null) return true;
-            else
+            if (spread[0] is ISpread)
             {
-                for (int i = 0; i < spreads.Length; i++)
-                {
-                    if (spreads[i] == null) return true;
-                    if (spreads[i].SliceCount == 0 || spreads[i][0] == null) return true;
-                }
+                if ((spread[0] as ISpread).IsAnyInvalid()) return true;
+
+                //for (int i= 0; i < spread.SliceCount;i++)
+                //{
+                //    if ((spread[i] as ISpread).IsAnyInvalid()) return true;
+                //}
+            }
+
+            for (int i = 0; i < spreads.Length; i++)
+            {
+                if (spreads[i] == null) return true;
+                if (spreads[i].SliceCount == 0 || spreads[i][0] == null) return true;
             }
 
             return false;
@@ -57,7 +65,8 @@ namespace VVVV.Utils
         public static void FlushResult<T>(this ISpread<T> spread, IEnumerable<T> result)
         {
             spread.SliceCount = 0;
-            spread.AssignFrom(result);
+            if (result != null)
+                spread.AssignFrom(result);
             spread.Flush();
         }
 
@@ -77,7 +86,27 @@ namespace VVVV.Utils
 
         #endregion fast flushing
 
+        #region bin access
 
+        public static bool IsAnyInvalid(this Bin bin)
+        {
+            if (bin == null) return true;
+
+            if (bin.Count == 0 || bin[0] == null) return true;
+
+            return false;
+        }
+
+        public static bool IsComparable(this Bin bin)
+        {
+            if (bin == null) return false;
+            if (bin.IsAnyInvalid()) return false;
+
+            if (bin.GetType() is IComparable) return true;
+                else return false;
+        }
+
+        #endregion
 
     }
 }

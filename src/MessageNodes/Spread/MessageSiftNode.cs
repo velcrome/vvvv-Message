@@ -8,26 +8,23 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Sift", Category = "Message.Spread", Help = "Filter Messages", Tags = "Wildcard", Author = "velcrome")]
+    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "string, Wildcard", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageSiftWildCardNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")] 
-        private IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
-        [Input("Filter", DefaultString = "*")] 
-        private IDiffSpread<string> FFilter;
+        [Input("Filter", DefaultString = "*")]
+        protected IDiffSpread<string> FFilter;
 
-        [Output("Output", AutoFlush = false)] 
-        private ISpread<Message> FOutput;
+        [Output("Output", AutoFlush = false)]
+        protected ISpread<Message> FOutput;
 
-        [Output("NotFound", AutoFlush = false)] 
-        private ISpread<Message> FNotFound;
+        [Output("NotFound", AutoFlush = false)]
+        protected ISpread<Message> FNotFound;
 
         [Import()] protected ILogger FLogger;
-
-#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
@@ -71,90 +68,5 @@ namespace VVVV.Packs.Messaging.Nodes
         }
     }
 
-    #region PluginInfo
-    [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "Message", Author = "velcrome")]
-    #endregion PluginInfo
-    public class MessageSiftMessageNode : IPluginEvaluate
-    {
-#pragma warning disable 649, 169
-        [Input("Input")]
-        private IDiffSpread<Message> FInput;
-
-        [Input("Filter")]
-        private IDiffSpread<Message> FFilter;
-
-        [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
-
-        [Output("Former Index", AutoFlush = false)]
-        private ISpread<int> FFormerIndex;
-
-        [Output("Not Found", AutoFlush = false)]
-        private ISpread<Message> FNotFound;
-
-        [Output("Not Found Former Index", AutoFlush = false)]
-        private ISpread<int> FNotFoundFormerIndex;
-
-        [Import()]
-        protected ILogger FLogger;
-
-#pragma warning restore
-
-        public void Evaluate(int SpreadMax)
-        {
-            if (FInput.IsAnyInvalid()) SpreadMax = 0;
-                else SpreadMax = FInput.SliceCount;
-
-            if (SpreadMax == 0)
-            {
-                if (FOutput.SliceCount != 0)
-                {
-                    FOutput.SliceCount = 0;
-                    FOutput.Flush();
-
-                    FFormerIndex.SliceCount = 0;
-                    FFormerIndex.Flush();
-                }
-                if (FNotFound.SliceCount != 0)
-                {
-                    FNotFound.SliceCount = 0;
-                    FNotFound.Flush(); 
-                    FNotFoundFormerIndex.SliceCount = 0;
-                    FNotFoundFormerIndex.Flush();
-                }
-                return;
-            }
-
-            if (!FInput.IsChanged && !FFilter.IsChanged) return;
-
-            FOutput.SliceCount = 0;
-            FFormerIndex.SliceCount = 0;
-
-            FNotFound.SliceCount = 0;
-            FNotFoundFormerIndex.SliceCount = 0;
-
-            for (int i = 0; i < SpreadMax;i++ )
-            {
-                var message = FInput[i];
-                    
-                if (FFilter.Contains(message))
-                {
-                    FOutput.Add(message);
-                    FFormerIndex.Add(i);
-                }
-                else
-                {
-                    FNotFound.Add(message);
-                    FNotFoundFormerIndex.Add(i);
-                }
-            }
-
-            FOutput.Flush();
-            FFormerIndex.Flush();
-            
-            FNotFound.Flush();
-            FNotFoundFormerIndex.Flush();
-
-        }
-    }
+ 
 }

@@ -64,7 +64,6 @@ namespace VVVV.Packs.Messaging.Nodes
             var formular = new MessageFormular(MessageFormular.DYNAMIC, configSpread[0] ?? "string Value");
             if (formular.FieldNames.Count() < 1) return;
 
-
             if (FValue != null)
             {
                 FValue.Dispose();

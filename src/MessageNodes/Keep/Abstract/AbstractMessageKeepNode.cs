@@ -188,7 +188,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
         }
 
-
+        public new void Dispose()
+        {
+            base.Dispose();
+            Keep.Clear();
+        }
 
     }
 }

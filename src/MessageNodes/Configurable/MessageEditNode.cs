@@ -53,6 +53,7 @@ namespace VVVV.Packs.Messaging.Nodes
             if (FInput.IsAnyInvalid())
             {
                 FOutput.FlushNil();
+                if (RemovePinsFirst) RetryConfig();
                 return;
             }
 
@@ -60,7 +61,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             // is any Update slice checked?
             var anyUpdate = FUpdate.Any();
- 
+
             // Flush upstream changes through the plugin
             if (FInput.IsChanged)
             {
@@ -68,7 +69,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 FOutput.AssignFrom(FInput); // push change from upstream if valid
                 doFlush = true;
             }
-            else if (!anyUpdate) return; // if no update and no change, no need to flush! 
+            else if (!anyUpdate)
+            {
+                if (RemovePinsFirst) RetryConfig();
+                return; // if no update and no change, no need to flush! 
+            }
 
             bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
             newData |= !FAutoSense[0]; // assume newData, if AutoSense is off.
@@ -86,9 +91,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (doFlush) FOutput.Flush();
 
-
             if (RemovePinsFirst) RetryConfig();
-
         }
     }
 }

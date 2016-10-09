@@ -1,14 +1,12 @@
-﻿using System.Linq;
-using VVVV.PluginInterfaces.V1;
+﻿using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
-using System.ComponentModel.Composition;
 using System.Collections.Generic;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Hold", Category = "Message.Keep", Help = "Holds the last bunch of Messages that traveled through. Pick some or all.",
+    [PluginInfo(Name = "HoldKeep", Category = "Message", Help = "Holds the last bunch of Messages that traveled through. Pick some or all.",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageKeepHoldNode : AbstractMessageKeepNode
@@ -19,15 +17,11 @@ namespace VVVV.Packs.Messaging.Nodes
             Index
         }
 
-#pragma warning disable 649, 169
-
         [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)]
-        IDiffSpread<HoldEnum> FHold;
+        protected IDiffSpread<HoldEnum> FHold;
 
         [Input("Index", Order = int.MaxValue)]
-        IDiffSpread<int> FIndex;
-
-#pragma warning restore
+        protected IDiffSpread<int> FIndex;
 
         public override void Evaluate(int SpreadMax)
         {

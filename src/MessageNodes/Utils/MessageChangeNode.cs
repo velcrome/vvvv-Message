@@ -10,7 +10,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public enum FlowControlEnum { Block, Default, Inspect, Force };
 
     #region PluginInfo
-    [PluginInfo(Name = "Change", Category = "Message.Spread", Help = "Detects and handles upstream changes and forwards them downstream.",
+    [PluginInfo(Name = "Change", Category = "Message", Help = "Detects and handles upstream changes and forwards them downstream.",
         Author = "velcrome")]
     #endregion PluginInfo
     public class MessageChangeNode : IPluginEvaluate

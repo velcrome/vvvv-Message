@@ -77,12 +77,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (value == null) throw new ArgumentNullException("Formular cannot be null in " + GetType().Name + " at " + PluginHost.GetNodePath(false));
 
                 var newConfig = value.Configuration;
-                if (FConfig[0] != newConfig)
+                if (FConfig[0] != newConfig) // order does matter, as do binsizes
                 {
                     WatchConfig(false);
                     FConfig[0] = newConfig;
                     WatchConfig(true);
                 }
+
                 if (FormularUpdate != null) FormularUpdate(this, value); // raise event before actual update
 
                 _formular = value;

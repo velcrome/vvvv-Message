@@ -38,6 +38,7 @@ namespace VVVV.Packs.Messaging {
 
         private string _topic;
         private bool _internalChange = false;
+        private object _lastCommit = null;
 
         /// <summary>The topic is a brief identifier of the Message. It can be used to sift or sort Messages quickly.</summary>
         /// <remarks>A topic is best used with a dot-separated Namespace (e.g. MyCompany.Project.Input.Touch)
@@ -233,7 +234,7 @@ namespace VVVV.Packs.Messaging {
                 if (!newName.IsValidFieldName()) throw new ParseFormularException("Invalid fieldname: \"" + newName+"\".");
 
                 Data[newName] = bin;
-                bin.IsDirty = true;
+                bin.IsChanged = true;
 
                 Remove(fieldName);
             }
@@ -267,42 +268,49 @@ namespace VVVV.Packs.Messaging {
         #region Matching
 
         /// <summary>Attempts to conjoin data from another message.</summary>
-        /// <param name="message">The message whose data should be injected.</param>
+        /// <param name="modifier">The message whose data should be injected.</param>
         /// <param name="deepInspection">Flag, whether Fields should be compared for actual change before insertion.</param>
         /// <remarks>The message will update its Topic too, if different.</remarks>
         /// <exception cref="ArgumentNullException">This exception is thrown if message is null.</exception>
         /// <exception cref="InvalidCastException">This exception is thrown if a value is added to a bin that cannot be cast to the bin's type.</exception>
-        public void InjectWith(Message message, bool deepInspection)
+        public bool InjectWith(Message modifier, bool deepInspection)
         {
-            if (message == null) throw new ArgumentNullException("Cannot Inject a null Message.");
+            if (modifier == null) throw new ArgumentNullException("Cannot Inject a null Message.");
 
-            if (this.Equals(message)) return; // nothing to do
+            if (this.Equals(modifier)) return false; // nothing to do
 
-            if (Topic != message.Topic) Topic = message.Topic; // update Topic only if different
+            if (Topic != modifier.Topic) Topic = modifier.Topic; // update Topic only if different
 
-            var fieldNames = message.Fields;
+            var fieldNames = modifier.Fields;
 
-//            bool allowNewFields = true;
-//            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
+            //            bool allowNewFields = true;
+            //            if (!allowNewFields) fieldNames = fieldNames.Intersect(this.Fields);
 
+            var changed = false;
             foreach (var name in fieldNames)
             {
-                var bin = message[name];
+                var bin = modifier[name];
 
                 if (!this.Fields.Contains(name))
                 {
                     this.AssignFrom(name, bin); // new bin
+                    changed = true;
                 }
                 else
                 {
-                    if (!deepInspection || !this[name].Equals(message[name]))  // inject only if it brings new data
-                            this[name].AssignFrom(message.Data[name]); // autocast.
+                    if (!deepInspection || !this[name].Equals(modifier[name]))  // inject only if it brings new data
+                    {
+                        this[name].AssignFrom(modifier.Data[name]); // autocast.
+                        changed = true;
+                    }
                 }
             }
+            return changed;
         }
         #endregion
 
         #region Change Management
+
         /// <summary>Indicates, if any Field or the topic has been changed since the last Sync.</summary>
         /// <returns>true, if the Message has Changed</returns>        
         /// <remarks></remarks>
@@ -310,34 +318,55 @@ namespace VVVV.Packs.Messaging {
         {
             // check all bins, if at least one has changed since the last Sync.
             get {
-                return _internalChange || Data.Values.Any(bin => bin.IsDirty);
+                return _internalChange || Data.Values.Any(bin => bin.IsChanged);
             }
             
             // reset all bins, if IsChanged is forced to false.
             internal set {
-                if (!value)
+                if (!value) // false forces deflagging
                 {
                     foreach (var bin in Data.Values)
-                        if (bin.IsDirty) bin.IsDirty = false;
-                    _internalChange = value;
+                    {
+                        if (bin.IsChanged) bin.IsChanged = false;
+                    }
                 }
+                _internalChange = value;
             }
         }
 
+        public bool HasRecentCommit()
+        {
+            return Data.Values.Any(bin => bin.IsSweeping() || _lastCommit != null) ;
+        }
 
-        /// <summary>Sets the IsChanged flag to false, and publishes any changes. The timestamp will be updated to Now.</summary>
+        /// <summary>Sets the IsChanged flag to false, and publishes any changes. </summary>
         /// <returns>true only if the Message had been changed.</returns>
-        public bool Sync()
+        /// <remarks>
+        /// The timestamp will be updated to Now.
+        /// In case IsChanged was true, the message will be swept until the next Commit with this reference
+        /// </remarks>
+        public bool Commit(object reference)
         {
             var changedFields = new List<string>();
             foreach (var field in Fields)
             {
-                if (Data[field].IsDirty)
+                var bin = Data[field];
+                if (bin.IsChanged)
                 {
                     changedFields.Add(field);
-                    Data[field].IsDirty = false;
+                    bin.IsChanged = false;
+                    bin.Sweep(reference); // start sweeping
+                } else
+                {
+                    if (bin.IsSweeping(this)) bin.Sweep(); // done sweeping
                 }
             }
+
+            if (_internalChange)
+            {
+                _lastCommit = reference;
+            }
+            else if (_lastCommit == reference) _lastCommit = null;
             
             if (changedFields.Count > 0 || _internalChange)
             {
