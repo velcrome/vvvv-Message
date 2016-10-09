@@ -29,7 +29,13 @@ namespace VVVV.Packs.Messaging.Nodes
         protected override void FillEnum(IEnumerable<string> fields)
         {
             var special = new string[] { "Topic", "TimeStamp" };
-            var enums = special.Concat(fields).ToArray();
+            var comparable = from fieldName in fields
+                             where !FFormularSelection.IsAnyInvalid()
+                             let type = MessageFormularRegistry.Context[FFormularSelection[0].Name][fieldName].Type 
+                             where type.IsPrimitive || type is IComparable
+                             select fieldName;
+
+            var enums = special.Concat(comparable).ToArray();
             EnumManager.UpdateEnum(EnumName, enums.First(), enums);
         }
 
@@ -77,8 +83,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         break;
                     default:
                         deleg = message => 
-                                message[fieldName].IsAnyInvalid() 
-                            || !message[fieldName].IsComparable() ? 1 // noop, when not possible
+                                message[fieldName].IsAnyInvalid() ? 1 // noop, when not possible
                              :  message[fieldName][0];
                         break;
                 }
