@@ -251,7 +251,7 @@ namespace VVVV.Packs.Messaging.Nodes
             int counter = 0;
             foreach (var name in newFormular.FieldNames)
             {
-                if (FPins[name] != null)
+                if (FPins.ContainsKey(name) && FPins[name] != null)
                     FPins[name].GetPluginIO().Order = counter * 2 + 5;
             }
         }

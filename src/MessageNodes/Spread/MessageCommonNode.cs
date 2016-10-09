@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
@@ -7,7 +8,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Common", Category = "Message", Help = "Find identical Messages in two spreads", Tags = "Message", Author = "velcrome", Ignore = true)]
+    [PluginInfo(Name = "SiftCommon", Category = "Message", Help = "Find identical Messages in two spreads", Tags = "Message", Author = "velcrome", Ignore = true)]
     #endregion PluginInfo
     public class MessageSiftMessageNode : IPluginEvaluate
     {

@@ -16,13 +16,20 @@ namespace VVVV.Utils
             if (spread == null) return true;
 
             if (spread.SliceCount == 0 || spread[0] == null) return true;
-            else
+            if (spread[0] is ISpread)
             {
-                for (int i = 0; i < spreads.Length; i++)
-                {
-                    if (spreads[i] == null) return true;
-                    if (spreads[i].SliceCount == 0 || spreads[i][0] == null) return true;
-                }
+                if ((spread[0] as ISpread).IsAnyInvalid()) return true;
+
+                //for (int i= 0; i < spread.SliceCount;i++)
+                //{
+                //    if ((spread[i] as ISpread).IsAnyInvalid()) return true;
+                //}
+            }
+
+            for (int i = 0; i < spreads.Length; i++)
+            {
+                if (spreads[i] == null) return true;
+                if (spreads[i].SliceCount == 0 || spreads[i][0] == null) return true;
             }
 
             return false;
@@ -89,6 +96,16 @@ namespace VVVV.Utils
 
             return false;
         }
+
+        public static bool IsComparable(this Bin bin)
+        {
+            if (bin == null) return false;
+            if (bin.IsAnyInvalid()) return false;
+
+            if (bin.GetType() is IComparable) return true;
+                else return false;
+        }
+
         #endregion
 
     }

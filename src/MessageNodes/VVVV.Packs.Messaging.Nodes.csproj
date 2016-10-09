@@ -81,7 +81,7 @@
     <Compile Include="Configurable\WinForms\FormularLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Keep\MessageKeepCreateNode.cs" />
+    <Compile Include="Keep\MessageKeepConfigNode.cs" />
     <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs" />
     <Compile Include="GenericNodes.cs" />
     <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
@@ -89,11 +89,12 @@
     <Compile Include="Configurable\MessageAvoidNilNode.cs" />
     <Compile Include="Serializing\MsgPackNodes.cs" />
     <Compile Include="SpreadUtils.cs" />
+    <Compile Include="Spread\MessageCommonNode.cs" />
     <Compile Include="Spread\MessageInjectNode.cs" />
-    <Compile Include="Spread\SortByFieldNode.cs" />
+    <Compile Include="Spread\MessageSortByFieldNode.cs" />
     <Compile Include="Utils\MessageGetSlice.cs" />
     <Compile Include="Utils\MessageCloneNode.cs" />
-    <Compile Include="Spread\MessageMergeNode.cs" />
+    <Compile Include="Spread\MessageConsNode.cs" />
     <Compile Include="Utils\MessageChangeNode.cs" />
     <Compile Include="Utils\Fields\MessageContainsFieldNode.cs" />
     <Compile Include="Utils\MessageFrameDelayNode.cs" />

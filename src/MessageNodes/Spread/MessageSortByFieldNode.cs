@@ -7,22 +7,24 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Sort", Category = "Message Formular", Help = "Sort Messages by a field", Tags = "", Author = "velcrome")]
+    [PluginInfo(Name = "Sort", Category = "Message", Version="Formular", Help = "Sort Messages by a field", Tags = "By Field", Warnings = "BinSizing Keys is ignored", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageSortByFieldNode : AbstractFieldSelectionNode
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Descending", IsToggle = true)]
-        private IDiffSpread<bool> FDescending;
+        protected IDiffSpread<bool> FDescending;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
-
-#pragma warning restore
+        public override void OnImportsSatisfied()
+        {
+            base.OnImportsSatisfied();
+            FillEnum(Enumerable.Empty<string>());
+        }
 
         protected override void FillEnum(IEnumerable<string> fields)
         {
@@ -44,16 +46,23 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (!FInput.IsChanged && !FUseFields.IsChanged && !FDescending.IsChanged) return;
 
-            ISpread<EnumEntry> fieldNames = FUseFields[0]; // weird access
-            if (fieldNames.IsAnyInvalid())
+            if (FUseFields.IsAnyInvalid())
             {
                 FOutput.FlushResult(FInput);
                 return;
             }
 
-             IOrderedEnumerable<Message> ordered = FInput.OrderBy(message => 1); // noop sort
+            // flatten, to ignore binsize. optimize potential!
+            List<EnumEntry> fieldNames = new List<EnumEntry>();
+            foreach (var bin in FUseFields)
+            {
+                foreach (var entry in bin)
+                    if (entry != null && !fieldNames.Contains(entry)) fieldNames.Add(entry);
+            }
 
-            for (int i = 0; i < fieldNames.SliceCount; i++)
+            IOrderedEnumerable<Message> ordered = FInput.OrderBy(message => 1); // noop sort
+
+            for (int i = 0; i < fieldNames.Count; i++)
             {
                 var fieldName = fieldNames[i].Name;
                 Func<Message, object> deleg;
@@ -67,7 +76,10 @@ namespace VVVV.Packs.Messaging.Nodes
                         deleg = message => message.TimeStamp.UniversalTime;
                         break;
                     default:
-                        deleg = message => message[fieldName].IsAnyInvalid() ? 1: message[fieldName][0];
+                        deleg = message => 
+                                message[fieldName].IsAnyInvalid() 
+                            || !message[fieldName].IsComparable() ? 1 // noop, when not possible
+                             :  message[fieldName][0];
                         break;
                 }
 

@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             EnumName = "Enum_" + this.GetHashCode().ToString();
 
-            EnumManager.UpdateEnum(EnumName, entries.First(), entries.ToArray());
+            FillEnum(entries);
 
             var attr = new InputAttribute(pinName);
             attr.Order = 2;
@@ -40,6 +40,7 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.EnumName = EnumName;
 
             Type pinType = typeof(ISpread<ISpread<EnumEntry>>);
+
             var pin = FIOFactory.CreateIOContainer(pinType, attr);
             FUseFields = (ISpread<ISpread<EnumEntry>>)(pin.RawIOObject);
         }
