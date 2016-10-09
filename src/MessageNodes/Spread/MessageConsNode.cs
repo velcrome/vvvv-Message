@@ -9,10 +9,10 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Cons", Category = "Message.Spread", Help = "Removes redundancy and null",
+    [PluginInfo(Name = "Cons", Category = "Message", Help = "Removes redundancy and null",
         Tags = "velcrome")]
     #endregion PluginInfo
-    public class MessageMergeNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public class MessageConsNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
 #pragma warning disable 649, 169
         public Spread<IIOContainer<ISpread<Message>>> FInputs = new Spread<IIOContainer<ISpread<Message>>>();

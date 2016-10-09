@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Hold", Category = "Message.Keep", Help = "Holds the last bunch of Messages that traveled through. Pick some or all.",
+    [PluginInfo(Name = "HoldKeep", Category = "Message", Help = "Holds the last bunch of Messages that traveled through. Pick some or all.",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageKeepHoldNode : AbstractMessageKeepNode

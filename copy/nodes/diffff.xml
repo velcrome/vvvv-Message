@@ -46,11 +46,15 @@
 	  
 -->
 <CONVVVVERTER>
-  <!--PATCH version="0.1.0">
-    <NODE old="Foo (Test)" new="Bar (Test)"> </NODE>
+  <PATCH version="2.6.0">
+    <NODE old="Merge (Message.Spread)" new="Cons (Message)"> </NODE>
+    <NODE old="Sift (Message.Spread)" new="Sift (Message)"> </NODE>
+    <NODE old="Sift (Message)" new="Common (Message)"> </NODE>
+    <NODE old="Create (Message.Keep)" new="ConfigKeep (Message)"> </NODE>
+    <NODE old="Hold (Message.Keep)" new="HoldKeep (Message)"> </NODE>
+    <NODE old="Safe (Message.Keep)" new="SafeKeep (Message)"> </NODE>
+    <NODE old="Session (Message.Keep)" new="SessionKeep (Message)"> </NODE>
+    <NODE old="Change (Message.Spread)" new="Change (Message)"> </NODE>
   </PATCH>
-  <PATCH version="0.2.0">
-    <NODE old="Bar (Test)" new="Charlie (Test)"> </NODE>
-  </PATCH-->
 </CONVVVVERTER>
 

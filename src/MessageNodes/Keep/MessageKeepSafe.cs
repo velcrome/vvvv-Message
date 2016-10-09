@@ -4,8 +4,8 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Safe",
-        Category = "Message.Keep",
+    [PluginInfo(Name = "SafeKeep",
+        Category = "Message",
 //        Version = "",
         AutoEvaluate = true,
         Help = "Stores Messages according to their address and keeps them updated",

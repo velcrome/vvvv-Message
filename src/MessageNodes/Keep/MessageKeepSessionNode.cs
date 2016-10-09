@@ -10,8 +10,8 @@ using VVVV.Packs.Messaging;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Session",
-        Category = "Message.Keep",
+    [PluginInfo(Name = "SessionKeep",
+        Category = "Message",
         Version = "Typeable", 
         AutoEvaluate = true,
         Help = "Stores Messages according to their id (which can be its Topic and/or specific fields) and removes them, if no change was detected for a certain time",
