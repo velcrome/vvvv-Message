@@ -9,14 +9,10 @@ Treatments
 
 Renamings
 - AutoSense might be called OnlyUpdateWhenChanged (
-- AutoSense should be called Force, and polarity reverse (breaking change?!)
+or - AutoSense should be called Force, and polarity reverse (breaking change?!)
 
-- All dedicated keeps should say so in their name: SafeKeep, SessionKeep, HoldKeep
-- Create (Keep) -> ConfigKeep
 - (Formular) category should be resorted, it's messy
 - formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
-- "Message.Spread" -> "Message" (Sift, ..)
-
 
 Girlpower Bugs
 - 101 "Event" should not have binned Foo

@@ -157,7 +157,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 // [Import]s not yet ready. try another time.
                 // its safe to assume that no pins have been created yet.
-                FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node.");
+                FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node");
                 return false; 
             }
             catch (Exception)
@@ -245,14 +245,20 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins.Remove(name);
             }
 
-            // reorder - does not work right now, sdk offers only read-only access
-            //var names = Formular.FieldNames.ToArray();
+            // reorder - experimental
+            var names = from name in Formular.FieldNames
+                        where Formular[name].IsRequired
+                        select name;
 
             int counter = 0;
-            foreach (var name in newFormular.FieldNames)
+            foreach (var name in names)
             {
                 if (FPins.ContainsKey(name) && FPins[name] != null)
+                {
                     FPins[name].GetPluginIO().Order = counter * 2 + 5;
+                    FPins[name].AssociatedContainers.First().GetPluginIO().Order = counter * 2 + 6;
+                    counter++;
+                }
             }
         }
 
