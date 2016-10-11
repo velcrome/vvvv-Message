@@ -311,7 +311,7 @@ namespace VVVV.Packs.Messaging {
 
         #region Change Management
 
-        /// <summary>Indicates, if any Field or the topic has been changed since the last Sync.</summary>
+        /// <summary>Indicates, if any Field or the topic has been changed since the last Commit.</summary>
         /// <returns>true, if the Message has Changed</returns>        
         /// <remarks></remarks>
         public bool IsChanged
@@ -362,12 +362,7 @@ namespace VVVV.Packs.Messaging {
                 }
             }
 
-            if (_internalChange)
-            {
-                _lastCommit = reference;
-            }
-            else if (_lastCommit == reference) _lastCommit = null;
-            
+
             if (changedFields.Count > 0 || _internalChange)
             {
                 TimeStamp = Time.CurrentTime(); // timestamp always shows last Synced Change.
@@ -380,18 +375,22 @@ namespace VVVV.Packs.Messaging {
                     foreach (var field in changedFields)
                         changedMessage.Data[field] = Data[field].Clone() as Bin;  // deep clone
 
-                    ChangedWithDetails(this, changedMessage); // inform all subscribers of this particular Message
+                    ChangedWithDetails(this, changedMessage); // inform all subscribers with detailed interest for this particular Message
                 }
-
-                if (Changed != null) // for all subscribers with only superficial interest.
-                {
-                    Changed(this);
-                }
+                Changed?.Invoke(this); // inform all subscribers with minor interest
 
                 _internalChange = false;
-                return true;
+
+                _lastCommit = reference; // mark this as the last Committer
+                return true; // hasChanged
             }
-            else return false;
+            else
+            {
+                // no change this time, so give it a rest...
+                if (_lastCommit == reference) //  so if reference was last Committer...
+                    _lastCommit = null; // give it a rest
+                return false; // !hasChanged
+            }
         }
 
 
