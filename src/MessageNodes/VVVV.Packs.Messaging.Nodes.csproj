@@ -54,7 +54,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Core.34.103.0-develop-1598\lib\net46\VVVV.Core.dll</HintPath>
+      <HintPath>..\packages\VVVV.Core.34.105.0-develop-1755\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -62,7 +62,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Utils.34.103.0-develop-1598\lib\net46\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.34.105.0-develop-1755\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -138,13 +138,13 @@
     <Microsoft.Build.Tasks.Copy SourceFiles="@(MyFiles)" DestinationFiles="@(MyFiles->'..\..\build\$(Platform)\$(Configuration)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.103.0-develop-1598\build\net46\VVVV.PluginInterfaces.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.34.105.0-develop-1755\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.34.105.0-develop-1755\build\net46\VVVV.PluginInterfaces.targets'))" />
   </Target>
   <Import Project="..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.34.103.0-develop-1598\build\net46\VVVV.Nodes.Generic.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.34.105.0-develop-1755\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.105.0-develop-1755\build\net46\VVVV.PluginInterfaces.targets')" />
 </Project>
