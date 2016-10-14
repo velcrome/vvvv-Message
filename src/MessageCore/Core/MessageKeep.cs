@@ -176,7 +176,7 @@ namespace VVVV.Packs.Messaging
 
         public void Clear()
         {
-            foreach (var message in Messages)
+            foreach (var message in Messages.ToArray())
             {
                 Remove(message);
             }

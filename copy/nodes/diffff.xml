@@ -56,6 +56,10 @@
     <NODE old="Session (Message.Keep)" new="SessionKeep (Message)"> </NODE>
     <NODE old="Change (Message.Spread)" new="Change (Message)"> </NODE>
     <NODE old="Sort (Message Formular)" new="Sort (Message)"> </NODE>
+    <NODE old="Default (Message Formular)" new="Default (Message)"> 
+	<PIN old="Spread Count Per Formular" new="Spread Count">
+	</PIN>
+    </NODE>
   </PATCH>
 </CONVVVVERTER>
 

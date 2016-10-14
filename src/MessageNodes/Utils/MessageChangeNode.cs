@@ -7,27 +7,37 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public enum FlowControlEnum { Block, Default, Inspect, Force };
+    public enum FlowControlEnum{
+        Default,
+        Inspect,
+        SinceLastFrame,
+        Block,
+        Force
+    };
 
     #region PluginInfo
-    [PluginInfo(Name = "Change", Category = "Message", Help = "Detects and handles upstream changes and forwards them downstream.",
+    [PluginInfo(Name = "Change", Category = "Message", Tags = "Flow", Help = "Detects and handles upstream changes and forwards them downstream.",
         Author = "velcrome")]
     #endregion PluginInfo
     public class MessageChangeNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Update", IsSingle=true, DefaultEnumEntry = "Default")]
-        private IDiffSpread<FlowControlEnum> FFlowControl;
-        
-        [Output("Change")]
-        private ISpread<bool> FChange;
+        protected IDiffSpread<FlowControlEnum> FFlowControl;
+
+        [Input("Filter", IsToggle = true, IsSingle = true, DefaultBoolean = true)]
+        protected ISpread<bool> FFilter;
+
+        [Input("Force", IsSingle =true, IsBang = true)]
+        protected ISpread<bool> FForce;
+
+        [Output("Change", IsBang = true, AutoFlush = false)]
+        protected ISpread<bool> FChange;
         
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
-
+        protected ISpread<Message> FOutput;
 
         [Import()]
         protected ILogger FLogger;
@@ -38,34 +48,49 @@ namespace VVVV.Packs.Messaging.Nodes
             var flow = FFlowControl[0];
             FChange.SliceCount = 0;
 
+            if (FForce[0]) flow = FlowControlEnum.Force;
+
             switch (flow)
             {
-                case FlowControlEnum.Block:
-                    FChange.AssignFrom(Enumerable.Repeat(false, 1));
-                    break;
                 case FlowControlEnum.Default:
                     if (FInput.IsChanged && !FInput.IsAnyInvalid())
                     {
                         FOutput.FlushResult(FInput);
-                        FChange.AssignFrom(Enumerable.Repeat(true, 1));
+                        FChange.FlushBool(true);
                     }
-                    else FChange.AssignFrom(Enumerable.Repeat(false, 1));
+                    else FChange.FlushBool(false);
                     break;
                 case FlowControlEnum.Inspect:
                     var change = FInput.Select(message => message.IsChanged);
                     if (FInput.IsChanged || change.Any())
                     {
-                        FOutput.FlushResult(FInput);
-                        FChange.AssignFrom(change);
+                        if (FFilter[0])
+                            FOutput.FlushResult(FInput.Where(message => message.IsChanged));
+                            else FOutput.FlushResult(FInput);
+                        FChange.FlushResult(change);
                     }
-                    else FChange.AssignFrom(Enumerable.Repeat(false, 1));
+                    else FChange.FlushBool(false);
+                    break;
+                case FlowControlEnum.SinceLastFrame:
+                    var changed = FInput.Select(message => message.HasRecentCommit());
+                    if (FInput.IsChanged || changed.Any())
+                    {
+                        if (FFilter[0])
+                            FOutput.FlushResult(FInput.Where(message => message.HasRecentCommit()));
+                        else FOutput.FlushResult(FInput);
+                        FChange.FlushResult(changed);
+                    }
+                    else FChange.FlushBool(false);
+                    break;
+                case FlowControlEnum.Block:
+                    FChange.FlushBool(false);
                     break;
                 case FlowControlEnum.Force: 
                     FOutput.FlushResult(FInput);
-                    FChange.AssignFrom(Enumerable.Repeat(true, 1));
+                    FChange.FlushBool(true);
                     break;
-                default: 
-                    FChange.AssignFrom(Enumerable.Repeat(false, 1)); 
+                default: // all bases covered
+                    FChange.FlushBool(false);
                     break;
             }
         }

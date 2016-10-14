@@ -49,9 +49,9 @@ namespace VVVV.Packs.Messaging
             {
                 var match = (
                                 from nodeId in Data.Keys
-                                from field in Data[nodeId]
-                                where field.Name == formularName
-                                select field
+                                from formular in Data[nodeId]
+                                where formular.Name == formularName
+                                select formular
                             ).FirstOrDefault();
                 return match;
             }

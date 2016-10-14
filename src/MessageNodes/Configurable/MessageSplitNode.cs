@@ -4,13 +4,12 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
-using System;
 
 #endregion usings
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-
+    using Time = VVVV.Packs.Time.Time;
 
     #region PluginInfo
 
@@ -21,17 +20,14 @@ namespace VVVV.Packs.Messaging.Nodes
 
     public class MessageSplitNode : TypeablePinsNode
     {
-#pragma warning disable 649, 169
         [Input("Input", Order = 0)]
-        IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
-        [Output("Topic", AutoFlush = false)]
-        ISpread<string> FTopic;
+        [Output("Topic", AutoFlush = false, Visibility = PinVisibility.Hidden, Order = 1)]
+        protected ISpread<string> FTopic;
 
-        [Output("Timestamp", AutoFlush = false)] 
-        ISpread<Time.Time> FTimeStamp;
-
-#pragma warning restore
+        [Output("Timestamp", AutoFlush = false, Visibility = PinVisibility.OnlyInspector, Order = 2)] 
+        protected ISpread<Time> FTimeStamp;
 
         protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
         {
@@ -47,14 +43,19 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void Evaluate(int SpreadMax)
         {
             bool warnPinSafety = false;
-            if (RemovePinsFirst) warnPinSafety = !RetryConfig();
+            bool layoutChanged = false;
+            if (RemovePinsFirst)
+            {
+                layoutChanged = RetryConfig();
+                warnPinSafety = !layoutChanged;
+            }
 
             // quit early. this will keep the last valid output until situation is resolved
             if (warnPinSafety)
                 throw new PinConnectionException("Manually remove unneeded links first! [Split]. ID = [" + PluginHost.GetNodePath(false) + "]");
 
 
-            if (!FInput.IsChanged)
+            if (!FInput.IsChanged || layoutChanged)
             {
                 return;
             }

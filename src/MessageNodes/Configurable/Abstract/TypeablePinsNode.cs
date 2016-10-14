@@ -159,7 +159,7 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 // [Import]s not yet ready. try another time.
                 // its safe to assume that no pins have been created yet.
-                FLogger.Log(LogType.Error, "Failed to protect a " + this.GetType().Name + " node");
+                FLogger.Log(LogType.Warning, "Not fully initialized [" + this.GetType().Name + "].");
                 return false; 
             }
             catch (Exception)
