@@ -55,7 +55,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 throw new PinConnectionException("Manually remove unneeded links first! [Split]. ID = [" + PluginHost.GetNodePath(false) + "]");
 
 
-            if (!FInput.IsChanged || layoutChanged)
+            if (!FInput.IsChanged && !layoutChanged)
             {
                 return;
             }

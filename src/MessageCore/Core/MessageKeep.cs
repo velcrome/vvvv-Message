@@ -240,7 +240,8 @@ namespace VVVV.Packs.Messaging
         {
             get
             {
-                return Messages[index];
+                if (Count == 0) return null;
+                else return Messages[index];
             }
             set
             {

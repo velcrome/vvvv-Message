@@ -1,5 +1,6 @@
 ﻿using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Utils.VMath;
 using VVVV.Utils;
 using System.Collections.Generic;
 
@@ -55,7 +56,10 @@ namespace VVVV.Packs.Messaging.Nodes
                         {
                             FOutput.SliceCount = FIndex.SliceCount;
                             for (int i = 0; i < FIndex.SliceCount;i++ )
-                                FOutput[i] = Keep[FIndex[i] % Keep.Count];
+                            {
+                                var index = VMath.Zmod(FIndex[i], Keep.Count);
+                                FOutput[i] = Keep[index];
+                            }
                         }
                         break;
                 }

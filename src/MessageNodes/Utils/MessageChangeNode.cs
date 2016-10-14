@@ -61,6 +61,12 @@ namespace VVVV.Packs.Messaging.Nodes
                     else FChange.FlushBool(false);
                     break;
                 case FlowControlEnum.Inspect:
+                    if (FInput.IsAnyInvalid())
+                    {
+                        FChange.FlushBool(false);
+                        break;
+                    }
+
                     var change = FInput.Select(message => message.IsChanged);
                     if (FInput.IsChanged || change.Any())
                     {
@@ -72,6 +78,12 @@ namespace VVVV.Packs.Messaging.Nodes
                     else FChange.FlushBool(false);
                     break;
                 case FlowControlEnum.SinceLastFrame:
+                    if (FInput.IsAnyInvalid())
+                    {
+                        FChange.FlushBool(false);
+                        break;
+                    }
+
                     var changed = FInput.Select(message => message.HasRecentCommit());
                     if (FInput.IsChanged || changed.Any())
                     {

@@ -154,10 +154,9 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (!Keep.QuickMode && FChangeOut.SliceCount != 0)
                 {
-                    FChangeOut.SliceCount = 0;
-                    FChangeOut.Flush();
-                    FChangeIndexOut.SliceCount = 0;
-                    FChangeIndexOut.Flush();
+                    FChangeOut.FlushNil();
+                    FChangeIndexOut.FlushNil();
+                    FCountOut.FlushInt(Keep.Count);
                 }
 
                 return false;
@@ -172,13 +171,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 IEnumerable<int> indexes;
                 var changes = Keep.Sync(out indexes);
 
-                FChangeIndexOut.SliceCount = 0;
-                FChangeIndexOut.AssignFrom(indexes);
-                FChangeIndexOut.Flush();
-
-                FChangeOut.SliceCount = 0;
-                FChangeOut.AssignFrom(changes);
-                FChangeOut.Flush();
+                FChangeIndexOut.FlushResult(indexes);
+                FChangeOut.FlushResult(changes);
             }
 
             FOutput.FlushResult(Keep);
