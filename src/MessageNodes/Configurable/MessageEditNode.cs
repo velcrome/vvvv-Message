@@ -50,10 +50,15 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            bool warnPinSafety = false;
+            if (RemovePinsFirst) warnPinSafety = RetryConfig();
+
             if (FInput.IsAnyInvalid())
             {
                 FOutput.FlushNil();
-                if (RemovePinsFirst) RetryConfig();
+
+                if (warnPinSafety)
+                    throw new PinConnectionException("Manually remove unneeded links first! [Edit]. ID = [" + PluginHost.GetNodePath(false) + "]");
                 return;
             }
 
@@ -71,7 +76,9 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else if (!anyUpdate)
             {
-                if (RemovePinsFirst) RetryConfig();
+                if (warnPinSafety)
+                    throw new PinConnectionException("Manually remove unneeded links first! [Edit]. ID = [" + PluginHost.GetNodePath(false) + "]");
+
                 return; // if no update and no change, no need to flush! 
             }
 
@@ -91,7 +98,10 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (doFlush) FOutput.Flush();
 
-            if (RemovePinsFirst) RetryConfig();
+            if (warnPinSafety)
+                throw new PinConnectionException("Manually remove unneeded links first! [Edit]. ID = [" + PluginHost.GetNodePath(false) + "]");
+
+
         }
     }
 }

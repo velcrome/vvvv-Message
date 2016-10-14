@@ -25,6 +25,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected FormularLayoutPanel LayoutPanel = new FormularLayoutPanel();
 
+
         #endregion fields & pins
 
         #region Initialisation
@@ -129,16 +130,17 @@ namespace VVVV.Packs.Messaging.Nodes
             return pin;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>successful pin manipulation</returns>
         protected bool RetryConfig()
         {
             if (RemovePinsFirst)
             {
                 TryDefinePins(this, Formular);
             }
-
-            if (RemovePinsFirst)
-                throw new PinConnectionException("Manually remove unneeded links first!");
-            else return true;
+            return !RemovePinsFirst;
         }
 
         protected bool HasLink(IIOContainer pinContainer)

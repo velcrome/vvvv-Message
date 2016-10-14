@@ -40,10 +40,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            bool warnPinSafety = false;
+            if (RemovePinsFirst) warnPinSafety = !RetryConfig();
+
             if (!FNew.Any()) // if none true
             {
                 FOutput.FlushNil();
-                if (RemovePinsFirst) RetryConfig();
+
                 return;
             }
 
@@ -76,7 +79,9 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             FOutput.Flush();
 
-            if (RemovePinsFirst) RetryConfig();
+            if (warnPinSafety)
+                throw new PinConnectionException("Manually remove unneeded links first! [Create]. ID = [" + PluginHost.GetNodePath(false) + "]");
+
         }
 
 

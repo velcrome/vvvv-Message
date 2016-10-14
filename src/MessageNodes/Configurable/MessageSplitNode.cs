@@ -46,9 +46,18 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (RemovePinsFirst) RetryConfig();
+            bool warnPinSafety = false;
+            if (RemovePinsFirst) warnPinSafety = !RetryConfig();
 
-            if (!FInput.IsChanged) return;
+            // quit early. this will keep the last valid output until situation is resolved
+            if (warnPinSafety)
+                throw new PinConnectionException("Manually remove unneeded links first! [Split]. ID = [" + PluginHost.GetNodePath(false) + "]");
+
+
+            if (!FInput.IsChanged)
+            {
+                return;
+            }
             
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             if (SpreadMax <= 0)
@@ -112,9 +121,6 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FPins[name].ToISpread().Flush();
             }
-
-
-
         }
 
     }

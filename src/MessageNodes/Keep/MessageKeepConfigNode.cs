@@ -87,10 +87,10 @@ namespace VVVV.Packs.Messaging.Nodes
             else
             {
                 IEnumerable<Message> changes;
-                IEnumerable<int> indexes;
-                changes = Keep.Sync(out indexes);
+                IEnumerable<int> indices;
+                changes = Keep.Sync(out indices);
 
-                FChangeIndexOut.FlushResult(indexes);
+                FChangeIndexOut.FlushResult(indices);
                 FChangeOut.FlushResult(changes);
             }
 
@@ -100,15 +100,16 @@ namespace VVVV.Packs.Messaging.Nodes
             return true;
         }
 
-
-
         protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {
-            var attr = new InputAttribute(field.Name); 
+            var attr = new InputAttribute(field.Name);
+
             attr.BinVisibility = PinVisibility.Hidden;
             attr.BinSize = field.DefaultSize;
+
             attr.Order = DynPinCount;
             attr.BinOrder = DynPinCount + 1;
+
             attr.CheckIfChanged = true;
 
             return attr;
@@ -116,19 +117,18 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (RemovePinsFirst) RetryConfig();
+            bool warnPinSafety = false;
+            if (RemovePinsFirst) warnPinSafety = !RetryConfig(); // defer PinConnectionException until end of method, if not successful
 
             SpreadMax = FSpreadCount.IsAnyInvalid() || FTopic.IsAnyInvalid() ? 0 : FSpreadCount[0];
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
             var anyUpdate = ResetNecessary;
-
             var forceUpdate = !FAutoSense[0] || FAutoSense.IsChanged;
           
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
             newData |= forceUpdate; // if update is forced, then predent it is new Data
-            
             var newTopic = FTopic.IsChanged;
             newTopic |= forceUpdate; // if update is forced, then pretend it is a new Topic
 
@@ -187,6 +187,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
+            if (warnPinSafety)
+                throw new PinConnectionException("Manually remove unneeded links first! [ConfigKeep]. ID = [" + PluginHost.GetNodePath(false) +"]");
         }
 
 
