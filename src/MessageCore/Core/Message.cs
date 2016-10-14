@@ -14,6 +14,7 @@ using VVVV.Packs.Messaging.Serializing;
 #endregion usings
 
 namespace VVVV.Packs.Messaging {
+    using System.IO;
     using Time = VVVV.Packs.Time.Time;
 
     public delegate void MessageChangedWithDetails(Message original, Message change);
@@ -334,9 +335,15 @@ namespace VVVV.Packs.Messaging {
             }
         }
 
-        public bool HasRecentCommit()
+        /// <summary>
+        /// Checks, if the Message has been recently committed to. 
+        /// </summary>
+        /// <param name="fromTarget">If an object is supplied, method will check if this object was a recent committer.</param>
+        /// <returns></returns>
+        public bool HasRecentCommit(object fromTarget = null)
         {
-            return Data.Values.Any(bin => bin.IsSweeping() || _lastCommit != null) ;
+            var wasLast = fromTarget == null? false : _lastCommit == fromTarget;
+            return Data.Values.Any(bin => bin.IsSweeping(fromTarget) || _lastCommit != null || wasLast) ;
         }
 
         /// <summary>Sets the IsChanged flag to false, and publishes any changes. </summary>
@@ -358,7 +365,7 @@ namespace VVVV.Packs.Messaging {
                     bin.Sweep(reference); // start sweeping
                 } else
                 {
-                    if (bin.IsSweeping(this)) bin.Sweep(); // done sweeping
+                    if (bin.IsSweeping(reference)) bin.Sweep(); // done sweeping
                 }
             }
 
@@ -442,13 +449,30 @@ namespace VVVV.Packs.Messaging {
                 }
                 else
                 {
-                    if (typeof(ICloneable).IsAssignableFrom(type)) {
+                    if (typeof(ICloneable).IsAssignableFrom(type))
+                    {
                         for (int i = 0; i < list.Count; i++)
                         {
                             var clone = ((ICloneable)list[i]).Clone();
                             newList.Add(clone);
                         }
-                    } else throw new SystemException(type.FullName + " cannot be cloned nor copied, while cloning the message "+this.Topic);
+                    }
+                    else
+                    {
+                        if (typeof(Stream).IsAssignableFrom(type))
+                        {
+                            for (int i = 0; i < list.Count; i++)
+                            {
+                                var stream = list[i] as Stream;
+                                stream.Seek(0, SeekOrigin.Begin);
+                                var clone = new MemoryStream();
+                                stream.CopyTo(clone);
+                                newList.Add(clone);
+                            }
+
+                        }
+                        else throw new SystemException(type.FullName + " cannot be cloned nor copied, while cloning the message " + this.Topic);
+                    }
                 }
                 
                 m[name] = newList; // add list to new Message

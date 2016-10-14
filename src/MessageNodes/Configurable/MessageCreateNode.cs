@@ -46,7 +46,6 @@ namespace VVVV.Packs.Messaging.Nodes
             if (!FNew.Any()) // if none true
             {
                 FOutput.FlushNil();
-
                 return;
             }
 

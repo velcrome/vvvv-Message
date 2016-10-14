@@ -21,7 +21,7 @@ namespace VVVV.Packs.Messaging
         /// <summary>Indicates, if a bin has been changed. Will be set to true internally, when the bin was changed</summary>
         public bool IsChanged { get; set; } = true;
 
-        protected object Sweeper {get; set;}
+        public object Sweeper {get; protected set;}
 
         public bool IsSweeping(object reference = null)
         {

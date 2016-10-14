@@ -181,8 +181,6 @@ namespace VVVV.Packs.Messaging
                 Remove(message);
             }
             Changes.Clear();
-            Messages.Clear();
-
         }
 
         public bool Contains(Message message)

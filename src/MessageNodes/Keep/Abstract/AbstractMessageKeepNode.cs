@@ -143,6 +143,8 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 Keep.Clear();
                 anyChange = true;
+
+                FCountOut.FlushInt(Keep.Count);
             }
             return anyChange;
 
@@ -156,9 +158,16 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     FChangeOut.FlushNil();
                     FChangeIndexOut.FlushNil();
-                    FCountOut.FlushInt(Keep.Count);
                 }
 
+                var recentCommits = from message in Keep
+                                    where message.HasRecentCommit()
+                                    select message;
+                                     
+                foreach (var message in recentCommits)
+                {
+                    message.Commit(Keep);
+                }
                 return false;
             }
 
@@ -177,7 +186,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
             FOutput.FlushResult(Keep);
             FCountOut.FlushInt(Keep.Count);
-
             return true;
 
         }

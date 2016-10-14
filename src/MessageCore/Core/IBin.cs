@@ -31,8 +31,8 @@ namespace VVVV.Packs.Messaging
         /// <summary>The current number of elements in the bin</summary>
         int Count               { get; set; }
 
-        /// <summary>Indicates if the bin has been changed recently. Any change to the bin will set IsDirty to true internally.</summary>
-        /// <returns>false, if reference was the last Committer</returns>
+        /// <summary>Indicates if the bin has been marked for sweeping recently. </summary>
+        /// <returns>If reference is not null, check if it is the Sweeper, i.e. if reference was the last Committer</returns>
         bool IsSweeping(object reference = null);
 
         /// <summary>
