@@ -16,13 +16,13 @@ using VVVV.Utils;
 namespace VVVV.Nodes
 {
 	#region PluginInfo
-	[PluginInfo(Name = "SearchTemplate", Category = "Message", Help = "Basic template with one value in/out", Tags = "")]
+	[PluginInfo(Name = "SearchTemplate", Category = "Message", Help = "Basic search template with example LINQ query", Tags = "Sift, LINQ")]
 	#endregion PluginInfo
 	public class MessageSearchTemplateNode : IPluginEvaluate
 	{
 		#region fields & pins
-		[Input("Input", DefaultValue = 1.0)]
-		public ISpread<Message> FInput; 
+		[Input("Input")]
+		public IDiffSpread<Message> FInput; 
 
 		[Output("Output", AutoFlush = false)]
 		public ISpread<Message> FOutput;
@@ -34,24 +34,27 @@ namespace VVVV.Nodes
 		//called when data for any output pin is requested
 		public void Evaluate(int SpreadMax)
 		{
+
+			// save some performance when no work necessary
 			if (FInput.IsAnyInvalid()) {
 				if (FOutput.SliceCount > 0) {
-					FOutput.SliceCount = 0;
-					FOutput.Flush();
+					FOutput.FlushNil();
 				}
 				return;
 			}
-			
-			FOutput.SliceCount = 0;
+			if (!FInput.IsChanged) return;
 
-			FOutput.AssignFrom(
+			// start working it out
+			var result = 
 				from message in FInput
 				let bin = message["Foo"] as Bin<string>
+				where bin != null 
+				where !bin.IsAnyInvalid()
 				where bin.First == "bar"
-				select message
-			);
+				select message;
 			
-			FOutput.Flush();
+			// publish data back to vvvv
+			FOutput.FlushResult(result);
 		}
 	}
 }

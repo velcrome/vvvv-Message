@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="C:\apps\code\_alpha\vvvv_45beta34.1_x86\packs\vvvv-Message\nodes\modules\Writer (Message Stream).v4p" systemname="Log (Message)" filename="C:\apps\code\vvvv_45beta31.2_x64\packs\vvvv-Message\deploy\nodes\modules\Log (Message).v4p" scrollx="120" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_45beta34.2_x64\packs\vvvv-Message\nodes\modules\Writer (Message Stream).v4p" systemname="Log (Message)" filename="C:\apps\code\vvvv_45beta31.2_x64\packs\vvvv-Message\deploy\nodes\modules\Log (Message).v4p" scrollx="120" scrolly="0">
    <BOUNDS type="Window" left="11625" top="195" width="14400" height="13455">
    </BOUNDS>
    <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\Debug\x64\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="120">
@@ -458,34 +458,6 @@
    <PIN pinname="ID" pintype="Output" visible="-1">
    </PIN>
    </NODE>
-   <NODE id="149" systemname="Merge (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Merge (Message.Spread)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
-   <BOUNDS type="Node" left="2775" top="1455" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2775" top="1455" width="2400" height="1800">
-   </BOUNDS>
-   <PIN pinname="Distinct" visible="1" pintype="Input" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Input 1" visible="1" pintype="Input" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1" pintype="Output">
-   </PIN>
-   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Input Count" pintype="Configuration" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Window Handle" pintype="Output">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="167" srcpinname="Y Output Value" dstnodeid="149" dstpinname="Distinct">
-   </LINK>
-   <LINK srcnodeid="149" srcpinname="Output" dstnodeid="148" dstpinname="Input">
-   </LINK>
    <NODE systemname="OR (Boolean)" nodename="OR (Boolean)" componentmode="Hidden" id="168">
    <BOUNDS type="Node" left="6060" top="8595" width="990" height="270">
    </BOUNDS>
@@ -664,12 +636,42 @@
    </LINK>
    <LINK srcnodeid="168" srcpinname="Output" dstnodeid="184" dstpinname="Set">
    </LINK>
-   <LINK srcnodeid="149" srcpinname="Output" dstnodeid="120" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="121" srcpinname="Output Node" dstnodeid="149" dstpinname="Input 1">
-   </LINK>
    <LINK srcnodeid="168" srcpinname="Output" dstnodeid="123" dstpinname="Write">
    </LINK>
    <LINK srcnodeid="139" srcpinname="Output" dstnodeid="123" dstpinname="Content">
    </LINK>
+   <NODE id="149" systemname="Cons (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cons (Message)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <BOUNDS type="Node" left="2775" top="1455" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2775" top="1455" width="2400" height="1800">
+   </BOUNDS>
+   <PIN pinname="Distinct" visible="1" pintype="Input" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1" pintype="Input" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1" pintype="Output">
+   </PIN>
+   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input Count" pintype="Configuration" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Window Handle" pintype="Output">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="167" srcpinname="Y Output Value" dstnodeid="149" dstpinname="Distinct">
+   </LINK>
+   <LINK srcnodeid="149" srcpinname="Output" dstnodeid="148" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="149" srcpinname="Output" dstnodeid="120" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="121" srcpinname="Output Node" dstnodeid="149" dstpinname="Input 1">
+   </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

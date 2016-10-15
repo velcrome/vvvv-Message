@@ -43,8 +43,8 @@
     <Reference Include="VVVV.Packs.Messaging">
       <HintPath>..\VVVV.Packs.Messaging.dll</HintPath>
     </Reference>
-    <Reference Include="VVVV.Packs.Messaging.Generic">
-      <HintPath>..\VVVV.Packs.Messaging.Generic.dll</HintPath>
+    <Reference Include="VVVV.Nodes.Messaging">
+      <HintPath>..\VVVV.Nodes.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.PluginInterfaces" />
     <Reference Include="VVVV.Utils" />

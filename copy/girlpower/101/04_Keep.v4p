@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.103.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="16920" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="8610" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="37" systemname="IOBox (String)">
    <BOUNDS type="Node" left="492" top="156" width="6600" height="1056">
@@ -362,30 +362,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <NODE systemname="Hold (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Hold (Message.Keep)" componentmode="Hidden" id="12">
-   <BOUNDS type="Node" left="3816" top="6108" width="3150" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="3816" top="6108">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Internal Count" visible="1">
-   </PIN>
-   <PIN pinname="Diff Output" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Message Diff" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Changed Message Index" visible="1">
-   </PIN>
-   <PIN pinname="Index" visible="1">
-   </PIN>
-   <PIN pinname="Match Rule" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9870" top="21936" width="792" height="240">
    </BOUNDS>
@@ -410,8 +386,6 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="12" srcpinname="Internal Count" dstnodeid="9" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="18" srcpinname="Topic" dstnodeid="21" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6" systemname="IOBox (Value Advanced)">
@@ -444,56 +418,6 @@
    <PIN pinname=".. To [" slicecount="1" values="4">
    </PIN>
    </NODE>
-   <NODE systemname="Safe (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Safe (Message.Keep)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="360" top="21060" width="2775" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="360" top="21060">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Reset" visible="1" pintype="Input" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="0">
-   <BOUNDS type="Node" left="7776" top="21462" width="2136" height="276">
-   </BOUNDS>
-   <BOUNDS type="Box" left="7776" top="21462">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Changed Slice" visible="1">
-   </PIN>
-   <PIN pinname="Reset" visible="1" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Retain Time" visible="1">
-   </PIN>
-   <PIN pinname="Use as ID" visible="1">
-   </PIN>
-   <PIN pinname="Internal Count" visible="1">
-   </PIN>
-   <PIN pinname="Removed Messages" visible="1">
-   </PIN>
-   <PIN pinname="Diff Output" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Message Diff" visible="1">
-   </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="None">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string[4] Foo|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Retain Time">
-   </LINK>
-   <LINK srcnodeid="14" srcpinname="Output Enum" dstnodeid="0" dstpinname="Use as ID">
-   </LINK>
-   <LINK srcnodeid="0" srcpinname="Internal Count" dstnodeid="11" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="18" dstpinname="Input">
-   </LINK>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="41" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="4485" top="7089" width="100" height="100">
    </BOUNDS>
@@ -528,14 +452,6 @@
    </NODE>
    <LINK srcnodeid="41" srcpinname="Field" dstnodeid="42" dstpinname="Input String">
    </LINK>
-   <NODE systemname="Change (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message.Spread)" componentmode="Hidden" id="45" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="2952" top="7083" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="OnChange" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="46" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2952" top="7503" width="480" height="480">
    </BOUNDS>
@@ -549,9 +465,9 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
+   <PIN pinname="Y Input Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="OnChange" dstnodeid="46" dstpinname="Y Input Value">
-   </LINK>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="39" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="3816" top="4128" width="2460" height="276">
    </BOUNDS>
@@ -587,7 +503,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4737" top="10548" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="4" visible="1" values="a,v,a,d">
+   <PIN pinname="Input String" slicecount="4" visible="1" values="a,v,b,d">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -610,46 +526,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <NODE systemname="Create (Message.Keep Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message.Keep Formular)" componentmode="Hidden" id="48">
-   <BOUNDS type="Node" left="3816" top="11412" width="2460" height="276">
-   </BOUNDS>
-   <BOUNDS type="Box" left="3816" top="11412">
-   </BOUNDS>
-   <PIN pinname="Set" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Spread Count" visible="1">
-   </PIN>
-   <PIN pinname="Foo" visible="1">
-   </PIN>
-   <PIN pinname="New" visible="1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Count" visible="1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Changed Message" visible="1">
-   </PIN>
-   <PIN pinname="Topic" visible="1" slicecount="1" values="State">
-   </PIN>
-   <PIN pinname="Message Diff" visible="1">
-   </PIN>
-   <PIN pinname="Autolearn Type" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Letter|">
-   </PIN>
-   <PIN pinname="Letter" visible="1">
-   </PIN>
-   <PIN pinname="Internal Count" visible="1">
-   </PIN>
-   <PIN pinname="Update" visible="1">
-   </PIN>
-   <PIN pinname="AutoSense" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="49" srcpinname="Output String" dstnodeid="48" dstpinname="Foo">
-   </LINK>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="54" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="3816" top="12744" width="100" height="100">
    </BOUNDS>
@@ -686,16 +562,6 @@
    </NODE>
    <LINK srcnodeid="54" srcpinname="Field" dstnodeid="53" dstpinname="Input String">
    </LINK>
-   <NODE systemname="Change (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message.Spread)" componentmode="Hidden" id="52" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="3033" top="12792" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="OnChange" visible="1">
-   </PIN>
-   <PIN pinname="Change" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="51" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3009" top="13200" width="480" height="480">
    </BOUNDS>
@@ -709,7 +575,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1">
+   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="56" systemname="IOBox (Value Advanced)">
@@ -732,8 +598,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <LINK srcnodeid="56" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Count">
-   </LINK>
    <NODE systemname="Select (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Select (Value)" componentmode="Hidden" id="58" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="7425" top="11943" width="100" height="100">
    </BOUNDS>
@@ -751,14 +615,12 @@
    </PIN>
    <PIN pinname="Spread" visible="1">
    </PIN>
-   <PIN pinname="Index" visible="1">
+   <PIN pinname="Index" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="58" srcpinname="Output" dstnodeid="59" dstpinname="Spread">
-   </LINK>
-   <LINK srcnodeid="48" srcpinname="Changed Message" dstnodeid="59" dstpinname="Index">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="60" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="7395" top="13218" width="465" height="1380">
@@ -806,14 +668,12 @@
    </NODE>
    <LINK srcnodeid="63" srcpinname="Output" dstnodeid="64" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="64" srcpinname="Output" dstnodeid="48" dstpinname="Topic">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="65" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6867" top="10224" width="480" height="480">
    </BOUNDS>
    <BOUNDS type="Node" left="6867" top="10224" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -832,22 +692,16 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Reset">
-   </LINK>
-   <LINK srcnodeid="34" srcpinname="Output Node" dstnodeid="12" dstpinname="Input">
-   </LINK>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="67">
    <BOUNDS type="Node" left="360" top="21564" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <BOUNDS type="Box" left="360" top="21564">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="67" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="68" systemname="IOBox (String)">
    <BOUNDS type="Box" left="360" top="22092" width="2940" height="4560">
    </BOUNDS>
@@ -865,12 +719,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="67" srcpinname="Output" dstnodeid="68" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="7475" y="20342">
-   </LINKPOINT>
-   <LINKPOINT x="8296" y="20518">
-   </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="69" systemname="IOBox (String)">
    <BOUNDS type="Node" left="6984" top="711" width="3360" height="240">
@@ -900,8 +748,6 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="70" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Index">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="71" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5367" top="5673" width="555" height="315">
    </BOUNDS>
@@ -912,8 +758,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <LINK srcnodeid="71" srcpinname="Output Enum" dstnodeid="12" dstpinname="Match Rule">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="72" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="3816" top="12360" width="795" height="240">
    </BOUNDS>
@@ -921,12 +765,10 @@
    </BOUNDS>
    <PIN pinname="Output Node" visible="1">
    </PIN>
+   <PIN pinname="Input Node" slicecount="1" values="||">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Output" dstnodeid="72" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="72" srcpinname="Output Node" dstnodeid="54" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="72" srcpinname="Output Node" dstnodeid="52" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="73" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="3816" top="6588" width="795" height="240">
@@ -936,11 +778,7 @@
    <PIN pinname="Output Node" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="12" srcpinname="Output" dstnodeid="73" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="73" srcpinname="Output Node" dstnodeid="41" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="73" srcpinname="Output Node" dstnodeid="45" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="74" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4572" top="5493" width="480" height="480">
@@ -962,8 +800,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <LINK srcnodeid="74" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Reset">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="76" systemname="IOBox (String)">
    <BOUNDS type="Node" left="8124" top="3048" width="3360" height="240">
    </BOUNDS>
@@ -987,7 +823,7 @@
    </PIN>
    <PIN pinname="Autolearn Type" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
@@ -1034,8 +870,6 @@
    </LINK>
    <LINK srcnodeid="80" srcpinname="Output" dstnodeid="39" dstpinname="Foo">
    </LINK>
-   <LINK srcnodeid="49" srcpinname="Output String" dstnodeid="48" dstpinname="Letter">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="82" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6240" top="11784" width="792" height="240">
    </BOUNDS>
@@ -1048,8 +882,6 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Internal Count" dstnodeid="82" dstpinname="Y Input Value">
-   </LINK>
    <NODE id="81" nodename="IOBox (String)" componentmode="InABox" systemname="IOBox (String)" hiddenwhenlocked="0" managers="">
    <PIN pinname="Input String" slicecount="1" visible="0" pintype="Input" values="|Exercise:&cr;&lf;&cr;&lf;Create an [Info] and see, what is coming out of the Message Diff.&cr;&lf;&cr;&lf;If it goes too fast to read, use a Hold.|">
    </PIN>
@@ -1108,18 +940,6 @@
    <BOUNDS type="Box" left="6132" top="21060">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="6480" y="21384">
-   </LINKPOINT>
-   <LINKPOINT x="7488" y="21408">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="2" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="7051" y="20225">
-   </LINKPOINT>
-   <LINKPOINT x="2153" y="20201">
-   </LINKPOINT>
-   </LINK>
    <NODE id="84" nodename="IOBox (String)" componentmode="InABox" systemname="IOBox (String)" hiddenwhenlocked="0" managers="">
    <PIN pinname="Input String" slicecount="1" visible="0" pintype="Input" values="|Exercise:&cr;&lf;&cr;&lf;Compare them! &cr;&lf;&cr;&lf;Change Foo and or Topic to fill up the Keeps further.|">
    </PIN>
@@ -1168,10 +988,6 @@
    <PIN pinname="ID" pintype="Output" visible="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Update">
-   </LINK>
-   <LINK srcnodeid="52" srcpinname="Change" dstnodeid="51" dstpinname="Y Input Value">
-   </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="26">
@@ -1208,12 +1024,196 @@
    </LINK>
    <LINK srcnodeid="5" srcpinname="Output" dstnodeid="26" dstpinname="id">
    </LINK>
-   <LINK srcnodeid="26" srcpinname="Output" dstnodeid="2" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="26" srcpinname="Output" dstnodeid="1" dstpinname="Input" linkstyle="VHV">
    <LINKPOINT x="420" y="20766">
    </LINKPOINT>
    <LINKPOINT x="6132" y="20766">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="360" top="21060" width="2775" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="360" top="21060">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Reset" visible="1" pintype="Input" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="67" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="2" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="7051" y="20225">
+   </LINKPOINT>
+   <LINKPOINT x="2153" y="20201">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="26" srcpinname="Output" dstnodeid="2" dstpinname="Input">
+   </LINK>
+   <NODE systemname="SessionKeep (Message Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="7776" top="21462" width="2136" height="276">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7776" top="21462">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Changed Slice" visible="1">
+   </PIN>
+   <PIN pinname="Reset" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Retain Time" visible="1">
+   </PIN>
+   <PIN pinname="Use as ID" visible="1">
+   </PIN>
+   <PIN pinname="Internal Count" visible="1">
+   </PIN>
+   <PIN pinname="Removed Messages" visible="1">
+   </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="None">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|string[4] Foo, int id|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Retain Time">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Output Enum" dstnodeid="0" dstpinname="Use as ID">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Internal Count" dstnodeid="11" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="18" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="7475" y="20342">
+   </LINKPOINT>
+   <LINKPOINT x="8296" y="20518">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="6480" y="21384">
+   </LINKPOINT>
+   <LINKPOINT x="7488" y="21408">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="HoldKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="HoldKeep (Message)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="3816" top="6108" width="3150" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3816" top="6108">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Internal Count" visible="1">
+   </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Changed Message Index" visible="1">
+   </PIN>
+   <PIN pinname="Index" visible="1">
+   </PIN>
+   <PIN pinname="Match Rule" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Internal Count" dstnodeid="9" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="34" srcpinname="Output Node" dstnodeid="12" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="70" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Index">
+   </LINK>
+   <LINK srcnodeid="71" srcpinname="Output Enum" dstnodeid="12" dstpinname="Match Rule">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="Output" dstnodeid="73" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="74" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Reset">
+   </LINK>
+   <NODE systemname="Change (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message)" componentmode="Hidden" id="45" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="2952" top="7083" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   <PIN pinname="Change" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="73" srcpinname="Output Node" dstnodeid="45" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Change" dstnodeid="46" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="Hidden" id="48">
+   <BOUNDS type="Node" left="3816" top="11412" width="2460" height="276">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3816" top="11412">
+   </BOUNDS>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Spread Count" visible="1">
+   </PIN>
+   <PIN pinname="Foo" visible="1">
+   </PIN>
+   <PIN pinname="New" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Count" visible="1" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Changed Message" visible="1">
+   </PIN>
+   <PIN pinname="Topic" visible="1" slicecount="1" values="State">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   <PIN pinname="Autolearn Type" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|string Letter|">
+   </PIN>
+   <PIN pinname="Letter" visible="1">
+   </PIN>
+   <PIN pinname="Internal Count" visible="1">
+   </PIN>
+   <PIN pinname="Update" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="AutoSense" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="64" srcpinname="Output" dstnodeid="48" dstpinname="Topic">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Output" dstnodeid="72" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="49" srcpinname="Output String" dstnodeid="48" dstpinname="Letter">
+   </LINK>
+   <LINK srcnodeid="56" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Count">
+   </LINK>
+   <NODE systemname="Change (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message)" componentmode="Hidden" id="52" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="3033" top="12792" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   <PIN pinname="Change" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="72" srcpinname="Output Node" dstnodeid="52" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="52" srcpinname="Change" dstnodeid="51" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Update">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Changed Message" dstnodeid="59" dstpinname="Input">
    </LINK>
    </PATCH>

@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.103.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
    <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\11_Searching.v4p" systemname="10_Searching" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_Searching.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="16" systemname="IOBox (String)">
    <BOUNDS type="Node" left="660" top="495" width="6600" height="1056">
@@ -206,62 +206,6 @@
    <PIN pinname=".. To [" slicecount="1" values="3">
    </PIN>
    </NODE>
-   <NODE systemname="SearchTemplate (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" nodename="SearchTemplate (Message.Spread)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="6918" top="4281" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="6918" top="4281">
-   </BOUNDS>
-   <PIN pinname="Where" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Message" visible="1">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="3" srcpinname="Message" dstnodeid="15" dstpinname="Input">
-   </LINK>
-   <NODE systemname="Create (Message.Keep Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message.Keep Formular)" componentmode="Hidden" id="1" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="660" top="2505" width="6210" height="270">
-   </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="Event">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
-   </PIN>
-   <PIN pinname="id" visible="1">
-   </PIN>
-   <PIN pinname="Count" slicecount="1" values="3">
-   </PIN>
-   <BOUNDS type="Box" left="660" top="2505">
-   </BOUNDS>
-   <PIN pinname="Reset" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Foo Bin Size" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="3" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="10" srcpinname="Output String" dstnodeid="1" dstpinname="Foo">
-   </LINK>
-   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="id">
-   </LINK>
-   <NODE id="0" systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden">
-   <BOUNDS type="Node" left="660" top="5880" width="1596" height="276">
-   </BOUNDS>
-   <BOUNDS type="Box" left="660" top="5880">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="0" dstpinname="Filter">
-   </LINK>
-   <LINK srcnodeid="0" srcpinname="NotFound" dstnodeid="8" dstpinname="Input Node">
-   </LINK>
-   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="11" dstpinname="Input Node">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
    <BOUNDS type="Node" left="8613" top="3846" width="3456" height="240">
    </BOUNDS>
@@ -296,4 +240,102 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
+   <NODE systemname="SearchTemplate (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" nodename="SearchTemplate (Message.Spread)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="6918" top="4281" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6918" top="4281">
+   </BOUNDS>
+   <PIN pinname="Where" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Message" visible="1">
+   </PIN>
+   <PIN pinname="Filter" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Message" dstnodeid="15" dstpinname="Input">
+   </LINK>
+   <NODE id="0" systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden">
+   <BOUNDS type="Node" left="660" top="5880" width="1596" height="276">
+   </BOUNDS>
+   <BOUNDS type="Box" left="660" top="5880">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="0" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="NotFound" dstnodeid="8" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="11" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="Hidden" id="1" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="660" top="2505" width="6210" height="270">
+   </BOUNDS>
+   <PIN pinname="Message Formular" slicecount="1" values="Event">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
+   </PIN>
+   <PIN pinname="id" visible="1">
+   </PIN>
+   <PIN pinname="Count" slicecount="1" visible="1" values="3">
+   </PIN>
+   <BOUNDS type="Box" left="660" top="2505">
+   </BOUNDS>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Foo Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="AutoSense" visible="1">
+   </PIN>
+   <PIN pinname="Update" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Output String" dstnodeid="1" dstpinname="Foo">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="id">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="3" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="20" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="7080" top="1905" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7080" top="1905" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Count">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="21" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5715" top="1665" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5715" top="1665" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="AutoSense">
+   </LINK>
+   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Update">
+   </LINK>
    </PATCH>
