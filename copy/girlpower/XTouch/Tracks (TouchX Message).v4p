@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" systemname="Tracks (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" scrollx="0" scrolly="1875">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\XTouch\Tracks (TouchX Message).v4p" systemname="Tracks (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" scrollx="0" scrolly="915">
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="0">
    <BOUNDS type="Node" left="8400" top="1875" width="100" height="100">
    </BOUNDS>
@@ -266,30 +266,6 @@
    <PIN pinname="Changed" pintype="Output" visible="-1">
    </PIN>
    <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Safe (Message.Keep)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Safe (Message.Keep)" componentmode="Hidden" id="16">
-   <BOUNDS type="Node" left="5520" top="10905" width="1110" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Track">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|double Rotary, bool RotaryPush, bool Top, bool Middle, bool Low, double Fader, bool Button, bool FaderTouch|">
-   </PIN>
-   <PIN pinname="Diff Output" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Changed Message Index" visible="1">
-   </PIN>
-   <PIN pinname="Include input in Diff" slicecount="1" visible="1" values="1">
-   </PIN>
-   <BOUNDS type="Box" left="5520" top="10905">
-   </BOUNDS>
-   <PIN pinname="Message Diff" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
@@ -575,11 +551,13 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <PIN pinname="Spread Count per Formular" slicecount="1" values="16" visible="1">
+   <PIN pinname="Spread Count per Formular" slicecount="1" visible="1" values="16">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <PIN pinname="New" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Spread Count" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="55">
@@ -672,12 +650,6 @@
    </LINK>
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="7" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="27" dstpinname="Input Node" linkstyle="Bezier">
-   <LINKPOINT x="4585" y="11610">
-   </LINKPOINT>
-   <LINKPOINT x="1910" y="11745">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="54" srcpinname="Output" dstnodeid="55" dstpinname="Input 1">
    </LINK>
    <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="8" dstpinname=".. To [">
@@ -753,12 +725,10 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="Hidden">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="61" srcpinname="Y Output Value" dstnodeid="54" dstpinname="New" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="61" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Reset" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="61" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Include input in Diff" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="36" srcpinname="Output" dstnodeid="55" dstpinname="Input 2">
    </LINK>
@@ -767,8 +737,6 @@
    </LINKPOINT>
    <LINKPOINT x="2085" y="7958">
    </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="56" srcpinname="Output" dstnodeid="16" dstpinname="Input">
    </LINK>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="64">
    <BOUNDS type="Node" left="450" top="765" width="100" height="100">
@@ -1002,14 +970,6 @@
    </LINK>
    <LINK srcnodeid="95" srcpinname="Output" dstnodeid="93" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="84" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="83" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="5925" y="12115">
-   </LINKPOINT>
-   <LINKPOINT x="8190" y="12215">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="GetSlice (Spreads)" filename="" nodename="GetSlice (Spreads)" componentmode="Hidden" id="97">
    <BOUNDS type="Node" left="7890" top="11940" width="100" height="100">
    </BOUNDS>
@@ -1017,18 +977,12 @@
    </PIN>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Index" visible="1">
+   <PIN pinname="Index" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="93" srcpinname="Output" dstnodeid="97" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Changed Message Index" dstnodeid="97" dstpinname="Index" linkstyle="Bezier">
-   <LINKPOINT x="6420" y="12015">
-   </LINKPOINT>
-   <LINKPOINT x="8505" y="11550">
-   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="97" srcpinname="Output" dstnodeid="86" dstpinname="Controller">
    </LINK>
@@ -1130,18 +1084,6 @@
    </NODE>
    <LINK srcnodeid="112" srcpinname="Field" dstnodeid="116" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="112" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="5820" y="12225">
-   </LINKPOINT>
-   <LINKPOINT x="4980" y="11580">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="114" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="5760" y="11625">
-   </LINKPOINT>
-   <LINKPOINT x="2370" y="11955">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="17" srcpinname="Output String" dstnodeid="112" dstpinname="Key" linkstyle="Bezier">
    <LINKPOINT x="3375" y="7065">
    </LINKPOINT>
@@ -1157,7 +1099,7 @@
    </BOUNDS>
    <PIN pinname="Bin Size" slicecount="1" visible="1" values="5">
    </PIN>
-   <PIN pinname="Index" visible="1">
+   <PIN pinname="Index" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1179,12 +1121,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="119" srcpinname="Y Output Value" dstnodeid="118" dstpinname="Bin Size">
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Changed Message Index" dstnodeid="118" dstpinname="Index" linkstyle="Bezier">
-   <LINKPOINT x="6225" y="11955">
-   </LINKPOINT>
-   <LINKPOINT x="4575" y="11145">
-   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="7" srcpinname="Output" dstnodeid="118" dstpinname="Input" hiddenwhenlocked="1">
    </LINK>
@@ -1220,8 +1156,6 @@
    <BOUNDS type="Node" left="6750" top="10905" width="0" height="0">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="123" dstpinname="Input Node">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="127" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="1545" top="6570" width="285" height="240">
    </BOUNDS>
@@ -1234,6 +1168,8 @@
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="127" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Spread Count per Formular">
@@ -1250,6 +1186,78 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
+   <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="16">
+   <BOUNDS type="Node" left="5520" top="10905" width="1110" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Track">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|double Rotary, bool RotaryPush, bool Top, bool Middle, bool Low, double Fader, bool Button, bool FaderTouch|">
+   </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Changed Message Index" visible="1">
+   </PIN>
+   <PIN pinname="Include input in Diff" slicecount="1" visible="1" values="1">
+   </PIN>
+   <BOUNDS type="Box" left="5520" top="10905">
+   </BOUNDS>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="27" dstpinname="Input Node" linkstyle="Bezier">
+   <LINKPOINT x="4585" y="11610">
+   </LINKPOINT>
+   <LINKPOINT x="1910" y="11745">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="61" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Reset" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="61" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Include input in Diff" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="56" srcpinname="Output" dstnodeid="16" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="84" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="83" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="5925" y="12115">
+   </LINKPOINT>
+   <LINKPOINT x="8190" y="12215">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Changed Message Index" dstnodeid="97" dstpinname="Index" linkstyle="Bezier">
+   <LINKPOINT x="6420" y="12015">
+   </LINKPOINT>
+   <LINKPOINT x="8505" y="11550">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="112" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="5820" y="12225">
+   </LINKPOINT>
+   <LINKPOINT x="4980" y="11580">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="114" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="5760" y="11625">
+   </LINKPOINT>
+   <LINKPOINT x="2370" y="11955">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Changed Message Index" dstnodeid="118" dstpinname="Index" linkstyle="Bezier">
+   <LINKPOINT x="6225" y="11955">
+   </LINKPOINT>
+   <LINKPOINT x="4575" y="11145">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="123" dstpinname="Input Node">
+   </LINK>
    <LINK srcnodeid="16" srcpinname="Changed Message Index" dstnodeid="129" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="127" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Spread Count">
    </LINK>
    </PATCH>

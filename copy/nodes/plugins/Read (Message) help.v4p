@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Read (Message) help.v4p" systemname="Message (Join) help" filename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\Message (Join) help.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="1140" top="6045" width="14595" height="9255">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Read (Message) help.v4p" systemname="Message (Join) help" filename="C:\apps\code\vvvv_45beta32_x64\packs\vvvv-Message\nodes\plugins\Message (Join) help.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="1470" top="1320" width="14595" height="12315">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="555" top="300" width="5000" height="450">
@@ -28,7 +28,7 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="47">
    <BOUNDS type="Node" left="555" top="5820" width="5595" height="270">
@@ -516,70 +516,6 @@
    </LINK>
    <LINK srcnodeid="47" srcpinname="Message Bin Size" dstnodeid="53" dstpinname="Y Input Value">
    </LINK>
-   <NODE nodename="Create (Message.Keep Formular)" componentmode="Hidden" id="40" systemname="Create (Message.Keep Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
-   <BOUNDS type="Node" left="555" top="3780" width="6270" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="555" top="3780" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|string Text1, string Text2|">
-   </PIN>
-   <PIN pinname="matrix" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="name" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="color" visible="1" slicecount="1" values="|0.00000,1.00000,0.00000,1.00000|">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Set" visible="1">
-   </PIN>
-   <PIN pinname="New" visible="1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Topic" visible="1" slicecount="1" values="M">
-   </PIN>
-   <PIN pinname="Text Bin Size" visible="1">
-   </PIN>
-   <PIN pinname="Text" visible="1">
-   </PIN>
-   <PIN pinname="Text1" visible="1" slicecount="7" values="0,0,1,2,0,1,2">
-   </PIN>
-   <PIN pinname="Text1 Bin Size" visible="1">
-   </PIN>
-   <PIN pinname="Text2 Bin Size" visible="1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Text2" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Autolearn Type" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Count" slicecount="1" visible="1" values="3">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Couter" visible="1">
-   </PIN>
-   <PIN pinname="Couter Bin Size" visible="1">
-   </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="None">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="50" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Text1 Bin Size">
-   </LINK>
-   <LINK srcnodeid="57" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Text2 Bin Size">
-   </LINK>
-   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="47" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="66" srcpinname="Output" dstnodeid="40" dstpinname="Text2">
-   </LINK>
-   <LINK srcnodeid="67" srcpinname="Output" dstnodeid="40" dstpinname="Text1">
-   </LINK>
-   <LINK srcnodeid="79" srcpinname="Output String" dstnodeid="40" dstpinname="Topic">
-   </LINK>
-   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="80" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="700" y="4230">
-   </LINKPOINT>
-   <LINKPOINT x="7640" y="4230">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="82" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="7050" top="3195" width="795" height="240">
    </BOUNDS>
@@ -594,8 +530,6 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="82" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Count">
-   </LINK>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="84">
    <BOUNDS type="Node" left="6525" top="13950" width="100" height="100">
    </BOUNDS>
@@ -795,9 +729,9 @@
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="95" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Reset">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="96" systemname="IOBox (String)">
    <BOUNDS type="Node" left="3930" top="14310" width="810" height="270">
    </BOUNDS>
@@ -898,4 +832,78 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE nodename="ConfigKeep (Message Formular)" componentmode="Hidden" id="40" systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <BOUNDS type="Node" left="555" top="3780" width="6270" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="555" top="3780" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Text1, string Text2|">
+   </PIN>
+   <PIN pinname="matrix" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="name" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="color" visible="1" slicecount="1" values="|0.00000,1.00000,0.00000,1.00000|">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   <PIN pinname="New" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Topic" visible="1" slicecount="1" values="M">
+   </PIN>
+   <PIN pinname="Text Bin Size" visible="1">
+   </PIN>
+   <PIN pinname="Text" visible="1">
+   </PIN>
+   <PIN pinname="Text1" visible="1" slicecount="7" values="0,0,1,2,0,1,2">
+   </PIN>
+   <PIN pinname="Text1 Bin Size" visible="1">
+   </PIN>
+   <PIN pinname="Text2 Bin Size" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Text2" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Autolearn Type" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Count" slicecount="1" visible="1" values="3">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Couter" visible="1">
+   </PIN>
+   <PIN pinname="Couter Bin Size" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="None">
+   </PIN>
+   <PIN pinname="Update" visible="1">
+   </PIN>
+   <PIN pinname="AutoSense" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="50" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Text1 Bin Size">
+   </LINK>
+   <LINK srcnodeid="57" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Text2 Bin Size">
+   </LINK>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="47" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="66" srcpinname="Output" dstnodeid="40" dstpinname="Text2">
+   </LINK>
+   <LINK srcnodeid="67" srcpinname="Output" dstnodeid="40" dstpinname="Text1">
+   </LINK>
+   <LINK srcnodeid="79" srcpinname="Output String" dstnodeid="40" dstpinname="Topic">
+   </LINK>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="80" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="700" y="4230">
+   </LINKPOINT>
+   <LINKPOINT x="7640" y="4230">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="82" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Count">
+   </LINK>
+   <LINK srcnodeid="95" srcpinname="Y Output Value" dstnodeid="40" dstpinname="Update">
+   </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="C:\apps\code\_alpha\vvvv_45beta34.1_x86\packs\vvvv-Message\nodes\modules\Writer (Message Stream) help.v4p" systemname="Writer (Message Stream) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Writer (Message Stream) help.v4p" scrollx="0" scrolly="960">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\modules\Writer (Message Stream) help.v4p" systemname="Writer (Message Stream) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Writer (Message Stream) help.v4p" scrollx="0" scrolly="960">
    <BOUNDS type="Window" left="9555" top="2595" width="13725" height="10365">
    </BOUNDS>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="1">
@@ -35,9 +35,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="3" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5340" top="4830" width="480" height="480">
+   <BOUNDS type="Box" left="5235" top="4815" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="5340" top="4830" width="0" height="0">
+   <BOUNDS type="Node" left="5235" top="4815" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -52,7 +52,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Error">
    </PIN>
    </NODE>
-   <NODE systemname="Writer (Message Stream)" filename="Writer (Message Stream).v4p" nodename="Writer (Message Stream)" componentmode="Hidden" id="4">
+   <NODE systemname="Writer (Message Stream)" filename="Writer (Message Stream).v4p" nodename="Writer (Message Stream)" componentmode="InAWindow" id="4">
    <BOUNDS type="Node" left="3090" top="4245" width="3270" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -139,7 +139,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="11">
-   <BOUNDS type="Node" left="6330" top="4875" width="100" height="100">
+   <BOUNDS type="Node" left="6330" top="4815" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -173,7 +173,7 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -199,7 +199,7 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   <PIN pinname="Behavior" slicecount="1" values="Press">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Read">
    </PIN>
@@ -311,9 +311,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="27" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4140" top="4740" width="660" height="255">
+   <BOUNDS type="Box" left="4140" top="4815" width="660" height="255">
    </BOUNDS>
-   <BOUNDS type="Node" left="4140" top="4740" width="0" height="0">
+   <BOUNDS type="Node" left="4140" top="4815" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -367,7 +367,7 @@
    </BOUNDS>
    <PIN pinname="Filename" visible="1" slicecount="1" values="streamFile.json">
    </PIN>
-   <PIN pinname="Count" slicecount="1" values="1">
+   <PIN pinname="Count" slicecount="1" values="2">
    </PIN>
    <PIN pinname="Error Message" visible="1">
    </PIN>
@@ -390,4 +390,6 @@
    </LINK>
    <LINK srcnodeid="25" srcpinname="Error Message" dstnodeid="29" dstpinname="Input String">
    </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

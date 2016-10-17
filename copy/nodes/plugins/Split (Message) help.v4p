@@ -147,7 +147,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="510" top="1395" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -157,7 +157,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Press">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Change (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message)" componentmode="Hidden" id="22">
@@ -324,7 +324,7 @@
    </LINK>
    <LINK srcnodeid="28" srcpinname="Output Enum" dstnodeid="37" dstpinname="Message Formular">
    </LINK>
-   <NODE nodename="Split (Message Formular)" componentmode="InAWindow" id="10" systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <NODE nodename="Split (Message Formular)" componentmode="Hidden" id="10" systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
    <BOUNDS type="Node" left="1095" top="4350" width="7110" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="1095" top="4350" width="0" height="0">

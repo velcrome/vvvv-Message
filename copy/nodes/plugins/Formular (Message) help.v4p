@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="8205" top="1110" width="13050" height="9435">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -279,7 +279,7 @@
    </BOUNDS>
    <PIN pinname="Message Type">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, string name, Transform matrix, Vector4d quaternion|">
+   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, Transform matrix, string name, Vector4d quaternion|">
    </PIN>
    <BOUNDS type="Box" left="4665" top="6435">
    </BOUNDS>
@@ -393,7 +393,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="390" top="6435">
    </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|Transform matrix, string name, Color[3] hcozlor|">
+   <PIN pinname="Configuration" slicecount="1" values="|Color[3] hcozlor, Transform matrix, string name|">
    </PIN>
    </NODE>
    <LINK srcnodeid="35" srcpinname="Output Enum" dstnodeid="48" dstpinname="Message Formular">
