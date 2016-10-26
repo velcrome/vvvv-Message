@@ -438,9 +438,9 @@ namespace VVVV.Packs.Messaging {
                 var newList = BinFactory.New(type, list.Count);
 
 				// deep cloning of all fields, but messages: nested messages are merely a reference by design.
-                bool isPrimitiveType = type.IsPrimitive || type.IsValueType || (type == typeof(string));
+                bool isCopyable = type.IsPrimitive || type.IsValueType || (type == typeof(string));  
 
-                if (isPrimitiveType || type == typeof(Message))
+                if (isCopyable || type == typeof(Message))
                 {
                     for (int i = 0; i < list.Count; i++)
                     {
