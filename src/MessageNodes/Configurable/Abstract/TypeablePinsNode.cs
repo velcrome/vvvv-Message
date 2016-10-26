@@ -149,10 +149,10 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 var connected = pinContainer.GetPluginIO().IsConnected;
 
-//                foreach (var associated in pinContainer.AssociatedContainers)
-//                {
-//                    connected |= associated.GetPluginIO().IsConnected;
-//                }
+                foreach (var associated in pinContainer.AssociatedContainers)
+                {
+                    connected |= associated.GetPluginIO().IsConnected;
+                }
                 return connected;
             }
             catch (InvalidComObjectException)
@@ -247,8 +247,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins.Remove(name);
             }
 
-            // reorder - experimental. works in alpha
-            /*
+            ReOrder();
+        }
+
+        protected void ReOrder()
+        {
             var names = from name in Formular.FieldNames
                         where Formular[name].IsRequired
                         select name;
@@ -263,7 +266,6 @@ namespace VVVV.Packs.Messaging.Nodes
                     counter++;
                 }
             }
-            */
         }
 
         #endregion pin management
