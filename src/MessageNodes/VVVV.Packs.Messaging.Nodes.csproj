@@ -84,6 +84,7 @@
     <Compile Include="Configurable\WinForms\FormularLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Formular\Reflect.cs" />
     <Compile Include="Keep\MessageKeepConfigNode.cs" />
     <Compile Include="Configurable\Abstract\AbstractFormularableNode.cs" />
     <Compile Include="GenericNodes.cs" />

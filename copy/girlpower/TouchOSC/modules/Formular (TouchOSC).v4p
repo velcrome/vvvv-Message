@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha33.8.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\touchosc\modules\Formular (TouchOSC).v4p" systemname="Formular (TouchOSC)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\modules\Formular (TouchOSC).v4p" scrollx="180" scrolly="2760">
-   <BOUNDS type="Window" left="2664" top="936" width="14724" height="9720">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\TouchOSC\modules\Formular (TouchOSC).v4p" systemname="Formular (TouchOSC)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\modules\Formular (TouchOSC).v4p" scrollx="180" scrolly="2760">
+   <BOUNDS type="Window" left="11070" top="1320" width="14715" height="9720">
    </BOUNDS>
-   <PACK Name="addonpack" Version="33.8.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2124" top="8400" width="9840" height="270">
@@ -85,7 +85,7 @@
    </PIN>
    </NODE>
    <NODE id="8" systemname="Zip (String Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (String Bin)" componentmode="Hidden">
-   <BOUNDS type="Node" left="4080" top="6975" width="100" height="100">
+   <BOUNDS type="Node" left="4080" top="6975" width="1065" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="4" values="|float toggle1|,|float toggle2|,|float toggle3|,|float toggle4|">
    </PIN>
@@ -98,6 +98,10 @@
    <BOUNDS type="Box" left="4080" top="6975">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Screen 1|">
+   </PIN>
+   <PIN pinname="Input 1 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
    </PIN>
    </NODE>
    <NODE systemname="ControlName (TouchOSC)" filename="ControlName (TouchOSC).v4p" nodename="modules\ControlName (TouchOSC).v4p" componentmode="Hidden" id="9">
@@ -335,7 +339,7 @@
    <LINK srcnodeid="42" srcpinname="Output String" dstnodeid="41" dstpinname="TouchOSC Name">
    </LINK>
    <NODE id="44" systemname="Zip (String Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (String Bin)" componentmode="Hidden">
-   <BOUNDS type="Node" left="5265" top="6975" width="100" height="100">
+   <BOUNDS type="Node" left="5265" top="6975" width="1095" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="4" values="|float toggle1|,|float toggle2|,|float toggle3|,|float toggle4|">
    </PIN>
@@ -349,9 +353,13 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Screen 2|">
    </PIN>
+   <PIN pinname="Input 1 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
    </NODE>
    <NODE id="46" systemname="Zip (String Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (String Bin)" componentmode="Hidden">
-   <BOUNDS type="Node" left="6465" top="6975" width="100" height="100">
+   <BOUNDS type="Node" left="6465" top="6975" width="1095" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="4" values="|float toggle1|,|float toggle2|,|float toggle3|,|float toggle4|">
    </PIN>
@@ -365,9 +373,13 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Screen 3|">
    </PIN>
+   <PIN pinname="Input 1 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
    </NODE>
    <NODE id="48" systemname="Zip (String Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (String Bin)" componentmode="Hidden">
-   <BOUNDS type="Node" left="7695" top="6975" width="100" height="100">
+   <BOUNDS type="Node" left="7695" top="6975" width="1095" height="270">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="4" values="|float toggle1|,|float toggle2|,|float toggle3|,|float toggle4|">
    </PIN>
@@ -381,6 +393,10 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Screen 4|">
    </PIN>
+   <PIN pinname="Input 1 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" visible="-1" pintype="Input" slicecount="1" values="-1">
+   </PIN>
    </NODE>
    <NODE systemname="Zip (String Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (String Bin)" componentmode="Hidden" id="50">
    <BOUNDS type="Node" left="4581" top="7686" width="2505" height="270">
@@ -389,17 +405,17 @@
    </PIN>
    <PIN pinname="Input 1" visible="1">
    </PIN>
-   <PIN pinname="Input 1 Bin Size" visible="1" slicecount="1" values="-1">
+   <PIN pinname="Input 1 Bin Size" visible="-1" slicecount="1" values="-1" pintype="Input">
    </PIN>
    <PIN pinname="Output Bin Size" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input 4 Bin Size" visible="1" slicecount="1" values="-1">
+   <PIN pinname="Input 4 Bin Size" visible="-1" slicecount="1" values="-1" pintype="Input">
    </PIN>
-   <PIN pinname="Input 3 Bin Size" visible="1" slicecount="1" values="-1">
+   <PIN pinname="Input 3 Bin Size" visible="-1" slicecount="1" values="-1" pintype="Input">
    </PIN>
-   <PIN pinname="Input 2 Bin Size" visible="1" slicecount="1" values="-1">
+   <PIN pinname="Input 2 Bin Size" visible="-1" slicecount="1" values="-1" pintype="Input">
    </PIN>
    <PIN pinname="Input 4" visible="1" slicecount="1" values="|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
    </PIN>
@@ -409,6 +425,8 @@
    </PIN>
    <BOUNDS type="Box" left="4581" top="7686">
    </BOUNDS>
+   <PIN pinname="Allow Empty Spreads" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="8" srcpinname="Output" dstnodeid="50" dstpinname="Input 1">
    </LINK>
@@ -696,4 +714,6 @@
    </LINK>
    <LINK srcnodeid="70" srcpinname="Output" dstnodeid="32" dstpinname="Input">
    </LINK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

@@ -45,7 +45,7 @@ namespace VVVV.Packs.Messaging.Nodes
             LayoutPanel.Formular = init; 
             LayoutPanel.CanEditFields = init.IsDynamic;
 
-            FormularUpdate += (sender, formular) => UpdateWindow(formular, formular.IsDynamic);// || sender is MessageFormularRegistry);
+            FormularUpdate += (sender, formular) => UpdateWindow(formular, formular.IsDynamic);// sender is commonly MessageFormularRegistry
             FormularUpdate += (sender, formular) => TryDefinePins(sender, formular);
 
             LayoutPanel.Changed += ReadLayoutPanel;
