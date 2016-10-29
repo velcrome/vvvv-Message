@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="1125" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="4755" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="30" systemname="IOBox (String)">
    <BOUNDS type="Node" left="270" top="231" width="6600" height="1056">
@@ -223,7 +223,7 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.267676767676766,0,0.185185185185185">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.13131313131313,0,0.185185185185185">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -237,7 +237,7 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0.538018048128342">
+   <PIN pinname="X Input Value" slicecount="1" values="0.636057263814616">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="19" systemname="IOBox (Value Advanced)">
@@ -369,13 +369,13 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0,0,0.338383838383839">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0,0,0.292929292929294">
    </PIN>
    <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="3" values="0.501508295625943,0.235294117647059,0.548539695598519">
+   <PIN pinname="X Input Value" slicecount="3" values="0.501508295625943,0.235294117647059,0.587755381873029">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="fader4">
    </PIN>
@@ -517,7 +517,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Field">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.236700336700336,0.509427609427609,0.585858585858586,0.208754208754209,0.354545454545455,0.307407407407407,0.492592592592593,0.307407407407407,0.418518518518519,0.9,0.27037037037037,0.613804713804714">
+   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.236700336700336,0.509427609427609,0.585858585858586,0.171717171717172,0.354545454545455,0.307407407407407,0.492592592592593,0.307407407407407,0.418518518518519,0.9,0.27037037037037,0.613804713804714">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
@@ -627,7 +627,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Field">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.245791245791246,0.286195286195287,0.222222222222223,0.629629629629629,0.703703703703704,0.814814814814815,0.518518518518519,0.777777777777779,0.851851851851852,0.542087542087542,1,0.447811447811446">
+   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.356902356902357,0.286195286195287,0.222222222222223,0.629629629629629,0.703703703703704,0.814814814814815,0.518518518518519,0.777777777777779,0.851851851851852,0.542087542087542,1,0.447811447811446">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>

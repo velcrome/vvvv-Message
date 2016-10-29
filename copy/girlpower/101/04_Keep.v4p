@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="8610" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="17745" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="37" systemname="IOBox (String)">
    <BOUNDS type="Node" left="492" top="156" width="6600" height="1056">
@@ -257,10 +257,12 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="3255" top="3285" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Foo" dstnodeid="19" dstpinname="Input String">
    </LINK>
@@ -1009,12 +1011,14 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
    <PIN pinname="Foo Bin Size" slicecount="1" values="1">
    </PIN>
+   <BOUNDS type="Window" left="10410" top="1890" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="22" srcpinname="Output String" dstnodeid="26" dstpinname="Foo">
    </LINK>
@@ -1187,7 +1191,7 @@
    </PIN>
    <PIN pinname="Update" visible="1" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="AutoSense" slicecount="1" values="1">
+   <PIN pinname="AutoSense" slicecount="1" values="0" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="64" srcpinname="Output" dstnodeid="48" dstpinname="Topic">
@@ -1215,5 +1219,23 @@
    <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Update">
    </LINK>
    <LINK srcnodeid="48" srcpinname="Changed Message" dstnodeid="59" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="85">
+   <BOUNDS type="Box" left="5400" top="11130" width="285" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5400" top="11130" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="85" srcpinname="Y Output Value" dstnodeid="48" dstpinname="AutoSense">
    </LINK>
    </PATCH>
