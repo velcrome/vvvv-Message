@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\XTouch\Master (TouchX Message).v4p" scrollx="3435" scrolly="210" systemname="Master (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Master (TouchX Message).v4p">
+   <PATCH nodename="C:\dev\vvvv\kreuzkirche\modules\Input\XTouch\Master (TouchX Message).v4p" scrollx="0" scrolly="1830" systemname="Master (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Master (TouchX Message).v4p">
    <NODE id="0" systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Output" visible="1" pintype="Output">
    </PIN>
@@ -43,9 +43,9 @@
    </PIN>
    </NODE>
    <NODE id="2" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)" hiddenwhenlocked="0" managers="">
-   <BOUNDS type="Box" left="13005" top="3855" width="285" height="240">
+   <BOUNDS type="Box" left="13455" top="3855" width="285" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="13005" top="3855" width="0" height="0">
+   <BOUNDS type="Node" left="13455" top="3855" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Output Value" visible="1" pintype="Output">
    </PIN>
@@ -1309,6 +1309,10 @@
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="19" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="19" dstpinname="Bin Size" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="13485" y="4110">
+   </LINKPOINT>
+   <LINKPOINT x="6510" y="4110">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input 1">
    </LINK>
@@ -1341,9 +1345,9 @@
    <LINK srcnodeid="1" srcpinname="On Data" dstnodeid="14" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Bin Size" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="13005" y="4125">
+   <LINKPOINT x="13305" y="4125">
    </LINKPOINT>
-   <LINKPOINT x="7845" y="4125">
+   <LINKPOINT x="7995" y="4125">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="14" srcpinname="Output" dstnodeid="15" dstpinname="Input">
@@ -1459,8 +1463,6 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="Hidden">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
-   </PIN>
    </NODE>
    <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="27" dstpinname="New" hiddenwhenlocked="1" linkstyle="Bezier">
    <LINKPOINT x="16695" y="3428">
@@ -1471,15 +1473,15 @@
    <LINK srcnodeid="29" srcpinname="Output" dstnodeid="34" dstpinname="Field">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Bin Size" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="13005" y="4125">
+   <LINKPOINT x="13305" y="4125">
    </LINKPOINT>
-   <LINKPOINT x="10230" y="4125">
+   <LINKPOINT x="10380" y="4125">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Bin Size" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="13105" y="4125">
+   <LINKPOINT x="13405" y="4125">
    </LINKPOINT>
-   <LINKPOINT x="11705" y="4125">
+   <LINKPOINT x="11855" y="4125">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="50" systemname="IOBox (Enumerations)">
@@ -1913,9 +1915,9 @@
    <LINK srcnodeid="90" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Field Bin Size">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="85" dstpinname="Bin Size" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="13005" y="4125">
+   <LINKPOINT x="13305" y="4125">
    </LINKPOINT>
-   <LINKPOINT x="4680" y="4125">
+   <LINKPOINT x="4830" y="4125">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="31" srcpinname="Output" dstnodeid="17" dstpinname="Input 3">
@@ -1925,9 +1927,9 @@
    <LINK srcnodeid="89" srcpinname="Output" dstnodeid="17" dstpinname="Input 1">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="83" dstpinname="Bin Size" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="13005" y="4313">
+   <LINKPOINT x="13485" y="4110">
    </LINKPOINT>
-   <LINKPOINT x="3405" y="4313">
+   <LINKPOINT x="3375" y="4110">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="93" systemname="IOBox (String)">
@@ -2013,7 +2015,7 @@
    <LINK srcnodeid="43" srcpinname="Match" dstnodeid="41" dstpinname="Do Send">
    </LINK>
    <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="110">
-   <BOUNDS type="Node" left="6315" top="12480" width="100" height="100">
+   <BOUNDS type="Node" left="6525" top="12450" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input 2" slicecount="1" visible="1" values="127">
    </PIN>
@@ -2044,8 +2046,6 @@
    <PIN pinname="Channel" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="110" srcpinname="Output" dstnodeid="107" dstpinname="Velocity">
-   </LINK>
    <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="115">
    <BOUNDS type="Node" left="4515" top="11625" width="100" height="100">
    </BOUNDS>
@@ -2253,9 +2253,9 @@
    <LINK srcnodeid="124" srcpinname="Output String" dstnodeid="123" dstpinname="Key">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="125" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6510" top="12180" width="420" height="240">
+   <BOUNDS type="Box" left="6720" top="12150" width="420" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="6510" top="12180" width="0" height="0">
+   <BOUNDS type="Node" left="6720" top="12150" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="127">
    </PIN>
@@ -2397,5 +2397,7 @@
    </LINKPOINT>
    <LINKPOINT x="14655" y="11370">
    </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="117" srcpinname="Field" dstnodeid="107" dstpinname="Velocity">
    </LINK>
    </PATCH>

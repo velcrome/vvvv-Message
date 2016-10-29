@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\XTouch\Transport (TouchX Message).v4p" systemname="Transport (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Transport (TouchX Message).v4p" scrollx="4575" scrolly="360">
+   <PATCH nodename="C:\dev\vvvv\kreuzkirche\modules\Input\XTouch\Transport (TouchX Message).v4p" systemname="Transport (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Transport (TouchX Message).v4p" scrollx="1275" scrolly="5250">
    <NODE systemname="MidiNote (Devices)" nodename="MidiNote (Devices)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="5190" top="3180" width="2955" height="270">
    </BOUNDS>
@@ -129,9 +129,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="12" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="3000" top="8220" width="795" height="240">
+   <BOUNDS type="Box" left="3000" top="13110" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="3000" top="8220" width="0" height="0">
+   <BOUNDS type="Node" left="3000" top="13110" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Transport">
    </PIN>
@@ -196,7 +196,7 @@
    </LINK>
    <LINK srcnodeid="0" srcpinname="On Data" dstnodeid="6" dstpinname="Input">
    </LINK>
-   <BOUNDS type="Window" left="16110" top="3360" width="7305" height="11055">
+   <BOUNDS type="Window" left="16110" top="3360" width="11370" height="11055">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -257,7 +257,7 @@
    <LINK srcnodeid="17" srcpinname="String Value" dstnodeid="10" dstpinname="Topic">
    </LINK>
    <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="24">
-   <BOUNDS type="Node" left="6945" top="8820" width="100" height="100">
+   <BOUNDS type="Node" left="7155" top="8790" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input 2" slicecount="1" visible="1" values="127">
    </PIN>
@@ -284,8 +284,6 @@
    <PIN pinname="Enabled" visible="1" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="24" srcpinname="Output" dstnodeid="22" dstpinname="Velocity">
-   </LINK>
    <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="3645" top="7680" width="100" height="100">
    </BOUNDS>
@@ -314,7 +312,7 @@
    <BOUNDS type="Box" left="6735" top="7680">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="25">
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="25">
    <BOUNDS type="Node" left="3315" top="4995" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -322,6 +320,8 @@
    <PIN pinname="New" visible="1" slicecount="6" values="0,0,0,0,0,0">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Topic" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="26">
@@ -397,9 +397,9 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="31" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7155" top="8520" width="420" height="240">
+   <BOUNDS type="Box" left="7365" top="8490" width="420" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7155" top="8520" width="0" height="0">
+   <BOUNDS type="Node" left="7365" top="8490" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="127">
    </PIN>
@@ -492,8 +492,6 @@
    </NODE>
    <LINK srcnodeid="7" srcpinname="Output" dstnodeid="29" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="29" srcpinname="Output" dstnodeid="12" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="15" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="1">
    <LINKPOINT x="9180" y="4313">
    </LINKPOINT>
@@ -509,5 +507,213 @@
    <LINK srcnodeid="29" srcpinname="Message Diff" dstnodeid="21" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="29" srcpinname="Message Diff" dstnodeid="19" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="String Value" dstnodeid="25" dstpinname="Topic">
+   </LINK>
+   <LINK srcnodeid="32" srcpinname="Output" dstnodeid="22" dstpinname="Velocity">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="38" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="3360" top="8490" width="870" height="615">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3360" top="8490" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="2" visible="1" values="Play,Stop">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="Foo">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="FlipFlop (Animation)" nodename="FlipFlop (Animation)" componentmode="Hidden" id="40">
+   <BOUNDS type="Node" left="3510" top="10035" width="840" height="270">
+   </BOUNDS>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   <PIN pinname="Reset" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="TogEdge (Animation)" nodename="TogEdge (Animation)" componentmode="Hidden" id="42">
+   <BOUNDS type="Node" left="3510" top="9705" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="2" values="0,0">
+   </PIN>
+   <PIN pinname="Up Edge" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="ToToggle (TouchX Message)" filename="..\..\modules\Input\XTouch\ToToggle (TouchX Message).v4p" nodename="..\..\modules\Input\XTouch\ToToggle (TouchX Message).v4p" componentmode="Hidden" id="46">
+   <BOUNDS type="Node" left="3000" top="12390" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3000" top="12390" width="3525" height="5470">
+   </BOUNDS>
+   <BOUNDS type="Window" left="6720" top="3180" width="4260" height="5460">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Field" visible="1" slicecount="6" values="Rewind,Forward,Loop,Record,Stop,Play">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="45" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="3915" top="11460" width="930" height="810">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3915" top="11460" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input String" visible="1" slicecount="4" values="Record,Loop,Rewind,Forward">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="Input">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="45" srcpinname="Output String" dstnodeid="46" dstpinname="Field">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output" dstnodeid="12" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="49" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3510" top="10365" width="825" height="285">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3510" top="10365" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="49" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="44">
+   <BOUNDS type="Node" left="3015" top="10920" width="1260" height="270">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|bool Play|">
+   </PIN>
+   <PIN pinname="Key" slicecount="1" visible="1" values="Play">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" values="bool">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Transport">
+   </PIN>
+   <PIN pinname="Play" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Update" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="AutoSense" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="46" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="52">
+   <BOUNDS type="Node" left="5070" top="11775" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="44" srcpinname="Output" dstnodeid="52" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="53" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="5085" top="12195" width="4455" height="2280">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5085" top="12195" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="53" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="37">
+   <BOUNDS type="Node" left="3000" top="9330" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|bool Stop, bool Play|">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" values="bool">
+   </PIN>
+   <PIN pinname="Key" slicecount="1" visible="1" values="Play">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Transport">
+   </PIN>
+   <PIN pinname="Play" visible="1">
+   </PIN>
+   <PIN pinname="Stop" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="29" srcpinname="Output" dstnodeid="37" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="37" srcpinname="Play" dstnodeid="42" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="42" srcpinname="Up Edge" dstnodeid="40" dstpinname="Set">
+   </LINK>
+   <NODE systemname="TogEdge (Animation)" nodename="TogEdge (Animation)" componentmode="Hidden" id="56">
+   <BOUNDS type="Node" left="4290" top="9705" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="2" values="0,0">
+   </PIN>
+   <PIN pinname="Up Edge" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="37" srcpinname="Stop" dstnodeid="56" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="56" srcpinname="Up Edge" dstnodeid="40" dstpinname="Reset">
+   </LINK>
+   <NODE systemname="Change (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message)" componentmode="Hidden" id="57">
+   <BOUNDS type="Node" left="2445" top="10395" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Change" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="29" srcpinname="Output" dstnodeid="57" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="57" srcpinname="Output" dstnodeid="44" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="57" srcpinname="Change" dstnodeid="44" dstpinname="Update">
+   </LINK>
+   <LINK srcnodeid="49" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Play">
    </LINK>
    </PATCH>

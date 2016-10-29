@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\XTouch\_root_TouchX (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p">
+   <PATCH nodename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p">
    <BOUNDS type="Window" left="0" top="0" width="21780" height="15300">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
@@ -96,16 +96,16 @@
    </NODE>
    <LINK srcnodeid="196" srcpinname="Y Output Value" dstnodeid="194" dstpinname="Fader">
    </LINK>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="313">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="313">
    <BOUNDS type="Node" left="1380" top="8730" width="1710" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" values="XTouch.Master">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|double Fader, bool FaderTouch, bool Button, double A, double C|">
+   <PIN pinname="Configuration" slicecount="1" values="|bool FaderTouch, double Fader, bool Button, double A, double C, bool Program|">
    </PIN>
-   <PIN pinname="Fader" visible="1" slicecount="1" values="1">
+   <PIN pinname="Fader" visible="1" slicecount="1" values="0.51">
    </PIN>
    <PIN pinname="AutoSense" slicecount="1" values="1">
    </PIN>
@@ -127,6 +127,8 @@
    </PIN>
    <BOUNDS type="Window" left="6540" top="3630" width="6000" height="4500">
    </BOUNDS>
+   <PIN pinname="Program" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Transport (TouchX Message)" filename="Transport (TouchX Message).v4p" nodename="Transport (TouchX Message).v4p" componentmode="Hidden" id="327">
    <BOUNDS type="Node" left="5832" top="2756" width="960" height="270">
@@ -141,7 +143,7 @@
    </PIN>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Transport" visible="1" slicecount="1" values="||">
+   <PIN pinname="Transport" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Master (TouchX Message)" filename="Master (TouchX Message).v4p" nodename="Master (TouchX Message).v4p" componentmode="Hidden" id="330">
@@ -164,7 +166,7 @@
    <PIN pinname="Message Diff" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Tracks (TouchX Message)" filename="Tracks (TouchX Message).v4p" nodename="Tracks (TouchX Message).v4p" componentmode="InAWindow" id="331">
+   <NODE systemname="Tracks (TouchX Message)" filename="Tracks (TouchX Message).v4p" nodename="Tracks (TouchX Message).v4p" componentmode="Hidden" id="331">
    <BOUNDS type="Node" left="4430" top="2731" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="0" top="0" width="14370" height="19545">
@@ -175,7 +177,7 @@
    </PIN>
    <PIN pinname="Midi Output Port" visible="1" slicecount="1" values="|X-TOUCH COMPACT|">
    </PIN>
-   <PIN pinname="Tracks" visible="1" slicecount="1" values="||">
+   <PIN pinname="Tracks" visible="1">
    </PIN>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
@@ -187,7 +189,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4530" top="15" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="nanoKONTROL2">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -203,7 +205,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4755" top="660" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|Microsoft GS Wavetable Synth|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -248,76 +250,6 @@
    </NODE>
    <LINK srcnodeid="335" srcpinname="Y Output Value" dstnodeid="313" dstpinname="B">
    </LINK>
-   <NODE systemname="Definition (TouchX Message)" filename="Definition (TouchX Message).v4p" componentmode="Hidden" id="137" nodename="Definition (TouchX Message).v4p">
-   <BOUNDS type="Node" left="2355" top="1590" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2355" top="1590" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="12840" top="195" width="11160" height="7860">
-   </BOUNDS>
-   </NODE>
-   <NODE systemname="MidiNoteOut (Devices)" filename="%VVVV%\lib\nodes\modules\Devices\MidiNoteOut (Devices).v4p" nodename="MidiNoteOut (Devices)" componentmode="Hidden" id="337">
-   <BOUNDS type="Node" left="12615" top="5895" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Midi Output Port" slicecount="1" values="|Microsoft GS Wavetable Synth|">
-   </PIN>
-   <PIN pinname="Play" visible="1">
-   </PIN>
-   <PIN pinname="Note" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Velocity" visible="1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Enabled" slicecount="1" visible="1" values="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="338" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="11715" top="4725" width="480" height="480">
-   </BOUNDS>
-   <BOUNDS type="Node" left="11715" top="4725" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="338" srcpinname="Y Output Value" dstnodeid="337" dstpinname="Play">
-   </LINK>
-   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="340">
-   <BOUNDS type="Node" left="13260" top="5355" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input 2" slicecount="1" values="128">
-   </PIN>
-   <PIN pinname="Input" slicecount="1" visible="1" values="2">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="340" srcpinname="Output" dstnodeid="337" dstpinname="Velocity">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="341" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="13080" top="4755" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="13080" top="4755" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="341" srcpinname="Y Output Value" dstnodeid="340" dstpinname="Input">
-   </LINK>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="342">
    <BOUNDS type="Node" left="5760" top="6015" width="100" height="100">
    </BOUNDS>
@@ -351,7 +283,7 @@
    <NODE systemname="GetSlice (Node)" nodename="GetSlice (Node)" componentmode="Hidden" id="344">
    <BOUNDS type="Node" left="3735" top="4980" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
+   <PIN pinname="Input Node" visible="1">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
@@ -422,7 +354,7 @@
    </LINK>
    <LINK srcnodeid="335" srcpinname="Y Output Value" dstnodeid="313" dstpinname="A">
    </LINK>
-   <LINK srcnodeid="330" srcpinname="Output" dstnodeid="313" dstpinname="Input">
+   <LINK srcnodeid="330" srcpinname="Master" dstnodeid="313" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="346" srcpinname="Output" dstnodeid="335" dstpinname="Y Input Value">
    </LINK>
@@ -453,7 +385,7 @@
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|bool Rewind, bool Forward, bool Loop, bool Record, bool Stop, bool Play|">
    </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   <PIN pinname="Input" visible="1">
    </PIN>
    <PIN pinname="Rewind" slicecount="1" values="0">
    </PIN>
@@ -529,13 +461,15 @@
    </PIN>
    <PIN pinname="AutoSense" slicecount="1" visible="1" pintype="Input" values="1">
    </PIN>
+   <PIN pinname="RotaryPush" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="352" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="10020" top="4950" width="1350" height="1680">
    </BOUNDS>
    <BOUNDS type="Node" left="10020" top="4950" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="16" visible="1" values="1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1">
+   <PIN pinname="Y Input Value" slicecount="16" visible="1" values="1,1,0,0,1,0,0,0,1,1,0,1,0,1,1,1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -545,7 +479,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="16" values="1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1">
+   <PIN pinname="X Input Value" slicecount="16" values="1,1,0,0,1,0,0,0,1,1,0,1,0,1,1,1">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Middle">
    </PIN>
@@ -612,68 +546,6 @@
    </LINK>
    <LINK srcnodeid="355" srcpinname="Output 4XYZW" dstnodeid="351" dstpinname="Button">
    </LINK>
-   <NODE systemname="MidiControllerOut (Devices)" filename="%VVVV%\lib\nodes\modules\Devices\MidiControllerOut (Devices).v4p" nodename="MidiControllerOut (Devices)" componentmode="Hidden" id="356">
-   <BOUNDS type="Node" left="16680" top="5925" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Value" visible="1">
-   </PIN>
-   <PIN pinname="Controller" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Enabled" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="357">
-   <BOUNDS type="Node" left="17850" top="5055" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input 2" slicecount="1" values="127">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="358" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="17775" top="4005" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="17775" top="4005" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="6">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="358" srcpinname="Y Output Value" dstnodeid="357" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="357" srcpinname="Output" dstnodeid="356" dstpinname="Value">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="359" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="16770" top="4755" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="16770" top="4755" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="26">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="359" srcpinname="Y Output Value" dstnodeid="356" dstpinname="Controller">
-   </LINK>
-   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="356" dstpinname="Enabled">
-   </LINK>
-   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="337" dstpinname="Enabled">
-   </LINK>
-   <LINK srcnodeid="344" srcpinname="Output Node" dstnodeid="171" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="360" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="10995" top="7170" width="480" height="480">
    </BOUNDS>
@@ -691,5 +563,37 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="360" srcpinname="Y Output Value" dstnodeid="351" dstpinname="AutoSense">
+   </LINK>
+   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="171" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Definition (TouchX Message)" filename="Definition (TouchX Message).v4p" componentmode="Hidden" id="137" nodename="Definition (TouchX Message).v4p">
+   <BOUNDS type="Node" left="2355" top="1590" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2355" top="1590" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="12840" top="195" width="11160" height="7860">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="365" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4740" top="8010" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4740" top="8010" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="365" srcpinname="Y Output Value" dstnodeid="313" dstpinname="Program">
+   </LINK>
+   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="351" dstpinname="Input">
    </LINK>
    </PATCH>
