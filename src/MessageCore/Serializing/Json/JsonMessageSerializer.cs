@@ -36,7 +36,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 string extraType = "";
 
                 if (!NativeJsonTypes.Contains(bin.GetInnerType()))
-                    extraType = "<"+TypeIdentity.Instance.FindAlias(bin.GetInnerType())+">";
+                    extraType = "<"+TypeIdentity.Instance[bin.GetInnerType()]?.Alias+">";
 
                 writer.WritePropertyName(name + extraType);
 
@@ -88,7 +88,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 {
                     name = m.Groups[1].Value as string;
                     var alias = m.Groups[2].Value as string;
-                    var baseType = TypeIdentity.Instance.FindType(alias);
+                    var baseType = TypeIdentity.Instance[alias]?.Type;
                     
                     var binType = typeof(Bin<>).MakeGenericType(baseType);
 

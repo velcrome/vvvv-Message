@@ -16,7 +16,7 @@ namespace VVVV.Packs.Messaging.Serializing
             foreach (var key in message.Fields)
             {
                 Bin bin = message[key];
-                string alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
+                string alias = TypeIdentity.Instance[bin.GetInnerType()].Alias;
 
                 var spread = new XElement("Field");
                 spread.Add(new XAttribute("type", alias));

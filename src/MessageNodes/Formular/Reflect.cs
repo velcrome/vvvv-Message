@@ -68,7 +68,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                         FLogger.Log(LogType.Debug, "Success: " + fieldInfo.FieldType.Name + " " + name);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         FLogger.Log(LogType.Debug, "Failed: " + fieldInfo.FieldType.Name + " " + name);
                         //FLogger.Log(ex, LogType.Debug);

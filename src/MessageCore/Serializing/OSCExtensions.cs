@@ -68,7 +68,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 for (int i = 0; i < count; i++)
                 {
                     if (bin == null || i >= bin.Count)
-                        msg.Append(TypeIdentity.Instance.NewDefault(field.Type)); // send out defaults to keep the integrity of the osc message
+                        msg.Append(TypeIdentity.Instance[field.Type].Default()); // send out defaults to keep the integrity of the osc message
                     else msg.Append(bin[i]);
                 }
                 

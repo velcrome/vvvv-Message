@@ -58,7 +58,7 @@ namespace VVVV.Packs.Messaging
                 // or add
                 for (int i = Count; i < value; i++)
                 {
-                    var defaultValue = TypeIdentity.Instance.NewDefault(this.GetInnerType());
+                    var defaultValue = TypeIdentity.Instance[this.GetInnerType()]?.Default();
 
                     if (defaultValue != null) this.Add(defaultValue);
                     IsChanged = true;
@@ -131,7 +131,7 @@ namespace VVVV.Packs.Messaging
         {
             var s = new StringWriter();
             s.Write("Bin<");
-            s.Write(TypeIdentity.Instance.FindAlias(GetInnerType()));
+            s.Write(TypeIdentity.Instance[GetInnerType()]?.Alias);
             s.Write("> ");
 
             s.Write(this.IsChanged ? "*" : ".");

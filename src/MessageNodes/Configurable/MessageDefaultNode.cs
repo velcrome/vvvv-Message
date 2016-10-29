@@ -105,7 +105,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                             for (int slice = 0; slice < binsize; slice++)
                             {
-                                message[field].Add(TypeIdentity.Instance.NewDefault(type));
+                                message[field].Add(TypeIdentity.Instance[type].Default());
                             }
                         }
 

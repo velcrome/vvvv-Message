@@ -76,7 +76,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         if (!FAvoidNil.IsAnyInvalid() && FAvoidNil[0])
                         {
                             output.SliceCount = 1;
-                            output[0] = TypeIdentity.Instance.NewDefault(type);
+                            output[0] = TypeIdentity.Instance[type].Default();
                         }
                     }
                     else
