@@ -62,6 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FeralTic">
+      <HintPath>..\..\lib\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="MsgPack">
       <HintPath>..\packages\MsgPack.Cli.0.7.1\lib\net46\MsgPack.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +79,12 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="VVVV.DX11.Core">
+      <HintPath>..\..\lib\VVVV.DX11.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VVVV.DX11.Lib">
+      <HintPath>..\..\lib\VVVV.DX11.Lib.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Packs.Time, Version=1.0.5905.19301, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>

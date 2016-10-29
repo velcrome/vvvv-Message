@@ -10,10 +10,13 @@ using VVVV.Core.Logging;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
 using System.Windows.Forms;
+using VVVV.DX11;
+using FeralTic.DX11;
+using VVVV.PluginInterfaces.V1;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface
+    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface, IDX11ResourceDataRetriever
     {
         #region fields & pins
         protected const string Tags = "Formular";
@@ -26,7 +29,25 @@ namespace VVVV.Packs.Messaging.Nodes
         protected FormularLayoutPanel LayoutPanel = new FormularLayoutPanel();
 
 
+        [Import()]
+        protected IPluginHost FHost;
         #endregion fields & pins
+
+
+        #region dx11
+        public DX11RenderContext AssignedContext
+        {
+            get;
+            set;
+        }
+
+        public event DX11RenderRequestDelegate RenderRequest;
+
+        protected void InitDX11Graph()
+        {
+            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
+        }
+        #endregion dx11
 
         #region Initialisation
 

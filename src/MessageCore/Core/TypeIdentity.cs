@@ -56,6 +56,11 @@ namespace VVVV.Packs.Messaging
 
             registry.Add(typeof(Message), "Message");
 
+
+            registry.Add(typeof(DX11.DX11Resource<VVVV.DX11.DX11Layer>), "Layer"); 
+            registry.Add(typeof(DX11.DX11Resource<FeralTic.DX11.Resources.DX11Texture2D>), "Texture2d");
+            registry.Add(typeof(DX11.DX11Resource<FeralTic.DX11.Resources.IDX11Geometry>), "Geometry");
+
             return new TypeIdentity(registry);
         }
 
@@ -158,5 +163,7 @@ namespace VVVV.Packs.Messaging
             }
             return type;
         }
+
+
     }
 }

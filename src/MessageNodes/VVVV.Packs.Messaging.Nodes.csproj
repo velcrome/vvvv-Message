@@ -33,6 +33,10 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +63,10 @@
     <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Core.34.105.0-develop-1755\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\VVVV.DX11.Core.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
