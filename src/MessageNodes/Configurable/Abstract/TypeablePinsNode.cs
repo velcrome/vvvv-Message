@@ -252,8 +252,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins.Remove(name);
             }
 
-            // reorder - experimental. works in alpha
-            /*
+            ReOrder();
+        }
+
+        protected void ReOrder()
+        {
             var names = from name in Formular.FieldNames
                         where Formular[name].IsRequired
                         select name;
@@ -268,7 +271,6 @@ namespace VVVV.Packs.Messaging.Nodes
                     counter++;
                 }
             }
-            */
         }
 
         #endregion pin management
