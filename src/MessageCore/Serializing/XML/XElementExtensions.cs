@@ -16,17 +16,16 @@ namespace VVVV.Packs.Messaging.Serializing
             foreach (var key in message.Fields)
             {
                 Bin bin = message[key];
-                string alias = TypeIdentity.Instance[bin.GetInnerType()].Alias;
+                var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
+                if (typeRecord == null || typeRecord.Clone == CloneBehaviour.Null) continue;
 
-                var spread = new XElement("Field");
-                spread.Add(new XAttribute("type", alias));
-                spread.Add(new XAttribute("name", key));
-
-                for (int i = 0; i < message[key].Count; i++)
+                var element = new XElement(typeRecord.Alias);
+                element.Add(new XAttribute("name", key));
+                for (int i = 0; i < bin.Count; i++)
                 {
-                    spread.Add(new XElement(alias, message[key][i].ToString()));
+                    element.Add(new XElement(i.ToString(), bin[i].ToString()));
                 }
-                xml.Add(spread);
+                xml.Add(element);
             }
 
             return xml;

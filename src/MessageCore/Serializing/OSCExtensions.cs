@@ -1,13 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
 using VVVV.Utils.OSC;
-
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Time = VVVV.Packs.Time.Time;
 
     public static class OSCExtensions
@@ -40,8 +39,11 @@ namespace VVVV.Packs.Messaging.Serializing
                     if (part.Trim() != "") oscAddress += "/" + part;
                 }
 
-                OSCMessage msg = new OSCMessage(oscAddress, extendedMode);
                 Bin bin = message[name];
+                var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
+                if (typeRecord == null || typeRecord.Clone == CloneBehaviour.Null) continue;
+
+                OSCMessage msg = new OSCMessage(oscAddress, extendedMode);
                 for (int i = 0; i < bin.Count; i++) msg.Append(bin[i]);
                 bundle.Append(msg);
             }

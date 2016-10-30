@@ -33,10 +33,14 @@ namespace VVVV.Packs.Messaging.Serializing
             foreach (var name in message.Fields)
             {
                 var bin = message[name];
-                string extraType = "";
+                var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
 
+                if (typeRecord == null) continue;
+                if (typeRecord.Clone == CloneBehaviour.Null) continue;
+                    
+                string extraType = "";
                 if (!NativeJsonTypes.Contains(bin.GetInnerType()))
-                    extraType = "<"+TypeIdentity.Instance[bin.GetInnerType()]?.Alias+">";
+                    extraType = "<"+typeRecord.Alias+">";
 
                 writer.WritePropertyName(name + extraType);
 

@@ -69,19 +69,24 @@ namespace VVVV.Packs.Messaging.Serializing
 
             foreach (var fieldName in message.Fields)
             {
+                var bin = message[fieldName];
+                var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
+
+                if (typeRecord == null) continue;
+                if (typeRecord.Clone == CloneBehaviour.Null) continue;
+
                 packer.PackString(fieldName);
 
-                var bin = message[fieldName];
                 if (bin.Count == 1)
                 {
-                    var alias = TypeIdentity.Instance[bin.GetInnerType()].Alias;
+                    var alias = typeRecord.Alias;
                     PackSlice(packer, alias, bin.First);
 
                 }
                 else
                 {
                     packer.PackArrayHeader(bin.Count);
-                    var alias = TypeIdentity.Instance[bin.GetInnerType()].Alias;
+                    var alias = typeRecord.Alias;
                     foreach (var item in bin)
                     {
                         PackSlice(packer, alias, item);
