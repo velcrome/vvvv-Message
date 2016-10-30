@@ -118,14 +118,14 @@ namespace VVVV.Packs.Messaging.Nodes
                                 where !panel.IsFaulty && !panel.IsEmpty
                                 where !formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).ToList();
+                          ).Distinct().ToList();
 
             var remove =  (
                                 from panel in prev
                                 where !panel.IsFaulty
                                 where panel.IsEmpty || !formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).Concat(keepUnused? empty : unused).ToList();
+                          ).Concat(keepUnused? empty : unused).Distinct().ToList();
 
             // keep all that will 
             var remain = (
@@ -134,7 +134,7 @@ namespace VVVV.Packs.Messaging.Nodes
                                 where !panel.IsEmpty
                                 where formular.FieldNames.Contains(panel.Descriptor.Name)
                                 select panel
-                          ).Concat(keepUnused? unused : empty).ToList();
+                          ).Concat(keepUnused? unused : empty).Distinct().ToList();
 
             var currentDesc = (
                                 from panel in prev
