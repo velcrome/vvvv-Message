@@ -16,7 +16,7 @@ namespace VVVV.Packs.Messaging
         Type Type { get;  }
 
         CloneBehaviour Clone { get; }
-        Func<object, object> CustomClone { get; set; }
+        Func<object, object> CustomClone { get;  }
         Func<object> Default { get; set; }
 
     }
@@ -27,6 +27,8 @@ namespace VVVV.Packs.Messaging
         {
             Alias = alias;
             Clone = cloning;
+
+            if (newDefault == null) newDefault = () => null;
             Default = newDefault;
         }
 

@@ -10,10 +10,13 @@ using VVVV.Core.Logging;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
 using System.Windows.Forms;
+using VVVV.DX11;
+using FeralTic.DX11;
+using VVVV.PluginInterfaces.V1;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface
+    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface, IDX11ResourceDataRetriever
     {
         #region fields & pins
         protected const string Tags = "Formular";
@@ -26,6 +29,8 @@ namespace VVVV.Packs.Messaging.Nodes
         protected FormularLayoutPanel LayoutPanel = new FormularLayoutPanel();
 
 
+        [Import()]
+        protected IPluginHost FHost;
         #endregion fields & pins
 
         #region Initialisation
@@ -190,7 +195,7 @@ namespace VVVV.Packs.Messaging.Nodes
                              where HasLink(FPins[pinName]) // first frame pin will not be initialized
                              where newFormular.FieldNames.Contains(pinName)
                              where newFormular[pinName].IsRequired
-                             let innerType = FPins[pinName].GetInnerMostType() // ISpread<ISpread< ??? >>
+                             let innerType = FPins[pinName].GetTypeRecord().Type // ISpread<ISpread< ??? >>
                              where newFormular[pinName].Type != innerType // rather ask for conversion? see actual pin creation for more comments
                              select pinName;
 
@@ -226,7 +231,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     // same name, but types don't match
                     // todo: in fact eg float does match double from vvvv side, conversion useful for patching speed?
-                    if (FPins[field.Name].GetInnerMostType() != field.Type)
+                    if (FPins[field.Name].GetTypeRecord().Type != field.Type)
                     {
                         FPins[field.Name].Dispose();
                         var pin = CreatePin(field);
@@ -267,6 +272,21 @@ namespace VVVV.Packs.Messaging.Nodes
         }
 
         #endregion pin management
+
+        #region dx11
+        public DX11RenderContext AssignedContext
+        {
+            get;
+            set;
+        }
+
+        public event DX11RenderRequestDelegate RenderRequest;
+
+        protected void InitDX11Graph()
+        {
+            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
+        }
+        #endregion dx11
 
         #region window management
 
