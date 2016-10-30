@@ -257,7 +257,7 @@
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -275,6 +275,8 @@
    </PIN>
    <BOUNDS type="Window" left="7125" top="4215" width="6000" height="4500">
    </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
    </LINK>
@@ -317,6 +319,8 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Update">
    </LINK>
@@ -336,10 +340,26 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="3" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="3" srcpinname="Output" dstnodeid="15" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="AutoSense">
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="3" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="22">
+   <BOUNDS type="Box" left="5250" top="2220" width="285" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5250" top="2220" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="22" srcpinname="Y Output Value" dstnodeid="1" dstpinname="AutoSense">
    </LINK>
    </PATCH>

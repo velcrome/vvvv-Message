@@ -441,11 +441,11 @@ namespace VVVV.Packs.Messaging {
                     throw new SystemException(type.FullName + " is not a registered type. Cannot add such a field to Message \"" + this.Topic+"\"");
 
                 // removing this line will force creation of empty bins, if the field is not cloneable somehow.
-                if (typeRecord.Clone == CloneBehaviour.Null) continue; // omit the entire Field
+                if (typeRecord.CloneMethod == CloneBehaviour.Null) continue; // omit the entire Field
 
                 for (int i = 0; i < list.Count; i++)
                 {
-                    switch (typeRecord.Clone)
+                    switch (typeRecord.CloneMethod)
                     {
                         case CloneBehaviour.Null:
                             continue;
@@ -464,7 +464,7 @@ namespace VVVV.Packs.Messaging {
                                 throw new SystemException(type.FullName + " cannot be cloned with Custom Clone delegate. Check Profile. " + this.Topic);
                             newBin.Add(customClone);
                             break;
-                        default: throw new NotImplementedException("CloneBehaviour " + typeRecord.Clone.ToString() + " unhandled.");
+                        default: throw new NotImplementedException("CloneBehaviour " + typeRecord.CloneMethod.ToString() + " unhandled.");
                     }
                 }
                 

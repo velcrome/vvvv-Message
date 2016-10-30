@@ -137,13 +137,13 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5496" top="5250" width="2208" height="312">
+   <BOUNDS type="Box" left="5052" top="5280" width="2745" height="300">
    </BOUNDS>
-   <BOUNDS type="Node" left="5496" top="5250" width="0" height="0">
+   <BOUNDS type="Node" left="5052" top="5280" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" visible="1" slicecount="1" values="|string[2] HelloWorld|">
+   <PIN pinname="Input String" visible="1" slicecount="1" values="|string[2] HelloWorld, Texture2d Tex|">
    </PIN>
-   <PIN pinname="Default" slicecount="1" values="|string[2] HelloWorld|">
+   <PIN pinname="Default" slicecount="1" values="|string[2] HelloWorld, Texture2d Tex|">
    </PIN>
    <PIN pinname="File Mask" slicecount="1" values="||">
    </PIN>
@@ -408,16 +408,6 @@
    </NODE>
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="27" dstpinname="New">
    </LINK>
-   <NODE systemname="NIL (String)" filename="%VVVV%\lib\nodes\modules\String\NIL (String).v4p" nodename="NIL (String)" componentmode="Hidden" id="36" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="1788" top="6192" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="36" srcpinname="Output" dstnodeid="11" dstpinname="Input String" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="36" srcpinname="Output" dstnodeid="10" dstpinname="Input String" hiddenwhenlocked="1">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="37" systemname="IOBox (String)">
    <BOUNDS type="Node" left="324" top="3300" width="2724" height="2040">
    </BOUNDS>
@@ -450,4 +440,14 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
+   <NODE systemname="NIL (String)" filename="%VVVV%\lib\nodes\modules\String\NIL (String).v4p" nodename="NIL (String)" componentmode="Hidden" id="40">
+   <BOUNDS type="Node" left="1875" top="6015" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="11" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="10" dstpinname="Input String">
+   </LINK>
    </PATCH>

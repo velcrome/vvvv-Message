@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="5070">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="1110">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
@@ -77,9 +77,9 @@
    <LINK srcnodeid="3" srcpinname="Element" dstnodeid="2" dstpinname="Object">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="1" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="11238" top="5004" width="2592" height="1668">
+   <BOUNDS type="Box" left="11241" top="4998" width="2580" height="3555">
    </BOUNDS>
-   <BOUNDS type="Node" left="11238" top="5004" width="0" height="0">
+   <BOUNDS type="Node" left="11241" top="4998" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -99,7 +99,7 @@
    </BOUNDS>
    <PIN pinname="Spread Count" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="Event" visible="1">
+   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Event">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>

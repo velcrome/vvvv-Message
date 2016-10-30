@@ -42,14 +42,6 @@
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    </NODE>
-   <NODE systemname="04_Keep" filename="101\04_Keep.v4p" componentmode="InAWindow" id="373" nodename="101\04_Keep.v4p">
-   <BOUNDS type="Node" left="510" top="2625" width="885" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="510" top="2625" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="05_Info" filename="101\05_Info.v4p" componentmode="InAWindow" id="374" nodename="101\05_Info.v4p">
    <BOUNDS type="Node" left="510" top="3105" width="810" height="270">
    </BOUNDS>
@@ -143,6 +135,8 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="400" srcpinname="Y Output Value" dstnodeid="399" dstpinname="Clear">
    </LINK>
@@ -151,7 +145,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1395" top="7305" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -164,4 +158,12 @@
    </NODE>
    <LINK srcnodeid="401" srcpinname="Y Output Value" dstnodeid="399" dstpinname="Log Messages">
    </LINK>
+   <NODE systemname="04_Keep" filename="101\04_Keep.v4p" componentmode="InAWindow" id="373" nodename="101\04_Keep.v4p">
+   <BOUNDS type="Node" left="510" top="2625" width="885" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="510" top="2625" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   </BOUNDS>
+   </NODE>
    </PATCH>

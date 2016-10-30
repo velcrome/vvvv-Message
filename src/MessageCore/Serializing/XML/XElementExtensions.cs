@@ -17,13 +17,13 @@ namespace VVVV.Packs.Messaging.Serializing
             {
                 Bin bin = message[key];
                 var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
-                if (typeRecord == null || typeRecord.Clone == CloneBehaviour.Null) continue;
+                if (typeRecord == null || typeRecord.CloneMethod == CloneBehaviour.Null) continue;
 
-                var element = new XElement(typeRecord.Alias);
-                element.Add(new XAttribute("name", key));
+                var element = new XElement(key);
+                element.Add(new XAttribute("type", typeRecord.Alias));
                 for (int i = 0; i < bin.Count; i++)
                 {
-                    element.Add(new XElement(i.ToString(), bin[i].ToString()));
+                    element.Add(new XElement(typeRecord.Alias, bin[i].ToString()));
                 }
                 xml.Add(element);
             }

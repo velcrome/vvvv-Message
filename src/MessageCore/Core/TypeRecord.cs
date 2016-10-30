@@ -15,7 +15,7 @@ namespace VVVV.Packs.Messaging
         string Alias { get; }
         Type Type { get;  }
 
-        CloneBehaviour Clone { get; }
+        CloneBehaviour CloneMethod { get; }
         Func<object, object> CustomClone { get;  }
         Func<object> Default { get; set; }
 
@@ -26,7 +26,7 @@ namespace VVVV.Packs.Messaging
         public TypeRecord(string alias, CloneBehaviour cloning, Func<object> newDefault = null)
         {
             Alias = alias;
-            Clone = cloning;
+            CloneMethod = cloning;
 
             if (newDefault == null) newDefault = () => null;
             Default = newDefault;
@@ -34,7 +34,7 @@ namespace VVVV.Packs.Messaging
 
         public string Alias { get; private set; }
 
-        public CloneBehaviour Clone { get; private set; }
+        public CloneBehaviour CloneMethod { get; private set; }
 
         public Type Type
         {

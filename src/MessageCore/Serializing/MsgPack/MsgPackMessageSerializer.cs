@@ -73,7 +73,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
 
                 if (typeRecord == null) continue;
-                if (typeRecord.Clone == CloneBehaviour.Null) continue;
+                if (typeRecord.CloneMethod == CloneBehaviour.Null) continue;
 
                 packer.PackString(fieldName);
 

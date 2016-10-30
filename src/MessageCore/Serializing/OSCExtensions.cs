@@ -41,7 +41,7 @@ namespace VVVV.Packs.Messaging.Serializing
 
                 Bin bin = message[name];
                 var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
-                if (typeRecord == null || typeRecord.Clone == CloneBehaviour.Null) continue;
+                if (typeRecord == null || typeRecord.CloneMethod == CloneBehaviour.Null) continue;
 
                 OSCMessage msg = new OSCMessage(oscAddress, extendedMode);
                 for (int i = 0; i < bin.Count; i++) msg.Append(bin[i]);

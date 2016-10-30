@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="17745" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="0" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
@@ -257,7 +257,7 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -492,6 +492,8 @@
    <PIN pinname="Changed Message" visible="1">
    </PIN>
    <PIN pinname="Topic" visible="1">
+   </PIN>
+   <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
    </NODE>
    <LINK srcnodeid="39" srcpinname="Output" dstnodeid="34" dstpinname="Input Node">
@@ -1011,7 +1013,7 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -1191,7 +1193,7 @@
    </PIN>
    <PIN pinname="Update" visible="1" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="AutoSense" slicecount="1" values="0" visible="1">
+   <PIN pinname="AutoSense" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="64" srcpinname="Output" dstnodeid="48" dstpinname="Topic">
@@ -1216,8 +1218,6 @@
    </LINK>
    <LINK srcnodeid="52" srcpinname="Change" dstnodeid="51" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Update">
-   </LINK>
    <LINK srcnodeid="48" srcpinname="Changed Message" dstnodeid="59" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="85">
@@ -1237,5 +1237,17 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="85" srcpinname="Y Output Value" dstnodeid="48" dstpinname="AutoSense">
+   </LINK>
+   <NODE systemname="OnOpen (VVVV)" nodename="OnOpen (VVVV)" componentmode="Hidden" id="86">
+   <BOUNDS type="Node" left="6900" top="10920" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Simulate" visible="1">
+   </PIN>
+   <PIN pinname="Bang" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="86" dstpinname="Simulate">
+   </LINK>
+   <LINK srcnodeid="86" srcpinname="Bang" dstnodeid="48" dstpinname="Update">
    </LINK>
    </PATCH>

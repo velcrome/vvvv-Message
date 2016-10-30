@@ -223,7 +223,7 @@
    </PIN>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.13131313131313,0,0.185185185185185">
+   <PIN pinname="Y Input Value" visible="1" slicecount="3" values="0.13131313131313,0,0.639730639730639">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -237,7 +237,7 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0.636057263814616">
+   <PIN pinname="X Input Value" slicecount="3" values="0.636057263814616,0.636057263814616,0.694880793226381">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="19" systemname="IOBox (Value Advanced)">
@@ -517,7 +517,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Field">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.236700336700336,0.509427609427609,0.585858585858586,0.171717171717172,0.354545454545455,0.307407407407407,0.492592592592593,0.307407407407407,0.418518518518519,0.9,0.27037037037037,0.613804713804714">
+   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0,0.509427609427609,0.585858585858586,0.171717171717172,0.354545454545455,0.307407407407407,0.492592592592593,0.307407407407407,0.418518518518519,0.9,0.27037037037037,0.613804713804714">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
@@ -627,7 +627,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Field">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.356902356902357,0.286195286195287,0.222222222222223,0.629629629629629,0.703703703703704,0.814814814814815,0.518518518518519,0.777777777777779,0.851851851851852,0.542087542087542,1,0.447811447811446">
+   <PIN pinname="Y Input Value" visible="1" slicecount="12" values="0.0606060606060607,0.286195286195287,0.222222222222223,0.629629629629629,0.703703703703704,0.814814814814815,0.518518518518519,0.777777777777779,0.851851851851852,0.542087542087542,1,0.447811447811446">
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
