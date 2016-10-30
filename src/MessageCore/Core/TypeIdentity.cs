@@ -3,11 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using System.Reflection;
 
 namespace VVVV.Packs.Messaging
 {
-    public class TypeIdentity : IReadOnlyDictionary<Type, TypeRecord>, IReadOnlyDictionary<string, TypeRecord>
+    public class BaseTypeIdentity : TypeIdentity
+    {
+        protected override void Register(TypeIdentity target = null)
+        {
+            if (target == null) target = this;
+
+
+            // This is the only place where you need to add new datatypes.
+            // type:alias is strictly 1:1 !
+            // no case-sensitivity, beware clashes.
+            // use of case is purely cosmetic, to reflect c# counterpart
+
+            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
+            target.TryAddRecord(new TypeRecord<bool>("bool", CloneBehaviour.Assign, () => false));
+            target.TryAddRecord(new TypeRecord<int>("int", CloneBehaviour.Assign, () => 0));
+            target.TryAddRecord(new TypeRecord<double>("double", CloneBehaviour.Assign, () => 0.0d));
+            target.TryAddRecord(new TypeRecord<float>("float", CloneBehaviour.Assign, () => 0.0f));
+            target.TryAddRecord(new TypeRecord<string>("string", CloneBehaviour.Assign, () => "vvvv"));
+
+            var raw = new TypeRecord<Stream>("Raw", CloneBehaviour.Custom, () => new MemoryStream(new byte[] { 118, 118, 118, 118 })); // vvvv
+            raw.CustomClone = (original) =>
+            {
+                var stream = original as Stream;
+                stream.Seek(0, SeekOrigin.Begin);
+                var clone = new MemoryStream();
+                stream.CopyTo(clone);
+                return clone;
+            };
+            target.TryAddRecord(raw);
+
+            target.TryAddRecord(new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message()));
+            target.TryAddRecord(new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime())); // 1.1.0001 @ 0am
+        }
+    }
+
+
+    public abstract class TypeIdentity : IReadOnlyDictionary<Type, TypeRecord>, IReadOnlyDictionary<string, TypeRecord>
     {
         private List<TypeRecord> Data = new List<TypeRecord>();
 
@@ -21,50 +57,33 @@ namespace VVVV.Packs.Messaging
             get {
                 if (_instance == null)
                 {
-                    _instance = new TypeIdentity();
+                    _instance = new BaseTypeIdentity();
                     _instance.Register();
+
+                    _instance.Fetch();
                 }
                 return _instance;
             }
         }
-        #endregion Singleton
 
-        protected void Register()
+        private void Fetch()
         {
-            // This is the only place where you need to add new datatypes.
-            // type:alias is strictly 1:1 !
-            // no case-sensitivity, beware clashes.
-            // use of case is purely cosmetic, to reflect c# counterpart
+            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
 
-            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
-            TryAddRecord(new TypeRecord<bool>("bool", CloneBehaviour.Assign, () => false));
-            TryAddRecord(new TypeRecord<int>("int", CloneBehaviour.Assign, () => 0));
-            TryAddRecord(new TypeRecord<double>("double", CloneBehaviour.Assign, () => 0.0d));
-            TryAddRecord(new TypeRecord<float>("float", CloneBehaviour.Assign, () => 0.0f));
-            TryAddRecord(new TypeRecord<string>("string", CloneBehaviour.Assign, () => "vvvv"));
+            var identities = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(TypeIdentity)));
 
-            var raw = new TypeRecord<Stream>("Raw", CloneBehaviour.Custom, () => new MemoryStream(new byte[] { 118, 118, 118, 118 })); // vvvv
-            raw.CustomClone = (original) =>
+            foreach (var ident in identities)
             {
-                var stream = original as Stream;
-                stream.Seek(0, SeekOrigin.Begin);
-                var clone = new MemoryStream();
-                stream.CopyTo(clone);
-                return clone;
-            };
-            TryAddRecord(raw);
-
-            TryAddRecord(new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message()));
-            TryAddRecord(new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime())); // 1.1.0001 @ 0am
+                var r = Activator.CreateInstance(ident) as TypeIdentity;
+                r.Register(Instance);
+            }
 
 
-            TryAddRecord(new TypeRecord<VVVV.Utils.VColor.RGBAColor>("Color", CloneBehaviour.Assign, () => new VVVV.Utils.VColor.RGBAColor()));
-            TryAddRecord(new TypeRecord<VVVV.Utils.VMath.Matrix4x4>("Transform", CloneBehaviour.Assign, () => new VVVV.Utils.VMath.Matrix4x4()));
-            TryAddRecord(new TypeRecord<VVVV.Utils.VMath.Vector2D>("Vector2d", CloneBehaviour.Assign, () => new VVVV.Utils.VMath.Vector2D()));
-            TryAddRecord(new TypeRecord<VVVV.Utils.VMath.Vector3D>("Vector3d", CloneBehaviour.Assign, () => new VVVV.Utils.VMath.Vector3D()));
-            TryAddRecord(new TypeRecord<VVVV.Utils.VMath.Vector4D>("Vector4d", CloneBehaviour.Assign, () => new VVVV.Utils.VMath.Vector4D()));
 
         }
+        #endregion Singleton
+
+        protected abstract void Register(TypeIdentity target = null);
 
         public bool TryAddRecord(TypeRecord newRecord)
         {
