@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\11_Searching.v4p" systemname="10_Searching" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_Searching.v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\11_Searching.v4p" systemname="10_Searching" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_Searching.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="16" systemname="IOBox (String)">
    <BOUNDS type="Node" left="660" top="495" width="6600" height="1056">
@@ -240,22 +240,6 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <NODE systemname="SearchTemplate (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" nodename="SearchTemplate (Message.Spread)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="6918" top="4281" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="6918" top="4281">
-   </BOUNDS>
-   <PIN pinname="Where" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Message" visible="1">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="3" srcpinname="Message" dstnodeid="15" dstpinname="Input">
-   </LINK>
    <NODE id="0" systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden">
    <BOUNDS type="Node" left="660" top="5880" width="1596" height="276">
    </BOUNDS>
@@ -268,12 +252,12 @@
    </LINK>
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="11" dstpinname="Input Node">
    </LINK>
-   <NODE systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="Hidden" id="1" hiddenwhenlocked="1">
+   <NODE systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="InAWindow" id="1" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="660" top="2505" width="6210" height="270">
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -285,18 +269,18 @@
    </PIN>
    <PIN pinname="Foo Bin Size" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="AutoSense" visible="1">
+   <PIN pinname="AutoSense" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Update" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="7125" top="4215" width="6000" height="4500">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
    </LINK>
    <LINK srcnodeid="10" srcpinname="Output String" dstnodeid="1" dstpinname="Foo">
    </LINK>
    <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="id">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="3" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input">
    </LINK>
@@ -334,8 +318,28 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="AutoSense">
-   </LINK>
    <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Update">
+   </LINK>
+   <NODE systemname="SearchTemplate (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" nodename="SearchTemplate (Message)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="6918" top="4281" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6918" top="4281">
+   </BOUNDS>
+   <PIN pinname="Where" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Message" visible="1">
+   </PIN>
+   <PIN pinname="Filter" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="3" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="15" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="1" dstpinname="AutoSense">
    </LINK>
    </PATCH>

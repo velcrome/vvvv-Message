@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="2070">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="2070">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="49" systemname="IOBox (String)">
    <BOUNDS type="Node" left="912" top="105" width="6600" height="1056">
@@ -71,7 +71,7 @@
    </PIN>
    <PIN pinname="Address" visible="1">
    </PIN>
-   <PIN pinname="vvvvTime" visible="1" slicecount="1" values="||">
+   <PIN pinname="vvvvTime" visible="1">
    </PIN>
    <PIN pinname="bytes" visible="1">
    </PIN>
@@ -830,8 +830,6 @@
    </LINK>
    <LINK srcnodeid="20" srcpinname="Output String" dstnodeid="46" dstpinname="Topic">
    </LINK>
-   <LINK srcnodeid="16" srcpinname="Time" dstnodeid="46" dstpinname="vvvvTime">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="50" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="7680" top="6180" width="855" height="315">
    </BOUNDS>
@@ -862,4 +860,12 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
+   <NODE systemname="NIL (Node)" filename="%VVVV%\lib\nodes\modules\Node\NIL (Node).v4p" nodename="NIL (Node)" componentmode="Hidden" id="52">
+   <BOUNDS type="Node" left="6360" top="4230" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="46" dstpinname="vvvvTime">
+   </LINK>
    </PATCH>

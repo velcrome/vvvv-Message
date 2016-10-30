@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="300">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="5070">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="10">
    <BOUNDS type="Node" left="6171" top="4107" width="100" height="100">
@@ -99,9 +99,9 @@
    </BOUNDS>
    <PIN pinname="Spread Count" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="None">
+   <PIN pinname="Message Formular" slicecount="1" values="Event" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="||">
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <PIN pinname="New" slicecount="1" visible="1" values="0">
    </PIN>
@@ -411,5 +411,15 @@
    <LINK srcnodeid="15" srcpinname="Output" dstnodeid="11" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="15" srcpinname="Output" dstnodeid="31" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="37">
+   <BOUNDS type="Box" left="150" top="2160" width="720" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="150" top="2160" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="37" srcpinname="Output Enum" dstnodeid="0" dstpinname="Message Formular">
    </LINK>
    </PATCH>

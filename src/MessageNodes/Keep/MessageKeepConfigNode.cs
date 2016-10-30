@@ -117,6 +117,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            InitDX11Graph();
+
             bool warnPinSafety = false;
             if (RemovePinsFirst) warnPinSafety = !RetryConfig(); // defer PinConnectionException until end of method, if not successful
 

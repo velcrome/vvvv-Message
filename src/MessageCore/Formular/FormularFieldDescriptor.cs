@@ -55,7 +55,7 @@ namespace VVVV.Packs.Messaging
         {
                 var data = MessageUtils.ConfigurationParser.Match(config.Trim());
 
-                Type type = TypeIdentity.Instance.FindType(data.Groups[1].ToString()); // if alias not found, it will return null
+                Type type = TypeIdentity.Instance[data.Groups[1].ToString()]?.Type; // if alias not found, it will return null
                 string fieldName = data.Groups[3].ToString();
 
                 int count = 1;
@@ -107,7 +107,7 @@ namespace VVVV.Packs.Messaging
         {
             var sb = new StringBuilder();
 
-            sb.Append(TypeIdentity.Instance.FindAlias(Type));
+            sb.Append(TypeIdentity.Instance[Type]?.Alias);
             if (withCount && DefaultSize != 1)
             {
 

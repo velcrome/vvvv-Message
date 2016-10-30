@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101\02_Formular.v4p" scrollx="0" scrolly="2625" systemname="02_Formular" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\02_Formular.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\02_Formular.v4p" scrollx="0" scrolly="2625" systemname="02_Formular" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\02_Formular.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="23" systemname="IOBox (String)">
    <BOUNDS type="Node" left="312" top="132" width="6600" height="1056">

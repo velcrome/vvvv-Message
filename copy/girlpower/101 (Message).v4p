@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
    <BOUNDS type="Window" left="0" top="0" width="2850" height="8895">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="40" systemname="IOBox (String)">
    <BOUNDS type="Node" left="282" top="153" width="5100" height="456">
@@ -99,9 +99,9 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="12_Essentials" filename="101\12_Essentials.v4p" componentmode="InAWindow" id="398" nodename="101\12_Essentials.v4p">
-   <BOUNDS type="Node" left="510" top="7260" width="1185" height="270">
+   <BOUNDS type="Node" left="510" top="6900" width="1185" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="510" top="7260" width="4800" height="3600">
+   <BOUNDS type="Box" left="510" top="6900" width="4800" height="3600">
    </BOUNDS>
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
@@ -116,4 +116,52 @@
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
    </BOUNDS>
    </NODE>
+   <NODE systemname="Renderer (TTY)" filename="" nodename="Renderer (TTY)" componentmode="InAWindow" id="399">
+   <BOUNDS type="Node" left="495" top="7935" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="495" top="7935" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="2835" top="8895" width="15600" height="4965">
+   </BOUNDS>
+   <PIN pinname="Clear" visible="1">
+   </PIN>
+   <PIN pinname="Log Messages" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="400">
+   <BOUNDS type="Box" left="675" top="7500" width="345" height="330">
+   </BOUNDS>
+   <BOUNDS type="Node" left="675" top="7500" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="400" srcpinname="Y Output Value" dstnodeid="399" dstpinname="Clear">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="401">
+   <BOUNDS type="Box" left="1395" top="7305" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1395" top="7305" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="401" srcpinname="Y Output Value" dstnodeid="399" dstpinname="Log Messages">
+   </LINK>
    </PATCH>
