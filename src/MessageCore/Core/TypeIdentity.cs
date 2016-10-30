@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace VVVV.Packs.Messaging
 {
-    public class BaseTypeIdentity : TypeIdentity
+    public class BaseProfile : TypeIdentity
     {
         protected override void Register(TypeIdentity target = null)
         {
@@ -57,25 +57,33 @@ namespace VVVV.Packs.Messaging
             get {
                 if (_instance == null)
                 {
-                    _instance = new BaseTypeIdentity();
+                    _instance = new BaseProfile();
                     _instance.Register();
 
-                    _instance.Fetch();
+                    _instance.FetchAll();
                 }
                 return _instance;
             }
         }
 
-        private void Fetch()
+        /// <summary>
+        /// Scans all loaded assemblies for Profile classes extending TypeIdentity.
+        /// Will then proceed to call Register of each 
+        /// </summary>
+        private void FetchAll()
         {
-            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
+            //            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
 
-            var identities = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(TypeIdentity)));
+            var profiles = from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                             from types in assembly.GetTypes()
+                             where types.IsSubclassOf(typeof(TypeIdentity))
+                             where types != typeof(BaseProfile)
+                             select types;
 
-            foreach (var ident in identities)
+            foreach (var profileClass in profiles)
             {
-                var r = Activator.CreateInstance(ident) as TypeIdentity;
-                r.Register(Instance);
+                var profile = Activator.CreateInstance(profileClass) as TypeIdentity;
+                profile.Register(Instance);
             }
 
 
