@@ -15,8 +15,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
-        [Input("AutoSense", Order = int.MaxValue - 2, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
-        IDiffSpread<bool> FAutoSense;
+        [Input("Force", Order = int.MaxValue - 2, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
+        IDiffSpread<bool> FForce;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue-1, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
@@ -40,8 +40,8 @@ namespace VVVV.Packs.Messaging.Nodes
         protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractStorageNode. 
 
 
-        private bool _reset;
-        public bool ResetNecessary
+        private bool _reset = true;
+        public bool FResetNecessary
         {
             get
             {
@@ -62,7 +62,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
-            FormularUpdate += (sender, formular) => ResetNecessary = true;
+            FormularUpdate += (sender, formular) => FResetNecessary = true;
 
 
         }
@@ -126,8 +126,8 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = Math.Max(SpreadMax, 0); // safeguard against negative binsizes
 
 //          Reset?
-            var anyUpdate = ResetNecessary;
-            var forceUpdate = !FAutoSense[0] || FAutoSense.IsChanged;
+            var anyUpdate = FResetNecessary;
+            var forceUpdate = FForce[0] || FForce.IsChanged;
           
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
             newData |= forceUpdate; // if update is forced, then predent it is new Data

@@ -16,8 +16,8 @@ namespace VVVV.Packs.Messaging.Nodes
     [PluginInfo(Name = "Write", AutoEvaluate = true, Category = "Message", Help = "Writes into Fields of arbitrary Type", Version = "Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
     public class MessageWriteNode : TypeablePinNode, IDX11ResourceDataRetriever
     {
-        [Input("AutoSense", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
-        protected IDiffSpread<bool> FAutoSense;
+        [Input("Force", Order = int.MaxValue - 1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
+        protected IDiffSpread<bool> FForce;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         protected IDiffSpread<bool> FUpdate;
@@ -75,7 +75,7 @@ namespace VVVV.Packs.Messaging.Nodes
             var ValueSpread = FValue.ToISpread();
 
             bool newData = ValueSpread.IsChanged; // changed pin
-            newData |= !FAutoSense[0]; // assume newData, if AutoSense is off.
+            newData |= FForce[0]; // assume newData, if AutoSense is off.
 
             if (anyUpdate && newData) {
                 SpreadMax = FInput.SliceCount;
