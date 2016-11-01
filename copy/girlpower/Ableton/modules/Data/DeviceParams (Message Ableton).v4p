@@ -1,31 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="0" scrolly="16170">
-   <NODE systemname="Session (Message.Keep Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Session (Message.Keep Typeable)" componentmode="Hidden" id="1">
-   <BOUNDS type="Node" left="2835" top="11250" width="3975" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <BOUNDS type="Window" left="16920" top="6450" width="6000" height="4500">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|float Value, string Name, int TrackId, int DeviceId, int ParamId, float Min, float Max|">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Use as ID" slicecount="1" visible="1" values="param_int">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="1" values="Device">
-   </PIN>
-   <PIN pinname="Diff Output" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Message Diff" visible="1">
-   </PIN>
-   <PIN pinname="Include input in Diff" visible="1">
-   </PIN>
-   <PIN pinname="Internal Count" visible="1">
-   </PIN>
-   </NODE>
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="0" scrolly="9408">
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="2" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5160" top="10245" width="1110" height="885">
    </BOUNDS>
@@ -62,13 +36,11 @@
    <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="1" dstpinname="Use as ID">
-   </LINK>
    <BOUNDS type="Window" left="480" top="1140" width="29040" height="16260">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="18" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="525" top="1470" width="1875" height="450">
@@ -80,8 +52,6 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="1" dstpinname="Message Formular" hiddenwhenlocked="1">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="28" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="21600" top="10155" width="480" height="480">
    </BOUNDS>
@@ -104,8 +74,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Reset" hiddenwhenlocked="1">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="34" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6540" top="10545" width="480" height="480">
    </BOUNDS>
@@ -122,8 +90,6 @@
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
    </NODE>
-   <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Include input in Diff">
-   </LINK>
    <NODE systemname="IOBox (Node)" nodename="IOBox (Node)" componentmode="InABox" id="35">
    <BOUNDS type="Node" left="16080" top="15015" width="100" height="100">
    </BOUNDS>
@@ -158,6 +124,8 @@
    <BOUNDS type="Window" left="3165" top="0" width="6000" height="4500">
    </BOUNDS>
    <PIN pinname="Success" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="37" systemname="IOBox (String)">
@@ -206,20 +174,6 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="45">
-   <BOUNDS type="Node" left="16095" top="18045" width="3285" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="NotFound" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="45" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="46" systemname="IOBox (String)">
    <BOUNDS type="Box" left="18675" top="17730" width="855" height="240">
    </BOUNDS>
@@ -234,12 +188,10 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="46" srcpinname="Output String" dstnodeid="45" dstpinname="Filter">
-   </LINK>
    <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="50">
    <BOUNDS type="Node" left="16110" top="18870" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
@@ -248,8 +200,6 @@
    <BOUNDS type="Box" left="16110" top="18870">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="Output" dstnodeid="50" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="51" systemname="IOBox (String)">
    <BOUNDS type="Box" left="16320" top="18450" width="1485" height="255">
    </BOUNDS>
@@ -266,20 +216,6 @@
    </NODE>
    <LINK srcnodeid="51" srcpinname="Output String" dstnodeid="50" dstpinname="Topic">
    </LINK>
-   <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="52">
-   <BOUNDS type="Node" left="16095" top="16590" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Filter" visible="1" slicecount="1" values="*.device">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="NotFound" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="40" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="53" systemname="IOBox (String)">
    <BOUNDS type="Box" left="16410" top="16140" width="795" height="240">
    </BOUNDS>
@@ -294,8 +230,6 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="53" srcpinname="Output String" dstnodeid="52" dstpinname="Filter">
-   </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="54">
    <BOUNDS type="Node" left="16125" top="20475" width="100" height="100">
    </BOUNDS>
@@ -311,6 +245,8 @@
    </PIN>
    <BOUNDS type="Box" left="16125" top="20475">
    </BOUNDS>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="54" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
    </LINK>
@@ -369,6 +305,8 @@
    </PIN>
    <BOUNDS type="Box" left="19335" top="20475">
    </BOUNDS>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="57" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="20640" top="19680" width="1005" height="675">
@@ -393,15 +331,13 @@
    </BOUNDS>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <BOUNDS type="Box" left="19320" top="18870">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="NotFound" dstnodeid="62" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="62" srcpinname="Output" dstnodeid="58" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="63" systemname="IOBox (Node)">
@@ -425,8 +361,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="35" srcpinname="Output Node" dstnodeid="64" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="64" srcpinname="Output" dstnodeid="52" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="69" systemname="IOBox (String)">
    <BOUNDS type="Box" left="19560" top="18480" width="1155" height="240">
@@ -522,8 +456,6 @@
    <PIN pinname="Input 3" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="100" srcpinname="Output" dstnodeid="1" dstpinname="Input">
-   </LINK>
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="101">
    <BOUNDS type="Node" left="3660" top="16110" width="615" height="270">
    </BOUNDS>
@@ -555,7 +487,7 @@
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="104">
    <BOUNDS type="Node" left="3345" top="15285" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -564,8 +496,6 @@
    <BOUNDS type="Box" left="3345" top="15285">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="104" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="104" srcpinname="Output" dstnodeid="103" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="103" srcpinname="Output" dstnodeid="101" dstpinname="Input">
@@ -583,9 +513,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="111" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4965" top="16125" width="795" height="240">
+   <BOUNDS type="Box" left="3840" top="16575" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="4965" top="16125" width="0" height="0">
+   <BOUNDS type="Node" left="3840" top="16575" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="track">
    </PIN>
@@ -643,9 +573,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="116" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="4305" top="17040" width="690" height="285">
+   <BOUNDS type="Box" left="5325" top="17130" width="690" height="285">
    </BOUNDS>
-   <BOUNDS type="Node" left="4305" top="17040" width="0" height="0">
+   <BOUNDS type="Node" left="5325" top="17130" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="Dot">
    </PIN>
@@ -672,22 +602,6 @@
    </LINK>
    <LINK srcnodeid="113" srcpinname="Output" dstnodeid="117" dstpinname="Topic">
    </LINK>
-   <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="118">
-   <BOUNDS type="Node" left="3345" top="19245" width="3240" height="270">
-   </BOUNDS>
-   <PIN pinname="Filter" slicecount="1" visible="1" values="*master*">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="3345" top="19245">
-   </BOUNDS>
-   <PIN pinname="NotFound" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="117" srcpinname="Output" dstnodeid="118" dstpinname="Input">
-   </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="119">
    <BOUNDS type="Node" left="6525" top="20475" width="100" height="100">
    </BOUNDS>
@@ -704,6 +618,8 @@
    <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
    <PIN pinname="OSC" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="119" dstpinname="Message Formular" hiddenwhenlocked="1">
@@ -726,8 +642,6 @@
    </NODE>
    <LINK srcnodeid="120" srcpinname="Output Enum" dstnodeid="119" dstpinname="Use Fields">
    </LINK>
-   <LINK srcnodeid="118" srcpinname="NotFound" dstnodeid="119" dstpinname="Input">
-   </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="122">
    <BOUNDS type="Node" left="3300" top="20475" width="100" height="100">
    </BOUNDS>
@@ -744,6 +658,8 @@
    <PIN pinname="ExtendedMode" slicecount="1" values="0">
    </PIN>
    <PIN pinname="OSC" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="121" systemname="IOBox (Enumerations)">
@@ -763,8 +679,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="121" srcpinname="Output Enum" dstnodeid="122" dstpinname="Use Fields">
-   </LINK>
-   <LINK srcnodeid="118" srcpinname="Output" dstnodeid="122" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="122" dstpinname="Message Formular" hiddenwhenlocked="1">
    </LINK>
@@ -813,6 +727,8 @@
    </PIN>
    <PIN pinname="Value" visible="1">
    </PIN>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="91" srcpinname="Output" dstnodeid="100" dstpinname="Input 3">
    </LINK>
@@ -840,8 +756,6 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="137" srcpinname="Output String" dstnodeid="118" dstpinname="Filter">
-   </LINK>
    <NODE systemname="IOBox (String)" nodename="IOBox (String)" componentmode="InABox" id="140">
    <BOUNDS type="Node" left="19185" top="3015" width="100" height="100">
    </BOUNDS>
@@ -959,7 +873,7 @@
    <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="148">
    <BOUNDS type="Node" left="9735" top="15735" width="1050" height="270">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Field Names" slicecount="1" visible="1" values="Value">
    </PIN>
@@ -970,8 +884,6 @@
    <BOUNDS type="Box" left="9735" top="15735">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Message Diff" dstnodeid="148" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="149" systemname="IOBox (String)">
    <BOUNDS type="Box" left="10695" top="15390" width="795" height="240">
    </BOUNDS>
@@ -1019,9 +931,11 @@
    </PIN>
    <BOUNDS type="Box" left="9735" top="20475">
    </BOUNDS>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="152">
-   <BOUNDS type="Node" left="9735" top="16545" width="100" height="100">
+   <BOUNDS type="Node" left="9990" top="16545" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1031,7 +945,7 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="9735" top="16545">
+   <BOUNDS type="Box" left="9990" top="16545">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="150" srcpinname="Output" dstnodeid="152" dstpinname="Input">
@@ -1097,7 +1011,7 @@
    <LINK srcnodeid="153" srcpinname="Hits" dstnodeid="157" dstpinname="Switch">
    </LINK>
    <LINK srcnodeid="152" srcpinname="Topic" dstnodeid="157" dstpinname="Input 1">
-   <LINKPOINT x="10950" y="17430">
+   <LINKPOINT x="11265" y="17400">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="157" srcpinname="Output" dstnodeid="155" dstpinname="Topic">
@@ -1118,24 +1032,6 @@
    </NODE>
    <LINK srcnodeid="158" srcpinname="Output String" dstnodeid="157" dstpinname="Input 2">
    </LINK>
-   <NODE systemname="Sift (Message.Spread)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message.Spread)" componentmode="Hidden" id="159">
-   <BOUNDS type="Node" left="9735" top="19245" width="3240" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Filter" slicecount="1" visible="1" values="*master*">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="NotFound" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="9735" top="19245">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="155" srcpinname="Output" dstnodeid="159" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="159" srcpinname="Output" dstnodeid="151" dstpinname="Input">
-   </LINK>
    <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="160">
    <BOUNDS type="Node" left="12915" top="20475" width="1365" height="270">
    </BOUNDS>
@@ -1151,9 +1047,11 @@
    </PIN>
    <BOUNDS type="Box" left="12915" top="20475">
    </BOUNDS>
+   <PIN pinname="ExtendedMode" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="159" srcpinname="NotFound" dstnodeid="160" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="161" systemname="IOBox (String)">
    <BOUNDS type="Box" left="12300" top="18870" width="795" height="240">
    </BOUNDS>
@@ -1168,8 +1066,6 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="161" srcpinname="Output String" dstnodeid="159" dstpinname="Filter">
-   </LINK>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="151" dstpinname="Message Formular" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="160" dstpinname="Message Formular" linkstyle="PolyLine" hiddenwhenlocked="1">
@@ -1550,8 +1446,6 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Internal Count" dstnodeid="189" dstpinname="Y Input Value">
-   </LINK>
    <LINK srcnodeid="91" srcpinname="Output" dstnodeid="100" dstpinname="Input 2">
    </LINK>
    <NODE systemname="Zip (String Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (String Bin)" componentmode="Hidden" id="190">
@@ -1632,6 +1526,8 @@
    <PIN pinname="Input" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="201">
@@ -1757,9 +1653,9 @@
    <LINK srcnodeid="203" srcpinname="Enum" dstnodeid="36" dstpinname="Use Fields">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="204" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5340" top="16950" width="795" height="240">
+   <BOUNDS type="Box" left="4425" top="17100" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5340" top="16950" width="0" height="0">
+   <BOUNDS type="Node" left="4425" top="17100" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="range">
    </PIN>
@@ -1772,8 +1668,6 @@
    </NODE>
    <LINK srcnodeid="204" srcpinname="Output String" dstnodeid="115" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="8" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="64" dstpinname="Select">
    </LINK>
    <LINK srcnodeid="7" srcpinname="Output Node" dstnodeid="36" dstpinname="OSC">
@@ -1783,15 +1677,13 @@
    <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="212">
    <BOUNDS type="Node" left="3345" top="14085" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Field Names" slicecount="1" visible="1" values="Min">
    </PIN>
    <PIN pinname="Match" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="212" dstpinname="Input">
-   </LINK>
    <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="213">
    <BOUNDS type="Node" left="3825" top="14535" width="100" height="100">
    </BOUNDS>
@@ -2050,4 +1942,192 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="118">
+   <BOUNDS type="Node" left="3345" top="19245" width="3240" height="270">
+   </BOUNDS>
+   <PIN pinname="Filter" slicecount="1" visible="1" values="*master*">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="3345" top="19245">
+   </BOUNDS>
+   <PIN pinname="NotFound" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="117" srcpinname="Output" dstnodeid="118" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="118" srcpinname="NotFound" dstnodeid="119" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="118" srcpinname="Output" dstnodeid="122" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="137" srcpinname="Output String" dstnodeid="118" dstpinname="Filter">
+   </LINK>
+   <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="159">
+   <BOUNDS type="Node" left="9735" top="19245" width="3240" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Filter" slicecount="1" visible="1" values="*master*">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="NotFound" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="9735" top="19245">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="155" srcpinname="Output" dstnodeid="159" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="159" srcpinname="Output" dstnodeid="151" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="159" srcpinname="NotFound" dstnodeid="160" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="161" srcpinname="Output String" dstnodeid="159" dstpinname="Filter">
+   </LINK>
+   <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="45">
+   <BOUNDS type="Node" left="16095" top="18045" width="3285" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Filter" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="NotFound" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="45" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output String" dstnodeid="45" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Output" dstnodeid="50" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="NotFound" dstnodeid="62" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="52">
+   <BOUNDS type="Node" left="16095" top="16590" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Filter" visible="1" slicecount="1" values="*.device">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="NotFound" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="40" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="53" srcpinname="Output String" dstnodeid="52" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="64" srcpinname="Output" dstnodeid="52" dstpinname="Input">
+   </LINK>
+   <NODE systemname="SessionKeep (Message Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="2835" top="11250" width="3975" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <BOUNDS type="Window" left="16920" top="6450" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int DeviceId, int ParamId, float Value, string Name, float Min, float Max|">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Use as ID" slicecount="1" visible="1" values="param_int">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Message Formular" visible="1" slicecount="1" values="Device">
+   </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   <PIN pinname="Include input in Diff" visible="1">
+   </PIN>
+   <PIN pinname="Internal Count" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="1" dstpinname="Use as ID">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="1" dstpinname="Message Formular" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Reset" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Include input in Diff">
+   </LINK>
+   <LINK srcnodeid="100" srcpinname="Output" dstnodeid="1" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="104" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Message Diff" dstnodeid="148" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Internal Count" dstnodeid="189" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="8" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="212" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="36" dstpinname="Formular" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="91" dstpinname="Formular" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="200" dstpinname="Formular" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="1" dstpinname="Formular" hiddenwhenlocked="1">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="235">
+   <BOUNDS type="Box" left="525" top="19635" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="525" top="19635" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="None">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="235" srcpinname="Output Enum" dstnodeid="122" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="585" y="20175">
+   </LINKPOINT>
+   <LINKPOINT x="4035" y="20175">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="235" dstpinname="Input Enum">
+   </LINK>
+   <LINK srcnodeid="235" srcpinname="Output Enum" dstnodeid="119" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="585" y="20175">
+   </LINKPOINT>
+   <LINKPOINT x="7260" y="20175">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="235" srcpinname="Output Enum" dstnodeid="151" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="585" y="20175">
+   </LINKPOINT>
+   <LINKPOINT x="10605" y="20175">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="235" srcpinname="Output Enum" dstnodeid="160" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="585" y="20175">
+   </LINKPOINT>
+   <LINKPOINT x="13785" y="20175">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="235" srcpinname="Output Enum" dstnodeid="54" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="585" y="20175">
+   </LINKPOINT>
+   <LINKPOINT x="16860" y="20175">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="235" srcpinname="Output Enum" dstnodeid="58" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="585" y="20175">
+   </LINKPOINT>
+   <LINKPOINT x="20070" y="20175">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.7">
+   </PACK>
    </PATCH>

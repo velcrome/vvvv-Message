@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="105" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="105" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="Timing (Debug)" nodename="Timing (Debug)" componentmode="Hidden" id="7">
@@ -48,12 +48,12 @@
    </NODE>
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="5" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="MainLoop (VVVV)" nodename="MainLoop (VVVV)" componentmode="Hidden" id="-6">
+   <NODE systemname="MAINLOOP (VVVV)" nodename="MainLoop (VVVV)" componentmode="Hidden" id="-6">
    <BOUNDS type="Node" left="255" top="960" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Maximum forground fps" visible="1">
+   <PIN pinname="Maximum Foreground FPS" visible="1">
    </PIN>
-   <PIN pinname="Maximum background fpsS" visible="1">
+   <PIN pinname="Maximum Background FPS" visible="1">
    </PIN>
    <PIN pinname="Time Mode" slicecount="1" visible="1" values="Filtered">
    </PIN>
@@ -74,9 +74,9 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum forground fps">
+   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum Foreground FPS">
    </LINK>
-   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum background fpsS">
+   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum Background FPS">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="2" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3135" top="1485" width="1515" height="660">
@@ -149,7 +149,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="600" top="3225" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -160,6 +160,8 @@
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Enable">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Enable">
@@ -186,7 +188,7 @@
    </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="32" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="4530" top="4380" width="300" height="240">
@@ -200,7 +202,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Clips">
    </PIN>
    </NODE>
-   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="InAWindow" id="31">
+   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="31">
    <BOUNDS type="Node" left="4530" top="5940" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -219,6 +221,8 @@
    </PIN>
    <BOUNDS type="Box" left="4530" top="5940">
    </BOUNDS>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Text (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.Text.dll" nodename="Text (DX11.Layer)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="5070" top="9450" width="4995" height="270">
@@ -235,7 +239,7 @@
    </PIN>
    <PIN pinname="Color" visible="1">
    </PIN>
-   <PIN pinname="Horizontal Align" slicecount="1" values="Left">
+   <PIN pinname="Horizontal Align" slicecount="1" values="Center">
    </PIN>
    </NODE>
    <LINK srcnodeid="31" srcpinname="Name" dstnodeid="30" dstpinname="String">
@@ -245,7 +249,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4245" top="11550" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="32580" top="6510" width="7545" height="5085">
+   <BOUNDS type="Window" left="11850" top="2235" width="7545" height="5085">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -306,6 +310,8 @@
    <PIN pinname="TranslateXY" visible="1">
    </PIN>
    <PIN pinname="ScaleXY" visible="1">
+   </PIN>
+   <PIN pinname="Transform In" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="25" srcpinname="Transform Out" dstnodeid="30" dstpinname="Transform In">
@@ -371,9 +377,9 @@
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Type" slicecount="1" values="int" visible="1">
+   <PIN pinname="Type" slicecount="1" visible="1" values="int">
    </PIN>
-   <PIN pinname="Key" slicecount="1" values="Play" visible="1">
+   <PIN pinname="Key" slicecount="1" visible="1" values="Play">
    </PIN>
    <PIN pinname="Field" visible="1">
    </PIN>
@@ -442,8 +448,6 @@
    <PIN pinname="Uniform Scale" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="30" srcpinname="Layer" dstnodeid="16" dstpinname="Layer In">
-   </LINK>
    <LINK srcnodeid="16" srcpinname="Layer Out" dstnodeid="29" dstpinname="Layers">
    </LINK>
    <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="15">
@@ -453,7 +457,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input 2" slicecount="1" values="2.1">
+   <PIN pinname="Input 2" slicecount="1" values="2.1" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="31" srcpinname="TrackId" dstnodeid="15" dstpinname="Input 1" linkstyle="Bezier">
@@ -603,7 +607,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="345" top="2033" width="14115" height="9105">
    </BOUNDS>
-   <BOUNDS type="Window" left="1005" top="1395" width="14115" height="9105">
+   <BOUNDS type="Window" left="1935" top="6765" width="14115" height="9105">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -617,13 +621,13 @@
    </PIN>
    <PIN pinname="scene" slicecount="1" values="9">
    </PIN>
-   <PIN pinname="Scene" slicecount="1" values="0" visible="1">
+   <PIN pinname="Scene" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="overdub" slicecount="1" values="0">
    </PIN>
    <PIN pinname="tempo" slicecount="1" values="79.68">
    </PIN>
-   <PIN pinname="Track" slicecount="1" values="38" visible="1">
+   <PIN pinname="Track" slicecount="1" visible="1" values="38">
    </PIN>
    <PIN pinname="play.selection" slicecount="1" values="0">
    </PIN>
@@ -737,6 +741,8 @@
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="LiveOSC.Clip">
    </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="44" srcpinname="Output Enum" dstnodeid="31" dstpinname="Message Formular">
    </LINK>
@@ -813,7 +819,7 @@
    <NODE systemname="GetSlice (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetSlice (Message)" componentmode="Hidden" id="50">
    <BOUNDS type="Node" left="1140" top="8475" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -822,7 +828,7 @@
    </NODE>
    <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="50" dstpinname="Input">
    </LINK>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="51">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="51">
    <BOUNDS type="Node" left="1260" top="9630" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Clip">
@@ -835,6 +841,8 @@
    </PIN>
    <PIN pinname="Play" visible="1">
    </PIN>
+   <PIN pinname="Force" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="50" srcpinname="Output" dstnodeid="51" dstpinname="Input">
    </LINK>
@@ -843,7 +851,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1935" top="8940" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -853,9 +861,119 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="52" srcpinname="Y Output Value" dstnodeid="51" dstpinname="Play">
+   </LINK>
+   <LINK srcnodeid="44" srcpinname="Output Enum" dstnodeid="31" dstpinname="Formular">
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.7">
+   </PACK>
+   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="54">
+   <BOUNDS type="Node" left="9270" top="8955" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="UniformScale (Transform)" nodename="UniformScale (Transform)" componentmode="Hidden" id="55">
+   <BOUNDS type="Node" left="9510" top="8610" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform In" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="XYZ" slicecount="1" values="0.34">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="25" srcpinname="Transform Out" dstnodeid="55" dstpinname="Transform In">
+   </LINK>
+   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="56">
+   <BOUNDS type="Node" left="4125" top="10155" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer 1" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1">
+   </PIN>
+   <PIN pinname="Layer Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="54" srcpinname="Layer" dstnodeid="56" dstpinname="Layer 1">
+   </LINK>
+   <LINK srcnodeid="30" srcpinname="Layer" dstnodeid="56" dstpinname="Layer 2">
+   </LINK>
+   <LINK srcnodeid="56" srcpinname="Layer Out" dstnodeid="16" dstpinname="Layer In">
+   </LINK>
+   <NODE systemname="Translate (Transform)" nodename="Translate (Transform)" componentmode="Hidden" id="57">
+   <BOUNDS type="Node" left="5400" top="8475" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="X" slicecount="1" visible="1" values="0.1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="55" srcpinname="Transform Out" dstnodeid="54" dstpinname="Transform">
+   </LINK>
+   <LINK srcnodeid="57" srcpinname="Transform Out" dstnodeid="25" dstpinname="Transform In">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="58">
+   <BOUNDS type="Box" left="6420" top="7005" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6420" top="7005" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="2.13">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="58" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Input 2">
+   </LINK>
+   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="59">
+   <BOUNDS type="Node" left="5640" top="7860" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" slicecount="1" values="2">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="58" srcpinname="Y Output Value" dstnodeid="59" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="59" srcpinname="Output" dstnodeid="57" dstpinname="X">
+   </LINK>
+   <NODE systemname="Intersect (EX9.Geometry Quad)" nodename="Intersect (EX9.Geometry Quad)" componentmode="Hidden" id="61">
+   <BOUNDS type="Node" left="10605" top="9105" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Quad" visible="1">
+   </PIN>
+   <PIN pinname="Intersects Quad" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="55" srcpinname="Transform Out" dstnodeid="61" dstpinname="Transform Quad">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="62">
+   <BOUNDS type="Box" left="11085" top="9840" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11085" top="9840" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="61" srcpinname="Intersects Quad" dstnodeid="62" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

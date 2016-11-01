@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\LiveOSC (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton).v4p" scrollx="3435" scrolly="705" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
@@ -154,7 +154,7 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <LINK srcnodeid="14" srcpinname="Output" dstnodeid="15" dstpinname="Input String">
    </LINK>
@@ -463,7 +463,7 @@
    </BOUNDS>
    <BOUNDS type="Window" left="3930" top="960" width="17625" height="12810">
    </BOUNDS>
-   <PIN pinname="Clips" visible="1">
+   <PIN pinname="Clips" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
@@ -547,13 +547,13 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4800" top="4020" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="9375" top="1980" width="9000" height="9510">
+   <BOUNDS type="Window" left="3270" top="3885" width="9000" height="9510">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Meter" visible="1">
+   <PIN pinname="Meter" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0">
+   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
    </PIN>
    <PIN pinname="OSC Input" visible="1">
    </PIN>
@@ -577,7 +577,7 @@
    </PIN>
    <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
-   <PIN pinname="Sends" visible="1">
+   <PIN pinname="Sends" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="OSC" visible="1">
    </PIN>
@@ -607,7 +607,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Devices" visible="1">
+   <PIN pinname="Devices" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
@@ -635,11 +635,11 @@
    </PIN>
    <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
-   <PIN pinname="DeviceParams" visible="1">
+   <PIN pinname="DeviceParams" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Message Diff" visible="1">
    </PIN>
-   <PIN pinname="Device" visible="1">
+   <PIN pinname="Device" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -713,5 +713,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="14" dstpinname="Input">
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.7">
+   </PACK>
+   <LINK srcnodeid="418" srcpinname="Y Output Value" dstnodeid="321" dstpinname="Reset" hiddenwhenlocked="1">
    </LINK>
    </PATCH>

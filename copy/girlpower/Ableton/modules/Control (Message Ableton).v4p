@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\modules\Control (Message Ableton).v4p" systemname="Control (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Control (Message Ableton).v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\Control (Message Ableton).v4p" systemname="Control (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Control (Message Ableton).v4p" scrollx="0" scrolly="0">
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="0" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9135" top="3585" width="285" height="405">
    </BOUNDS>
@@ -53,7 +53,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="12135" top="4440" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -62,6 +62,8 @@
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="8" systemname="IOBox (Enumerations)">
@@ -84,28 +86,10 @@
    <PIN pinname="Output Node" visible="1">
    </PIN>
    </NODE>
-   <BOUNDS type="Window" left="1005" top="1395" width="14115" height="9105">
+   <BOUNDS type="Window" left="1935" top="6765" width="14115" height="9105">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="20" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6990" top="1905" width="285" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="6990" top="1905" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="22" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2385" top="660" width="795" height="240">
    </BOUNDS>
@@ -187,9 +171,11 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <PIN pinname="Force" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="19" dstpinname="AutoSense">
-   </LINK>
    <LINK srcnodeid="22" srcpinname="Y Output Value" dstnodeid="19" dstpinname="time">
    </LINK>
    <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="19" dstpinname="tempo">
@@ -226,6 +212,8 @@
    <BOUNDS type="Node" left="1860" top="135" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="LiveOSC.Live">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="33" srcpinname="Output Enum" dstnodeid="19" dstpinname="Message Formular">
@@ -431,7 +419,7 @@
    </BOUNDS>
    <PIN pinname="Topic" slicecount="1" values="live">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|bool Undo, bool Redo, bool Stop, bool Play, bool Play.Continue, bool Play.Selection, bool Prev.Cue, bool Next.Cue|">
+   <PIN pinname="Configuration" slicecount="1" values="|bool Undo, bool Redo, bool Play, bool Stop, bool Next.Cue, bool Prev.Cue, bool Play.Continue, bool Play.Selection|">
    </PIN>
    <PIN pinname="redo Bin Size" visible="1" slicecount="1" values="1">
    </PIN>
@@ -472,6 +460,10 @@
    <PIN pinname="Update" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Play.Selection" visible="1">
+   </PIN>
+   <PIN pinname="Force" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="8" srcpinname="Output Enum" dstnodeid="2" dstpinname="Message Formular" hiddenwhenlocked="1">
@@ -566,7 +558,7 @@
    </NODE>
    <LINK srcnodeid="49" srcpinname="Y Output Value" dstnodeid="2" dstpinname="Play.Selection">
    </LINK>
-   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="InAWindow" id="50">
+   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="50">
    <BOUNDS type="Node" left="2310" top="3990" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -630,4 +622,30 @@
    </NODE>
    <LINK srcnodeid="50" srcpinname="Track" dstnodeid="53" dstpinname="Y Input Value">
    </LINK>
+   <LINK srcnodeid="3" srcpinname="Y Output Value" dstnodeid="2" dstpinname="Force">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Output Enum" dstnodeid="2" dstpinname="Formular">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="54">
+   <BOUNDS type="Box" left="7050" top="1785" width="285" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7050" top="1785" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="54" srcpinname="Y Output Value" dstnodeid="19" dstpinname="Force">
+   </LINK>
+   <LINK srcnodeid="33" srcpinname="Output Enum" dstnodeid="19" dstpinname="Formular">
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.7">
+   </PACK>
    </PATCH>
