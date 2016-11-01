@@ -33,6 +33,10 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FeralTic">
+      <HintPath>..\..\copy\core\x64\FeralTic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -47,13 +51,9 @@
       <HintPath>..\packages\VVVV.Core.34.105.0-develop-1755\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\copy\x64\VVVV.DX11.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\copy\x64\FeralTic.dll</HintPath>
+    <Reference Include="VVVV.DX11.Core">
+      <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
@@ -84,7 +84,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configurable\Abstract\TypeablePinsNode.cs" />
-    <Compile Include="Configurable\MessageMatchNode.cs" />
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
     <Compile Include="Configurable\MessageCreateNode.cs" />

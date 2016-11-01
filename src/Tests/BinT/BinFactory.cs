@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
+using VVVV.Packs.Messaging.Nodes;
 
 namespace VVVV.Packs.Messaging.Tests
 {
@@ -15,6 +16,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinCreationEmpty()
         {
+            new VVVVProfile().Register(TypeIdentity.Instance);
+
             Bin bin;
 
             bin = BinCreationEmpty<bool>();
@@ -49,6 +52,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinCreationSingle()
         {
+            new VVVVProfile().Register(TypeIdentity.Instance);
+
             Bin bin;
 
             bin = BinCreationSingle<bool>(false);
@@ -86,6 +91,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinCreationMultiple()
         {
+            new VVVVProfile().Register(TypeIdentity.Instance);
+
             Bin bin;
 
             bin = BinCreationWithMultiples(false, true, false);

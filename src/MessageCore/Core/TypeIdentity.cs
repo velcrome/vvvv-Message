@@ -9,7 +9,7 @@ namespace VVVV.Packs.Messaging
 {
     public class BaseProfile : TypeIdentity
     {
-        protected override void Register(TypeIdentity target = null)
+        public override void Register(TypeIdentity target = null)
         {
             if (target == null) target = this;
 
@@ -91,7 +91,7 @@ namespace VVVV.Packs.Messaging
         }
         #endregion Singleton
 
-        protected abstract void Register(TypeIdentity target = null);
+        public abstract void Register(TypeIdentity target = null);
 
         public bool TryAddRecord(TypeRecord newRecord)
         {
@@ -145,9 +145,9 @@ namespace VVVV.Packs.Messaging
             var result = from tr in Data
                          where tr.Type == type
                          select tr;
-            result.Concat(
+            result = result.Concat(
                             from tr in Data
-                            where tr.Type.IsSubclassOf(type)
+                            where type.IsSubclassOf(tr.Type)
                             select tr
                          );
             return result.FirstOrDefault()?.Type;

@@ -8,6 +8,7 @@ using Time = VVVV.Packs.Time.Time;
 using VVVV.Utils.VMath;
 using VVVV.Utils.VColor;
 using System.Text;
+using VVVV.Packs.Messaging.Nodes;
 
 [TestClass]
 public class MsgPackTest
@@ -96,6 +97,7 @@ public class MsgPackTest
     [TestMethod]
     public void SerializeExtended()
     {
+        new VVVVProfile().Register(TypeIdentity.Instance);
         var context = Setup();
 
         var orig = new Message("Test");
@@ -127,6 +129,8 @@ public class MsgPackTest
     [TestMethod]
     public void SerializeStreams()
     {
+        new VVVVProfile().Register(TypeIdentity.Instance);
+
         var context = Setup();
 
         var orig = new Message("Test");

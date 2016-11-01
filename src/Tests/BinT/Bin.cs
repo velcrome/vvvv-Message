@@ -3,7 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using VVVV.Utils.VMath;
 using VVVV.Utils.VColor;
-using System.Linq;
+using VVVV.Packs.Messaging.Nodes;
+
 
 namespace VVVV.Packs.Messaging.Tests
 {
@@ -139,6 +140,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinAddSingle()
         {
+            new VVVVProfile().Register(TypeIdentity.Instance);
+
             AddSingle<bool>(true);
             AddSingle<int>(1);
             AddSingle<float>(1.0f);
@@ -193,6 +196,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void FailAddSingle()
         {
+            new VVVVProfile().Register(TypeIdentity.Instance);
+
             AddFail<bool>(true, "fail");
             AddFail<int>(42, "fail");
             AddFail<float>(1, "fail");
@@ -248,6 +253,8 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void NullAddSingle()
         {
+            new VVVVProfile().Register(TypeIdentity.Instance);
+
             AddNull<bool>(true);
             AddNull<int>(1);
             AddNull<float>(1);

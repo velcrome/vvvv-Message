@@ -1,13 +1,13 @@
 ﻿using VVVV.Packs.Messaging;
 
-namespace VVVV.Nodes.Messaging
+namespace VVVV.Packs.Messaging.Nodes
 {
 /// <summary>
 /// All classes extending TypeIdentity will be consumed at startup. Make sure the assembly is really loaded.
 /// </summary>
     public class VVVVProfile : TypeIdentity
     {
-        protected override void Register(TypeIdentity target = null)
+        public override void Register(TypeIdentity target = null)
         {
             if (target == null) target = this;
 

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props" Condition="Exists('..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" />
   <PropertyGroup>
     <!-- edit Template here -->
     <RootNamespace>VVVV.Packs.Messaging</RootNamespace>
@@ -53,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\copy\core\x64\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="MsgPack, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MsgPack.Cli.0.7.1\lib\net46\MsgPack.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +74,10 @@
       <HintPath>..\packages\VVVV.Core.34.105.0-develop-1755\lib\net46\VVVV.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
+    </Reference>
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -77,11 +86,20 @@
       <HintPath>..\packages\VVVV.Utils.34.105.0-develop-1755\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="VVVV.SlimDX">
+      <HintPath>..\packages\VVVV.SlimDX.1.0.3\lib\net40\x64\SlimDX.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageCore\VVVV.Packs.Messaging.Core.csproj">
       <Project>{C2F6EC8A-AA56-4121-B60F-72012D192835}</Project>
       <Name>VVVV.Packs.Messaging.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageNodes\VVVV.Packs.Messaging.Nodes.csproj">
+      <Project>{6a0afb1f-8219-4a08-85f7-b7f19b66ac16}</Project>
+      <Name>VVVV.Packs.Messaging.Nodes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
