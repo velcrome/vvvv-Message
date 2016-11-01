@@ -1,20 +1,20 @@
-Features Wanted
+Features accomplished
 - wasChanged as a solid property of Message, or maybe even Bin (leave a managed breadcrumb of the last sync'ing Keep)
-- autocast from any vl class (and mimick back)
 - dx ressources as valid type in Formular and pintype
+- less Gui windows
+- AutoSense should be called Force, and polarity reverse (breaking change?!)
+- formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
+
+Features Wanted
+- vl version (core only, best done by xml, not attributes)
+- autocast from any vl class (and mimick back), might need converters for all vvvv special types
 - dynamic object wrapper for a Message's dictionary
+- faster TypeIdentity - split into two internal dictionaries
+- split should have a verbose toggle
+
+Bugs
+ - pin order is not deterministic
+ - formular fails in 101 / Datatypes
 
 Treatments
 - config pin should be private (and hidden)
-
-Renamings
-- AutoSense might be called OnlyUpdateWhenChanged (
-or - AutoSense should be called Force, and polarity reverse (breaking change?!)
-
-- (Formular) category should be resorted, it's messy
-- formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
-
-Girlpower Bugs
-- 101 "Event" should not have binned Foo
-- liveosc some split node tries to retrieve Ableton.Track instead of LiveOSC.Track
-

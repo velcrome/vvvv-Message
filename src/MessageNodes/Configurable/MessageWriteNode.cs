@@ -94,22 +94,26 @@ namespace VVVV.Packs.Messaging.Nodes
                         if (!FUpdate[fieldIndex]) continue;
 
                         if (!message.Fields.Contains(key)) message[key] = BinFactory.New(TargetDynamicType);
-                        var value = ValueSpread[fieldIndex] as ISpread;
+                        var spread = ValueSpread[fieldIndex] as ISpread;
 
-                        if (value.SliceCount > 0)
+                        if (spread.SliceCount > 0)
                         {
                             if (message[key].GetInnerType().IsAssignableFrom(TargetDynamicType))
                             {
                                 // check if any relevant change occurred
-                                if (!message[key].Equals(value as IEnumerable)) message.AssignFrom(key, value);
+                                if (!message[key].Equals(spread as IEnumerable)) message.AssignFrom(key, spread);
                             }
                             else
                             {
-                                var casted = from slice in value as IEnumerable<object>
-                                             let targetType = message[key].GetInnerType()
-                                             select Convert.ChangeType(slice, targetType);
+                                var targetType = message[key].GetInnerType();
+                                var newBin = BinFactory.New(targetType, spread.SliceCount);
 
-                                if (!message[key].Equals(casted)) message.AssignFrom(key, casted);
+                                for(int j = 0; j< spread.SliceCount;j++)
+                                {
+                                    newBin[j] = Convert.ChangeType(spread[j], targetType);
+                                }
+
+                                if (!message[key].Equals(newBin)) message.AssignFrom(key, newBin);
                             }
                         }
                         else message[key].Clear();

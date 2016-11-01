@@ -9,7 +9,7 @@ namespace VVVV.Messaging.Nodes
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "Inject", Category = "Message", Help = "When matching topics, this node injects some Modifications into existing Messages", Tags = "Message", Author = "velcrome")]
+    [PluginInfo(Name = "Inject", Category = "Message", Help = "When matching topics, this node injects some Modifications into existing Messages", Tags = "Topic, Safe", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageSiftMessageNode : IPluginEvaluate
     {

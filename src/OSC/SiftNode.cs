@@ -53,8 +53,12 @@ namespace VVVV.Nodes.OSC
             {
                 if (FOutput.SliceCount > 0)
                 {
-                    FOther.SliceCount = FOutput.SliceCount = 0;
+                    FOutput.SliceCount = 0;
                     FOutput.Flush();
+                }
+                if (FOther.SliceCount > 0)
+                {
+                    FOther.SliceCount = 0;
                     FOther.Flush();
                 }
                 return;
