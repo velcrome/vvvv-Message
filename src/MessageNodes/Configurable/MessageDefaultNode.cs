@@ -101,11 +101,14 @@ namespace VVVV.Packs.Messaging.Nodes
                             binsize = binsize > 0 ? binsize : 1;
                             var type = formular[field].Type;
 
+                            var recordType = TypeIdentity.Instance[type];
+                            if (recordType == null || recordType.CloneMethod == CloneBehaviour.Null) continue; // don't create uncloneables
+
                             message[field] = BinFactory.New(type, binsize);
 
                             for (int slice = 0; slice < binsize; slice++)
                             {
-                                message[field].Add(TypeIdentity.Instance.NewDefault(type));
+                                message[field].Add(TypeIdentity.Instance[type].Default());
                             }
                         }
 

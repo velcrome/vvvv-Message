@@ -56,7 +56,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     FFieldName[i].AssignFrom(from field in descriptors select field.Name);
 
                     FDefaultSize.AddRange(from field in descriptors select field.DefaultSize);
-                    FFieldType.AddRange(from field in descriptors select TypeIdentity.Instance.FindAlias(field.Type));
+                    FFieldType.AddRange(from field in descriptors select TypeIdentity.Instance[field.Type]?.Alias);
                     FBinDef.AddRange(from field in descriptors select GetBinDefString(field.DefaultSize));
                 }
             }

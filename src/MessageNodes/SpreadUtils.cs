@@ -41,13 +41,16 @@ namespace VVVV.Utils
         }
 
 
-        public static Type GetInnerMostType(this IIOContainer pinContainer)
+        public static TypeRecord GetTypeRecord(this IIOContainer pinContainer)
         {
             var type = pinContainer.GetType();
             while (type.GenericTypeArguments.Length > 0)
+            {
                 type = type.GenericTypeArguments[0];
+                if (TypeIdentity.Instance.ContainsKey(type)) return TypeIdentity.Instance[type];
+            }
 
-            return type;
+            return null;
         }
         #endregion pin access
 

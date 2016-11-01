@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="14">
    <BOUNDS type="Node" left="570" top="4425" width="6825" height="270">
@@ -41,9 +41,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="12" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="7956" top="4506" width="3360" height="240">
+   <BOUNDS type="Node" left="426" top="6861" width="3360" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="7956" top="4506" width="2448" height="864">
+   <BOUNDS type="Box" left="426" top="6861" width="2448" height="864">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|[Info] tends to come in pairs with [Hold].|">
    </PIN>
@@ -63,7 +63,7 @@
    </PIN>
    <PIN pinname="Message Formular" slicecount="1" visible="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string[4] Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <BOUNDS type="Box" left="570" top="3570">
    </BOUNDS>
@@ -78,6 +78,8 @@
    <PIN pinname="Topic Bin Size" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Spread Count per Formular" visible="1">
+   </PIN>
+   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
@@ -99,9 +101,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2433" top="4800" width="1836" height="288">
+   <BOUNDS type="Box" left="1683" top="5145" width="2355" height="825">
    </BOUNDS>
-   <BOUNDS type="Node" left="2433" top="4800" width="0" height="0">
+   <BOUNDS type="Node" left="1683" top="5145" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -137,9 +139,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="6" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4566" top="4920" width="2856" height="1380">
+   <BOUNDS type="Box" left="4146" top="5100" width="2775" height="3540">
    </BOUNDS>
-   <BOUNDS type="Node" left="4566" top="4920" width="0" height="0">
+   <BOUNDS type="Node" left="4146" top="5100" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -151,13 +153,19 @@
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
+   <PIN pinname="Columns" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="14" srcpinname="Output" dstnodeid="6" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="5" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5313" top="6378" width="2145" height="855">
+   <BOUNDS type="Box" left="7053" top="5223" width="2145" height="855">
    </BOUNDS>
-   <BOUNDS type="Node" left="5313" top="6378" width="0" height="0">
+   <BOUNDS type="Node" left="7053" top="5223" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -177,7 +185,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="570" top="615" width="6300" height="1524">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Things flow easily into a new Message. Hovering over pins makes sense again and the quirky hidden binsize is helping too in the most weird cases.&cr;&lf;&cr;&lf;So all the data is now in the Message, maybe even in a save Keep. But how can I know whats going on, if we cannot see it? What&apos;s up with visual coding, the ? &cr;&lf;&cr;&lf;Easy, there is the one-stop window  [Info] for all your information needs.|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Things flow easily into a new Message. Hovering over pins makes sense again and the quirky hidden binsize is helping too in even the most weird cases.&cr;&lf;&cr;&lf;So all the data is now in the Message, maybe even in a save Keep. But how can I know whats going on, if we cannot see it? What&apos;s up with visual coding, the ? &cr;&lf;&cr;&lf;Easy, there is the one-stop window  [Info] for all your information needs.|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -196,6 +204,8 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="|Message Formular|">
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Message Formular">
@@ -270,20 +280,10 @@
    </LINK>
    <LINK srcnodeid="9" srcpinname="String" dstnodeid="8" dstpinname="Input String">
    </LINK>
-   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="15">
-   <BOUNDS type="Node" left="618" top="7911" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="618" top="7911" width="10725" height="3585">
-   </BOUNDS>
-   <BOUNDS type="Window" left="4872" top="8892" width="6216" height="4980">
-   </BOUNDS>
-   <PIN pinname="Layers" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7368" top="3432" width="480" height="480">
+   <BOUNDS type="Box" left="7323" top="3687" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="7368" top="3432" width="0" height="0">
+   <BOUNDS type="Node" left="7323" top="3687" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -304,40 +304,14 @@
    </NODE>
    <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Print Message">
    </LINK>
-   <NODE systemname="WritePage (TTY)" nodename="WritePage (TTY)" componentmode="Hidden" id="17">
-   <BOUNDS type="Node" left="630" top="7410" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="DoWrite" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="17" srcpinname="Layer" dstnodeid="15" dstpinname="Layers">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="945" top="6495" width="480" height="480">
-   </BOUNDS>
-   <BOUNDS type="Node" left="945" top="6495" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Bang">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="17" dstpinname="DoWrite">
-   </LINK>
    <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Print to TTY">
    </LINK>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Spread Count per Formular">
    </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Formular">
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.7">
    </PACK>
    </PATCH>

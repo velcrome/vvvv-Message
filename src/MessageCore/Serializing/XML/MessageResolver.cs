@@ -25,7 +25,7 @@ namespace VVVV.Packs.Messaging.Serializing
             if (TypeIdentity.Instance.ContainsKey(dataContractType))
 			{
 				XmlDictionary dictionary = new XmlDictionary();
-                typeName = dictionary.Add(TypeIdentity.Instance[dataContractType]);
+                typeName = dictionary.Add(TypeIdentity.Instance[dataContractType].Alias);
 				typeNamespace = dictionary.Add(dataContractType.FullName);
 				return true; // indicating that this resolver knows how to handle
 			}
@@ -43,12 +43,12 @@ namespace VVVV.Packs.Messaging.Serializing
 			
 		}
 		
-		public override Type ResolveName(string typeName, string typeNamespace, Type type, DataContractResolver knownTypeResolver)
+		public override Type ResolveName(string alias, string typeNamespace, Type type, DataContractResolver knownTypeResolver)
 		{
 			Type foundType = null;
             foreach (Type t in TypeIdentity.Instance.Keys)
             {
-                if (typeName.ToLower() == TypeIdentity.Instance[t] && typeNamespace == t.FullName)
+                if (alias.ToLower() == TypeIdentity.Instance[t]?.Alias && typeNamespace == t.FullName)
                 {
 					foundType = t;
 				}
@@ -60,7 +60,7 @@ namespace VVVV.Packs.Messaging.Serializing
 			else
 			{
 				// Defer to the known type resolver
-				return knownTypeResolver.ResolveName(typeName, typeNamespace, type, null);
+				return knownTypeResolver.ResolveName(alias, typeNamespace, type, null);
 			}
         }
         #endregion Standard Serialisation

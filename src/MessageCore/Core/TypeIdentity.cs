@@ -1,18 +1,53 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-
+using System.Reflection;
 
 namespace VVVV.Packs.Messaging
 {
-    public class TypeIdentity : ReadOnlyDictionary<Type, string>
+    public class BaseProfile : TypeIdentity
     {
+        protected override void Register(TypeIdentity target = null)
+        {
+            if (target == null) target = this;
 
-        internal TypeIdentity(IDictionary<Type, string> dictionary) : base(dictionary)
-        {}
 
+            // This is the only place where you need to add new datatypes.
+            // type:alias is strictly 1:1 !
+            // no case-sensitivity, beware clashes.
+            // use of case is purely cosmetic, to reflect c# counterpart
+
+            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
+            target.TryAddRecord(new TypeRecord<bool>("bool", CloneBehaviour.Assign, () => false));
+            target.TryAddRecord(new TypeRecord<int>("int", CloneBehaviour.Assign, () => 0));
+            target.TryAddRecord(new TypeRecord<double>("double", CloneBehaviour.Assign, () => 0.0d));
+            target.TryAddRecord(new TypeRecord<float>("float", CloneBehaviour.Assign, () => 0.0f));
+            target.TryAddRecord(new TypeRecord<string>("string", CloneBehaviour.Assign, () => "vvvv"));
+
+            var raw = new TypeRecord<Stream>("Raw", CloneBehaviour.Custom, () => new MemoryStream(new byte[] { 118, 118, 118, 118 })); // vvvv
+            raw.CustomClone = (original) =>
+            {
+                var stream = original as Stream;
+                stream.Seek(0, SeekOrigin.Begin);
+                var clone = new MemoryStream();
+                stream.CopyTo(clone);
+                return clone;
+            };
+            target.TryAddRecord(raw);
+
+            target.TryAddRecord(new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message()));
+            target.TryAddRecord(new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime())); // 1.1.0001 @ 0am
+        }
+    }
+
+
+    public abstract class TypeIdentity : IReadOnlyDictionary<Type, TypeRecord>, IReadOnlyDictionary<string, TypeRecord>
+    {
+        private List<TypeRecord> Data = new List<TypeRecord>();
+
+        #region Singleton
         private static TypeIdentity _instance;
         /// <summary>
         /// TypeIdentity is a singleton right now. 
@@ -22,41 +57,53 @@ namespace VVVV.Packs.Messaging
             get {
                 if (_instance == null)
                 {
-                    _instance = NewInstance();
+                    _instance = new BaseProfile();
+                    _instance.Register();
+
+                    _instance.FetchAll();
                 }
                 return _instance;
             }
         }
 
-        internal static TypeIdentity NewInstance()
+        /// <summary>
+        /// Scans all loaded assemblies for Profile classes extending TypeIdentity.
+        /// Will then proceed to call Register of each 
+        /// </summary>
+        private void FetchAll()
         {
-            // This is the only place where you need to add new datatypes.
-            // type:alias is strictly 1:1 !
-            // no case-sensitivity, beware clashes.
-            // use of case is purely cosmetic, to reflect c# counterpart
+            //            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
 
-            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
+            var profiles = from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                             from types in assembly.GetTypes()
+                             where types.IsSubclassOf(typeof(TypeIdentity))
+                             where types != typeof(BaseProfile)
+                             select types;
 
-            var registry = new Dictionary<Type, string>();
+            foreach (var profileClass in profiles)
+            {
+                var profile = Activator.CreateInstance(profileClass) as TypeIdentity;
+                profile.Register(Instance);
+            }
 
-            registry.Add(typeof(bool), "bool");
-            registry.Add(typeof(int), "int");
-            registry.Add(typeof(double), "double");
-            registry.Add(typeof(float), "float");
-            registry.Add(typeof(string), "string");
 
-            registry.Add(typeof(VVVV.Utils.VColor.RGBAColor), "Color");
-            registry.Add(typeof(VVVV.Utils.VMath.Matrix4x4), "Transform");
-            registry.Add(typeof(VVVV.Utils.VMath.Vector2D), "Vector2d");
-            registry.Add(typeof(VVVV.Utils.VMath.Vector3D), "Vector3d");
-            registry.Add(typeof(VVVV.Utils.VMath.Vector4D), "Vector4d");
 
-            registry.Add(typeof(Stream), "Raw");
-            registry.Add(typeof(Time.Time), "Time");
+        }
+        #endregion Singleton
 
-            registry.Add(typeof(Message), "Message");
+        protected abstract void Register(TypeIdentity target = null);
 
-            return new TypeIdentity(registry);
+        public bool TryAddRecord(TypeRecord newRecord)
+        {
+            if (newRecord == null) return false;
+            if (Data.Contains(newRecord)) return false;
+
+            if (Keys.Contains(newRecord.Type)) return false;
+            if (Data.Where(tr => tr.Alias == newRecord.Alias).Count() > 0) return false;
+
+            Data.Add(newRecord);
+
+            return true;
         }
 
         /// <summary>
@@ -64,51 +111,11 @@ namespace VVVV.Packs.Messaging
         /// </summary>
         public string[] Aliases
         {
-            get { return this.Values.ToArray(); }
+            get { return Data.Select(tr => tr.Alias).ToArray(); }
         }
 
 
-        public object NewDefault(Type type)
-        {
-            return Default(FindBaseAlias(type));
-        }
-        
-
-        public object Default(string alias)
-        {
-            alias = alias.ToLower();
-            switch (alias)
-            {
-                case "bool": return false; 
-                case "int": return 0; 
-                case "double": return 0.0d; 
-                case "float": return 0.0f; 
-                case "string": return "vvvv"; 
-                
-                case "color": return VVVV.Utils.VColor.VColor.Blue; 
-                case "transform": return VVVV.Utils.VMath.VMath.IdentityMatrix; 
-                case "vector2d": return new VVVV.Utils.VMath.Vector2D(); 
-                case "vector3d": return new VVVV.Utils.VMath.Vector3D(); 
-                case "vector4d": return new VVVV.Utils.VMath.Vector4D(); 
-
-                case "raw": return new MemoryStream(new byte[]{118, 118, 118, 118}); // vvvv
-                case "time": return Time.Time.MinUTCTime(); // 1.1.0001 @ 0am
-                case "message":return new Message();
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Retrieve the alias for a specific type. 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns>will return null, if no exact match for type has been found.</returns>
-        public string FindAlias(Type type)
-        {
-            if (this.ContainsKey(type))
-                return this[type];
-                else return null;
-        }
+        #region base type helper
 
         /// <summary>
         /// Retrieve the alias for a type or one of its base classes
@@ -117,12 +124,15 @@ namespace VVVV.Packs.Messaging
         /// <returns></returns>
         public string FindBaseAlias(Type type)
         {
-            foreach (Type key in Keys)
-            {
-                if (key == type) return this[key];
-                if (type.IsSubclassOf(key)) return this[key];
-            }
-            return null;
+            var result =    from tr in Data
+                            where tr.Type == type
+                            select tr;
+            result.Concat(
+                            from tr in Data
+                            where tr.Type.IsSubclassOf(type)
+                            select tr
+                         );
+            return result.FirstOrDefault()?.Alias;
         }
 
         /// <summary>
@@ -132,12 +142,31 @@ namespace VVVV.Packs.Messaging
         /// <returns>Null, if no base Type was found.</returns>
         public Type FindBaseType(Type type)
         {
-            foreach (Type key in Keys)
-            {
-                if (key == type) return key;
-                if (type.IsSubclassOf(key)) return key;
-            }
-            return null;
+            var result = from tr in Data
+                         where tr.Type == type
+                         select tr;
+            result.Concat(
+                            from tr in Data
+                            where tr.Type.IsSubclassOf(type)
+                            select tr
+                         );
+            return result.FirstOrDefault()?.Type;
+        }
+        #endregion base type handler
+
+        #region Obselete
+
+        [Obsolete("Please use default method in TyePecord instead.")]
+        public object NewDefault(Type type)
+        {
+            return Default(FindBaseAlias(type));
+        }
+
+        [Obsolete("Please use default method in TyePecord instead.")]
+        public object Default(string alias)
+        {
+            alias = alias.ToLower();
+            return Data.Where(tr => tr.Alias == alias).FirstOrDefault()?.Default();
         }
 
         /// <summary>
@@ -146,17 +175,118 @@ namespace VVVV.Packs.Messaging
         /// <param name="alias"></param>
         /// <returns>Null, if no Type by that alias was found.</returns>
         /// <remarks>aliases are treated Case-insensitive</remarks>
+        [Obsolete("Please use indexer instead.")]
         public Type FindType(string alias)
         {
-            Type type = null;
-            foreach (Type key in this.Keys)
-            {
-                if (this[key].ToLower() == alias.ToLower())
-                {
-                    type = key;
-                }
-            }
-            return type;
+            alias = alias.ToLower();
+            return Data.Where(tr => tr.Alias.ToLower() == alias).FirstOrDefault()?.Type;
         }
+
+
+        /// <summary>
+        /// Retrieve the alias for a specific type. 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>will return null, if no exact match for type has been found.</returns>
+        [Obsolete("Please use indexcer instead.")]
+        public string FindAlias(Type type)
+        {
+            return Data.Where(tr => tr.Type == type).FirstOrDefault()?.Alias;
+        }
+
+        #endregion Obselete
+
+        #region Dictionary members
+        public IEnumerable<TypeRecord> Values
+        {
+            get
+            {
+                foreach (var tr in Data) yield return tr;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return Data.Count;
+            }
+        }
+
+        public IEnumerable<Type> Keys
+        {
+            get
+            {
+                foreach (var tr in Data) yield return tr.Type;
+            }
+        }
+
+        IEnumerable<string> IReadOnlyDictionary<string, TypeRecord>.Keys
+        {
+            get
+            {
+                foreach (var tr in Data) yield return tr.Alias;
+            }
+        }
+
+        public TypeRecord this[string key]
+        {
+            get
+            {
+                return Data.Where(tr => tr.Alias == key).FirstOrDefault();
+            }
+        }
+
+        public TypeRecord this[Type key]
+        {
+            get
+            {
+                return Data.Where(tr => tr.Type == key).FirstOrDefault();
+            }
+        }
+
+
+        public bool ContainsKey(Type key)
+        {
+            var result = Data.Where(tr => tr.Type == key).FirstOrDefault();
+            return result != null;
+        }
+
+        public bool ContainsKey(string alias)
+        {
+            var result = Data.Where(tr => tr.Alias == alias).FirstOrDefault();
+            return result != null;
+        }
+
+        public bool TryGetValue(Type key, out TypeRecord value)
+        {
+            var result = Data.Where(tr => tr.Type == key).FirstOrDefault();
+            value = result;
+            return result != null;
+
+        }
+
+        public IEnumerator<KeyValuePair<Type, TypeRecord>> GetEnumerator()
+        {
+            foreach (var tr in Data) yield return new KeyValuePair<Type, TypeRecord>(tr.Type, tr);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            foreach (var tr in Data) yield return new KeyValuePair<Type, TypeRecord>(tr.Type, tr);
+        }
+
+
+        public bool TryGetValue(string key, out TypeRecord value)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator<KeyValuePair<string, TypeRecord>> IEnumerable<KeyValuePair<string, TypeRecord>>.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Dictionary
     }
 }

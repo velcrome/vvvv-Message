@@ -69,19 +69,24 @@ namespace VVVV.Packs.Messaging.Serializing
 
             foreach (var fieldName in message.Fields)
             {
+                var bin = message[fieldName];
+                var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
+
+                if (typeRecord == null) continue;
+                if (typeRecord.CloneMethod == CloneBehaviour.Null) continue;
+
                 packer.PackString(fieldName);
 
-                var bin = message[fieldName];
                 if (bin.Count == 1)
                 {
-                    var alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
+                    var alias = typeRecord.Alias;
                     PackSlice(packer, alias, bin.First);
 
                 }
                 else
                 {
                     packer.PackArrayHeader(bin.Count);
-                    var alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
+                    var alias = typeRecord.Alias;
                     foreach (var item in bin)
                     {
                         PackSlice(packer, alias, item);
@@ -196,7 +201,7 @@ namespace VVVV.Packs.Messaging.Serializing
                     else // multiple slices
                     {
                         bin = BinFromCurrent(unpacker);
-                        var alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
+                        var alias = TypeIdentity.Instance[bin.GetInnerType()].Alias;
 
                         for (int i=1;i<binCount;i++)
                         {
@@ -284,7 +289,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 var binType = (
                             from mapping in Code
                             where mapping.Value == ext.TypeCode
-                            let t = TypeIdentity.Instance.FindType(mapping.Key)
+                            let t = TypeIdentity.Instance[mapping.Key]?.Type
                             where t != null
                             select t
                             ).FirstOrDefault();
@@ -296,7 +301,7 @@ namespace VVVV.Packs.Messaging.Serializing
 
             if (bin == null) throw new TypeNotSupportedException("Cannot find out type from msgpack");
 
-            var alias = TypeIdentity.Instance.FindAlias(bin.GetInnerType());
+            var alias = TypeIdentity.Instance[bin.GetInnerType()].Alias;
             bin.Add(FromCurrent(unpacker, alias));
 
             return bin;

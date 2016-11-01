@@ -57,8 +57,48 @@
     <NODE old="Change (Message.Spread)" new="Change (Message)"> </NODE>
     <NODE old="Sort (Message Formular)" new="Sort (Message)"> </NODE>
     <NODE old="Default (Message Formular)" new="Default (Message)"> 
-	<PIN old="Spread Count Per Formular" new="Spread Count">
-	</PIN>
+    	<PIN old="Spread Count Per Formular" new="Spread Count" />
+    </NODE>
+  </PATCH>
+  <PATCH version="2.7.0">
+    <NODE old="AvoidNil (Message)" new="AvoidNil (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="Default (Message)" new="Default (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="Reflection (Message)" new="Reflection (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="HoldKeep (Message)" new="HoldKeep (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="SafeKeep (Message)" new="SafeKeep (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="SessionKeep (Message)" new="SessionKeep (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="ConfigKeep (Message)" new="ConfigKeep (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="AsOscMessage (Message)" new="AsOscMessage (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="FromOscMessage (Message)" new="FromOscMessage (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="Sort (Message)" new="Sort (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="Create (Message)" new="Create (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="Edit (Message)" new="Edit (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+    <NODE old="Split (Message)" new="Split (Message)"> 
+      <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
   </PATCH>
 </CONVVVVERTER>

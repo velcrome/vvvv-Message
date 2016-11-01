@@ -21,8 +21,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input", Order = 0)] 
         IDiffSpread<Message> FInput;
 
-        [Input("AutoSense", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
-        IDiffSpread<bool> FAutoSense;
+        [Input("Force", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
+        IDiffSpread<bool> FForce;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         IDiffSpread<bool> FUpdate;
@@ -50,6 +50,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
+            InitDX11Graph();
+
             bool warnPinSafety = false;
             if (RemovePinsFirst) warnPinSafety = RetryConfig();
 
@@ -83,14 +85,14 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             bool newData = FPins.Any(pinName => pinName.Value.ToISpread().IsChanged); // changed pins
-            newData |= !FAutoSense[0]; // assume newData, if AutoSense is off.
+            newData |= FForce[0]; // assume newData, if AutoSense is off.
 
             if (anyUpdate && newData) {
                 int messageIndex = 0;
                 foreach (var message in FInput)
                 {
                     if (FUpdate[messageIndex])
-                    doFlush |= CopyFromPins(message, messageIndex, FAutoSense[0]);
+                    doFlush |= CopyFromPins(message, messageIndex, !FForce[0]);
                         
                     messageIndex++;
                 }

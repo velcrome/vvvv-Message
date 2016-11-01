@@ -58,8 +58,9 @@ namespace VVVV.Packs.Messaging
                 // or add
                 for (int i = Count; i < value; i++)
                 {
-                    var defaultValue = TypeIdentity.Instance.NewDefault(this.GetInnerType());
-                    this.Add(defaultValue);
+                    var defaultValue = TypeIdentity.Instance[this.GetInnerType()]?.Default();
+
+                    if (defaultValue != null) this.Add(defaultValue);
                     IsChanged = true;
                 }
             }
@@ -130,8 +131,14 @@ namespace VVVV.Packs.Messaging
         {
             var s = new StringWriter();
             s.Write("Bin<");
-            s.Write(TypeIdentity.Instance.FindAlias(GetInnerType()));
-            s.Write("> [");
+            s.Write(TypeIdentity.Instance[GetInnerType()]?.Alias);
+            s.Write("> ");
+
+            s.Write(this.IsChanged ? "*" : ".");
+            s.Write(this.IsSweeping()? "*" : ".");
+
+            s.Write(" [");
+
             for (var i = 0; i < Count; i++)
             {
                 s.Write(this[i].ToString());

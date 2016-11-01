@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
-using VVVV.PluginInterfaces.V2;
-using VVVV.Utils;
 using System.Globalization;
+
+using VVVV.PluginInterfaces.V1;
+using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -16,6 +18,8 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
 
+
+
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
             var attr = new OutputAttribute("Field");
@@ -27,9 +31,10 @@ namespace VVVV.Packs.Messaging.Nodes
             return attr;
         }
 
-
+        
         public override void Evaluate(int SpreadMax)
         {
+
             if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged && !FAvoidNil.IsChanged) return;
 
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
@@ -76,7 +81,7 @@ namespace VVVV.Packs.Messaging.Nodes
                         if (!FAvoidNil.IsAnyInvalid() && FAvoidNil[0])
                         {
                             output.SliceCount = 1;
-                            output[0] = TypeIdentity.Instance.NewDefault(type);
+                            output[0] = TypeIdentity.Instance[type].Default();
                         }
                     }
                     else

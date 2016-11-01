@@ -426,8 +426,6 @@ namespace VVVV.Packs.Messaging {
         /// <summary>Deep Clones the given Message. Fields of type Message will not be deep cloned.</summary>
         /// <returns>A new Message</returns>
         public object Clone() {
-            // might be faster when utilizing binary serialisation.
-
 			Message m = new Message();
 			m.Topic = Topic;
 			m.TimeStamp = TimeStamp;
@@ -435,47 +433,42 @@ namespace VVVV.Packs.Messaging {
 			foreach (string name in Data.Keys) {
 				var list = Data[name];
                 var type = list.GetInnerType();
-                var newList = BinFactory.New(type, list.Count);
+                var newBin = BinFactory.New(type, list.Count);
 
-				// deep cloning of all fields, but messages: nested messages are merely a reference by design.
-                bool isCopyable = type.IsPrimitive || type.IsValueType || (type == typeof(string));  
+                var typeRecord = TypeIdentity.Instance[type];
 
-                if (isCopyable || type == typeof(Message))
+                if (typeRecord == null)
+                    throw new SystemException(type.FullName + " is not a registered type. Cannot add such a field to Message \"" + this.Topic+"\"");
+
+                // removing this line will force creation of empty bins, if the field is not cloneable somehow.
+                if (typeRecord.CloneMethod == CloneBehaviour.Null) continue; // omit the entire Field
+
+                for (int i = 0; i < list.Count; i++)
                 {
-                    for (int i = 0; i < list.Count; i++)
+                    switch (typeRecord.CloneMethod)
                     {
-                        newList.Add(list[i]); // if primitive -> auto copy. if Message -> reference only
-                    }
-                }
-                else
-                {
-                    if (typeof(ICloneable).IsAssignableFrom(type))
-                    {
-                        for (int i = 0; i < list.Count; i++)
-                        {
-                            var clone = ((ICloneable)list[i]).Clone();
-                            newList.Add(clone);
-                        }
-                    }
-                    else
-                    {
-                        if (typeof(Stream).IsAssignableFrom(type))
-                        {
-                            for (int i = 0; i < list.Count; i++)
-                            {
-                                var stream = list[i] as Stream;
-                                stream.Seek(0, SeekOrigin.Begin);
-                                var clone = new MemoryStream();
-                                stream.CopyTo(clone);
-                                newList.Add(clone);
-                            }
-
-                        }
-                        else throw new SystemException(type.FullName + " cannot be cloned nor copied, while cloning the message " + this.Topic);
+                        case CloneBehaviour.Null:
+                            continue;
+                        case CloneBehaviour.Assign:
+                            newBin.Add(list[i]);
+                            break;
+                        case CloneBehaviour.Clone:
+                            var clone = (list[i] as ICloneable)?.Clone();
+                            if (clone == null)
+                                throw new SystemException(type.FullName + " cannot be cloned with IClone interface. Check Profile. " + this.Topic);
+                            newBin.Add(clone);
+                            break;
+                        case CloneBehaviour.Custom:
+                            var customClone = typeRecord.CustomClone(list[i]);
+                            if (customClone == null)
+                                throw new SystemException(type.FullName + " cannot be cloned with Custom Clone delegate. Check Profile. " + this.Topic);
+                            newBin.Add(customClone);
+                            break;
+                        default: throw new NotImplementedException("CloneBehaviour " + typeRecord.CloneMethod.ToString() + " unhandled.");
                     }
                 }
                 
-                m[name] = newList; // add list to new Message
+                m[name] = newBin; // add list to new Message
             }
 			return m;
 		}

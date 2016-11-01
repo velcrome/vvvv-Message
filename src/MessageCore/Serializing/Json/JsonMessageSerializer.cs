@@ -33,10 +33,14 @@ namespace VVVV.Packs.Messaging.Serializing
             foreach (var name in message.Fields)
             {
                 var bin = message[name];
-                string extraType = "";
+                var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
 
+                if (typeRecord == null) continue;
+                if (typeRecord.CloneMethod == CloneBehaviour.Null) continue;
+                    
+                string extraType = "";
                 if (!NativeJsonTypes.Contains(bin.GetInnerType()))
-                    extraType = "<"+TypeIdentity.Instance.FindAlias(bin.GetInnerType())+">";
+                    extraType = "<"+typeRecord.Alias+">";
 
                 writer.WritePropertyName(name + extraType);
 
@@ -88,7 +92,7 @@ namespace VVVV.Packs.Messaging.Serializing
                 {
                     name = m.Groups[1].Value as string;
                     var alias = m.Groups[2].Value as string;
-                    var baseType = TypeIdentity.Instance.FindType(alias);
+                    var baseType = TypeIdentity.Instance[alias]?.Type;
                     
                     var binType = typeof(Bin<>).MakeGenericType(baseType);
 

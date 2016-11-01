@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
         [Config("Configuration", DefaultString = "string Foo", Visibility = PinVisibility.True)]
         private IDiffSpread<string> FConfig;
 
-        [Input("Message Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = true)]
+        [Input("Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = true)]
         public IDiffSpread<EnumEntry> FFormularSelection;
 
         #region event

@@ -23,17 +23,22 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void OnImportsSatisfied()
         {
             base.OnImportsSatisfied();
+
             FillEnum(Enumerable.Empty<string>());
         }
 
         protected override void FillEnum(IEnumerable<string> fields)
         {
             var special = new string[] { "Topic", "TimeStamp" };
-            var comparable = from fieldName in fields
-                             where !FFormularSelection.IsAnyInvalid()
-                             let type = MessageFormularRegistry.Context[FFormularSelection[0].Name][fieldName].Type 
-                             where type.IsPrimitive || type == typeof(string) || type is IComparable
-                             select fieldName;
+
+            var comparable = Enumerable.Empty<string>();
+            if (!FFormularSelection.IsAnyInvalid())
+                comparable =  from fieldName in fields
+                            where !FFormularSelection.IsAnyInvalid()
+                            let type = MessageFormularRegistry.Context[FFormularSelection[0].Name][fieldName]?.Type
+                            where type != null
+                            where type.IsPrimitive || type == typeof(string) || type is IComparable
+                            select fieldName;
 
             var enums = special.Concat(comparable).ToArray();
             EnumManager.UpdateEnum(EnumName, enums.First(), enums);
