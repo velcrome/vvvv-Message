@@ -58,6 +58,7 @@
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.34.105.0-develop-1755\lib\net46\VVVV.Utils.dll</HintPath>
@@ -70,10 +71,11 @@
     <Reference Include="Newtonsoft.Json, Version=8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MsgPack">
       <HintPath>..\packages\MsgPack.Cli.0.7.1\lib\net46\MsgPack.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -138,7 +140,7 @@
     <ProjectReference Include="..\MessageCore\VVVV.Packs.Messaging.Core.csproj">
       <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
       <Name>VVVV.Packs.Messaging.Core</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
