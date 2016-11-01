@@ -64,7 +64,7 @@
     <NODE old="AvoidNil (Message)" new="AvoidNil (Message)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="Default (Message Formular)" new="Default (Message Formular)"> 
+    <NODE old="Default (Message)" new="Default (Message)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
     <NODE old="Reflection (Message)" new="Reflection (Message)"> 

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\11_Searching.v4p" systemname="10_Searching" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\10_Searching.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -257,7 +257,7 @@
    </BOUNDS>
    <PIN pinname="Message Formular" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
+   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int id|">
    </PIN>
    <PIN pinname="id" visible="1">
    </PIN>
@@ -362,4 +362,6 @@
    </NODE>
    <LINK srcnodeid="22" srcpinname="Y Output Value" dstnodeid="1" dstpinname="AutoSense">
    </LINK>
+   <PACK Name="vvvv-Message" Version="2.7">
+   </PACK>
    </PATCH>

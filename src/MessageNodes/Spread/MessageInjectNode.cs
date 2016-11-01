@@ -13,26 +13,23 @@ namespace VVVV.Messaging.Nodes
     #endregion PluginInfo
     public class MessageSiftMessageNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Modificator Input")]
-        private IDiffSpread<Message> FModifier;
+        protected IDiffSpread<Message> FModifier;
 
         [Input("Only modify when changed")]
-        private IDiffSpread<bool> FDeepInspection;
+        protected IDiffSpread<bool> FDeepInspection;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
         [Output("Edits", AutoFlush = false)]
-        private ISpread<int> FEditCount;
+        protected ISpread<int> FEditCount;
 
         [Import()]
         protected ILogger FLogger;
-
-#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
