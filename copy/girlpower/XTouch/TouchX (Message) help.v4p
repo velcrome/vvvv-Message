@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\TouchX (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p" bgcolor="15132390">
    <BOUNDS type="Window" left="0" top="0" width="13665" height="15300">
    </BOUNDS>
@@ -107,7 +107,7 @@
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|double Fader, bool FaderTouch, bool Button, double A, double C, bool Program|">
    </PIN>
-   <PIN pinname="Fader" visible="1" slicecount="1" values="0.51">
+   <PIN pinname="Fader" visible="1" slicecount="1" values="0.988161087075389">
    </PIN>
    <PIN pinname="AutoSense" slicecount="1" values="1">
    </PIN>
@@ -149,7 +149,7 @@
    </PIN>
    <PIN pinname="Enabled" visible="1">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Transport" visible="1">
    </PIN>
@@ -169,7 +169,7 @@
    </PIN>
    <PIN pinname="Enabled" visible="1">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -191,7 +191,7 @@
    </PIN>
    <PIN pinname="Tracks" visible="1">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="331" dstpinname="Enabled" linkstyle="VHV">
@@ -205,7 +205,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="465" top="5940" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="(nil)">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -233,7 +233,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3570" top="5940" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|Microsoft GS Wavetable Synth|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -301,7 +301,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="11265" top="8550" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -311,7 +311,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="343" srcpinname="Y Output Value" dstnodeid="342" dstpinname="Pause">
@@ -381,9 +381,9 @@
    </PIN>
    <PIN pinname="Play Bin Size" visible="-1" pintype="Input" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Stop" slicecount="1" values="0">
+   <PIN pinname="Stop" slicecount="1" values="0" visible="1">
    </PIN>
-   <PIN pinname="Record" visible="1">
+   <PIN pinname="Record" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -396,28 +396,6 @@
    <PIN pinname="Play" visible="1">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="350" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3375" top="9960" width="480" height="480">
-   </BOUNDS>
-   <BOUNDS type="Node" left="3375" top="9960" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Record">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="350" srcpinname="Y Output Value" dstnodeid="349" dstpinname="Record">
-   </LINK>
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="351">
    <BOUNDS type="Node" left="5355" top="11055" width="100" height="100">
    </BOUNDS>
@@ -429,17 +407,17 @@
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Middle" visible="1" slicecount="4" values="0,0,0,1">
+   <PIN pinname="Middle" visible="1" slicecount="8" values="0,0,0,0,0,0,0,0">
    </PIN>
-   <PIN pinname="Top" visible="1" slicecount="4" values="0,0,0,1">
+   <PIN pinname="Top" visible="1" slicecount="8" values="1,1,1,1,0,0,0,0">
    </PIN>
    <PIN pinname="Rotary" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Low" visible="1" slicecount="3" values="0,0,0">
+   <PIN pinname="Low" visible="1" slicecount="8" values="0,0,0,0,0,0,0,0">
    </PIN>
-   <PIN pinname="Button" visible="1" slicecount="3" values="1,1,1">
+   <PIN pinname="Button" visible="1" slicecount="8" values="0,0,0,0,0,0,0,0">
    </PIN>
    <PIN pinname="Middle Bin Size" visible="1" slicecount="1" values="1">
    </PIN>
@@ -455,11 +433,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="352" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5760" top="8850" width="2325" height="900">
+   <BOUNDS type="Box" left="6285" top="8805" width="2325" height="900">
    </BOUNDS>
-   <BOUNDS type="Node" left="5760" top="8850" width="0" height="0">
+   <BOUNDS type="Node" left="6285" top="8805" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="32" visible="1" values="1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1,1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1">
+   <PIN pinname="Y Input Value" slicecount="32" visible="1" values="1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -469,7 +447,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="32" values="1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1,1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1">
+   <PIN pinname="X Input Value" slicecount="32" values="1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Buttons">
    </PIN>
@@ -485,9 +463,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="353" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="5595" top="9915" width="1590" height="270">
+   <BOUNDS type="Box" left="4575" top="9630" width="1590" height="270">
    </BOUNDS>
-   <BOUNDS type="Node" left="5595" top="9915" width="0" height="0">
+   <BOUNDS type="Node" left="4575" top="9630" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="XTouch.Track">
    </PIN>
@@ -495,42 +473,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="353" srcpinname="Output Enum" dstnodeid="351" dstpinname="Message Formular">
-   </LINK>
-   <NODE systemname="Unzip (4d)" nodename="Unzip (4d)" componentmode="Hidden" id="355" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll">
-   <BOUNDS type="Node" left="6180" top="10320" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="XYZW" visible="1">
-   </PIN>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Y" visible="1">
-   </PIN>
-   <PIN pinname="Z" visible="1">
-   </PIN>
-   <PIN pinname="W" visible="1">
-   </PIN>
-   <PIN pinname="InputXYZW" visible="1">
-   </PIN>
-   <PIN pinname="Output Count" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Output 1XYZW" visible="1">
-   </PIN>
-   <PIN pinname="Output 2XYZW" visible="1">
-   </PIN>
-   <PIN pinname="Output 3XYZW" visible="1">
-   </PIN>
-   <PIN pinname="Output 4XYZW" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="352" srcpinname="Y Output Value" dstnodeid="355" dstpinname="InputXYZW">
-   </LINK>
-   <LINK srcnodeid="355" srcpinname="Output 2XYZW" dstnodeid="351" dstpinname="Middle">
-   </LINK>
-   <LINK srcnodeid="355" srcpinname="Output 1XYZW" dstnodeid="351" dstpinname="Top">
-   </LINK>
-   <LINK srcnodeid="355" srcpinname="Output 3XYZW" dstnodeid="351" dstpinname="Low">
-   </LINK>
-   <LINK srcnodeid="355" srcpinname="Output 4XYZW" dstnodeid="351" dstpinname="Button">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="360" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="7455" top="10635" width="285" height="285">
@@ -551,12 +493,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="360" srcpinname="Y Output Value" dstnodeid="351" dstpinname="AutoSense">
-   </LINK>
-   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="171" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="5490" y="9630">
-   </LINKPOINT>
-   <LINKPOINT x="525" y="9630">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="Definition (TouchX Message)" filename="Definition (TouchX Message).v4p" componentmode="Hidden" id="137" nodename="Definition (TouchX Message).v4p">
    <BOUNDS type="Node" left="465" top="7545" width="100" height="100">
@@ -597,7 +533,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="12105" top="10680" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -606,6 +542,8 @@
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="366" srcpinname="Y Output Value" dstnodeid="313" dstpinname="Force">
@@ -638,8 +576,6 @@
    </NODE>
    <LINK srcnodeid="369" srcpinname="Output Enum" dstnodeid="313" dstpinname="Formular">
    </LINK>
-   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="351" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="353" srcpinname="Output Enum" dstnodeid="351" dstpinname="Formular">
    </LINK>
    <LINK srcnodeid="360" srcpinname="Y Output Value" dstnodeid="351" dstpinname="Update">
@@ -649,7 +585,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7125" top="10620" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -658,6 +594,8 @@
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="370" srcpinname="Y Output Value" dstnodeid="351" dstpinname="Force">
@@ -703,9 +641,9 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="373">
-   <BOUNDS type="Box" left="4020" top="10065" width="480" height="480">
+   <BOUNDS type="Box" left="3090" top="10545" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="4020" top="10065" width="0" height="0">
+   <BOUNDS type="Node" left="3090" top="10545" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -715,9 +653,11 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Play">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="373" srcpinname="Y Output Value" dstnodeid="349" dstpinname="Play">
@@ -852,4 +792,104 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="SwapDim (Spreads)" nodename="SwapDim (Spreads)" componentmode="Hidden" id="385">
+   <BOUNDS type="Node" left="6285" top="9840" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Column Count" slicecount="1" values="8">
+   </PIN>
+   <PIN pinname="Row Count" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Bin Size" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="352" srcpinname="Y Output Value" dstnodeid="385" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Sort (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sort (Message Formular)" componentmode="Hidden" id="386">
+   <BOUNDS type="Node" left="5130" top="8970" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="386" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="386" srcpinname="Output" dstnodeid="351" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="386" srcpinname="Output" dstnodeid="171" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Unzip (Value)" nodename="Unzip (Value)" componentmode="Hidden" id="355" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll">
+   <BOUNDS type="Node" left="6180" top="10320" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="XYZW" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Z" visible="1">
+   </PIN>
+   <PIN pinname="W" visible="1">
+   </PIN>
+   <PIN pinname="InputXYZW" visible="1">
+   </PIN>
+   <PIN pinname="Output Count" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Output 1XYZW" visible="1">
+   </PIN>
+   <PIN pinname="Output 2XYZW" visible="1">
+   </PIN>
+   <PIN pinname="Output 3XYZW" visible="1">
+   </PIN>
+   <PIN pinname="Output 4XYZW" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output 1" visible="1">
+   </PIN>
+   <PIN pinname="Output 2" visible="1">
+   </PIN>
+   <PIN pinname="Output 3" visible="1">
+   </PIN>
+   <PIN pinname="Output 4" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="352" srcpinname="Y Output Value" dstnodeid="355" dstpinname="InputXYZW">
+   </LINK>
+   <LINK srcnodeid="355" srcpinname="Output 1" dstnodeid="351" dstpinname="Top">
+   </LINK>
+   <LINK srcnodeid="355" srcpinname="Output 2" dstnodeid="351" dstpinname="Middle">
+   </LINK>
+   <LINK srcnodeid="355" srcpinname="Output 3" dstnodeid="351" dstpinname="Low">
+   </LINK>
+   <LINK srcnodeid="355" srcpinname="Output 4" dstnodeid="351" dstpinname="Button">
+   </LINK>
+   <LINK srcnodeid="385" srcpinname="Output" dstnodeid="355" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="387">
+   <BOUNDS type="Box" left="3765" top="10545" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3765" top="10545" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Stop">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="387" srcpinname="Y Output Value" dstnodeid="349" dstpinname="Stop">
+   </LINK>
    </PATCH>

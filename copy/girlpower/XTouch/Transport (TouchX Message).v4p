@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Transport (TouchX Message).v4p" systemname="Transport (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Transport (TouchX Message).v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Transport (TouchX Message).v4p" systemname="Transport (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Transport (TouchX Message).v4p" scrollx="3420" scrolly="5985">
    <NODE systemname="MidiNote (Devices)" nodename="MidiNote (Devices)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="8040" top="3075" width="2985" height="270">
    </BOUNDS>
@@ -635,7 +635,7 @@
    <LINK srcnodeid="46" srcpinname="Output" dstnodeid="12" dstpinname="Input Node">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="49" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6360" top="11760" width="825" height="285">
+   <BOUNDS type="Box" left="6360" top="11760" width="285" height="255">
    </BOUNDS>
    <BOUNDS type="Node" left="6360" top="11760" width="0" height="0">
    </BOUNDS>
@@ -709,7 +709,7 @@
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="37">
    <BOUNDS type="Node" left="5850" top="10725" width="1740" height="270">
    </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|bool Play, bool Stop|">
+   <PIN pinname="Configuration" slicecount="1" values="|bool Stop, bool Play|">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -799,7 +799,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7200" top="11715" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -808,6 +808,8 @@
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="58" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Force">
