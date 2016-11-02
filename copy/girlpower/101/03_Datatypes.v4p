@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="4185">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="4680">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
@@ -891,7 +891,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3060" top="12315" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="3" visible="1" values="|int id, Raw bytes, Time[] vvvvTime|,|Color rgb, Vector3d Position, Vector3d[5] History, , Transform View|,|Texture Tex, Layer Layer, Buffer Buffer, Geometry Geom|">
+   <PIN pinname="Input String" slicecount="3" visible="1" values="|int id, Raw bytes, Time[] vvvvTime|,|Color rgb, Vector3d Position, Vector3d[5] History, Transform View|,|Texture2d Tex, Layer Layer, Buffer Buffer, Geometry Geom|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
