@@ -29,6 +29,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Formular", AutoFlush = false)]
         public ISpread<MessageFormular> FOutput;
 
+        [Output("Error", AutoFlush = false)]
+        public ISpread<string> FError;
+
         [Import()]
         protected ILogger FLogger;
 
@@ -49,7 +52,14 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (_lastException != null) throw _lastException;
                 return;
             }
-            _lastException = null; // assume innocence
+
+            if (_lastException != null)
+            {
+                var tmp = _lastException;
+                _lastException = null; // assume innocence
+                FError.FlushItem(_lastException.ToString());
+                throw tmp;
+            }
 
             FOutput.SliceCount = SpreadMax = FName.SliceCount;
 
