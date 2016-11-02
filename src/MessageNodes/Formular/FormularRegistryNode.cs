@@ -49,8 +49,11 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (!_firstFrame && !update)
             {
-                if (_lastException != null) throw _lastException;
-                return;
+                if (_lastException != null)
+                {
+                    FError.FlushItem(_lastException.ToString());
+                    throw _lastException;
+                }
             }
 
             if (_lastException != null)

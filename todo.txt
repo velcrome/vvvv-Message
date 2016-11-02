@@ -12,9 +12,15 @@ Features Wanted
 - faster TypeIdentity - split into two internal dictionaries
 - split should have a verbose toggle
 
+Usability
+- Reader (Message Stream) should not output Messages when reading is off. AutoReset at EOF is dull too. Count of -1 should read all (Min=-1)
+- Split should have Verbose pin
+
+
 Bugs
  - pin order is not deterministic
  - formular fails in 101 / Datatypes
+ - ConfigKeep is not ending Sweeping
 
 Treatments
 - config pin should be private (and hidden)

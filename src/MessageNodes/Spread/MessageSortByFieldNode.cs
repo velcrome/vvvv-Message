@@ -71,7 +71,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (entry != null && !fieldNames.Contains(entry)) fieldNames.Add(entry);
             }
 
-            IOrderedEnumerable<Message> ordered = FInput.OrderBy(message => 1); // noop sort
+            IOrderedEnumerable<Message> ordered = FInput.OrderBy(message => 1); // noop sort to "cast" into interface
 
             for (int i = 0; i < fieldNames.Count; i++)
             {

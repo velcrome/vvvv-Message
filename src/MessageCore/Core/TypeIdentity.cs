@@ -142,15 +142,15 @@ namespace VVVV.Packs.Messaging
         /// <returns>Null, if no base Type was found.</returns>
         public Type FindBaseType(Type type)
         {
-            var result = from tr in Data
+            var direct = from tr in Data
                          where tr.Type == type
                          select tr;
-            result = result.Concat(
+            var inherited = direct.Concat(
                             from tr in Data
                             where type.IsSubclassOf(tr.Type)
                             select tr
                          );
-            return result.FirstOrDefault()?.Type;
+            return direct.Concat(inherited).FirstOrDefault()?.Type;
         }
         #endregion base type handler
 
