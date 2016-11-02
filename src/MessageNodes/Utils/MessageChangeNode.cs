@@ -56,14 +56,14 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (FInput.IsChanged && !FInput.IsAnyInvalid())
                     {
                         FOutput.FlushResult(FInput);
-                        FChange.FlushBool(true);
+                        FChange.FlushItem<bool>(true);
                     }
-                    else FChange.FlushBool(false);
+                    else FChange.FlushItem<bool>(false);
                     break;
                 case FlowControlEnum.Inspect:
                     if (FInput.IsAnyInvalid())
                     {
-                        FChange.FlushBool(false);
+                        FChange.FlushItem<bool>(false);
                         break;
                     }
 
@@ -75,12 +75,12 @@ namespace VVVV.Packs.Messaging.Nodes
                             else FOutput.FlushResult(FInput);
                         FChange.FlushResult(change);
                     }
-                    else FChange.FlushBool(false);
+                    else FChange.FlushItem<bool>(false);
                     break;
                 case FlowControlEnum.SinceLastFrame:
                     if (FInput.IsAnyInvalid())
                     {
-                        FChange.FlushBool(false);
+                        FChange.FlushItem<bool>(false);
                         break;
                     }
 
@@ -92,17 +92,17 @@ namespace VVVV.Packs.Messaging.Nodes
                         else FOutput.FlushResult(FInput);
                         FChange.FlushResult(changed);
                     }
-                    else FChange.FlushBool(false);
+                    else FChange.FlushItem<bool>(false);
                     break;
                 case FlowControlEnum.Block:
-                    FChange.FlushBool(false);
+                    FChange.FlushItem<bool>(false);
                     break;
                 case FlowControlEnum.Force: 
                     FOutput.FlushResult(FInput);
-                    FChange.FlushBool(true);
+                    FChange.FlushItem<bool>(true);
                     break;
                 default: // all bases covered
-                    FChange.FlushBool(false);
+                    FChange.FlushItem<bool>(false);
                     break;
             }
         }

@@ -144,7 +144,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 Keep.Clear();
                 anyChange = true;
 
-                FCountOut.FlushInt(Keep.Count);
+                FCountOut.FlushItem<int>(Keep.Count);
             }
             return anyChange;
 
@@ -185,7 +185,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             FOutput.FlushResult(Keep);
-            FCountOut.FlushInt(Keep.Count);
+            FCountOut.FlushItem<int>(Keep.Count);
             return true;
 
         }

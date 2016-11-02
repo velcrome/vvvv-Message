@@ -60,7 +60,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (update)
                 {
                     FOutput.FlushResult(Keep);
-                    FCountOut.FlushInt(Keep.Count);
+                    FCountOut.FlushItem<int>(Keep.Count);
                 }
             }
 

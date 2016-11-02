@@ -73,14 +73,7 @@ namespace VVVV.Utils
             spread.Flush();
         }
 
-        public static void FlushBool(this ISpread<bool> spread, bool result)
-        {
-            spread.SliceCount = 1;
-            spread[0] = result;
-            spread.Flush();
-        }
-
-        public static void FlushInt(this ISpread<int> spread, int result)
+        public static void FlushItem<T>(this ISpread<T> spread, T result)
         {
             spread.SliceCount = 1;
             spread[0] = result;

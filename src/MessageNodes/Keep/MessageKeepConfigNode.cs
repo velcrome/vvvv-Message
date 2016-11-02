@@ -95,7 +95,7 @@ namespace VVVV.Packs.Messaging.Nodes
             }
 
             FOutput.FlushResult(Keep);
-            FCountOut.FlushInt(Keep.Count);
+            FCountOut.FlushItem<int>(Keep.Count);
 
             return true;
         }

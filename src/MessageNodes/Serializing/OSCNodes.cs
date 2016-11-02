@@ -159,7 +159,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             {
                 SpreadMax = 0;
                 FOutput.FlushNil();
-                FSuccess.FlushBool(false);
+                FSuccess.FlushItem<bool>(false);
                 FMatch.FlushNil();
 
                 return;
