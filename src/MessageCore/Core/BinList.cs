@@ -210,7 +210,7 @@ namespace VVVV.Packs.Messaging
             if (val == null) throw new ArgumentNullException("Cannot add \"null\" to Bin<" + this.GetInnerType().Name + ">.");
 
             // if type is in the Registry of allowed basetypes, add this single instance
-            Type type = TypeIdentity.Instance.FindBaseType(val.GetType());
+            Type type = TypeIdentity.Instance.FindBaseType(val.GetType()).Type;
             if (type != null)
             {
                 try

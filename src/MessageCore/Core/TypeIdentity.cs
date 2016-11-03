@@ -105,6 +105,7 @@ namespace VVVV.Packs.Messaging
         }
         #endregion Singleton
 
+        #region append fields
         public abstract void Register(TypeIdentity target = null);
 
         public bool TryAddRecord(TypeRecord newRecord)
@@ -119,6 +120,7 @@ namespace VVVV.Packs.Messaging
 
             return true;
         }
+        #endregion
 
         /// <summary>
         /// Retrieve a list of all currently valid Aliases
@@ -132,29 +134,11 @@ namespace VVVV.Packs.Messaging
         #region base type helper
 
         /// <summary>
-        /// Retrieve the alias for a type or one of its base classes
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public string FindBaseAlias(Type type)
-        {
-            var result =    from tr in Data
-                            where tr.Type == type
-                            select tr;
-            result.Concat(
-                            from tr in Data
-                            where tr.Type.IsSubclassOf(type)
-                            select tr
-                         );
-            return result.FirstOrDefault()?.Alias;
-        }
-
-        /// <summary>
         /// Retrieve the registered type for any given inherited type
         /// </summary>
         /// <param name="type"></param>
         /// <returns>Null, if no base Type was found.</returns>
-        public Type FindBaseType(Type type)
+        public TypeRecord FindBaseType(Type type)
         {
             var direct = from tr in Data
                          where tr.Type == type
@@ -164,51 +148,9 @@ namespace VVVV.Packs.Messaging
                             where type.IsSubclassOf(tr.Type)
                             select tr
                          );
-            return direct.Concat(inherited).FirstOrDefault()?.Type;
+            return direct.Concat(inherited).FirstOrDefault();
         }
         #endregion base type handler
-
-        #region Obselete
-
-        [Obsolete("Please use default method in TyePecord instead.")]
-        public object NewDefault(Type type)
-        {
-            return Default(FindBaseAlias(type));
-        }
-
-        [Obsolete("Please use default method in TyePecord instead.")]
-        public object Default(string alias)
-        {
-            alias = alias.ToLower();
-            return Data.Where(tr => tr.Alias == alias).FirstOrDefault()?.Default();
-        }
-
-        /// <summary>
-        /// Retrieve a registered type by its alias
-        /// </summary>
-        /// <param name="alias"></param>
-        /// <returns>Null, if no Type by that alias was found.</returns>
-        /// <remarks>aliases are treated Case-insensitive</remarks>
-        [Obsolete("Please use indexer instead.")]
-        public Type FindType(string alias)
-        {
-            alias = alias.ToLower();
-            return Data.Where(tr => tr.Alias.ToLower() == alias).FirstOrDefault()?.Type;
-        }
-
-
-        /// <summary>
-        /// Retrieve the alias for a specific type. 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns>will return null, if no exact match for type has been found.</returns>
-        [Obsolete("Please use indexcer instead.")]
-        public string FindAlias(Type type)
-        {
-            return Data.Where(tr => tr.Type == type).FirstOrDefault()?.Alias;
-        }
-
-        #endregion Obselete
 
         #region Dictionary members
         public IEnumerable<TypeRecord> Values
