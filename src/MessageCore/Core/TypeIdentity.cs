@@ -75,7 +75,7 @@ namespace VVVV.Packs.Messaging
             //            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
 
             var profiles = from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                             from types in assembly.GetTypes()
+                             from types in GetLoadableTypes(assembly)
                              where types.IsSubclassOf(typeof(TypeIdentity))
                              where types != typeof(BaseProfile)
                              select types;
@@ -87,6 +87,20 @@ namespace VVVV.Packs.Messaging
             }
 
 
+
+        }
+
+        public IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+        {
+            if (assembly == null) return Enumerable.Empty<Type>();
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                return e.Types.Where(t => t != null);
+            }
 
         }
         #endregion Singleton
@@ -233,7 +247,8 @@ namespace VVVV.Packs.Messaging
         {
             get
             {
-                return Data.Where(tr => tr.Alias == key).FirstOrDefault();
+                key = key.ToLower();
+                return Data.Where(tr => tr.Alias.ToLower() == key).FirstOrDefault();
             }
         }
 
@@ -254,7 +269,8 @@ namespace VVVV.Packs.Messaging
 
         public bool ContainsKey(string alias)
         {
-            var result = Data.Where(tr => tr.Alias == alias).FirstOrDefault();
+            alias = alias.ToLower();
+            var result = Data.Where(tr => tr.Alias.ToLower() == alias).FirstOrDefault();
             return result != null;
         }
 
@@ -279,12 +295,20 @@ namespace VVVV.Packs.Messaging
 
         public bool TryGetValue(string key, out TypeRecord value)
         {
-            throw new NotImplementedException();
+            if (this.ContainsKey(key))
+            {
+                value = this[key];
+                return true;
+            } else
+            {
+                value = null;
+                return false;
+            }
         }
 
         IEnumerator<KeyValuePair<string, TypeRecord>> IEnumerable<KeyValuePair<string, TypeRecord>>.GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach (var tr in Data) yield return new KeyValuePair<string, TypeRecord>(tr.Alias, tr);
         }
 
         #endregion Dictionary
