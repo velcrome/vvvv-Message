@@ -192,8 +192,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public new void Dispose()
         {
+            Keep.Clear(); // dont wan't any lingering commits
             base.Dispose();
-            Keep.Clear();
         }
 
     }

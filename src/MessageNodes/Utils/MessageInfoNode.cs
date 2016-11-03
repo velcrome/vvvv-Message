@@ -6,36 +6,44 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
+    using Newtonsoft.Json;
     using Time = VVVV.Packs.Time.Time;
 
     #region PluginInfo
     [PluginInfo(Name = "Info", Category = "Message", Help = "Help to Debug Messages", Tags = "TTY", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageInfoNode : IPluginEvaluate
+    public class MessageInfoNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
-#pragma warning disable 649, 169
-
-        [Input("Input")] 
-        IDiffSpread<Message> FInput;
+        [Input("Input")]
+        protected IDiffSpread<Message> FInput;
 
         [Input("Print to TTY", IsToggle = true)]
-        IDiffSpread<bool> FPrint;
+        protected IDiffSpread<bool> FPrint;
 
-        [Output("Topic", AutoFlush = false)] 
-        ISpread<string> FTopic;
+        [Output("Topic", AutoFlush = false)]
+        protected ISpread<string> FTopic;
 
-        [Output("Timestamp", AutoFlush = false)] 
-        Pin<Time> FTimeStamp;
+        [Output("Timestamp", AutoFlush = false)]
+        protected Pin<Time> FTimeStamp;
 
-        [Output("Output", AutoFlush = false)] 
-        ISpread<string> FOutput;
+        [Output("Output", AutoFlush = false)]
+        protected ISpread<string> FOutput;
 
         [Output("Configuration", AutoFlush = false)] 
-        ISpread<string> FConfigOut;
+        protected ISpread<string> FConfigOut;
 
-        [Import()] protected ILogger FLogger;
+        [Import()]
+        protected ILogger FLogger;
 
-#pragma warning restore
+        protected JsonSerializerSettings FJsonSettings = new JsonSerializerSettings();
+
+
+        public void OnImportsSatisfied()
+        {
+            FJsonSettings.Formatting = Formatting.Indented;
+            FJsonSettings.TypeNameHandling = TypeNameHandling.None;
+        }
+
 
         public void Evaluate(int SpreadMax)
         {
@@ -69,15 +77,18 @@ namespace VVVV.Packs.Messaging.Nodes
                 FTopic[i] = m.Topic;
                 if (timeConnected) FTimeStamp[i] = m.TimeStamp;;
 
-                FConfigOut[i] = FInput[i].Formular.ToString();
+                FConfigOut[i] = FInput[i].Formular.Configuration;
 
                 if (FPrint[i])
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("\t === \t ["+i+"]\t ===\t");
-                    sb.AppendLine(FInput[i].ToString());
-                    sb.AppendLine();
-                    FLogger.Log(LogType.Message, sb.ToString());
+                    //StringBuilder sb = new StringBuilder();
+                    //sb.AppendLine("\t === \t ["+i+"]\t ===");
+                    //sb.AppendLine(FInput[i].ToString());
+                    //sb.AppendLine();
+                    //FLogger.Log(LogType.Message, sb.ToString());
+
+                    FLogger.Log(LogType.Message, "\t === \t ["+i+"]\t ===");
+                    FLogger.Log(LogType.Message, JsonConvert.SerializeObject(FInput[i], FJsonSettings));
                 }
             }
             

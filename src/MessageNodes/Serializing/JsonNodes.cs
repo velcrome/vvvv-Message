@@ -13,27 +13,23 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         #endregion PluginInfo
         public class MessageAsJsonStringNode : IPluginEvaluate
         {
-            #pragma warning disable 649, 169
             [Input("Input")]
-            IDiffSpread<Message> FInput;
+            protected IDiffSpread<Message> FInput;
 
             [Input("Pretty", IsSingle = true, IsToggle = true, DefaultBoolean = true)]
-            IDiffSpread<bool> FPretty;
+            protected IDiffSpread<bool> FPretty;
 
             [Output("String", AutoFlush = false)]
-            ISpread<string> FOutput;
+            protected ISpread<string> FOutput;
 
             [Import()]
             protected ILogger FLogger;
-
-            #pragma warning restore
 
             public void Evaluate(int SpreadMax)
             {
                 if (!FInput.IsChanged && !FPretty.IsChanged) return;
 
                 FOutput.SliceCount = SpreadMax;
-                JsonSerializer ser = new JsonSerializer();
 
                 JsonSerializerSettings settings = new JsonSerializerSettings();
 

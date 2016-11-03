@@ -6,9 +6,9 @@ Features accomplished
 - formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
 
 Features Wanted
-- vl version (core only, best done by xml, not attributes)
+- vl version (message core only, best done by tonfilms xml, not attributes)
 - autocast from any vl class (and mimick back), might need converters for all vvvv special types
-- dynamic object wrapper for a Message's dictionary
+- dynamic object wrapper for a Message's dictionary (see Agent in vvvv-Game)
 - faster TypeIdentity - split into two internal dictionaries
 - split should have a verbose toggle
 
@@ -16,11 +16,9 @@ Usability
 - Reader (Message Stream) should not output Messages when reading is off. AutoReset at EOF is dull too. Count of -1 should read all (Min=-1)
 - Split should have Verbose pin
 
-
 Bugs
  - pin order is not deterministic
- - formular fails in 101 / Datatypes
- - ConfigKeep is not ending Sweeping
 
 Treatments
 - config pin should be private (and hidden)
+- Profiles (extending TypeIdentity) should look prettier. 

@@ -11,15 +11,14 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageKeepConfigNode : TypeablePinsNode
     {
-#pragma warning disable 649, 169
         [Input("Topic", DefaultString = "State", Order = 1)]
         public IDiffSpread<string> FTopic;
 
         [Input("Force", Order = int.MaxValue - 2, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
-        IDiffSpread<bool> FForce;
+        protected IDiffSpread<bool> FForce;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue-1, DefaultBoolean = true)]
-        IDiffSpread<bool> FUpdate;
+        protected IDiffSpread<bool> FUpdate;
 
         [Input("Count", IsSingle = true, DefaultValue = 1, Order = int.MaxValue)]
         public IDiffSpread<int> FSpreadCount;
@@ -35,9 +34,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Output("Internal Count", Order = int.MaxValue, AutoFlush = false)]
         public ISpread<int> FCountOut;
-#pragma warning restore
 
-        protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractStorageNode. 
+        protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractMessageKeepNode. 
 
 
         private bool _reset = true;
@@ -63,19 +61,26 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             base.OnImportsSatisfied();
             FormularUpdate += (sender, formular) => FResetNecessary = true;
-
-
         }
 
-
+        // copy and paste from AbstractMessageKeepFormular
         protected virtual bool UpKeep(bool force = false)
         {
             if (!force && !Keep.IsChanged)
             {
-                if (!Keep.QuickMode && FChangeIndexOut.SliceCount != 0)
+                if (!Keep.QuickMode && FChangeOut.SliceCount != 0)
                 {
-                    FChangeIndexOut.FlushNil();
                     FChangeOut.FlushNil();
+                    FChangeIndexOut.FlushNil();
+                }
+
+                var recentCommits = from message in Keep
+                                    where message.HasRecentCommit()
+                                    select message;
+
+                foreach (var message in recentCommits)
+                {
+                    message.Commit(Keep);
                 }
                 return false;
             }
@@ -86,18 +91,17 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             else
             {
-                IEnumerable<Message> changes;
-                IEnumerable<int> indices;
-                changes = Keep.Sync(out indices);
+                IEnumerable<int> indexes;
+                var changes = Keep.Sync(out indexes);
 
-                FChangeIndexOut.FlushResult(indices);
+                FChangeIndexOut.FlushResult(indexes);
                 FChangeOut.FlushResult(changes);
             }
 
             FOutput.FlushResult(Keep);
             FCountOut.FlushItem<int>(Keep.Count);
-
             return true;
+
         }
 
         protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
@@ -193,7 +197,12 @@ namespace VVVV.Packs.Messaging.Nodes
                 throw new PinConnectionException("Manually remove unneeded links first! [ConfigKeep]. ID = [" + PluginHost.GetNodePath(false) +"]");
         }
 
-
+        // copy and paste from AbstractMessagKeepNode
+        public new void Dispose()
+        {
+            Keep.Clear(); // dont wan't any lingering commits
+            base.Dispose();
+        }
 
     }
 }
