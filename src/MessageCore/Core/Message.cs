@@ -167,7 +167,7 @@ namespace VVVV.Packs.Messaging {
                 else type = values.GetType().GenericTypeArguments[0];
             }
 
-            type = TypeIdentity.Instance.FindBaseType(type); // break it down.
+            type = TypeIdentity.Instance.FindBaseType(type).Type; // break it down.
             if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + fieldName + "] failed, type is not supported: " + this.Topic);
 
             // replace if type does not match

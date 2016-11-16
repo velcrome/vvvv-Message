@@ -37,12 +37,12 @@ namespace VVVV.Packs.Messaging
             if (!fieldName.IsValidFieldName())
                 throw new ParseFormularException(fieldName + " is not a valid Name for a field. Sorry, please pick a different one.");
 
-            var baseType = TypeIdentity.Instance.FindBaseType(type);
-            if (baseType == null)
+            var baseTypeRecord = TypeIdentity.Instance.FindBaseType(type);
+            if (baseTypeRecord == null)
                 throw new TypeNotSupportedException(type + " is not a valid Type for a Formular field.");
 
             this.Name = fieldName;
-            this.Type = baseType;
+            this.Type = baseTypeRecord.Type;
             this.DefaultSize = size;
             this.IsRequired = isRequired;
         }
