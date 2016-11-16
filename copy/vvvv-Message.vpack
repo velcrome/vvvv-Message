@@ -1,11 +1,11 @@
 <vpack>
   <meta>
     <name>vvvv-Message</name>
-    <source></source>
+    <source>https://github.com/velcrome/vvvv-Message.git</source>
     <author>velcrome</author>
   </meta>
   <install>
-	GitClone("https://github.com/velcrome/vvvv-Message.git", Pack.TempDir);
+	GitClone("https://github.com/velcrome/vvvv-Message.git", Pack.TempDir, false, "beta35");
 
         BuildSolution(2015, Pack.TempDir + "\\src\\vvvv-Message.sln", "Release|AnyCPU", true);
 
