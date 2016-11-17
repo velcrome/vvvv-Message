@@ -35,7 +35,7 @@ namespace VVVV.Packs.Messaging.Nodes
             if (!FFormularSelection.IsAnyInvalid())
                 comparable =  from fieldName in fields
                             where !FFormularSelection.IsAnyInvalid()
-                            let type = MessageFormularRegistry.Context[FFormularSelection[0].Name][fieldName]?.Type
+                            let type = MessageFormularRegistry.Context[FFormularSelection[0].Name]?[fieldName]?.Type
                             where type != null
                             where type.IsPrimitive || type == typeof(string) || type is IComparable
                             select fieldName;
