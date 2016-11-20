@@ -59,8 +59,8 @@ namespace VVVV.Packs.Messaging.Nodes
             if (_lastException != null)
             {
                 var tmp = _lastException;
-                _lastException = null; // assume innocence
                 FError.FlushItem(_lastException.ToString());
+                _lastException = null; // assume innocence
                 throw tmp;
             }
 
