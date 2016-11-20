@@ -23,6 +23,9 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Input", Order = 0)]
         protected IDiffSpread<Message> FInput;
 
+        [Input("Verbose Logging", Order = int.MaxValue, DefaultBoolean = true, IsSingle = true)]
+        protected IDiffSpread<bool> FVerbose;
+
         [Output("Topic", AutoFlush = false, Visibility = PinVisibility.Hidden, Order = 1)]
         protected ISpread<string> FTopic;
 
@@ -102,8 +105,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
                     if (sourceBin as object == null)
                     {
-                            FLogger.Log(LogType.Warning,
-                                        "\"" + Formular[name].Type + " " + name + "\" is not defined in Input Message.");
+                        if (FVerbose[0]) FLogger.Log(LogType.Warning,
+                                        "\"" + Formular[name].Type + " " + name + "\" is not defined in Message ["+ message.Topic+"], so skipped its bin on the output too.");
                     }
                     else count = sourceBin.Count;
 
