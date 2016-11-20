@@ -1,52 +1,53 @@
-﻿using System.ComponentModel.Composition;
-using Newtonsoft.Json;
-using VVVV.Core.Logging;
-using VVVV.PluginInterfaces.V2;
-using Newtonsoft.Json.Linq;
+﻿using System;
 using System.IO;
-using VVVV.Utils;
 using System.Collections.Generic;
-using System;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using System.ComponentModel.Composition;
+using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
+using VVVV.Core.Logging;
 
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "Reader", Category = "Message", Help = "Stream Messages", Tags = "Streaming", Author = "velcrome")]
+    [PluginInfo(Name = "Reader", Category = "Message", Help = "Read a stream of Messages from file.", Version = "Streaming", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageReadFromFileNode : IPluginEvaluate, IPartImportsSatisfiedNotification, IDisposable
     {
-#pragma warning disable 649, 169
-        [Input("Filename", StringType = StringType.Filename, IsSingle=true)]
-        IDiffSpread<string> FFile;
+        [Input("Filename", StringType = StringType.Filename, IsSingle=true, FileMask = "Json File(*.txt, *.json, *.js)|*.txt, *.json, *.js")]
+        protected IDiffSpread<string> FFile;
 
-        [Input("Count", IsSingle=true, DefaultValue=1)]
-        ISpread<int> FCount;
+        [Input("Count", IsSingle=true, DefaultValue=1, MinValue = -1)]
+        protected ISpread<int> FCount;
 
         [Input("Reset", IsSingle = true, IsBang = true, DefaultBoolean = false)]
-        ISpread<bool> FReset;
+        protected ISpread<bool> FReset;
 
         [Input("Read", IsSingle = true, IsBang=true, DefaultBoolean=false)]
-        ISpread<bool> FRead;
+        protected ISpread<bool> FRead;
 
         [Output("Output", AutoFlush = false)]
-        ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
-        [Output("Error Message", AutoFlush = false)]
-        ISpread<string> FError;
+        [Output("Error", AutoFlush = false)]
+        protected ISpread<string> FError;
 
         [Output("End of Stream")]
-        ISpread<bool> FEndOfStream;
+        protected ISpread<bool> FEndOfStream;
 
         [Import()]
         protected ILogger FLogger;
 
+        [Import]
+        protected IPluginHost2 PluginHost;
+
         protected Stream File;
         protected JsonReader Reader;
         protected IEnumerator<JToken> MessageEnumerator;
-
-#pragma warning restore
 
         public void OnImportsSatisfied()
         {
@@ -55,61 +56,106 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
         private void FileChanged(IDiffSpread<string> spread)
         {
-            if (File != null)
-            {
-                Reader.Close();
-                File.Dispose();
-            }
+            FError.FlushItem("Loading.");
+            FEndOfStream[0] = false;
+
             try
             {
-                File = new FileStream(FFile[0], FileMode.Open);
+                if (FFile.IsAnyInvalid() || string.IsNullOrWhiteSpace(FFile[0]))
+                {
+                    FError.FlushItem("Nothing Loaded.");
+                    UnLoad();
+                    return;
+                }
+                else UnLoad(); // reset everything anyway
+
+                var fileName = FFile[0];
+
+                File = new FileStream(fileName, FileMode.Open);
                 var io = new StreamReader(File);
                 Reader = new JsonTextReader(io);
+
+                // todo: allow single-entry json files as well
                 MessageEnumerator = (JObject.ReadFrom(Reader) as JArray).Children().GetEnumerator();
+
+                FError.FlushItem("OK.");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                FError[0] = e.Message;
+                UnLoad();
+                FError.FlushItem(ex.Message);
+
+                FLogger.Log(LogType.Error, ex.ToString());
             }
-
-
         }
 
         public void Evaluate(int SpreadMax)
         {
-            if (MessageEnumerator == null) return;
+            if (MessageEnumerator == null) return; // no file loaded yet
 
-            if (!FReset.IsAnyInvalid() && FReset[0])
+            if (!FReset.IsAnyInvalid() && FReset[0]) // rewind
             {
                 MessageEnumerator.Reset();
             }
-            
-            if (FRead.IsAnyInvalid() || !FRead[0]) return;
 
-            FEndOfStream[0] = false;
+            if (FRead.IsAnyInvalid() || !FRead[0])
+            {
+                if (FOutput.SliceCount > 0) FOutput.FlushNil();
+                return; // avoidnil on Read pin
+            }
 
- 
-            FOutput.SliceCount = 0;            
-            var maxCount = FCount[0];
-            for (int i = 0; i < maxCount;i++)
+            FEndOfStream[0] = false; // assume innocence
+            FOutput.SliceCount = 0;
+
+            var maxCount = FCount[0]; // if -1, attempt to load all.
+            if (maxCount < 0) maxCount = int.MaxValue;
+
+            int i =  0;
+            // if there are no more to load, then stop short
+            for (; i < maxCount && MessageEnumerator.MoveNext(); i++)
             {
                 try
                 {
-                    MessageEnumerator.MoveNext();
                     var message = MessageEnumerator.Current.ToObject<Message>();
                     FOutput.Add(message);
-                }
-                catch (Exception e)
-                {
-                    MessageEnumerator.Reset();
-                    FEndOfStream[0] = true;
 
-                    FLogger.Log(LogType.Debug, e.ToString());
+                    FError.FlushItem("OK.");
+                }
+                catch (Exception ex)
+                {
+                    FLogger.Log(LogType.Warning, "Json Message [Reader] @ " + PluginHost.GetNodePath(false) + " faulted. Message skipped.");
+                    FLogger.Log(LogType.Warning, ex.Message);
+
+                    FError.FlushItem(ex.Message);
                 }
             }
-            FOutput.Flush();
 
-            FError[0] = "";
+            if (i < maxCount) EndOfFile();
+
+            FOutput.Flush();
+        }
+
+        protected void EndOfFile()
+        {
+            MessageEnumerator.Reset();
+
+            // report end of file 
+            FEndOfStream[0] = true;
+            FLogger.Log(LogType.Debug, "[Reader] @ " + PluginHost.GetNodePath(false) + " reached End of Stream.");
+        }
+
+        protected void UnLoad()
+        {
+            File?.Dispose();
+            File = null;
+
+            Reader?.Close();
+            Reader = null;
+
+            MessageEnumerator?.Dispose();
+            MessageEnumerator = null;
+
+            FOutput.FlushNil();
         }
 
         public void Dispose()
