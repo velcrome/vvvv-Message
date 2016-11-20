@@ -92,10 +92,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     var pinSpread = FPins[name].ToISpread();
                     var type = Formular[name].Type;
 
-                    IEnumerable bin;
-
-                    if (pinSpread.IsAnyInvalid()) bin = Enumerable.Empty<object>();
-                    else bin = pinSpread[index] as IEnumerable;
+                    var invalidBin = pinSpread == null || pinSpread.SliceCount == 0 || pinSpread[0] == null;
+                    IEnumerable bin = invalidBin ? Enumerable.Empty<object>() : pinSpread[index] as IEnumerable;
 
                     // don't change if pin data equals the message data
                     if (!message.Fields.Contains(name))

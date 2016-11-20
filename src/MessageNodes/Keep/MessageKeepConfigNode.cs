@@ -63,7 +63,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FormularUpdate += (sender, formular) => FResetNecessary = true;
         }
 
-        // copy and paste from AbstractMessageKeepFormular
+        // copy and paste from AbstractMessageKeepNode.cs
         protected virtual bool UpKeep(bool force = false)
         {
             if (!force && !Keep.IsChanged)
@@ -197,7 +197,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 throw new PinConnectionException("Manually remove unneeded links first! [ConfigKeep]. ID = [" + PluginHost.GetNodePath(false) +"]");
         }
 
-        // copy and paste from AbstractMessagKeepNode
+        // copy and paste from AbstractMessageKeepNode.cs
         public new void Dispose()
         {
             Keep.Clear(); // dont wan't any lingering commits

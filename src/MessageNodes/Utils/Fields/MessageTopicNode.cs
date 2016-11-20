@@ -11,21 +11,17 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageTopicNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
-        [Input("Topic")]
-        IDiffSpread<string> FTopic;
+        [Input("Topic", DefaultString = "Event")]
+        protected IDiffSpread<string> FTopic;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
-        IDiffSpread<bool> FUpdate;
-
+        protected IDiffSpread<bool> FUpdate;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
-
-#pragma warning restore
+        protected ISpread<Message> FOutput;
 
         public void Evaluate(int SpreadMax)
         {
@@ -37,7 +33,7 @@ namespace VVVV.Packs.Messaging.Nodes
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             for (int i = 0; i < SpreadMax; i++)
             {
-                // check if topic change needs to occur, because doing so will mark the message as dirty
+                // double check if topic change needs to occur, because setting it will mark the message as dirty
                 if (FUpdate[i] && !FInput[i].Topic.Equals(FTopic[i]))
                     FInput[i].Topic = FTopic[i];
             }

@@ -11,13 +11,16 @@ Features Wanted
 - dynamic object wrapper for a Message's dictionary (see Agent in vvvv-Game)
 - faster TypeIdentity - split into two internal dictionaries
 - split should have a verbose toggle
+ - pin order fully deterministic
 
 Usability
 - Reader (Message Stream) should not output Messages when reading is off. AutoReset at EOF is dull too. Count of -1 should read all (Min=-1)
 - Split should have Verbose pin
 
 Bugs
- - pin order is not deterministic
+ - [ConfigKeep] Glitch with sweeping, when only Topic was changed
+ - [ConfigKeep] BinSize of 0 on first slice somehow affects all other nodes. Should maybe also delete 
+ - [Read] AvoidNil is crap. More useful: swapdim 
 
 Treatments
 - config pin should be private (and hidden)
