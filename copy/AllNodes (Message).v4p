@@ -1,0 +1,435 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="1080">
+   <BOUNDS type="Window" left="-105" top="0" width="14610" height="15705">
+   </BOUNDS>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <PACK Name="addonpack" Version="34.101.0">
+   </PACK>
+   <NODE systemname="AsMessage (string)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="0" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="12585" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="12585">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="AsOscMessage (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscMessage (Message)" componentmode="Hidden" id="1" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="11790" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="11790">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="FromOscMessage (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOscMessage (Message Raw)" componentmode="Hidden" id="2" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="10395" top="11790" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10395" top="11790">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Cons (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cons (Message)" componentmode="Hidden" id="3" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="2475" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="2475">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="4" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="5850" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="5850">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="5" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="9600" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="9600">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="6" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="5340" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <BOUNDS type="Box" left="4305" top="5340">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="8" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="3900" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="3900">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Sort (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sort (Message Formular)" componentmode="Hidden" id="9" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="3240" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="3240">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Clone (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Clone (Message)" componentmode="Hidden" id="10" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="9825" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="9825">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Prune (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Prune (Message)" componentmode="Hidden" id="11" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="7665" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="7665">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="12" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="5850" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="5850">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Topic (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Topic (Message)" componentmode="Hidden" id="13" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="6510" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="6510">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Write (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Write (Message Dynamic)" componentmode="Hidden" id="14" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="6465" top="5340" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <BOUNDS type="Box" left="6465" top="5340">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="15" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="12570" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="12570">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Change (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Change (Message)" componentmode="Hidden" id="16" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="3240" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="3240">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="17" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="6015" top="510" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6015" top="510">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Inject (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Inject (Message)" componentmode="Hidden" id="18" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="6975" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="6975">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Reader (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reader (Message)" componentmode="Hidden" id="19" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="6465" top="14955" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="14955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Remove (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Remove (Message)" componentmode="Hidden" id="20" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="4575" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="4575">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="21" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="510" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="510">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="FromOsc (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOsc (Message Raw)" componentmode="Hidden" id="22" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="11790" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="11790">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="23" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="1470" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="1470">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="GetSlice (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetSlice (Message)" componentmode="Hidden" id="24" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="2460" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="2460">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="HoldKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="HoldKeep (Message)" componentmode="Hidden" id="25" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="8580" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="8580">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="PruneBut (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="PruneBut (Message)" componentmode="Hidden" id="26" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="7665" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="7665">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="27" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="8580" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="8580">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="AsMsgPack (Message.Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMsgPack (Message.Raw)" componentmode="Hidden" id="28" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="11025" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="11025">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="Hidden" id="29" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="6465" top="8580" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="8580">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="FrameDelay (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FrameDelay (Message)" componentmode="Hidden" id="30" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="9780" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="9780">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="PruneEmpty (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="PruneEmpty (Message)" componentmode="Hidden" id="31" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="7665" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="7665">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="32" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="1470" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="1470">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="AsOscBundle (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="33" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="11790" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="11790">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="FromMsgPack (Message.Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromMsgPack (Message.Raw)" componentmode="Hidden" id="34" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="11025" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="11025">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="RemoveEmpty (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="RemoveEmpty (Message)" componentmode="Hidden" id="35" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="4575" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="4575">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="RenameField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="RenameField (Message)" componentmode="Hidden" id="36" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="6975" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="6975">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="SessionKeep (Message Typeable)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="Hidden" id="37" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="10395" top="8580" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10395" top="8580">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="38" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="6975" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="6975">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="40">
+   <BOUNDS type="Node" left="1290" top="420" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1290" top="420" width="2685" height="450">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="Initialisation">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="41">
+   <BOUNDS type="Node" left="1290" top="1470" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1290" top="1470" width="2685" height="450">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Strong Typing|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="42">
+   <BOUNDS type="Node" left="1185" top="2400" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1185" top="2400" width="2685" height="450">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Spread Manipulation|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="43" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="2475" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="2475">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="45">
+   <BOUNDS type="Node" left="1320" top="5250" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1320" top="5250" width="2715" height="765">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Message Manipulation|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE systemname="SearchTemplate (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" nodename="SearchTemplate (Message)" componentmode="Hidden" id="46" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="8340" top="3255" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="3255">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="UnZip (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="UnZip (Message)" componentmode="Hidden" id="47" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="10395" top="4680" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10395" top="4680">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="48" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8340" top="4620" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8340" top="4620">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="49">
+   <BOUNDS type="Node" left="1320" top="8550" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1320" top="8550" width="2745" height="480">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Message as a State|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="50">
+   <BOUNDS type="Node" left="1320" top="10950" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1320" top="10950" width="2745" height="480">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="Serialisation">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="51">
+   <BOUNDS type="Node" left="1230" top="14025" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1230" top="14025" width="2745" height="480">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|HD Recording|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE systemname="Writer (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message).v4p" nodename="Writer (Message)" componentmode="Hidden" id="52" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="14280" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="14280">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Writer (Message Stream)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message Stream).v4p" nodename="Writer (Message Stream)" componentmode="Hidden" id="53" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4305" top="14955" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="14955">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Reader (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" nodename="Reader (Message)" componentmode="Hidden" id="54" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="14265" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="14265">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="55">
+   <BOUNDS type="Node" left="1320" top="9600" width="1035" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1320" top="9600" width="2745" height="480">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="Helper">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="13">
+   </PIN>
+   </NODE>
+   <NODE systemname="Reflect (Object)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflect (Object)" componentmode="Hidden" id="57" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="10335" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="10335">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="AvoidNil (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AvoidNil (Message Formular)" componentmode="Hidden" id="58" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="10395" top="9780" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10395" top="9780">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="SiftCommon (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SiftCommon (Message)" componentmode="Hidden" id="59" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="6465" top="3855" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="3855">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="AsXElement (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsXElement (Message)" componentmode="Hidden" id="60" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4305" top="13215" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4305" top="13215">
+   </BOUNDS>
+   </NODE>
+   </PATCH>
