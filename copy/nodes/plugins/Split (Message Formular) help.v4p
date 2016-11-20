@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Split (Message) help.v4p" scrollx="0" scrolly="0" systemname="Split (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Split (Message) help.v4p">
-   <BOUNDS type="Window" left="6015" top="150" width="12810" height="10035">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Split (Message Formular) help.v4p" scrollx="0" scrolly="0" systemname="Split (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Split (Message) help.v4p">
+   <BOUNDS type="Window" left="8115" top="2625" width="12810" height="10035">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
@@ -314,7 +314,7 @@
    </LINK>
    <LINK srcnodeid="28" srcpinname="Output Enum" dstnodeid="37" dstpinname="Message Formular">
    </LINK>
-   <NODE nodename="Split (Message Formular)" componentmode="InAWindow" id="10" systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <NODE nodename="Split (Message Formular)" componentmode="Hidden" id="10" systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
    <BOUNDS type="Node" left="1095" top="4350" width="7110" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="1095" top="4350" width="0" height="0">
@@ -345,7 +345,7 @@
    </PIN>
    <PIN pinname="Matrix" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="0" top="0" width="5985" height="5145">
+   <BOUNDS type="Window" left="1230" top="1800" width="5985" height="5145">
    </BOUNDS>
    <PIN pinname="Topic" visible="-1" pintype="Output">
    </PIN>
@@ -409,8 +409,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="40" srcpinname="Internal Count" dstnodeid="41" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="10" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="22" dstpinname="Input">
    </LINK>
@@ -575,5 +573,21 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="52" srcpinname="Y Output Value" dstnodeid="51" dstpinname="Clear">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="53">
+   <BOUNDS type="Node" left="8955" top="0" width="2340" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8955" top="0" width="2025" height="855">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Copyright: intolight&cr;&lf;Author: velcrome&cr;&lf;License: CC BY-NC-SA 4.0|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="10" dstpinname="Input">
    </LINK>
    </PATCH>

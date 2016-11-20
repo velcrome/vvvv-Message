@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Write (Message) help.v4p" scrollx="0" scrolly="0" systemname="Write (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Write (Message) help.v4p">
-   <BOUNDS type="Window" left="1080" top="1830" width="13665" height="12255">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Write (Message Dynamic) help.v4p" scrollx="0" scrolly="0" systemname="Write (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Write (Message) help.v4p">
+   <BOUNDS type="Window" left="1080" top="1830" width="11775" height="12990">
    </BOUNDS>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="4125" top="7095" width="100" height="100">
@@ -229,7 +229,7 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Press">
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -243,7 +243,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Select" slicecount="1" values="3" visible="1">
+   <PIN pinname="Select" slicecount="1" visible="1" values="3">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -255,9 +255,9 @@
    <LINK srcnodeid="18" srcpinname="Output" dstnodeid="2" dstpinname="New">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="1335" top="405" width="5000" height="450">
+   <BOUNDS type="Node" left="300" top="225" width="5000" height="450">
    </BOUNDS>
-   <BOUNDS type="Box" left="1335" top="405" width="7755" height="765">
+   <BOUNDS type="Box" left="300" top="225" width="5940" height="750">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="0" values="|Write (Message)|">
    </PIN>
@@ -269,9 +269,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="19" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="1335" top="1215" width="5000" height="500">
+   <BOUNDS type="Node" left="300" top="1035" width="5000" height="500">
    </BOUNDS>
-   <BOUNDS type="Box" left="1335" top="1215" width="4725" height="1170">
+   <BOUNDS type="Box" left="300" top="1035" width="4725" height="1170">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="0" values="|Can fill multiple Fields from Messages in one go. &cr;&lf;&cr;&lf;Will attempt to autocast if the specified field already exists in the Message.|">
    </PIN>
@@ -335,7 +335,7 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Force">
    </PIN>
@@ -391,7 +391,7 @@
    </PIN>
    <PIN pinname="Force" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Update" visible="1" slicecount="1" values="Inspect">
+   <PIN pinname="Update" visible="1" slicecount="1" values="SinceLastFrame">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="28" systemname="IOBox (Value Advanced)">
@@ -492,4 +492,28 @@
    </NODE>
    <PACK Name="vvvv-Message" Version="2.7">
    </PACK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="35">
+   <BOUNDS type="Box" left="810" top="5070" width="1305" height="315">
+   </BOUNDS>
+   <BOUNDS type="Node" left="810" top="5070" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="SinceLastFrame">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="35" srcpinname="Output Enum" dstnodeid="29" dstpinname="Update">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="38">
+   <BOUNDS type="Node" left="6735" top="240" width="2340" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6735" top="240" width="2025" height="855">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Copyright: intolight&cr;&lf;Author: velcrome&cr;&lf;License: CC BY-NC-SA 4.0|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
    </PATCH>

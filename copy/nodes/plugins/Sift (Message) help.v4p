@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Sift (Message) help.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="13620" top="4470" width="7095" height="7725">
+   <BOUNDS type="Window" left="1320" top="990" width="7095" height="7725">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
    <BOUNDS type="Node" left="225" top="870" width="5100" height="600">
@@ -13,7 +13,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="5" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="1755" top="1800" width="2685" height="750">
+   <BOUNDS type="Box" left="1755" top="1800" width="1605" height="750">
    </BOUNDS>
    <BOUNDS type="Node" left="1755" top="1800" width="0" height="0">
    </BOUNDS>
@@ -33,13 +33,15 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Topic">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="6" systemname="IOBox (String)">
    <BOUNDS type="Box" left="3165" top="2880" width="3165" height="630">
    </BOUNDS>
    <BOUNDS type="Node" left="3165" top="2880" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="2" values="VVVV.Utils*,|enter second option here|">
+   <PIN pinname="Input String" slicecount="2" values="VVVV.Utils*,|enter alternative option here|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="*">
    </PIN>
@@ -117,9 +119,9 @@
    <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="4" dstpinname="New">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="4620" top="3570" width="1590" height="270">
+   <BOUNDS type="Node" left="4740" top="2175" width="1590" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="4620" top="3570" width="1575" height="645">
+   <BOUNDS type="Box" left="4740" top="2175" width="1575" height="645">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|use wildcards freely. It also spreads.|">
    </PIN>
@@ -202,4 +204,18 @@
    </LINK>
    <PACK Name="vvvv-Message" Version="2.7">
    </PACK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="14">
+   <BOUNDS type="Node" left="4680" top="285" width="2340" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4680" top="285" width="2025" height="855">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Copyright: intolight&cr;&lf;Author: velcrome&cr;&lf;License: CC BY-NC-SA 4.0|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
    </PATCH>
