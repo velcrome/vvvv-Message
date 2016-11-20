@@ -4,13 +4,13 @@ Features accomplished
 - less Gui windows
 - AutoSense should be called Force, and polarity reverse (breaking change?!)
 - formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
+- split should have a verbose toggle
 
 Features Wanted
 - vl version (message core only, best done by tonfilms xml, not attributes)
 - autocast from any vl class (and mimick back), might need converters for all vvvv special types
 - dynamic object wrapper for a Message's dictionary (see Agent in vvvv-Game)
 - faster TypeIdentity - split into two internal dictionaries
-- split should have a verbose toggle
  - pin order fully deterministic
 
 Usability

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
 
-using VVVV.PluginInterfaces.V2;
-using VVVV.Utils;
-using VVVV.Core.Logging;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
 using System.Windows.Forms;
+
+using System.ComponentModel.Composition;
+using VVVV.PluginInterfaces.V1;
+using VVVV.PluginInterfaces.V2;
+using VVVV.Utils;
+using VVVV.Core.Logging;
+
 using VVVV.DX11;
 using FeralTic.DX11;
-using VVVV.PluginInterfaces.V1;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
@@ -84,29 +86,35 @@ namespace VVVV.Packs.Messaging.Nodes
         {
             var hasCopied = false;
 
-            foreach (string name in FPins.Keys)
+            foreach (string fieldName in FPins.Keys)
             {
                 // don't change if pin data still the same
-                if (!checkPinForChange || FPins[name].ToISpread().IsChanged)
+                if (!checkPinForChange || FPins[fieldName].ToISpread().IsChanged)
                 {
-                    var pinSpread = FPins[name].ToISpread();
-                    var type = Formular[name].Type;
+                    var pinSpread = FPins[fieldName].ToISpread();
 
                     var invalidBin = pinSpread == null || pinSpread.SliceCount == 0 || pinSpread[0] == null;
-                    IEnumerable bin = invalidBin ? Enumerable.Empty<object>() : pinSpread[index] as IEnumerable;
 
-                    // don't change if pin data equals the message data
-                    if (!message.Fields.Contains(name))
+                    if (invalidBin)
                     {
-                        message[name] = BinFactory.New(type);
-                        hasCopied = true;
+                        if (message.Fields.Contains(fieldName)) 
+                        {
+                            message.Remove(fieldName); // to be or not to be? 
+                            hasCopied = true;
+                        }
                     }
-
-                    if (!message[name].Equals(bin))
+                    else
                     {
-                        message.AssignFrom(name, bin, type);
-                        hasCopied = true;
-                    }  
+                        var bin = pinSpread[index] as IEnumerable;
+                        var type = Formular[fieldName].Type;
+
+                        // don't change if pin data equals the message data, because doing so will flag the message dirty.
+                        if (!message.Fields.Contains(fieldName) || !message[fieldName].Equals(bin))
+                        {
+                            message.AssignFrom(fieldName, bin, type);
+                            hasCopied = true;
+                        }
+                    }
                 }
             }
             return hasCopied;
