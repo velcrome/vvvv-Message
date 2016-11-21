@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\TouchOSC\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="1470" scrolly="1155">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\TouchOSC\TouchOSC (Message).v4p" systemname="TouchOSC" filename="C:\dev\vvvv\vvvv-Message\modules\TouchOSC.v4p" scrollx="0" scrolly="8610">
    <BOUNDS type="Window" left="13935" top="1635" width="15465" height="13200">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="1">
@@ -243,12 +243,10 @@
    </BOUNDS>
    <PIN pinname="Autolearn Type" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="TouchOSC.3">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.3">
    </PIN>
    <BOUNDS type="Window" left="1275" top="2115" width="6000" height="4500">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.3">
-   </PIN>
    </NODE>
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="206" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="7524" top="17094" width="1956" height="276">
@@ -273,12 +271,10 @@
    </BOUNDS>
    <PIN pinname="Autolearn Type" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="TouchOSC.1">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.1">
    </PIN>
    <BOUNDS type="Window" left="420" top="1305" width="6000" height="4500">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.1">
-   </PIN>
    </NODE>
    <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="216" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="10944" top="17544" width="1140" height="270">
@@ -411,9 +407,9 @@
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="372" dstpinname="Input" linkstyle="PolyLine">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="382" systemname="IOBox (String)" hiddenwhenlocked="1">
-   <BOUNDS type="Box" left="11250" top="16560" width="285" height="360">
+   <BOUNDS type="Box" left="11340" top="16095" width="285" height="360">
    </BOUNDS>
-   <BOUNDS type="Node" left="11250" top="16560" width="0" height="0">
+   <BOUNDS type="Node" left="11340" top="16095" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="2">
    </PIN>
@@ -425,9 +421,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="384" systemname="IOBox (String)" hiddenwhenlocked="1">
-   <BOUNDS type="Box" left="7860" top="16110" width="285" height="360">
+   <BOUNDS type="Box" left="8130" top="16200" width="285" height="360">
    </BOUNDS>
-   <BOUNDS type="Node" left="7860" top="16110" width="0" height="0">
+   <BOUNDS type="Node" left="8130" top="16200" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="1">
    </PIN>
@@ -471,7 +467,7 @@
    </PIN>
    <BOUNDS type="Box" left="4524" top="17544">
    </BOUNDS>
-   <PIN pinname="AvoidNil" slicecount="1" values="0" visible="1">
+   <PIN pinname="AvoidNil" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -863,20 +859,16 @@
    </PIN>
    <PIN pinname="Topic" visible="1" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="4" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
+   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
    </PIN>
    <PIN pinname="Configuration" slicecount="4" values="|float fader1, float fader2, float fader3, float fader4, float fader5, float toggle1, float toggle2, float toggle3, float toggle4|,|float toggle1, float toggle2, float toggle3, float toggle4, float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16|,|float toggle1, float toggle2, float toggle3, float toggle4, float[2] xy|,|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Spread Count per Formular" visible="1">
-   </PIN>
    <PIN pinname="Spread Count" visible="1" slicecount="1" values="1">
    </PIN>
    <BOUNDS type="Box" left="7665" top="8745">
    </BOUNDS>
-   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
-   </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="521" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="5601" top="10701" width="792" height="240">
@@ -897,7 +889,7 @@
    </PIN>
    <PIN pinname="Additional Address" slicecount="1" values="TouchOSC">
    </PIN>
-   <PIN pinname="Contract Topic Parts" slicecount="1" values="1" visible="1">
+   <PIN pinname="Contract Topic Parts" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Additional Topic" slicecount="1" visible="1" values="TouchOSC">
    </PIN>
@@ -936,7 +928,7 @@
    <LINKPOINT x="5715" y="7673">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="AsOscBundle (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="427">
+   <NODE systemname="AsOscBundle (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="427">
    <BOUNDS type="Node" left="5490" top="11895" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -999,24 +991,6 @@
    <LINK srcnodeid="532" srcpinname="Output" dstnodeid="533" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="533" srcpinname="Output" dstnodeid="518" dstpinname="Input String">
-   </LINK>
-   <NODE id="274" systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
-   <BOUNDS type="Node" left="6090" top="8745" width="1050" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="6090" top="8745">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="275" srcpinname="Output String" dstnodeid="274" dstpinname="Filter" linkstyle="Bezier">
-   <LINKPOINT x="6645" y="7410">
-   </LINKPOINT>
-   <LINKPOINT x="7365" y="7290">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="465">
    <BOUNDS type="Node" left="4536" top="10368" width="2916" height="276">
@@ -1093,7 +1067,7 @@
    </BOUNDS>
    <PIN pinname="Change" visible="1">
    </PIN>
-   <PIN pinname="Update" slicecount="1" values="Default">
+   <PIN pinname="Update" slicecount="1" values="Default" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="434" srcpinname="Change" dstnodeid="435" dstpinname="Y Input Value">
@@ -1106,101 +1080,7 @@
    <LINKPOINT x="2680" y="11405">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="383" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="7560" top="16740" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="7560" top="16740">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="384" srcpinname="Output String" dstnodeid="383" dstpinname="Filter">
-   </LINK>
-   <LINK srcnodeid="383" srcpinname="Output" dstnodeid="206" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="383" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="4560" y="15840">
-   </LINKPOINT>
-   <LINKPOINT x="7590" y="15840">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="381" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="10950" top="17190" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="10950" top="17190">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="382" srcpinname="Output String" dstnodeid="381" dstpinname="Filter">
-   </LINK>
-   <LINK srcnodeid="381" srcpinname="Output" dstnodeid="216" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="10968" y="17508">
-   </LINKPOINT>
-   <LINKPOINT x="10968" y="17508">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="381" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="4560" y="15840">
-   </LINKPOINT>
-   <LINKPOINT x="10980" y="15840">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="194" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="13980" top="16740" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="13980" top="16740">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="196" srcpinname="Output String" dstnodeid="194" dstpinname="Filter">
-   </LINK>
-   <LINK srcnodeid="194" srcpinname="Output" dstnodeid="198" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="194" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="4560" y="15840">
-   </LINKPOINT>
-   <LINKPOINT x="14010" y="15840">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="400" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="16752" top="16746" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Filter" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="16752" top="16746">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="401" srcpinname="Output String" dstnodeid="400" dstpinname="Filter">
-   </LINK>
-   <LINK srcnodeid="400" srcpinname="Output" dstnodeid="329" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="400" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="4560" y="15840">
-   </LINKPOINT>
-   <LINKPOINT x="16785" y="15840">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="372" srcpinname="Not found" dstnodeid="182" dstpinname="OSC">
-   </LINK>
-   <LINK srcnodeid="274" srcpinname="Output" dstnodeid="272" dstpinname="Input 2">
    </LINK>
    <LINK srcnodeid="371" srcpinname="Output" dstnodeid="272" dstpinname="Input 1">
    </LINK>
@@ -1225,7 +1105,7 @@
    </PIN>
    <PIN pinname="ID" pintype="Output" visible="-1">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="None">
+   <PIN pinname="Formular" slicecount="1" values="None">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="||">
    </PIN>
@@ -1252,16 +1132,14 @@
    </NODE>
    <LINK srcnodeid="538" srcpinname="Output Enum" dstnodeid="391" dstpinname="Use Fields">
    </LINK>
-   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="541" hiddenwhenlocked="1">
+   <NODE systemname="Reflection (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="541" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="11805" top="16380" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="TouchOSC.2">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.2">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16, float toggle1, float toggle2, float toggle3, float toggle4|">
    </PIN>
    <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.2">
    </PIN>
    </NODE>
    <NODE systemname="Sift (String)" nodename="Sift (String)" componentmode="Hidden" id="542" hiddenwhenlocked="1">
@@ -1419,9 +1297,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="552">
-   <BOUNDS type="Box" left="14520" top="16740" width="1095" height="270">
+   <BOUNDS type="Box" left="14925" top="16140" width="1095" height="270">
    </BOUNDS>
-   <BOUNDS type="Node" left="14520" top="16740" width="0" height="0">
+   <BOUNDS type="Node" left="14925" top="16140" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="TouchOSC.3">
    </PIN>
@@ -1429,18 +1307,18 @@
    <LINK srcnodeid="552" srcpinname="Output Enum" dstnodeid="198" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="553">
-   <BOUNDS type="Box" left="8220" top="16815" width="1590" height="270">
+   <BOUNDS type="Box" left="8670" top="16260" width="1290" height="345">
    </BOUNDS>
-   <BOUNDS type="Node" left="8220" top="16815" width="0" height="0">
+   <BOUNDS type="Node" left="8670" top="16260" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="TouchOSC.1">
    </PIN>
    </NODE>
    <LINK srcnodeid="553" srcpinname="Output Enum" dstnodeid="206" dstpinname="Formular">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
-   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="554">
+   <NODE systemname="Reflection (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="554">
    <BOUNDS type="Node" left="5415" top="16695" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.Page">
@@ -1490,8 +1368,6 @@
    </NODE>
    <LINK srcnodeid="557" srcpinname="Output Enum" dstnodeid="541" dstpinname="Formular">
    </LINK>
-   <LINK srcnodeid="182" srcpinname="Output" dstnodeid="274" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="569">
    <BOUNDS type="Box" left="7860" top="8340" width="1080" height="255">
    </BOUNDS>
@@ -1509,20 +1385,16 @@
    </PIN>
    <PIN pinname="Topic" visible="1" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="4" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
+   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
    </PIN>
    <PIN pinname="Configuration" slicecount="4" values="|float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16, float toggle1, float toggle2, float toggle3, float toggle4|,|float toggle1, float toggle2, float toggle3, float toggle4, float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16|,|float toggle1, float toggle2, float toggle3, float toggle4, float[2] xy|,|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Spread Count per Formular" visible="1">
-   </PIN>
    <PIN pinname="Spread Count" visible="1" slicecount="1" values="1">
    </PIN>
    <BOUNDS type="Box" left="9240" top="8745">
    </BOUNDS>
-   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
-   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="570">
    <BOUNDS type="Box" left="9435" top="8340" width="1080" height="255">
@@ -1541,20 +1413,16 @@
    </PIN>
    <PIN pinname="Topic" visible="1" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="4" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
+   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
    </PIN>
    <PIN pinname="Configuration" slicecount="4" values="|float[2] xy, float toggle1, float toggle2, float toggle3, float toggle4|,|float toggle1, float toggle2, float toggle3, float toggle4, float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16|,|float toggle1, float toggle2, float toggle3, float toggle4, float[2] xy|,|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Spread Count per Formular" visible="1">
-   </PIN>
    <PIN pinname="Spread Count" visible="1" slicecount="1" values="1">
    </PIN>
    <BOUNDS type="Box" left="10815" top="8745">
    </BOUNDS>
-   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
-   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="572">
    <BOUNDS type="Box" left="11010" top="8340" width="1080" height="255">
@@ -1573,20 +1441,16 @@
    </PIN>
    <PIN pinname="Topic" visible="1" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="4" values="TouchOSC.1,TouchOSC.2,TouchOSC.3,TouchOSC.4">
+   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
    </PIN>
    <PIN pinname="Configuration" slicecount="4" values="|float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8, float toggle1, float toggle2, float toggle3, float toggle4|,|float toggle1, float toggle2, float toggle3, float toggle4, float push1, float push2, float push3, float push4, float push5, float push6, float push7, float push8, float push9, float push10, float push11, float push12, float push13, float push14, float push15, float push16|,|float toggle1, float toggle2, float toggle3, float toggle4, float[2] xy|,|float toggle1, float toggle2, float toggle3, float toggle4, float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Spread Count per Formular" visible="1">
-   </PIN>
    <PIN pinname="Spread Count" visible="1" slicecount="1" values="1">
    </PIN>
    <BOUNDS type="Box" left="12345" top="8745">
    </BOUNDS>
-   <PIN pinname="Formular" visible="1" slicecount="1" values="TouchOSC.1">
-   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="574">
    <BOUNDS type="Box" left="12540" top="8340" width="1080" height="255">
@@ -1689,5 +1553,137 @@
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="579" srcpinname="Output" dstnodeid="329" dstpinname="Key">
+   </LINK>
+   <NODE id="274" systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <BOUNDS type="Node" left="6090" top="8745" width="1050" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Filter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="6090" top="8745">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="275" srcpinname="Output String" dstnodeid="274" dstpinname="Filter" linkstyle="Bezier">
+   <LINKPOINT x="6645" y="7410">
+   </LINKPOINT>
+   <LINKPOINT x="7365" y="7290">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="274" srcpinname="Output" dstnodeid="272" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="182" srcpinname="Output" dstnodeid="274" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="580">
+   <BOUNDS type="Box" left="3690" top="11880" width="810" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3690" top="11880" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Default">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="580" srcpinname="Output Enum" dstnodeid="434" dstpinname="Update">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="581">
+   <BOUNDS type="Box" left="4935" top="9825" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4935" top="9825" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="272" srcpinname="Output" dstnodeid="581" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="194" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="13980" top="16740" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Filter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="13980" top="16740">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="196" srcpinname="Output String" dstnodeid="194" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="194" srcpinname="Output" dstnodeid="198" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="194" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="4560" y="15840">
+   </LINKPOINT>
+   <LINKPOINT x="14010" y="15840">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="381" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="10950" top="17190" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Filter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="10950" top="17190">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="382" srcpinname="Output String" dstnodeid="381" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="381" srcpinname="Output" dstnodeid="216" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="10968" y="17508">
+   </LINKPOINT>
+   <LINKPOINT x="10968" y="17508">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="381" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="4560" y="15840">
+   </LINKPOINT>
+   <LINKPOINT x="10980" y="15840">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="383" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="7560" top="16740" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Filter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="7560" top="16740">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="384" srcpinname="Output String" dstnodeid="383" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="383" srcpinname="Output" dstnodeid="206" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="383" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="4560" y="15840">
+   </LINKPOINT>
+   <LINKPOINT x="7590" y="15840">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Sift (Message)" nodename="Sift (Message)" componentmode="Hidden" id="400" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="16752" top="16746" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Filter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="16752" top="16746">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="401" srcpinname="Output String" dstnodeid="400" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="400" srcpinname="Output" dstnodeid="329" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="465" srcpinname="Output" dstnodeid="400" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="4560" y="15840">
+   </LINKPOINT>
+   <LINKPOINT x="16785" y="15840">
+   </LINKPOINT>
    </LINK>
    </PATCH>

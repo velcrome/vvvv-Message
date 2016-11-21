@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="4680">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="2490">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -21,7 +21,7 @@
    <NODE systemname="Split (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Split (Message Formular)" componentmode="Hidden" id="47">
    <BOUNDS type="Node" left="747" top="8376" width="6972" height="276">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="None">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, Color rgb, Vector3d Position, Vector3d[4] History, Raw bytes, Time vvvvTime, Transform View|">
    </PIN>
@@ -46,8 +46,6 @@
    <PIN pinname="Autolearn Type" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Topic" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    <BOUNDS type="Window" left="18075" top="5535" width="6000" height="8070">
    </BOUNDS>
@@ -81,15 +79,13 @@
    </PIN>
    <PIN pinname="Position Bin Size" visible="1">
    </PIN>
-   <PIN pinname="Message Formular" visible="1">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="New" visible="1">
    </PIN>
    <PIN pinname="vvvvTime Bin Size" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Topic" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    <BOUNDS type="Window" left="285" top="165" width="6000" height="4500">
    </BOUNDS>
@@ -582,64 +578,12 @@
    </NODE>
    <LINK srcnodeid="46" srcpinname="Output" dstnodeid="17" dstpinname="Input Node" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="Time (Time Join)" nodename="Time (Time Join)" componentmode="Hidden" id="16" filename="%VVVV%\packs\vvvv-Time\nodes\plugins\VVVV.Packs.Time.Nodes.dll" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="6345" top="3321" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Time" visible="1">
-   </PIN>
-   <PIN pinname="Minute" visible="1">
-   </PIN>
-   <PIN pinname="Hour" visible="1">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="15" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6813" top="2925" width="660" height="276">
-   </BOUNDS>
-   <BOUNDS type="Node" left="6813" top="2925" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="5">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="min">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   <PIN pinname="Minimum" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Maximum" slicecount="1" values="60">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="15" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Minute" hiddenwhenlocked="1">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6357" top="2961" width="432" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="6357" top="2961" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="4">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="h">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Minimum" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Maximum" slicecount="1" values="24">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Hour" hiddenwhenlocked="1">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="13" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="6417" top="3609" width="1500" height="240">
+   <BOUNDS type="Node" left="6387" top="3219" width="1500" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="6417" top="3609" width="1080" height="468">
+   <BOUNDS type="Box" left="6387" top="3219" width="1095" height="990">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|if red, install vvvv-Time|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|To use Time datatype, install vvvv-Time|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -788,7 +732,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="4" srcpinname="Output Enum" dstnodeid="46" dstpinname="Message Formular" linkstyle="PolyLine">
+   <LINK srcnodeid="4" srcpinname="Output Enum" dstnodeid="46" dstpinname="Formular" linkstyle="PolyLine">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="8625" top="6120" width="7644" height="240">
@@ -811,7 +755,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="624" top="3687" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -823,7 +767,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="New">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
@@ -850,7 +794,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="50" srcpinname="Output Enum" dstnodeid="47" dstpinname="Message Formular">
+   <LINK srcnodeid="50" srcpinname="Output Enum" dstnodeid="47" dstpinname="Formular">
    </LINK>
    <LINK srcnodeid="47" srcpinname="Topic" dstnodeid="25" dstpinname="Input String">
    </LINK>
@@ -880,11 +824,7 @@
    </NODE>
    <LINK srcnodeid="52" srcpinname="Output" dstnodeid="46" dstpinname="vvvvTime">
    </LINK>
-   <LINK srcnodeid="50" srcpinname="Output Enum" dstnodeid="47" dstpinname="Formular">
-   </LINK>
-   <LINK srcnodeid="4" srcpinname="Output Enum" dstnodeid="46" dstpinname="Formular">
-   </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="56">
    <BOUNDS type="Box" left="3060" top="12315" width="5205" height="885">

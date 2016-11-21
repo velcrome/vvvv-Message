@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton).v4p" scrollx="3435" scrolly="705" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
@@ -553,7 +553,7 @@
    </PIN>
    <PIN pinname="Meter" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Reset" slicecount="1" values="0" visible="1">
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="OSC Input" visible="1">
    </PIN>
@@ -714,7 +714,7 @@
    </NODE>
    <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="14" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <LINK srcnodeid="418" srcpinname="Y Output Value" dstnodeid="321" dstpinname="Reset" hiddenwhenlocked="1">
    </LINK>

@@ -1,10 +1,10 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="1110">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\09_Serialisation.v4p" systemname="09_Serialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\09_Serialisation.v4p" scrollx="0" scrolly="585">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
-   <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="10">
+   <NODE systemname="AsString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="10">
    <BOUNDS type="Node" left="6171" top="4107" width="100" height="100">
    </BOUNDS>
    <PIN pinname="String" visible="1">
@@ -14,7 +14,7 @@
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <NODE systemname="AsMessage (string)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="8">
+   <NODE systemname="FromString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="8">
    <BOUNDS type="Node" left="6195" top="7080" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -41,9 +41,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="4" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2130" top="1632" width="9120" height="240">
+   <BOUNDS type="Node" left="3570" top="1572" width="9120" height="240">
    </BOUNDS>
-   <BOUNDS type="Box" left="2130" top="1632" width="6408" height="876">
+   <BOUNDS type="Box" left="3570" top="1572" width="6408" height="876">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Messages believe in free transfer. &cr;&lf;&cr;&lf;That is why Messages can be serialized in a number of string-based and Raw formats.|">
    </PIN>
@@ -99,7 +99,7 @@
    </BOUNDS>
    <PIN pinname="Spread Count" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="Event">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
@@ -246,7 +246,7 @@
    <BOUNDS type="Box" left="540" top="6684" width="10104" height="240">
    </BOUNDS>
    </NODE>
-   <NODE systemname="AsOscBundle (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="11">
+   <NODE systemname="AsOscBundle (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="2934" top="3927" width="100" height="100">
    </BOUNDS>
    <PIN pinname="OSC" visible="1">
@@ -312,7 +312,7 @@
    </NODE>
    <LINK srcnodeid="29" srcpinname="Output" dstnodeid="28" dstpinname="Input String">
    </LINK>
-   <NODE id="31" systemname="AsMsgPack (Message.Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMsgPack (Message.Raw)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <NODE id="31" systemname="AsMsgPack (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMsgPack (Message.Raw)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Input" visible="1" slicecount="1" pintype="Input" values="||">
    </PIN>
    <BOUNDS type="Node" left="330" top="4080" width="100" height="100">
@@ -332,7 +332,7 @@
    </NODE>
    <LINK srcnodeid="31" srcpinname="Output" dstnodeid="32" dstpinname="Input Node">
    </LINK>
-   <NODE id="30" systemname="FromMsgPack (Message.Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromMsgPack (Message.Raw)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
+   <NODE id="30" systemname="FromMsgPack (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromMsgPack (Message.Raw)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <BOUNDS type="Node" left="336" top="7248" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="336" top="7248" width="2400" height="1800">
@@ -413,13 +413,15 @@
    <LINK srcnodeid="15" srcpinname="Output" dstnodeid="31" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="37">
-   <BOUNDS type="Box" left="150" top="2160" width="720" height="240">
+   <BOUNDS type="Box" left="1860" top="2040" width="1530" height="345">
    </BOUNDS>
-   <BOUNDS type="Node" left="150" top="2160" width="0" height="0">
+   <BOUNDS type="Node" left="1860" top="2040" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
    </NODE>
-   <LINK srcnodeid="37" srcpinname="Output Enum" dstnodeid="0" dstpinname="Message Formular">
+   <LINK srcnodeid="37" srcpinname="Output Enum" dstnodeid="0" dstpinname="Formular">
    </LINK>
+   <PACK Name="vvvv-Message" Version="2.7.1">
+   </PACK>
    </PATCH>

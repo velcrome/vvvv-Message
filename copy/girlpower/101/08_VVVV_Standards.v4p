@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\08_VVVV_Standards.v4p" systemname="08_VVVV_Standards" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\08_VVVV_Standards.v4p" scrollx="0" scrolly="1080">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>
    <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="5535" top="4026" width="100" height="100">
@@ -19,9 +19,9 @@
    </PIN>
    </NODE>
    <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="1563" top="6126" width="100" height="100">
+   <BOUNDS type="Node" left="2673" top="6081" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="1563" top="6126">
+   <BOUNDS type="Box" left="2673" top="6081">
    </BOUNDS>
    </NODE>
    <NODE systemname="UnZip (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="UnZip (Message)" componentmode="Hidden" id="9">
@@ -170,6 +170,10 @@
    </NODE>
    <LINK srcnodeid="14" srcpinname="Output Enum" dstnodeid="13" dstpinname="Update">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
+   <NODE systemname="Cons (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cons (Message)" componentmode="Hidden" id="15">
+   <BOUNDS type="Node" left="1590" top="6090" width="100" height="100">
+   </BOUNDS>
+   </NODE>
    </PATCH>

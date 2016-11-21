@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="360" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="-360" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -23,15 +23,13 @@
    </PIN>
    <PIN pinname="id" slicecount="1" visible="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" visible="1">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="New" visible="1">
    </PIN>
    <PIN pinname="Hello" visible="1">
    </PIN>
    <PIN pinname="Topic" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    <BOUNDS type="Window" left="17055" top="5520" width="6000" height="4500">
    </BOUNDS>
@@ -49,17 +47,13 @@
    </PIN>
    <PIN pinname="Address" visible="1">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="None">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="None">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
    <PIN pinname="New" visible="1">
    </PIN>
    <PIN pinname="Topic" visible="1">
-   </PIN>
-   <PIN pinname="Spread Count per Formular" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1" slicecount="1" values="None">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="16" systemname="IOBox (String)">
@@ -306,7 +300,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Output Enum" dstnodeid="18" dstpinname="Message Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINK srcnodeid="1" srcpinname="Output Enum" dstnodeid="18" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
    <LINKPOINT x="962" y="5316">
    </LINKPOINT>
    <LINKPOINT x="1003" y="5271">
@@ -322,7 +316,7 @@
    </LINK>
    <LINK srcnodeid="8" srcpinname="Output String" dstnodeid="18" dstpinname="Topic">
    </LINK>
-   <LINK srcnodeid="1" srcpinname="Output Enum" dstnodeid="17" dstpinname="Message Formular" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINK srcnodeid="1" srcpinname="Output Enum" dstnodeid="17" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
    <LINKPOINT x="75" y="9900">
    </LINKPOINT>
    <LINKPOINT x="2765" y="14445">
@@ -372,12 +366,8 @@
    <PIN pinname="Size" slicecount="1" values="9">
    </PIN>
    </NODE>
-   <LINK srcnodeid="12" srcpinname="Y Output Value" dstnodeid="17" dstpinname="Spread Count per Formular">
-   </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <LINK srcnodeid="1" srcpinname="Output Enum" dstnodeid="18" dstpinname="Formular">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="23" systemname="IOBox (String)">
    <BOUNDS type="Node" left="8025" top="5370" width="2748" height="240">
    </BOUNDS>
@@ -458,14 +448,14 @@
    <LINKPOINT x="4665" y="18630">
    </LINKPOINT>
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="25">
-   <BOUNDS type="Box" left="840" top="18810" width="690" height="255">
+   <BOUNDS type="Box" left="1200" top="17955" width="1605" height="315">
    </BOUNDS>
-   <BOUNDS type="Node" left="840" top="18810" width="0" height="0">
+   <BOUNDS type="Node" left="1200" top="17955" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
    </NODE>
    <LINK srcnodeid="25" srcpinname="Output Enum" dstnodeid="17" dstpinname="Formular">

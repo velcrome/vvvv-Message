@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Write (Message Dynamic) help.v4p" scrollx="0" scrolly="0" systemname="Write (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Write (Message) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Write (Message Dynamic) help.v4p" scrollx="0" scrolly="90" systemname="Write (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Write (Message) help.v4p">
    <BOUNDS type="Window" left="1080" top="1830" width="11775" height="12990">
    </BOUNDS>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="12">
@@ -139,7 +139,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5805" top="5085" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="6" visible="1" values="8,4,4,5,4,4">
+   <PIN pinname="Y Input Value" slicecount="6" visible="1" values="7,2,5,5,7,5">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -212,6 +212,8 @@
    <BOUNDS type="Window" left="8580" top="1290" width="6000" height="4500">
    </BOUNDS>
    <PIN pinname="k" visible="1">
+   </PIN>
+   <PIN pinname="k Bin Size" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Output String" dstnodeid="2" dstpinname="Foo">
@@ -327,7 +329,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7665" top="5475" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -339,7 +341,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Force">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -490,7 +492,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="35">
    <BOUNDS type="Box" left="810" top="5070" width="1305" height="315">

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Tracks (TouchX Message).v4p" systemname="Tracks (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" scrollx="0" scrolly="1230">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Tracks (XTouch Message).v4p" systemname="Tracks (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" scrollx="0" scrolly="1230">
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="0">
    <BOUNDS type="Node" left="8400" top="1875" width="100" height="100">
    </BOUNDS>
@@ -335,7 +335,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10560" top="3885" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|LoopBe Internal MIDI|">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Midi Input Port|">
    </PIN>
@@ -537,21 +537,17 @@
    <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="54">
    <BOUNDS type="Node" left="2070" top="6915" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Track">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|double Rotary, bool RotaryPush, bool Top, bool Middle, bool Low, double Fader, bool Button, bool FaderTouch|">
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <PIN pinname="Spread Count per Formular" slicecount="1" visible="1" values="16">
+   <PIN pinname="Spread Count" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <PIN pinname="New" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Spread Count" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="55">
@@ -877,7 +873,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" pintype="Configuration" values="|Midi Output Port|">
    </PIN>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" pintype="Input" values="|X-TOUCH COMPACT|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" pintype="Input" values="|Microsoft GS Wavetable Synth|">
    </PIN>
    <BOUNDS type="Window" left="0" top="0" width="0" height="0">
    </BOUNDS>
@@ -1154,7 +1150,7 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="127" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Spread Count per Formular">
+   <LINK srcnodeid="127" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Spread Count">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="129" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="6210" top="14805" width="795" height="240">
@@ -1177,7 +1173,7 @@
    </PIN>
    <PIN pinname="Reset" slicecount="1" visible="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Track">
+   <PIN pinname="Formular" slicecount="1" values="XTouch.Track">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|double Rotary, bool RotaryPush, bool Top, bool Middle, bool Low, double Fader, bool Button, bool FaderTouch|">
    </PIN>
@@ -1239,8 +1235,6 @@
    <LINK srcnodeid="16" srcpinname="Message Diff" dstnodeid="123" dstpinname="Input Node">
    </LINK>
    <LINK srcnodeid="16" srcpinname="Changed Message Index" dstnodeid="129" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="127" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Spread Count">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="130" systemname="IOBox (String)">
    <BOUNDS type="Node" left="5250" top="795" width="435" height="270">
@@ -1316,7 +1310,7 @@
    </NODE>
    <LINK srcnodeid="133" srcpinname="Y Output Value" dstnodeid="26" dstpinname="Force">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="134">
    <BOUNDS type="Box" left="1215" top="5190" width="1455" height="285">

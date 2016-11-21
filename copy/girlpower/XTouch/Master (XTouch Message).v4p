@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Master (TouchX Message).v4p" scrollx="0" scrolly="3960" systemname="Master (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Master (TouchX Message).v4p">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Master (XTouch Message).v4p" scrollx="0" scrolly="3960" systemname="Master (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Master (TouchX Message).v4p">
    <NODE id="0" systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Output" visible="1" pintype="Output">
    </PIN>
@@ -545,7 +545,7 @@
    </PIN>
    <PIN pinname="Configuration" pintype="Configuration" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" pintype="Input" visible="1" slicecount="1" values="None">
+   <PIN pinname="Formular" pintype="Input" visible="1" slicecount="1" values="None">
    </PIN>
    <PIN pinname="Foo" pintype="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -661,7 +661,7 @@
    </PIN>
    <PIN pinname="Output" visible="1" pintype="Output">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" pintype="Input" visible="1" values="XTouch.Master">
+   <PIN pinname="Formular" slicecount="1" pintype="Input" visible="1" values="XTouch.Master">
    </PIN>
    <PIN pinname="Topic" visible="1" pintype="Input" slicecount="1" values="Event">
    </PIN>
@@ -673,9 +673,9 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Configuration" pintype="Configuration" slicecount="1" values="||">
+   <PIN pinname="Configuration" pintype="Configuration" slicecount="1" values="|double Fader, bool FaderTouch, bool Button, double A, double B, double C, double D, double E, double F, double G, double H, bool[8] RotaryPush, bool Program|">
    </PIN>
-   <PIN pinname="Spread Count per Formular" pintype="Input" visible="1" slicecount="1" values="1">
+   <PIN pinname="Spread Count" pintype="Input" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Window Handle" pintype="Output" visible="-1">
    </PIN>
@@ -1255,7 +1255,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" pintype="Configuration" values="|Midi Output Port|">
    </PIN>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" pintype="Input" values="|X-TOUCH COMPACT|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" pintype="Input" values="|Microsoft GS Wavetable Synth|">
    </PIN>
    <BOUNDS type="Window" left="0" top="0" width="0" height="0">
    </BOUNDS>
@@ -1293,7 +1293,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="14250" top="2790" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|LoopBe Internal MIDI|">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Midi Input Port|">
    </PIN>
@@ -2349,7 +2349,7 @@
    </PIN>
    <PIN pinname="Remove" pintype="Input" visible="-1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" pintype="Input" visible="1" slicecount="1" values="None">
+   <PIN pinname="Formular" pintype="Input" visible="1" slicecount="1" values="None">
    </PIN>
    <PIN pinname="Window Handle" pintype="Output" visible="-1">
    </PIN>
@@ -2400,6 +2400,6 @@
    </LINK>
    <LINK srcnodeid="117" srcpinname="Field" dstnodeid="107" dstpinname="Velocity">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    </PATCH>

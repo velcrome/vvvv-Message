@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\02_Formular.v4p" scrollx="0" scrolly="0" systemname="02_Formular" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\02_Formular.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\02_Formular.v4p" scrollx="30" scrolly="1905" systemname="02_Formular" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\02_Formular.v4p">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -37,7 +37,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="435" top="3234" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Event">
    </PIN>
@@ -101,11 +101,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="18" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="4086" top="8226" width="1368" height="492">
+   <BOUNDS type="Box" left="4086" top="8226" width="2475" height="495">
    </BOUNDS>
    <BOUNDS type="Node" left="4086" top="8226" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
    <PIN pinname="Size" slicecount="1" values="12">
    </PIN>
@@ -250,12 +250,12 @@
    </LINK>
    <LINK srcnodeid="9" srcpinname="Output" dstnodeid="0" dstpinname="Formular Name">
    </LINK>
-   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="24">
+   <NODE systemname="Reflection (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="24">
    <BOUNDS type="Node" left="4086" top="8982" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4086" top="8982">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
@@ -269,10 +269,8 @@
    </PIN>
    <PIN pinname="Field" visible="1">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    </NODE>
-   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="24" dstpinname="Message Formular">
+   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="24" dstpinname="Formular">
    </LINK>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="25">
    <BOUNDS type="Node" left="4086" top="9486" width="100" height="100">
@@ -321,7 +319,7 @@
    </BOUNDS>
    <PIN pinname="Topic" visible="1" slicecount="1" values="Event">
    </PIN>
-   <PIN pinname="Message Formular" visible="1">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
@@ -333,15 +331,13 @@
    </PIN>
    <PIN pinname="Spread Count" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="29" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="621" top="8346" width="1620" height="432">
+   <BOUNDS type="Box" left="621" top="8346" width="2730" height="435">
    </BOUNDS>
    <BOUNDS type="Node" left="621" top="8346" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
    <PIN pinname="Size" slicecount="1" values="12">
    </PIN>
@@ -352,7 +348,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="29" srcpinname="Output Enum" dstnodeid="27" dstpinname="Message Formular">
+   <LINK srcnodeid="29" srcpinname="Output Enum" dstnodeid="27" dstpinname="Formular">
    </LINK>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="32">
    <BOUNDS type="Node" left="450" top="9474" width="100" height="100">
@@ -444,12 +440,8 @@
    </LINK>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="10" dstpinname="Input String" hiddenwhenlocked="1">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
-   <LINK srcnodeid="29" srcpinname="Output Enum" dstnodeid="27" dstpinname="Formular">
-   </LINK>
-   <LINK srcnodeid="18" srcpinname="Output Enum" dstnodeid="24" dstpinname="Formular">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="41" systemname="IOBox (String)">
    <BOUNDS type="Node" left="9255" top="4665" width="2724" height="2040">
    </BOUNDS>

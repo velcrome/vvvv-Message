@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="4080" top="525" width="13350" height="14670">
    </BOUNDS>
@@ -175,7 +175,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5280" top="2895" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyLayout">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyInheritedLayout">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -224,12 +224,12 @@
    </NODE>
    <LINK srcnodeid="39" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Log Messages">
    </LINK>
-   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="InAWindow" id="47">
+   <NODE systemname="Reflection (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="InAWindow" id="47">
    <BOUNDS type="Node" left="5265" top="4485" width="3375" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="5265" top="4485">
    </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, Texture2d Tex|">
+   <PIN pinname="Configuration" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Formular" visible="1">
    </PIN>
@@ -240,7 +240,7 @@
    </LINK>
    <LINK srcnodeid="47" srcpinname="Field" dstnodeid="25" dstpinname="Input String">
    </LINK>
-   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="47" dstpinname="Message Formular">
+   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="47" dstpinname="Formular">
    </LINK>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="17">
    <BOUNDS type="Node" left="9615" top="1995" width="2415" height="270">
@@ -251,7 +251,7 @@
    </PIN>
    <BOUNDS type="Box" left="9615" top="1995">
    </BOUNDS>
-   <PIN pinname="Message Formular" visible="1">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="color" visible="1">
    </PIN>
@@ -261,17 +261,11 @@
    </PIN>
    <PIN pinname="hcozlor Bin Size" slicecount="1" values="3">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <BOUNDS type="Window" left="3750" top="6420" width="6000" height="4500">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="17" dstpinname="Message Formular">
-   </LINK>
-   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="47" dstpinname="Formular">
-   </LINK>
    <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="17" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="51">
@@ -554,7 +548,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="70">
    <BOUNDS type="Node" left="1260" top="12210" width="2085" height="270">

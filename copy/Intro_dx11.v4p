@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_dx11.v4p" scrollx="30" scrolly="0" systemname="Intro_tex" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_tex.v4p">
-   <BOUNDS type="Window" left="7710" top="4845" width="9855" height="7395">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_dx11.v4p" scrollx="15" scrolly="0" systemname="Intro_tex" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_tex.v4p">
+   <BOUNDS type="Window" left="3540" top="4545" width="15165" height="7395">
    </BOUNDS>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="6645" top="6120" width="1290" height="270">
@@ -15,7 +15,7 @@
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="2">
    <BOUNDS type="Node" left="285" top="1695" width="7725" height="270">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Foo" slicecount="1" visible="1" values="bar">
    </PIN>
@@ -50,8 +50,6 @@
    <PIN pinname="Geom" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Layer" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="4" systemname="IOBox (Node)">
@@ -100,7 +98,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="2" dstpinname="Message Formular">
+   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="2" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
    <BOUNDS type="Box" left="1305" top="465" width="1410" height="300">
@@ -195,7 +193,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="MyFormular">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|Buffer Buffer, Geometry Geom, Texture2d Tex, Layer Layer|">
    </PIN>
@@ -221,8 +219,6 @@
    </PIN>
    <PIN pinname="Buffer Bin Size" visible="1">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="25" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="3765" top="2820" width="1680" height="255">
@@ -234,7 +230,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="25" srcpinname="Output Enum" dstnodeid="24" dstpinname="Message Formular">
+   <LINK srcnodeid="25" srcpinname="Output Enum" dstnodeid="24" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="26" systemname="IOBox (String)">
    <BOUNDS type="Box" left="285" top="5760" width="1185" height="345">
@@ -267,7 +263,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="2025" top="6255" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="17535" top="6705" width="6240" height="5085">
+   <BOUNDS type="Window" left="18615" top="2775" width="6240" height="5085">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -275,7 +271,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="35">
-   <BOUNDS type="Node" left="7365" top="1065" width="100" height="100">
+   <BOUNDS type="Node" left="8145" top="900" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -403,11 +399,13 @@
    <LINK srcnodeid="44" srcpinname="Output" dstnodeid="45" dstpinname="Color Input">
    </LINK>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="46">
-   <BOUNDS type="Box" left="8925" top="390" width="630" height="480">
+   <BOUNDS type="Box" left="10095" top="135" width="630" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="8925" top="390" width="0" height="0">
+   <BOUNDS type="Node" left="10095" top="135" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Color Input" slicecount="1" visible="1" values="|1.00000,0.00000,0.43820,1.00000|">
+   </PIN>
+   <PIN pinname="Color Output" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="46" srcpinname="Color Output" dstnodeid="35" dstpinname="Color">
@@ -433,7 +431,7 @@
    <LINK srcnodeid="4" srcpinname="Output Node" dstnodeid="24" dstpinname="Input">
    </LINK>
    <NODE systemname="Gradient (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Source\Gradient.tfx" nodename="Gradient (DX11.TextureFX)" componentmode="Hidden" id="51">
-   <BOUNDS type="Node" left="7905" top="180" width="100" height="100">
+   <BOUNDS type="Node" left="8565" top="120" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -451,7 +449,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6645" top="2055" width="2895" height="1530">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Notes:&cr;&lf;- geom should not be used for changing geometries&cr;&lf;|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Notes:&cr;&lf;- geom should not be used for changing geometries&cr;&lf;- layer should not be switched between different effects|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -460,14 +458,8 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE systemname="Tetrahedron (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Tetrahedron (DX11.Geometry)" componentmode="Hidden" id="56">
-   <BOUNDS type="Node" left="4065" top="1245" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Geometry Out" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="BubbleNoise (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Source\BubbleNoise.tfx" nodename="BubbleNoise (DX11.TextureFX)" componentmode="Hidden" id="50">
-   <BOUNDS type="Node" left="5565" top="990" width="100" height="100">
+   <BOUNDS type="Node" left="5730" top="1125" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -484,12 +476,8 @@
    <PIN pinname="Time" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="25" srcpinname="Output Enum" dstnodeid="24" dstpinname="Formular">
-   </LINK>
-   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="2" dstpinname="Formular">
-   </LINK>
    <NODE systemname="Integrate (Differential)" nodename="Integrate (Differential)" componentmode="Hidden" id="57">
-   <BOUNDS type="Node" left="5685" top="600" width="100" height="100">
+   <BOUNDS type="Node" left="5850" top="735" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Position Out" visible="1">
    </PIN>
@@ -499,7 +487,7 @@
    <LINK srcnodeid="57" srcpinname="Position Out" dstnodeid="50" dstpinname="Time">
    </LINK>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="58">
-   <BOUNDS type="Node" left="7080" top="120" width="100" height="100">
+   <BOUNDS type="Node" left="7740" top="60" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -507,7 +495,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Rotate (Transform)" nodename="Rotate (Transform)" componentmode="Hidden" id="59">
-   <BOUNDS type="Node" left="7080" top="450" width="100" height="100">
+   <BOUNDS type="Node" left="7740" top="390" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Z" visible="1">
    </PIN>
@@ -518,16 +506,16 @@
    </LINK>
    <LINK srcnodeid="59" srcpinname="Transform Out" dstnodeid="35" dstpinname="Texture Transform">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
    <NODE systemname="Sphere (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Sphere (DX11.Geometry)" componentmode="Hidden" id="60">
-   <BOUNDS type="Node" left="4665" top="630" width="100" height="100">
+   <BOUNDS type="Node" left="4410" top="585" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry Out" visible="1">
    </PIN>
-   <PIN pinname="Cycles Y" slicecount="1" values="0.59">
+   <PIN pinname="Cycles Y" slicecount="1" values="0.64">
    </PIN>
    <PIN pinname="Radius" slicecount="1" values="0.31">
    </PIN>
@@ -550,8 +538,6 @@
    </LINK>
    <LINK srcnodeid="50" srcpinname="Texture Out" dstnodeid="2" dstpinname="Tex">
    </LINK>
-   <LINK srcnodeid="35" srcpinname="Layer" dstnodeid="2" dstpinname="Layer">
-   </LINK>
    <LINK srcnodeid="24" srcpinname="Buffer" dstnodeid="43" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="24" srcpinname="Geom" dstnodeid="38" dstpinname="Geometry">
@@ -561,5 +547,7 @@
    <LINK srcnodeid="24" srcpinname="Layer" dstnodeid="36" dstpinname="Layer 2">
    </LINK>
    <LINK srcnodeid="60" srcpinname="Geometry Out" dstnodeid="2" dstpinname="Geom">
+   </LINK>
+   <LINK srcnodeid="35" srcpinname="Layer" dstnodeid="2" dstpinname="Layer">
    </LINK>
    </PATCH>

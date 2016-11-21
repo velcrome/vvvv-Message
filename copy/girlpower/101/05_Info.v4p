@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\05_Info.v4p" systemname="05_Info" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\05_Info.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -61,7 +61,7 @@
    </PIN>
    <PIN pinname="Send" slicecount="1" visible="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int id, string Foo|">
    </PIN>
@@ -76,10 +76,6 @@
    <PIN pinname="Topic" visible="1">
    </PIN>
    <PIN pinname="Topic Bin Size" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Spread Count per Formular" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
@@ -195,11 +191,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="3" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="2310" top="3120" width="708" height="288">
+   <BOUNDS type="Box" left="2310" top="3120" width="1455" height="270">
    </BOUNDS>
    <BOUNDS type="Node" left="2310" top="3120" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Event">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Message Formular|">
    </PIN>
@@ -208,7 +204,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Message Formular">
+   <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
    <BOUNDS type="Box" left="4050" top="3084" width="792" height="240">
@@ -306,12 +302,8 @@
    </LINK>
    <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Print to TTY">
    </LINK>
-   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Spread Count per Formular">
-   </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="11" dstpinname="Formular">
-   </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    </PATCH>

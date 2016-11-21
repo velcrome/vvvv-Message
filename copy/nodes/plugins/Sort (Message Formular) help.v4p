@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Sort (Message Formular) help.v4p" scrollx="0" scrolly="0" systemname="Sort (Message Formular) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Sort (Message Formular) help.v4p">
    <BOUNDS type="Window" left="6975" top="1365" width="11445" height="8475">
    </BOUNDS>
@@ -65,7 +65,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="SortExample">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int k|">
    </PIN>
@@ -74,8 +74,6 @@
    <BOUNDS type="Window" left="1140" top="1305" width="6000" height="4500">
    </BOUNDS>
    <PIN pinname="Topic" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="8" systemname="IOBox (Value Advanced)">
@@ -141,7 +139,7 @@
    <NODE id="0" systemname="Sort (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sort (Message Formular)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Descending" visible="1" pintype="Input" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="1" pintype="Input" values="Event">
+   <PIN pinname="Formular" visible="1" pintype="Input">
    </PIN>
    <PIN pinname="Input" visible="1" pintype="Input" slicecount="1" values="||">
    </PIN>
@@ -165,15 +163,13 @@
    </PIN>
    <PIN pinname="ID" pintype="Output" visible="-1">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Descending">
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="0" dstpinname="Message Formular" linkstyle="Bezier">
-   <LINKPOINT x="4410" y="4008">
+   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="0" dstpinname="Formular" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="4575" y="4155">
    </LINKPOINT>
-   <LINKPOINT x="3705" y="4303">
+   <LINKPOINT x="3540" y="4155">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="12" systemname="IOBox (Value Advanced)">
@@ -276,10 +272,10 @@
    </NODE>
    <LINK srcnodeid="17" srcpinname="Output String" dstnodeid="5" dstpinname="Formular Name">
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="7" dstpinname="Message Formular" linkstyle="Bezier">
-   <LINKPOINT x="4395" y="2980">
+   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="7" dstpinname="Formular" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="4560" y="3135">
    </LINKPOINT>
-   <LINKPOINT x="2115" y="3275">
+   <LINKPOINT x="1950" y="3135">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
@@ -324,12 +320,6 @@
    <LINKPOINT x="1800" y="3705">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="0" dstpinname="Formular" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="4575" y="4155">
-   </LINKPOINT>
-   <LINKPOINT x="3540" y="4155">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20">
    <BOUNDS type="Node" left="15" top="2925" width="3975" height="270">
    </BOUNDS>
@@ -372,12 +362,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Output Enum" dstnodeid="7" dstpinname="Formular" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="4560" y="3135">
-   </LINKPOINT>
-   <LINKPOINT x="1950" y="3135">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="24">
    <BOUNDS type="Node" left="300" top="165" width="780" height="270">
    </BOUNDS>
@@ -426,7 +410,7 @@
    </NODE>
    <LINK srcnodeid="16" srcpinname="Output" dstnodeid="7" dstpinname="k">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="27">
    <BOUNDS type="Node" left="7365" top="240" width="2340" height="270">

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\TouchX (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p" bgcolor="15132390">
-   <BOUNDS type="Window" left="0" top="0" width="13665" height="15300">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\XTouch (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p" bgcolor="15132390">
+   <BOUNDS type="Window" left="0" top="0" width="14085" height="15300">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -63,7 +63,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="Track">
+   <PIN pinname="Formular" slicecount="1" values="Track">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|double Rotary, double Fader|">
    </PIN>
@@ -103,7 +103,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Master">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="XTouch.Master">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|double Fader, bool FaderTouch, bool Button, double A, double C, bool Program|">
    </PIN>
@@ -135,125 +135,27 @@
    </PIN>
    <PIN pinname="Update" visible="1" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Formular" slicecount="1" visible="1" values="XTouch.Master">
-   </PIN>
    </NODE>
-   <NODE systemname="Transport (TouchX Message)" filename="Transport (TouchX Message).v4p" nodename="Transport (TouchX Message).v4p" componentmode="Hidden" id="327">
-   <BOUNDS type="Node" left="2610" top="7500" width="960" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2610" top="7500" width="8610" height="7800">
-   </BOUNDS>
-   <BOUNDS type="Window" left="13020" top="1425" width="15090" height="13905">
-   </BOUNDS>
-   <PIN pinname="Midi Input Port" visible="1" slicecount="1" values="|X-TOUCH COMPACT|">
-   </PIN>
-   <PIN pinname="Enabled" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Transport" visible="1">
-   </PIN>
-   <PIN pinname="Midi Output Port" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Master (TouchX Message)" filename="Master (TouchX Message).v4p" nodename="Master (TouchX Message).v4p" componentmode="Hidden" id="330">
-   <BOUNDS type="Node" left="9405" top="7500" width="0" height="0">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9405" top="7500" width="13650" height="14355">
-   </BOUNDS>
-   <BOUNDS type="Window" left="9135" top="1755" width="16065" height="14355">
-   </BOUNDS>
-   <PIN pinname="Midi Input Port" visible="1">
-   </PIN>
-   <PIN pinname="Midi Output Port" visible="1">
-   </PIN>
-   <PIN pinname="Enabled" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Message Diff" visible="1">
-   </PIN>
-   <PIN pinname="Master" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Tracks (TouchX Message)" filename="Tracks (TouchX Message).v4p" nodename="Tracks (TouchX Message).v4p" componentmode="Hidden" id="331">
-   <BOUNDS type="Node" left="5490" top="7500" width="0" height="0">
-   </BOUNDS>
-   <BOUNDS type="Box" left="5490" top="7500" width="14370" height="19545">
-   </BOUNDS>
-   <BOUNDS type="Window" left="9060" top="600" width="15255" height="15960">
-   </BOUNDS>
-   <PIN pinname="Midi Input Port" visible="1">
-   </PIN>
-   <PIN pinname="Midi Output Port" visible="1" slicecount="1" values="|X-TOUCH COMPACT|">
-   </PIN>
-   <PIN pinname="Tracks" visible="1">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="331" dstpinname="Enabled" linkstyle="VHV">
-   <LINKPOINT x="12285" y="7415">
-   </LINKPOINT>
-   <LINKPOINT x="6270" y="7315">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="332" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="465" top="5940" width="2535" height="540">
    </BOUNDS>
    <BOUNDS type="Node" left="465" top="5940" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|LoopBe Internal MIDI|">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="331" dstpinname="Midi Input Port" linkstyle="VHV">
-   <LINKPOINT x="945" y="7035">
-   </LINKPOINT>
-   <LINKPOINT x="5490" y="7035">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="327" dstpinname="Midi Input Port" linkstyle="VHV">
-   <LINKPOINT x="945" y="7035">
-   </LINKPOINT>
-   <LINKPOINT x="2610" y="7035">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="330" dstpinname="Midi Input Port" linkstyle="VHV">
-   <LINKPOINT x="945" y="7035">
-   </LINKPOINT>
-   <LINKPOINT x="9645" y="7035">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="333" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="3570" top="5940" width="2535" height="540">
    </BOUNDS>
    <BOUNDS type="Node" left="3570" top="5940" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|X-TOUCH COMPACT|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|Microsoft GS Wavetable Synth|">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="333" srcpinname="Output Enum" dstnodeid="330" dstpinname="Midi Output Port">
-   </LINK>
-   <LINK srcnodeid="333" srcpinname="Output Enum" dstnodeid="331" dstpinname="Midi Output Port">
-   </LINK>
-   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="330" dstpinname="Enabled" linkstyle="VHV">
-   <LINKPOINT x="12285" y="7415">
-   </LINKPOINT>
-   <LINKPOINT x="10200" y="7315">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="327" dstpinname="Enabled" linkstyle="VHV">
-   <LINKPOINT x="12285" y="7415">
-   </LINKPOINT>
-   <LINKPOINT x="3570" y="7315">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="334" systemname="IOBox (String)">
    <BOUNDS type="Node" left="0" top="5130" width="225" height="270">
    </BOUNDS>
@@ -361,7 +263,7 @@
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="349">
    <BOUNDS type="Node" left="2565" top="11145" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="XTouch.Transport">
+   <PIN pinname="Formular" slicecount="1" values="XTouch.Transport" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|bool Rewind, bool Forward, bool Loop, bool Record, bool Stop, bool Play|">
    </PIN>
@@ -381,7 +283,7 @@
    </PIN>
    <PIN pinname="Play Bin Size" visible="-1" pintype="Input" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Stop" slicecount="1" values="0" visible="1">
+   <PIN pinname="Stop" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Record" visible="1" slicecount="1" values="0">
    </PIN>
@@ -397,11 +299,11 @@
    </PIN>
    </NODE>
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="351">
-   <BOUNDS type="Node" left="5355" top="11055" width="100" height="100">
+   <BOUNDS type="Node" left="5505" top="11055" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Window" left="26430" top="1530" width="6000" height="4500">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="XTouch.Track">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|bool RotaryPush, bool Top, bool Middle, bool Low, bool Button|">
    </PIN>
@@ -425,17 +327,15 @@
    </PIN>
    <PIN pinname="RotaryPush" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    <PIN pinname="Force" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Update" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="352" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6285" top="8805" width="2325" height="900">
+   <BOUNDS type="Box" left="6435" top="8805" width="2325" height="900">
    </BOUNDS>
-   <BOUNDS type="Node" left="6285" top="8805" width="0" height="0">
+   <BOUNDS type="Node" left="6435" top="8805" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="32" visible="1" values="1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
    </PIN>
@@ -463,21 +363,21 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="353" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="4575" top="9630" width="1590" height="270">
+   <BOUNDS type="Box" left="4680" top="10320" width="1590" height="270">
    </BOUNDS>
-   <BOUNDS type="Node" left="4575" top="9630" width="0" height="0">
+   <BOUNDS type="Node" left="4680" top="10320" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="XTouch.Track">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="353" srcpinname="Output Enum" dstnodeid="351" dstpinname="Message Formular">
+   <LINK srcnodeid="353" srcpinname="Output Enum" dstnodeid="351" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="360" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7455" top="10635" width="285" height="285">
+   <BOUNDS type="Box" left="7605" top="10635" width="285" height="285">
    </BOUNDS>
-   <BOUNDS type="Node" left="7455" top="10635" width="0" height="0">
+   <BOUNDS type="Node" left="7605" top="10635" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
@@ -494,14 +394,6 @@
    </NODE>
    <LINK srcnodeid="360" srcpinname="Y Output Value" dstnodeid="351" dstpinname="AutoSense">
    </LINK>
-   <NODE systemname="Definition (TouchX Message)" filename="Definition (TouchX Message).v4p" componentmode="Hidden" id="137" nodename="Definition (TouchX Message).v4p">
-   <BOUNDS type="Node" left="465" top="7545" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="465" top="7545" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="12840" top="195" width="11160" height="7860">
-   </BOUNDS>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="365" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="12405" top="9705" width="480" height="480">
    </BOUNDS>
@@ -523,10 +415,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="365" srcpinname="Y Output Value" dstnodeid="313" dstpinname="Program">
-   </LINK>
-   <LINK srcnodeid="330" srcpinname="Master" dstnodeid="313" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="327" srcpinname="Transport" dstnodeid="349" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="366">
    <BOUNDS type="Box" left="12105" top="10680" width="285" height="270">
@@ -576,14 +464,12 @@
    </NODE>
    <LINK srcnodeid="369" srcpinname="Output Enum" dstnodeid="313" dstpinname="Formular">
    </LINK>
-   <LINK srcnodeid="353" srcpinname="Output Enum" dstnodeid="351" dstpinname="Formular">
-   </LINK>
    <LINK srcnodeid="360" srcpinname="Y Output Value" dstnodeid="351" dstpinname="Update">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="370">
-   <BOUNDS type="Box" left="7125" top="10620" width="285" height="360">
+   <BOUNDS type="Box" left="7275" top="10620" width="285" height="360">
    </BOUNDS>
-   <BOUNDS type="Node" left="7125" top="10620" width="0" height="0">
+   <BOUNDS type="Node" left="7275" top="10620" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
@@ -622,24 +508,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Reset">
    </PIN>
    </NODE>
-   <LINK srcnodeid="371" srcpinname="Y Output Value" dstnodeid="331" dstpinname="Reset" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="11310" y="7185">
-   </LINKPOINT>
-   <LINKPOINT x="6030" y="7185">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="371" srcpinname="Y Output Value" dstnodeid="330" dstpinname="Reset" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="11310" y="7185">
-   </LINKPOINT>
-   <LINKPOINT x="9960" y="7185">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="371" srcpinname="Y Output Value" dstnodeid="327" dstpinname="Reset" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="11310" y="7185">
-   </LINKPOINT>
-   <LINKPOINT x="3270" y="7185">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="373">
    <BOUNDS type="Box" left="3090" top="10545" width="480" height="480">
    </BOUNDS>
@@ -662,10 +530,8 @@
    </NODE>
    <LINK srcnodeid="373" srcpinname="Y Output Value" dstnodeid="349" dstpinname="Play">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
-   <LINK srcnodeid="333" srcpinname="Output Enum" dstnodeid="327" dstpinname="Midi Output Port">
-   </LINK>
    <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="374">
    <BOUNDS type="Node" left="480" top="510" width="100" height="100">
    </BOUNDS>
@@ -793,7 +659,7 @@
    </PIN>
    </NODE>
    <NODE systemname="SwapDim (Spreads)" nodename="SwapDim (Spreads)" componentmode="Hidden" id="385">
-   <BOUNDS type="Node" left="6285" top="9840" width="100" height="100">
+   <BOUNDS type="Node" left="6435" top="9840" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Column Count" slicecount="1" values="8">
    </PIN>
@@ -809,21 +675,19 @@
    <LINK srcnodeid="352" srcpinname="Y Output Value" dstnodeid="385" dstpinname="Input">
    </LINK>
    <NODE systemname="Sort (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sort (Message Formular)" componentmode="Hidden" id="386">
-   <BOUNDS type="Node" left="5130" top="8970" width="100" height="100">
+   <BOUNDS type="Node" left="5490" top="8115" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="386" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="386" srcpinname="Output" dstnodeid="351" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="386" srcpinname="Output" dstnodeid="171" dstpinname="Input">
    </LINK>
    <NODE systemname="Unzip (Value)" nodename="Unzip (Value)" componentmode="Hidden" id="355" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll">
-   <BOUNDS type="Node" left="6180" top="10320" width="100" height="100">
+   <BOUNDS type="Node" left="6330" top="10320" width="100" height="100">
    </BOUNDS>
    <PIN pinname="XYZW" visible="1">
    </PIN>
@@ -891,5 +755,145 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="387" srcpinname="Y Output Value" dstnodeid="349" dstpinname="Stop">
+   </LINK>
+   <NODE systemname="Tracks (XTouch Message)" filename="%VVVV%\packs\vvvv-Message\girlpower\XTouch\Tracks (XTouch Message).v4p" nodename="Tracks (XTouch Message)" componentmode="Hidden" id="331">
+   <BOUNDS type="Node" left="5490" top="7500" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5490" top="7500" width="14370" height="19545">
+   </BOUNDS>
+   <BOUNDS type="Window" left="9060" top="600" width="15255" height="15960">
+   </BOUNDS>
+   <PIN pinname="Midi Input Port" visible="1">
+   </PIN>
+   <PIN pinname="Midi Output Port" visible="1" slicecount="1" values="|X-TOUCH COMPACT|">
+   </PIN>
+   <PIN pinname="Tracks" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="331" dstpinname="Enabled" linkstyle="VHV">
+   <LINKPOINT x="12285" y="7415">
+   </LINKPOINT>
+   <LINKPOINT x="6270" y="7315">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="331" dstpinname="Midi Input Port" linkstyle="VHV">
+   <LINKPOINT x="945" y="7035">
+   </LINKPOINT>
+   <LINKPOINT x="5490" y="7035">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="333" srcpinname="Output Enum" dstnodeid="331" dstpinname="Midi Output Port">
+   </LINK>
+   <LINK srcnodeid="371" srcpinname="Y Output Value" dstnodeid="331" dstpinname="Reset" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="11310" y="7185">
+   </LINKPOINT>
+   <LINKPOINT x="6030" y="7185">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="386" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Transport (XTouch Message)" filename="%VVVV%\packs\vvvv-Message\girlpower\XTouch\Transport (XTouch Message).v4p" nodename="Transport (XTouch Message)" componentmode="Hidden" id="327">
+   <BOUNDS type="Node" left="2610" top="7500" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2610" top="7500" width="8610" height="7800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="13020" top="1425" width="15090" height="13905">
+   </BOUNDS>
+   <PIN pinname="Midi Input Port" visible="1" slicecount="1" values="|X-TOUCH COMPACT|">
+   </PIN>
+   <PIN pinname="Enabled" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Transport" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Midi Output Port" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="327" dstpinname="Midi Input Port" linkstyle="VHV">
+   <LINKPOINT x="945" y="7035">
+   </LINKPOINT>
+   <LINKPOINT x="2610" y="7035">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="327" dstpinname="Enabled" linkstyle="VHV">
+   <LINKPOINT x="12285" y="7415">
+   </LINKPOINT>
+   <LINKPOINT x="3570" y="7315">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="327" srcpinname="Transport" dstnodeid="349" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="371" srcpinname="Y Output Value" dstnodeid="327" dstpinname="Reset" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="11310" y="7185">
+   </LINKPOINT>
+   <LINKPOINT x="3270" y="7185">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="333" srcpinname="Output Enum" dstnodeid="327" dstpinname="Midi Output Port">
+   </LINK>
+   <NODE systemname="Master (XTouch Message)" filename="%VVVV%\packs\vvvv-Message\girlpower\XTouch\Master (XTouch Message).v4p" nodename="Master (XTouch Message)" componentmode="Hidden" id="330">
+   <BOUNDS type="Node" left="9405" top="7500" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="9405" top="7500" width="13650" height="14355">
+   </BOUNDS>
+   <BOUNDS type="Window" left="9135" top="1755" width="16065" height="14355">
+   </BOUNDS>
+   <PIN pinname="Midi Input Port" visible="1">
+   </PIN>
+   <PIN pinname="Midi Output Port" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   <PIN pinname="Master" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="330" dstpinname="Midi Input Port" linkstyle="VHV">
+   <LINKPOINT x="945" y="7035">
+   </LINKPOINT>
+   <LINKPOINT x="9645" y="7035">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="333" srcpinname="Output Enum" dstnodeid="330" dstpinname="Midi Output Port">
+   </LINK>
+   <LINK srcnodeid="156" srcpinname="Y Output Value" dstnodeid="330" dstpinname="Enabled" linkstyle="VHV">
+   <LINKPOINT x="12285" y="7415">
+   </LINKPOINT>
+   <LINKPOINT x="10200" y="7315">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="330" srcpinname="Master" dstnodeid="313" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="371" srcpinname="Y Output Value" dstnodeid="330" dstpinname="Reset" linkstyle="VHV" hiddenwhenlocked="1">
+   <LINKPOINT x="11310" y="7185">
+   </LINKPOINT>
+   <LINKPOINT x="9960" y="7185">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Definition (XTouch Message)" filename="%VVVV%\packs\vvvv-Message\girlpower\XTouch\Definition (XTouch Message).v4p" componentmode="Hidden" id="137" nodename="Definition (XTouch Message)">
+   <BOUNDS type="Node" left="465" top="7545" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="465" top="7545" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="12840" top="195" width="11160" height="7860">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="388">
+   <BOUNDS type="Box" left="660" top="10230" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="660" top="10230" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="XTouch.Transport">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="388" srcpinname="Output Enum" dstnodeid="349" dstpinname="Formular">
    </LINK>
    </PATCH>

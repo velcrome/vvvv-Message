@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\modules\Writer (Message Stream) help.v4p" systemname="Writer (Message Stream) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Writer (Message Stream) help.v4p" scrollx="0" scrolly="960">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\modules\Writer (Message Streaming) help.v4p" systemname="Writer (Message Stream) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Writer (Message Stream) help.v4p" scrollx="45" scrolly="1440">
    <BOUNDS type="Window" left="8235" top="1650" width="13725" height="10365">
    </BOUNDS>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="1">
@@ -37,9 +37,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="3" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6630" top="4890" width="480" height="480">
+   <BOUNDS type="Box" left="7290" top="4815" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="6630" top="4890" width="0" height="0">
+   <BOUNDS type="Node" left="7290" top="4815" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -111,7 +111,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="11">
-   <BOUNDS type="Node" left="7725" top="4890" width="100" height="100">
+   <BOUNDS type="Node" left="8760" top="4710" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="33694">
    </PIN>
@@ -121,9 +121,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="12" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7710" top="5610" width="1020" height="255">
+   <BOUNDS type="Box" left="8745" top="5430" width="1020" height="255">
    </BOUNDS>
-   <BOUNDS type="Node" left="7710" top="5610" width="0" height="0">
+   <BOUNDS type="Node" left="8745" top="5430" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="MByte">
    </PIN>
@@ -297,7 +297,7 @@
    </PIN>
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
-   <PIN pinname="Input String">
+   <PIN pinname="Input String" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="29" systemname="IOBox (String)">
@@ -333,34 +333,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="34" srcpinname="Output String" dstnodeid="26" dstpinname="Input 1">
-   </LINK>
-   <NODE id="25" systemname="Reader (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reader (Message)" componentmode="Hidden">
-   <BOUNDS type="Node" left="4470" top="6930" width="3570" height="270">
-   </BOUNDS>
-   <PIN pinname="Filename" visible="1" slicecount="1" values="streamFile.json">
-   </PIN>
-   <PIN pinname="Count" slicecount="1" visible="1" values="2">
-   </PIN>
-   <PIN pinname="Error Message" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Reset" visible="1" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Read" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="8000" y="5338">
-   </LINKPOINT>
-   <LINKPOINT x="8815" y="4953">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="16" dstpinname="Input Node">
-   </LINK>
-   <LINK srcnodeid="25" srcpinname="End of Stream" dstnodeid="15" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="26" srcpinname="Output" dstnodeid="25" dstpinname="Filename">
-   </LINK>
-   <LINK srcnodeid="25" srcpinname="Error Message" dstnodeid="29" dstpinname="Input String">
    </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -441,15 +413,13 @@
    <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="41">
    <BOUNDS type="Node" left="4455" top="7530" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <PIN pinname="Reset" visible="1" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="41" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="41" srcpinname="Output" dstnodeid="18" dstpinname="Input">
    </LINK>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="42">
@@ -496,12 +466,12 @@
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Count">
-   </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
-   <NODE id="4" componentmode="Hidden" systemname="Writer (Message Stream)" filename="Writer (Message Stream).v4p" nodename="Writer (Message Stream)">
-   <BOUNDS type="Node" left="4485" top="4320" width="3270" height="270">
+   <LINK srcnodeid="24" srcpinname="Y Output Value" dstnodeid="41" dstpinname="Reset">
+   </LINK>
+   <NODE id="4" componentmode="Hidden" systemname="Writer (Message Streaming)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message Streaming).v4p" nodename="Writer (Message Streaming)">
+   <BOUNDS type="Node" left="4485" top="4320" width="4320" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -542,7 +512,37 @@
    </LINK>
    <LINK srcnodeid="9" srcpinname="Output String" dstnodeid="4" dstpinname="Filename">
    </LINK>
-   <LINK srcnodeid="24" srcpinname="Y Output Value" dstnodeid="41" dstpinname="Reset">
+   <NODE id="25" systemname="Reader (Message Streaming)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reader (Message Streaming)" componentmode="Hidden">
+   <BOUNDS type="Node" left="4470" top="6930" width="3570" height="270">
+   </BOUNDS>
+   <PIN pinname="Filename" visible="1" slicecount="1" values="streamFile.json">
+   </PIN>
+   <PIN pinname="Count" slicecount="1" visible="1" values="2">
+   </PIN>
+   <PIN pinname="Error Message" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Reset" visible="1" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Read" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="8000" y="5338">
+   </LINKPOINT>
+   <LINKPOINT x="8815" y="4953">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="16" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="25" srcpinname="End of Stream" dstnodeid="15" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="26" srcpinname="Output" dstnodeid="25" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="25" srcpinname="Error Message" dstnodeid="29" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="41" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Count">
    </LINK>
    <LINK srcnodeid="24" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Reset">
    </LINK>

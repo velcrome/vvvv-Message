@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\AsJson (Message) help.v4p" scrollx="0" scrolly="885">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\AsJson (Message) help.v4p" scrollx="0" scrolly="885">
    <BOUNDS type="Window" left="5385" top="3270" width="9000" height="6000">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -24,7 +24,7 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    </NODE>
-   <NODE systemname="AsJson (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="16">
+   <NODE systemname="AsString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="1575" top="2655" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -35,7 +35,7 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="Writer (Raw SharedMemory)" nodename="Writer (Raw SharedMemory)" componentmode="Hidden" id="15">
-   <BOUNDS type="Node" left="1560" top="4065" width="750" height="270">
+   <BOUNDS type="Node" left="1590" top="4245" width="750" height="270">
    </BOUNDS>
    <PIN pinname="Shared Memory Name" visible="1" slicecount="1" values="#Message">
    </PIN>
@@ -55,7 +55,7 @@
    </PIN>
    <PIN pinname="Shared Memory Name" slicecount="1" values="#Message">
    </PIN>
-   <PIN pinname="Size in Bytes" slicecount="1" values="1024">
+   <PIN pinname="Size in Bytes" slicecount="1" values="1024" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="AsRaw (String)" nodename="AsRaw (String)" componentmode="Hidden" id="13">
@@ -170,7 +170,7 @@
    </NODE>
    <LINK srcnodeid="8" srcpinname="Output" dstnodeid="4" dstpinname="Input String">
    </LINK>
-   <PACK Name="addonpack" Version="34.1.0">
+   <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="22" systemname="IOBox (String)">
    <BOUNDS type="Node" left="360" top="4710" width="750" height="270">
@@ -238,7 +238,7 @@
    </LINK>
    <LINK srcnodeid="8" srcpinname="Output" dstnodeid="17" dstpinname="Foo">
    </LINK>
-   <NODE nodename="AsMessage (string)" componentmode="Hidden" id="18" systemname="AsMessage (string)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
+   <NODE nodename="AsMessage (string)" componentmode="Hidden" id="18" systemname="FromString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll">
    <BOUNDS type="Node" left="6090" top="2985" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="6090" top="2985" width="0" height="0">
@@ -264,7 +264,7 @@
    </NODE>
    <LINK srcnodeid="18" srcpinname="Message" dstnodeid="11" dstpinname="Input">
    </LINK>
-   <NODE systemname="AsOscBundle (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="20">
+   <NODE systemname="AsOscBundle (Message Raw)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsOscBundle (Message)" componentmode="Hidden" id="20">
    <BOUNDS type="Node" left="1260" top="4710" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="1260" top="4710">
@@ -281,5 +281,39 @@
    <LINK srcnodeid="11" srcpinname="Test" dstnodeid="10" dstpinname="Input String">
    </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="25">
+   <BOUNDS type="Box" left="6255" top="1290" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6255" top="1290" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1024">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="B">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="25" srcpinname="Y Output Value" dstnodeid="14" dstpinname="Size in Bytes">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="26">
+   <BOUNDS type="Box" left="1965" top="3915" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1965" top="3915" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1024">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="B">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Size in Bytes">
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    </PATCH>

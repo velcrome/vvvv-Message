@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\ConfigKeep (Message Formular) help.v4p" systemname="Config (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Config (Message) help.v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\ConfigKeep (Message Formular) help.v4p" systemname="Config (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Config (Message) help.v4p" scrollx="0" scrolly="825">
    <BOUNDS type="Window" left="3480" top="1185" width="12855" height="11445">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -167,7 +167,7 @@
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="XYZ" visible="1" slicecount="1" values="0.671623730690044">
+   <PIN pinname="XYZ" visible="1" slicecount="1" values="0.6">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
@@ -301,7 +301,7 @@
    </PIN>
    <BOUNDS type="Box" left="4890" top="9150">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="MyLayout">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
@@ -312,8 +312,6 @@
    <PIN pinname="matrix" visible="1">
    </PIN>
    <PIN pinname="color" visible="1">
-   </PIN>
-   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="color Bin Size" visible="1">
    </PIN>
@@ -344,7 +342,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="23" dstpinname="Message Formular">
+   <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="23" dstpinname="Formular">
    </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -390,7 +388,7 @@
    </NODE>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="30" dstpinname="Input Node">
    </LINK>
-   <LINK srcnodeid="39" srcpinname="Output Enum" dstnodeid="40" dstpinname="Message Formular">
+   <LINK srcnodeid="39" srcpinname="Output Enum" dstnodeid="40" dstpinname="Formular">
    </LINK>
    <LINK srcnodeid="18" srcpinname="Transform Out" dstnodeid="40" dstpinname="matrix">
    </LINK>
@@ -488,13 +486,9 @@
    </NODE>
    <LINK srcnodeid="23" srcpinname="color" dstnodeid="55" dstpinname="Color Input">
    </LINK>
-   <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="23" dstpinname="Formular">
-   </LINK>
-   <LINK srcnodeid="39" srcpinname="Output Enum" dstnodeid="40" dstpinname="Formular">
-   </LINK>
    <LINK srcnodeid="38" srcpinname="Output" dstnodeid="50" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="56">
    <BOUNDS type="Node" left="8280" top="330" width="2340" height="270">
@@ -515,7 +509,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1815" top="4755" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="5" visible="1" values="1,1,1,1,1">
+   <PIN pinname="Y Input Value" slicecount="5" visible="1" values="0,1,1,1,1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -529,7 +523,7 @@
    </PIN>
    <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="5" values="1,1,1,1,1">
+   <PIN pinname="X Input Value" slicecount="5" values="0,1,1,1,1">
    </PIN>
    <PIN pinname="Columns" slicecount="1" values="5">
    </PIN>
@@ -543,7 +537,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Update" slicecount="1" values="Inspect">
+   <PIN pinname="Update" slicecount="1" values="SinceLastFrame">
    </PIN>
    <PIN pinname="Change" visible="1">
    </PIN>
@@ -575,7 +569,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3765" top="2355" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -585,12 +579,12 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="60" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Pause">
    </LINK>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="61">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="61">
    <BOUNDS type="Node" left="8280" top="7080" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -645,7 +639,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="8790" top="6135" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Color Input" slicecount="5" visible="1" values="|0.00000,0.40000,1.00000,1.00000|,|0.91659,0.00000,0.32618,1.00000|,|0.88878,0.22224,0.00000,1.00000|,|0.36528,0.52600,0.00000,1.00000|,|0.00000,1.00000,0.40000,1.00000|">
+   <PIN pinname="Color Input" slicecount="5" visible="1" values="|0.00000,0.35712,1.00000,1.00000|,|0.91659,0.00000,0.32618,1.00000|,|0.92372,0.48850,0.00000,1.00000|,|0.36528,0.52600,0.00000,1.00000|,|0.00000,1.00000,0.45718,1.00000|">
    </PIN>
    <PIN pinname="Color Output" visible="1">
    </PIN>
@@ -768,8 +762,4 @@
    </LINK>
    <LINK srcnodeid="53" srcpinname="Output" dstnodeid="17" dstpinname="Color Input">
    </LINK>
-   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="71">
-   <BOUNDS type="Node" left="9315" top="9315" width="100" height="100">
-   </BOUNDS>
-   </NODE>
    </PATCH>

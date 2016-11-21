@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="15630" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10065">
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="20160" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
+   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -797,7 +797,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" visible="1" slicecount="1" values="None">
+   <PIN pinname="Formular" visible="1" slicecount="1" values="None">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|float fader1, float fader2, float fader3, float fader4|">
    </PIN>
@@ -993,7 +993,7 @@
    </PIN>
    <BOUNDS type="Node" left="828" top="5877" width="7515" height="270">
    </BOUNDS>
-   <PIN pinname="Message Formular" visible="1">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1027,8 +1027,6 @@
    </PIN>
    <PIN pinname="Update" visible="1">
    </PIN>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    <PIN pinname="Force" visible="1">
    </PIN>
    </NODE>
@@ -1038,7 +1036,7 @@
    </LINK>
    <LINK srcnodeid="19" srcpinname="Y Output Value" dstnodeid="6" dstpinname="fader2">
    </LINK>
-   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="6" dstpinname="Message Formular">
+   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="6" dstpinname="Formular">
    </LINK>
    <LINK srcnodeid="14" srcpinname="Output String" dstnodeid="6" dstpinname="Topic">
    </LINK>
@@ -1051,8 +1049,6 @@
    <LINK srcnodeid="6" srcpinname="Output" dstnodeid="57" dstpinname="Input Node">
    </LINK>
    <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Update">
-   </LINK>
-   <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="6" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="64">
    <BOUNDS type="Box" left="4725" top="14415" width="300" height="330">
@@ -1128,7 +1124,7 @@
    </NODE>
    <LINK srcnodeid="67" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Force">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InABox" id="69">
    <BOUNDS type="Node" left="33915" top="48765" width="100" height="100">
@@ -1142,6 +1138,10 @@
    <PIN pinname="Force" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="MyColor" visible="1" slicecount="1" values="|0.00000,0.25676,0.98148,1.00000|">
    </PIN>
    </NODE>
    <NODE id="68" systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
@@ -1173,7 +1173,7 @@
    </PIN>
    </NODE>
    <NODE systemname="HoldKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="HoldKeep (Message)" componentmode="Hidden" id="76">
-   <BOUNDS type="Node" left="570" top="18615" width="100" height="100">
+   <BOUNDS type="Node" left="600" top="18930" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1192,6 +1192,8 @@
    <PIN pinname="Input" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Force" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="78">
@@ -1216,6 +1218,8 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="GreenColor">
+   </PIN>
+   <PIN pinname="Color Output" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="80">
@@ -1303,7 +1307,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4410" top="21600" width="1815" height="1110">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|using this as an outside windoe is usually more helpful. Highlight it and press Alt+1 to undock it|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|using this as an outside window is usually more helpful. Highlight it and press Alt+1 to undock it|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>

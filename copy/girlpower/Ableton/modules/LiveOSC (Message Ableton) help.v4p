@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="105" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
@@ -207,7 +207,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Message Formular" slicecount="1" visible="1" values="LiveOSC.Clip">
+   <PIN pinname="Formular" visible="1">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int TrackId, int ClipId, string Name|">
    </PIN>
@@ -221,8 +221,6 @@
    </PIN>
    <BOUNDS type="Box" left="4530" top="5940">
    </BOUNDS>
-   <PIN pinname="Formular" visible="1">
-   </PIN>
    </NODE>
    <NODE systemname="Text (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.Text.dll" nodename="Text (DX11.Layer)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="5070" top="9450" width="4995" height="270">
@@ -249,7 +247,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4245" top="11550" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="11850" top="2235" width="7545" height="5085">
+   <BOUNDS type="Window" left="19605" top="2700" width="7545" height="5085">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -457,7 +455,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input 2" slicecount="1" values="2.1" visible="1">
+   <PIN pinname="Input 2" slicecount="1" visible="1" values="2.1">
    </PIN>
    </NODE>
    <LINK srcnodeid="31" srcpinname="TrackId" dstnodeid="15" dstpinname="Input 1" linkstyle="Bezier">
@@ -744,7 +742,7 @@
    <PIN pinname="Output Enum" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="44" srcpinname="Output Enum" dstnodeid="31" dstpinname="Message Formular">
+   <LINK srcnodeid="44" srcpinname="Output Enum" dstnodeid="31" dstpinname="Formular">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="45" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="675" top="7110" width="795" height="240">
@@ -831,7 +829,7 @@
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="51">
    <BOUNDS type="Node" left="1260" top="9630" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="LiveOSC.Clip">
+   <PIN pinname="Formular" slicecount="1" values="LiveOSC.Clip">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|int Play|">
    </PIN>
@@ -866,9 +864,7 @@
    </NODE>
    <LINK srcnodeid="52" srcpinname="Y Output Value" dstnodeid="51" dstpinname="Play">
    </LINK>
-   <LINK srcnodeid="44" srcpinname="Output Enum" dstnodeid="31" dstpinname="Formular">
-   </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="54">
    <BOUNDS type="Node" left="9270" top="8955" width="100" height="100">

@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
    <BOUNDS type="Window" left="0" top="0" width="2850" height="8895">
    </BOUNDS>
@@ -23,7 +23,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="1035" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="02_Formular" filename="101\02_Formular.v4p" componentmode="InAWindow" id="371" nodename="101\02_Formular.v4p">
@@ -31,7 +31,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="1545" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="03_Datatypes" filename="101\03_Datatypes.v4p" componentmode="InAWindow" id="372" nodename="101\03_Datatypes.v4p">
@@ -39,7 +39,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="2055" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="05_Info" filename="101\05_Info.v4p" componentmode="InAWindow" id="374" nodename="101\05_Info.v4p">
@@ -47,7 +47,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="3105" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="06_Field_Access" filename="101\06_Field_Access.v4p" componentmode="InAWindow" id="378" nodename="101\06_Field_Access.v4p">
@@ -55,13 +55,13 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="3585" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="07_None_Wiring" filename="101\07_None_Wiring.v4p" nodename="101\07_None_Wiring.v4p" componentmode="InAWindow" id="387">
    <BOUNDS type="Node" left="510" top="4185" width="1365" height="270">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="4185">
    </BOUNDS>
@@ -71,7 +71,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="4725" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="09_Serialisation" filename="101\09_Serialisation.v4p" componentmode="InAWindow" id="389" nodename="101\09_Serialisation.v4p">
@@ -79,7 +79,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="5220" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="10_HD_Recording" filename="101\10_HD_Recording.v4p" componentmode="InAWindow" id="391" nodename="101\10_HD_Recording.v4p">
@@ -87,7 +87,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="5790" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="12_Essentials" filename="101\12_Essentials.v4p" componentmode="InAWindow" id="398" nodename="101\12_Essentials.v4p">
@@ -95,7 +95,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="6900" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
@@ -105,7 +105,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="6315" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
    <NODE systemname="Renderer (TTY)" filename="" nodename="Renderer (TTY)" componentmode="InAWindow" id="399">
@@ -145,7 +145,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1395" top="7305" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -155,6 +155,8 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="401" srcpinname="Y Output Value" dstnodeid="399" dstpinname="Log Messages">
    </LINK>
@@ -163,7 +165,9 @@
    </BOUNDS>
    <BOUNDS type="Box" left="510" top="2625" width="4800" height="3600">
    </BOUNDS>
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="8955">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
+   <PACK Name="vvvv-Message" Version="2.7.1">
+   </PACK>
    </PATCH>
