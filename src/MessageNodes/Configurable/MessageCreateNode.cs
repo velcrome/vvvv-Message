@@ -11,17 +11,14 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageCreateNode : TypeablePinsNode
     {
-#pragma warning disable 649, 169
         [Input("New", IsToggle = true, DefaultBoolean = true, Order = 0)]
-        ISpread<bool> FNew;
+        protected ISpread<bool> FNew;
 
         [Input("Topic", DefaultString = "Event", Order = 3)]
-        ISpread<string> FTopic;
+        protected ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]
-        ISpread<Message> FOutput;
-
-#pragma warning restore
+        protected ISpread<Message> FOutput;
 
         protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {

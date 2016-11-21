@@ -59,7 +59,7 @@ namespace VVVV.Packs.Messaging.Nodes
             if (newConfig != FConfig[0]) FConfig[0] = newConfig; // first frame or user mistake will not reconfigure
         }
 
-       protected void OnConfigChange(IDiffSpread<string> configSpread)
+       protected virtual void OnConfigChange(IDiffSpread<string> configSpread)
         {
             var formular = new MessageFormular(MessageFormular.DYNAMIC, configSpread[0] ?? "string Value");
             if (formular.FieldNames.Count() < 1) return;
