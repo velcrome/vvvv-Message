@@ -13,8 +13,8 @@ using FeralTic.DX11;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads one attribute of arbitrary Type", Version="Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
-    public class MessageReadNode : TypeablePinNode, IDX11ResourceDataRetriever
+    [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Version = "Advanced", Help = "Reads one attribute of arbitrary Type with Killer options.", Tags = "Formular, Bin", Author = "velcrome")]
+    public class MessageReadAdvancedNode : TypeablePinNode, IDX11ResourceDataRetriever
     {
         protected IIOContainer FAvoidNil;
 

@@ -9,16 +9,11 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads one attribute of arbitrary Type", Version="Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
+    [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types.", Tags = "Typeable, Field", Author = "velcrome")]
     public class MessageReadNode : TypeablePinNode
     {
-        [Input("AvoidNil", IsSingle = true, IsToggle = true, DefaultBoolean = true, Order = 3)]
-        protected IDiffSpread<bool> FAvoidNil;
-
         [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
-
-
 
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
@@ -27,15 +22,13 @@ namespace VVVV.Packs.Messaging.Nodes
             attr.Order = 1;
             attr.BinOrder = 3;
             attr.AutoFlush = false;  // need to sync all pins manually
-
             return attr;
         }
-
         
         public override void Evaluate(int SpreadMax)
         {
 
-            if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged && !FAvoidNil.IsChanged) return;
+            if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged) return;
 
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             if (SpreadMax == 0)
@@ -43,18 +36,14 @@ namespace VVVV.Packs.Messaging.Nodes
                 if (FOutput.SliceCount > 0) // zero inputs -> zero outputs.
                 {
                     FOutput.FlushNil();
-
                     FBinSize.SliceCount = 1;
                     FBinSize[0] = 0;
                     FBinSize.Flush();
-
                     FValue.ToISpread().FlushNil();
-
                     return;
                 }
                 else return; // already zero'ed
             }
-
             FOutput.FlushResult(FInput);
 
             var keyCount = FKey.SliceCount;
@@ -71,24 +60,13 @@ namespace VVVV.Packs.Messaging.Nodes
                 var index = 0;
                 foreach (var key in FKey)
                 {
-                    var type = TargetDynamicType;
-
                     var output = (input[i*keyCount + index] as ISpread);
-                    output.SliceCount = 0;
 
-                    if (!message.Fields.Contains(key))
-                    {
-                        if (!FAvoidNil.IsAnyInvalid() && FAvoidNil[0])
-                        {
-                            output.SliceCount = 1;
-                            output[0] = TypeIdentity.Instance[type].Default();
-                        }
-                    }
-                    else
+                    output.SliceCount = 0;
+                    if (message.Fields.Contains(key))
                     {
                         var inputBin = message[key];
-
-                        if (type.IsAssignableFrom(inputBin.GetInnerType()))
+                        if (TargetDynamicType.IsAssignableFrom(inputBin.GetInnerType()))
                         {
                             output.SliceCount = inputBin.Count;
                             for (int j = 0; j < inputBin.Count; j++)
@@ -96,16 +74,13 @@ namespace VVVV.Packs.Messaging.Nodes
                         }
                         else // will throw Exception, if Conversion is not possible
                         {
-                            
                             output.SliceCount = inputBin.Count;
                             for (int j = 0; j < inputBin.Count; j++)
-                                output[j] = Convert.ChangeType(inputBin[j], type, CultureInfo.InvariantCulture);
+                                output[j] = Convert.ChangeType(inputBin[j], TargetDynamicType, CultureInfo.InvariantCulture);
                         }
-
                     }
-                    count += output.SliceCount;
-                    index ++;
-                        
+                    count += output.SliceCount; 
+                    index ++; // next field within Message
                 }
                 FBinSize[i] = count;
             }
