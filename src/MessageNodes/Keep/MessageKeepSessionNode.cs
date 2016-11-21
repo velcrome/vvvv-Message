@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "SessionKeep",
         Category = "Message",
-        Version = "Typeable", 
+        Version = "Formular", 
         AutoEvaluate = true,
         Help = "Stores Messages according to their id (which can be its Topic and/or specific fields) and removes them, if no change was detected for a certain time",
         Author = "velcrome")]

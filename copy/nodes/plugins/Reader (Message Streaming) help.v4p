@@ -99,7 +99,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2760" top="4830" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -203,7 +203,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="330" top="570" width="6375" height="705">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|Reader (Message Stream)|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Reader (Message Streaming)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -247,11 +247,11 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="71">
-   <BOUNDS type="Node" left="6945" top="8445" width="100" height="100">
+   <BOUNDS type="Node" left="6975" top="3060" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="6945" top="8445" width="2400" height="1800">
+   <BOUNDS type="Box" left="6975" top="3060" width="2400" height="1800">
    </BOUNDS>
-   <BOUNDS type="Window" left="18855" top="8340" width="6240" height="5085">
+   <BOUNDS type="Window" left="14295" top="3990" width="6240" height="5085">
    </BOUNDS>
    <PIN pinname="Clear" visible="1">
    </PIN>
@@ -307,9 +307,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="74">
-   <BOUNDS type="Box" left="7125" top="7770" width="480" height="480">
+   <BOUNDS type="Box" left="7155" top="2385" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="7125" top="7770" width="0" height="0">
+   <BOUNDS type="Node" left="7155" top="2385" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -366,4 +366,20 @@
    </LINK>
    <LINK srcnodeid="77" srcpinname="Output" dstnodeid="46" dstpinname="Input">
    </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="78">
+   <BOUNDS type="Node" left="6900" top="8010" width="4575" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6900" top="8010" width="2595" height="1380">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|An expanded version of this could prefetch a number of Messages, inspect their TimeStamp, and only move out the ones &quot;who&apos;s time has arrived&quot;.&cr;&lf;Check vvvv-Time|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Show SliceIndex" slicecount="1" values="0">
+   </PIN>
+   </NODE>
    </PATCH>

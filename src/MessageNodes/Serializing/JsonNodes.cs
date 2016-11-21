@@ -1,15 +1,15 @@
 using System.ComponentModel.Composition;
-using Newtonsoft.Json;
-using VVVV.Core.Logging;
-using VVVV.Packs.Messaging;
 using VVVV.PluginInterfaces.V2;
+using VVVV.Core.Logging;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
 
         #region PluginInfo
-        [PluginInfo(Name = "AsJson", Category = "Message", Help = "Filter Messages", Tags = "string", Author = "velcrome")]
+        [PluginInfo(Name = "AsString", Category = "Message", Version="Json", Help = "Encode Messages into Json. Will used custom typed fields where applicable.", Author = "velcrome")]
         #endregion PluginInfo
         public class MessageAsJsonStringNode : IPluginEvaluate
         {
@@ -49,20 +49,18 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
         }
 
         #region PluginInfo
-        [PluginInfo(Name = "AsMessage", Category = "string", Help = "Filter Messages", Tags = "JSON", Author= "velcrome")]
+        [PluginInfo(Name = "FromString", Category = "Message", Version ="Json", Help = "Decode almost any Json to Messages", Tags = "string", Author= "velcrome")]
         #endregion PluginInfo
         public class JsonStringAsMessageNode : IPluginEvaluate
         {
-            #pragma warning disable 649, 169
             [Input("Input")]
-            IDiffSpread<string> FInput;
+            protected IDiffSpread<string> FInput;
 
             [Output("Message", AutoFlush = false)]
-            ISpread<Message> FOutput;
+            protected ISpread<Message> FOutput;
 
             [Import()]
             protected ILogger FLogger;
-            #pragma warning restore
 
             public void Evaluate(int SpreadMax)
             {
@@ -72,7 +70,6 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                 FOutput.SliceCount = 0;
 
                 var settings = new JsonSerializerSettings();
-
 
                 for (int i = 0; i < SpreadMax; i++)
                 {
@@ -88,10 +85,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
                     {
                         FOutput.Add((result as JObject).ToObject<Message>());
                     }
-
-
                 }
-
                 FOutput.Flush();
             }
         }

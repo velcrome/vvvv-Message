@@ -10,7 +10,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
     #region PluginInfo
-    [PluginInfo(Name = "AsMsgPack", Category = "Message.Raw", Help = "Serialize Messages to binary", Tags = "Stream", Author = "velcrome")]
+    [PluginInfo(Name = "AsMsgPack", Category = "Message", Version ="Raw", Help = "Serialize Messages to binary", Tags = "Stream", Author = "velcrome")]
     #endregion PluginInfo
     public class MsgPackSerializeNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
@@ -53,7 +53,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "FromMsgPack", Category = "Message.Raw", Help = "Convert Messages", Tags = "Stream", Author = "velcrome")]
+    [PluginInfo(Name = "FromMsgPack", Category = "Message", Version ="Raw", Help = "Convert Messages", Tags = "Stream", Author = "velcrome")]
     #endregion PluginInfo
     public class MsgPackAsMessageNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {

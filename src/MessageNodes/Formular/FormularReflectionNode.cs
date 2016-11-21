@@ -6,13 +6,12 @@ namespace VVVV.Packs.Messaging.Nodes
 {
 
     #region PluginInfo
-    [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Message", Help = "Outputs the current configuration of a Formular", Tags = "Formular", Author =  "velcrome")]
+    [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Message", Help = "Outputs the current configuration of a Formular", Version = "Formular", Author =  "velcrome")]
     #endregion PluginInfo
     public class FormularReflectionNode : AbstractFormularableNode, IPluginEvaluate
     {
-        #pragma warning disable 649, 169
         [Output("Field Type", AutoFlush=false)]
-        ISpread<string> FFieldType;
+        protected ISpread<string> FFieldType;
 
         [Output("Bin Definition", AutoFlush = false)]
         public ISpread<string> FBinDef;
@@ -22,7 +21,6 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Output("Field", AutoFlush = false)]
         public ISpread<ISpread<string>> FFieldName;
-        #pragma warning restore
 
         private bool _changed = true;
 

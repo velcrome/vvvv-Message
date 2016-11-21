@@ -1,18 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using VVVV.Nodes;
-using VVVV.Packs.Messaging;
-using VVVV.Packs.Messaging.Serializing;
+using System.Linq;
+
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
-using System.Linq;
-using System.ComponentModel.Composition;
+
+using VVVV.Packs.Messaging.Serializing;
 
 namespace VVVV.Packs.Messaging.Nodes.Serializing
 {
     #region PluginInfo
-    [PluginInfo(Name = "AsOscBundle", Category = "Message", Help = "Outputs OSC Bundle Streams", Tags = "Raw", Author = "velcrome")]
+    [PluginInfo(Name = "AsOscBundle", Category = "Message", Version = "Raw", Help = "Outputs OSC Bundle Streams", Tags ="Stream", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageAsOscBundleNode : IPluginEvaluate
     {
@@ -41,7 +39,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "AsOscMessage", Category = "Message", Help = "Outputs OSC Message Streams", Tags = "Raw", Author = "velcrome")]
+    [PluginInfo(Name = "AsOscMessage", Category = "Message", Version="Formular", Help = "Outputs OSC Message Streams", Tags = "Stream, Raw", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageAsOscMessageNode : AbstractFieldSelectionNode, IPluginEvaluate
     {
@@ -77,26 +75,24 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
 
 
     #region PluginInfo
-    [PluginInfo(Name = "FromOsc", Category = "Message", Version ="Raw", Help = "Converts single OSC Messages into Messages ", Tags = "OSC", Author = "velcrome")]
+    [PluginInfo(Name = "FromOsc", Category = "Message", Version ="Raw", Help = "Converts varied OSC into Messages ", Tags = "OSC", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageFromOscNode : IPluginEvaluate
     {
-        #pragma warning disable 649, 169
         [Input("OSC")]
-        IDiffSpread<Stream> FInput;
+        protected IDiffSpread<Stream> FInput;
 
         [Input("Additional Topic", DefaultString = "", IsSingle = true)]
-        IDiffSpread<string> FTopicAdd;
+        protected IDiffSpread<string> FTopicAdd;
 
         [Input("Contract Topic Parts", DefaultValue = 1, IsSingle = true, MinValue = 1)]
-        IDiffSpread<int> FContract;
+        protected IDiffSpread<int> FContract;
 
         [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
-        IDiffSpread<bool> FExtendedMode;
+        protected IDiffSpread<bool> FExtendedMode;
 
         [Output("Output", AutoFlush = false)]
-        ISpread<Message> FOutput;
-        #pragma warning restore
+        protected ISpread<Message> FOutput;
 
         public void Evaluate(int SpreadMax)
         {
@@ -126,32 +122,29 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "FromOscMessage", Category = "Message", Version = "Raw", Help = "Converts OSC Bundles into Messages ", Tags = "OSC", Author = "velcrome")]
+    [PluginInfo(Name = "FromOscMessage", Category = "Message", Version = "Formular", Help = "Converts OSC Bundles into Messages ", Tags = "OSC, Raw", Author = "velcrome")]
     #endregion PluginInfo
     public class MessageFromOscMessageNode : AbstractFieldSelectionNode
     {
-#pragma warning disable 649, 169
         [Input("OSC")]
-        IDiffSpread<Stream> FInput;
+        protected IDiffSpread<Stream> FInput;
 
         [Input("Topic", DefaultString = "")]
-        IDiffSpread<string> FTopic;
+        protected IDiffSpread<string> FTopic;
 
         [Input("ExtendedMode", IsSingle = true, IsToggle = true, DefaultBoolean = true, BinVisibility = PinVisibility.OnlyInspector)]
-        IDiffSpread<bool> FExtendedMode;
+        protected IDiffSpread<bool> FExtendedMode;
 
         [Output("Output", AutoFlush = false)]
-        ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
         [Output("Match Index", AutoFlush = false)]
-        Pin<int> FMatch;
+        protected Pin<int> FMatch;
 
         [Output("Success", AutoFlush = false)]
-        Pin<bool> FSuccess;
+        protected Pin<bool> FSuccess;
 
-        Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser;
-
-#pragma warning restore
+        protected Dictionary<string, IEnumerable<FormularFieldDescriptor>> Parser;
 
         public override void Evaluate(int SpreadMax)
         {

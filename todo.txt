@@ -4,7 +4,8 @@ Features accomplished
 - less Gui windows
 - AutoSense should be called Force, and polarity reverse (breaking change?!)
 - formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
-- split should have a verbose toggle
+- [Split] should have a verbose toggle
+- [ConfigKeep] BinSize of 0 on first slice somehow affects all other nodes. Should maybe also delete 
 
 Features Wanted
 - vl version (message core only, best done by tonfilms xml, not attributes)
@@ -18,8 +19,6 @@ Usability
 - Split should have Verbose pin
 
 Bugs
- - [ConfigKeep] Glitch with sweeping, when only Topic was changed
- - [ConfigKeep] BinSize of 0 on first slice somehow affects all other nodes. Should maybe also delete 
  - [Read] AvoidNil is crap. More useful: swapdim 
 
 Treatments

@@ -55,16 +55,15 @@
     <NODE old="Safe (Message.Keep)" new="SafeKeep (Message)"> </NODE>
     <NODE old="Session (Message.Keep)" new="SessionKeep (Message)"> </NODE>
     <NODE old="Change (Message.Spread)" new="Change (Message)"> </NODE>
-    <NODE old="Sort (Message Formular)" new="Sort (Message)"> </NODE>
-    <NODE old="Default (Message Formular)" new="Default (Message)"> 
+    <NODE old="Default (Message Formular)" new="Default (Message Formular)"> 
     	<PIN old="Spread Count Per Formular" new="Spread Count" />
     </NODE>
   </PATCH>
   <PATCH version="2.7.0">
-    <NODE old="AvoidNil (Message)" new="AvoidNil (Message)"> 
+    <NODE old="AvoidNil (Message Formular)" new="AvoidNil (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="Default (Message)" new="Default (Message)"> 
+    <NODE old="Default (Message Formular)" new="Default (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
     <NODE old="Reflection (Message)" new="Reflection (Message)"> 
@@ -76,29 +75,49 @@
     <NODE old="SafeKeep (Message)" new="SafeKeep (Message)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="SessionKeep (Message)" new="SessionKeep (Message)"> 
+    <NODE old="SessionKeep (Message Typeable)" new="SessionKeep (Message Typeable)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="ConfigKeep (Message)" new="ConfigKeep (Message)"> 
+    <NODE old="ConfigKeep (Message Formular)" new="ConfigKeep (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
     <NODE old="AsOscMessage (Message)" new="AsOscMessage (Message)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="FromOscMessage (Message)" new="FromOscMessage (Message)"> 
+    <NODE old="FromOscMessage (Message Raw)" new="FromOscMessage (Message Raw)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="Sort (Message)" new="Sort (Message)"> 
+    <NODE old="Sort (Message Formular)" new="Sort (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="Create (Message)" new="Create (Message)"> 
+    <NODE old="Create (Message Formular)" new="Create (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="Edit (Message)" new="Edit (Message)"> 
+    <NODE old="Edit (Message Formular)" new="Edit (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
     </NODE>
-    <NODE old="Split (Message)" new="Split (Message)"> 
+    <NODE old="Split (Message Formular)" new="Split (Message Formular)"> 
       <PIN old="Message Formular" new="Formular"></PIN>
+    </NODE>
+  </PATCH>
+  <PATCH version="2.7.1">
+    <NODE old="SessionKeep (Message Typeable)" new="SessionKeep (Message Formular)"> 
+    </NODE>
+    <NODE old="AsMsgPack (Message.Raw)" new="AsMsgPack (Message Raw)"> 
+    </NODE>    
+    <NODE old="FromMsgPack (Message.Raw)" new="FromMsgPack (Message Raw)"> 
+    </NODE>
+    <NODE old="AsOscBundle (Message)" new="AsOscBundle (Message Raw)"> 
+    </NODE>
+    <NODE old="AsOscMessage (Message)" new="AsOscMessage (Message Formular)"> 
+    </NODE>
+    <NODE old="FromOscMessage (Message Raw)" new="FromOscMessage (Message Formular)"> 
+    </NODE>
+    <NODE old="Reflection (Message)" new="Reflection (Message Formular)"> 
+    </NODE>
+    <NODE old="AsJson (Message)" new="AsString (Message Json)"> 
+    </NODE>
+    <NODE old="AsMessage (string)" new="FromString (Message Json)"> 
     </NODE>
   </PATCH>
 </CONVVVVERTER>
