@@ -6,6 +6,7 @@ Features accomplished
 - formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
 - [Split] should have a verbose toggle
 - [ConfigKeep] BinSize of 0 on first slice somehow affects all other nodes. Should maybe also delete 
+- Reader (Message Stream) should not output Messages when reading is off. AutoReset at EOF is dull too. Count of -1 should read all (Min=-1)
 
 Features Wanted
 - vl version (message core only, best done by tonfilms xml, not attributes)
@@ -15,10 +16,6 @@ Features Wanted
  - pin order fully deterministic
 
 Usability
-- Reader (Message Stream) should not output Messages when reading is off. AutoReset at EOF is dull too. Count of -1 should read all (Min=-1)
-- Split should have Verbose pin
-
-Bugs
  - [Read] AvoidNil is crap. More useful: swapdim 
 
 Treatments
