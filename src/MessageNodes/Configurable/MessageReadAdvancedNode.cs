@@ -13,8 +13,14 @@ using FeralTic.DX11;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads one attribute of arbitrary Type", Version="Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
-    public class MessageReadNode : TypeablePinNode, IDX11ResourceDataRetriever
+    [PluginInfo(Name = "Read", 
+        AutoEvaluate = true, 
+        Category = "Message", 
+        Version = "Advanced", 
+        Help = "Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types. Features fully spreaded AvoidNil capabilities, and a handy Swapdim Flip", 
+        Tags = "Formular, Bin", 
+        Author = "velcrome")]
+    public class MessageReadAdvancedNode : TypeablePinNode, IDX11ResourceDataRetriever
     {
         protected IIOContainer FAvoidNil;
 

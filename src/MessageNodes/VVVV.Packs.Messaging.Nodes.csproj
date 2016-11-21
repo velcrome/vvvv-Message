@@ -100,6 +100,7 @@
     <Compile Include="Keep\Abstract\AbstractMessageKeepNode.cs" />
     <Compile Include="Keep\MessageKeepSafe.cs" />
     <Compile Include="Configurable\MessageAvoidNilNode.cs" />
+    <Compile Include="Configurable\MessageReadNode.cs" />
     <Compile Include="Serializing\MsgPackNodes.cs" />
     <Compile Include="SpreadUtils.cs" />
     <Compile Include="Spread\MessageCommonNode.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="Spread\MessageSiftNode.cs" />
     <Compile Include="Keep\Abstract\TypableMessageKeepNode.cs" />
     <Compile Include="Configurable\MessageSplitNode.cs" />
-    <Compile Include="Configurable\MessageReadNode.cs" />
+    <Compile Include="Configurable\MessageReadAdvancedNode.cs" />
     <Compile Include="Keep\MessageKeepSessionNode.cs" />
     <Compile Include="Serializing\JsonNodes.cs" />
     <Compile Include="Serializing\OSCNodes.cs" />

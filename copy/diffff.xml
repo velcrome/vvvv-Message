@@ -119,6 +119,8 @@
     </NODE>
     <NODE old="AsMessage (string)" new="FromString (Message Json)"> 
     </NODE>
+    <NODE old="Read (Message Dynamic)" new="Read (Message)"> 
+    </NODE>
   </PATCH>
 </CONVVVVERTER>
 
