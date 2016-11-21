@@ -156,18 +156,16 @@ namespace VVVV.Packs.Messaging {
                 if (gen == null || gen.Count() != 1)
                 {
                     var tmp = values.Cast<object>(); // throws ArgumentNullException and InvalidCastException.
-
                     if (tmp.Count() == 0) throw new EmptyBinException("Cannot add an empty bin without information about its type. Consider adding type information to AssignFrom()");
 
                     var obj = tmp.FirstOrDefault();
-
                     if (obj == null) throw new ArgumentNullException("Cannot assign null to a new Bin.");
                     type = obj.GetType();
                 }
                 else type = values.GetType().GenericTypeArguments[0];
             }
 
-            type = TypeIdentity.Instance.FindBaseType(type).Type; // break it down.
+            type = TypeIdentity.Instance.FindBaseType(type)?.Type; // break it down.
             if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + fieldName + "] failed, type is not supported: " + this.Topic);
 
             // replace if type does not match
