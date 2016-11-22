@@ -18,18 +18,19 @@ namespace VVVV.Packs.Messaging
         CloneBehaviour CloneMethod { get; }
         Func<object, object> CustomClone { get;  }
         Func<object> Default { get; set; }
-
     }
 
-    public class TypeRecord<T> : TypeRecord
+    public struct TypeRecord<T> : TypeRecord
     {
-        public TypeRecord(string alias, CloneBehaviour cloning, Func<object> newDefault = null)
+        public TypeRecord(string alias, CloneBehaviour cloning, Func<object> newDefault = null, Func<object, object> customClone = null)
         {
             Alias = alias;
             CloneMethod = cloning;
 
             if (newDefault == null) newDefault = () => null;
             Default = newDefault;
+
+            CustomClone = customClone;
         }
 
         public string Alias { get; private set; }
@@ -45,11 +46,6 @@ namespace VVVV.Packs.Messaging
         }
 
         public Func<object> Default { get; set; }
-
-        public Func<object, object> CustomClone
-        {
-            get;
-            set;
-        }
+        public Func<object, object> CustomClone { get; set; }
     }
 }

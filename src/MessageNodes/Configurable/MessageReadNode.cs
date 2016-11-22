@@ -6,14 +6,20 @@ using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
+using VVVV.DX11;
+using System.ComponentModel.Composition;
+using FeralTic.DX11;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types.", Tags = "Typeable, Field", Author = "velcrome")]
-    public class MessageReadNode : TypeablePinNode
+    public class MessageReadNode : TypeablePinNode, IDX11ResourceDataRetriever
     {
         [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
+
+        [Import()]
+        protected IPluginHost FHost;
 
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
@@ -27,6 +33,7 @@ namespace VVVV.Packs.Messaging.Nodes
         
         public override void Evaluate(int SpreadMax)
         {
+            InitDX11Graph();
 
             if (!FInput.IsChanged && !FConfig.IsChanged && !FKey.IsChanged) return;
 
@@ -88,6 +95,21 @@ namespace VVVV.Packs.Messaging.Nodes
             input.Flush();
             FBinSize.Flush();
         }
+
+        #region dx11
+        public DX11RenderContext AssignedContext
+        {
+            get;
+            set;
+        }
+
+        public event DX11RenderRequestDelegate RenderRequest;
+
+        protected void InitDX11Graph()
+        {
+            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
+        }
+        #endregion dx11
 
     }
 

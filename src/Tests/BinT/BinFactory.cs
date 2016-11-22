@@ -16,7 +16,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinCreationEmpty()
         {
-            new VVVVProfile().Register(TypeIdentity.Instance);
+            var init = TypeIdentity.Instance;
 
             Bin bin;
 
@@ -52,7 +52,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinCreationSingle()
         {
-            new VVVVProfile().Register(TypeIdentity.Instance);
+            var init = TypeIdentity.Instance;
 
             Bin bin;
 
@@ -91,7 +91,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinCreationMultiple()
         {
-            new VVVVProfile().Register(TypeIdentity.Instance);
+            var init = TypeIdentity.Instance;
 
             Bin bin;
 

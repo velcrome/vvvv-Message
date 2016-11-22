@@ -140,7 +140,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinAddSingle()
         {
-            new VVVVProfile().Register(TypeIdentity.Instance);
+            var init = TypeIdentity.Instance;
 
             AddSingle<bool>(true);
             AddSingle<int>(1);
@@ -196,7 +196,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void FailAddSingle()
         {
-            new VVVVProfile().Register(TypeIdentity.Instance);
+            var init = TypeIdentity.Instance;
 
             AddFail<bool>(true, "fail");
             AddFail<int>(42, "fail");
@@ -253,7 +253,7 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void NullAddSingle()
         {
-            new VVVVProfile().Register(TypeIdentity.Instance);
+            var init = TypeIdentity.Instance;
 
             AddNull<bool>(true);
             AddNull<int>(1);

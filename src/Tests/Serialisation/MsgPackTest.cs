@@ -97,7 +97,7 @@ public class MsgPackTest
     [TestMethod]
     public void SerializeExtended()
     {
-        new VVVVProfile().Register(TypeIdentity.Instance);
+        var init = TypeIdentity.Instance;
         var context = Setup();
 
         var orig = new Message("Test");
@@ -129,10 +129,9 @@ public class MsgPackTest
     [TestMethod]
     public void SerializeStreams()
     {
-        new VVVVProfile().Register(TypeIdentity.Instance);
+        var init = TypeIdentity.Instance;
 
         var context = Setup();
-
         var orig = new Message("Test");
 
         var ms = new MemoryStream(Encoding.ASCII.GetBytes("vvvv"));

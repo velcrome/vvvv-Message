@@ -7,43 +7,43 @@ using System.Reflection;
 
 namespace VVVV.Packs.Messaging
 {
-    public class BaseProfile : TypeIdentity
+    public interface TypeProfile
     {
-        public override void Register(TypeIdentity target = null)
-        {
-            if (target == null) target = this;
-
-
-            // This is the only place where you need to add new datatypes.
-            // type:alias is strictly 1:1 !
-            // no case-sensitivity, beware clashes.
-            // use of case is purely cosmetic, to reflect c# counterpart
-
-            // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
-            target.TryAddRecord(new TypeRecord<bool>("bool", CloneBehaviour.Assign, () => false));
-            target.TryAddRecord(new TypeRecord<int>("int", CloneBehaviour.Assign, () => 0));
-            target.TryAddRecord(new TypeRecord<double>("double", CloneBehaviour.Assign, () => 0.0d));
-            target.TryAddRecord(new TypeRecord<float>("float", CloneBehaviour.Assign, () => 0.0f));
-            target.TryAddRecord(new TypeRecord<string>("string", CloneBehaviour.Assign, () => "vvvv"));
-
-            var raw = new TypeRecord<Stream>("Raw", CloneBehaviour.Custom, () => new MemoryStream(new byte[] { 118, 118, 118, 118 })); // vvvv
-            raw.CustomClone = (original) =>
-            {
-                var stream = original as Stream;
-                stream.Seek(0, SeekOrigin.Begin);
-                var clone = new MemoryStream();
-                stream.CopyTo(clone);
-                return clone;
-            };
-            target.TryAddRecord(raw);
-
-            target.TryAddRecord(new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message()));
-            target.TryAddRecord(new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime())); // 1.1.0001 @ 0am
-        }
     }
 
+    public class BaseProfile : TypeProfile
+    {
+        // This is one of the places where you can add new datatypes.
+        // all classes implementing TypeProfile will be considered, when available for scanning.
+        // type:alias is strictly 1:1 !
+        // no case-sensitivity, no use for boxing anyway
+        // use of case is purely cosmetic, to reflect c# counterpart
 
-    public abstract class TypeIdentity : IReadOnlyDictionary<Type, TypeRecord>, IReadOnlyDictionary<string, TypeRecord>
+        // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
+        public TypeRecord<bool> @bool = new TypeRecord<bool>("bool", CloneBehaviour.Assign, () => false);
+        public TypeRecord<int> @int = new TypeRecord<int>("int", CloneBehaviour.Assign, () => 0);
+        public TypeRecord<double> @double = new TypeRecord<double>("double", CloneBehaviour.Assign, () => 0.0d);
+        public TypeRecord<float> @float = new TypeRecord<float>("float", CloneBehaviour.Assign, () => 0.0f);
+        public TypeRecord<string> @string = new TypeRecord<string>("string", CloneBehaviour.Assign, () => "vvvv");
+
+        public TypeRecord<Stream> Stream = new TypeRecord<Stream>(
+                "Raw", // alias
+                CloneBehaviour.Custom, () => new MemoryStream(new byte[] { 118, 118, 118, 118 }), // default = vvvv
+                (original) =>
+                {
+                    var stream = original as Stream;
+                    stream.Seek(0, SeekOrigin.Begin);
+                    var clone = new MemoryStream();
+                    stream.CopyTo(clone);
+                    return clone;
+                } // custom clone
+            );
+
+        public TypeRecord<Message> Mesage = new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message());
+        public TypeRecord<Time.Time> TimeStamp = new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime()); // 1.1.0001 @ 0am
+    }
+
+    public sealed class TypeIdentity : IReadOnlyDictionary<Type, TypeRecord>, IReadOnlyDictionary<string, TypeRecord>
     {
         private List<TypeRecord> Data = new List<TypeRecord>();
 
@@ -57,14 +57,15 @@ namespace VVVV.Packs.Messaging
             get {
                 if (_instance == null)
                 {
-                    _instance = new BaseProfile();
-                    _instance.Register();
-
+                    _instance = new TypeIdentity();
                     _instance.FetchAll();
                 }
                 return _instance;
             }
         }
+        #endregion Singleton
+
+        #region Scan Assemblies
 
         /// <summary>
         /// Scans all loaded assemblies for Profile classes extending TypeIdentity.
@@ -76,21 +77,36 @@ namespace VVVV.Packs.Messaging
 
             var profiles = from assembly in AppDomain.CurrentDomain.GetAssemblies()
                              from types in GetLoadableTypes(assembly)
-                             where types.IsSubclassOf(typeof(TypeIdentity))
-                             where types != typeof(BaseProfile)
+                             where types.IsSubclassOf(typeof(TypeProfile))
                              select types;
 
             foreach (var profileClass in profiles)
             {
-                var profile = Activator.CreateInstance(profileClass) as TypeIdentity;
-                profile.Register(Instance);
+                try
+                {
+                    var profile = Activator.CreateInstance(profileClass) as TypeIdentity; // all fields of the profile should be fully initialized 
+                    var type = profile.GetType();
+
+//                    var scan = type.FindMembers(MemberTypes.Property, BindingFlags.Instance, null);
+
+                    var infos = profile.GetType().GetProperties(BindingFlags.Instance).Where(declaration => declaration.PropertyType is TypeRecord);
+
+                    foreach (var propertyInfo in infos)
+                    {
+                        var name = propertyInfo.Name;
+                        var record = propertyInfo.GetValue(profile, null) as TypeRecord;
+                        if (record != null) TryAddRecord(record);
+                    }
+                }
+                catch (Exception)
+                {
+                    // no way to log from here :(
+                    // catch, so vvvv startup cycle does not freak out
+                }
             }
-
-
-
         }
 
-        public IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+        private IEnumerable<Type> GetLoadableTypes(Assembly assembly)
         {
             if (assembly == null) return Enumerable.Empty<Type>();
             try
@@ -103,12 +119,15 @@ namespace VVVV.Packs.Messaging
             }
 
         }
-        #endregion Singleton
+        #endregion Scan Assemblies
 
         #region append fields
-        public abstract void Register(TypeIdentity target = null);
-
-        public bool TryAddRecord(TypeRecord newRecord)
+        /// <summary>
+        /// This allows late additions of Records. Nonetheless, it should be used in subclasses constructors for alternative initialization.
+        /// </summary>
+        /// <param name="newRecord"></param>
+        /// <returns>success, when the record type is now available across the application.</returns>
+        protected bool TryAddRecord(TypeRecord newRecord)
         {
             if (newRecord == null) return false;
             if (Data.Contains(newRecord)) return false;
