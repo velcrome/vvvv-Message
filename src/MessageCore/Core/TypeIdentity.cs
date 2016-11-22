@@ -76,29 +76,31 @@ namespace VVVV.Packs.Messaging
             //            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
 
             var profiles = from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                             from types in GetLoadableTypes(assembly)
-                             where types.IsSubclassOf(typeof(TypeProfile))
-                             select types;
+                             from candidate in GetLoadableTypes(assembly)
+                             where !candidate.IsInterface
+                             where typeof(TypeProfile).IsAssignableFrom(candidate)
+                             select candidate;
 
             foreach (var profileClass in profiles)
             {
                 try
                 {
-                    var profile = Activator.CreateInstance(profileClass) as TypeIdentity; // all fields of the profile should be fully initialized 
-                    var type = profile.GetType();
+                    var profile = Activator.CreateInstance(profileClass) as TypeProfile; // all fields of the profile should be fully initialized 
 
-//                    var scan = type.FindMembers(MemberTypes.Property, BindingFlags.Instance, null);
+                    var infos = profile.GetType().GetFields(BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public).Where(declaration => typeof(TypeRecord).IsAssignableFrom(declaration.FieldType));
 
-                    var infos = profile.GetType().GetProperties(BindingFlags.Instance).Where(declaration => declaration.PropertyType is TypeRecord);
-
-                    foreach (var propertyInfo in infos)
+                    foreach (var fieldInfo in infos)
                     {
-                        var name = propertyInfo.Name;
-                        var record = propertyInfo.GetValue(profile, null) as TypeRecord;
-                        if (record != null) TryAddRecord(record);
+                        var name = fieldInfo.Name;
+                        var record = fieldInfo.GetValue(profile) as TypeRecord;
+
+                        var success = false;
+                        if (record != null) success = TryAddRecord(record);
+
+                        if (!success) { } // freak out
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // no way to log from here :(
                     // catch, so vvvv startup cycle does not freak out
