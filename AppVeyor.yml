@@ -1,8 +1,9 @@
+version: 2.7.1.{build}
 configuration: Release
-
+platform: Any CPU
 before_build:
-  - nuget restore
-  
+- cmd: nuget restore
 build:
+  project: src/vvvv-Message.sln
   publish_wap: true
-  
+  verbosity: minimal
