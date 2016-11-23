@@ -18,6 +18,7 @@ namespace VVVV.Packs.Messaging
         // type:alias is strictly 1:1 !
         // no case-sensitivity, no use for boxing anyway
         // use of case is purely cosmetic, to reflect c# counterpart
+        // must mark the TypeRecord as public!
 
         // when adding new datatypes, make sure to have a serialisation ready in all core serializers.
         public TypeRecord<bool> @bool = new TypeRecord<bool>("bool", CloneBehaviour.Assign, () => false);
@@ -69,7 +70,7 @@ namespace VVVV.Packs.Messaging
 
         /// <summary>
         /// Scans all loaded assemblies for Profile classes extending TypeIdentity.
-        /// Will then proceed to call Register of each 
+        /// Will then proceed to attempt extracting and registering all public 
         /// </summary>
         private void FetchAll()
         {
@@ -125,11 +126,11 @@ namespace VVVV.Packs.Messaging
 
         #region append fields
         /// <summary>
-        /// This allows late additions of Records. Nonetheless, it should be used in subclasses constructors for alternative initialization.
+        /// This allows late additions of Records. Nonetheless, it could be used in subclasses constructors for alternative initialization.
         /// </summary>
         /// <param name="newRecord"></param>
         /// <returns>success, when the record type is now available across the application.</returns>
-        protected bool TryAddRecord(TypeRecord newRecord)
+        public bool TryAddRecord(TypeRecord newRecord)
         {
             if (newRecord == null) return false;
             if (Data.Contains(newRecord)) return false;
