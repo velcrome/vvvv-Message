@@ -51,7 +51,7 @@ build:
   publish_wap: true
   verbosity: minimal
 after_build:
-- ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$(nugetVersion)"
+- ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 test: off
 
 artifacts:
