@@ -1,0 +1,50 @@
+version: 2.7.2.{build}-alpha
+pull_requests:
+  do_not_increment_build_number: true
+configuration: Debug
+platform: Any CPU
+install:
+- cmd: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
+cache: packages -> **/src/packages
+nuget:
+  project_feed: true
+before_build:
+- cmd: nuget restore src/vvvv-Message.sln
+build:
+  project: src/vvvv-Message.sln
+  publish_wap: true
+  publish_nuget: true
+  publish_nuget_symbols: false
+  verbosity: minimal
+test: off
+artifacts:
+- path: build/$(platform)/$(configuration)
+  name: vvvv-Message
+  type: WebDeployPackage
+- path: build/$(platform)/$(configuration)/core/VVVV.Packs.Messaging.dll
+  name: dll
+- path: '**\*.nupkg'
+  name: Nuget
+deploy:
+- provider: GitHub
+  on: 
+  	branch: develop
+  description: Automatic Deployment powered by AppVeyor
+  auth_token:
+    secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
+  artifact: vvvv-Message, dll
+  prerelease: true
+- provider: GitHub
+  on: 
+  	branch: master
+  	appveyor_repo_tag: true
+  description: Automatic Deployment powered by AppVeyor
+  auth_token:
+    secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
+  artifact: vvvv-Message, dll
+  prerelease: false
+- provider: NuGet
+  api_key:
+    secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
+  skip_symbols: true
+  artifact: Nuget
