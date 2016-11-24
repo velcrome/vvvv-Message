@@ -4,31 +4,54 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
-version: 2.7.2.{build}-alpha
-pull_requests:
-  do_not_increment_build_number: true
+version: 2.8.3.{build}-alpha
+
+#nuget publish will fail if not Release
 configuration: Release
 platform: Any CPU
+
+environment:
+  packageVersion: 0.1.0
+
 branches:  
   only:
   - develop
+pull_requests:
+  do_not_increment_build_number: true
+
+init:
+- ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
+- ps: $env:nugetVersion = "$env:packageVersion-$env:appveyor_build_number-alpha"
+- ps: Update-AppveyorBuild -Version $env:buildVersion
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '$(buildVersion)'
+  assembly_file_version: '$(buildVersion)'
+  assembly_informational_version: '$(nugetVersion)'
+
 install:
 - cmd: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
+
 cache: 
 - src/packages -> **\packages.config
 - copy -> copy
 #- '%LocalAppData%\NuGet\Cache'
+
 nuget:
   project_feed: true
+
 before_build:
-- cmd: nuget restore src/vvvv-Message.sln -verbosity detailed
+- cmd: nuget restore src/vvvv-Message.sln -verbosity quiet
 build:
   project: src/vvvv-Message.sln
   publish_wap: true
-  verbosity: quiet
+  verbosity: minimal
 after_build:
-- ps: nuget pack src/MessageCore/SharpMessage.nuspec
+- ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 test: off
+
 artifacts:
 - path: build/AnyCPU/$(configuration)
   name: vvvv-Message
@@ -38,6 +61,7 @@ artifacts:
 - path: '**\SharpMessage*.nupkg'
   name: SharpMessage
   type: NuGetPackage
+
 deploy:
 - provider: GitHub
   draft: true
@@ -49,6 +73,7 @@ deploy:
   on:
     branch: develop                 # release from develop branch only
     appveyor_repo_tag: false        # deploy on tag push only
+
 - provider: NuGet
   api_key:
     secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
