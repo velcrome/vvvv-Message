@@ -23,9 +23,10 @@ pull_requests:
 init:
 - ps: $env:IsPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False) -or ($env:APPVEYOR_REPO_BRANCH -ne "master")
 - ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:nugetVersion = if (!$env.IsPrerelease) { "$env:buildVersion" } else { "$env:buildVersion-$env:APPVEYOR_REPO_BRANCH" }
+- ps: $env:nugetVersion = if ($env.IsPrerelease -eq $False) { "$env:buildVersion" } else { "$env:buildVersion-$env:APPVEYOR_REPO_BRANCH" }
 - ps: Update-AppveyorBuild -Version $env:buildVersion
 
+# patch all Assemblies to the current build number
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -33,6 +34,7 @@ assembly_info:
   assembly_file_version: '$(buildVersion)'
   assembly_informational_version: '$(nugetVersion)'
 
+#add custom nuget feed to allow vvvv alpha nugets
 install:
 - ps: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
 
@@ -65,6 +67,7 @@ artifacts:
   type: NuGetPackage
 
 deploy:
+
 - provider: GitHub
   draft: true
   description: Automatic Deployment powered by AppVeyor
@@ -75,6 +78,7 @@ deploy:
   on:
     branch: develop                 # release from develop branch only
     appveyor_repo_tag: true        # deploy on tag push only
+
 - provider: NuGet
   api_key:
     secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
