@@ -17,7 +17,7 @@ build:
   project: src/vvvv-Message.sln
   publish_wap: true
   publish_nuget: true
-  publish_nuget_symbols: false
+  publish_nuget_symbols: true
   verbosity: quiet
 test: off
 artifacts:
@@ -26,7 +26,7 @@ artifacts:
   type: WebDeployPackage
 - path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
-- path: '**\*.nupkg'
+- path: '**\SharpMessage*.nupkg'
   name: ShaprMessageNuget
   type: NuGetPackage
 deploy:
