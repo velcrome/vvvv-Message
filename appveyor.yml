@@ -25,9 +25,9 @@ before_build:
 build:
   project: src/vvvv-Message.sln
   publish_wap: true
-  publish_nuget: true
-  publish_nuget_symbols: true
-  verbosity: detailed
+  verbosity: quiet
+after_build:
+- ps: nuget pack src/MessageCore/SharpMessage.nuspec
 test: off
 artifacts:
 - path: build/AnyCPU/$(configuration)
@@ -35,8 +35,8 @@ artifacts:
   type: WebDeployPackage
 - path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
-- path: '*.nupkg'
-  name: SharpMessage.nupkg
+- path: '**\SharpMessage*.nupkg'
+  name: SharpMessage
   type: NuGetPackage
 deploy:
 - provider: GitHub
@@ -53,4 +53,4 @@ deploy:
   api_key:
     secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
   skip_symbols: true
-  artifact: SharpMessage.nupkg
+  artifact: SharpMessage

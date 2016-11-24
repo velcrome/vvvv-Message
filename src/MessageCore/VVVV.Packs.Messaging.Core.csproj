@@ -35,7 +35,8 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\build\AnyCPU\Release\core\VVVV.Packs.Messaging.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Core\BinList.cs" />
