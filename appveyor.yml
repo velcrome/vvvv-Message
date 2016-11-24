@@ -20,8 +20,8 @@ pull_requests:
 
 init:
 - ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:isPrerelease = ($env:APPVEYOR_REPO_TAG -eq $True);
-- ps: $env:nugetversion = if ($env:isPrerelease) { "$env:APPVEYOR_BUILD_VERSION" } else { "$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH" }
+- ps: $env:isPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False);
+- ps: $env:nugetVersion = if ($env:isPrerelease) { "$env:buildVersion" } else { "$env:buildVersion-$env:APPVEYOR_REPO_BRANCH" }
 - ps: Update-AppveyorBuild -Version $env:nugetVersion
 
 assembly_info:

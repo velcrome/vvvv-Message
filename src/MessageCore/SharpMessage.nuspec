@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpMessage</id>
-    <version>2.8.1</version>
+    <version>$version$</version>
     <authors>velcrome</authors>
     <licenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</licenseUrl>
     <projectUrl>https://github.com/velcrome/vvvv-Message</projectUrl>
