@@ -15,13 +15,13 @@ build:
   publish_wap: true
   publish_nuget: true
   publish_nuget_symbols: false
-  verbosity: minimal
+  verbosity: quiet
 test: off
 artifacts:
-- path: build/$(platform)/$(configuration)
+- path: build/AnyCPU/$(configuration)
   name: SharpMessage
   type: WebDeployPackage
-- path: build/$(platform)/$(configuration)/core/VVVV.Packs.Messaging.dll
+- path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
 - path: '**\src\MessageCore\*.nupkg'
   name: Nuget
