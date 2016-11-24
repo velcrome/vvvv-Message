@@ -15,8 +15,8 @@ branches:
 install:
 - cmd: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
 cache: 
-  - packages -> packages -> **\packages.config
-  - copy -> copy
+- packages -> **\packages.config
+- copy -> copy
 - '%LocalAppData%\NuGet\Cache'
 nuget:
   project_feed: true
