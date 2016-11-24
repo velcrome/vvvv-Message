@@ -61,7 +61,7 @@ build:
 after_build:
 - ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 
-test: off
+test: auto
 
 artifacts:
 - path: build/AnyCPU/$(configuration)
