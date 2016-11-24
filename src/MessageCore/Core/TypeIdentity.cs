@@ -40,7 +40,7 @@ namespace VVVV.Packs.Messaging
                 } // custom clone
             );
 
-        public TypeRecord<Message> Mesage = new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message());
+        public TypeRecord<Message> Message = new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message());
         public TypeRecord<Time.Time> TimeStamp = new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime()); // 1.1.0001 @ 0am
     }
 
