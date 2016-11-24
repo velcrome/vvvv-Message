@@ -19,7 +19,7 @@ build:
 test: off
 artifacts:
 - path: build/$(platform)/$(configuration)
-  name: vvvv-Message
+  name: SharpMessage
   type: WebDeployPackage
 - path: build/$(platform)/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
@@ -32,7 +32,8 @@ deploy:
   description: Automatic Deployment powered by AppVeyor
   auth_token:
     secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
-  artifact: vvvv-Message
+  artifact: SharpMessage
+  artifact: dll
   prerelease: true
   on:
     branch: develop                 # release from develop branch only
