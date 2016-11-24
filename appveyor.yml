@@ -32,8 +32,7 @@ deploy:
   description: Automatic Deployment powered by AppVeyor
   auth_token:
     secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
-  artifact: SharpMessage
-  artifact: dll
+  artifact: SharpMessage dll
   prerelease: true
   on:
     branch: develop                 # release from develop branch only
