@@ -29,3 +29,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
 [assembly: AssemblyVersion("2.8.*")]
+// This attribute is important as it is what is referenced for the $version$ part of the nuspec
+[assembly: AssemblyInformationalVersion( "2.8.4.0" ) ]

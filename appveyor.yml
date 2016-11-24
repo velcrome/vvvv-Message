@@ -4,26 +4,25 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
-version: 0.0.1
+version: 2.8.0
 
 #nuget publish will fail if not Release
 configuration: Release
 platform: Any CPU
-
-environment:
-# change here!
-  packageVersion: 2.8.3
+os: Visual Studio 2015
 
 branches:  
   only:
   - develop
+
 pull_requests:
   do_not_increment_build_number: true
 
 init:
 - ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:nugetVersion = "$env:packageVersion.$env:appveyor_build_number-alpha"
-- ps: Update-AppveyorBuild -Version $env:buildVersion
+- ps: $env:isPrerelease = ($env:APPVEYOR_REPO_TAG -eq $True);
+- ps: $env:nugetversion = if ($env:isPrerelease) { "$env:APPVEYOR_BUILD_VERSION" } else { "$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH" }
+- ps: Update-AppveyorBuild -Version $env:customnugetversion
 
 assembly_info:
   patch: true
@@ -66,14 +65,13 @@ artifacts:
 deploy:
 - provider: GitHub
   draft: true
+  prerelease: $env:isPrerelease;
   description: Automatic Deployment powered by AppVeyor
   auth_token:
     secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
   artifact: vvvv-Message dll
-  prerelease: true
   on:
     branch: develop                 # release from develop branch only
-    appveyor_repo_tag: false        # deploy on tag push only
 
 - provider: NuGet
   api_key:
