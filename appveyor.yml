@@ -7,7 +7,7 @@
 version: 2.7.2.{build}-alpha
 pull_requests:
   do_not_increment_build_number: true
-configuration: Debug
+configuration: Release
 platform: Any CPU
 branches:  
   only:
