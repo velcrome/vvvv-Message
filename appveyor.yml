@@ -21,7 +21,7 @@ pull_requests:
   do_not_increment_build_number: true
 
 init:
-- ps: $env:IsPrerelease = $env:APPVEYOR_REPO_TAG -eq $False
+- ps: $env:IsPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False) -or ($env:APPVEYOR_REPO_BRANCH -ne "master")
 - ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
 - ps: $env:nugetVersion = if (!$env.IsPrerelease) { "$env:buildVersion" } else { "$env:buildVersion-$env:APPVEYOR_REPO_BRANCH" }
 - ps: Update-AppveyorBuild -Version $env:buildVersion
@@ -51,7 +51,7 @@ build:
   publish_wap: true
   verbosity: minimal
 after_build:
-- ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
+- ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$(nugetVersion)"
 test: off
 
 artifacts:
@@ -71,13 +71,14 @@ deploy:
   auth_token:
     secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
   artifact: vvvv-Message dll
-  prerelease: true
+  prerelease: $(IsPrerelease)
   on:
     branch: develop                 # release from develop branch only
-    appveyor_repo_tag: false        # deploy on tag push only
-
+    appveyor_repo_tag: true        # deploy on tag push only
 - provider: NuGet
   api_key:
     secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
   skip_symbols: true
   artifact: SharpMessage
+  on:
+    appveyor_repo_tag: true        # deploy on tag push only
