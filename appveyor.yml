@@ -4,7 +4,7 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
-version: 2.8.0
+version: 0.{build}.0
 
 #nuget publish will fail if not Release
 configuration: Release
