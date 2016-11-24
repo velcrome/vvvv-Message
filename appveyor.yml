@@ -3,6 +3,9 @@ pull_requests:
   do_not_increment_build_number: true
 configuration: Debug
 platform: Any CPU
+branches:  
+  only:
+  - develop
 install:
 - cmd: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
 cache: packages -> **/src/packages
@@ -19,12 +22,12 @@ build:
 test: off
 artifacts:
 - path: build/AnyCPU/$(configuration)
-  name: SharpMessage
+  name: vvvv-Message
   type: WebDeployPackage
 - path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
-- path: '**\src\MessageCore\*.nupkg'
-  name: Nuget
+- path: 'src\MessageCore\SharpMessage.nupkg'
+  name: ShaprMessageNuget
   type: NuGetPackage
 deploy:
 - provider: GitHub
@@ -32,7 +35,7 @@ deploy:
   description: Automatic Deployment powered by AppVeyor
   auth_token:
     secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
-  artifact: SharpMessage dll
+  artifact: vvvv-Message dll
   prerelease: true
   on:
     branch: develop                 # release from develop branch only
@@ -41,4 +44,4 @@ deploy:
   api_key:
     secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
   skip_symbols: true
-  artifact: Nuget
+  artifact: SharpMessageNuget
