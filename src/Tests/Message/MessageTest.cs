@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using VVVV.DX11;
 
 namespace VVVV.Packs.Messaging.Tests
 {
