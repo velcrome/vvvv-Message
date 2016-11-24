@@ -4,32 +4,34 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
-version: 0.{build}.0
+version: 0.0.1
 
 #nuget publish will fail if not Release
 configuration: Release
 platform: Any CPU
-os: Visual Studio 2015
+
+environment:
+# change here!
+  packageVersion: 2.8.4
 
 branches:  
   only:
   - develop
-
 pull_requests:
   do_not_increment_build_number: true
 
 init:
+- ps: $env:IsPrerelease = $env:APPVEYOR_REPO_TAG -eq $False
 - ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:isPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False);
-- ps: $env:nugetVersion = if ($env:isPrerelease) { "$env:buildVersion" } else { "$env:buildVersion-$env:APPVEYOR_REPO_BRANCH" }
-- ps: Update-AppveyorBuild -Version $env:nugetVersion
+- ps: $env:nugetVersion = if (!$env.IsPrerelease) { "$env:APPVEYOR_BUILD_VERSION" } else { "$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH" }
+- ps: Update-AppveyorBuild -Version $env:buildVersion
 
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
-  assembly_version: '{$env:buildVersion}'
-  assembly_file_version: '{$env:buildVersion}'
-  assembly_informational_version: '{$env:buildVersion}'
+  assembly_version: '$(buildVersion)'
+  assembly_file_version: '$(buildVersion)'
+  assembly_informational_version: '$(nugetVersion)'
 
 install:
 - ps: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
@@ -65,13 +67,14 @@ artifacts:
 deploy:
 - provider: GitHub
   draft: true
-  prerelease: $env:isPrerelease;
   description: Automatic Deployment powered by AppVeyor
   auth_token:
     secure: GMMqt9Z8X4poG9NQFBGrbi4hiVnj5Qc1XIWmfl0rdqi8mJevjvECGKRlyIYy07aO
   artifact: vvvv-Message dll
+  prerelease: true
   on:
     branch: develop                 # release from develop branch only
+    appveyor_repo_tag: false        # deploy on tag push only
 
 - provider: NuGet
   api_key:
