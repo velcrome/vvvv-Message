@@ -26,7 +26,7 @@ artifacts:
   type: WebDeployPackage
 - path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
-- path: 'src\MessageCore\SharpMessage*.nupkg'
+- path: 'src\MessageCore\*.nupkg'
   name: ShaprMessageNuget
   type: NuGetPackage
 deploy:
