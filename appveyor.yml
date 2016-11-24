@@ -1,3 +1,9 @@
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
 version: 2.7.2.{build}-alpha
 pull_requests:
   do_not_increment_build_number: true
@@ -8,17 +14,20 @@ branches:
   - develop
 install:
 - cmd: nuget sources add -Name VVVV -Source http://vvvv.org:8111/guestAuth/app/nuget/v1/FeedService.svc/
-cache: packages -> **/src/packages
+cache: 
+  - packages -> packages -> **\packages.config
+  - copy -> copy
+- '%LocalAppData%\NuGet\Cache'
 nuget:
   project_feed: true
 before_build:
-- cmd: nuget restore src/vvvv-Message.sln
+- cmd: nuget restore src/vvvv-Message.sln -verbosity detailed
 build:
   project: src/vvvv-Message.sln
   publish_wap: true
   publish_nuget: true
   publish_nuget_symbols: true
-  verbosity: quiet
+  verbosity: detailed
 test: off
 artifacts:
 - path: build/AnyCPU/$(configuration)
@@ -26,8 +35,8 @@ artifacts:
   type: WebDeployPackage
 - path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
   name: dll
-- path: '**\SharpMessage*.nupkg'
-  name: ShaprMessageNuget
+- path: '*.nupkg'
+  name: SharpMessage.nupkg
   type: NuGetPackage
 deploy:
 - provider: GitHub
@@ -44,4 +53,4 @@ deploy:
   api_key:
     secure: 0hhwaeSEUfUNsjinrtuxpRwIAhwnpo4CdmcVd9nQtxh6kdSLnU1jJkPVRW+sDxkS
   skip_symbols: true
-  artifact: SharpMessageNuget
+  artifact: SharpMessage.nupkg
