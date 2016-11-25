@@ -46,7 +46,7 @@ cache:
 - copy -> copy
 #- '%LocalAppData%\NuGet\Cache'
 
-# untested
+# untried yet.
 nuget:
   project_feed: true
 
@@ -61,7 +61,12 @@ build:
 after_build:
 - ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 
-test: auto
+test: 
+ assemblies:
+    - '**\VVVV.Packs.Messaging.Tests.dll'
+
+before_test: 
+- cmd: set Platform2=x64
 
 artifacts:
 - path: build/AnyCPU/$(configuration)
