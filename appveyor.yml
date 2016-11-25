@@ -25,7 +25,7 @@ pull_requests:
 init:
 - ps: $env:IsPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False) -or ($env:APPVEYOR_REPO_BRANCH -ne "master")
 - ps: $env:buildVersion = if ($env:IsPrerelease -eq $False) {"$env:packageVersion"} else {"$env:packageVersion.$env:appveyor_build_number"}
-- ps: $env:nugetVersion = if ($env.IsPrerelease -eq $False) { "$env:buildVersion" } else {"$env:packageVersion-$env:APPVEYOR_REPO_BRANCH.$env:appveyor_build_number" }
+- ps: $env:nugetVersion = if ($env.IsPrerelease -eq $False) { "$env:buildVersion" } else {"$env:packageVersion-$env:APPVEYOR_REPO_BRANCH$env:appveyor_build_number" }
 # send version back
 - ps: Update-AppveyorBuild -Version $env:buildVersion
 - ps: echo "PreRelease = $env:IsPrerelease"
@@ -65,8 +65,7 @@ after_build:
 - ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 
 test_script:
-- cmd: vstest.console /Logger:Appveyor /InIsolation /Platform:x64 test\x64\Release\VVVV.Packs.Messaging.Tests.dll
-
+- ps: vstest.console /Logger:Appveyor /InIsolation /Platform:x64 test\x64\Release\VVVV.Packs.Messaging.Tests.dll
 
 artifacts:
 - path: build/AnyCPU/$(configuration)
