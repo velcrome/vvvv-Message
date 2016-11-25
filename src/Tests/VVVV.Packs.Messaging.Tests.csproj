@@ -6,7 +6,7 @@
     <AssemblyName>VVVV.Packs.Messaging.Tests</AssemblyName>
     <ProjectGuid>{13A9D7B7-BD30-4624-8000-BD5F5B303949}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>Library</OutputType>
@@ -21,8 +21,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
-    <PlatformTarget>x64</PlatformTarget>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
@@ -72,23 +72,23 @@
       <HintPath>..\packages\VVVV.Utils.34.105.0-develop-1755\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x64">
-      <HintPath>..\..\copy\core\x64\FeralTic.dll</HintPath>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=$(Platform)">
+      <HintPath>..\..\copy\core\$(Platform)\FeralTic.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x64">
-      <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=$(Platform)">
+      <HintPath>..\..\copy\core\$(Platform)\VVVV.DX11.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="VVVV.DX11.Lib, processorArchitecture=x64">
-      <HintPath>..\..\copy\core\x64\VVVV.DX11.Lib.dll</HintPath>
+    <Reference Include="VVVV.DX11.Lib, processorArchitecture=$(Platform)">
+      <HintPath>..\..\copy\core\$(Platform)\VVVV.DX11.Lib.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="VVVV.SlimDX, processorArchitecture=x64">
-      <HintPath>..\packages\VVVV.SlimDX.1.0.3\lib\net40\x64\SlimDX.dll</HintPath>
+    <Reference Include="VVVV.SlimDX, processorArchitecture=$(Platform)">
+      <HintPath>..\packages\VVVV.SlimDX.1.0.3\lib\net40\$(Platform)\SlimDX.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
