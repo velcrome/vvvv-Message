@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -8,13 +7,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Core", "MessageCore\VVVV.Packs.Messaging.Core.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.OSC", "OSC\VVVV.Packs.Messaging.OSC.csproj", "{9C003731-1D47-4E89-B598-B10ED16EA2BF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1A4034C0-5DED-4AF0-88B5-7B4E445187FF}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Tests", "Tests\VVVV.Packs.Messaging.Tests.csproj", "{13A9D7B7-BD30-4624-8000-BD5F5B303949}"
 EndProject
