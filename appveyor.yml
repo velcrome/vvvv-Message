@@ -8,7 +8,7 @@ version: 0.0.4444 # this will be replaced
 
 environment:
 # change here!
-  packageVersion: 2.8.4
+  packageVersion: 2.8.5
 
 branches:  
   only:
@@ -24,9 +24,11 @@ pull_requests:
 
 init:
 - ps: $env:IsPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False) -or ($env:APPVEYOR_REPO_BRANCH -ne "master")
-- ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:nugetVersion = if ($env.IsPrerelease -eq $False) { "$env:buildVersion" } else { "$env:buildVersion-$env:APPVEYOR_REPO_BRANCH" }
+- ps: $env:buildVersion = if ($env:IsPrerelease -eq $False) {"$env:packageVersion"} else {"$env:packageVersion.$env:appveyor_build_number"}
+- ps: $env:nugetVersion = if ($env.IsPrerelease -eq $False) { "$env:buildVersion" } else {"$env:packageVersion-$env:APPVEYOR_REPO_BRANCH.$env:appveyor_build_number" }
+# send version back
 - ps: Update-AppveyorBuild -Version $env:buildVersion
+- ps: echo "PreRelease = $env:IsPrerelease"
 
 # patch all Assemblies to the current build number
 assembly_info:
