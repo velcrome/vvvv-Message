@@ -61,12 +61,9 @@ build:
 after_build:
 - ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 
-test: 
- assemblies:
-    - '**\VVVV.Packs.Messaging.Tests.dll'
+test_script:
+- ps vstest.console /logger:Appveyor /inIsolation /platform:x64 test\x64\%Configuration%\VVVV.Packs.Messaging.Tests.dll
 
-before_test: 
-- cmd: set Platform2=x64
 
 artifacts:
 - path: build/AnyCPU/$(configuration)

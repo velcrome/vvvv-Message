@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="VVVV.DX11.Lib">
       <HintPath>..\..\copy\core\x64\VVVV.DX11.Lib.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
