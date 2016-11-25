@@ -33,10 +33,6 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FeralTic">
-      <HintPath>..\..\copy\core\x64\FeralTic.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -52,11 +48,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.DX11.Core">
-      <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
+      <HintPath>..\..\lib\x64\VVVV.DX11.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.DX11.Lib">
-      <HintPath>..\..\copy\core\x64\VVVV.DX11.Lib.dll</HintPath>
+      <HintPath>..\..\lib\x64\VVVV.DX11.Lib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FeralTic">
+      <HintPath>..\..\lib\x64\FeralTic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">

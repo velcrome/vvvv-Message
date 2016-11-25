@@ -44,6 +44,7 @@ install:
 cache: 
 - src/packages -> **\packages.config
 - copy -> copy
+- lib -> lib
 #- '%LocalAppData%\NuGet\Cache'
 
 # untried yet.
@@ -86,7 +87,7 @@ deploy:
   artifact: vvvv-Message dll
   prerelease: $(IsPrerelease)
   on:
-    #alllow all branches
+    #allow all branches
     appveyor_repo_tag: true        # deploy on tag push only
 
 - provider: NuGet
