@@ -1,5 +1,4 @@
-Introduction
-============
+[![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/master?pendingText=Master%20Pending&failingText=Master%20Fail&passingText=Master%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/master) [![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/develop?pendingText=Develop%20Pending&failingText=Develop%20Fail&passingText=Develop%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/develop)
 
 This node pack defines a new **Message** data link and c# type. Its primary purpose is to help you retain data and performance control if your vvvv project turns bigger than expected, without adding redundant and confusing links. **Message** can help to establish communication between threads or even other applications. 
 
@@ -7,24 +6,25 @@ Structure & Access
 ------------------
 Think of **Message** as a collection of (binsizeable) Spreads of various Types (**bool, int, float, double, string, Transform, Color, Vector**s**, Time, Message**), all into one single object. 
 
-You can create these Message objects with fully spreadable `Create (Message.Formular)` and access the individual Spreads with  `Split (Message)`, `Read (Message)` or simply `Info (Message)`. 
+You can create these Message objects with fully spreadable `Create (Message Formular)` and access the individual Spreads with  `Split (Message Formular)`, `Read (Message)` or simply `Info (Message)`. 
 
-It comes with some handy helper nodes to work with it (`Sift`, `Select`, `Getslice`, etc.). 
-Furthermore it ships with convenience plugins for OSC, a self-made binary encoding (from microdee) and brief, but fully typed json serialisation. Use any for sharedmemory, networking or hd recording.
+It comes with a broad range of handy helper nodes to work with it:
+* filter and search certain Messages, handle Message spreads with ease
+* inspect and manipulate individual Messages
 
-Plugin Layout
--------------
-Many plugin nodes' pin layout can be chosen either from a customizable Formular (think of it like a definition of a certain Message type) or even configured dynamically with Herr Inspektor. 
+Furthermore it ships with convenience plugins for persisting Messages to disc or serializing over network
+* Json
+* MsgPack
+* OSC
 
-Message Flow
-------------
-Once created, a message zips across your patched application in a compact and manageable struct, even though its gestalt is highly dynamic. This helps to report any change from some view in your application to your data-mongering model.
-
-To outfit your model, Message can be held in `Safe (Message.Keep)`, `Hold (Message.Keep)`, `Session (Message.Keep)`, all keeping track of any change to the well-kept Messages.
+Formular
+--------
+Many plugin nodes' pin layout can be edited to your needs with a simple GUI window.
+As a more strict alternative, you can select a **Formular**, which you can manage application wide.
 
 Core
 ----
-The core is fully managed and can be used independently of any specific Plugin implementation. It is freely available on nuget under the name VVVV.Packs.Message but of course allows direct usage in any other .Net application.
+The core is fully managed and can be used independently of any specific Plugin implementation. It is freely available on nuget under the name [SharpMessage](https://www.nuget.org/packages/SharpMessage/) and also allows direct usage in any other .Net application.
 
 Credits
 =======
@@ -41,21 +41,21 @@ Thanks
 * microdee
 * lecloneur
 
-Nuget
+Dependencies
 ----
-* [Json.NET 6.0.8](http://james.newtonking.com/projects/json-net.aspx), utilizing the MIT License
-* [VVVV.Packs.Time](https://github.com/letmp/vvvv-Time), utilizing the MIT License
-* [VVVV-sdk](https://github.com/vvvv/vvvv-sdk), LGPL
+* [Json.NET](http://james.newtonking.com/projects/json-net.aspx) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+* [MsgPack](http://msgpack.org/index.html)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+* [VVVV.Packs.Time](https://github.com/letmp/vvvv-Time) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+* [VVVV-sdk](https://github.com/vvvv/vvvv-sdk) [![License: LGPL v2](https://img.shields.io/badge/License-LGPL%20v2-blue.svg)](http://www.gnu.org/licenses/lgpl-2.0)
 
 License
 =======
-This software is distributed with the [CC Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
-![CC 4.0BY NC SAt](http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+This software is distributed with [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Please note individual licensing terms in individual subdirectories, such as
 
-* The Message Core ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
-* OSC Nodes ![LGPL 3.0](https://www.gnu.org/graphics/lgplv3-147x51.png)
+* The Message Core [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0)
+* OSC Nodes [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0)
 
 Comments
 --------
