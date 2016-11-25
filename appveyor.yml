@@ -86,7 +86,7 @@ deploy:
   artifact: vvvv-Message dll
   prerelease: $(IsPrerelease)
   on:
-    branch: develop master         # only develop and master from github 
+    #alllow all branches
     appveyor_repo_tag: true        # deploy on tag push only
 
 - provider: NuGet
