@@ -62,7 +62,7 @@ after_build:
 - ps: nuget pack src/MessageCore/SharpMessage.nuspec -version "$env:nugetVersion"
 
 test_script:
-- cmd vstest.console /Logger:Appveyor /InIsolation /Platform:x64 test\x64\Release\VVVV.Packs.Messaging.Tests.dll
+- cmd: vstest.console /Logger:Appveyor /InIsolation /Platform:x64 test\x64\Release\VVVV.Packs.Messaging.Tests.dll
 
 
 artifacts:
