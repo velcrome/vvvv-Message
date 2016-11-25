@@ -4,17 +4,19 @@ using System.IO;
 using VVVV.Utils.VMath;
 using VVVV.Utils.VColor;
 using VVVV.Packs.Messaging.Nodes;
-
+using System.Text;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-    using System.Text;
     using Time = VVVV.Packs.Time.Time;
-
-
+    
     [TestClass]
     public class BinTest
     {
+        VVVVProfile profile = new VVVVProfile();
+        bool init = TypeIdentity.Instance.ScanAssemblies();
+
+
         #region First
         [TestMethod]
         public void ChangeBinFirst()
@@ -140,8 +142,6 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void BinAddSingle()
         {
-            var init = TypeIdentity.Instance;
-
             AddSingle<bool>(true);
             AddSingle<int>(1);
             AddSingle<float>(1.0f);
@@ -253,8 +253,6 @@ namespace VVVV.Packs.Messaging.Tests
         [TestMethod]
         public void NullAddSingle()
         {
-            var init = TypeIdentity.Instance;
-
             AddNull<bool>(true);
             AddNull<int>(1);
             AddNull<float>(1);

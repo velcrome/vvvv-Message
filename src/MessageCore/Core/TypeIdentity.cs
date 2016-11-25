@@ -59,7 +59,7 @@ namespace VVVV.Packs.Messaging
                 if (_instance == null)
                 {
                     _instance = new TypeIdentity();
-                    _instance.FetchAll();
+                    _instance.ScanAssemblies();
                 }
                 return _instance;
             }
@@ -72,7 +72,7 @@ namespace VVVV.Packs.Messaging
         /// Scans all loaded assemblies for Profile classes extending TypeIdentity.
         /// Will then proceed to attempt extracting and registering all public 
         /// </summary>
-        private void FetchAll()
+        public bool ScanAssemblies()
         {
             //            Assembly assembly = Assembly.LoadFrom("packs/vvvv-Message/nodes/plugins/VVVV.Nodes.Messaging.dll");
 
@@ -88,6 +88,7 @@ namespace VVVV.Packs.Messaging
                 {
                     var profile = Activator.CreateInstance(profileClass) as TypeProfile; // all fields of the profile should be fully initialized 
 
+                    // allow basic inheritance.
                     var infos = profile.GetType().GetFields(BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public).Where(declaration => typeof(TypeRecord).IsAssignableFrom(declaration.FieldType));
 
                     foreach (var fieldInfo in infos)
@@ -103,10 +104,12 @@ namespace VVVV.Packs.Messaging
                 }
                 catch (Exception ex)
                 {
+                    var e = ex.Message;
                     // no way to log from here :(
                     // catch, so vvvv startup cycle does not freak out
                 }
             }
+            return true;
         }
 
         private IEnumerable<Type> GetLoadableTypes(Assembly assembly)

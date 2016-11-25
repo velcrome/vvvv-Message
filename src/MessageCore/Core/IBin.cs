@@ -109,7 +109,7 @@ namespace VVVV.Packs.Messaging
         /// <exception cref="TypeNotSupportedException">Thrown if the wanted type is not registered, nor any of its base types.</exception>
         public static Bin New(Type type, int initialCapacity = 1)
         {
-            var baseType = TypeIdentity.Instance.FindBaseType(type).Type;
+            var baseType = TypeIdentity.Instance.FindBaseType(type)?.Type;
             if (baseType != null)
             {
                 Type genericBin = typeof(BinList<>).MakeGenericType(baseType); // downcast to allowed type, if intial type does not match directly

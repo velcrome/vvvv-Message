@@ -135,7 +135,7 @@
     <Compile Include="Utils\Fields\MessageTopicNode.cs" />
     <Compile Include="Utils\MessageRemoveNode.cs" />
     <Compile Include="Utils\Fields\MessageRenameField.cs" />
-    <Compile Include="ExtendedProfile.cs" />
+    <Compile Include="VVVVProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

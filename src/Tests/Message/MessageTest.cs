@@ -367,7 +367,7 @@ namespace VVVV.Packs.Messaging.Tests
         }
 
         [TestMethod]
-        public unsafe void Clone()
+        public void Clone()
         {
             var m = new Message("topic");
 

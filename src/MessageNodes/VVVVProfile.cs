@@ -1,6 +1,4 @@
-﻿using VVVV.Packs.Messaging;
-
-namespace VVVV.Packs.Messaging.Nodes
+﻿namespace VVVV.Packs.Messaging.Nodes
 {
 /// <summary>
 /// All classes implementing TypeProfile will be consumed at startup. Make sure the assembly is really loaded.

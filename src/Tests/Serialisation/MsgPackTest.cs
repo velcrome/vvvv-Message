@@ -15,6 +15,9 @@ public class MsgPackTest
 {
     #region basics
 
+    VVVVProfile profile = new VVVVProfile();
+    bool init = TypeIdentity.Instance.ScanAssemblies();
+
     private SerializationContext Setup()
     {
 
@@ -97,7 +100,6 @@ public class MsgPackTest
     [TestMethod]
     public void SerializeExtended()
     {
-        var init = TypeIdentity.Instance;
         var context = Setup();
 
         var orig = new Message("Test");
