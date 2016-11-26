@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Sort (Message Formular) help.v4p" scrollx="0" scrolly="0" systemname="Sort (Message Formular) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Sort (Message Formular) help.v4p">
    <BOUNDS type="Window" left="6975" top="1365" width="11445" height="8475">
    </BOUNDS>

@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Sift (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="1320" top="990" width="7095" height="7725">
    </BOUNDS>

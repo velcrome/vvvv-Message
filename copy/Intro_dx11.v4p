@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_dx11.v4p" scrollx="15" scrolly="0" systemname="Intro_tex" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_tex.v4p">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\Intro_dx11.v4p" scrollx="0" scrolly="0" systemname="Intro_tex" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_tex.v4p">
    <BOUNDS type="Window" left="3540" top="4545" width="15165" height="7395">
    </BOUNDS>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
@@ -31,7 +31,7 @@
    </PIN>
    <PIN pinname="Name" visible="1" slicecount="1" values="||">
    </PIN>
-   <BOUNDS type="Window" left="4155" top="4845" width="3750" height="3120">
+   <BOUNDS type="Window" left="0" top="4455" width="3750" height="3120">
    </BOUNDS>
    <BOUNDS type="Box" width="2715" height="2745" left="285" top="1695">
    </BOUNDS>
@@ -118,14 +118,6 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="InAWindow" id="18" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="7485" top="10110" width="750" height="270">
-   </BOUNDS>
-   <PIN pinname="Update" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Foo, int k|">
-   </PIN>
-   </NODE>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="21" systemname="IOBox (String)">
@@ -203,7 +195,7 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="4140" top="8010" width="3750" height="3195">
+   <BOUNDS type="Window" left="-255" top="7695" width="3750" height="3195">
    </BOUNDS>
    <PIN pinname="Title" visible="1">
    </PIN>
@@ -506,7 +498,7 @@
    </LINK>
    <LINK srcnodeid="59" srcpinname="Transform Out" dstnodeid="35" dstpinname="Texture Transform">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -549,5 +541,33 @@
    <LINK srcnodeid="60" srcpinname="Geometry Out" dstnodeid="2" dstpinname="Geom">
    </LINK>
    <LINK srcnodeid="35" srcpinname="Layer" dstnodeid="2" dstpinname="Layer">
+   </LINK>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="62">
+   <BOUNDS type="Node" left="9405" top="3885" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="9405" top="3885" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="18000" top="7920" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Log Messages" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="63">
+   <BOUNDS type="Box" left="10290" top="3075" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10290" top="3075" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="62" dstpinname="Log Messages">
    </LINK>
    </PATCH>

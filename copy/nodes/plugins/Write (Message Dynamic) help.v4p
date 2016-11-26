@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Write (Message Dynamic) help.v4p" scrollx="0" scrolly="90" systemname="Write (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Write (Message) help.v4p">
    <BOUNDS type="Window" left="1080" top="1830" width="11775" height="12990">
    </BOUNDS>
@@ -44,22 +44,6 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="7">
-   <BOUNDS type="Node" left="2310" top="6585" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Field Bin Size" visible="1">
-   </PIN>
-   <PIN pinname="Key" visible="1">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="AvoidNil" slicecount="1" values="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="5" systemname="IOBox (String)">
    <BOUNDS type="Box" left="5565" top="4635" width="1290" height="345">
    </BOUNDS>
@@ -84,8 +68,6 @@
    <PIN pinname="Columns" slicecount="1" values="2">
    </PIN>
    </NODE>
-   <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="7" dstpinname="Key">
-   </LINK>
    <NODE systemname="Write (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Write (Message Dynamic)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="4140" top="6570" width="4290" height="270">
    </BOUNDS>
@@ -165,17 +147,15 @@
    <NODE systemname="Add (String Spectral)" nodename="Add (String Spectral)" componentmode="Hidden" id="14">
    <BOUNDS type="Node" left="2655" top="7110" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="text">
    </PIN>
-   <PIN pinname="Bin Size" visible="1">
+   <PIN pinname="Bin Size" visible="1" slicecount="1" values="-1">
    </PIN>
    <PIN pinname="Intersperse" slicecount="1" values="Space">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="7" srcpinname="Field" dstnodeid="14" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
    <BOUNDS type="Box" left="6015" top="6210" width="285" height="300">
    </BOUNDS>
@@ -191,8 +171,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="15" srcpinname="Output String" dstnodeid="1" dstpinname="Field">
-   </LINK>
-   <LINK srcnodeid="7" srcpinname="Field Bin Size" dstnodeid="14" dstpinname="Bin Size">
    </LINK>
    <LINK srcnodeid="14" srcpinname="Output" dstnodeid="0" dstpinname="Input String">
    </LINK>
@@ -317,8 +295,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="2" srcpinname="Output" dstnodeid="17" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="17" srcpinname="Output" dstnodeid="7" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="17" srcpinname="Output" dstnodeid="1" dstpinname="Input">
    </LINK>
@@ -492,7 +468,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="35">
    <BOUNDS type="Box" left="810" top="5070" width="1305" height="315">
@@ -518,4 +494,28 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="7">
+   <BOUNDS type="Node" left="2310" top="6585" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Field Bin Size" visible="1">
+   </PIN>
+   <PIN pinname="Key" visible="1">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="AvoidNil" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="7" dstpinname="Key">
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Field" dstnodeid="14" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Field Bin Size" dstnodeid="14" dstpinname="Bin Size">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Output" dstnodeid="7" dstpinname="Input">
+   </LINK>
    </PATCH>

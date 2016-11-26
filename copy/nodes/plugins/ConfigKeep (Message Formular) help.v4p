@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\ConfigKeep (Message Formular) help.v4p" systemname="Config (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Config (Message) help.v4p" scrollx="0" scrolly="825">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\ConfigKeep (Message Formular) help.v4p" systemname="Config (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Config (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="3480" top="1185" width="12855" height="11445">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -488,7 +488,7 @@
    </LINK>
    <LINK srcnodeid="38" srcpinname="Output" dstnodeid="50" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="56">
    <BOUNDS type="Node" left="8280" top="330" width="2340" height="270">

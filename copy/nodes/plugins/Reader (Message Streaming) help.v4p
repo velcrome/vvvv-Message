@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Reader (Message Streaming) help.v4p" systemname="Reader (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Reader (Message) help.v4p" scrollx="30" scrolly="405">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Reader (Message Streaming) help.v4p" systemname="Reader (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Reader (Message) help.v4p" scrollx="30" scrolly="405">
    <BOUNDS type="Window" left="3915" top="1965" width="10485" height="11685">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
@@ -158,7 +158,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Reset">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="60">
    <BOUNDS type="Node" left="6945" top="9495" width="1200" height="270">

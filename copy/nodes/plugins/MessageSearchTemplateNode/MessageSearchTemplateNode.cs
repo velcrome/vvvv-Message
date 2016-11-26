@@ -24,6 +24,9 @@ namespace VVVV.Nodes
 		[Input("Input")]
 		public IDiffSpread<Message> FInput; 
 
+		[Input("Filter")]
+		public IDiffSpread<string> FFilter; 
+
 		[Output("Output", AutoFlush = false)]
 		public ISpread<Message> FOutput;
 
@@ -37,20 +40,18 @@ namespace VVVV.Nodes
 
 			// save some performance when no work necessary
 			if (FInput.IsAnyInvalid()) {
-				if (FOutput.SliceCount > 0) {
-					FOutput.FlushNil();
-				}
+				if (FOutput.SliceCount > 0) FOutput.FlushNil();
 				return;
 			}
-			if (!FInput.IsChanged) return;
+			if (!FInput.IsChanged && !FFilter.IsChanged) return;
 
 			// start working it out
 			var result = 
 				from message in FInput
-				let bin = message["Foo"] as Bin<string>
-				where bin != null 
-				where !bin.IsAnyInvalid()
-				where bin.First == "bar"
+				let bin = message["MyField"] as Bin<string> // identify as string
+				where bin != null
+				where !bin.IsAnyInvalid() && !FFilter.IsAnyInvalid() // safe against nil
+				where FFilter.Contains(bin.First)
 				select message;
 			
 			// publish data back to vvvv
