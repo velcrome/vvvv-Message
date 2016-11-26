@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="6120">
-   <BOUNDS type="Window" left="-510" top="4470" width="14610" height="15705">
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="-864">
+   <BOUNDS type="Window" left="405" top="930" width="14610" height="15705">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -40,14 +40,6 @@
    <BOUNDS type="Node" left="4905" top="9735" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="9735">
-   </BOUNDS>
-   </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="6" hiddenwhenlocked="0">
-   <BOUNDS type="Node" left="4905" top="5190" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
-   </PIN>
-   <BOUNDS type="Box" left="4905" top="5190">
    </BOUNDS>
    </NODE>
    <NODE systemname="Sort (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sort (Message Formular)" componentmode="Hidden" id="9" hiddenwhenlocked="0">
@@ -135,6 +127,8 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="1470">
    </BOUNDS>
+   <PIN pinname="Update" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <NODE systemname="GetSlice (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetSlice (Message)" componentmode="Hidden" id="24" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="7065" top="2160" width="100" height="100">
@@ -1014,7 +1008,7 @@
    <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.67097,0.00419,1.00000|">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE systemname="Writer (Message Streaming)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message Streaming).v4p" nodename="Writer (Message Streaming)" componentmode="Hidden" id="53" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="4905" top="14865" width="100" height="100">
@@ -1032,6 +1026,14 @@
    <BOUNDS type="Node" left="4905" top="3690" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="3690">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="6" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="4905" top="5190" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <BOUNDS type="Box" left="4905" top="5190">
    </BOUNDS>
    </NODE>
    </PATCH>
