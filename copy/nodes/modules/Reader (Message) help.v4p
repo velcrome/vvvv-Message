@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\modules\Reader (Message) help.v4p" systemname="Reader (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\modules\Reader (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="3915" top="1965" width="6930" height="8715">
    </BOUNDS>
