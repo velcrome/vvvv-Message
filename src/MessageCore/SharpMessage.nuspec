@@ -20,6 +20,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\build\AnyCPU\Release\core\VVVV.Packs.Messaging.*" target="lib\net46\" />
+    <file src="..\..\build\AnyCPU\Release\core\SharpMessage.*" target="lib\net46\" />
   </files>
 </package>
