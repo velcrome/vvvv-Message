@@ -93,19 +93,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MessageCore\VVVV.Packs.Messaging.Core.csproj">
-      <Project>{C2F6EC8A-AA56-4121-B60F-72012D192835}</Project>
-      <Name>VVVV.Packs.Messaging.Core</Name>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MessageCore\SharpMessage.csproj">
+      <Project>{c2f6ec8a-aa56-4121-b60f-72012d192835}</Project>
+      <Name>SharpMessage</Name>
     </ProjectReference>
     <ProjectReference Include="..\MessageNodes\VVVV.Packs.Messaging.Nodes.csproj">
       <Project>{6a0afb1f-8219-4a08-85f7-b7f19b66ac16}</Project>
       <Name>VVVV.Packs.Messaging.Nodes</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
       <ItemGroup>
@@ -120,9 +119,9 @@
       </ItemGroup>
     </Otherwise>
   </Choose>
-  <Import Project="..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props" Condition="Exists('..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\VVVV.SlimDX.1.0.3\build\net40\x64\SlimDX.dll" Condition="Exists('..\packages\VVVV.SlimDX.1.0.3\build\net40\x64\SlimDX.dll')" />
   <Import Project="..\packages\VVVV.PluginInterfaces.34.105.0-develop-1755\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.34.105.0-develop-1755\build\net46\VVVV.PluginInterfaces.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

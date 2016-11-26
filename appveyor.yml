@@ -72,7 +72,7 @@ artifacts:
   name: vvvv-Message
   type: WebDeployPackage
 
-- path: build/AnyCPU/$(configuration)/core/VVVV.Packs.Messaging.dll
+- path: build/AnyCPU/$(configuration)/core/SharpMessage.dll
   name: dll
 
 - path: '**\SharpMessage*.nupkg'
