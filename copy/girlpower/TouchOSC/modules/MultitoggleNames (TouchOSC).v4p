@@ -1,15 +1,13 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\TouchOSC\modules\MultitoggleNames (TouchOSC).v4p" systemname="MultitoggleNames (TouchOSC)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\TouchOSC\modules\MultitoggleNames (TouchOSC).v4p">
-   <NODE systemname="Reflection (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
+   <NODE systemname="Reflection (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Reflection (Message)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="510" top="765" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Message Formular" slicecount="1" values="TouchOSC.2">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.2">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|float toggle1, float toggle2, float toggle3, float toggle4|">
+   <PIN pinname="Configuration" slicecount="1" values="|float multitoggle.1.1, float multitoggle.1.2, float multitoggle.1.3, float multitoggle.1.4, float multitoggle.1.5, float multitoggle.1.6, float multitoggle.1.7, float multitoggle.1.8, float multitoggle.2.1, float multitoggle.2.2, float multitoggle.2.3, float multitoggle.2.4, float multitoggle.2.5, float multitoggle.2.6, float multitoggle.2.7, float multitoggle.2.8, float multitoggle.3.1, float multitoggle.3.2, float multitoggle.3.3, float multitoggle.3.4, float multitoggle.3.5, float multitoggle.3.6, float multitoggle.3.7, float multitoggle.3.8, float multitoggle.4.1, float multitoggle.4.2, float multitoggle.4.3, float multitoggle.4.4, float multitoggle.4.5, float multitoggle.4.6, float multitoggle.4.7, float multitoggle.4.8, float multitoggle.5.1, float multitoggle.5.2, float multitoggle.5.3, float multitoggle.5.4, float multitoggle.5.5, float multitoggle.5.6, float multitoggle.5.7, float multitoggle.5.8, float multitoggle.6.1, float multitoggle.6.2, float multitoggle.6.3, float multitoggle.6.4, float multitoggle.6.5, float multitoggle.6.6, float multitoggle.6.7, float multitoggle.6.8, float multitoggle.7.1, float multitoggle.7.2, float multitoggle.7.3, float multitoggle.7.4, float multitoggle.7.5, float multitoggle.7.6, float multitoggle.7.7, float multitoggle.7.8, float multitoggle.8.1, float multitoggle.8.2, float multitoggle.8.3, float multitoggle.8.4, float multitoggle.8.5, float multitoggle.8.6, float multitoggle.8.7, float multitoggle.8.8, float toggle1, float toggle2, float toggle3, float toggle4|">
    </PIN>
    <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="Formular" slicecount="1" visible="1" values="TouchOSC.2">
    </PIN>
    <BOUNDS type="Box" left="510" top="765">
    </BOUNDS>
@@ -92,8 +90,10 @@
    </LINK>
    <BOUNDS type="Window" left="-1" top="-1" width="3870" height="4585">
    </BOUNDS>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <PACK Name="addonpack" Version="34.101.0">
+   </PACK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
    </PATCH>

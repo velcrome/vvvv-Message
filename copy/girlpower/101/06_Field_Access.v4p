@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="20160" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\101\06_Field_Access.v4p" scrollx="0" scrolly="1650" systemname="06_Field_Access" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\06_Field_Access.v4p">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -664,26 +664,6 @@
    <LINKPOINT x="9732" y="14496">
    </LINKPOINT>
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="42" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9192" top="7101" width="450" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="9192" top="7101" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="43" systemname="IOBox (String)">
    <BOUNDS type="Node" left="6975" top="9891" width="19710" height="270">
    </BOUNDS>
@@ -698,26 +678,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="45">
-   <BOUNDS type="Node" left="10320" top="7464" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Key" visible="1">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="10320" top="7464">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="45" dstpinname="Key" hiddenwhenlocked="0" linkstyle="Bezier">
-   <LINKPOINT x="11652" y="7290">
-   </LINKPOINT>
-   <LINKPOINT x="10752" y="7290">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="46" systemname="IOBox (String)">
    <BOUNDS type="Box" left="10479" top="8268" width="4425" height="1080">
    </BOUNDS>
@@ -741,7 +701,7 @@
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="49">
    <BOUNDS type="Node" left="10482" top="7884" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input 2" visible="1">
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="text">
    </PIN>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -750,8 +710,6 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="45" srcpinname="Field" dstnodeid="49" dstpinname="Input 2">
-   </LINK>
    <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="49" dstpinname="Input 1" hiddenwhenlocked="0" linkstyle="Bezier">
    <LINKPOINT x="11652" y="7500">
    </LINKPOINT>
@@ -828,42 +786,6 @@
    </LINK>
    <LINK srcnodeid="52" srcpinname="fader4" dstnodeid="22" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="53">
-   <BOUNDS type="Node" left="7044" top="7464" width="2220" height="270">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|float Value|">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Type" slicecount="1" visible="1" values="float">
-   </PIN>
-   <PIN pinname="Key" visible="1" slicecount="1" values="Foo">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="AvoidNil" visible="1" slicecount="1" values="1">
-   </PIN>
-   <BOUNDS type="Box" left="7044" top="7464">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="42" srcpinname="Y Output Value" dstnodeid="53" dstpinname="AvoidNil">
-   </LINK>
-   <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="53" dstpinname="Key" linkstyle="Bezier" hiddenwhenlocked="0">
-   <LINKPOINT x="11652" y="7296">
-   </LINKPOINT>
-   <LINKPOINT x="8544" y="7296">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="53" dstpinname="Type" linkstyle="Bezier" hiddenwhenlocked="0">
-   <LINKPOINT x="10980" y="7290">
-   </LINKPOINT>
-   <LINKPOINT x="7824" y="7290">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="53" srcpinname="Field" dstnodeid="27" dstpinname="Y Input Value">
-   </LINK>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="54">
    <BOUNDS type="Node" left="1059" top="6342" width="100" height="100">
    </BOUNDS>
@@ -902,18 +824,6 @@
    <LINKPOINT x="900" y="7266">
    </LINKPOINT>
    <LINKPOINT x="1596" y="7266">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="57" srcpinname="Output Node" dstnodeid="53" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="900" y="7266">
-   </LINKPOINT>
-   <LINKPOINT x="7044" y="7266">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="57" srcpinname="Output Node" dstnodeid="45" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="900" y="7266">
-   </LINKPOINT>
-   <LINKPOINT x="10320" y="7266">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="57" srcpinname="Output Node" dstnodeid="10" dstpinname="Input" linkstyle="VHV">
@@ -1124,7 +1034,7 @@
    </NODE>
    <LINK srcnodeid="67" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Force">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InABox" id="69">
    <BOUNDS type="Node" left="33915" top="48765" width="100" height="100">
@@ -1316,4 +1226,72 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="53">
+   <BOUNDS type="Node" left="7044" top="7464" width="2220" height="270">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|float Value|">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" visible="1" values="float">
+   </PIN>
+   <PIN pinname="Key" visible="1" slicecount="1" values="Foo">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="AvoidNil" visible="1" slicecount="1" values="1">
+   </PIN>
+   <BOUNDS type="Box" left="7044" top="7464">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="53" dstpinname="Key" linkstyle="Bezier" hiddenwhenlocked="0">
+   <LINKPOINT x="11652" y="7296">
+   </LINKPOINT>
+   <LINKPOINT x="8544" y="7296">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="21" srcpinname="Output Enum" dstnodeid="53" dstpinname="Type" linkstyle="Bezier" hiddenwhenlocked="0">
+   <LINKPOINT x="10980" y="7290">
+   </LINKPOINT>
+   <LINKPOINT x="7824" y="7290">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="53" srcpinname="Field" dstnodeid="27" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="57" srcpinname="Output Node" dstnodeid="53" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="900" y="7266">
+   </LINKPOINT>
+   <LINKPOINT x="7044" y="7266">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="45">
+   <BOUNDS type="Node" left="10320" top="7464" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Key" visible="1">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="10320" top="7464">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="28" srcpinname="Output String" dstnodeid="45" dstpinname="Key" hiddenwhenlocked="0" linkstyle="Bezier">
+   <LINKPOINT x="11652" y="7290">
+   </LINKPOINT>
+   <LINKPOINT x="10752" y="7290">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="45" srcpinname="Field" dstnodeid="49" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="57" srcpinname="Output Node" dstnodeid="45" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="900" y="7266">
+   </LINKPOINT>
+   <LINKPOINT x="10320" y="7266">
+   </LINKPOINT>
+   </LINK>
    </PATCH>

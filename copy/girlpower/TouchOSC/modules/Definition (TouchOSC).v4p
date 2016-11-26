@@ -489,7 +489,7 @@
    </PIN>
    <PIN pinname="Formular" visible="1">
    </PIN>
-   <PIN pinname="Update" slicecount="1" values="0" visible="1">
+   <PIN pinname="Update" slicecount="1" visible="1" values="0">
    </PIN>
    <BOUNDS type="Box" left="15" top="2610">
    </BOUNDS>
@@ -526,7 +526,7 @@
    <LINKPOINT x="8910" y="4275">
    </LINKPOINT>
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="73" systemname="IOBox (String)">
    <BOUNDS type="Node" left="15" top="15" width="765" height="270">

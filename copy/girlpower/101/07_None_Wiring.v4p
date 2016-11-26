@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\07_None_Wiring.v4p" systemname="07_Application" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\07_Application.v4p" scrollx="0" scrolly="45">
    <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
    </BOUNDS>

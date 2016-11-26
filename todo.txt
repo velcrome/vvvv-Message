@@ -17,7 +17,8 @@ Features Wanted
 - faster TypeIdentity - split into two internal dictionaries
  - pin order fully deterministic
 
-Usability
+Bugs
+- [Formular] is super slow
 
 Treatments
 - config pin should be private (and hidden)

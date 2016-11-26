@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\Data\Meter (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\Ableton\modules\Data\Meter (Message Ableton).v4p" scrollx="0" scrolly="525" systemname="Meter (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Meter (Message Ableton).v4p">
    <BOUNDS type="Window" left="3270" top="3885" width="9000" height="9510">
    </BOUNDS>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="0" systemname="IOBox (Node)">
@@ -58,22 +58,6 @@
    <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
    </PIN>
    </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="3465" top="8190" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|float Value|">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Type" slicecount="1" values="float">
-   </PIN>
-   <PIN pinname="Key" slicecount="1" visible="1" values="Meter">
-   </PIN>
-   <PIN pinname="AvoidNil" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3675" top="8610" width="1875" height="1500">
    </BOUNDS>
@@ -106,8 +90,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="Hidden">
    </PIN>
    </NODE>
-   <LINK srcnodeid="19" srcpinname="Field" dstnodeid="18" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
    <BOUNDS type="Box" left="3825" top="7650" width="795" height="240">
    </BOUNDS>
@@ -122,8 +104,6 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="20" srcpinname="Output String" dstnodeid="19" dstpinname="Key">
-   </LINK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
    <NODE systemname="FromOscMessage (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="FromOscMessage (Message Raw)" componentmode="Hidden" id="39">
@@ -422,8 +402,6 @@
    </LINK>
    <LINK srcnodeid="45" srcpinname="Output Enum" dstnodeid="43" dstpinname="Use Fields">
    </LINK>
-   <LINK srcnodeid="43" srcpinname="Output" dstnodeid="19" dstpinname="Input">
-   </LINK>
    <NODE systemname="SessionKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="InAWindow" id="1">
    <BOUNDS type="Node" left="1935" top="6375" width="100" height="100">
    </BOUNDS>
@@ -466,6 +444,28 @@
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="43" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="3465" top="8190" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|float Value|">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" values="float">
+   </PIN>
+   <PIN pinname="Key" slicecount="1" visible="1" values="Meter">
+   </PIN>
+   <PIN pinname="AvoidNil" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="19" srcpinname="Field" dstnodeid="18" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="20" srcpinname="Output String" dstnodeid="19" dstpinname="Key">
+   </LINK>
+   <LINK srcnodeid="43" srcpinname="Output" dstnodeid="19" dstpinname="Input">
+   </LINK>
    </PATCH>

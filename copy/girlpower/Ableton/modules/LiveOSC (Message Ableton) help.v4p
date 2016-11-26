@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="105" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\Ableton\modules\LiveOSC (Message Ableton) help.v4p" scrollx="105" scrolly="0" systemname="LiveOSC (Message Ableton) help" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton) help.v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="Timing (Debug)" nodename="Timing (Debug)" componentmode="Hidden" id="7">
@@ -118,7 +118,7 @@
    </LINK>
    <LINK srcnodeid="7" srcpinname="frames per second" dstnodeid="1" dstpinname="Go To Position">
    </LINK>
-   <NODE systemname="LiveOSC (Message Ableton)" filename="LiveOSC (Message Ableton).v4p" nodename="..\..\..\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p" componentmode="InAWindow" id="8">
+   <NODE systemname="LiveOSC (Message Ableton)" filename="LiveOSC (Message Ableton).v4p" nodename="..\..\..\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p" componentmode="Hidden" id="8">
    <BOUNDS type="Node" left="630" top="3900" width="5550" height="270">
    </BOUNDS>
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
@@ -233,7 +233,7 @@
    </PIN>
    <PIN pinname="Render State" visible="1">
    </PIN>
-   <PIN pinname="Bold" visible="1">
+   <PIN pinname="Bold" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Color" visible="1">
    </PIN>
@@ -368,30 +368,10 @@
    </LINK>
    <LINK srcnodeid="21" srcpinname="Output" dstnodeid="27" dstpinname="Y">
    </LINK>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="20">
-   <BOUNDS type="Node" left="7095" top="5940" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|int Value|">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Type" slicecount="1" visible="1" values="int">
-   </PIN>
-   <PIN pinname="Key" slicecount="1" visible="1" values="Play">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="AvoidNil" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="7095" top="5940">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="20" srcpinname="Field" dstnodeid="30" dstpinname="Bold">
-   </LINK>
    <NODE systemname="Switch (Color Input)" nodename="Switch (Color Input)" componentmode="Hidden" id="19">
    <BOUNDS type="Node" left="8190" top="7470" width="1500" height="270">
    </BOUNDS>
-   <PIN pinname="Switch" visible="1">
+   <PIN pinname="Switch" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Input 1" slicecount="1" visible="1" values="|0.27920,0.33149,0.00000,1.00000|">
    </PIN>
@@ -406,12 +386,6 @@
    <PIN pinname="Input 3" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="20" srcpinname="Field" dstnodeid="19" dstpinname="Switch" linkstyle="Bezier">
-   <LINKPOINT x="7365" y="6833">
-   </LINKPOINT>
-   <LINKPOINT x="8190" y="6833">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="19" srcpinname="Output" dstnodeid="30" dstpinname="Color">
    </LINK>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="18">
@@ -526,24 +500,6 @@
    </NODE>
    <LINK srcnodeid="33" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Reset">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="34" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9105" top="5400" width="285" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="9105" top="5400" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="20" dstpinname="AvoidNil">
-   </LINK>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="35" systemname="IOBox (Color)">
    <BOUNDS type="Box" left="8550" top="7035" width="285" height="240">
    </BOUNDS>
@@ -600,7 +556,7 @@
    <PIN pinname="String Type" slicecount="1" values="Filename">
    </PIN>
    </NODE>
-   <NODE systemname="Control (Message Ableton)" filename="Control (Message Ableton).v4p" nodename="Control (Message Ableton).v4p" componentmode="Hidden" id="41">
+   <NODE systemname="Control (Message Ableton)" filename="Control (Message Ableton).v4p" nodename="Control (Message Ableton).v4p" componentmode="InAWindow" id="41">
    <BOUNDS type="Node" left="690" top="6585" width="2655" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="345" top="2033" width="14115" height="9105">
@@ -792,8 +748,6 @@
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="int">
    </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Output Enum" dstnodeid="20" dstpinname="Type">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="49" systemname="IOBox (String)">
    <BOUNDS type="Box" left="7980" top="5460" width="795" height="240">
    </BOUNDS>
@@ -808,11 +762,7 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="49" srcpinname="Output String" dstnodeid="20" dstpinname="Key">
-   </LINK>
    <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="31" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="20" dstpinname="Input">
    </LINK>
    <NODE systemname="GetSlice (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="GetSlice (Message)" componentmode="Hidden" id="50">
    <BOUNDS type="Node" left="1140" top="8475" width="100" height="100">
@@ -864,7 +814,7 @@
    </NODE>
    <LINK srcnodeid="52" srcpinname="Y Output Value" dstnodeid="51" dstpinname="Play">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="54">
    <BOUNDS type="Node" left="9270" top="8955" width="100" height="100">
@@ -971,5 +921,37 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="61" srcpinname="Intersects Quad" dstnodeid="62" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="20">
+   <BOUNDS type="Node" left="7095" top="5940" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|int Value|">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" visible="1" values="int">
+   </PIN>
+   <PIN pinname="Key" slicecount="1" visible="1" values="Play">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="AvoidNil" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="7095" top="5940">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="20" srcpinname="Field" dstnodeid="30" dstpinname="Bold">
+   </LINK>
+   <LINK srcnodeid="20" srcpinname="Field" dstnodeid="19" dstpinname="Switch" linkstyle="Bezier">
+   <LINKPOINT x="7365" y="6833">
+   </LINKPOINT>
+   <LINKPOINT x="8190" y="6833">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Output Enum" dstnodeid="20" dstpinname="Type">
+   </LINK>
+   <LINK srcnodeid="49" srcpinname="Output String" dstnodeid="20" dstpinname="Key">
+   </LINK>
+   <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="20" dstpinname="Input">
    </LINK>
    </PATCH>

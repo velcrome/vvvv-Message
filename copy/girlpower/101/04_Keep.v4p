@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="17370" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\101\04_Keep.v4p" scrollx="0" scrolly="-2001" systemname="04_Keep" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\04_Keep.v4p">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
    </PACK>
@@ -422,20 +422,6 @@
    </NODE>
    <LINK srcnodeid="18" srcpinname="id" dstnodeid="6" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="41" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="4485" top="7089" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="AvoidNil" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Key" slicecount="1" values="Bar">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="42" systemname="IOBox (String)">
    <BOUNDS type="Box" left="4860" top="7452" width="675" height="1425">
    </BOUNDS>
@@ -456,8 +442,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <LINK srcnodeid="41" srcpinname="Field" dstnodeid="42" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="46" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2952" top="7503" width="480" height="480">
    </BOUNDS>
@@ -497,7 +481,7 @@
    </PIN>
    <PIN pinname="Topic" visible="1">
    </PIN>
-   <PIN pinname="Formular" slicecount="1" values="None" visible="1">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="None">
    </PIN>
    <BOUNDS type="Window" left="14430" top="3360" width="6000" height="4500">
    </BOUNDS>
@@ -540,22 +524,6 @@
    <PIN pinname="Pin Visibility" slicecount="1" values="OnlyInspector">
    </PIN>
    </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="54" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="3816" top="12744" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="AvoidNil" slicecount="1" values="0">
-   </PIN>
-   <BOUNDS type="Box" left="3816" top="12744">
-   </BOUNDS>
-   <PIN pinname="Key" slicecount="1" values="Letter">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="53" systemname="IOBox (String)">
    <BOUNDS type="Box" left="4017" top="13119" width="675" height="1425">
    </BOUNDS>
@@ -574,8 +542,6 @@
    <PIN pinname="Size" slicecount="1" values="13">
    </PIN>
    </NODE>
-   <LINK srcnodeid="54" srcpinname="Field" dstnodeid="53" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="51" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3009" top="13200" width="480" height="480">
    </BOUNDS>
@@ -794,8 +760,6 @@
    <PIN pinname="Input Node" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="72" srcpinname="Output Node" dstnodeid="54" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="73" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="3816" top="6588" width="795" height="240">
    </BOUNDS>
@@ -804,8 +768,6 @@
    <PIN pinname="Output Node" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="73" srcpinname="Output Node" dstnodeid="41" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="74" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4572" top="5493" width="480" height="480">
    </BOUNDS>
@@ -1290,7 +1252,7 @@
    <LINKPOINT x="5865" y="11288">
    </LINKPOINT>
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <LINK srcnodeid="80" srcpinname="Output" dstnodeid="39" dstpinname="Bar">
    </LINK>
@@ -1337,5 +1299,43 @@
    <LINK srcnodeid="22" srcpinname="Output String" dstnodeid="26" dstpinname="Item">
    </LINK>
    <LINK srcnodeid="18" srcpinname="Item" dstnodeid="19" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="41" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="4485" top="7089" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="AvoidNil" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Key" slicecount="1" values="Bar">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="41" srcpinname="Field" dstnodeid="42" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="73" srcpinname="Output Node" dstnodeid="41" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="54" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="3816" top="12744" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="AvoidNil" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS type="Box" left="3816" top="12744">
+   </BOUNDS>
+   <PIN pinname="Key" slicecount="1" values="Letter">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="54" srcpinname="Field" dstnodeid="53" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="72" srcpinname="Output Node" dstnodeid="54" dstpinname="Input">
    </LINK>
    </PATCH>

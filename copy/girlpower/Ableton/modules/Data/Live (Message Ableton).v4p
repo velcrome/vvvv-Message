@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\Data\Live (Message Ableton).v4p" systemname="Live (Message)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Live (Message).v4p" scrollx="0" scrolly="3360">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\Ableton\modules\Data\Live (Message Ableton).v4p" systemname="Live (Message)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Live (Message).v4p" scrollx="0" scrolly="1845">
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="2" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="300" top="1155" width="1320" height="300">
    </BOUNDS>
@@ -709,7 +709,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Caps (String)" nodename="Caps (String)" componentmode="Hidden" id="166">
-   <BOUNDS type="Node" left="9750" top="9345" width="100" height="100">
+   <BOUNDS type="Node" left="9765" top="9180" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -1104,6 +1104,6 @@
    </LINK>
    <LINK srcnodeid="160" srcpinname="Output Enum" dstnodeid="154" dstpinname="Formular">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    </PATCH>

@@ -1,11 +1,11 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\TouchOSC\TouchOSC (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchOSC (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\girlpower\TouchOSC\TouchOSC (Message) help.v4p">
-   <BOUNDS type="Window" left="825" top="375" width="16665" height="14370">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\TouchOSC\TouchOSC (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchOSC (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\girlpower\TouchOSC\TouchOSC (Message) help.v4p">
+   <BOUNDS type="Window" left="-105" top="0" width="14610" height="15705">
    </BOUNDS>
-   <NODE systemname="TouchOSC (Message)" filename="TouchOSC (Message).v4p" nodename="TouchOSC (Message)" componentmode="Hidden" id="0">
+   <NODE systemname="TouchOSC (Message)" filename="TouchOSC (Message).v4p" nodename="TouchOSC (Message)" componentmode="Hidden" id="0" stayontop="0">
    <BOUNDS type="Node" left="450" top="12825" width="6975" height="270">
    </BOUNDS>
-   <BOUNDS type="Window" left="13935" top="1635" width="15465" height="13200">
+   <BOUNDS type="Window" left="14295" top="0" width="14610" height="15705">
    </BOUNDS>
    <PIN pinname="TouchOSC IP" visible="1" slicecount="1" values="192.168.2.67">
    </PIN>
@@ -15,11 +15,11 @@
    </PIN>
    <PIN pinname="Enable" visible="1">
    </PIN>
-   <PIN pinname="Toggle" visible="1">
+   <PIN pinname="Toggle" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Fader" visible="1">
    </PIN>
-   <PIN pinname="Push" visible="1">
+   <PIN pinname="Push" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Multitoggle" visible="1">
    </PIN>
@@ -145,7 +145,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="450" top="10770" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="192.168.1.102">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="192.168.1.101">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="192.168.1.1">
    </PIN>
@@ -637,7 +637,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2400" top="19035" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0.35,0.39">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1,0.45">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -699,7 +699,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5550" top="19395" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -709,7 +709,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="toggle1">
    </PIN>
@@ -752,7 +752,7 @@
    </NODE>
    <LINK srcnodeid="40" srcpinname="Y Output Value" dstnodeid="37" dstpinname="Update">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="41">
    <BOUNDS type="Box" left="3630" top="19620" width="1590" height="270">
@@ -1011,6 +1011,8 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="67">
    <BOUNDS type="Box" left="10605" top="19950" width="330" height="315">
@@ -1165,5 +1167,15 @@
    <LINK srcnodeid="35" srcpinname="Output" dstnodeid="32" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="36" srcpinname="Output String" dstnodeid="35" dstpinname="Filter">
+   </LINK>
+   <NODE systemname="Change (Animation)" nodename="Change (Animation)" componentmode="Hidden" id="73">
+   <BOUNDS type="Node" left="11385" top="19065" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="55" srcpinname="Index" dstnodeid="73" dstpinname="Input">
    </LINK>
    </PATCH>

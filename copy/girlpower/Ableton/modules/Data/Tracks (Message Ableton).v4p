@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\Data\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="0" scrolly="810">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\Ableton\modules\Data\Tracks (Message Ableton).v4p" systemname="Tracks (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\Tracks (Message Ableton).v4p" scrollx="105" scrolly="15000">
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="16" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="1620" top="16305" width="795" height="240">
    </BOUNDS>
@@ -1704,20 +1704,6 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="245">
-   <BOUNDS type="Node" left="17820" top="16980" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="|int Value|">
-   </PIN>
-   <PIN pinname="Type" slicecount="1" values="int">
-   </PIN>
-   <PIN pinname="Key" slicecount="1" visible="1" values="Jump">
-   </PIN>
-   <PIN pinname="Field" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="246" systemname="IOBox (String)">
    <BOUNDS type="Box" left="18225" top="16500" width="795" height="240">
    </BOUNDS>
@@ -1734,20 +1720,16 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="246" srcpinname="Output String" dstnodeid="245" dstpinname="Key">
-   </LINK>
    <NODE systemname="EQ (Value)" nodename="EQ (Value)" componentmode="Hidden" id="247">
    <BOUNDS type="Node" left="18060" top="17430" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input 1" visible="1">
+   <PIN pinname="Input 1" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Inverse Output" visible="1">
    </PIN>
    <PIN pinname="Epsilon" slicecount="1" values="0.02">
    </PIN>
    </NODE>
-   <LINK srcnodeid="245" srcpinname="Field" dstnodeid="247" dstpinname="Input 1">
-   </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="188" dstpinname="Formular" hiddenwhenlocked="1">
    </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="228" dstpinname="Formular" hiddenwhenlocked="1">
@@ -2288,29 +2270,9 @@
    <BOUNDS type="Box" left="17340" top="16365">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="244" srcpinname="Output" dstnodeid="245" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="244" srcpinname="Output" dstnodeid="250" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="253" srcpinname="Output String" dstnodeid="244" dstpinname="Filter">
-   </LINK>
-   <NODE systemname="SiftCommon (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="184">
-   <BOUNDS type="Node" left="8775" top="20580" width="360" height="270">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Filter" slicecount="1" visible="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="NotFound" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="173" srcpinname="Output" dstnodeid="184" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="185" srcpinname="Output String" dstnodeid="184" dstpinname="Filter">
-   </LINK>
-   <LINK srcnodeid="184" srcpinname="NotFound" dstnodeid="188" dstpinname="Input">
    </LINK>
    <NODE systemname="SessionKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="3270" top="14145" width="5010" height="270">
@@ -2376,6 +2338,44 @@
    </LINK>
    <LINK srcnodeid="46" srcpinname="Output Enum" dstnodeid="127" dstpinname="Formular" hiddenwhenlocked="1">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="245">
+   <BOUNDS type="Node" left="17820" top="16980" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|int Value|">
+   </PIN>
+   <PIN pinname="Type" slicecount="1" values="int">
+   </PIN>
+   <PIN pinname="Key" slicecount="1" visible="1" values="Jump">
+   </PIN>
+   <PIN pinname="Field" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="246" srcpinname="Output String" dstnodeid="245" dstpinname="Key">
+   </LINK>
+   <LINK srcnodeid="245" srcpinname="Field" dstnodeid="247" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="244" srcpinname="Output" dstnodeid="245" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="184">
+   <BOUNDS type="Node" left="8775" top="20580" width="360" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Filter" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="NotFound" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="173" srcpinname="Output" dstnodeid="184" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="185" srcpinname="Output String" dstnodeid="184" dstpinname="Filter">
+   </LINK>
+   <LINK srcnodeid="184" srcpinname="NotFound" dstnodeid="188" dstpinname="Input">
+   </LINK>
    </PATCH>

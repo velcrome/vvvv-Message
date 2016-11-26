@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\Ableton\modules\Data\DeviceParams (Message Ableton).v4p" systemname="DeviceParams (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\DeviceParams (Message Ableton).v4p" scrollx="0" scrolly="5475">
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="2" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="5160" top="10245" width="1110" height="885">
    </BOUNDS>
@@ -2100,6 +2100,6 @@
    <LINKPOINT x="20070" y="20175">
    </LINKPOINT>
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    </PATCH>

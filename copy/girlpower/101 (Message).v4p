@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101 (Message).v4p" scrollx="0" scrolly="0" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\101 (Message).v4p" scrollx="0" scrolly="-1080" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\demo\AllNodes (Message).v4p">
    <BOUNDS type="Window" left="0" top="0" width="2850" height="8895">
    </BOUNDS>
    <PACK Name="addonpack" Version="34.101.0">
@@ -168,6 +168,6 @@
    <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    </PATCH>

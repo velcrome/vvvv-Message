@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\Ableton\modules\LiveOSC (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\Ableton\modules\LiveOSC (Message Ableton).v4p" scrollx="0" scrolly="0" systemname="LiveOSC (Message Ableton)" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\Ableton\LiveOSC (Message Ableton).v4p">
    <BOUNDS type="Window" left="0" top="0" width="12600" height="15150">
    </BOUNDS>
    <NODE systemname="UDP (Network Server)" nodename="UDP (Network Server)" componentmode="Hidden" id="0">
@@ -303,6 +303,8 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="Meter">
    </PIN>
+   <PIN pinname="Input Node">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="421" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="1185" top="6975" width="795" height="240">
@@ -542,30 +544,6 @@
    </LINK>
    <LINK srcnodeid="256" srcpinname="Unrecognized OSC" dstnodeid="359" dstpinname="OSC Input">
    </LINK>
-   <NODE systemname="Meter (Message Ableton)" filename="Data\Meter (Message Ableton).v4p" componentmode="Hidden" id="321" nodename="Meter (Message Ableton)">
-   <BOUNDS type="Node" left="4800" top="4020" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="4800" top="4020" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="3270" top="3885" width="9000" height="9510">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Meter" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="OSC Input" visible="1">
-   </PIN>
-   <PIN pinname="Unrecognized OSC" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="420" dstpinname="Input Node">
-   </LINK>
-   <LINK srcnodeid="428" srcpinname="Output Node" dstnodeid="321" dstpinname="OSC Input">
-   </LINK>
-   <LINK srcnodeid="321" srcpinname="Unrecognized OSC" dstnodeid="254" dstpinname="Input">
-   </LINK>
    <NODE systemname="Sends (Message Ableton)" filename="Data\Sends (Message Ableton).v4p" nodename="Sends (Message Ableton)" componentmode="Hidden" id="252">
    <BOUNDS type="Node" left="8730" top="8820" width="100" height="100">
    </BOUNDS>
@@ -712,10 +690,34 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <PACK Name="vvvv-Message" Version="2.8.6">
+   </PACK>
+   <NODE id="321" componentmode="Hidden" systemname="Meter (Message Ableton)" filename="Data\Meter (Message Ableton).v4p" nodename="Meter (Message Ableton)">
+   <BOUNDS type="Node" left="4800" top="4020" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4800" top="4020" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="3270" top="3885" width="9000" height="9510">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Meter" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="OSC Input" visible="1">
+   </PIN>
+   <PIN pinname="Unrecognized OSC" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="418" srcpinname="Y Output Value" dstnodeid="321" dstpinname="Reset" hiddenwhenlocked="1">
+   </LINK>
    <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="14" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
-   </PACK>
-   <LINK srcnodeid="418" srcpinname="Y Output Value" dstnodeid="321" dstpinname="Reset" hiddenwhenlocked="1">
+   <LINK srcnodeid="321" srcpinname="Unrecognized OSC" dstnodeid="254" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="428" srcpinname="Output Node" dstnodeid="321" dstpinname="OSC Input">
+   </LINK>
+   <LINK srcnodeid="321" srcpinname="Meter" dstnodeid="420" dstpinname="Input Node">
    </LINK>
    </PATCH>

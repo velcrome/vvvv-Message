@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\XTouch (Message) help.v4p" scrollx="0" scrolly="0" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p" bgcolor="15132390">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\dev\vvvv\vvvv-Message\build\AnyCPU\Debug\girlpower\XTouch\XTouch (Message) help.v4p" scrollx="0" scrolly="-360" systemname="TouchX (Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\TouchX (Message).v4p" bgcolor="15132390">
    <BOUNDS type="Window" left="0" top="0" width="14085" height="15300">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
@@ -141,7 +141,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="465" top="5940" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="|LoopBe Internal MIDI|">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="(nil)">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -263,7 +263,7 @@
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="349">
    <BOUNDS type="Node" left="2565" top="11145" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="XTouch.Transport" visible="1">
+   <PIN pinname="Formular" slicecount="1" visible="1" values="XTouch.Transport">
    </PIN>
    <PIN pinname="Configuration" slicecount="1" values="|bool Rewind, bool Forward, bool Loop, bool Record, bool Stop, bool Play|">
    </PIN>
@@ -530,7 +530,7 @@
    </NODE>
    <LINK srcnodeid="373" srcpinname="Y Output Value" dstnodeid="349" dstpinname="Play">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="374">
    <BOUNDS type="Node" left="480" top="510" width="100" height="100">
@@ -794,7 +794,7 @@
    </LINK>
    <LINK srcnodeid="331" srcpinname="Tracks" dstnodeid="386" dstpinname="Input">
    </LINK>
-   <NODE systemname="Transport (XTouch Message)" filename="%VVVV%\packs\vvvv-Message\girlpower\XTouch\Transport (XTouch Message).v4p" nodename="Transport (XTouch Message)" componentmode="Hidden" id="327">
+   <NODE systemname="Transport (XTouch Message)" filename="%VVVV%\packs\vvvv-Message\girlpower\XTouch\Transport (XTouch Message).v4p" nodename="Transport (XTouch Message)" componentmode="InAWindow" id="327">
    <BOUNDS type="Node" left="2610" top="7500" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="2610" top="7500" width="8610" height="7800">
@@ -853,7 +853,7 @@
    </PIN>
    <PIN pinname="Message Diff" visible="1">
    </PIN>
-   <PIN pinname="Master" visible="1">
+   <PIN pinname="Master" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="332" srcpinname="Output Enum" dstnodeid="330" dstpinname="Midi Input Port" linkstyle="VHV">

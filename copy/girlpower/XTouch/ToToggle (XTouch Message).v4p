@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\ToToggle (TouchX Message).v4p" systemname="ToToggle (TouchX Message)" filename="C:\dev\vvvv\kreuzkirche\modules\Input\XTouch\ToToggle (TouchX Message).v4p" scrollx="0" scrolly="0">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\ToToggle (XTouch Message).v4p" systemname="ToToggle (TouchX Message)" filename="C:\dev\vvvv\kreuzkirche\modules\Input\XTouch\ToToggle (TouchX Message).v4p" scrollx="0" scrolly="0">
    <NODE systemname="TogEdge (Animation)" nodename="TogEdge (Animation)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2025" top="2175" width="100" height="100">
    </BOUNDS>
@@ -20,18 +20,18 @@
    <PIN pinname="Mode" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Read (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="2">
+   <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Dynamic)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="1500" top="1725" width="1695" height="270">
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|bool Value|">
    </PIN>
    <PIN pinname="Key" slicecount="1" visible="1" values="Top">
    </PIN>
-   <PIN pinname="Type" slicecount="1" values="bool" visible="1">
+   <PIN pinname="Type" slicecount="1" visible="1" values="bool">
    </PIN>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="AvoidNil" slicecount="1" values="0" visible="1">
+   <PIN pinname="AvoidNil" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Field" visible="1">
    </PIN>
@@ -53,7 +53,7 @@
    </BOUNDS>
    <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
    </BOUNDS>
-   <PIN pinname="Type" slicecount="1" values="bool" visible="1">
+   <PIN pinname="Type" slicecount="1" visible="1" values="bool">
    </PIN>
    <PIN pinname="Key" slicecount="1" visible="1" values="Top">
    </PIN>
@@ -210,24 +210,6 @@
    </NODE>
    <LINK srcnodeid="11" srcpinname="Output Enum" dstnodeid="3" dstpinname="Type">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="12">
-   <BOUNDS type="Box" left="3120" top="1380" width="285" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="3120" top="1380" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="12" srcpinname="Y Output Value" dstnodeid="2" dstpinname="AvoidNil">
-   </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="13">
    <BOUNDS type="Box" left="2070" top="1380" width="570" height="240">
    </BOUNDS>
@@ -238,6 +220,6 @@
    </NODE>
    <LINK srcnodeid="13" srcpinname="Output Enum" dstnodeid="2" dstpinname="Type">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.8.6">
    </PACK>
    </PATCH>
