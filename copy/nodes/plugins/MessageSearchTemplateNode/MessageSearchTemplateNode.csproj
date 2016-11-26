@@ -44,7 +44,7 @@
       <HintPath>..\VVVV.Nodes.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Packs.Messaging">
-      <HintPath>..\..\..\core\VVVV.Packs.Messaging.dll</HintPath>
+      <HintPath>..\..\..\core\SharpMessage.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.PluginInterfaces" />
     <Reference Include="VVVV.Utils" />

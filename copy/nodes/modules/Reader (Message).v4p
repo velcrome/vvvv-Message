@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "https://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" systemname="Reader (Message)" filename="C:\apps\code\vvvv_45beta33.3_x64\packs\vvvv-Message\nodes\modules\Reader (Message).v4p" scrollx="0" scrolly="795">
    <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
    <BOUNDS type="Box" left="1050" top="1395" width="792" height="240">
