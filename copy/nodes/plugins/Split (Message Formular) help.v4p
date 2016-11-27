@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Split (Message Formular) help.v4p" scrollx="0" scrolly="0" systemname="Split (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Split (Message) help.v4p">
+﻿<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Split (Message Formular) help.v4p" scrollx="0" scrolly="0" systemname="Split (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Split (Message) help.v4p">
    <BOUNDS type="Window" left="8115" top="2625" width="12810" height="10035">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -406,7 +406,7 @@
    </LINK>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="22" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.8.6">
+   <PACK Name="vvvv-Message" Version="2.7.1">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="42">
    <BOUNDS type="Node" left="8790" top="2010" width="1815" height="270">

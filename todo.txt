@@ -19,6 +19,10 @@ Features Wanted
 
 Bugs
 - [Formular] is super slow
+- [ConfigKeep] does not stop sweeping
+- [PruneBut] does not remove empty bins
+- [PruneEmpty] fix help text
+
 
 Treatments
 - config pin should be private (and hidden)
