@@ -13,9 +13,7 @@ namespace VVVV.Packs.Messaging.Tests
     [TestClass]
     public class BinTest
     {
-        VVVVProfile profile = new VVVVProfile();
-        bool init = TypeIdentity.Instance.ScanAssemblies();
-
+        VVVVProfile profile;
 
         #region First
         [TestMethod]
