@@ -180,7 +180,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-            if (Keep.IsChanged)
+            if (Keep.IsChanged || Keep.IsSweeping)
             {
                 UpKeep(anyUpdate);
             }
@@ -188,8 +188,8 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 if (FChangeOut.SliceCount > 0)
                 {
-                    FChangeOut.SliceCount = 0;
-                    FChangeIndexOut.SliceCount = 0;
+                    FChangeOut.FlushNil();
+                    FChangeIndexOut.FlushNil();
                 }
             }
 

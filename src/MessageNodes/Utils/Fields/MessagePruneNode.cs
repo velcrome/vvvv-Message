@@ -12,46 +12,35 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessagePruneNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Remaining FieldNames", DefaultString = "Foo")]
-        private ISpread<string> FFilter;
-
-        [Input("Remove Empty", DefaultBoolean = false, IsSingle = true)]
-        private ISpread<bool> FRemoveEmpty;
+        protected IDiffSpread<string> FFilter;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
         [Import()]
         protected ILogger FLogger;
 
-#pragma warning restore
-
         public void Evaluate(int SpreadMax)
         {
-            SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
-
-            if (SpreadMax <= 0)
+            if (!FInput.IsChanged && !FFilter.IsChanged) return;
+            if (FInput.IsAnyInvalid())
             {
-                FOutput.FlushNil();
+                if (FOutput.SliceCount > 0) FOutput.FlushNil();
                 return;
             }
-
-            var keepOnly = new HashSet<string>(FFilter);
 
             foreach (var message in FInput)
             {
                 foreach (var fieldName in message.Fields.ToArray())
-                    if (!keepOnly.Contains(fieldName))              
+                    if (!FFilter.Contains(fieldName))              
                         message.Remove(fieldName);
             }
 
-            if (FRemoveEmpty[0])
-                FOutput.FlushResult(FInput.Where(message => !message.IsEmpty));
-            else FOutput.FlushResult(FInput);
+            FOutput.FlushResult(FInput);
         }
     }
 

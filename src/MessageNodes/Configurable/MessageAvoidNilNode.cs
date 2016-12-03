@@ -16,18 +16,16 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageAvoidNilNode : AbstractFormularableNode
     {
-#pragma warning disable 649, 169
         [Input("Input", Order = 0)]
-        ISpread<Message> FInput;
+        protected ISpread<Message> FInput;
 
         [Input("Topic", Order = 1, DefaultString="Event")]
-        ISpread<string> FTopic;
+        protected ISpread<string> FTopic;
 
         [Output("Output", AutoFlush = false)]
-        ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
         protected Message Default;
-#pragma warning restore
 
         public override void OnImportsSatisfied()
         {
