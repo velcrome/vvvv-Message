@@ -14,7 +14,6 @@ namespace VVVV.Packs.Messaging.Tests
     public class BinFactoryTest
     {
         VVVVProfile profile = new VVVVProfile();
-        bool init = TypeIdentity.Instance.ScanAssemblies();
 
         [TestMethod]
         public void BinCreationEmpty()

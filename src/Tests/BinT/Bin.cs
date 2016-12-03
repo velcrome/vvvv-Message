@@ -13,7 +13,7 @@ namespace VVVV.Packs.Messaging.Tests
     [TestClass]
     public class BinTest
     {
-        VVVVProfile profile;
+        VVVVProfile profile = new VVVVProfile();
 
         #region First
         [TestMethod]

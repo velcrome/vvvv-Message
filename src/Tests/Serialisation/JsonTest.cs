@@ -10,7 +10,6 @@ namespace VVVV.Packs.Messaging.Tests
     public class JsonTest
     {
         VVVVProfile profile = new VVVVProfile();
-        bool init = TypeIdentity.Instance.ScanAssemblies();
 
         #region basics
         [TestMethod]

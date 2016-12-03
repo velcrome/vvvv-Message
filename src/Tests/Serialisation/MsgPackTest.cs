@@ -20,7 +20,6 @@ namespace VVVV.Packs.Messaging.Tests
         #region basics
 
         VVVVProfile profile = new VVVVProfile();
-        bool init = TypeIdentity.Instance.ScanAssemblies();
 
         private SerializationContext Setup()
         {
