@@ -13,26 +13,23 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageFieldRename : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Match Field Name", DefaultString = "Foo")]
-        private ISpread<string> FOld;
+        protected ISpread<string> FOld;
 
         [Input("New Field Name", DefaultString = "Bar")]
-        private ISpread<string> FNew;
+        protected ISpread<string> FNew;
 
         [Input("Force Overwrite", DefaultBoolean = true, IsSingle = true, IsToggle = true)]
-        private ISpread<bool> FOverwrite;
+        protected ISpread<bool> FOverwrite;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
         [Import()]
         protected ILogger FLogger;
-
-#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
