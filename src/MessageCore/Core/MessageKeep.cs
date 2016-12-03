@@ -43,7 +43,9 @@ namespace VVVV.Packs.Messaging
             }
         }
 
-
+        /// <summary>
+        /// Detects if any changes happened to Messages in the Keep since the last Sync.
+        /// </summary>
         public bool IsChanged
         {
             get {
@@ -54,6 +56,18 @@ namespace VVVV.Packs.Messaging
                 {
                     Changes.Clear();
                 }
+            }
+        }
+
+        public bool IsSweeping
+        {
+            get
+            {
+                foreach (var m in Messages)
+                {
+                    if (m.Fields.Any(field => m[field].IsSweeping())) return true;
+                }
+                return false;
             }
         }
         #endregion fields

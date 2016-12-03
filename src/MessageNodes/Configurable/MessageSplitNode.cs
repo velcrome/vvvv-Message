@@ -21,7 +21,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageSplitNode : TypeablePinsNode
     {
         [Input("Input", Order = 0)]
-        protected IDiffSpread<Message> FInput;
+        protected Pin<Message> FInput;
 
         [Input("Verbose Logging", Order = int.MaxValue, DefaultBoolean = true, IsSingle = true)]
         protected IDiffSpread<bool> FVerbose;
@@ -31,6 +31,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Output("Timestamp", AutoFlush = false, Visibility = PinVisibility.OnlyInspector, Order = 2)] 
         protected ISpread<Time> FTimeStamp;
+
+        protected bool LayoutChanged;
 
         protected override IOAttribute SetPinAttributes(FormularFieldDescriptor configuration)
         {
@@ -43,51 +45,37 @@ namespace VVVV.Packs.Messaging.Nodes
             return attr;
         }
 
+        protected override IIOContainer CreatePin(FormularFieldDescriptor field)
+        {
+            LayoutChanged = true; // this forces Evaluate to push data to output, even though no new messages got pushed
+            return base.CreatePin(field); 
+        }
+
         public override void Evaluate(int SpreadMax)
         {
-            bool warnPinSafety = false;
-            bool layoutChanged = false;
+            // quit early. this will keep the last valid output until situation is resolved
             if (RemovePinsFirst)
             {
-                layoutChanged = RetryConfig();
-                warnPinSafety = !layoutChanged;
+                if (!RetryConfig()) throw new PinConnectionException("Manually remove unneeded links first! [Split]. ID = [" + PluginHost.GetNodePath(false) + "]");
+                else LayoutChanged = true;
             }
 
-            // quit early. this will keep the last valid output until situation is resolved
-            if (warnPinSafety)
-                throw new PinConnectionException("Manually remove unneeded links first! [Split]. ID = [" + PluginHost.GetNodePath(false) + "]");
-
-
-            if (!FInput.IsChanged && !layoutChanged)
-            {
-                return;
-            }
+            if (!FInput.IsChanged && !LayoutChanged) return;
             
             SpreadMax = FInput.IsAnyInvalid() ? 0 : FInput.SliceCount;
             if (SpreadMax <= 0)
             {
                 foreach (string name in FPins.Keys)
-                {
-                    var pin = FPins[name].ToISpread();
-                    pin.SliceCount = 0;
-                    pin.Flush();
-                }
-                FTopic.SliceCount = 0;
-                FTimeStamp.SliceCount = 0;
+                    FPins[name].ToISpread().FlushNil();
 
-                FTopic.Flush();
-                FTimeStamp.Flush();
-
+                FTopic.FlushNil();
+                FTimeStamp.FlushNil();
                 return;
             }
 
             FTimeStamp.SliceCount = SpreadMax;
             FTopic.SliceCount = SpreadMax;
-
-            foreach (string name in FPins.Keys)
-            {
-                FPins[name].ToISpread().SliceCount = SpreadMax;
-            }
+            foreach (string name in FPins.Keys) FPins[name].ToISpread().SliceCount = SpreadMax;
 
             for (int i = 0; i < SpreadMax; i++)
             {
@@ -116,7 +104,6 @@ namespace VVVV.Packs.Messaging.Nodes
                         targetBin[j] = sourceBin[j];
                     }
                 }
-
             }
 
             FTimeStamp.Flush();
@@ -125,6 +112,9 @@ namespace VVVV.Packs.Messaging.Nodes
             {
                 FPins[name].ToISpread().Flush();
             }
+
+            // no need to worry next frame. all's well, because node failed early
+            LayoutChanged = false;
         }
 
     }

@@ -127,7 +127,7 @@ namespace VVVV.Packs.Messaging.Nodes
         /// <param name="field"></param>
         /// <exception cref="InvalidComObjectException">PluginInterface: Internal COM disconnect</exception>
         /// <returns>The container around the pin.</returns>
-        protected IIOContainer CreatePin(FormularFieldDescriptor field)
+        protected virtual IIOContainer CreatePin(FormularFieldDescriptor field)
         {
             IOAttribute attr = SetPinAttributes(field); // each implementation of DynamicPinsNode must create its own InputAttribute or OutputAttribute (
 
