@@ -38,16 +38,18 @@ namespace VVVV.Packs.Messaging.Nodes
         [Import]
         protected IPluginHost2 PluginHost;
 
-        private bool _firstFrame = true;
+        private bool ForceUpdate = true;
         private Exception _lastException = null;
         
         public void Evaluate(int SpreadMax)
         {
             if (FConfiguration.IsAnyInvalid() || FName.IsAnyInvalid()) return;
 
-            var update = (!FUpdate.IsAnyInvalid() && FUpdate[0]) || FInherits.IsChanged || FName.IsChanged;
+            ForceUpdate |= !FUpdate.IsAnyInvalid() && FUpdate[0];
+            var change = ForceUpdate || FInherits.IsChanged || FName.IsChanged || FConfiguration.IsChanged;
+            
 
-            if (!_firstFrame && !update)
+            if (!ForceUpdate && !change)
             {
                 if (_lastException != null)
                 {
@@ -56,6 +58,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
+            // untoggle exception.
             if (_lastException != null)
             {
                 var tmp = _lastException;
@@ -63,6 +66,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 _lastException = null; // assume innocence
                 throw tmp;
             }
+
+            if (!change && !ForceUpdate) return;
 
             FOutput.SliceCount = SpreadMax = FName.SliceCount;
 
@@ -112,6 +117,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
                 if (!FInherits.IsAnyInvalid())
                 {
+                    // flatten
                     var allFields = (
                                         from form in FInherits
                                         from field in form.FieldDescriptors
@@ -140,7 +146,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     }
                 }
 
-                if (_firstFrame || (!FUpdate.IsAnyInvalid() && FUpdate[0]))
+                // only register, when update has been hit!
+                if (ForceUpdate)
                 try
                 {
                         var defined = reg.Define(id, formular); // will raise Change events to inform all formularable nodes
@@ -159,15 +166,19 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-            foreach (var form in reg.GetFormularsFrom(id).ToList())
+            // only register, when update has been hit!
+            if (ForceUpdate)
             {
-                if (!FName.Contains(form.Name))
-                    reg.Undefine(id, form);
+                foreach (var form in reg.GetFormularsFrom(id).ToList())
+                {
+                    if (!FName.Contains(form.Name))
+                        reg.Undefine(id, form);
+                }
+                FOutput.Flush();
+                EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
             }
 
-            _firstFrame = false;
-            FOutput.Flush();
-            EnumManager.UpdateEnum(MessageFormularRegistry.RegistryName, reg.AllFormularNames.First(), reg.AllFormularNames.ToArray());
+            ForceUpdate = false;
             
         }
 
