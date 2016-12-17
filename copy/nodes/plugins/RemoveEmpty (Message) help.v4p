@@ -1,0 +1,267 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\RemoveEmpty (Message) help.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="6555" top="5430" width="10125" height="9180">
+   </BOUNDS>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="2">
+   <BOUNDS type="Node" left="495" top="960" width="5100" height="600">
+   </BOUNDS>
+   <BOUNDS type="Box" left="495" top="960" width="5100" height="600">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Remove empty messages from Message sream.|">
+   </PIN>
+   <PIN pinname="Output String" slicecount="1" visible="0" values="||">
+   </PIN>
+   </NODE>
+   <NODE nodename="RemoveEmpty (Message)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="1650" top="5340" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1650" top="5340" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="7" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="525" top="375" width="5000" height="450">
+   </BOUNDS>
+   <BOUNDS type="Box" left="525" top="375" width="6480" height="495">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|RemoveEmpty (Message)|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" visible="1" values="14">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="5">
+   <BOUNDS type="Node" left="7335" top="345" width="2340" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7335" top="345" width="2025" height="855">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Copyright: intolight&cr;&lf;Author: velcrome&cr;&lf;License: CC BY-NC-SA 4.0|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="Default (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Default (Message Formular)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="960" top="2535" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="New" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Spread Count" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Formular" slicecount="1" values="None">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9">
+   <BOUNDS type="Box" left="960" top="1815" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="960" top="1815" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="8" dstpinname="New">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="12">
+   <BOUNDS type="Box" left="945" top="3045" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="945" top="3045" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Empty">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Output" dstnodeid="12" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="13">
+   <BOUNDS type="Node" left="2955" top="2520" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="New" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="11190" top="8985" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|int Test|">
+   </PIN>
+   <PIN pinname="Test" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14">
+   <BOUNDS type="Box" left="2970" top="1815" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2970" top="1815" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="13" dstpinname="New">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="15">
+   <BOUNDS type="Box" left="3615" top="2055" width="495" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3615" top="2055" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="5,4">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="15" srcpinname="Y Output Value" dstnodeid="13" dstpinname="Test">
+   </LINK>
+   <NODE systemname="Cons (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Cons (Message)" componentmode="Hidden" id="16" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="960" top="3795" width="2070" height="270">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Distinct" slicecount="1" values="0" visible="-1" pintype="Input">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Output Node" dstnodeid="16" dstpinname="Input 1">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="17">
+   <BOUNDS type="Box" left="2955" top="3090" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2955" top="3090" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="NotEmpty">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="13" srcpinname="Output" dstnodeid="17" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Output Node" dstnodeid="16" dstpinname="Input 2">
+   </LINK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="18">
+   <BOUNDS type="Node" left="240" top="6180" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Configuration" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="19">
+   <BOUNDS type="Box" left="810" top="6600" width="4800" height="1230">
+   </BOUNDS>
+   <BOUNDS type="Node" left="810" top="6600" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="5">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="18" srcpinname="Configuration" dstnodeid="19" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="20" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="240" top="5835" width="1470" height="270">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Switch" slicecount="1" visible="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="20" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="20" srcpinname="Output" dstnodeid="18" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="21">
+   <BOUNDS type="Box" left="945" top="4290" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="945" top="4290" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   <PIN pinname="Input Node" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Output Node" dstnodeid="20" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="21" srcpinname="Output Node" dstnodeid="0" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="22">
+   <BOUNDS type="Box" left="225" top="4965" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="225" top="4965" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Remove Empty|">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="22" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Switch">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="21" dstpinname="Input Node">
+   </LINK>
+   <PACK Name="vvvv-Message" Version="2.8.8">
+   </PACK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <PACK Name="addonpack" Version="34.101.0">
+   </PACK>
+   </PATCH>

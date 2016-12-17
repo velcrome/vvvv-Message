@@ -1,0 +1,263 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" systemname="RedNodes help" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="4425" top="3315" width="13890" height="9450">
+   </BOUNDS>
+   <PACK Name="vvvv-Message" Version="2.8.8">
+   </PACK>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
+   <PACK Name="addonpack" Version="34.101.0">
+   </PACK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="6">
+   <BOUNDS type="Node" left="5355" top="7275" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5355" top="7275" width="2655" height="1515">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|It also means, that you have to disable the exception dialog until you resolved the situation. &cr;&lf;&cr;&lf;VVVV alpha builds  have it enabled by default.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="5">
+   <BOUNDS type="Node" left="5370" top="5595" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5370" top="5595" width="4575" height="1545">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|The create node will still perform as before (and keep on creating), until you fully resolve the situation. &cr;&lf;&cr;&lf;This means you have to manually acknowledge link deletion - by deleting them manually.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="4">
+   <BOUNDS type="Node" left="5370" top="5175" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5370" top="5175" width="2130" height="390">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|This is intended!|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="11">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="3">
+   <BOUNDS type="Node" left="5340" top="9705" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5340" top="9705" width="4605" height="885">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Of course, it is most useful, when you change a layout with the [Formular] node across all your open patches!|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="10">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="2">
+   <BOUNDS type="Node" left="5340" top="9240" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5340" top="9240" width="2805" height="405">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Ít is safe refactoring!|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="11">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="1">
+   <BOUNDS type="Node" left="645" top="240" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="645" top="240" width="4470" height="600">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Red nodes and Exceptions|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="11">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="0">
+   <BOUNDS type="Node" left="5415" top="4095" width="4635" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5415" top="4095" width="4500" height="765">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&cr;&lf;Manually remove unneeded links first! [Split]. ID = [/73/10].|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Font" slicecount="1" values="|Lucida Console|">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="8">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="7">
+   <BOUNDS type="Node" left="645" top="1215" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="645" top="1215" width="4575" height="1710">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|The vvvv-Message nodes make extended use of Exceptions, the stuff that makes them go red. In a best-case scenario it highlights to the user what needs to be done.&cr;&lf;&cr;&lf;An exception is something, that warns about problems while parsing input to a node, or while patching something &quot;illegal&quot;.&cr;&lf;&cr;&lf;|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="InAWindow" id="8">
+   <BOUNDS type="Node" left="750" top="4050" width="1320" height="270">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|Color Test|">
+   </PIN>
+   <PIN pinname="Test" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="2400" top="7425" width="2205" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Box" left="750" top="4050">
+   </BOUNDS>
+   <PIN pinname="New" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Color)" componentmode="InABox" id="9">
+   <BOUNDS type="Box" left="1695" top="3435" width="300" height="420">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1695" top="3435" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Color Input" slicecount="1" visible="1" values="|0.00000,1.00000,0.00000,1.00000|">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Color Output" dstnodeid="8" dstpinname="Test">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="10">
+   <BOUNDS type="Node" left="2340" top="3555" width="3915" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2340" top="3555" width="2700" height="1185">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Open the Formular Editor of [Create] by right-clicking on it!&cr;&lf;&cr;&lf;Uncheck the &quot;Color Test&quot; entry in the Formular Editor!|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="11">
+   <BOUNDS type="Node" left="8355" top="285" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8355" top="285" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="4440" top="12705" width="13935" height="2235">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="12">
+   <BOUNDS type="Node" left="5340" top="1215" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5340" top="1215" width="4575" height="1710">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|vvvv-Message has been developed with a disabled exception dialog in mind, so vvvv can help you find the nodes and fix their input. Resilient as it is, it will behave as before the error was introduced, until you correct the error.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="13">
+   <BOUNDS type="Node" left="5340" top="240" width="2340" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5340" top="240" width="2025" height="855">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Copyright: intolight&cr;&lf;Author: velcrome&cr;&lf;License: CC BY-NC-SA 4.0|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="14">
+   <BOUNDS type="Node" left="5445" top="3495" width="3915" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5445" top="3495" width="4455" height="495">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Exceptions are thrown, and the node turns red. TTY reports.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="Blinker (Animation)" nodename="Blinker (Animation)" componentmode="Hidden" id="15" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="735" top="3555" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="BlinkStyle" slicecount="1" values="BlinkSlow">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="15" srcpinname="Output" dstnodeid="8" dstpinname="New">
+   </LINK>
+   <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="16" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="765" top="4575" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Output" dstnodeid="16" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="17">
+   <BOUNDS type="Box" left="780" top="4995" width="2400" height="1005">
+   </BOUNDS>
+   <BOUNDS type="Node" left="780" top="4995" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="17" dstpinname="Input String">
+   </LINK>
+   </PATCH>
