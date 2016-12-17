@@ -8,9 +8,9 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     public enum FlowControlEnum{
-        Default,
-        Inspect,
-        SinceLastFrame,
+        Default, // flushed stream
+        Inspect, // pending within message
+        SinceLastFrame, // incorporated or pending within message
         Block,
         Force
     };
@@ -41,12 +41,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Import()]
         protected ILogger FLogger;
-#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
             var flow = FFlowControl[0];
             FChange.SliceCount = 0;
+
+            SpreadMax = FInput.SliceCount;
 
             if (FForce[0]) flow = FlowControlEnum.Force;
 
@@ -56,14 +57,14 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (FInput.IsChanged && !FInput.IsAnyInvalid())
                     {
                         FOutput.FlushResult(FInput);
-                        FChange.FlushItem<bool>(true);
+                        FChange.FlushItem(true);
                     }
-                    else FChange.FlushItem<bool>(false);
+                    else FChange.FlushItem(false);
                     break;
                 case FlowControlEnum.Inspect:
                     if (FInput.IsAnyInvalid())
                     {
-                        FChange.FlushItem<bool>(false);
+                        FChange.FlushItem(false);
                         break;
                     }
 
@@ -75,12 +76,12 @@ namespace VVVV.Packs.Messaging.Nodes
                             else FOutput.FlushResult(FInput);
                         FChange.FlushResult(change);
                     }
-                    else FChange.FlushItem<bool>(false);
+                    else FChange.FlushResult(Enumerable.Repeat(false, SpreadMax));
                     break;
                 case FlowControlEnum.SinceLastFrame:
                     if (FInput.IsAnyInvalid())
                     {
-                        FChange.FlushItem<bool>(false);
+                        FChange.FlushItem(false);
                         break;
                     }
 
@@ -92,16 +93,16 @@ namespace VVVV.Packs.Messaging.Nodes
                         else FOutput.FlushResult(FInput);
                         FChange.FlushResult(changed);
                     }
-                    else FChange.FlushItem<bool>(false);
+                    else FChange.FlushResult(Enumerable.Repeat(false, SpreadMax));
                     break;
                 case FlowControlEnum.Block:
-                    FChange.FlushItem<bool>(false);
+                    FChange.FlushItem(false);
                     break;
                 case FlowControlEnum.Force: 
                     FOutput.FlushResult(FInput);
-                    FChange.FlushItem<bool>(true);
+                    FChange.FlushResult(Enumerable.Repeat(true, SpreadMax));
                     break;
-                default: // all bases covered
+                default: // all bases covered?
                     FChange.FlushItem<bool>(false);
                     break;
             }

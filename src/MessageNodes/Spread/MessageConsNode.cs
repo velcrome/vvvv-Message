@@ -99,7 +99,6 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var filtered = from m in inputSpread
                                    where m != null
-                                   where !m.IsEmpty
                                    where !doDistinct || !output.Contains(m)
                                    select m;
 
