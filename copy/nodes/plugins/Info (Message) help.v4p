@@ -43,7 +43,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="4" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="690" top="1320" width="1425" height="600">
+   <BOUNDS type="Box" left="690" top="1320" width="1305" height="855">
    </BOUNDS>
    <BOUNDS type="Node" left="690" top="1320" width="0" height="0">
    </BOUNDS>
@@ -53,7 +53,7 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Input String" visible="1" slicecount="1" values="|{&cr;&lf;  &quot;Topic&quot;: &quot;JsonOne&quot;,&cr;&lf;  &quot;transform&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      4.6363630294799805,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      3.8410036563873291,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      -5.222221851348877,&cr;&lf;      2.1757321357727051,&cr;&lf;      1.2158331871032715,&cr;&lf;      0.99999994039535522,&cr;&lf;      -1.8822250366210937,&cr;&lf;      -1.7541418075561523,&cr;&lf;      4.4134750366210938,&cr;&lf;      6.2199993133544922&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;c&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 0.07453,&cr;&lf;    &quot;G&quot;: 0.0,&cr;&lf;    &quot;B&quot;: 0.97961,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;  &quot;Stamp&quot;: {&cr;&lf;    &quot;UTC&quot;: &quot;2016-11-02 21:43:18.0652&quot;,&cr;&lf;    &quot;ZoneId&quot;: &quot;W. Europe Standard Time&quot;&cr;&lf;  }&cr;&lf;}|">
+   <PIN pinname="Input String" visible="1" slicecount="1" values="|{&cr;&lf;  &quot;Topic&quot;: &quot;JsonOne&quot;,&cr;&lf;  &quot;transform&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      4.6363630294799805,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      3.8410036563873291,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      -5.222221851348877,&cr;&lf;      2.1757321357727051,&cr;&lf;      1.2158331871032715,&cr;&lf;      0.99999994039535522,&cr;&lf;      -1.8822250366210937,&cr;&lf;      -1.7541418075561523,&cr;&lf;      4.4134750366210938,&cr;&lf;      6.2199993133544922&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;c&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 0.07453,&cr;&lf;    &quot;G&quot;: 0.0,&cr;&lf;    &quot;B&quot;: 0.97961,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;}|">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -167,7 +167,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="2520" top="1320" width="1665" height="615">
+   <BOUNDS type="Box" left="2520" top="1320" width="1530" height="900">
    </BOUNDS>
    <BOUNDS type="Node" left="2520" top="1320" width="0" height="0">
    </BOUNDS>
@@ -177,7 +177,7 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Input String" visible="1" slicecount="1" values="|{&cr;&lf;  &quot;Topic&quot;: &quot;JsonTwo&quot;,&cr;&lf;  &quot;transform&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;c&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 1.0,&cr;&lf;    &quot;G&quot;: 0.76186,&cr;&lf;    &quot;B&quot;: 0.0,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;  &quot;Stamp&quot;: {&cr;&lf;    &quot;UTC&quot;: &quot;2016-11-02 21:43:35.3232&quot;,&cr;&lf;    &quot;ZoneId&quot;: &quot;W. Europe Standard Time&quot;&cr;&lf;  }&cr;&lf;}|">
+   <PIN pinname="Input String" visible="1" slicecount="1" values="|{&cr;&lf;  &quot;Topic&quot;: &quot;JsonTwo&quot;,&cr;&lf;  &quot;transform&lt;Transform&gt;&quot;: {&cr;&lf;    &quot;Values&quot;: [&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      0.0,&cr;&lf;      1.0&cr;&lf;    ]&cr;&lf;  },&cr;&lf;  &quot;c&lt;Color&gt;&quot;: {&cr;&lf;    &quot;R&quot;: 1.0,&cr;&lf;    &quot;G&quot;: 0.76186,&cr;&lf;    &quot;B&quot;: 0.0,&cr;&lf;    &quot;A&quot;: 1.0&cr;&lf;  },&cr;&lf;}|">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -240,7 +240,7 @@
    <LINKPOINT x="7655" y="4033">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="AsMessage (string)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="5">
+   <NODE systemname="FromString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="435" top="3045" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -288,7 +288,7 @@
    </LINK>
    <LINK srcnodeid="31" srcpinname="String" dstnodeid="8" dstpinname="Input String">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.8.8">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="32">
    <BOUNDS type="Node" left="2415" top="2280" width="3150" height="270">
@@ -320,4 +320,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   </PACK>
    </PATCH>

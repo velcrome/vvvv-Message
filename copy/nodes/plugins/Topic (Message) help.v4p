@@ -230,7 +230,7 @@
    <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7">
+   <PACK Name="vvvv-Message" Version="2.8.8">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="18">
    <BOUNDS type="Node" left="5520" top="240" width="2340" height="270">
@@ -246,50 +246,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Count">
-   </LINK>
-   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Force">
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Update">
-   </LINK>
-   <NODE id="1" systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="Hidden">
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Node" left="1965" top="2625" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Topic" slicecount="1" visible="1" values="ab">
-   </PIN>
-   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Foo" slicecount="1" values="test">
-   </PIN>
-   <PIN pinname="Count" slicecount="1" visible="1" values="3">
-   </PIN>
-   <PIN pinname="AutoSense" visible="1">
-   </PIN>
-   <PIN pinname="Update" visible="1" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|double Number|">
-   </PIN>
-   <PIN pinname="Force" visible="1">
-   </PIN>
-   <PIN pinname="Bar" slicecount="1" visible="1" values="test">
-   </PIN>
-   <BOUNDS type="Window" left="9705" top="6585" width="6000" height="4500">
-   </BOUNDS>
-   <PIN pinname="Number" visible="1" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="8" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="7" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="2025" y="3945">
-   </LINKPOINT>
-   <LINKPOINT x="3180" y="3945">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="4785" top="6615" width="100" height="100">
    </BOUNDS>
@@ -360,8 +316,6 @@
    </LINK>
    <LINK srcnodeid="24" srcpinname="OnChange" dstnodeid="21" dstpinname="Update">
    </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="2" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="21" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="26">
@@ -376,6 +330,50 @@
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    </NODE>
+   <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Count">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Force">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Update">
+   </LINK>
+   <NODE id="1" systemname="ConfigKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ConfigKeep (Message Formular)" componentmode="Hidden">
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Node" left="1965" top="2625" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Topic" slicecount="1" visible="1" values="ab">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Foo" slicecount="1" values="test">
+   </PIN>
+   <PIN pinname="Count" slicecount="1" visible="1" values="3">
+   </PIN>
+   <PIN pinname="AutoSense" visible="1">
+   </PIN>
+   <PIN pinname="Update" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Configuration" slicecount="1" values="|double Number|">
+   </PIN>
+   <PIN pinname="Force" visible="1">
+   </PIN>
+   <PIN pinname="Bar" slicecount="1" visible="1" values="test">
+   </PIN>
+   <BOUNDS type="Window" left="9705" top="6585" width="6000" height="4500">
+   </BOUNDS>
+   <PIN pinname="Number" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="New" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="Output String" dstnodeid="1" dstpinname="Topic">
+   </LINK>
    <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Number">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="8" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="2" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input">
    </LINK>
    </PATCH>

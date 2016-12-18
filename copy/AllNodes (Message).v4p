@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="1725">
-   <BOUNDS type="Window" left="13635" top="2580" width="14610" height="15705">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="2040">
+   <BOUNDS type="Window" left="11310" top="630" width="14610" height="15705">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
@@ -28,12 +28,6 @@
    <BOUNDS type="Node" left="4905" top="2175" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="2175">
-   </BOUNDS>
-   </NODE>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="4" hiddenwhenlocked="1">
-   <BOUNDS type="Node" left="7065" top="6000" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="7065" top="6000">
    </BOUNDS>
    </NODE>
    <NODE systemname="Info (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Info (Message)" componentmode="Hidden" id="5" hiddenwhenlocked="0">
@@ -73,11 +67,11 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="Write (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Write (Message Dynamic)" componentmode="Hidden" id="14" hiddenwhenlocked="0">
-   <BOUNDS type="Node" left="7065" top="5190" width="100" height="100">
+   <BOUNDS type="Node" left="8940" top="5190" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|string Value|">
    </PIN>
-   <BOUNDS type="Box" left="7065" top="5190">
+   <BOUNDS type="Box" left="8940" top="5190">
    </BOUNDS>
    </NODE>
    <NODE systemname="AsString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsJson (Message)" componentmode="Hidden" id="15" hiddenwhenlocked="0">
@@ -489,7 +483,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.79139,0.69825,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.77285,0.20425,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="73">
@@ -501,7 +495,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.67649,0.60493,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="72">
@@ -549,7 +543,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|1.00000,0.17146,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,1.00000,0.04206,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="80">
@@ -697,9 +691,9 @@
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="114">
-   <BOUNDS type="Node" left="6600" top="5190" width="100" height="100">
+   <BOUNDS type="Node" left="8550" top="5190" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="6600" top="5190" width="285" height="255">
+   <BOUNDS type="Box" left="8550" top="5190" width="285" height="255">
    </BOUNDS>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
@@ -717,7 +711,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00367,0.99073,0.36889,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="111">
@@ -1035,5 +1029,39 @@
    </PIN>
    <BOUNDS type="Box" left="4905" top="5190">
    </BOUNDS>
+   </NODE>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="216">
+   <BOUNDS type="Node" left="10005" top="14220" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="10005" top="14220" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="22980" top="12300" width="6240" height="5085">
+   </BOUNDS>
+   </NODE>
+   <NODE id="4" systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="7065" top="6000" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7065" top="6000">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Read (Message Advanced)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message Advanced)" componentmode="Hidden" id="218">
+   <BOUNDS type="Node" left="7065" top="5190" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Configuration" slicecount="1" values="|string Value|">
+   </PIN>
+   <BOUNDS type="Box" left="7065" top="5190">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="219">
+   <BOUNDS type="Node" left="6600" top="5190" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6600" top="5190" width="285" height="255">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.15723,0.65985,0.00000,1.00000|">
+   </PIN>
    </NODE>
    </PATCH>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Split (Message Formular) help.v4p" scrollx="0" scrolly="0" systemname="Split (Message) help" filename="C:\dev\vvvv\vvvv-Message\patches\plugins\Split (Message) help.v4p">
    <BOUNDS type="Window" left="8115" top="2625" width="12810" height="10035">
    </BOUNDS>
@@ -167,7 +167,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="26">
-   <BOUNDS type="Node" left="6270" top="2850" width="1860" height="270">
+   <BOUNDS type="Node" left="5670" top="3315" width="1860" height="270">
    </BOUNDS>
    <PIN pinname="Configuration" visible="1" slicecount="7" values="|int Integer|,|double Double|,|float Float|,|Color RGB|,|Transform Matrix|,|Raw Stream|,|string Text|">
    </PIN>
@@ -177,9 +177,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="27" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="6270" top="915" width="1335" height="300">
+   <BOUNDS type="Box" left="5670" top="1380" width="1335" height="300">
    </BOUNDS>
-   <BOUNDS type="Node" left="6270" top="915" width="0" height="0">
+   <BOUNDS type="Node" left="5670" top="1380" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="1" values="SplitExample">
    </PIN>
@@ -249,9 +249,9 @@
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="33" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="8085" top="2220" width="480" height="480">
+   <BOUNDS type="Box" left="7485" top="2685" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="8085" top="2220" width="0" height="0">
+   <BOUNDS type="Node" left="7485" top="2685" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -293,7 +293,7 @@
    </BOUNDS>
    <PIN pinname="Configuration" slicecount="1" values="|int Integer, double Double, float Float, Color RGB, Transform Matrix, Raw Stream, string Text|">
    </PIN>
-   <PIN pinname="Spread Count" slicecount="1" values="2">
+   <PIN pinname="Spread Count" slicecount="1" values="2" visible="1">
    </PIN>
    <PIN pinname="Topic" slicecount="1" values="Event">
    </PIN>
@@ -406,88 +406,12 @@
    </LINK>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="22" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.8">
    </PACK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="42">
-   <BOUNDS type="Node" left="8790" top="2010" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="2010" width="2655" height="1515">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|if you have ExceptionDialog disabled in vvvv Menu, you will still see that the [Split] node deliberately turns red, if you change its layout in such a way, that a link might be broken.&cr;&lf;|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="43">
-   <BOUNDS type="Node" left="8790" top="4005" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="4005" width="2745" height="1635">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|The split node will still perform as before (and keep on splitting), until you fully resolve the situation. &cr;&lf;&cr;&lf;This means you have to manually acknowledge link deletion - by deleting them manually.|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="44">
-   <BOUNDS type="Node" left="8790" top="3585" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="3585" width="2130" height="390">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|This is intended!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="11">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="45">
-   <BOUNDS type="Node" left="8790" top="6165" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="6165" width="2715" height="1020">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Of course, it is most useful, when you remotely change the layout with the [Formular] node!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="8">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="46">
-   <BOUNDS type="Node" left="8790" top="5700" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="5700" width="2805" height="405">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Ít is safe refactoring!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="11">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="48">
-   <BOUNDS type="Box" left="6720" top="1365" width="1215" height="1380">
+   <BOUNDS type="Box" left="6120" top="1830" width="1215" height="1380">
    </BOUNDS>
-   <BOUNDS type="Node" left="6720" top="1365" width="0" height="0">
+   <BOUNDS type="Node" left="6120" top="1830" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="7" visible="1" values="|int Integer|,|double Double|,|float Float|,|Color RGB|,|Transform Matrix|,|Raw Stream|,|string Text|">
    </PIN>
@@ -504,36 +428,6 @@
    </NODE>
    <LINK srcnodeid="48" srcpinname="Output String" dstnodeid="26" dstpinname="Configuration">
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="49">
-   <BOUNDS type="Node" left="8790" top="810" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="810" width="2685" height="660">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Red nodes and Exceptions?|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="11">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="50">
-   <BOUNDS type="Node" left="8790" top="1485" width="4635" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="1485" width="2805" height="495">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Manually remove unneeded links first! [Split]. ID = [/73/10].|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="51">
    <BOUNDS type="Node" left="5685" top="7440" width="100" height="100">
    </BOUNDS>
@@ -578,14 +472,14 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" id="54">
+   <NODE systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="InAWindow" id="54">
    <BOUNDS type="Node" left="1095" top="3915" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
    <PIN pinname="Formular" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|double Double|">
+   <PIN pinname="Configuration" slicecount="1" values="|double Double, Color RGB|">
    </PIN>
    <PIN pinname="Double" visible="1">
    </PIN>
@@ -597,6 +491,8 @@
    </BOUNDS>
    <BOUNDS type="Window" left="1980" top="5070" width="6000" height="4500">
    </BOUNDS>
+   <PIN pinname="RGB" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="54" dstpinname="Input">
    </LINK>
@@ -611,7 +507,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2550" top="3060" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0.15,-0.16">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0.16,-0.16">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -633,5 +529,63 @@
    </LINKPOINT>
    <LINKPOINT x="4620" y="3083">
    </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="57">
+   <BOUNDS type="Node" left="8910" top="1335" width="1815" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8910" top="1335" width="2685" height="660">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Red nodes and Exceptions?|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="11">
+   </PIN>
+   </NODE>
+   <NODE systemname="RedNodes help" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" componentmode="Hidden" id="56" nodename="%VVVV%\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p">
+   <BOUNDS type="Node" left="8940" top="2100" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8940" top="2100" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="4425" top="3315" width="13890" height="9450">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="58">
+   <BOUNDS type="Box" left="1710" top="1875" width="285" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1710" top="1875" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="2">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="58" srcpinname="Y Output Value" dstnodeid="37" dstpinname="Spread Count">
+   </LINK>
+   <NODE nodename="IOBox (Color)" componentmode="InABox" id="59">
+   <BOUNDS type="Box" left="3540" top="3105" width="285" height="555">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3540" top="3105" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Color Input" slicecount="2" visible="1" values="|0.63883,0.00000,0.82941,1.00000|,|0.94257,0.00000,0.42540,1.00000|">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="59" srcpinname="Color Output" dstnodeid="54" dstpinname="RGB">
    </LINK>
    </PATCH>
