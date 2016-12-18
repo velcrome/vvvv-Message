@@ -14,7 +14,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageRemoveNode : IPluginEvaluate
     {
         [Input("Input")]
-        protected ISpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Remove")]
         protected IDiffSpread<Message> FRemove;
