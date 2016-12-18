@@ -180,7 +180,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
             }
 
-            if (Keep.IsChanged || Keep.IsSweeping)
+            if (Keep.IsChanged || Keep.Any(m => m.HasRecentCommit(Keep)) )
             {
                 UpKeep(anyUpdate);
             }

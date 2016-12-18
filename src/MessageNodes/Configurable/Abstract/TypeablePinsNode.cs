@@ -99,7 +99,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     {
                         if (message.Fields.Contains(fieldName)) 
                         {
-                            message.Remove(fieldName); // to be or not to be? 
+                            message[fieldName].Clear(); // to be or not to be? 
                             hasCopied = true;
                         }
                     }

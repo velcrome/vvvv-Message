@@ -17,20 +17,17 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageEditNode : TypeablePinsNode
     {
-#pragma warning disable 649, 169
         [Input("Input", Order = 0)] 
-        IDiffSpread<Message> FInput;
+        protected IDiffSpread<Message> FInput;
 
         [Input("Force", Order = int.MaxValue-1, IsSingle = true, IsToggle = true, DefaultBoolean = true, Visibility = PinVisibility.Hidden)]
-        IDiffSpread<bool> FForce;
+        protected IDiffSpread<bool> FForce;
 
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
-        IDiffSpread<bool> FUpdate;
+        protected IDiffSpread<bool> FUpdate;
 
-        [Output("Output", AutoFlush = false)] 
-        Pin<Message> FOutput;
-
-#pragma warning restore
+        [Output("Output", AutoFlush = false)]
+        protected Pin<Message> FOutput;
 
         protected override IOAttribute SetPinAttributes(FormularFieldDescriptor field)
         {

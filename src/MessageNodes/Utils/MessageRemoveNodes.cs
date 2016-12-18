@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Linq;
 
 using VVVV.Core.Logging;
@@ -14,46 +13,41 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageRemoveNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private ISpread<ISpread<Message>> FInput;
+        protected ISpread<Message> FInput;
 
         [Input("Remove")]
-        private IDiffSpread<Message> FRemove;
+        protected IDiffSpread<Message> FRemove;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<ISpread<Message>> FOutput;
+        protected ISpread<Message> FOutput;
 
         [Import()]
         protected ILogger FLogger;
-#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {
-            if ((!FInput.IsChanged && !FRemove.IsChanged)) return;
-
-            if ((FRemove.IsAnyInvalid() || FInput.IsAnyInvalid())) {
+            if (FInput.IsAnyInvalid()) {
                 if (FOutput.SliceCount > 0)
                 {
-                    FOutput.FlushResult(FInput);
+                    FOutput.FlushNil();
                     return;
                 } else return;
             }
 
-            SpreadMax = FInput.SliceCount;
-            FOutput.SliceCount = SpreadMax;
-
-            for (int i = 0; i < SpreadMax; i++)
+            if (FRemove.IsAnyInvalid())
             {
-                var remains = from msg in FInput[i] 
-                              where !FRemove.Contains(msg)
-                              select msg;
-                
-                FOutput[0].SliceCount = 0;
-                FOutput[0].AssignFrom(remains);
-
+                FOutput.FlushResult(FInput);
+                return;
             }
-            FOutput.Flush();
+
+            if ((!FInput.IsChanged && !FRemove.IsChanged)) return;
+
+            var remains = from msg in FInput 
+                          where !FRemove.Contains(msg)
+                          select msg;
+
+            FOutput.FlushResult(remains);
         }
     }
 
@@ -63,16 +57,14 @@ namespace VVVV.Packs.Messaging.Nodes
     #endregion PluginInfo
     public class MessageRemoveEmptyNode : IPluginEvaluate
     {
-#pragma warning disable 649, 169
         [Input("Input")]
-        private ISpread<Message> FInput;
+        protected ISpread<Message> FInput;
 
         [Output("Output", AutoFlush = false)]
-        private ISpread<Message> FOutput;
+        protected ISpread<Message> FOutput;
 
         [Import()]
         protected ILogger FLogger;
-#pragma warning restore
 
         public void Evaluate(int SpreadMax)
         {

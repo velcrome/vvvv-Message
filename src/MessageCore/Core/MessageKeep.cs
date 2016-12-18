@@ -59,17 +59,6 @@ namespace VVVV.Packs.Messaging
             }
         }
 
-        public bool IsSweeping
-        {
-            get
-            {
-                foreach (var m in Messages)
-                {
-                    if (m.Fields.Any(field => m[field].IsSweeping())) return true;
-                }
-                return false;
-            }
-        }
         #endregion fields
 
         #region ctor
