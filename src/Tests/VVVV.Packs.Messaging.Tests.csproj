@@ -84,7 +84,7 @@
     </Reference>
     <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.34.107.0-develop-2141\lib\net46\VVVV.Utils.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
