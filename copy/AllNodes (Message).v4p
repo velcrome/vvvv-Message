@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="2040">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="2370">
    <BOUNDS type="Window" left="11310" top="630" width="14610" height="15705">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
@@ -98,7 +98,7 @@
    <BOUNDS type="Box" left="7065" top="7455">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Remove (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Remove (Message)" componentmode="Hidden" id="20" hiddenwhenlocked="1">
+   <NODE systemname="Remove (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Remove (Message)" componentmode="Hidden" id="20" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="7065" top="4425" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="7065" top="4425">
@@ -262,7 +262,7 @@
    <PIN pinname="Size" slicecount="1" values="13">
    </PIN>
    </NODE>
-   <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="43" hiddenwhenlocked="1">
+   <NODE systemname="Select (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Select (Message)" componentmode="Hidden" id="43" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="8940" top="2175" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8940" top="2175">
@@ -290,13 +290,13 @@
    <BOUNDS type="Box" left="8940" top="2955">
    </BOUNDS>
    </NODE>
-   <NODE systemname="UnZip (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="UnZip (Message)" componentmode="Hidden" id="47" hiddenwhenlocked="1">
+   <NODE systemname="UnZip (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="UnZip (Message)" componentmode="Hidden" id="47" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="10995" top="4425" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="10995" top="4425">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="48" hiddenwhenlocked="1">
+   <NODE systemname="Zip (Message Bin)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Zip (Message Bin)" componentmode="Hidden" id="48" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="8940" top="4425" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8940" top="4425">
@@ -383,6 +383,10 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="10485">
    </BOUNDS>
+   <PIN pinname="Output" visible="-1" pintype="Output">
+   </PIN>
+   <PIN pinname="Name" visible="-1" pintype="Output">
+   </PIN>
    </NODE>
    <NODE systemname="AvoidNil (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AvoidNil (Message Formular)" componentmode="Hidden" id="58" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="10995" top="9735" width="100" height="100">
@@ -439,9 +443,9 @@
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="67">
-   <BOUNDS type="Node" left="4500" top="3690" width="100" height="100">
+   <BOUNDS type="Node" left="4500" top="3645" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="4500" top="3690" width="285" height="255">
+   <BOUNDS type="Box" left="4500" top="3645" width="285" height="255">
    </BOUNDS>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
@@ -495,7 +499,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.67649,0.60493,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.99258,0.17481,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="72">
@@ -639,7 +643,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.60335,0.62460,0.06538,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.32105,0.62645,0.06557,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="118">
@@ -651,7 +655,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.16882,0.72570,0.30869,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,1.00000,0.91404,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="117">
@@ -667,9 +671,9 @@
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="116">
-   <BOUNDS type="Node" left="6600" top="3690" width="100" height="100">
+   <BOUNDS type="Node" left="6600" top="3645" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="6600" top="3690" width="285" height="255">
+   <BOUNDS type="Box" left="6600" top="3645" width="285" height="255">
    </BOUNDS>
    <PIN pinname="Show Value" slicecount="1" values="0">
    </PIN>
@@ -687,7 +691,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.28236,0.89711,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="114">
@@ -843,7 +847,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.37924,0.98148,0.07365,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.07365,0.98149,0.68203,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="136">
@@ -867,7 +871,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.26383,0.95180,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.98142,0.86943,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="130">
@@ -930,7 +934,7 @@
    <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
    </PIN>
    </NODE>
-   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="213">
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="213" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="10620" top="4425" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="10620" top="4425" width="285" height="255">
@@ -1017,9 +1021,9 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="Sift (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Sift (Message)" componentmode="Hidden" id="8" hiddenwhenlocked="0">
-   <BOUNDS type="Node" left="4905" top="3690" width="100" height="100">
+   <BOUNDS type="Node" left="4905" top="3645" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="4905" top="3690">
+   <BOUNDS type="Box" left="4905" top="3645">
    </BOUNDS>
    </NODE>
    <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="6" hiddenwhenlocked="0">
@@ -1035,7 +1039,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="10005" top="14220" width="2400" height="1800">
    </BOUNDS>
-   <BOUNDS type="Window" left="22980" top="12300" width="6240" height="5085">
+   <BOUNDS type="Window" left="20925" top="6900" width="6240" height="5085">
    </BOUNDS>
    </NODE>
    <NODE id="4" systemname="Edit (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Edit (Message Formular)" componentmode="Hidden" hiddenwhenlocked="0">
@@ -1062,6 +1066,24 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Color Input" slicecount="1" values="|0.15723,0.65985,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE systemname="RemoveEmpty (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="RemoveEmpty (Message)" componentmode="Hidden" id="220">
+   <BOUNDS type="Node" left="8940" top="3645" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8940" top="3645">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="221">
+   <BOUNDS type="Node" left="8550" top="3645" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8550" top="3645" width="285" height="255">
+   </BOUNDS>
+   <PIN pinname="Show Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.09091,0.74698,0.00000,1.00000|">
    </PIN>
    </NODE>
    </PATCH>

@@ -69,7 +69,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="960" top="1815" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -79,7 +79,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="8" dstpinname="New">
@@ -115,7 +115,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2970" top="1815" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -125,7 +125,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="13" dstpinname="New">
@@ -159,7 +159,7 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Distinct" slicecount="1" values="0" visible="-1" pintype="Input">
+   <PIN pinname="Distinct" slicecount="1" visible="-1" pintype="Input" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Output Node" dstnodeid="16" dstpinname="Input 1">
@@ -239,7 +239,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="225" top="4965" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -251,7 +251,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Remove Empty|">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="22" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Switch">
