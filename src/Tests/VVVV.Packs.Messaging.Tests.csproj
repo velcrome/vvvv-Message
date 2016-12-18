@@ -72,7 +72,7 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=$(Platform)">
+    <Reference Include="VVVV.DX11.Core, processorArchitecture=$(Platform)">
       <HintPath>..\..\lib\$(Platform)\VVVV.DX11.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
@@ -85,6 +85,11 @@
     <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.34.107.0-develop-2141\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="VVVV.SlimDX, processorArchitecture=$(Platform)">
+      <HintPath>..\packages\VVVV.SlimDX.1.0.3\lib\net40\$(Platform)\SlimDX.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
