@@ -2,18 +2,6 @@
    <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Info (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="8520" top="1230" width="12555" height="10365">
    </BOUNDS>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
-   </BOUNDS>
-   <BOUNDS type="Box" left="225" top="225" width="5100" height="450">
-   </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|Info (Message)|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" visible="1" values="14">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
    <BOUNDS type="Node" left="285" top="720" width="5100" height="600">
    </BOUNDS>
@@ -322,4 +310,32 @@
    </NODE>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="40" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="315" top="150" width="5000" height="450">
+   </BOUNDS>
+   <BOUNDS type="Box" left="315" top="150" width="4065" height="585">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Info (Message)|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" visible="1" values="14">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="38">
+   <BOUNDS type="Node" left="5145" top="300" width="2340" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5145" top="300" width="2025" height="855">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Copyright: intolight&cr;&lf;Author: velcrome&cr;&lf;License: CC BY-NC-SA 4.0|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
    </PATCH>

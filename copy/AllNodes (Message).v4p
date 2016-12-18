@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="2370">
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="2745">
    <BOUNDS type="Window" left="11310" top="630" width="14610" height="15705">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
@@ -92,7 +92,7 @@
    <BOUNDS type="Box" left="7065" top="720">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Inject (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Inject (Message)" componentmode="Hidden" id="18" hiddenwhenlocked="1">
+   <NODE systemname="Inject (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Inject (Message)" componentmode="Hidden" id="18" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="7065" top="7455" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="7065" top="7455">
@@ -196,7 +196,7 @@
    <BOUNDS type="Box" left="4905" top="4425">
    </BOUNDS>
    </NODE>
-   <NODE systemname="RenameField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="RenameField (Message)" componentmode="Hidden" id="36" hiddenwhenlocked="1">
+   <NODE systemname="RenameField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="RenameField (Message)" componentmode="Hidden" id="36" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="8940" top="7455" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8940" top="7455">
@@ -208,7 +208,7 @@
    <BOUNDS type="Box" left="10995" top="8910">
    </BOUNDS>
    </NODE>
-   <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="38" hiddenwhenlocked="1">
+   <NODE systemname="ContainsField (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="ContainsField (Message)" componentmode="Hidden" id="38" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="4905" top="7455" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="7455">
@@ -511,7 +511,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.01546,0.69508,0.09266,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="71">
@@ -727,7 +727,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,1.00000,0.02606,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="110">
@@ -883,7 +883,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.29041,0.67467,0.17947,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="129">
