@@ -3,12 +3,20 @@ The Message Nodes
 
 If you've ever wondered, if there is a smarter way to pack pins and links into some kind of "objects" in vvvv, you've come to the right place. **Message** is a versatile data structure made to make patching easier.
 
+# Have you ever had too many links in your project? So much so, as you would wanted to throw it all away and redo it?
+# Did you instead start to to Zip and Cons stuff together, and pick it apart somewhere else. But in the end, it was hell again, because all needed to line up?
+# You felt forced to add `S` and `R` nodes extensively? And finding out, the links are still there, just not visible anymore...?
+# You swamped yourself in logic, trying to get consistent states 
+# Have you ever wondered, what object oriented data flows would look like, kept unfrozen?
+
+If you answered one of the questions with yes, this pack deserves a peak, because it might help you the next time you are in that situation.
+
 This pack is a suite of user-centered nodes to allow basic object oriented programming in good old vvvv. There are a couple essential nodes you will use a lot:
 
 * `Create (Message)` **Message** instances from core vvvv types as inputs through named and typed pins
 * `Edit (Message)` and `Split (Message)` **Messages** with your most common types in vvvv
 
-Once you started packing your first pins, you might find more advanced nodes useful, because they
+Once you started layouting your first pins, you might find more advanced nodes useful, because they
 * help you to facilitate memory persistence through custom archive Nodes in the  *Message Keep* category
 * allow reshaping **Message**s to dock one API to another 
 * serialize from and to *Json*, *MsgPack* and *OSC*
@@ -136,23 +144,3 @@ This node is your shortcut to have a
 
 
 
-
-
-Have you ever had too many links in your project? 
-
-
-Maybe your project was even so cluttered in links, it became necessary to Zip and Cons stuff together, and pick it apart somewhere else. In this case it is hard to remember what's what, and hence even harder to maintain the project long term?
-
-
-
-This happened to you, while you used S and R nodes? 
-
-
-
-Basic nodes such as `Create (Message)`, `Split (Message)`, `Edit (Message)` allow interfacing these vvvv link types easily. Right-Click any node to see it's defining Formular, and check which one's of them you need as pins.
-
-When you don't have a formular selected, you can create a dynamic pin layout by simply double-clicking into the empty area of the Formular and editing any descriptor. 
-
-Note, that all pins are accompanied by a hidden bin size. This means, that any field of a **Message** can be one or many items.
-
-Also you'll see that all access to the fields of a message is "named"- including the vvvv pins. You can use `Read (Message)` and `Write (Message)` to that advantage.
