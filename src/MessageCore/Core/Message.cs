@@ -79,12 +79,28 @@ namespace VVVV.Packs.Messaging {
             }
             set
             {
+                var kill = from fieldName in this.Fields
+                           where !value.FieldNames.Contains(fieldName) || value[fieldName].Type != this[fieldName].GetInnerType()
+                           select fieldName;
+                foreach (var fieldName in kill.Distinct().ToArray())
+                    this.Remove(fieldName);
+
+
                 foreach (string field in value.FieldNames)
                 {
-                    Data[field] = BinFactory.New(value[field].Type); // Type
                     var count = value[field].DefaultSize;
                     count = count <= -1 ? 1 : count;
-                    Data[field].Count = count;
+
+                    var type = value[field].Type;
+                    var recordType = TypeIdentity.Instance[type];
+                    if (recordType == null || recordType.CloneMethod == CloneBehaviour.Null) continue; // don't create uncloneables
+
+                    Data[field] = BinFactory.New(type, count);
+                    for (int slice = 0; slice < count; slice++)
+                    {
+                        this[field].Add(TypeIdentity.Instance[type].Default());
+                    }
+
                 }
             }
         }
@@ -111,7 +127,7 @@ namespace VVVV.Packs.Messaging {
 
        
         public Message(MessageFormular formular)
-            : base()
+            : this()
         {
             Formular = formular;
         }
