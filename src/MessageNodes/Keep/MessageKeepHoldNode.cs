@@ -18,6 +18,12 @@ namespace VVVV.Packs.Messaging.Nodes
             Index
         }
 
+        [Input("Formular", Visibility = PinVisibility.False)]
+        public override IDiffSpread<EnumEntry> FFormularSelection {
+            get;
+            set;
+        }
+
         [Input("Match Rule", DefaultEnumEntry = "All", IsSingle = true, Order = 2)]
         protected IDiffSpread<HoldEnum> FHold;
 
