@@ -14,10 +14,19 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("New", IsBang = true, DefaultBoolean = false, Order = 0)]
         protected ISpread<bool> FNew;
 
+        // spread it
+        [Input("Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = false)]
+        public override IDiffSpread<EnumEntry> FFormularSelection
+        {
+            get;
+            set;
+        }
+
+
         [Input("Topic", DefaultString = "Event", Order = 3)]
         protected ISpread<string> FTopic;
 
-        [Input("Spread Count", IsSingle = true, DefaultValue = 1, Order = 5)]
+        [Input("Spread Count", DefaultValue = 1, Order = 5)]
         protected ISpread<int> FSpreadCount;
 
         [Output("Output", AutoFlush = false)]
@@ -84,7 +93,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 }
 
                 if (formular == null || formular.IsDynamic)
-                    formular = Formular; // fallback, in case not available or dynamic.
+                    formular = new MessageFormular(formularName, ""); // empty fallback, in case not available or dynamic
 
                 FOutput[i].SliceCount = 0;
 
@@ -93,25 +102,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     if (FNew[counter] || ForceNewDefaults)
                     {
-                        Message message = new Message();
+                        Message message = new Message(formular);
                         message.Topic = FTopic[counter];
-                        foreach (var field in formular.FieldNames)
-                        {
-                            int binsize = formular[field].DefaultSize;
-                            binsize = binsize > 0 ? binsize : 1;
-                            var type = formular[field].Type;
-
-                            var recordType = TypeIdentity.Instance[type];
-                            if (recordType == null || recordType.CloneMethod == CloneBehaviour.Null) continue; // don't create uncloneables
-
-                            message[field] = BinFactory.New(type, binsize);
-
-                            for (int slice = 0; slice < binsize; slice++)
-                            {
-                                message[field].Add(TypeIdentity.Instance[type].Default());
-                            }
-                        }
-
                         FOutput[i].Add(message);
                     }
                     counter++;
