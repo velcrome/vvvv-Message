@@ -94,7 +94,7 @@ namespace VVVV.Packs.Messaging.Nodes
                     if (sourceBin as object == null)
                     {
                         if (FVerbose[0]) FLogger.Log(LogType.Warning,
-                                        "\"" + Formular[name].Type + " " + name + "\" is not defined in Message ["+ message.Topic+"], so skipped its bin on the output too.");
+                                        "\"" + Formular[name].Type + " " + name + "\" is not defined in Message ["+ message.Topic+"], so skipped its bin at \""+PluginHost.GetNodePath(false)+"\".");
                     }
                     else count = sourceBin.Count;
 
