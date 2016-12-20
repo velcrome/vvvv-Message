@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="4080" top="525" width="13350" height="14670">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.108.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.108_x64\packs\vvvv-Message\nodes\plugins\Formular (Message) help.v4p" scrollx="0" scrolly="0">
+   <BOUNDS type="Window" left="30540" top="1080" width="13350" height="14670">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
@@ -82,7 +82,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="21" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="9780" top="1410" width="1590" height="255">
@@ -229,7 +229,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="5265" top="4485">
    </BOUNDS>
-   <PIN pinname="Configuration" slicecount="1" values="||">
+   <PIN pinname="Configuration" slicecount="1" values="|Buffer Buff, Color rgb, Color[3] hcozlor, Transform matrix, string name, Vector4d quaternion|">
    </PIN>
    <PIN pinname="Formular" visible="1">
    </PIN>
@@ -548,7 +548,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.8.9">
    </PACK>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="70">
    <BOUNDS type="Node" left="1260" top="12210" width="2085" height="270">
@@ -688,82 +688,6 @@
    <LINKPOINT x="735" y="12390">
    </LINKPOINT>
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="94">
-   <BOUNDS type="Node" left="9570" top="4290" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="4290" width="2655" height="1515">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|if you have ExceptionDialog disabled in vvvv Menu, you will still see that the [Split] node deliberately turns red, if you change its layout in such a way, that a link might be broken.&cr;&lf;|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="93">
-   <BOUNDS type="Node" left="9570" top="6285" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="6285" width="2745" height="1635">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|The split node will still perform as before (and keep on splitting), until you fully resolve the situation. &cr;&lf;&cr;&lf;This means you have to manually acknowledge link deletion - by deleting them manually.|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="92">
-   <BOUNDS type="Node" left="9570" top="5865" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="5865" width="2130" height="390">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|This is intended!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="11">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="91">
-   <BOUNDS type="Node" left="9570" top="8445" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="8445" width="2715" height="1020">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Of course, it is most useful, when you remotely change the layout with the [Formular] node!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="8">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="90">
-   <BOUNDS type="Node" left="9570" top="7980" width="1815" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="7980" width="2805" height="405">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Ít is safe refactoring!|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="11">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="89">
    <BOUNDS type="Node" left="9570" top="3030" width="1815" height="270">
    </BOUNDS>
@@ -778,24 +702,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    <PIN pinname="Size" slicecount="1" values="11">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="88">
-   <BOUNDS type="Node" left="9570" top="3705" width="4635" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="3705" width="2550" height="570">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|Manually remove unneeded links first! [Split]. ID = [/73/10].|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   <PIN pinname="Font" slicecount="1" values="|Lucida Console|">
-   </PIN>
-   <PIN pinname="Size" slicecount="1" values="8">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="87">
@@ -823,5 +729,9 @@
    </PIN>
    <PIN pinname="Color Input" slicecount="1" values="|0.47302,0.62006,0.00000,1.00000|">
    </PIN>
+   </NODE>
+   <NODE systemname="RedNodes help" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" nodename="%VVVV%\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" componentmode="InAWindow" id="95">
+   <BOUNDS type="Node" left="9555" top="3825" width="100" height="100">
+   </BOUNDS>
    </NODE>
    </PATCH>

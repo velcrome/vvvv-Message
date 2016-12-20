@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\ConfigKeep (Message Formular) help.v4p" systemname="Config (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Config (Message) help.v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.108.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.108_x64\packs\vvvv-Message\nodes\plugins\ConfigKeep (Message Formular) help.v4p" systemname="Config (Message) help" filename="C:\dev\vvvv\vvvv-Message\copy\nodes\plugins\Config (Message) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="615" top="1125" width="15615" height="11445">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -188,7 +188,7 @@
    <LINKPOINT x="4140" y="7275">
    </LINKPOINT>
    </LINK>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="21" systemname="IOBox (String)">
    <BOUNDS type="Node" left="4035" top="5415" width="4080" height="270">
@@ -488,7 +488,7 @@
    </LINK>
    <LINK srcnodeid="38" srcpinname="Output" dstnodeid="50" dstpinname="Input">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.8.8">
+   <PACK Name="vvvv-Message" Version="2.8.9">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="56">
    <BOUNDS type="Node" left="10815" top="255" width="2340" height="270">
@@ -639,7 +639,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="8790" top="6135" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Color Input" slicecount="5" visible="1" values="|0.00000,0.35712,1.00000,1.00000|,|0.91659,0.00000,0.32618,1.00000|,|0.92372,0.48850,0.00000,1.00000|,|0.36528,0.52600,0.00000,1.00000|,|0.00000,1.00000,0.45718,1.00000|">
+   <PIN pinname="Color Input" slicecount="5" visible="1" values="|0.00000,0.18457,0.99428,1.00000|,|0.91659,0.00000,0.32618,1.00000|,|0.92372,0.48850,0.00000,1.00000|,|0.36528,0.52600,0.00000,1.00000|,|0.00000,1.00000,0.45718,1.00000|">
    </PIN>
    <PIN pinname="Color Output" visible="1">
    </PIN>

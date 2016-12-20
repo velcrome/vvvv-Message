@@ -8,8 +8,16 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Reflection", AutoEvaluate = true, Category = "Message", Help = "Outputs the current configuration of a Formular", Version = "Formular", Author =  "velcrome")]
     #endregion PluginInfo
-    public class FormularReflectionNode : AbstractFormularableNode, IPluginEvaluate
+    public class FormularReflectionNode : AbstractFormularableNode
     {
+        // spread it
+        [Input("Formular", DefaultEnumEntry = "None", EnumName = MessageFormularRegistry.RegistryName, Order = 2, IsSingle = false)]
+        public override IDiffSpread<EnumEntry> FFormularSelection
+        {
+            get;
+            set;
+        }
+
         [Output("Field Type", AutoFlush=false)]
         protected ISpread<string> FFieldType;
 
@@ -34,7 +42,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public override void Evaluate(int SpreadMax)
         {
 
-            if (!_changed) return;
+            if (!_changed && !FFormularSelection.IsChanged) return;
             _changed = false;
             
             SpreadMax = FFieldName.SliceCount = FFormularSelection.SliceCount;
@@ -51,11 +59,11 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     var descriptors = def.FieldDescriptors;
 
-                    FFieldName[i].AssignFrom(from field in descriptors select field.Name);
+                    FFieldName[i].AssignFrom(descriptors.Select(f => f.Name));
 
-                    FDefaultSize.AddRange(from field in descriptors select field.DefaultSize);
-                    FFieldType.AddRange(from field in descriptors select TypeIdentity.Instance[field.Type]?.Alias);
-                    FBinDef.AddRange(from field in descriptors select GetBinDefString(field.DefaultSize));
+                    FDefaultSize.AddRange(descriptors.Select(f => f.DefaultSize));
+                    FFieldType.AddRange(descriptors.Select(f => TypeIdentity.Instance[f.Type]?.Alias));
+                    FBinDef.AddRange(descriptors.Select(f => GetBinDefString(f.DefaultSize)));
                 }
             }
 

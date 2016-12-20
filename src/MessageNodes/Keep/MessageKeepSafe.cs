@@ -6,15 +6,21 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "SafeKeep",
         Category = "Message",
-//        Version = "",
         AutoEvaluate = true,
         Help = "Stores Messages according to their address and keeps them updated",
         Author = "velcrome")]
     public class MessageKeepSafe : AbstractMessageKeepNode
     {
+        // hide it
+        [Input("Formular", Visibility = PinVisibility.False)]
+        public override IDiffSpread<EnumEntry> FFormularSelection
+        {
+            get;
+            set;
+        }
+
         public override void Evaluate(int SpreadMax)
         {
-
             var update = CheckReset();
 
             // early sync only, when not interested in input changes
@@ -44,7 +50,8 @@ namespace VVVV.Packs.Messaging.Nodes
                 {
                     FOutput.FlushResult(Keep);
                     FCountOut.FlushItem<int>(Keep.Count);
-                }            }
+                }
+            }
         }
 
         public Message MatchOrInsert(Message message)

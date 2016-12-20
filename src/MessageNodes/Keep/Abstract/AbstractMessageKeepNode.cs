@@ -9,7 +9,6 @@ namespace VVVV.Packs.Messaging.Nodes
 {
     public abstract class AbstractMessageKeepNode : AbstractFormularableNode
     {
-#pragma warning disable 649, 169
         [Config("Diff Output", IsSingle=true, IsToggle=true)]
         public IDiffSpread<bool> FAdvanced;
 
@@ -28,7 +27,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Internal Count", Order = int.MaxValue, AutoFlush = false)]
         public ISpread<int> FCountOut;
 
-#pragma warning restore
 
         [Import()]
         protected IIOFactory FIOFactory;
