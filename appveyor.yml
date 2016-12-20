@@ -8,7 +8,7 @@ version: 0.0.4444 # this will be replaced
 
 environment:
 # change here!
-  packageVersion: 2.8.9
+  packageVersion: 2.9.0
 
 branches:  
   only:
@@ -29,6 +29,8 @@ init:
 # send version back
 - ps: Update-AppveyorBuild -Version $env:buildVersion
 - ps: echo "PreRelease = $env:IsPrerelease"
+- ps: echo "BuildVersion = $env:buildVersion"
+- ps: echo "nugetVersion = $env:nugetVersion"
 
 # patch all Assemblies to the current build number
 assembly_info:
