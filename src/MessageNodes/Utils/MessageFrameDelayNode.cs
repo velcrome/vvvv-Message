@@ -7,7 +7,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages",
+    [PluginInfo(Name = "FrameDelay", Category = "Message", Help = "Allows Feedback Loops for Messages. Can be NIL'ed at will.",
         Author = "velcrome", AutoEvaluate = true)]
     #endregion PluginInfo
     public class MessageFrameDelayNode : IPluginEvaluate
@@ -16,29 +16,23 @@ namespace VVVV.Packs.Messaging.Nodes
         public IDiffSpread<Message> FInput;
 
         [Input("Clear", IsSingle = true, IsToggle = true)] 
-        public IDiffSpread<bool> FInit;
+        public IDiffSpread<bool> FClear;
 
         [Output("Output", AutoFlush = false, AllowFeedback = true)] 
         public ISpread<Message> FOutput;
 
-        protected List<Message> _lastFrame = new List<Message>();
-
-        [Import()] protected ILogger FLogger;
+        protected List<Message> LastFrame = new List<Message>();
 
         public void Evaluate(int SpreadMax)
         {
-            if (FInit[0]) {
-                FOutput.FlushNil();
-                return;
-            }
+            if (FInput.IsChanged)
+                LastFrame.AssignFrom(FInput);
 
-            _lastFrame.Clear();
-
-            if (FInput.IsChanged && !FInput.IsAnyInvalid())
+            if (!FClear.IsAnyInvalid() && FClear[0])
             {
-                _lastFrame.AddRange(FInput);
-                FOutput.FlushResult(_lastFrame);
+                FOutput.FlushNil();
             }
+            else FOutput.FlushResult(LastFrame);
         }
     }
 }
