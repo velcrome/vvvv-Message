@@ -1,10 +1,10 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="2745">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.108.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.108_x64\packs\vvvv-Message\AllNodes (Message).v4p" systemname="AllNodes (Message)" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\AllNodes (Message).v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="11310" top="630" width="14610" height="15705">
    </BOUNDS>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE systemname="FromString (Message Json)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="AsMessage (string)" componentmode="Hidden" id="0" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="7065" top="12735" width="100" height="100">
@@ -42,7 +42,7 @@
    <BOUNDS type="Box" left="4905" top="2940">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Clone (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Clone (Message)" componentmode="Hidden" id="10" hiddenwhenlocked="1">
+   <NODE systemname="Clone (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Clone (Message)" componentmode="Hidden" id="10" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="7065" top="9735" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="7065" top="9735">
@@ -130,7 +130,7 @@
    <BOUNDS type="Box" left="7065" top="2160">
    </BOUNDS>
    </NODE>
-   <NODE systemname="HoldKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="HoldKeep (Message)" componentmode="Hidden" id="25" hiddenwhenlocked="1">
+   <NODE systemname="HoldKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="HoldKeep (Message)" componentmode="Hidden" id="25" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="4905" top="8910" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="4905" top="8910">
@@ -142,7 +142,7 @@
    <BOUNDS type="Box" left="4905" top="8145">
    </BOUNDS>
    </NODE>
-   <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="27" hiddenwhenlocked="1">
+   <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="27" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="8940" top="8910" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8940" top="8910">
@@ -202,7 +202,7 @@
    <BOUNDS type="Box" left="8940" top="7455">
    </BOUNDS>
    </NODE>
-   <NODE systemname="SessionKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="Hidden" id="37" hiddenwhenlocked="1">
+   <NODE systemname="SessionKeep (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SessionKeep (Message Typeable)" componentmode="Hidden" id="37" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="10995" top="8910" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="10995" top="8910">
@@ -535,7 +535,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.31330,1.00000,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="69">
@@ -751,7 +751,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.12563,0.78744,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="108">
@@ -763,7 +763,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.45446,0.99617,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="106">
@@ -907,7 +907,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.14472,0.88658,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="127">
@@ -955,7 +955,7 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   <PIN pinname="Color Input" slicecount="1" values="|0.06013,0.95233,0.00000,1.00000|">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="206">
@@ -1006,7 +1006,7 @@
    <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.67097,0.00419,1.00000|">
    </PIN>
    </NODE>
-   <PACK Name="vvvv-Message" Version="2.8.8">
+   <PACK Name="vvvv-Message" Version="2.8.9">
    </PACK>
    <NODE systemname="Writer (Message Streaming)" filename="%VVVV%\packs\vvvv-Message\nodes\modules\Writer (Message Streaming).v4p" nodename="Writer (Message Streaming)" componentmode="Hidden" id="53" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="4905" top="14865" width="100" height="100">

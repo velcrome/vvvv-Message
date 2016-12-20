@@ -1,12 +1,12 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" systemname="RedNodes help" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.108.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha34.108_x64\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" systemname="RedNodes help" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\nodes\plugins\RedNodes help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="4425" top="3315" width="13890" height="9450">
    </BOUNDS>
-   <PACK Name="vvvv-Message" Version="2.8.8">
+   <PACK Name="vvvv-Message" Version="2.8.9">
    </PACK>
    <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
    </PACK>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="5355" top="7275" width="1815" height="270">
@@ -181,7 +181,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="8355" top="285" width="2400" height="1800">
    </BOUNDS>
-   <BOUNDS type="Window" left="4440" top="12705" width="13935" height="2235">
+   <BOUNDS type="Window" left="300" top="12240" width="13425" height="2235">
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="12">
