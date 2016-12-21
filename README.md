@@ -25,7 +25,7 @@ Furthermore it ships with convenience plugins for persisting Messages to disc or
 
 On Strictness
 -------------
-This pack is open to tinkering and rapid prototyping. The most important plugin nodes' pin layout can be edited to your needs with a simple GUI window. It shows you what's possible.
+This pack is open to tinkering and rapid prototyping. The most important plugin nodes' pin layout can be edited to your needs with a simple GUI window, that helps you to define a [Formular](src/MessageNodes/doc/Formular.md). It shows you what's possible.
 
 As your project grows, you should look into the more strict alternative, and switch your **Formular** Pin from _None_ to one *you defined*, with `Formular (Message)`, which will manage your **Formular** definition application wide and make it available to all nodes with the tag _Formular_
 
