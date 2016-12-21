@@ -12,7 +12,7 @@ Think of **Message** as a collection of (binsizeable) Spreads of various Types (
 
 You can create these Message objects with fully spreadable `Create (Message Formular)` and access the individual Spreads with  `Split (Message Formular)`, `Read (Message)` or simply `Info (Message)`. 
 
-It comes with a broad range of handy helper nodes to work with it:
+It comes with a broad range of handy helper [nodes](src/MessageNodes/readme.md) to work with it:
 * `Sift (Message)`, `Sort (Message Formular`and search the Messages you are interested in
 * handle Message spreads with ease: `GetSlice (Message)`, `Select (Message)`, et al. at your service
 * micromanage Messages' Fields: Prune, `Topic (Message)` and `RenameField (Message)`
