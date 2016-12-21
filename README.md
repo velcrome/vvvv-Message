@@ -48,6 +48,7 @@ Thanks
 * lecloneur
 * tmp
 * sebl
+* vux
 
 Dependencies
 ----
@@ -55,10 +56,11 @@ Dependencies
 * [MsgPack](http://msgpack.org/index.html)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 * [VVVV.Packs.Time](https://github.com/letmp/vvvv-Time) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 * [VVVV-sdk](https://github.com/vvvv/vvvv-sdk) [![License: LGPL v2](https://img.shields.io/badge/License-LGPL%20v2-blue.svg)](http://www.gnu.org/licenses/lgpl-2.0)
+* [dx11-vvvv](https://github.com/mrvux/dx11-vvvv) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 License
 =======
-This software is distributed with [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+This software is distributed with [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
 
 Please note overriding, more liberal licensing terms in individual subdirectories, such as
 
