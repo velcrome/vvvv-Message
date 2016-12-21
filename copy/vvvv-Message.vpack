@@ -3,6 +3,12 @@
     <name>vvvv-Message</name>
     <source>https://github.com/velcrome/vvvv-Message</source>
     <author>velcrome</author>
+    <dependencies>
+      <dependency>
+        <name>dx11-vvvv</name>
+	    <source>vpms://raw.githubusercontent.com/vvvvpm/vpdb/master/vux/dx11-vvvv/dx11-vvvv.0.7.1.vpack</source>
+      </dependency>
+    </dependencies>
   </meta>
   <install>
     Download(
