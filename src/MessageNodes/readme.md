@@ -19,7 +19,7 @@ This pack is a suite of user-centered nodes to allow basic object oriented progr
 Just using those alone will go a long way, when just combined with a simple `HoldKeep (Message)`
 
 Once you started layouting your first pins, you might find more advanced nodes useful, because they
-* help you to facilitate memory persistence through [Keep Nodes](/doc/Keep.md) 
+* help you to facilitate memory persistence through [Keep Nodes](doc/Keep.md) 
 * serialize from and to *Json*, *MsgPack* and *OSC*
 * can be used with [vvvv-ZeroMQ](https://github.com/velcrome/vvvv-ZeroMQ) for all networking business with **Message**, as the saying goes, on steroids
 * allow reshaping **Message**s to dock one API to another 
@@ -53,7 +53,7 @@ Of course, this is hard on the mind, especially in larger projects that might ne
 Refactoring
 ===========
 
-Using strict **Formular**s is a little bit like IntelliSense within vvvv. 
+[Using](doc/Formular.md) strict **Formular**s is a little bit like IntelliSense within vvvv. 
 
 ![Formular Refactoring](../../copy/assets/doc_images/04_0_refactoring_define.png "Formular Typing: Pick a template, registered with the Formular node")
 
