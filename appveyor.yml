@@ -8,12 +8,7 @@ version: 0.0.4444 # this will be replaced
 
 environment:
 # change here!
-  packageVersion: 2.8.9
-
-branches:  
-  only:
-  - develop
-  - master
+  packageVersion: 2.9.0
 
 #nuget publish will fail if not Release
 configuration: Release
@@ -25,10 +20,12 @@ pull_requests:
 init:
 - ps: $env:IsPrerelease = ($env:APPVEYOR_REPO_TAG -eq $False) -or ($env:APPVEYOR_REPO_BRANCH -ne "master")
 - ps: $env:buildVersion = if ($env:IsPrerelease -eq $False) {"$env:packageVersion"} else {"$env:packageVersion.$env:appveyor_build_number"}
-- ps: $env:nugetVersion = if ($env.IsPrerelease -eq $False) { "$env:buildVersion" } else {"$env:packageVersion-$env:APPVEYOR_REPO_BRANCH$env:appveyor_build_number" }
+- ps: $env:nugetVersion = if ($env:APPVEYOR_REPO_BRANCH -eq "master") {"$env:buildVersion" }  else {"$env:packageVersion-$env:APPVEYOR_REPO_BRANCH$env:appveyor_build_number" }
 # send version back
 - ps: Update-AppveyorBuild -Version $env:buildVersion
 - ps: echo "PreRelease = $env:IsPrerelease"
+- ps: echo "BuildVersion = $env:buildVersion"
+- ps: echo "nugetVersion = $env:nugetVersion"
 
 # patch all Assemblies to the current build number
 assembly_info:

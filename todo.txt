@@ -1,28 +1,9 @@
-Features accomplished
-- wasChanged as a solid property of Message, or maybe even Bin (leave a managed breadcrumb of the last sync'ing Keep)
-- dx ressources as valid type in Formular and pintype
-- less Gui windows
-- AutoSense should be called Force, and polarity reverse (breaking change?!)
-- formular selection pin is still called "Message Formular" - shorter, loose the "Message" here
-- [Split] should have a verbose toggle
-- [ConfigKeep] BinSize of 0 on first slice somehow affects all other nodes. Should maybe also delete 
-- Reader (Message Stream) should not output Messages when reading is off. AutoReset at EOF is dull too. Count of -1 should read all (Min=-1)
-- [Read] AvoidNil is crap. More useful: swapdim 
-- Profiles (extending TypeIdentity) should look prettier. 
-
-Features Wanted
+Potential Features
+- faster TypeIdentity - split into two internal dictionaries
+- Rewrite of Formular: Order, Compatibility checks, Attributes and cooler Defaults
 - vl version (message core only, best done by tonfilms xml, not attributes)
 - autocast from any vl class (and mimick back), might need converters for all vvvv special types
 - dynamic object wrapper for a Message's dictionary (see Agent in vvvv-Game)
-- faster TypeIdentity - split into two internal dictionaries
- - pin order fully deterministic
-
-Bugs
-- [Formular] is super slow
-- [ConfigKeep] does not stop sweeping
-- [PruneBut] does not remove empty bins
-- [PruneEmpty] fix help text
-
 
 Treatments
 - config pin should be private (and hidden)
