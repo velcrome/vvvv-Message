@@ -13,10 +13,10 @@
     <copyright>intolight</copyright>
     <tags>Message Keep Formular</tags>
     <dependencies>
-      <dependency id="VVVV.Packs.Time" version="0.6" />
-      <dependency id="VVVV.Utils" version="34.2.0" />
-      <dependency id="Newtonsoft.Json" version="8.0.2" />
-      <dependency id="MsgPack.Cli" version="0.7.1" />
+      <dependency id="VVVV.Packs.Timing" version="0.8.2" />
+      <dependency id="VVVV.Utils" version="35.0" />
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
+      <dependency id="MsgPack.Cli" version="0.8.0" />
     </dependencies>
   </metadata>
   <files>
