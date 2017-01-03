@@ -6,7 +6,7 @@
   </meta>
   <install>
     Download(
-      "https://github.com/velcrome/vvvv-Message/releases/download/2.9.4/vvvv-Message.zip",
+      "https://github.com/velcrome/vvvv-Message/releases/download/2.9.5/vvvv-Message.zip",
       VPM.TempDir + "\\vvvv-Message.zip"
     );
     Extract(VPM.TempDir + "\\vvvv-Message.zip", Pack.TempDir + "\\extract");
