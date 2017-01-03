@@ -8,7 +8,7 @@ version: 0.0.4444 # this will be replaced
 
 environment:
 # change here!
-  packageVersion: 2.9.3
+  packageVersion: 2.9.4
 
 #nuget publish will fail if not Release
 configuration: Release
