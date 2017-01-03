@@ -4,11 +4,10 @@ using VVVV.Utils.OSC;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using Time = VVVV.Packs.Time.Time;
-
     public static class OSCExtensions
     {
 

@@ -44,6 +44,7 @@
     <Compile Include="Serialisation\MsgPackTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -63,10 +64,6 @@
       <HintPath>..\packages\VVVV.Core.35.0.0\lib\net46\VVVV.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=$(Platform)">
       <HintPath>..\..\lib\$(Platform)\FeralTic.dll</HintPath>
       <Private>True</Private>
@@ -81,6 +78,10 @@
       <HintPath>..\..\lib\$(Platform)\VVVV.DX11.Lib.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="VVVV.Packs.Timing, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Packs.Timing.0.8.2\lib\net46\VVVV.Packs.Timing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="VVVV.SlimDX, processorArchitecture=$(Platform)">
       <HintPath>..\packages\VVVV.SlimDX.1.0.3\lib\net40\$(Platform)\SlimDX.dll</HintPath>

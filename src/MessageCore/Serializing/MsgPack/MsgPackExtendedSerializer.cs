@@ -4,12 +4,10 @@ using VVVV.Utils.VMath;
 
 using MsgPack;
 using MsgPack.Serialization;
-using VVVV.Packs.Time;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using Time = VVVV.Packs.Time.Time;
-
     // CAUTION: You MUST implement your serializer thread safe (usually, you can and you should implement serializer as immutable.)
     public class MsgPackTimeSerializer : MessagePackSerializer<Time>
     {

@@ -4,12 +4,12 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
+using VVVV.Packs.Timing;
 
 #endregion usings
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    using Time = VVVV.Packs.Time.Time;
 
     #region PluginInfo
 

@@ -2,20 +2,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Linq;
-using VVVV.Packs.Time;
+using VVVV.Packs.Timing;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
 
 
 #endregion usings
 
-namespace VVVV.Packs.Messaging {
-    using System.IO;
-    using Time = VVVV.Packs.Time.Time;
+namespace VVVV.Packs.Messaging
+{
 
     public delegate void MessageChangedWithDetails(Message original, Message change);
     public delegate void MessageChanged(Message original);

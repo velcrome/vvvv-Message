@@ -74,10 +74,9 @@
       <HintPath>..\..\lib\x64\FeralTic.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Packs.Time, Version=0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Packs.Time.0.6\lib\net40\VVVV.Packs.Time.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+    <Reference Include="VVVV.Packs.Timing, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Packs.Timing.0.8.2\lib\net46\VVVV.Packs.Timing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="VVVV.Utils, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.35.0.0\lib\net46\VVVV.Utils.dll</HintPath>

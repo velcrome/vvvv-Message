@@ -5,11 +5,10 @@ using VVVV.Utils.VMath;
 using VVVV.Utils.VColor;
 using VVVV.Packs.Messaging.Nodes;
 using System.Text;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-    using Time = VVVV.Packs.Time.Time;
-    
     [TestClass]
     public class BinTest
     {
