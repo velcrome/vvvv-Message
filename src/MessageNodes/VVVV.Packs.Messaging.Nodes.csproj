@@ -33,6 +33,9 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FeralTic">
+      <HintPath>..\..\copy\core\x64\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -63,16 +66,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.DX11.Core">
-      <HintPath>..\..\lib\x64\VVVV.DX11.Core.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.DX11.Lib">
-      <HintPath>..\..\lib\x64\VVVV.DX11.Lib.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="FeralTic">
-      <HintPath>..\..\lib\x64\FeralTic.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\copy\core\x64\VVVV.DX11.Lib.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Packs.Timing, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Timing.0.8.2\lib\net46\VVVV.Packs.Timing.dll</HintPath>

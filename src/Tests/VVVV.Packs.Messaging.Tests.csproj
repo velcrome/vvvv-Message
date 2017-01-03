@@ -48,6 +48,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\copy\core\x64\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="MsgPack, Version=0.8.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
       <HintPath>..\packages\MsgPack.Cli.0.8.0\lib\net46\MsgPack.dll</HintPath>
       <Private>True</Private>
@@ -64,20 +68,13 @@
       <HintPath>..\packages\VVVV.Core.35.0.0\lib\net46\VVVV.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=$(Platform)">
-      <HintPath>..\..\lib\$(Platform)\FeralTic.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
     </Reference>
-    <Reference Include="VVVV.DX11.Core, processorArchitecture=$(Platform)">
-      <HintPath>..\..\lib\$(Platform)\VVVV.DX11.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="VVVV.DX11.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VVVV.DX11.Lib, processorArchitecture=$(Platform)">
-      <HintPath>..\..\lib\$(Platform)\VVVV.DX11.Lib.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\copy\core\x64\VVVV.DX11.Lib.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Packs.Timing, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Timing.0.8.2\lib\net46\VVVV.Packs.Timing.dll</HintPath>
