@@ -20,7 +20,7 @@ namespace VVVV.Packs.Messaging.Nodes
         Help = "Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types. Features fully spreaded AvoidNil capabilities, and a handy Swapdim Flip", 
         Tags = "Formular, Bin", 
         Author = "velcrome")]
-    public class MessageReadAdvancedNode : TypeablePinNode, IDX11ResourceDataRetriever
+    public class MessageReadAdvancedNode : TypeablePinNode, IDX11ResourceHost
     {
         protected IIOContainer FAvoidNil;
 
@@ -222,20 +222,6 @@ namespace VVVV.Packs.Messaging.Nodes
             }
         }
 
-        #region dx11
-        public DX11RenderContext AssignedContext
-        {
-            get;
-            set;
-        }
-
-        public event DX11RenderRequestDelegate RenderRequest;
-
-        protected void InitDX11Graph()
-        {
-            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
-        }
-        #endregion dx11
     }
 
 }

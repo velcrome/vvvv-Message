@@ -15,10 +15,11 @@ using VVVV.Core.Logging;
 
 using VVVV.DX11;
 using FeralTic.DX11;
+using FeralTic.DX11.Resources;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface, IDX11ResourceDataRetriever
+    public abstract class TypeablePinsNode : AbstractFormularableNode, IWin32Window, ICustomQueryInterface
     {
         #region fields & pins
         protected const string Tags = "Formular";
@@ -292,7 +293,24 @@ namespace VVVV.Packs.Messaging.Nodes
 
         protected void InitDX11Graph()
         {
-            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
+            if (this.RenderRequest != null) { RenderRequest((IDX11ResourceDataRetriever)this, this.FHost); }
+        }
+
+        public void Update(DX11RenderContext context)
+        { }
+
+
+        public void Destroy(DX11RenderContext context, bool force)
+        {
+            foreach (var pinName in FPins.Keys)
+            {
+                var pin = FPins[pinName].ToISpread() as ISpread<ISpread<DX11Resource<IDX11Resource>>>;
+                if (pin == null) continue;
+
+                for (int i = 0; i < pin.SliceCount; i++)
+                    for (int j = 0; j < pin[i].SliceCount; j++)
+                        pin[i][j].Dispose(context);
+            }
         }
         #endregion dx11
 

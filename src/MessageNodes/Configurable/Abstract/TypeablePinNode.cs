@@ -1,7 +1,11 @@
+using FeralTic.DX11;
+using FeralTic.DX11.Resources;
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using VVVV.Core.Logging;
+using VVVV.DX11;
+using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
@@ -37,6 +41,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Import()]
         protected ILogger FLogger;
+
+        [Import()]
+        protected IPluginHost FHost;
 
         public void OnImportsSatisfied()
         {
@@ -80,6 +87,35 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public abstract void Evaluate(int SpreadMax);
 
+        #region dx11 ResourceDataRetriever
+        public DX11RenderContext AssignedContext
+        {
+            get;
+            set;
+        }
 
+        public event DX11RenderRequestDelegate RenderRequest;
+
+        protected void InitDX11Graph()
+        {
+            if (this.RenderRequest != null) { RenderRequest((IDX11ResourceDataRetriever)this, FHost); }
+        }
+
+        #endregion dx11 ResourceDataRetriever
+
+        #region dx11 ResourceHost
+        public void Update(DX11RenderContext context)
+        { }
+
+        public void Destroy(DX11RenderContext context, bool force)
+        {
+                var pin = FValue.ToISpread() as ISpread<ISpread<DX11Resource<IDX11Resource>>>;
+                if (pin == null) return;
+
+                for (int i = 0; i < pin.SliceCount; i++)
+                    for (int j = 0; j < pin[i].SliceCount; j++)
+                        pin[i][j].Dispose(context);
+        }
+        #endregion dx11 ResourceHost
     }
 }

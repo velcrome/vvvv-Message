@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using VVVV.DX11;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -15,7 +16,7 @@ namespace VVVV.Packs.Messaging.Nodes
         Tags = "Formular, Bin",
         Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageEditNode : TypeablePinsNode
+    public class MessageEditNode : TypeablePinsNode, IDX11ResourceDataRetriever
     {
         [Input("Input", Order = 0)] 
         protected IDiffSpread<Message> FInput;

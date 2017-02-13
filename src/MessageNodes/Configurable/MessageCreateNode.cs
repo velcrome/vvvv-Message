@@ -3,13 +3,14 @@ using System.Linq;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 using VVVV.PluginInterfaces.V2.NonGeneric;
+using VVVV.DX11;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
     [PluginInfo(Name = "Create", AutoEvaluate=true, Category = "Message", Version="Formular", Help = "Joins a Message from custom dynamic pins", Tags = "Dynamic, Bin", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageCreateNode : TypeablePinsNode
+    public class MessageCreateNode : TypeablePinsNode, IDX11ResourceDataRetriever
     {
         [Input("New", IsToggle = true, DefaultBoolean = true, Order = 0)]
         protected ISpread<bool> FNew;

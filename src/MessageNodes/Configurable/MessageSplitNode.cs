@@ -5,6 +5,9 @@ using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
 using VVVV.Packs.Timing;
+using VVVV.DX11;
+using FeralTic.DX11;
+using FeralTic.DX11.Resources;
 
 #endregion usings
 
@@ -12,13 +15,11 @@ namespace VVVV.Packs.Messaging.Nodes
 {
 
     #region PluginInfo
-
     [PluginInfo(Name = "Split", AutoEvaluate = true, Category = "Message", Version = "Formular",
         Help = "Splits a Message into custom dynamic pins", Tags = "Formular, Bin", Author = "velcrome")]
-
     #endregion PluginInfo
 
-    public class MessageSplitNode : TypeablePinsNode
+    public class MessageSplitNode : TypeablePinsNode, IDX11ResourceHost
     {
         [Input("Input", Order = 0)]
         protected Pin<Message> FInput;
@@ -113,9 +114,10 @@ namespace VVVV.Packs.Messaging.Nodes
                 FPins[name].ToISpread().Flush();
             }
 
-            // no need to worry next frame. all's well, because node failed early
+            // no need to worry next frame. all's well, because node did not fail early
             LayoutChanged = false;
         }
+
 
     }
 }
