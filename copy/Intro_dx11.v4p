@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\dev\vvvv\vvvv-Message\copy\Intro_dx11.v4p" scrollx="0" scrolly="0" systemname="Intro_tex" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_tex.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50beta35_x64\packs\vvvv-Message\Intro_dx11.v4p" scrollx="0" scrolly="0" systemname="Intro_tex" filename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\Intro_tex.v4p">
    <BOUNDS type="Window" left="3540" top="4545" width="15165" height="7395">
    </BOUNDS>
    <NODE systemname="Formular (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Formular (Message)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
@@ -19,7 +19,7 @@
    </PIN>
    <PIN pinname="Foo" slicecount="1" visible="1" values="bar">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Buffer Buffer, Geometry Geom, Texture2d Tex, Layer Layer|">
+   <PIN pinname="Configuration" slicecount="1" values="|StructuredBuffer Buffer, Geometry Geom, Texture2d Tex, Layer Layer|">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -118,14 +118,14 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="21" systemname="IOBox (String)">
    <BOUNDS type="Box" left="6960" top="5190" width="1500" height="840">
    </BOUNDS>
    <BOUNDS type="Node" left="6960" top="5190" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="4" visible="1" values="|Buffer Buffer|,|Geometry Geom|,|Texture2d Tex|,|Layer Layer|">
+   <PIN pinname="Input String" slicecount="4" visible="1" values="|StructuredBuffer Buffer|,|Geometry Geom|,|Texture2d Tex|,|Layer Layer|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
@@ -187,7 +187,7 @@
    </PIN>
    <PIN pinname="Formular" visible="1">
    </PIN>
-   <PIN pinname="Configuration" slicecount="1" values="|Buffer Buffer, Geometry Geom, Texture2d Tex, Layer Layer|">
+   <PIN pinname="Configuration" slicecount="1" values="|StructuredBuffer Buffer, Geometry Geom, Texture2d Tex, Layer Layer|">
    </PIN>
    <PIN pinname="Name" visible="1">
    </PIN>
@@ -498,9 +498,9 @@
    </LINK>
    <LINK srcnodeid="59" srcpinname="Transform Out" dstnodeid="35" dstpinname="Texture Transform">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.8.6">
+   <PACK Name="vvvv-Message" Version="2.9.7">
    </PACK>
-   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.4">
    </PACK>
    <NODE systemname="Sphere (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Sphere (DX11.Geometry)" componentmode="Hidden" id="60">
    <BOUNDS type="Node" left="4410" top="585" width="100" height="100">
@@ -557,7 +557,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10290" top="3075" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -566,6 +566,8 @@
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="62" dstpinname="Log Messages">
