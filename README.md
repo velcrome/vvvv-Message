@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/master?pendingText=Master%20Pending&failingText=Master%20Fail&passingText=Master%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/master) [![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/develop?pendingText=Develop%20Pending&failingText=Develop%20Fail&passingText=Develop%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/develop)
+﻿[![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/master?pendingText=Master%20Pending&failingText=Master%20Fail&passingText=Master%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/master) [![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/develop?pendingText=Develop%20Pending&failingText=Develop%20Fail&passingText=Develop%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/develop)
 
 This node pack defines a new **Message** data link and c# type. 
 Its initial purpose was to help you retain data and performance control if your vvvv project turns bigger than expected, without adding redundant and confusing links. 
@@ -60,7 +60,7 @@ Dependencies
 
 License
 =======
-This software is distributed with [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
+This software is distributed with [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Please note overriding, more liberal licensing terms in individual subdirectories, such as
 
