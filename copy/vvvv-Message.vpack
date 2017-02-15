@@ -3,6 +3,7 @@
     <name>vvvv-Message</name>
     <source>https://github.com/velcrome/vvvv-Message</source>
     <author>velcrome</author>
+    <license>https://creativecommons.org/licenses/by-nc-sa/4.0/</license>
   </meta>
   <install>
     Download(
