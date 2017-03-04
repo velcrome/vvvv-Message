@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-    using Time = VVVV.Packs.Time.Time;
-
 
     [TestClass]
     public class FormularTest

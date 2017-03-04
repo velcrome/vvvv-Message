@@ -4,11 +4,10 @@ using System.Text;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
 using VVVV.Packs.Messaging.Nodes;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging.Tests
 {
-    using Time = VVVV.Packs.Time.Time;
-
 
     [TestClass]
     public class BinFactoryTest

@@ -6,11 +6,10 @@ using System;
 using System.IO;
 using VVVV.Utils.VColor;
 using VVVV.Utils.VMath;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using Time = VVVV.Packs.Time.Time;
-
     public class MsgPackMessageSerializer : MessagePackSerializer<Message>
     {
         protected readonly HashSet<Type> AsInt;

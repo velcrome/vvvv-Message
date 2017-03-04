@@ -13,7 +13,7 @@ using FeralTic.DX11;
 namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Read", AutoEvaluate = true, Category = "Message", Help = "Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types.", Tags = "Typeable, Field", Author = "velcrome")]
-    public class MessageReadNode : TypeablePinNode, IDX11ResourceDataRetriever
+    public class MessageReadNode : TypeablePinNode, IDX11ResourceHost
     {
         [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
@@ -96,20 +96,7 @@ namespace VVVV.Packs.Messaging.Nodes
             FBinSize.Flush();
         }
 
-        #region dx11
-        public DX11RenderContext AssignedContext
-        {
-            get;
-            set;
-        }
 
-        public event DX11RenderRequestDelegate RenderRequest;
-
-        protected void InitDX11Graph()
-        {
-            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
-        }
-        #endregion dx11
 
     }
 

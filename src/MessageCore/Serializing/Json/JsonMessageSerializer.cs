@@ -4,11 +4,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging.Serializing
 {
-    using Time = VVVV.Packs.Time.Time;
-
     public class JsonMessageSerializer : JsonConverter
     {
         private Type[] NativeJsonTypes = new Type[] { typeof(string), typeof(bool), typeof(double), typeof(int), typeof(Message) };

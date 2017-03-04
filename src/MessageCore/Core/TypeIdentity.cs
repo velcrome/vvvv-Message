@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using VVVV.Packs.Timing;
 
 namespace VVVV.Packs.Messaging
 {
@@ -41,7 +42,7 @@ namespace VVVV.Packs.Messaging
             );
 
         public TypeRecord<Message> Message = new TypeRecord<Message>("Message", CloneBehaviour.Assign, () => new Message());
-        public TypeRecord<Time.Time> TimeStamp = new TypeRecord<Time.Time>("Time", CloneBehaviour.Assign, () => Time.Time.MinUTCTime()); // 1.1.0001 @ 0am
+        public TypeRecord<Time> TimeStamp = new TypeRecord<Time>("Time", CloneBehaviour.Assign, () => Time.MinUTCTime()); // 1.1.0001 @ 0am
     }
 
     public sealed class TypeIdentity : IReadOnlyDictionary<Type, TypeRecord>, IReadOnlyDictionary<string, TypeRecord>

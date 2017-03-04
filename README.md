@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/master?pendingText=Master%20Pending&failingText=Master%20Fail&passingText=Master%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/master) [![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/develop?pendingText=Develop%20Pending&failingText=Develop%20Fail&passingText=Develop%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/develop)
+﻿[![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/master?pendingText=Master%20Pending&failingText=Master%20Fail&passingText=Master%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/master) [![Build status](https://ci.appveyor.com/api/projects/status/xupapctmj83we10a/branch/develop?pendingText=Develop%20Pending&failingText=Develop%20Fail&passingText=Develop%20OK&svg=true)](https://ci.appveyor.com/project/velcrome/vvvv-message-tem27/branch/develop)
 
 This node pack defines a new **Message** data link and c# type. 
 Its initial purpose was to help you retain data and performance control if your vvvv project turns bigger than expected, without adding redundant and confusing links. 
@@ -12,7 +12,7 @@ Think of **Message** as a collection of (binsizeable) Spreads of various Types (
 
 You can create these Message objects with fully spreadable `Create (Message Formular)` and access the individual Spreads with  `Split (Message Formular)`, `Read (Message)` or simply `Info (Message)`. 
 
-It comes with a broad range of handy helper nodes to work with it:
+It comes with a broad range of handy helper [nodes](src/MessageNodes/readme.md) to work with it:
 * `Sift (Message)`, `Sort (Message Formular`and search the Messages you are interested in
 * handle Message spreads with ease: `GetSlice (Message)`, `Select (Message)`, et al. at your service
 * micromanage Messages' Fields: Prune, `Topic (Message)` and `RenameField (Message)`
@@ -25,7 +25,7 @@ Furthermore it ships with convenience plugins for persisting Messages to disc or
 
 On Strictness
 -------------
-This pack is open to tinkering and rapid prototyping. The most important plugin nodes' pin layout can be edited to your needs with a simple GUI window. It shows you what's possible.
+This pack is open to tinkering and rapid prototyping. The most important plugin nodes' pin layout can be edited to your needs with a simple GUI window, that helps you to define a [Formular](src/MessageNodes/doc/Formular.md). It shows you what's possible.
 
 As your project grows, you should look into the more strict alternative, and switch your **Formular** Pin from _None_ to one *you defined*, with `Formular (Message)`, which will manage your **Formular** definition application wide and make it available to all nodes with the tag _Formular_
 
@@ -60,7 +60,7 @@ Dependencies
 
 License
 =======
-This software is distributed with [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/)
+This software is distributed with [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Please note overriding, more liberal licensing terms in individual subdirectories, such as
 

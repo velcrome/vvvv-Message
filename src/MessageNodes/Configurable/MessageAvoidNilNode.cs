@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using VVVV.Packs.Timing;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
 
@@ -55,7 +56,7 @@ namespace VVVV.Packs.Messaging.Nodes
         private void NewDefault()
         {
             Default = new Message(Formular);
-            Default.TimeStamp = Time.Time.CurrentTime();
+            Default.TimeStamp = Time.CurrentTime();
             
         }
 

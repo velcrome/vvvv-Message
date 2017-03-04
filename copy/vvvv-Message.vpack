@@ -3,16 +3,11 @@
     <name>vvvv-Message</name>
     <source>https://github.com/velcrome/vvvv-Message</source>
     <author>velcrome</author>
-    <dependencies>
-      <dependency>
-        <name>dx11-vvvv</name>
-	    <source>vpms://raw.githubusercontent.com/vvvvpm/vpdb/master/vux/dx11-vvvv/dx11-vvvv.0.7.1.vpack</source>
-      </dependency>
-    </dependencies>
+    <license>https://creativecommons.org/licenses/by-nc-sa/4.0/</license>
   </meta>
   <install>
     Download(
-      "https://github.com/velcrome/vvvv-Message/releases/download/2.9/vvvv-Message.zip",
+      "https://github.com/velcrome/vvvv-Message/releases/download/2.9.7/vvvv-Message.zip",
       VPM.TempDir + "\\vvvv-Message.zip"
     );
     Extract(VPM.TempDir + "\\vvvv-Message.zip", Pack.TempDir + "\\extract");

@@ -22,16 +22,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Input("Update", IsToggle = true, Order = int.MaxValue, DefaultBoolean = true)]
         protected IDiffSpread<bool> FUpdate;
 
-        [Import()]
-        protected IPluginHost FHost;
-
-        public DX11RenderContext AssignedContext
-        {
-            get;
-            set;
-        }
-
-        public event DX11RenderRequestDelegate RenderRequest;
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
             var attr = new InputAttribute("Field");
@@ -49,7 +39,7 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public override void Evaluate(int SpreadMax)
         {
-            if (this.RenderRequest != null) { RenderRequest(this, this.FHost); }
+            InitDX11Graph();
 
             if (FInput.IsAnyInvalid())
             {
