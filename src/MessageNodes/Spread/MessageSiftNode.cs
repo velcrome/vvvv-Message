@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-
+using System.Text.RegularExpressions;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils;
@@ -10,7 +10,7 @@ namespace VVVV.Packs.Messaging.Nodes
     #region PluginInfo
     [PluginInfo(Name = "Sift", Category = "Message", Help = "Filter Messages", Tags = "string, Wildcard", Author = "velcrome")]
     #endregion PluginInfo
-    public class MessageSiftWildCardNode : IPluginEvaluate
+    public class MessageSiftWildCardNode : IPluginEvaluate, IPartImportsSatisfiedNotification
     {
         [Input("Input")] 
         protected IDiffSpread<Message> FInput;
@@ -23,6 +23,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
         [Output("NotFound", AutoFlush = false)]
         protected ISpread<Message> FNotFound;
+
+        protected List<Regex> CachedRegex = new List<Regex>();
 
         [Import()] protected ILogger FLogger;
 
@@ -47,10 +49,9 @@ namespace VVVV.Packs.Messaging.Nodes
             bool[] found = new bool[SpreadMax];
             for (int i = 0; i < SpreadMax; i++) found[i] = false;
 
-            for (int i = 0; i < FFilter.SliceCount; i++)
+            for (int i = 0; i < CachedRegex.Count; i++)
             {
-                string[] filter = FFilter[i].Split('.');
-                var regex = FFilter[i].CreateWildCardRegex();
+                var regex = CachedRegex[i];
                 
                 for (int j = 0; j < SpreadMax; j++)
                 {
@@ -65,6 +66,22 @@ namespace VVVV.Packs.Messaging.Nodes
             }
             FOutput.Flush();
             FNotFound.Flush();
+        }
+
+        public void OnImportsSatisfied()
+        {
+            FFilter.Changed += spread =>
+            {
+                CachedRegex.Clear();
+
+                for (int i = 0; i < FFilter.SliceCount; i++)
+                {
+                    string[] filter = FFilter[i].Split('.');
+                    var regex = FFilter[i].CreateWildCardRegex();
+
+                    CachedRegex.Add(regex);
+                }
+            };
         }
     }
 
