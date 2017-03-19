@@ -18,9 +18,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
 
-        [Import()]
-        protected IPluginHost FHost;
-
         protected override IOAttribute DefinePin(FormularFieldDescriptor field)
         {
             var attr = new OutputAttribute("Field");

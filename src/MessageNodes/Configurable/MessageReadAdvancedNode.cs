@@ -33,9 +33,6 @@ namespace VVVV.Packs.Messaging.Nodes
         [Output("Message Bin Size", AutoFlush = false, Order = 4)]
         protected ISpread<int> FBinSize;
 
-        [Import()]
-        protected IPluginHost FHost;
-
         protected override void OnConfigChange(IDiffSpread<string> configSpread)
         {
             base.OnConfigChange(configSpread);
