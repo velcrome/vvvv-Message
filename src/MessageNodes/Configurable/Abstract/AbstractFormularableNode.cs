@@ -144,27 +144,47 @@ namespace VVVV.Packs.Messaging.Nodes
             var formularName = FFormularSelection[0].Name;
             if (Formular.Name == formularName) return;
 
-            var backup = new MessageFormular(formularName, FConfig[0]); // local backup
+            if (formularName != MessageFormular.DYNAMIC)
+            {
+  
+                Formular = RetrieveAdoptedFormular(formularName);
+            }
+            else {
+                // fallback to what's been known to the node
+                // so a switch to DYNAMIC keeps the old entries (but makes them editable)
+                Formular.Name = MessageFormular.DYNAMIC;
+                Formular = Formular;
+            }
+        }
+
+        private MessageFormular RetrieveAdoptedFormular(string formularName)
+        {
+            MessageFormular reg;
             try
             {
-                MessageFormular formular;
-                if (formularName != MessageFormular.DYNAMIC)
-                {
-                    formular = RetrieveFormular(formularName);
-                    formular.Require(RequireEnum.NoneBut, backup);
-                }
-                else {
-                    formular = backup; // fallback to what's been known to the node
-                    formular.Name = formularName;
-                }
-
-                Formular = formular;
+                reg = RetrieveRegisteredFormular(formularName);
             }
             catch (RegistryException)
             {
+                reg = new MessageFormular(MessageFormular.DYNAMIC, FConfig[0]);
                 // i.e. not found. might happen during first frame
-                Formular = backup;
             }
+            reg.Require(RequireEnum.NoneBut, Formular);
+
+            var formular = new MessageFormular(formularName, "");
+
+            // all required fields, in order as the old one
+            // overwrites any type differences, or sizes
+            var oldNames = Formular.FieldNames.ToList();
+            var required = reg.FieldDescriptors.Where(f => f.IsRequired).OrderBy(f => oldNames.IndexOf(f.Name));
+            foreach (var field in required) formular.Append(field, true);
+
+            // all non-required fields, in order as from registry
+            var extraNames = reg.FieldNames.ToList();
+            var extra = reg.FieldDescriptors.Where(f => !f.IsRequired).OrderBy(f => extraNames.IndexOf(f.Name));
+            foreach (var field in extra) formular.Append(field, false);
+
+            return formular;
         }
 
         /// <summary>
@@ -173,7 +193,7 @@ namespace VVVV.Packs.Messaging.Nodes
         /// <param name="formularName"></param>
         /// <exception cref="RegistryException">When Formular is unknown to the registry</exception>
         /// <returns>A clone of the Formular in the registry</returns>
-        protected MessageFormular RetrieveFormular(string formularName)
+        protected MessageFormular RetrieveRegisteredFormular(string formularName)
         {
             MessageFormular formular;
 
@@ -196,11 +216,8 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FFormularSelection[0] == formular.Name)
             {
-                formular = formular.Clone() as MessageFormular; // keep a copy
-
-                if (CustomizeFormular)
-                    formular.Require(RequireEnum.NoneBut, Formular); // never automatically add anything. e.g never add pins without user consent
-                else formular.Require(RequireEnum.All); // always add all.
+                formular = RetrieveAdoptedFormular(formular.Name);
+                if (!CustomizeFormular) formular.Require(RequireEnum.All); // always add all.
 
                 Formular = formular;
             }

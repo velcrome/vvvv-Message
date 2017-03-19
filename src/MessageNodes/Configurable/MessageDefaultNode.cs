@@ -86,7 +86,7 @@ namespace VVVV.Packs.Messaging.Nodes
                 MessageFormular formular;
                 try
                 {
-                    formular = RetrieveFormular(formularName);
+                    formular = RetrieveRegisteredFormular(formularName);
                 } catch (RegistryException)
                 {
                     formular = null;
