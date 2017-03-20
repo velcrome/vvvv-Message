@@ -110,7 +110,7 @@
     <Compile Include="Keep\MessageKeepSafe.cs" />
     <Compile Include="Configurable\MessageAvoidNilNode.cs" />
     <Compile Include="Configurable\MessageReadNode.cs" />
-    <Compile Include="Keep\MessateKeepStoreNode.cs" />
+    <Compile Include="Keep\MessageKeepStoreNode.cs" />
     <Compile Include="Serializing\MsgPackNodes.cs" />
     <Compile Include="SpreadUtils.cs" />
     <Compile Include="Spread\MessageCommonNode.cs" />

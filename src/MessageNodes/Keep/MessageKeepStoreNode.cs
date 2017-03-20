@@ -24,8 +24,13 @@ namespace VVVV.Packs.Messaging.Nodes
 
             if (FInput.IsChanged && !FInput.IsAnyInvalid())
             {
-                Keep.AssignFrom(FInput);
-                update = true;
+                foreach (var message in FInput)
+                    if (!Keep.Contains(message))
+                    {
+                        Keep.Add(message);
+                        update = true;
+
+                    }
             }
             if (UpKeep()) update = true;
 
