@@ -363,7 +363,7 @@ namespace VVVV.Packs.Messaging
         /// The timestamp will be updated to Now.
         /// In case IsChanged was true, the message will be swept until the next Commit with this reference
         /// </remarks>
-        public bool Commit(object reference)
+        public bool Commit(object reference, bool updateTime = true)
         {
             var changedFields = new List<string>();
             foreach (var field in Fields)
@@ -383,7 +383,8 @@ namespace VVVV.Packs.Messaging
 
             if (changedFields.Count > 0 || _internalChange)
             {
-                TimeStamp = Time.CurrentTime(); // timestamp always shows last Synced Change.
+                if (updateTime)
+                    TimeStamp = Time.CurrentTime(); // timestamp always shows last Synced Change.
 
                 if (ChangedWithDetails != null) // for all subscribers with detailled interest
                 {
