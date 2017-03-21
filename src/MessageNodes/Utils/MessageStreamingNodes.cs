@@ -116,7 +116,7 @@ namespace VVVV.Packs.Messaging.Nodes.Serializing
             {
                 try
                 {
-                    var message = MessageEnumerator.Current.ToObject<Message>();
+                    var message = MessageEnumerator.Current.ToObject<Message>(); 
                     message.Commit(null, false); // commit all changes, but do not hold on
 
                     FOutput.Add(message);
