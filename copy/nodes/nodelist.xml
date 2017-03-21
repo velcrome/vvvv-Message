@@ -283,9 +283,20 @@
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
 </PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
-</PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
-</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
+</PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
+</PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
+</PIN><TODO>Help patch "HoldKeep (Message) help.v4p" not found
+</TODO>
+</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="StoreKeep (Message)" name="StoreKeep" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageKeepStoreNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
+</TAGS><HELP>Holds all Messages that traveled through.
+</HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
+</PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
+</PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
+</PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
+</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
 </PIN><TODO>Help patch "HoldKeep (Message) help.v4p" not found
