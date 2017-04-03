@@ -58,7 +58,17 @@ namespace VVVV.Packs.Messaging.Serializing
 
         protected override void PackToCore(Packer packer, Message message)
         {
-            packer.PackMapHeader(message.Data.Count + 2); // accomodate for all fields, topic and stamp
+            var serializable = (
+                                    from fieldName in message.Data.Keys
+                                    let bin = message[fieldName]
+                                    where bin != null
+                                    let typeRecord = TypeIdentity.Instance[bin.GetInnerType()]
+                                    where typeRecord != null
+                                    where typeRecord.CloneMethod != CloneBehaviour.Null
+                                    select fieldName
+                               ).ToList();
+
+            packer.PackMapHeader(serializable.Count + 2); // accomodate for all fields, topic and stamp
 
             packer.PackString("Topic");
             packer.PackString(message.Topic);
@@ -66,13 +76,11 @@ namespace VVVV.Packs.Messaging.Serializing
             packer.PackString("Stamp");
             packer.PackExtendedTypeValue(Code["Time"], TimeSerializer.PackSingleObject(message.TimeStamp));
 
-            foreach (var fieldName in message.Fields)
+            foreach (var fieldName in serializable)
             {
+
                 var bin = message[fieldName];
                 var typeRecord = TypeIdentity.Instance[bin.GetInnerType()];
-
-                if (typeRecord == null) continue;
-                if (typeRecord.CloneMethod == CloneBehaviour.Null) continue;
 
                 packer.PackString(fieldName);
 
