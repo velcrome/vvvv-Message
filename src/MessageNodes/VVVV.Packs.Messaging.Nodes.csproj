@@ -80,7 +80,7 @@
     <Reference Include="VVVV.Packs.Timing, Version=0.8.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Packs.Timing.0.8.3\lib\net46\VVVV.Packs.Timing.dll</HintPath>
       <Private>True</Private>
-	  <SpecificVersion>False</SpecificVersion>      
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="VVVV.Utils, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\VVVV.Utils.35.2.0\lib\net46\VVVV.Utils.dll</HintPath>
@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinNode.cs" />
+    <Compile Include="Configurable\MessageWriteAdvancedNode.cs" />
     <Compile Include="Configurable\WinForms\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>

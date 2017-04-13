@@ -66,6 +66,23 @@
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN>
+</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Write (Message Advanced)" name="Write" category="Message" version="Advanced" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageWriteAdvancedNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Formular, Bin
+</TAGS><HELP>Writes into Fields of arbitrary Type
+</HELP><AUTHOR>velcrome
+</AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
+</PIN><PIN name="Force" direction="Input" subtype="Boolean" slicemode="Single" visibility="Hidden">
+</PIN><PIN name="Update" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Type" direction="Input" subtype="TypeIdentityEnum" slicemode="Single" visibility="True">
+</PIN><PIN name="Key" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Field" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Field Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="Hidden">
+</PIN><PIN name="Message Field Count" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
+</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
+</PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
+</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Reflect (Object)" name="Reflect" category="Object" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageReflectFromVL" ibs="0,0" iws="0,0" icm="0"><TAGS>vl
 </TAGS><HELP>Transcode any VL type to Message
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
