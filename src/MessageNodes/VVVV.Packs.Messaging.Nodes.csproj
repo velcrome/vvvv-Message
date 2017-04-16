@@ -91,7 +91,7 @@
   <ItemGroup>
     <Compile Include="Configurable\Abstract\AbstractFieldSelectionNode.cs" />
     <Compile Include="Configurable\Abstract\TypeablePinNode.cs" />
-    <Compile Include="Configurable\MessageWriteAdvancedNode.cs" />
+    <Compile Include="Configurable\MessageWriteNode.cs" />
     <Compile Include="Configurable\WinForms\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -99,7 +99,6 @@
     <Compile Include="Configurable\MessageDefaultNode.cs" />
     <Compile Include="Configurable\MessageEditNode.cs" />
     <Compile Include="Configurable\MessageCreateNode.cs" />
-    <Compile Include="Configurable\MessageWriteNode.cs" />
     <Compile Include="Configurable\WinForms\FormularLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
