@@ -1,7 +1,8 @@
-<!DOCTYPE NODELIST ><NODELIST version="50alpha34.108"><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Inject (Message)" name="Inject" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Messaging.Nodes.MessageSiftMessageNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Topic, Safe
+<!DOCTYPE NODELIST ><NODELIST version="50alpha35.5"><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Inject (Message)" name="Inject" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Messaging.Nodes.MessageSiftMessageNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Topic, Safe
 </TAGS><HELP>When matching topics, this node injects some Modifications into existing Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Modificator Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Only modify when changed" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
@@ -10,16 +11,36 @@
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Edits" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
 </PIN>
+</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Write (Message Dynamic)" name="Write" category="Message" version="Dynamic" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageWritNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Formular, Bin
+</TAGS><HELP>Writes into Fields of arbitrary Type. 
+</HELP><AUTHOR>velcrome
+</AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
+</PIN><PIN name="Key" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Key Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
+</PIN><PIN name="Force" direction="Input" subtype="Boolean" slicemode="Single" visibility="Hidden">
+</PIN><PIN name="Update" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Type" direction="Input" subtype="TypeIdentityEnum" slicemode="Single" visibility="True">
+</PIN><PIN name="Field" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Field Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="Hidden">
+</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
+</PIN><PIN name="Iterations" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
+</PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
+</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Default (Message Formular)" name="Default" category="Message" version="Formular" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageDefaultNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Init, Create
 </TAGS><HELP>Constructs a Message according to a fixed Formular
 </HELP><WARNINGS>Not optimized for heavy usage.
 </WARNINGS><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="New" direction="Input" subtype="Trigger" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
-</PIN><PIN name="Spread Count" direction="Input" subtype="Integer" slicemode="Single" visibility="True">
-</PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
+</PIN><PIN name="Spread Count" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
@@ -29,6 +50,7 @@
 </TAGS><HELP>Adds or edits multiple Message FieldNames
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Force" direction="Input" subtype="Boolean" slicemode="Single" visibility="Hidden">
@@ -42,6 +64,7 @@
 </TAGS><HELP>Joins a Message from custom dynamic pins
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="New" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
@@ -50,26 +73,10 @@
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN>
-</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Write (Message Dynamic)" name="Write" category="Message" version="Dynamic" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageWriteNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Formular, Bin
-</TAGS><HELP>Writes into Fields of arbitrary Type
-</HELP><AUTHOR>velcrome
-</AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
-</PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
-</PIN><PIN name="Force" direction="Input" subtype="Boolean" slicemode="Single" visibility="Hidden">
-</PIN><PIN name="Update" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
-</PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
-</PIN><PIN name="Type" direction="Input" subtype="TypeIdentityEnum" slicemode="Single" visibility="True">
-</PIN><PIN name="Key" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
-</PIN><PIN name="Key Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
-</PIN><PIN name="Field" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
-</PIN><PIN name="Field Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="Hidden">
-</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
-</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
-</PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
-</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Reflect (Object)" name="Reflect" category="Object" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageReflectFromVL" ibs="0,0" iws="0,0" icm="0"><TAGS>vl
 </TAGS><HELP>Transcode any VL type to Message
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Object" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Learn" direction="Input" subtype="Trigger" slicemode="Single" visibility="True">
@@ -84,6 +91,7 @@
 </TAGS><HELP>Joins a permanent Message from custom dynamic pins
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Force" direction="Input" subtype="Boolean" slicemode="Single" visibility="Hidden">
@@ -100,6 +108,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Select (Message)" name="Select" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageSelectNode" ibs="0,0" iws="0,0" icm="0"><HELP>Select Messages
 </HELP><AUTHOR>vvvv-sdk
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Select" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -111,6 +120,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Zip (Message Bin)" name="Zip" category="Message" version="Bin" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageZipBinNode" ibs="0,0" iws="0,0" icm="0"><HELP>Zip Messages
 </HELP><AUTHOR>vvvv-sdk
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input Count" direction="Configuration" subtype="Integer" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input 1" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Input 1 Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
@@ -126,6 +136,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="UnZip (Message)" name="UnZip" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageUnZipNode" ibs="0,0" iws="0,0" icm="0"><HELP>UnZip Messages
 </HELP><AUTHOR>vvvv-sdk
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Output Count" direction="Configuration" subtype="Integer" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Input Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
@@ -140,9 +151,10 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="SafeKeep (Message)" name="SafeKeep" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageKeepSafe" ibs="0,0" iws="0,0" icm="0"><HELP>Stores Messages according to their address and keeps them updated
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
-</PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
+</PIN><PIN name="Formular" direction="Input" subtype="Empty" slicemode="UpStream" visibility="False">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
 </PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
@@ -150,12 +162,12 @@
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
-</PIN><TODO>Help patch "SafeKeep (Message) help.v4p" not found
-</TODO>
+</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="AvoidNil (Message Formular)" name="AvoidNil" category="Message" version="Formular" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="-1" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageAvoidNilNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Split
 </TAGS><HELP>Avoid empty spreads of Messages. Usually just above a split node.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
@@ -169,6 +181,7 @@
 </TAGS><HELP>Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Type" direction="Input" subtype="TypeIdentityEnum" slicemode="Single" visibility="True">
@@ -180,10 +193,27 @@
 </PIN><PIN name="Field" direction="Output" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Field Bin Size" direction="Output" subtype="Integer" slicemode="Manual" visibility="Hidden">
 </PIN>
+</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="StoreKeep (Message)" name="StoreKeep" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageKeepStoreNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
+</TAGS><HELP>Holds all Messages that traveled through.
+</HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
+</PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
+</PIN><PIN name="Formular" direction="Input" subtype="Empty" slicemode="UpStream" visibility="False">
+</PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
+</PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
+</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
+</PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
+</PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
+</PIN><TODO>Help patch "StoreKeep (Message) help.v4p" not found
+</TODO>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="SiftCommon (Message)" name="SiftCommon" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="-1" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageSiftMessageNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Message
 </TAGS><HELP>Find identical Messages in two spreads
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Filter" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -199,11 +229,12 @@
 </HELP><WARNINGS>Uninitialized fields in Messages might corrupt order. BinSizing Keys is ignored.
 </WARNINGS><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Descending" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_18474341" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_49860945" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Use Fields Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -212,6 +243,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="GetSlice (Message)" name="GetSlice" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageGetSliceNode" ibs="0,0" iws="0,0" icm="0"><HELP>GetSlice Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Index" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
@@ -224,15 +256,16 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Clone (Message)" name="Clone" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageCloneNode" ibs="0,0" iws="0,0" icm="0"><HELP>Clones Messages to prevent overriding an instance somewhere else. Slow.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
-</PIN><TODO>Help patch "Clone (Message) help.v4p" not found
-</TODO>
+</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Cons (Message)" name="Cons" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageConsNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
 </TAGS><HELP>Removes redundancy and null
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input Count" direction="Configuration" subtype="Integer" slicemode="Single" visibility="True">
 </PIN><PIN name="Distinct" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Input 1" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
@@ -245,6 +278,7 @@
 </TAGS><HELP>Detects and handles upstream changes and forwards them downstream.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Update" direction="Input" subtype="VVVV.Packs.Messaging.Nodes.FlowControlEnum" slicemode="Single" visibility="True">
 </PIN><PIN name="Filter" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
@@ -257,6 +291,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="ContainsField (Message)" name="ContainsField" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageContainsFieldNode" ibs="0,0" iws="0,0" icm="0"><HELP>Tells if a Message contains a certain attribute indicated by Name
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Field Names" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -264,9 +299,10 @@
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Match" direction="Output" subtype="Boolean" slicemode="Manual" visibility="True">
 </PIN>
-</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="FrameDelay (Message)" name="FrameDelay" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageFrameDelayNode" ibs="0,0" iws="0,0" icm="0"><HELP>Allows Feedback Loops for Messages
+</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="FrameDelay (Message)" name="FrameDelay" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageFrameDelayNode" ibs="0,0" iws="0,0" icm="0"><HELP>Allows Feedback Loops for Messages. Can be NIL&amp;apos;ed at will.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Clear" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -277,35 +313,25 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="HoldKeep (Message)" name="HoldKeep" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageKeepHoldNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
 </TAGS><HELP>Holds the last bunch of Messages that traveled through. Pick some or all.
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Match Rule" direction="Input" subtype="VVVV.Packs.Messaging.Nodes.MessageKeepHoldNode+HoldEnum" slicemode="Single" visibility="True">
 </PIN><PIN name="Index" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Formular" direction="Input" subtype="Empty" slicemode="UpStream" visibility="False">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
 </PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
-</PIN><TODO>Help patch "HoldKeep (Message) help.v4p" not found
-</TODO>
-</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="StoreKeep (Message)" name="StoreKeep" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageKeepStoreNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
-</TAGS><HELP>Holds all Messages that traveled through.
-</HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
-</PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
-</PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
-</PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
-</PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
-</PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
-</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
-</PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
-</PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
-</PIN><TODO>Help patch "HoldKeep (Message) help.v4p" not found
-</TODO>
+</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Info (Message)" name="Info" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageInfoNode" ibs="0,0" iws="0,0" icm="0"><TAGS>TTY
 </TAGS><HELP>Help to Debug Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Print to TTY" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -318,6 +344,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="PruneEmpty (Message)" name="PruneEmpty" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessagePruneEmptyNode" ibs="0,0" iws="0,0" icm="0"><HELP>Removes all empty fields of any Message 
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -326,6 +353,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Prune (Message)" name="Prune" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessagePruneIndicatedNode" ibs="0,0" iws="0,0" icm="0"><HELP>Removes all Fields with the indicated name from any Message 
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Prune FieldNames" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -335,6 +363,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="PruneBut (Message)" name="PruneBut" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessagePruneNode" ibs="0,0" iws="0,0" icm="0"><HELP>Removes all fields of any Message but the ones indicated by Name
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Remaining FieldNames" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -345,6 +374,7 @@
 </TAGS><HELP>Filter Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Filter" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -356,6 +386,7 @@
 </TAGS><HELP>Splits a Message into custom dynamic pins
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Verbose Logging" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
@@ -369,6 +400,7 @@
 </TAGS><HELP>Reads spreadable Fields of arbitrary Type from all incoming Messages. Can convert some types. Features fully spreaded AvoidNil capabilities, and a handy Swapdim Flip
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Enable AvoidNil" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Swap Dim" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
@@ -387,6 +419,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="SessionKeep (Message Formular)" name="SessionKeep" category="Message" version="Formular" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.TypableMessageSessionNode" ibs="0,0" iws="0,0" icm="0"><HELP>Stores Messages according to their id (which can be its Topic and/or specific fields) and removes them, if no change was detected for a certain time
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Retain Time" direction="Input" subtype="Real" slicemode="Single" visibility="True">
@@ -394,19 +427,19 @@
 </PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
 </PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use as ID" direction="Input" subtype="Enum_45667367" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use as ID" direction="Input" subtype="Enum_45575384" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Removed Messages" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Internal Count" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
-</PIN><TODO>Help patch "SessionKeep (Message Formular) help.v4p" not found
-</TODO>
+</PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Reflection (Message Formular)" name="Reflection" category="Message" version="Formular" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.FormularReflectionNode" ibs="0,0" iws="0,0" icm="0"><HELP>Outputs the current configuration of a Formular
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
-</PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
+</PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Field Type" direction="Output" subtype="String" slicemode="Manual" visibility="True">
@@ -418,6 +451,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Formular (Message)" name="Formular" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.FormularRegistryNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Dynamic, Bin, velcrome
 </TAGS><HELP>Define a high level Template for Messages
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Formular Name" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Configuration" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Configuration Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="True">
@@ -431,6 +465,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Topic (Message)" name="Topic" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageTopicNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
 </TAGS><HELP>Change the topic of Messages
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Update" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
@@ -441,6 +476,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Remove (Message)" name="Remove" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageRemoveNode" ibs="0,0" iws="0,0" icm="0"><HELP>Remove specific messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -450,6 +486,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="RemoveEmpty (Message)" name="RemoveEmpty" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageRemoveEmptyNode" ibs="0,0" iws="0,0" icm="0"><HELP>Remove empty messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -458,6 +495,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="RenameField (Message)" name="RenameField" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageFieldRename" ibs="0,0" iws="0,0" icm="0"><HELP>Renames specific fields inside a Message.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Match Field Name" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="New Field Name" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
@@ -470,6 +508,7 @@
 </TAGS><HELP>Serialize Messages to binary
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -480,6 +519,7 @@
 </TAGS><HELP>Convert Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -489,6 +529,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="AsString (Message Json)" name="AsString" category="Message" version="Json" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.Serializing.MessageAsJsonStringNode" ibs="0,0" iws="0,0" icm="0"><HELP>Encode Messages into Json. Will used custom typed fields where applicable.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Pretty" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -500,6 +541,7 @@
 </TAGS><HELP>Decode almost any Json to Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -510,6 +552,7 @@
 </TAGS><HELP>Outputs OSC Bundle Streams
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ExtendedMode" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -521,11 +564,12 @@
 </TAGS><HELP>Outputs OSC Message Streams
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ExtendedMode" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_37516664" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_55047048" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Use Fields Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -536,6 +580,7 @@
 </TAGS><HELP>Converts varied OSC into Messages 
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="OSC" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Additional Topic" direction="Input" subtype="String" slicemode="Single" visibility="True">
 </PIN><PIN name="Contract Topic Parts" direction="Input" subtype="Integer" slicemode="Single" visibility="True">
@@ -549,12 +594,13 @@
 </TAGS><HELP>Converts OSC Bundles into Messages 
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Configuration" direction="Configuration" subtype="String" slicemode="Manual" visibility="True">
 </PIN><PIN name="OSC" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ExtendedMode" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_63837475" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_65983125" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Use Fields Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -567,6 +613,7 @@
 </TAGS><HELP>Convert Messages
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -576,6 +623,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Reader (Message Streaming)" name="Reader" category="Message" version="Streaming" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.Serializing.MessageReadFromFileNode" ibs="0,0" iws="0,0" icm="0"><HELP>Read a stream of Messages from file.
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Filename" direction="Input" subtype="String" slicemode="Single" visibility="True">
 </PIN><PIN name="Count" direction="Input" subtype="Integer" slicemode="Single" visibility="True">
 </PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="True">
@@ -588,6 +636,7 @@
 </PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="OSCDecoder (Network Advanced)" name="OSCDecoder" category="Network" version="Advanced" filename="plugins\VVVV.Packs.Messaging.Nodes.OSC.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Nodes.NetworkOSCSeriesNode" ibs="0,0" iws="0,0" icm="0"><HELP>Basic raw template which copies up to count bytes from the input to the output
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Address" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -602,6 +651,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Bundle (OSC)" name="Bundle" category="OSC" version="" filename="plugins\VVVV.Packs.Messaging.Nodes.OSC.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Nodes.OSC.BundleOSCNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
 </TAGS><HELP>Bundle a bunch of OSC messages
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Distribute" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Match Rule" direction="Input" subtype="VVVV.Nodes.OSC.SelectEnum" slicemode="Single" visibility="True">
@@ -614,6 +664,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="UnBundle (OSC)" name="UnBundle" category="OSC" version="" filename="plugins\VVVV.Packs.Messaging.Nodes.OSC.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Nodes.OSC.UnBundleOSCNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
 </TAGS><HELP>UnBundle a bunch of OSC messages
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ExtendedMode" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
@@ -625,6 +676,7 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Sift (OSC)" name="Sift" category="OSC" version="" filename="plugins\VVVV.Packs.Messaging.Nodes.OSC.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Nodes.OSC.SiftNode" ibs="0,0" iws="0,0" icm="0"><TAGS>elliotwoods
 </TAGS><HELP>Sift packets for an address
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="-&gt; Raw" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Filter address" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Mode" direction="Input" subtype="VVVV.Nodes.OSC.Filter" slicemode="Single" visibility="True">
@@ -638,13 +690,29 @@
 </NODE><NODE factory="VVVV.Hosting.Factories.CSProjectFactory" systemname="SearchTemplate (Message)" name="SearchTemplate" category="Message" version="" filename="plugins\MessageSearchTemplateNode\MessageSearchTemplateNode.csproj" ignore="0" autoevaluate="0" type="Dynamic" arguments="VVVV.Nodes.MessageSearchTemplateNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Sift, LINQ
 </TAGS><HELP>Basic search template with example LINQ query
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Filter" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN>
+</NODE><NODE factory="VVVV.Hosting.Factories.PatchFactory" systemname="Reader (Message Time)" name="Reader" category="Message" version="Time" filename="modules\Reader (Message Time).v4p" ignore="0" autoevaluate="0" type="Module" arguments="" ibs="0,0" iws="0,0" icm="2"><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Evaluate" direction="Input" subtype="Boolean" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Read" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
+</PIN><PIN name="Filename" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
+</PIN><PIN name="Min Buffer Count" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
+</PIN><PIN name="Reset" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
+</PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Patch" direction="Output" subtype="Patch" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Output" direction="Output" subtype="generic" slicemode="Spread" visibility="True">
+</PIN><PIN name="Elapsed Time" direction="Output" subtype="merged subtype" slicemode="Spread" visibility="True">
+</PIN><TODO>Help patch "Reader (Message Time) help.v4p" not found
+</TODO>
 </NODE><NODE factory="VVVV.Hosting.Factories.PatchFactory" systemname="Reader (Message)" name="Reader" category="Message" version="" filename="modules\Reader (Message).v4p" ignore="0" autoevaluate="0" type="Module" arguments="" ibs="0,0" iws="0,0" icm="2"><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Evaluate" direction="Input" subtype="Boolean" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Handle" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
 </PIN><PIN name="Read" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
@@ -656,6 +724,7 @@
 </PIN><PIN name="Success" direction="Output" subtype="merged subtype" slicemode="Spread" visibility="True">
 </PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.PatchFactory" systemname="Writer (Message Streaming)" name="Writer" category="Message" version="Streaming" filename="modules\Writer (Message Streaming).v4p" ignore="0" autoevaluate="0" type="Module" arguments="" ibs="0,0" iws="0,0" icm="2"><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Evaluate" direction="Input" subtype="Boolean" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="generic" slicemode="Spread" visibility="True">
 </PIN><PIN name="Filename" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">
@@ -671,6 +740,7 @@
 </PIN><PIN name="Error Message" direction="Output" subtype="merged subtype" slicemode="Spread" visibility="True">
 </PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.PatchFactory" systemname="Writer (Message)" name="Writer" category="Message" version="" filename="modules\Writer (Message).v4p" ignore="0" autoevaluate="0" type="Module" arguments="" ibs="0,0" iws="0,0" icm="2"><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
+</PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Evaluate" direction="Input" subtype="Boolean" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Input" direction="Input" subtype="generic" slicemode="Spread" visibility="True">
 </PIN><PIN name="Save" direction="Input" subtype="merged subtype" slicemode="Spread" visibility="True">

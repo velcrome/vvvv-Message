@@ -13,7 +13,7 @@ using VVVV.Utils;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
-    public abstract class TypeablePinNode : IPluginEvaluate, IPartImportsSatisfiedNotification
+    public abstract class TypeablePinNode : IPluginEvaluate, IPartImportsSatisfiedNotification, IDisposable
     {
         public const string TypeIdentityEnum = "TypeIdentityEnum";
 
@@ -87,6 +87,12 @@ namespace VVVV.Packs.Messaging.Nodes
 
         public abstract void Evaluate(int SpreadMax);
 
+
+        public void Dispose()
+        {
+            FValue.Dispose();
+        }
+
         #region dx11 ResourceDataRetriever
         public DX11RenderContext AssignedContext
         {
@@ -116,6 +122,8 @@ namespace VVVV.Packs.Messaging.Nodes
                     for (int j = 0; j < pin[i].SliceCount; j++)
                         pin[i][j].Dispose(context);
         }
+
         #endregion dx11 ResourceHost
+
     }
 }

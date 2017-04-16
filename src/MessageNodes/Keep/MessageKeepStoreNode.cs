@@ -5,7 +5,7 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "StoreKeep", Category = "Message", Help = "Holds all Messages that traveled through.",
+    [PluginInfo(Name = "StoreKeep", Category = "Message", Help = "Keeps all Messages that ever came in.",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageKeepStoreNode : AbstractMessageKeepNode
