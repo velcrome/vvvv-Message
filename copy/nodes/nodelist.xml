@@ -11,7 +11,7 @@
 </PIN><PIN name="Output" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
 </PIN><PIN name="Edits" direction="Output" subtype="Integer" slicemode="Manual" visibility="True">
 </PIN>
-</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Write (Message Dynamic)" name="Write" category="Message" version="Dynamic" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageWritNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Formular, Bin
+</NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="Write (Message Dynamic)" name="Write" category="Message" version="Dynamic" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="-1" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageWriteNode" ibs="0,0" iws="0,0" icm="0"><TAGS>Formular, Bin
 </TAGS><HELP>Writes into Fields of arbitrary Type. 
 </HELP><AUTHOR>velcrome
 </AUTHOR><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
@@ -194,7 +194,7 @@
 </PIN><PIN name="Field Bin Size" direction="Output" subtype="Integer" slicemode="Manual" visibility="Hidden">
 </PIN>
 </NODE><NODE factory="VVVV.Hosting.Factories.DotNetPluginFactory" systemname="StoreKeep (Message)" name="StoreKeep" category="Message" version="" filename="plugins\VVVV.Nodes.Messaging.dll" ignore="0" autoevaluate="0" type="Plugin" arguments="VVVV.Packs.Messaging.Nodes.MessageKeepStoreNode" ibs="0,0" iws="0,0" icm="0"><TAGS>velcrome
-</TAGS><HELP>Holds all Messages that traveled through.
+</TAGS><HELP>Keeps all Messages that ever came in.
 </HELP><PIN name="Descriptive Name" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Tag" direction="Configuration" subtype="String" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Diff Output" direction="Configuration" subtype="Boolean" slicemode="Single" visibility="True">
@@ -234,7 +234,7 @@
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Descending" direction="Input" subtype="Boolean" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_49860945" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_49212776" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Use Fields Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -427,7 +427,7 @@
 </PIN><PIN name="Reset" direction="Input" subtype="Trigger" slicemode="Single" visibility="Hidden">
 </PIN><PIN name="Remove" direction="Input" subtype="Message" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use as ID" direction="Input" subtype="Enum_45575384" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use as ID" direction="Input" subtype="Enum_56565057" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
 </PIN><PIN name="Removed Messages" direction="Output" subtype="Message" slicemode="Manual" visibility="True">
@@ -569,7 +569,7 @@
 </PIN><PIN name="Input" direction="Input" subtype="Message" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ExtendedMode" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_55047048" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_24611730" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Use Fields Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">
@@ -600,7 +600,7 @@
 </PIN><PIN name="Topic" direction="Input" subtype="String" slicemode="UpStream" visibility="True">
 </PIN><PIN name="ExtendedMode" direction="Input" subtype="Boolean" slicemode="Single" visibility="True">
 </PIN><PIN name="Formular" direction="Input" subtype="Singleton.FormularRegistry" slicemode="Single" visibility="True">
-</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_65983125" slicemode="UpStream" visibility="True">
+</PIN><PIN name="Use Fields" direction="Input" subtype="Enum_28104091" slicemode="UpStream" visibility="True">
 </PIN><PIN name="Use Fields Bin Size" direction="Input" subtype="Integer" slicemode="UpStream" visibility="OnlyInspector">
 </PIN><PIN name="ID" direction="Output" subtype="Integer" slicemode="Single" visibility="OnlyInspector">
 </PIN><PIN name="Window Handle" direction="Output" subtype="Integer" slicemode="Single" visibility="False">

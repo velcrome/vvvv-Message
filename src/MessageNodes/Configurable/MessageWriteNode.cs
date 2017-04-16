@@ -1,20 +1,19 @@
-﻿using FeralTic.DX11;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
-using VVVV.DX11;
+
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 using VVVV.Utils;
 
+using VVVV.DX11;
 
 namespace VVVV.Packs.Messaging.Nodes
 {
     [PluginInfo(Name = "Write", AutoEvaluate = true, Category = "Message", Help = "Writes into Fields of arbitrary Type. ", Version = "Dynamic", Tags = "Formular, Bin", Author = "velcrome")]
-    public class MessageWritNode : TypeablePinNode, IDX11ResourceDataRetriever
+    public class MessageWriteNode : TypeablePinNode, IDX11ResourceDataRetriever
     {
         [Input("Key", DefaultString = "Foo", Order = 2, BinOrder = 3, BinSize = -1, BinVisibility = PinVisibility.OnlyInspector)]
         public new ISpread<ISpread<string>> FKey;
