@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\XTouch\Tracks (XTouch Message).v4p" systemname="Tracks (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" scrollx="0" scrolly="3510">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50beta35.2_x64\packs\vvvv-Message\girlpower\XTouch\Tracks (XTouch Message).v4p" systemname="Tracks (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Tracks (TouchX Message).v4p" scrollx="0" scrolly="0">
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="0">
    <BOUNDS type="Node" left="8400" top="1875" width="100" height="100">
    </BOUNDS>
@@ -144,6 +144,8 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    <PIN pinname="Enabled" visible="1">
+   </PIN>
+   <PIN pinname="Buffer Length" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Count (Value)" nodename="Count (Value)" componentmode="Hidden" id="11">
@@ -384,6 +386,8 @@
    <PIN pinname="On Data" visible="1">
    </PIN>
    <PIN pinname="Enabled" visible="1">
+   </PIN>
+   <PIN pinname="Buffer Length" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Write (Message Dynamic)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Write (Message Dynamic)" componentmode="Hidden" id="26">
@@ -690,9 +694,9 @@
    </LINK>
    <BOUNDS type="Window" left="9060" top="600" width="15255" height="15960">
    </BOUNDS>
-   <PACK Name="vvvv-ZeroMQ" Version="0.5.0">
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.5">
    </PACK>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="61" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="13050" top="3720" width="480" height="480">
@@ -1238,7 +1242,7 @@
    </NODE>
    <LINK srcnodeid="133" srcpinname="Y Output Value" dstnodeid="26" dstpinname="Force">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.8.6">
+   <PACK Name="vvvv-Message" Version="2.9.8">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="134">
    <BOUNDS type="Box" left="1215" top="5190" width="1455" height="285">
@@ -1340,6 +1344,40 @@
    <LINKPOINT x="5925" y="12115">
    </LINKPOINT>
    <LINKPOINT x="8190" y="12215">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="136">
+   <BOUNDS type="Box" left="12975" top="1515" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="12975" top="1515" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="10">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Buffer Length|">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="Minimum" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Pin Visibility" slicecount="1" values="Hidden">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="136" srcpinname="Y Output Value" dstnodeid="10" dstpinname="Buffer Length" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="12450" y="3408">
+   </LINKPOINT>
+   <LINKPOINT x="5775" y="3433">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="136" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Buffer Length" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="12435" y="3415">
+   </LINKPOINT>
+   <LINKPOINT x="9705" y="3440">
    </LINKPOINT>
    </LINK>
    </PATCH>
