@@ -3,6 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace VVVV.Packs.Messaging
 {
+    public enum FieldChangeEnum
+    {
+        All, // flushed stream
+        OnlyChangePending,
+        OnlyChanged,
+        OnlyChangeAcknowledged
+    };
     /// <summary>
     /// Utils and Constraints for Message 
     /// </summary>
