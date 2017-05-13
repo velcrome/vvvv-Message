@@ -47,10 +47,9 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -62,10 +61,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Core, Version=35.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Core.35.2.0\lib\net46\VVVV.Core.dll</HintPath>
+    <Reference Include="VVVV.Core, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VVVV.Core.35.5.0\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="VVVV.DX11.Core">
       <HintPath>..\..\copy\core\x64\VVVV.DX11.Core.dll</HintPath>
@@ -83,9 +81,8 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="VVVV.Utils, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Utils.35.2.0\lib\net46\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.35.5.0\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +142,7 @@
     <Compile Include="VVVVProfile.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -166,9 +164,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.35.2.0\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.35.2.0\build\net46\VVVV.PluginInterfaces.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.35.2.0\build\net46\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.35.2.0\build\net46\VVVV.Nodes.Generic.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets'))" />
   </Target>
-  <Import Project="..\packages\VVVV.PluginInterfaces.35.2.0\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.35.2.0\build\net46\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.35.2.0\build\net46\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.35.2.0\build\net46\VVVV.Nodes.Generic.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets')" />
 </Project>
