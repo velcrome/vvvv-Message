@@ -1,14 +1,17 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Nodes", "MessageNodes\VVVV.Packs.Messaging.Nodes.csproj", "{6A0AFB1F-8219-4A08-85F7-B7F19B66AC16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Core", "MessageCore\SharpMessage.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMessage", "MessageCore\SharpMessage.csproj", "{C2F6EC8A-AA56-4121-B60F-72012D192835}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.OSC", "OSC\VVVV.Packs.Messaging.OSC.csproj", "{9C003731-1D47-4E89-B598-B10ED16EA2BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.Messaging.Tests", "Tests\VVVV.Packs.Messaging.Tests.csproj", "{13A9D7B7-BD30-4624-8000-BD5F5B303949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMessage.WPF", "SharpMessage.WPF\SharpMessage.WPF.csproj", "{ABE47BE2-5A85-4190-BBB2-64B6A08B0BFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +35,10 @@ Global
 		{13A9D7B7-BD30-4624-8000-BD5F5B303949}.Debug|Any CPU.Build.0 = Debug|x64
 		{13A9D7B7-BD30-4624-8000-BD5F5B303949}.Release|Any CPU.ActiveCfg = Release|x64
 		{13A9D7B7-BD30-4624-8000-BD5F5B303949}.Release|Any CPU.Build.0 = Release|x64
+		{ABE47BE2-5A85-4190-BBB2-64B6A08B0BFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE47BE2-5A85-4190-BBB2-64B6A08B0BFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE47BE2-5A85-4190-BBB2-64B6A08B0BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE47BE2-5A85-4190-BBB2-64B6A08B0BFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

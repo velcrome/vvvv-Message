@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using VVVV.Packs.Messaging.Serializing;
 using System.Linq;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace VVVV.Packs.Messaging
 {
@@ -13,7 +15,7 @@ namespace VVVV.Packs.Messaging
     /// Bin are used as named fields in a Message. On convention, ANY change to it will set the IsDirty flag to true.
     /// </remarks>    
     [JsonConverter(typeof(JsonBinSerializer))]
-    public interface Bin : ICloneable, ISerializable, IEnumerable, IEquatable<Bin>, IEquatable<IEnumerable> 
+    public interface Bin : ICloneable, ISerializable, IEnumerable, IEquatable<Bin>, IEquatable<IEnumerable>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>Access to individual elements of a bin</summary>
         /// <param name="slice">The field to read or written. </param>

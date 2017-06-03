@@ -7,6 +7,9 @@ using System.Linq;
 using VVVV.Packs.Timing;
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
+using System.Reactive.Subjects;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 
 #endregion usings
@@ -23,7 +26,7 @@ namespace VVVV.Packs.Messaging
     /// see http://www.github.com/velcrome/vvvv-Message for details
     /// </remarks>    
     [JsonConverter(typeof(JsonMessageSerializer))]
-    public class Message : ICloneable, IEquatable<Message> //, ISerializable
+    public class Message : INotifyCollectionChanged, INotifyPropertyChanged, ICloneable, IEquatable<Message> //, ISerializable
     {
         #region Properties and FieldNames
         internal Dictionary<string, Bin> Data = new Dictionary<string, Bin>();
@@ -53,9 +56,13 @@ namespace VVVV.Packs.Messaging
 
                 // todo: validate topic to be namespace-syntax?
                 _internalChange = true;
+
                 _topic = value.Trim();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Topic)));
             }
 		}
+
+        private Time _timeStamp;
 
         /// <summary>Returns the last geo-localized timestamp of the Message.</summary>
         /// <remarks>Will be automatically updated with every Sync
@@ -63,8 +70,12 @@ namespace VVVV.Packs.Messaging
         /// </remarks>
         public Time TimeStamp
         {
-            get;
-            set;
+            get { return _timeStamp; }
+            set
+            {
+                _timeStamp = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeStamp)));
+            }
         }
 
         /// <summary>Returns an ad-hoc Formular describing all fields of the Message, or ensures that all fields from a given formular are created in the Message</summary>
@@ -97,7 +108,6 @@ namespace VVVV.Packs.Messaging
                     {
                         this[field].Add(TypeIdentity.Instance[type].Default());
                     }
-
                 }
             }
         }
@@ -107,6 +117,14 @@ namespace VVVV.Packs.Messaging
 
         /// <summary>Returns the last geo-localized timestamp of the Message.</summary>
         public event MessageChanged Changed;
+
+
+        #endregion
+
+        #region IObservable
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
         #endregion
 
         #region Constructor
@@ -182,17 +200,42 @@ namespace VVVV.Packs.Messaging
             if (type == null) throw new TypeNotSupportedException("The assignment for the Field [" + fieldName + "] failed, type is not supported: " + this.Topic);
 
             // replace if type does not match
-            if (!Data.ContainsKey(fieldName) || type != Data[fieldName].GetInnerType())
+
+            var fresh = !Data.ContainsKey(fieldName);
+
+            Bin bin;
+
+            if (fresh)
             {
-                Data.Remove(fieldName);
-                Data.Add(fieldName, BinFactory.New(type));
+                bin = BinFactory.New(type);
+                Data.Add(fieldName, bin);
+                bin.CollectionChanged += FieldChanged;
             }
-            else
+            else 
             {
-                Data[fieldName].Clear();
+                bin = Data[fieldName];
+                if (type != bin.GetInnerType())
+                {
+                    bin = Data[fieldName];
+                    Data.Remove(fieldName);
+                    bin.CollectionChanged -= FieldChanged;
+
+                    bin = BinFactory.New(type);
+                    Data.Add(fieldName, bin);
+                    bin.CollectionChanged += FieldChanged;
+                } else
+                {
+                    bin = Data[fieldName];
+                    bin.Clear();
+                }
             }
 
-            Data[fieldName].Add(values); // implicit conversion
+            bin.Add(values); // implicit conversion
+
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(fresh? NotifyCollectionChangedAction.Add : NotifyCollectionChangedAction.Replace, bin, Fields.ToList().IndexOf(fieldName)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEmpty)));
+
+            if (fresh) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
         }
 
         /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
@@ -209,11 +252,16 @@ namespace VVVV.Packs.Messaging
         {
             if (!Data.ContainsKey(fieldName))
             {
-                AssignFrom(fieldName, values);
+                AssignFrom(fieldName, values); // will handle notifications on its own
             }
             else
             {
                 Data[fieldName].Add(values); // implicit conversion
+                Data[fieldName].CollectionChanged += FieldChanged;
+
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, this[fieldName], Fields.ToList().IndexOf(fieldName)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEmpty)));
             }
         }
 
@@ -222,10 +270,40 @@ namespace VVVV.Packs.Messaging
         /// <returns>False, if fieldName did not exist.</returns>
         public bool Remove(string fieldName)
         {
-            var tmp = Data.Remove(fieldName);
-            if (tmp) _internalChange = true;
-            return tmp;
+            var item = this[fieldName]; // null if not available
+            var index = Fields.ToList().IndexOf(fieldName);
+
+            var success = Data.Remove(fieldName);
+            if (success)
+            {
+                item.CollectionChanged -= FieldChanged;
+                _internalChange = true;
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEmpty)));
+            }
+            return success;
         }
+
+        private void FieldChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var bin = sender as Bin;
+            if (bin == null)
+            {
+                throw new FieldAccessException("Only initialized Bins of the Message can signal a change.");
+            }
+
+            var fieldName = Data.Keys.Where(k => Data[k] == bin).FirstOrDefault();
+            if (fieldName == "")
+            {
+                bin.CollectionChanged -= FieldChanged;
+                throw new FieldAccessException("An unknown Bin signaled a change. Unsubscribing now.");
+            }
+
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, this[fieldName], Fields.ToList().IndexOf(fieldName)));
+        }
+
+
 
         /// <summary>Initializes a new field, or overwrites an existing one. Can optionally be typed strongly.</summary>
         /// <param name="fieldName">The field to be renamed</param>
@@ -248,7 +326,10 @@ namespace VVVV.Packs.Messaging
                 Data[newName] = bin;
                 bin.IsChanged = true;
 
+                var oldIndex = Fields.ToList().IndexOf(fieldName);
                 Remove(fieldName);
+
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, bin, Fields.ToList().IndexOf(newName)));
             }
             return true;
         }
@@ -271,9 +352,27 @@ namespace VVVV.Packs.Messaging
 			} 
 			set {
                 if (!fieldName.IsValidFieldName()) throw new ParseFormularException("\"" + fieldName + "\" is not a valid name for a Message's field. Only use alphanumerics, dots, hyphens and underscores. ");
-                Data[fieldName] = (Bin) value; 
+
+
+                var oldItem = this[fieldName];
+                Data[fieldName] = (Bin) value;
+                value.CollectionChanged += FieldChanged;
+
+                var freshItem = new KeyValuePair<string, Bin>(fieldName, value);
+                if (oldItem != null)
+                {
+                    oldItem.CollectionChanged -= FieldChanged;
+                    CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, freshItem, oldItem, Fields.ToList().IndexOf(fieldName)));
+                }
+                else
+                {
+                    CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, freshItem, Fields.ToList().IndexOf(fieldName)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEmpty)));
+
+                }
             }
-		}
+        }
 
         #endregion
 
@@ -343,6 +442,7 @@ namespace VVVV.Packs.Messaging
                     }
                 }
                 _internalChange = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChanged)));
             }
         }
 
@@ -396,11 +496,12 @@ namespace VVVV.Packs.Messaging
 
                     ChangedWithDetails(this, changedMessage); // inform all subscribers with detailed interest for this particular Message
                 }
-                Changed?.Invoke(this); // inform all subscribers with minor interest
-
                 _internalChange = false;
-
                 _lastCommit = reference; // mark this as the last Committer
+
+                Changed?.Invoke(this); // inform all subscribers with minor interest
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChanged)));
+
                 return true; // hasChanged
             }
             else
@@ -419,6 +520,11 @@ namespace VVVV.Packs.Messaging
         #region Utils
         /// <summary>Checks if the Message contains any fields</summary>
         /// <returns>true, if the Message contains no fields.</returns>
+        public int Count
+        {
+            get { return Data.Count; }
+        }
+
         public bool IsEmpty
         {
             get
@@ -545,8 +651,6 @@ namespace VVVV.Packs.Messaging
             return Data.GetHashCode() * ( 1+ Data.Count);
         }
         #endregion
-
-
 
     }
 }

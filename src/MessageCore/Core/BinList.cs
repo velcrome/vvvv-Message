@@ -8,6 +8,8 @@ using System.Linq;
 
 using Newtonsoft.Json;
 using VVVV.Packs.Messaging.Serializing;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace VVVV.Packs.Messaging
 {
@@ -17,11 +19,43 @@ namespace VVVV.Packs.Messaging
     {
         internal IList<T> Data = new List<T>(1);
 
-        #region Change Management
-        /// <summary>Indicates, if a bin has been changed. Will be set to true internally, when the bin was changed</summary>
-        public bool IsChanged { get; set; } = true;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public object Sweeper {get; protected set;}
+        #region Change Management
+        private bool _isChanged = true;
+        /// <summary>Indicates, if a bin has been changed. Will be set to true internally, when the bin was changed</summary>
+        public bool IsChanged {
+            get
+            {
+                return _isChanged;
+            }
+            set
+            {
+                _isChanged = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChanged)));
+
+                if (value)
+                {
+                    CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(First)));
+                }
+            }
+        }
+
+        private object _sweeper = null;
+        public object Sweeper
+        {
+            get
+            {
+                return _sweeper;
+            }
+            protected set
+            {
+                _sweeper = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Sweeper)));
+            }
+        }
 
         public bool IsSweeping(object reference = null)
         {
