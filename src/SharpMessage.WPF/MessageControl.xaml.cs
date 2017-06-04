@@ -13,7 +13,7 @@ namespace SharpMessage.WPF
         {
             InitializeComponent();
 
-            var m = new Message("Test");
+//            var m = new Message("Test");
 //            m.Init("foo", 1, 2, 3);
 //            m.Init("bar", "eins");
 //            m.Init("xxx", true);
