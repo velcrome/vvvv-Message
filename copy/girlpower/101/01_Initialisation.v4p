@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="-360" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha35.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha35.7_x64\packs\vvvv-Message\girlpower\101\01_Initialisation.v4p" scrollx="0" scrolly="0" systemname="01_Initialisation" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\01_Initialisation.v4p">
    <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE systemname="Create (Message Formular)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Create (Message Formular)" componentmode="Hidden" id="18">
    <BOUNDS type="Node" left="525" top="5355" width="2256" height="276">
@@ -316,12 +316,6 @@
    </LINK>
    <LINK srcnodeid="8" srcpinname="Output String" dstnodeid="18" dstpinname="Topic">
    </LINK>
-   <LINK srcnodeid="1" srcpinname="Output Enum" dstnodeid="17" dstpinname="Formular" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="75" y="9900">
-   </LINKPOINT>
-   <LINKPOINT x="2765" y="14445">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
    <BOUNDS type="Node" left="8115" top="14325" width="13440" height="240">
    </BOUNDS>
@@ -448,12 +442,12 @@
    <LINKPOINT x="4665" y="18630">
    </LINKPOINT>
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.9.9">
    </PACK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="25">
-   <BOUNDS type="Box" left="1200" top="17955" width="1605" height="315">
+   <BOUNDS type="Box" left="1230" top="18000" width="1605" height="315">
    </BOUNDS>
-   <BOUNDS type="Node" left="1200" top="17955" width="0" height="0">
+   <BOUNDS type="Node" left="1230" top="18000" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" visible="1" values="MyFirstFormular">
    </PIN>
