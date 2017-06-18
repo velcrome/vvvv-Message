@@ -5,12 +5,12 @@ using VVVV.Utils;
 namespace VVVV.Packs.Messaging.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "StoreKeep", Category = "Message", Help = "Keeps all Messages that ever came in.",
+    [PluginInfo(Name = "StoreKeep", Category = "Message", Help = "Keeps all Messages that ever came in",
         Tags = "velcrome")]
     #endregion PluginInfo
     public class MessageKeepStoreNode : AbstractMessageKeepNode
     {
-        [Input("Formular", Visibility = PinVisibility.False)]
+        [Input("Formular", Visibility = PinVisibility.False, EnumName = MessageFormularRegistry.RegistryName)]
         public override IDiffSpread<EnumEntry> FFormularSelection
         {
             get;

@@ -12,7 +12,7 @@ namespace VVVV.Packs.Messaging.Nodes
     public class MessageKeepSafe : AbstractMessageKeepNode
     {
         // hide it
-        [Input("Formular", Visibility = PinVisibility.False)]
+        [Input("Formular", Visibility = PinVisibility.False, EnumName = MessageFormularRegistry.RegistryName)]
         public override IDiffSpread<EnumEntry> FFormularSelection
         {
             get;
