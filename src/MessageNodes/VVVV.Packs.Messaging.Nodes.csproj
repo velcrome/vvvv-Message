@@ -62,7 +62,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Core, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Core.35.5.0\lib\net46\VVVV.Core.dll</HintPath>
+      <HintPath>..\packages\VVVV.Core.35.7.0\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.DX11.Core">
@@ -81,7 +81,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="VVVV.Utils, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VVVV.Utils.35.5.0\lib\net46\VVVV.Utils.dll</HintPath>
+      <HintPath>..\packages\VVVV.Utils.35.7.0\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -163,9 +163,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets'))" />
-    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.35.7.0\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.35.7.0\build\net46\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.Nodes.Generic.35.7.0\build\net46\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.Nodes.Generic.35.7.0\build\net46\VVVV.Nodes.Generic.targets'))" />
   </Target>
-  <Import Project="..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.35.5.0\build\net46\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.35.5.0\build\net46\VVVV.Nodes.Generic.targets')" />
+  <Import Project="..\packages\VVVV.PluginInterfaces.35.7.0\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('..\packages\VVVV.PluginInterfaces.35.7.0\build\net46\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\packages\VVVV.Nodes.Generic.35.7.0\build\net46\VVVV.Nodes.Generic.targets" Condition="Exists('..\packages\VVVV.Nodes.Generic.35.7.0\build\net46\VVVV.Nodes.Generic.targets')" />
 </Project>
