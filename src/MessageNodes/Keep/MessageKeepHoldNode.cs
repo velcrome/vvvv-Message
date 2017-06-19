@@ -18,7 +18,7 @@ namespace VVVV.Packs.Messaging.Nodes
             Index
         }
 
-        [Input("Formular", Visibility = PinVisibility.False)]
+        [Input("Formular", Visibility = PinVisibility.False, EnumName = MessageFormularRegistry.RegistryName)]
         public override IDiffSpread<EnumEntry> FFormularSelection {
             get;
             set;

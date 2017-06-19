@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha34.106.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50alpha34.106_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="2490">
-   <BOUNDS type="Window" left="2805" top="0" width="15090" height="10515">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50alpha35.7.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50alpha35.7_x64\packs\vvvv-Message\girlpower\101\03_Datatypes.v4p" systemname="03_Datatypes" filename="C:\dev\vvvv\vvvv-Message\patches\girlpower\101\03_Datatypes.v4p" scrollx="0" scrolly="9375">
+   <BOUNDS type="Window" left="2805" top="0" width="20145" height="10515">
    </BOUNDS>
-   <PACK Name="addonpack" Version="34.101.0">
+   <PACK Name="addonpack" Version="35.0.0">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="49" systemname="IOBox (String)">
    <BOUNDS type="Node" left="912" top="105" width="6600" height="1056">
@@ -824,14 +824,14 @@
    </NODE>
    <LINK srcnodeid="52" srcpinname="Output" dstnodeid="46" dstpinname="vvvvTime">
    </LINK>
-   <PACK Name="vvvv-Message" Version="2.7.1">
+   <PACK Name="vvvv-Message" Version="2.9.9">
    </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="56">
    <BOUNDS type="Box" left="3060" top="12315" width="5205" height="885">
    </BOUNDS>
    <BOUNDS type="Node" left="3060" top="12315" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="3" visible="1" values="|int id, Raw bytes, Time[] vvvvTime|,|Color rgb, Vector3d Position, Vector3d[5] History, Transform View|,|Texture2d Tex, Layer Layer, Buffer Buffer, Geometry Geom|">
+   <PIN pinname="Input String" slicecount="3" visible="1" values="|int id, Raw bytes, Time[] vvvvTime|,|Color rgb, Vector3d Position, Vector3d[5] History, Transform View|,|Texture2d Tex, Layer Layer, RawBuffer Buffer, Geometry Geom|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|string Foo|">
    </PIN>
