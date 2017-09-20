@@ -36,7 +36,7 @@ namespace VVVV.Packs.Messaging.Nodes
         public ISpread<int> FCountOut;
 
         protected MessageKeep Keep = new MessageKeep(false); // same as in AbstractMessageKeepNode. 
-
+        protected bool FFirstFrame = true;
 
         private bool _reset = true;
         public bool FResetNecessary
@@ -131,8 +131,9 @@ namespace VVVV.Packs.Messaging.Nodes
 
 //          Reset?
             var anyUpdate = FResetNecessary;
-            var forceUpdate = FForce[0] || FForce.IsChanged;
-          
+            var forceUpdate = !FForce.IsAnyInvalid() && FForce[0] && FFirstFrame;
+            FFirstFrame = false;
+
             var newData = FPins.Any(x => x.Value.ToISpread().IsChanged); // changed pins
             newData |= forceUpdate; // if update is forced, then predent it is new Data
             var newTopic = FTopic.IsChanged;
