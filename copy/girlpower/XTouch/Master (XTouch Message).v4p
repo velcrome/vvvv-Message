@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
-   <PATCH nodename="C:\apps\code\vvvv_50beta35.2_x64\packs\vvvv-Message\girlpower\XTouch\Master (XTouch Message).v4p" scrollx="7410" scrolly="0" systemname="Master (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Master (TouchX Message).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.8.dtd" >
+   <PATCH nodename="C:\apps\code\vvvv_50beta35.8_x64\packs\vvvv-Message\girlpower\XTouch\Master (XTouch Message).v4p" scrollx="3120" scrolly="6585" systemname="Master (TouchX Message)" filename="C:\dev\vvvv\Kreuzkirche\modules\Input\Master (TouchX Message).v4p">
    <NODE id="0" systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Output" visible="1" pintype="Output">
    </PIN>
@@ -1394,7 +1394,7 @@
    </LINK>
    <BOUNDS type="Window" left="9135" top="1755" width="16065" height="14355">
    </BOUNDS>
-   <PACK Name="vvvv-ZeroMQ" Version="0.5.5">
+   <PACK Name="vvvv-ZeroMQ" Version="0.5.7">
    </PACK>
    <PACK Name="addonpack" Version="35.0.0">
    </PACK>
@@ -2230,64 +2230,6 @@
    </NODE>
    <LINK srcnodeid="128" srcpinname="Y Output Value" dstnodeid="107" dstpinname="Channel">
    </LINK>
-   <NODE id="38" componentmode="Hidden" systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" hiddenwhenlocked="0" managers="">
-   <BOUNDS type="Node" left="7470" top="11025" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="7470" top="11025" width="2400" height="1800">
-   </BOUNDS>
-   <PIN pinname="Message Diff" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1" pintype="Output">
-   </PIN>
-   <PIN pinname="Changed Message Index" visible="1">
-   </PIN>
-   <PIN pinname="Include input in Diff" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Diff Output" slicecount="1" pintype="Configuration" values="1">
-   </PIN>
-   <PIN pinname="Input" visible="1" slicecount="1" pintype="Input" values="||">
-   </PIN>
-   <BOUNDS type="Window" left="0" top="0" width="6000" height="4500">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Configuration" pintype="Configuration" slicecount="1" values="|string Foo|">
-   </PIN>
-   <PIN pinname="Reset" pintype="Input" visible="1" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Remove" pintype="Input" visible="-1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Formular" pintype="Input" visible="1" slicecount="1" values="None">
-   </PIN>
-   <PIN pinname="Window Handle" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="Internal Count" pintype="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="26" srcpinname="Output" dstnodeid="38" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="38" srcpinname="Message Diff" dstnodeid="43" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Reset" hiddenwhenlocked="1" linkstyle="Bezier">
-   <LINKPOINT x="16680" y="6113">
-   </LINKPOINT>
-   <LINKPOINT x="7725" y="6113">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Include input in Diff" hiddenwhenlocked="1" linkstyle="Bezier">
-   <LINKPOINT x="16680" y="6113">
-   </LINKPOINT>
-   <LINKPOINT x="8100" y="6113">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="38" srcpinname="Message Diff" dstnodeid="115" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="7665" y="11445">
-   </LINKPOINT>
-   <LINKPOINT x="4575" y="11445">
-   </LINKPOINT>
-   </LINK>
    <PACK Name="vvvv-Message" Version="2.9.8">
    </PACK>
    <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="117">
@@ -2309,12 +2251,6 @@
    <LINK srcnodeid="116" srcpinname="Output String" dstnodeid="117" dstpinname="Key">
    </LINK>
    <LINK srcnodeid="117" srcpinname="Field" dstnodeid="110" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="38" srcpinname="Message Diff" dstnodeid="117" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="7665" y="11445">
-   </LINKPOINT>
-   <LINKPOINT x="6165" y="11445">
-   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="117" srcpinname="Field" dstnodeid="107" dstpinname="Velocity">
    </LINK>
@@ -2362,12 +2298,6 @@
    <LINKPOINT x="11385" y="11198">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="38" srcpinname="Message Diff" dstnodeid="44" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="7725" y="11445">
-   </LINKPOINT>
-   <LINKPOINT x="10980" y="11445">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Read (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="Read (Message)" componentmode="Hidden" id="123">
    <BOUNDS type="Node" left="14625" top="11625" width="100" height="100">
    </BOUNDS>
@@ -2394,12 +2324,6 @@
    <LINKPOINT x="14625" y="13500">
    </LINKPOINT>
    <LINKPOINT x="12900" y="13500">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="38" srcpinname="Output" dstnodeid="123" dstpinname="Input" linkstyle="VHV" hiddenwhenlocked="1">
-   <LINKPOINT x="7500" y="11370">
-   </LINKPOINT>
-   <LINKPOINT x="14655" y="11370">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="129">
@@ -2440,6 +2364,82 @@
    <LINKPOINT x="15525" y="2318">
    </LINKPOINT>
    <LINKPOINT x="11520" y="2318">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="SafeKeep (Message)" filename="%VVVV%\packs\vvvv-Message\nodes\plugins\VVVV.Nodes.Messaging.dll" nodename="SafeKeep (Message)" componentmode="Hidden" id="130">
+   <BOUNDS type="Node" left="7485" top="11070" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" visible="1" pintype="Input" values="0">
+   </PIN>
+   <PIN pinname="Diff Output" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Include input in Diff" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Message Diff" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="26" srcpinname="Output" dstnodeid="130" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="130" dstpinname="Reset" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="16680" y="6135">
+   </LINKPOINT>
+   <LINKPOINT x="7890" y="6135">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="130" dstpinname="Include input in Diff" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="16680" y="6135">
+   </LINKPOINT>
+   <LINKPOINT x="8235" y="6135">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="130" srcpinname="Output" dstnodeid="123" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="7545" y="11468">
+   </LINKPOINT>
+   <LINKPOINT x="14625" y="11468">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="130" srcpinname="Message Diff" dstnodeid="115" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="7710" y="11468">
+   </LINKPOINT>
+   <LINKPOINT x="4575" y="11468">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="130" srcpinname="Message Diff" dstnodeid="43" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="7725" y="11475">
+   </LINKPOINT>
+   <LINKPOINT x="7710" y="11475">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="130" srcpinname="Message Diff" dstnodeid="44" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="7770" y="11468">
+   </LINKPOINT>
+   <LINKPOINT x="10980" y="11468">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="130" srcpinname="Message Diff" dstnodeid="117" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="7710" y="11468">
+   </LINKPOINT>
+   <LINKPOINT x="6165" y="11468">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="dx11" Version="1.0.3">
+   </PACK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="131">
+   <BOUNDS type="Box" left="14445" top="15210" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="14445" top="15210" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Message Diff|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="130" srcpinname="Message Diff" dstnodeid="131" dstpinname="Input Node" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="7770" y="13260">
+   </LINKPOINT>
+   <LINKPOINT x="14445" y="13260">
    </LINKPOINT>
    </LINK>
    </PATCH>
